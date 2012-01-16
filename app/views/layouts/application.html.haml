@@ -7,16 +7,16 @@
   %meta{ :content => "width=device-width, initial-scale=1", :name => "viewport" }/
   %title Have-A-Lunch
   = stylesheet_link_tag "application.css"
-  = javascript_include_tag "havealunch"
+  = javascript_include_tag "avoinministerio"
   = csrf_meta_tag
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
-%body{ style: "padding-top: 40px"}
+%body
   %header#masthead.topbar
     .topbar-inner
       .container
-        = link_to "Have-A-Lunch", root_path, class: "brand"
+        = link_to "Avoin Ministeriö", root_path, class: "brand"
   .container
     %section
       = yield
