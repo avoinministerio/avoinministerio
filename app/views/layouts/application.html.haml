@@ -13,11 +13,9 @@
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
 %body
-  %header#masthead.topbar
-    .topbar-inner
-      .container
-        = link_to "Avoin Ministeriö", root_path, class: "brand"
-  .container
+  %header
+    = link_to "Avoin Ministeriö", root_path, class: "brand"
+  #content
     %section
       = yield
     %footer
