@@ -11,6 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20120116142654) do
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "ingress"
+    t.text     "body"
+    t.string   "article_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "citizens", :force => true do |t|
+    t.string   "email"
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                         :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "password"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "citizens", ["email"], :name => "index_citizens_on_email", :unique => true
+  add_index "citizens", ["reset_password_token"], :name => "index_citizens_on_reset_password_token", :unique => true
 
 end
