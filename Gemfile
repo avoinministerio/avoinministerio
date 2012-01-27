@@ -10,10 +10,10 @@ group :assets do
   gem "uglifier",     ">= 1.0.3"
 end
 
+gem "devise"
 gem "jquery-rails"
 gem "haml-rails"
-
-gem "devise"
+gem "redcarpet"
 gem "simple_form"
 gem "state_machine"
 

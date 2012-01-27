@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120116142654) do
+ActiveRecord::Schema.define(:version => 20120116143518) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -42,5 +42,14 @@ ActiveRecord::Schema.define(:version => 20120116142654) do
 
   add_index "citizens", ["email"], :name => "index_citizens_on_email", :unique => true
   add_index "citizens", ["reset_password_token"], :name => "index_citizens_on_reset_password_token", :unique => true
+
+  create_table "ideas", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "state"
+    t.integer  "author_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -1,0 +1,42 @@
+fi:
+  resources:
+    citizens: "kansalaiset"
+    ideas: "ideat"
+  activerecord:
+    models:
+      citizen: "Kansalainen"
+      idea: "Idea"
+      profile: "Profiili"
+    attributes:
+      citizen:
+        email: "Sähköposti"
+        password: "Salasana"
+        password_confirmation: "Salasanan vahvistus"
+  layout:
+    your_profile: "Profiilisi"
+    sign_out: "Kirjaudu ulos"
+    sign_in: "Kirjaudu sisään"
+    sign_in_or_up: "Kirjaudu sisään tai rekisteröidy"
+    sign_up: "Rekisteröidy"
+    cancel: "Peruuta"
+    frontpage: "Etusivu"
+    people: "Henkilöt"
+  ideas:
+    links:
+      new_idea: "Uusi idea"
+    index:
+      none: "Sinulla ei ole vielä yhtään ideaa."
+      all_ideas: "Kaikki ideat"
+      my_ideas: "Omat ideat"
+      show_my_own: "Näytä ideani"
+      show_all: "Näytä kaikki ideat"
+    edit:
+      title: "Muokkaa ideaa"
+  registrations:
+    credentials:
+      password_change_hint: "Jätä tämä tyhjäksi jos et halua vaihtaa salasanaasi"
+      update: "Päivitä"
+      update_your_profile: "Päivitä profiilisi"
+    edit:
+      update: "Päivitä profiilisi"
+      change_password_or_email: "Vaihda salasanasi tai sähköpostiosoitteesi"

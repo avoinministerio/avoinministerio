@@ -1,0 +1,5 @@
+%h1 Ideat
+- @ideas.each do |idea|
+  %h2= link_to idea.title, idea
+  = markdown(idea.body)
+= link_to I18n.t("ideas.links.new_idea"), new_idea_path
