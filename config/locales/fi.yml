@@ -12,6 +12,9 @@ fi:
         email: "Sähköposti"
         password: "Salasana"
         password_confirmation: "Salasanan vahvistus"
+      idea:
+        title: "Otsikko"
+        body: "Kuvaus"
   layout:
     your_profile: "Profiilisi"
     sign_out: "Kirjaudu ulos"
@@ -21,9 +24,13 @@ fi:
     cancel: "Peruuta"
     frontpage: "Etusivu"
     people: "Henkilöt"
+  buttons:
+    create: "Luo"
+    update: "Päivitä"
   ideas:
     links:
       new_idea: "Uusi idea"
+      edit_idea: "Muokkaa ideaa"
     index:
       none: "Sinulla ei ole vielä yhtään ideaa."
       all_ideas: "Kaikki ideat"

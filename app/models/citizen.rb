@@ -9,6 +9,8 @@ class Citizen < ActiveRecord::Base
   
   has_one :profile, dependent: :destroy
   
+  has_many :ideas, foreign_key: "author_id"
+  
   accepts_nested_attributes_for :profile
   
   [

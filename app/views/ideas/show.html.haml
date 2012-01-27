@@ -1,2 +1,5 @@
 %h1= @idea.title
 = markdown(@idea.body) if @idea.body
+
+- if @idea.author == current_citizen
+  = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)

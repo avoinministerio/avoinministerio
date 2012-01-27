@@ -1,4 +1,4 @@
 = simple_form_for @idea do |f|
-  = f.input :title, label: I18n.t("ideas.title")
-  = f.input :body, as: :text, label: I18n.t("ideas.description")
-  = f.submit @idea.new_record? ? I18n.t("ideas.submit") : I18n.t("ideas.update")
+  = f.input :title
+  = f.input :body, as: :text
+  = f.submit @idea.new_record? ? I18n.t("buttons.create") : I18n.t("buttons.update")
