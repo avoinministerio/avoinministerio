@@ -74,6 +74,8 @@ GEM
       railties (~> 3.0)
     hike (1.2.1)
     i18n (0.6.0)
+    i18n_routing (0.5.0)
+      i18n (> 0.3.5)
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
@@ -109,6 +111,8 @@ GEM
       activerecord (~> 3.0)
       activesupport (~> 3.0)
       ruby-graphviz (~> 0.9.18)
+    rails-i18n (0.3.0)
+      i18n (~> 0.5)
     railties (3.1.3)
       actionpack (= 3.1.3)
       activesupport (= 3.1.3)
@@ -188,10 +192,12 @@ DEPENDENCIES
   devise
   factory_girl_rails (= 1.4.0)
   haml-rails
+  i18n_routing
   jquery-rails
   pg
   rails (= 3.1.3)
   rails-erd
+  rails-i18n
   rb-fsevent
   redcarpet
   rspec-rails

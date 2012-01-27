@@ -11,8 +11,10 @@ group :assets do
 end
 
 gem "devise"
-gem "jquery-rails"
 gem "haml-rails"
+gem "i18n_routing"
+gem "jquery-rails"
+gem "rails-i18n"
 gem "redcarpet"
 gem "simple_form"
 gem "state_machine"
