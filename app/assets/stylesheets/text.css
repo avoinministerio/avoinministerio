@@ -9,7 +9,7 @@
 ----------------------------------------------------------------------------------------------------*/
 
 body {
-  font: 13px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
+  font: 13px/1.5 "Georgia",'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
 }
 
 pre,
@@ -84,3 +84,4 @@ fieldset,
 figure {
   margin-bottom: 20px;
 }
+>>>>>>> 1636a5ce7ed2da0e49ebdc32395f78c667ba38c1
