@@ -48,3 +48,7 @@ body > header > .top_row > a, body > header > .bottom_row > a {
 a#logo {
     height: 100%;
 }
+
+.sans_serif {
+  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+}
