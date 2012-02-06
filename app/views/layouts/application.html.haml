@@ -7,17 +7,27 @@
   %meta{ :content => "width=device-width, initial-scale=1", :name => "viewport" }/
   %title Have-A-Lunch
   = stylesheet_link_tag "application.css"
-  = javascript_include_tag "havealunch"
   = csrf_meta_tag
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
-%body{ style: "padding-top: 40px"}
-  %header#masthead.topbar
-    .topbar-inner
-      .container
-        = link_to "Have-A-Lunch", root_path, class: "brand"
-  .container
+%body
+  %header.container_24
+    %a#logo.grid_12{ href: "/" }
+      = image_tag "rails.png"
+    %a.grid_3{ href: "/register" } Rekisteröidy
+    %a.grid_3{ href: "/login" } Kirjaudu
+    %a.grid_6{ href: "https://facebook.com" } Login with Facebook
+    .grid_6 &nbsp;
+    %a.grid_3{ href: "/foo" } Aloitteet
+    %a.grid_3{ href: "/foo" } Tee aloite
+  .container.container_24
     %section
       = yield
-    %footer
+  %footer.container_24
+    %a.grid_4{ src: "/foo" } Foo
+    %a.grid_4{ src: "/bar" } Bar
+    %a.grid_4{ src: "/baz" } Baz
+    %a.grid_4{ src: "/foo" } Foo
+    %a.grid_4{ src: "/bar" } Bar
+    %a.grid_4{ src: "/baz" } Baz
