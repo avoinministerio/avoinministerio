@@ -5,3 +5,10 @@
  *= require_self
  *= require_tree . 
 */
+body > header {
+    height: 100px;
+}
+
+a#logo {
+    height: 100%;
+}
