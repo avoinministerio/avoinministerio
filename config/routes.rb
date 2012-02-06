@@ -6,6 +6,6 @@ AvoinMinisterio::Application.routes.draw do
   localized do
     resources :ideas
   end
-
+  
   root to: "pages#home"
 end

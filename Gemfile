@@ -18,6 +18,7 @@ gem "rails-i18n"
 gem "redcarpet"
 gem "simple_form"
 gem "state_machine"
+gem "omniauth-facebook"
 
 gem "rspec-rails", group: [ :development, :test ]
 
