@@ -14,6 +14,7 @@ fi:
         password_confirmation: "Salasanan vahvistus"
       idea:
         title: "Otsikko"
+        summary: "Tiivistelmä"
         body: "Kuvaus"
   layout:
     your_profile: "Profiilisi"
@@ -37,6 +38,8 @@ fi:
       my_ideas: "Omat ideat"
       show_my_own: "Näytä ideani"
       show_all: "Näytä kaikki ideat"
+    new:
+      title: "Ehdotuksesi"
     edit:
       title: "Muokkaa ideaa"
   registrations:
