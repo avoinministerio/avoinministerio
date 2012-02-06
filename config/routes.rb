@@ -8,6 +8,6 @@ AvoinMinisterio::Application.routes.draw do
       resources :comments
     end
   end
-  
-  root to: "pages#home"
+
+  root to: "ideas#index"
 end
