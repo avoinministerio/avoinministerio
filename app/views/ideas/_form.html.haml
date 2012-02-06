@@ -1,0 +1,4 @@
+= simple_form_for @idea do |f|
+  = f.input :title
+  = f.input :body, as: :text
+  = f.submit @idea.new_record? ? I18n.t("buttons.create") : I18n.t("buttons.update")
