@@ -54,7 +54,8 @@ body > header > .top_row > a, body > header > .bottom_row > a {
 
 #footer_container {
     width: 100%;
-    background-color: #e0e6e6;
-    height: 60px;
-    padding-top: 20px;
+    background-color: #eff3f3;
+    height: 45px;
+    padding-top: 25px;
+    border-top: 10px #e5ebeb solid;
 }
