@@ -13,7 +13,7 @@
 
 %body
   %header.container_24.top_row_container
-    .container_24.top_row &nbsp;
+    .container_24.top_row
   %header.container_24
     = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
     .grid_3.top_row
@@ -22,7 +22,7 @@
       %a{ href: "/login" } Kirjaudu
     .grid_6.top_row
       = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
-    .grid_6.bottom_row &nbsp;
+    .grid_6.bottom_row
     .grid_3.bottom_row
       = link_to "Aloitteet", ideas_path
     .grid_3.bottom_row

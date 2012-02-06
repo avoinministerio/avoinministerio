@@ -16,9 +16,6 @@ body > header.top_row_container {
 }
 
 body > header.top_row_container > .container_24 {
-    margin: 0;
-    padding: 0;
-    border-left-width: 0;
 }
 
 body > header, body > header.top_row_container > .container_24 {
@@ -32,11 +29,17 @@ body > header, body > header.top_row_container > .container_24 {
 }
 
 body > header > .top_row {
-    height: 50px;
+    height: 35px;
+    margin-top: 15px;
+}
+
+body > header > .top_row > a {
+    margin-top: 20px;
 }
 
 body > header > .bottom_row {
-    height: 100px;
+    height: 60px;
+    margin-top: 40px;
 }
 
 body > header > .top_row, body > header > .bottom_row {
