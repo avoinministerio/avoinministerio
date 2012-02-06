@@ -14,13 +14,18 @@
 %body
   %header.container_24
     %a#logo.grid_12{ href: "/" }
-      = image_tag "rails.png"
-    %a.grid_3{ href: "/register" } Rekisteröidy
-    %a.grid_3{ href: "/login" } Kirjaudu
-    %a.grid_6{ href: "https://facebook.com" } Login with Facebook
-    .grid_6 &nbsp;
-    %a.grid_3{ href: "/foo" } Aloitteet
-    %a.grid_3{ href: "/foo" } Tee aloite
+      = image_tag "logo.png"
+    .grid_3.top_row
+      %a{ href: "/register" } Rekisteröidy
+    .grid_3.top_row
+      %a{ href: "/login" } Kirjaudu
+    .grid_6.top_row
+      %a{ href: "https://facebook.com" } Login with Facebook
+    .grid_6.bottom_row &nbsp;
+    .grid_3.bottom_row
+      %a{ href: "/foo" } Aloitteet
+    .grid_3.bottom_row
+      %a{ href: "/foo" } Tee aloite
   .container.container_24
     %section
       = yield
