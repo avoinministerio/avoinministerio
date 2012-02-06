@@ -1,3 +1,29 @@
 // Place all the styles related to the Ideas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#new_idea .input label {
+  display: block;
+}
+
+#new_idea label[for=idea_title] {
+  font-size: 2em;
+}
+
+#new_idea label[for=idea_summary],
+#new_idea label[for=idea_body] {
+  font-size: 1.5em;
+}
+
+#new_idea input {
+  font-size: 1.5em;
+  padding: 6px;
+}
+
+#new_idea textarea {
+  font-size: 1.25em;
+  padding: 6px;
+}
+
+#new_idea input[type=submit] {
+  float: right;
+}
