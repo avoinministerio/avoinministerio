@@ -6,22 +6,37 @@
  *= require_tree . 
 */
 body > header {
-    height: 129px;
+    height: 150px;
+}
+
+body > header.top_row_container {
+    height: 0;
+    z-index: -1;
+    border: 0 none;
+}
+
+body > header.top_row_container > .container_24 {
+    margin: 0;
+    padding: 0;
+    border-left-width: 0;
+}
+
+body > header, body > header.top_row_container > .container_24 {
     border-width: 6px;
     -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
     -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
     border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    border-top: none;
-    border-left: none;
-    border-right: none;
+    border-top: 0 none;
+    border-left: 0 none;
+    border-right: 0 none;
 }
 
 body > header > .top_row {
-    height: 40%;
+    height: 50px;
 }
 
 body > header > .bottom_row {
-    height: 60%;
+    height: 100px;
 }
 
 body > header > .top_row, body > header > .bottom_row {
@@ -32,4 +47,8 @@ body > header > .top_row > a, body > header > .bottom_row > a {
 
 a#logo {
     height: 100%;
+}
+
+.sans_serif {
+  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
 }
