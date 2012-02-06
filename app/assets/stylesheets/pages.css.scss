@@ -1,1 +1,27 @@
-//Css for the home page, refactor to common 
+//Css for the home page
+
+$main-color: #473161;
+
+.container h2 {
+  text-transform: uppercase;
+  color: $main-color; 
+}
+
+.top_drafts, .top_ideas {
+  h2 { 
+    -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    border-width: 6px;
+    border-top: 0px none;
+    border-left: 0px none;
+    border-right: 0px none;
+  }
+}
+
+
+.top_drafts {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom:  10px solid $main-color; 
+}
