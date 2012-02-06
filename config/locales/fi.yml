@@ -37,6 +37,8 @@ fi:
       my_ideas: "Omat ideat"
       show_my_own: "Näytä ideani"
       show_all: "Näytä kaikki ideat"
+    new:
+      title: "Ehdotuksesi"
     edit:
       title: "Muokkaa ideaa"
   registrations:
