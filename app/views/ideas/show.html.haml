@@ -1,24 +1,30 @@
 .grid_24
   .state
-    EHDOTUS ON PÄÄSSYT JATKOJALOSTUKSEEN
-
+    %span.sans_serif
+      %span §
+      EHDOTUS ON PÄÄSSYT JATKOJALOSTUKSEEN
   .idea_author
     %img{ src: "", width: 48, height: 48 }
     %span= @idea.author.name
-.idea
-  .grid_16
+.idea.grid_24
+  .grid_16.alpha
     %h1= @idea.title
-    = markdown(@idea.body) if @idea.body
+    .idea_summary
+      = markdown(@idea.summary) if @idea.summary
+    .idea_body
+      = markdown(@idea.body) if @idea.body
 
     - if @idea.author == current_citizen
       = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)
-  .grid_8
-    %h3 Tehdäänkö tästä laki?
-    = link_to "Jaa", "#", class: "btn"
-    = link_to "Ei", "#", class: "btn"
-    %span 88888
-    %span ääntä
-    %img{ src: "", width: 100, height: 200 }
+  .grid_7.prefix_1.omega
+    .voting.sans_serif
+      %h3 Tehdäänkö tästä laki?
+      = link_to "Kyllä", "#", class: "btn jaa-btn"
+      = link_to "Ei", "#", class: "btn ei-btn"
+    .votes
+      %span 88888
+      %span ääntä
+      %img{ src: "", width: 100, height: 200 }
 .expert_opinions
   %h2.grid_24 Asiantuntijalausunnot
   .grid_8
@@ -33,11 +39,12 @@
     .idea_author
       %img{ src: "", width: 48, height: 48 }
       %span= @idea.author.name
-%h2.grid_24 Kommentit
-.grid_24.comment_form
-  = render "comments/form", model: @idea
-.grid_16
-  .comments
-    - @idea.comments && @idea.comments.each do |comment|
-      - unless comment.new_record?
-        = render "comments/comment", comment: comment
+.idea_comments
+  %h2.grid_24 Kommentit
+  .grid_24.comment_form
+    = render "comments/form", model: @idea
+  .grid_16
+    .comments
+      - @idea.comments && @idea.comments.each do |comment|
+        - unless comment.new_record?
+          = render "comments/comment", comment: comment

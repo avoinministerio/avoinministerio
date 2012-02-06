@@ -27,3 +27,87 @@
 #new_idea input[type=submit] {
   float: right;
 }
+
+.state {
+  background: #473161;
+  color: #fff;
+  padding: 6px 10px;
+  margin: 16px auto;
+}
+
+.state span {
+  font-weight: bold;
+}
+
+.state span span {
+  font-family: "Georgia";
+  font-weight: normal;
+  font-size: 1.5em;
+  margin: auto 0.5em;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+.idea {
+  margin-top: 32px;
+}
+
+.voting {
+  background: #eff3f3;
+  border-top: 3px solid #000;
+  padding-bottom: 20px;
+}
+
+.voting h3 {
+  margin: 20px auto 10px;
+  font-size: 1.35em;
+  text-align: center;
+}
+
+.voting .btn {
+  margin: 0 auto 10px;
+  width: 150px;
+  padding: 10px;
+  display: block;
+  background: #999;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.voting .jaa-btn {
+  background: #8cc63f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.voting .ei-btn {
+  background: #a9003f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.idea_summary {
+  font-size: 1.5em;
+}
+
+.idea_body {
+  font-size: 1.2em;
+}
+
+.expert_opinions h2,
+.idea_comments h2 {
+  padding-bottom: 5px;
+  border-width: 6px;
+  -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+h2 {
+  font-weight: normal;
+}
