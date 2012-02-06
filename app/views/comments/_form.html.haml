@@ -1,3 +1,5 @@
 = simple_form_for model.comments.build, url: [model, :comments], remote: true do |f|
-  = f.input :body, as: :text
-  = f.submit
+  .grid_16.alpha
+    = f.input :body, as: :text, label: false
+  .grid_8.omega
+    = f.submit
