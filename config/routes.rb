@@ -4,7 +4,9 @@ AvoinMinisterio::Application.routes.draw do
   devise_for :citizens
   
   localized do
-    resources :ideas
+    resources :ideas do
+      resources :comments
+    end
   end
   
   root to: "pages#home"
