@@ -1,7 +1,7 @@
 AvoinMinisterio::Application.routes.draw do
   get "pages/home"
 
-  devise_for :citizens
+  devise_for :citizens, :controllers => { :omniauth_callbacks => "citizens/omniauth_callbacks" }
   
   localized do
     resources :ideas do
