@@ -9,5 +9,5 @@ AvoinMinisterio::Application.routes.draw do
     end
   end
 
-  root to: "pages#home"
+  root to: "ideas#index"
 end
