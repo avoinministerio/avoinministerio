@@ -6,7 +6,28 @@
  *= require_tree . 
 */
 body > header {
-    height: 100px;
+    height: 129px;
+    border-width: 6px;
+    -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+body > header > .top_row {
+    height: 40%;
+}
+
+body > header > .bottom_row {
+    height: 60%;
+}
+
+body > header > .top_row, body > header > .bottom_row {
+}
+
+body > header > .top_row > a, body > header > .bottom_row > a {
 }
 
 a#logo {
