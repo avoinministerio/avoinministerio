@@ -10,6 +10,8 @@ class Citizen < ActiveRecord::Base
   has_one :profile, dependent: :destroy
   
   has_many :ideas, foreign_key: "author_id"
+  has_many :comments, foreign_key: "author_id"
+  has_many :idea_comments, through: :ideas
   
   accepts_nested_attributes_for :profile
   
@@ -18,4 +20,10 @@ class Citizen < ActiveRecord::Base
     :last_name,
     :name
   ].each { |attribute| delegate attribute, to: :profile }
+  
+  private
+  
+  after_initialize do |citizen|
+    citizen.build_profile unless citizen.profile
+  end
 end
