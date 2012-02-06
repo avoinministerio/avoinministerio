@@ -98,14 +98,14 @@ h1 {
 
 .expert_opinions h2,
 .idea_comments h2 {
-  padding-bottom: 5px;
+  padding-bottom: 6px;
   border-width: 6px;
   -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   border-top: none;
-  border-left: none;
-  border-right: none;
+  border-left: 0 none;
+  border-right: 0 none;
 }
 
 h2 {
