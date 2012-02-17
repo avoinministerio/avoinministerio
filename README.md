@@ -8,7 +8,7 @@ Avoin Ministeriö -verkkopalvelu.
 
 1. Clone the repository
 
-    `git clone git@github.com:kiskolabs/avoinministerio`
+    `git clone git@github.com:avoinministerio/avoinministerio`
 
 2. Check that you have the right ruby version (1.9.X)
 
@@ -50,10 +50,6 @@ Run the tests using the following command(s):
 
 ## Code Repository
 
-[Git repository](http://github.com/kiskolabs/avoinministerio)
+[Git repository](http://github.com/avoinministerio/avoinministerio)
 
 Everything is currently in the master branch. When building bigger features, use feature branches. When the feature is ready, delete the feature branch.
-
-## Project management
-
-Undecided, maybe Pivotal Tracker
