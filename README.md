@@ -52,6 +52,7 @@ This way you will always be running the same ruby version with a defined gemset 
 
         git clone git@github.com:<username>/avoinministerio.git
         cd avoinministerio
+        git remote add avoinministerio git@github.com:avoinministerio/avoinministerio.git
         git remote set-url avoinministerio git@github.com:avoinministerio/avoinministerio.git
 
 3. Create a feature branch
