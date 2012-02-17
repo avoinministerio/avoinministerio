@@ -16,8 +16,7 @@
     .container_24.top_row
   %header.container_24
     = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
-    .grid_3.top_row
-    .grid_3.top_row
+    .grid_6.top_row
       - if citizen_signed_in?
         = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
       - else
