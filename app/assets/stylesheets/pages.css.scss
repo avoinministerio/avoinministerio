@@ -3,12 +3,14 @@
 $main-color: #473161;
 
 .container h2 {
+  font-size: 17px;
   text-transform: uppercase;
   color: $main-color; 
 }
 
 .top_drafts, .top_ideas {
-  h2 { 
+  h2 {
+    //Refactor border to application.css 
     -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
     -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
     border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
@@ -24,4 +26,8 @@ $main-color: #473161;
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom:  10px solid $main-color; 
+}
+
+.news {
+  background: #eeeeee;
 }
