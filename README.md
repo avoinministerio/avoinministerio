@@ -44,6 +44,41 @@ This way you will always be running the same ruby version with a defined gemset 
 
     `rails s`
 
+## Development process
+
+1. Fork the repository in Github
+
+2. Clone your fork and setup remote repository
+
+    git clone git@github.com:<username>/avoinministerio.git
+    cd avoinministerio
+    git remote set-url avoinministerio git@github.com:avoinministerio/avoinministerio.git
+
+3. Create a feature branch
+
+    git push origin origin:refs/heads/new-feature
+    git fetch origin
+    git checkout --track -b new-feature origin/new-feature
+    git pull
+
+4. Hack, commit and push your feature. Tests too :)
+
+    git add .
+    git commit -m "Commit message"
+    git push
+
+5. Pull and rebase the upstream repository
+
+    git pull avoinministerio master
+    git checkout new-feature
+    git rebase master
+    # fix possible conflicts
+    git push
+
+6. Create a pull request in Github
+
+    https://github.com/<username>/avoinministerio/pull/new/new-feature
+
 ## Deployment
 
 Undecided, probably Capistrano.
