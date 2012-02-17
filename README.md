@@ -4,6 +4,8 @@ Avoin Ministeriö -verkkopalvelu.
 
 <http://avoinministerio.fi>
 
+If you want more information about the project, drop us an email to main@avoinministerio.flowdock.com.
+
 ## Installation
 
 1. Clone the repository
