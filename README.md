@@ -10,21 +10,31 @@ Avoin Ministeriö -verkkopalvelu.
 
     `git clone git@github.com:avoinministerio/avoinministerio`
 
-2. Check that you have the right ruby version (1.9.X)
+2. .rvmrc
 
-3. Install the required gems
+It might be a good idea to use .rvmrc file to set ruby environment
+
+    w168:avoinministerio arttu$ cat .rvmrc
+    rvm use 1.9.3-p125@avoinministerio --create
+    w168:avoinministerio arttu$
+
+This way you will always be running the same ruby version with a defined gemset under this directory.
+
+3. Check that you have the right ruby version (1.9.X)
+
+4. Install the required gems
 
     `bundle install`
 
     in development you might want to also pass `--without production`
 
-4. Create database.yml in the config folder by copying database.example.yml
+5. Create database.yml in the config folder by copying database.example.yml
 
-5. Setup the database (create DB, load schema, load seed data)
+6. Setup the database (create DB, load schema, load seed data)
 
     `rake db:setup`
 
-6. Start the app
+7. Start the app
 
     `rails s`
 
