@@ -61,6 +61,7 @@ This way you will always be running the same ruby version with a defined gemset 
         git fetch origin
         git checkout --track -b new-feature origin/new-feature
         git pull
+        git rebase master
 
 4. Hack, commit and push your feature. Tests too :)
 
