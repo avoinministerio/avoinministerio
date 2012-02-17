@@ -24,11 +24,15 @@ This way you will always be running the same ruby version with a defined gemset 
 
 4. Install the required gems
 
+    `cd avoinministerio`
+    
     `bundle install`
 
     in development you might want to also pass `--without production`
 
-5. Create database.yml in the config folder by copying database.example.yml
+5. Create database.yml in the config folder by copying database.example.yml and modifying it
+
+    `cp config/database.example.yml config/database.yml`
 
 6. Setup the database (create DB, load schema, load seed data)
 
