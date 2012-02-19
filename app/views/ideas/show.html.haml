@@ -54,9 +54,14 @@
       = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)
   .grid_7.prefix_1.omega
     .voting.sans_serif
-      %h3 Tehdäänkö tästä laki?
-      = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
-      = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
+      - unless @vote
+        %h3 Tehdäänkö tästä laki?
+        = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
+        = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
+      - else
+        %h3 Äänestit #{@vote.option == 0 ? "Ei" : "Kyllä"},<br/>voit vaihtaa:
+        = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
+        = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
     .votes
       %div{id: "votepie" }
 .expert_opinions

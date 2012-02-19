@@ -10,13 +10,14 @@ class IdeasController < ApplicationController
   
   def show
     @idea = Idea.find(params[:id])
+    @vote = Vote.find_by_idea_id_and_citizen_id(@idea.id, current_citizen.id)
     @idea_vote_count          = Vote.count(:conditions => "idea_id = #{@idea.id}")
     @idea_vote_for_count      = Vote.count(:conditions => "idea_id = #{@idea.id} AND option = 1")
     @idea_vote_against_count  = Vote.count(:conditions => "idea_id = #{@idea.id} AND option = 0")
     @colors = ["#4a4", "#a44"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
 
-    respond_with @idea, @idea_vote_count, @idea_vote_for_count, @idea_vote_against_count, @colors
+    respond_with @idea, @idea_vote_count, @idea_vote_for_count, @idea_vote_against_count, @colors, @vote
   end
   
   def new
