@@ -1,9 +1,19 @@
 :javascript
   $(document).ready(function(){
-      var r = Raphael("votepie"),
-          pie = r.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2, 10], { legend: ["%%.%% - Enterprise Users", "IE Users"], legendpos: "west", href: ["http://raphaeljs.com", "http://g.raphaeljs.com"]});
+      var r = Raphael("votepie");
+      var pie = r.piechart(135, 92, 57, [
+        // piechart requires non-zero sizes to draw properly, so let's guard these values
+        #{@idea_vote_for_count      == 0 ? 0.00001 : @idea_vote_for_count}, 
+        #{@idea_vote_against_count  == 0 ? 0.00001 : @idea_vote_against_count}], 
+        { legend: ["%%.% eli #{@idea_vote_for_count} Kyllä ääni", 
+                   " %%.% eli #{@idea_vote_against_count} Ei ääni"], 
+          legendpos: "south", 
+          colors: #{@colors.inspect},
+          // Clicking portions could link somewhere
+          // href: ["http://somewhere.com", "http://somewhere.com"]
+        });
 
-      r.text(320, 100, "Interactive Pie Chart").attr({ font: "20px sans-serif" });
+      r.text(130, 17, "#{@idea_vote_count} äänen jakautuminen").attr({ font: "17px sans-serif" });
       pie.hover(function () {
           this.sector.stop();
           this.sector.scale(1.1, 1.1, this.cx, this.cy);
@@ -39,7 +49,6 @@
       = markdown(@idea.summary) if @idea.summary
     .idea_body
       = markdown(@idea.body) if @idea.body
-    %div{id: "votepie" }
 
     - if @idea.author == current_citizen
       = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)
@@ -49,9 +58,7 @@
       = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
       = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
     .votes
-      %span=@idea_vote_count
-      %span ääntä
-      %img{ src: "", width: 100, height: 200 }
+      %div{id: "votepie" }
 .expert_opinions
   %h2.grid_24 Asiantuntijalausunnot
   .grid_8
