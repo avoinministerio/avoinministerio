@@ -11,6 +11,8 @@
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
+  = render :partial => 'layouts/ga' if Rails.env == 'production'
+
 %body
   %header.container_24.top_row_container
     .container_24.top_row
