@@ -10,7 +10,8 @@ class IdeasController < ApplicationController
   
   def show
     @idea = Idea.find(params[:id])
-    respond_with @idea
+    @idea_vote_count = Vote.count(:conditions => "idea_id = #{@idea.id}")
+    respond_with @idea, @idea_vote_count
   end
   
   def new
@@ -35,4 +36,5 @@ class IdeasController < ApplicationController
     flash[:notice] = I18n.t("ideas.updated") if @idea.update_attributes(params[:idea])
     respond_with @idea
   end
+
 end
