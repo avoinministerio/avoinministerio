@@ -34,7 +34,7 @@ end
 
 group :test do
   gem "spork", "> 0.9.0.rc"
-  gem 'rb-fsevent', require: false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fsevent'#, require: false if RUBY_PLATFORM =~ /darwin/i
   gem "capybara"
   gem "factory_girl_rails", "1.4.0", require: false
   gem "shoulda-matchers"
