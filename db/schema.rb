@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206101715) do
+ActiveRecord::Schema.define(:version => 20120217162249) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -70,5 +70,16 @@ ActiveRecord::Schema.define(:version => 20120206101715) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "option"
+    t.integer  "idea_id"
+    t.integer  "citizen_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["citizen_id"], :name => "index_votes_on_citizen_id"
+  add_index "votes", ["idea_id"], :name => "index_votes_on_idea_id"
 
 end
