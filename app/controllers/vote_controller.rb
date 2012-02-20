@@ -1,7 +1,6 @@
 class VoteController < ApplicationController
   def vote(option)
-    idea = Idea.find(params[:idea])
-    vote = Vote.find_or_create_by_idea_id_and_citizen_id(idea.id, current_citizen.id)
+    vote = Vote.find_or_create_by_idea_id_and_citizen_id(params[:idea], current_citizen.id)
     if vote.option == option
       # logger.info "no update, no need to save either"
     else
