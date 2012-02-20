@@ -28,6 +28,7 @@ class IdeasController < ApplicationController
   def create
     @idea = Idea.new(params[:idea])
     @idea.author = current_citizen
+    @idea.state  = "idea"
     flash[:notice] = I18n.t("ideas.created") if @idea.save
     respond_with @idea
   end
