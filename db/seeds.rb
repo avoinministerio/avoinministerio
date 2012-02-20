@@ -9,7 +9,7 @@
 
 Idea.create!([
 	{ title: "Kansanedustajien palkankorotus pannaan", 
-	  summary: "Ei kuulu TUPOon!", 
+	  summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.", 
 	  body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!", 
 	  state: "idea", author_id: 1},
 	
@@ -29,7 +29,7 @@ Idea.create!([
 	  state: "laki", author_id: 4},
 	
 	{ title: "Vielä isommat tuomiot", 
-	  summary: "Rinta rottingille!", 
+	  summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!", 
 	  body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
 	  state: "idea", author_id: 5},
 	
