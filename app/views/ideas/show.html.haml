@@ -1,10 +1,40 @@
+:javascript
+  $(document).ready(function(){
+      var r = Raphael("votepie");
+      var pie = r.piechart(135, 92, 57, [
+        // piechart requires non-zero sizes to draw properly, so let's guard these values
+        #{@idea_vote_for_count      == 0 ? 0.00001 : @idea_vote_for_count}, 
+        #{@idea_vote_against_count  == 0 ? 0.00001 : @idea_vote_against_count}], 
+        { legend: ["%%.% eli #{@idea_vote_for_count} Kyllä ääni", 
+                   " %%.% eli #{@idea_vote_against_count} Ei ääni"], 
+          legendpos: "south", 
+          colors: #{@colors.inspect},
+          // Clicking portions could link somewhere
+          // href: ["http://somewhere.com", "http://somewhere.com"]
+        });
+
+      r.text(130, 17, "#{@idea_vote_count} äänen jakautuminen").attr({ font: "17px sans-serif" });
+      pie.hover(function () {
+          this.sector.stop();
+          this.sector.scale(1.1, 1.1, this.cx, this.cy);
+
+          if (this.label) {
+              this.label[0].stop();
+              this.label[0].attr({ r: 7.5 });
+              this.label[1].attr({ "font-weight": 800 });
+          }
+      }, function () {
+          this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+
+          if (this.label) {
+              this.label[0].animate({ r: 5 }, 500, "bounce");
+              this.label[1].attr({ "font-weight": 400 });
+          }
+      });
+  });
 .grid_24
-  .state
-    %ul.horizontal
-      %li.active IDEA
-      %li LAKILUONNOS
-      %li LAKIESITYS
-      %li LAKI
+  - eteneminen_jpg = {"idea" => "eteneminen_1_idea.jpg", "lakiluonnos"=> "eteneminen_2_lakiluonnos.jpg", "lakiesitys"=> "eteneminen_3_lakiesitys.jpg", "laki"=> "eteneminen_4_laki.jpg"}[@idea.state]
+  %img{ src: "/assets/" + eteneminen_jpg, width: 950, height: 56 }
   .idea_author
     %img{ src: "", width: 48, height: 48 }
     %span= @idea.author.name
@@ -20,13 +50,16 @@
       = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)
   .grid_7.prefix_1.omega
     .voting.sans_serif
-      %h3 Tehdäänkö tästä laki?
-      = link_to "Kyllä", "#", class: "btn jaa-btn"
-      = link_to "Ei", "#", class: "btn ei-btn"
+      - unless @vote
+        %h3 Tehdäänkö tästä laki?
+        = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
+        = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
+      - else
+        %h3 Äänestit #{@vote.option == 0 ? "Ei" : "Kyllä"},<br/>voit vaihtaa:
+        = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
+        = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
     .votes
-      %span 88888
-      %span ääntä
-      %img{ src: "", width: 100, height: 200 }
+      %div{id: "votepie" }
 .expert_opinions
   %h2.grid_24 Asiantuntijalausunnot
   .grid_8
