@@ -11,8 +11,6 @@
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
-  = render :partial => 'layouts/ga' if Rails.env == 'production'
-
 %body
   %header.container_24.top_row_container
     .container_24.top_row
@@ -40,3 +38,6 @@
       %a.grid_4{ src: "/foo" } Footer text
       %a.grid_4{ src: "/bar" } Footer text
       %a.grid_4{ src: "/baz" } Footer text
+
+  = render :partial => 'shared/ga' if Rails.env == 'production'
+
