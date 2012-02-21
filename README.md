@@ -90,6 +90,8 @@ Undecided, probably Capistrano.
 **JS Libraries**
 
 * jQuery
+* Raphael (http://raphaeljs.com/)
+* gRaphael (http://g.raphaeljs.com/)
 
 **Other**
 
