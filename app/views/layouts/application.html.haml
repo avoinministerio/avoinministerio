@@ -41,3 +41,6 @@
       %a.grid_4{ src: "/foo" } Footer text
       %a.grid_4{ src: "/bar" } Footer text
       %a.grid_4{ src: "/baz" } Footer text
+
+  = render :partial => 'shared/ga' if Rails.env == 'production'
+
