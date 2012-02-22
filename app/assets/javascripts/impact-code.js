@@ -57,7 +57,7 @@ var process = function (json) {
                     p = pathes[users[i][0]] = {f:[], b:[]};
                 }
                 p.f.push([x, h, users[i][1]]);
-                p.b.unshift([x, h += Math.max(Math.round(Math.log(users[i][1]) * 5), 1)]);
+                p.b.unshift([x, h += Math.max(Math.round(Math.log(users[i][1]) / Math.log(1.2) * 2.5), 1)]);
                 h += 2;
             }
             var dt = new Date(json.buckets[j].d * 1000);
@@ -101,7 +101,7 @@ var process = function (json) {
                     labels[i].show();
                     pathes[i].p.toFront();
                     labels[i].toFront();
-                    usrnm2.innerHTML = json.authors[i].n + " <em>(" + json.authors[i].c + " commits, " + json.authors[i].a + " additions, " + json.authors[i].d + " deletions)</em>";
+                    usrnm2.innerHTML = json.authors[i].n + " <em>(" + json.authors[i].c + " votes, " + json.authors[i].a + " for, " + json.authors[i].d + " against)</em>";
                     lgnd2.style.backgroundColor = pathes[i].p.attr("fill");
                     nmhldr2.className = "";
                     plchldr.className = "hidden";
