@@ -94,6 +94,5 @@
   .grid_16
     .comments
       - @idea.comments && @idea.comments.each do |comment|
-        - logger.info comment.inspect
         - unless comment.new_record?
           = render "comments/comment", comment: comment
