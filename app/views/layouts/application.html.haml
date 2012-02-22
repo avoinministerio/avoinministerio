@@ -51,3 +51,6 @@
 
   = render :partial => 'shared/ga' if Rails.env == 'production'
 
+- if controller_name == "ideas" && action_name == "vote_flow"
+  :javascript
+    $.getScript("#{javascript_path("vote-flow/impact-code.js")}");
