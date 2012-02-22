@@ -52,12 +52,12 @@
     .voting.sans_serif
       - unless @vote
         %h3 Tehdäänkö tästä laki?
-        = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
-        = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
+        = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+        = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
       - else
         %h3 Äänestit #{@vote.option == 0 ? "Ei" : "Kyllä"},<br/>voit vaihtaa:
-        = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
-        = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
+        = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+        = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
     .votes
       %div{id: "votepie" }
 .expert_opinions
