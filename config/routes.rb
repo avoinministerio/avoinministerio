@@ -1,6 +1,5 @@
 AvoinMinisterio::Application.routes.draw do
-  match "/vote/vote_for/:idea" 		=> "vote#vote_for"
-  match "/vote/vote_against/:idea" 	=> "vote#vote_against"
+  match "/ideas/:id/vote/:vote"     => "vote#vote", as: :vote_idea
 
   get "pages/home"
 
