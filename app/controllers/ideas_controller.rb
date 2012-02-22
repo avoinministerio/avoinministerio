@@ -46,7 +46,8 @@ class IdeasController < ApplicationController
 
   def vote_flow
     # does not work well over SQLite or Postgres, but would be the easiest way around
-#    @vote_counts = Vote.find(:all, :select => "idea_id, updated_at, count(option) AS option", :group => "idea_id, datepart(year, updated_at)")
+    # @vote_counts = Vote.find(:all, :select => "idea_id, updated_at, count(option) AS option", :group => "idea_id, datepart(year, updated_at)")
+
     # thus we need to go through all the ideas, pick votes and group them in memory
     @vote_counts = {}
     @idea_counts = {}
@@ -75,6 +76,6 @@ class IdeasController < ApplicationController
 
     @authors = @idea_counts.to_json
 
-    render :layout => 'vote-flow'
+    render 
   end
 end
