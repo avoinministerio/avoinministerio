@@ -7,14 +7,7 @@
   %meta{ :content => "width=device-width, initial-scale=1", :name => "viewport" }/
   %title Avoin Ministeriö
   = stylesheet_link_tag "application.css"
-  = stylesheet_link_tag "demo.css"
-  = stylesheet_link_tag "demo-print.css"
-  = javascript_include_tag "jquery"
-  = javascript_include_tag "jquery_ujs"
-  = javascript_include_tag "impact-code"
-  /= javascript_include_tag "impact-data"
   = javascript_include_tag "application"
-  = javascript_include_tag "impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
