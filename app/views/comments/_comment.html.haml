@@ -1,3 +1,10 @@
-= comment.author.name
-= markdown(comment.body)
-= comment.created_at
+.grid_2.alpha
+	%img{ src: "", width: 50, height: 50 }
+.grid_14.omega
+	.grid_14
+		.grid_6.alpha
+			%span.sans_serif.name= comment.author.name
+		.grid_8.omega
+			%span.sans_serif= comment.created_at
+	%span.sans_serif.title= markdown(comment.body)
+	
