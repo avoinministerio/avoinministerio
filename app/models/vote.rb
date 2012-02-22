@@ -3,6 +3,14 @@ class Vote < ActiveRecord::Base
   belongs_to :citizen
   
   def self.by(citizen)
-    where(citizen_id: citizen.id).first
+    where(citizen_id: citizen.id)
+  end
+  
+  def self.in_favor
+    where(option: 1)
+  end
+  
+  def self.against
+    where(option: 0)
   end
 end
