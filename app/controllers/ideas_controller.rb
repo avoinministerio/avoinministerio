@@ -46,17 +46,13 @@ class IdeasController < ApplicationController
 
   def vote_flow
     # does not work well over SQLite or Postgres, but would be the easiest way around
-#    @vote_counts = Vote.find(:all, :select => "idea_id, updated_at, count(option) AS option", :group => "idea_id, datepart(year, updated_at)")
+    # @vote_counts = Vote.find(:all, :select => "idea_id, updated_at, count(option) AS option", :group => "idea_id, datepart(year, updated_at)")
+
     # thus we need to go through all the ideas, pick votes and group them in memory
     @vote_counts = {}
     @idea_counts = {}
     Idea.all.each do |idea|
       Vote.where("idea_id = #{idea.id}").find(:all, :select => "updated_at, option").each do |vote|
-#        year_week = vote.updated_at.strftime("%Y-%W")
-#        @vote_counts[[year_week, vote.updated_at]] ||= {}
-#        @vote_counts[[year_week, vote.updated_at]][idea.id] ||= {}
-#        @vote_counts[[year_week, vote.updated_at]][idea.id][vote.option] ||= 0
-#        @vote_counts[[year_week, vote.updated_at]][idea.id][vote.option] += 1
         @vote_counts[vote.updated_at.beginning_of_week.to_i] ||= {}
         @vote_counts[vote.updated_at.beginning_of_week.to_i][idea.id] ||= {}
         @vote_counts[vote.updated_at.beginning_of_week.to_i][idea.id][vote.option] ||= 0
@@ -67,7 +63,6 @@ class IdeasController < ApplicationController
         @idea_counts[idea.id]["c"] += 1
       end
     end
-    p @vote_counts
     most_popular_ideas = @idea_counts.keys.sort{|a,b| @idea_counts[b]["c"] <=> @idea_counts[a]["c"]}
     # convert vote_counts into impact-style json
     @buckets = @vote_counts.keys.sort.map do |d|
@@ -81,8 +76,7 @@ class IdeasController < ApplicationController
 
     @authors = @idea_counts.to_json
 
-    p @buckets
-    p @authors
-    render :layout => 'vote-flow'
+    render 
+  
   end
 end
