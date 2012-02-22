@@ -8,6 +8,7 @@
   %title Avoin Ministeriö
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
+  = javascript_include_tag params[:controller]
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
@@ -44,6 +45,6 @@
 
   = render :partial => 'shared/ga' if Rails.env == 'production'
 
-- if controller_name == "ideas" && action_name == "vote_flow"
-  :javascript
-    $.getScript("#{javascript_path("vote-flow/impact-code.js")}");
+/- if controller_name == "ideas" && action_name == "vote_flow"
+/  :javascript
+/    $.getScript("#{javascript_path("vote-flow/impact-code.js")}");
