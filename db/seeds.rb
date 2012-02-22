@@ -7,7 +7,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Idea.create!([
+[
 	{ title: "Kansanedustajien palkankorotus pannaan", 
 	  summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.", 
 	  body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!", 
@@ -33,7 +33,7 @@ Idea.create!([
 	  body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
 	  state: "idea", author_id: 5},
 	
-])
+].each { |idea| Idea.find_or_create_by_title(idea) }
 
 # create lots of semi-static ideas
 20.times do |i|
@@ -48,8 +48,7 @@ Idea.create!([
 	])
 end
 
-
-Citizen.create!([
+[
 	{ email: "joonas@pekkanen.com", 
 	  password: "joonas1", password_confirmation: "joonas1", remember_me: true, 
 	  profile_attributes: {first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
@@ -78,18 +77,15 @@ Citizen.create!([
 	  password: "mikael1", password_confirmation: "mikael1", remember_me: true, 
 	  profile_attributes: {first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
 
-])
+].each { |citizen| Citizen.find_or_create_by_email(citizen) }
 
 voters = (0..100).map do |i|
-	Citizen.create!({
+	Citizen.find_or_create_by_email({
 		email: "voter#{i}@voter.com", 
 	  	password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true, 
 	  	profile_attributes: {first_name: "Voter", last_name: "#{i}", name: "Voter #{i}"}, },		
 	)
 end
-
-#citizens = Citizen.find(:all).to_a
-#citizen_count = citizens.size
 
 voter_count = voters.size
 
