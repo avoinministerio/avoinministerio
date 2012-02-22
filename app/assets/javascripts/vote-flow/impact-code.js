@@ -61,7 +61,7 @@ var process = function (json) {
                 h += 2;
             }
             var dt = new Date(json.buckets[j].d * 1000);
-            var dtext = dt.getDate() + " " + ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"][dt.getMonth()] + " " + dt.getFullYear();
+            var dtext = dt.getDate() + "." + (dt.getMonth()+1) + "." + dt.getFullYear();
             r.text(x + 25, h + 10, dtext).attr({"font": '9px "Arial"', stroke: "none", fill: "#aaa"});
             x += 100;
         }
