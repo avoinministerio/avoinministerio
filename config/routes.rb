@@ -4,6 +4,8 @@ AvoinMinisterio::Application.routes.draw do
 
   get "pages/home"
 
+  get "ideas/vote_flow"
+
   devise_for :citizens, :controllers => { :omniauth_callbacks => "citizens/omniauth_callbacks" }
   
   localized do

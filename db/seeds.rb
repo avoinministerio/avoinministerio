@@ -35,6 +35,20 @@ Idea.create!([
 	
 ])
 
+# create lots of semi-static ideas
+20.times do |i|
+	Idea.create!([
+		{ title: "Esimerkki-idea #{i}", 
+		  summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
+		  body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.", 
+		  state: "idea", 
+		  created_at: Time.now - (60*60*24),
+		  updated_at: Time.now - (60*60*24),
+		  author_id: 6},
+	])
+end
+
+
 Citizen.create!([
 	{ email: "joonas@pekkanen.com", 
 	  password: "joonas1", password_confirmation: "joonas1", remember_me: true, 
@@ -86,8 +100,31 @@ ideas.shift
 Vote.create!({ idea: ideas.shift, citizen: voters[rand(voter_count)], option: 0 })
 Vote.create!({ idea: ideas.shift, citizen: voters[rand(voter_count)], option: 1 })
 
+class RandomGaussian
+  def initialize(mean = 0.0, sd = 1.0, rng = lambda { Kernel.rand })
+    @mean, @sd, @rng = mean, sd, rng
+    @compute_next_pair = false
+  end
+
+  def rand
+    if (@compute_next_pair = !@compute_next_pair)
+      # Compute a pair of random values with normal distribution.
+      # See http://en.wikipedia.org/wiki/Box-Muller_transform
+      theta = 2 * Math::PI * @rng.call
+      scale = @sd * Math.sqrt(-2 * Math.log(1 - @rng.call))
+      @g1 = @mean + scale * Math.sin(theta)
+      @g0 = @mean + scale * Math.cos(theta)
+    else
+      @g1
+    end
+  end
+end
+
 # the rest should have all kinds of combinations
+secs_per_week = 60*60*24*7
 ideas.each do |idea|
+	rd = RandomGaussian.new(secs_per_week * (rand()*8.0+2.0), secs_per_week * (rand()*4.0+2.0))
+
 	# pick random count of random voters
 	vs = []
 	(0..rand(voter_count)).each do 
@@ -98,6 +135,8 @@ ideas.each do |idea|
 		vs.push v
 	end
 	vs.each do |v|
-		Vote.create!({ idea: idea, citizen: v, option: rand(2) })
+#		t = Time.now - rand(secs_per_week*10)
+		t = Time.now - rd.rand()
+		Vote.create!({ idea: idea, citizen: v, option: rand(2), created_at: t, updated_at: t})
 	end
 end
