@@ -35,7 +35,6 @@
 	
 ].each { |idea| Idea.find_or_create_by_title(idea) }
 
-# create lots of semi-static ideas
 20.times do |i|
 	Idea.create!([
 		{ title: "Esimerkki-idea #{i}", 
