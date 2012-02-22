@@ -41,7 +41,10 @@ Idea.create!([
 		{ title: "Esimerkki-idea #{i}", 
 		  summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
 		  body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.", 
-		  state: "idea", author_id: 6},
+		  state: "idea", 
+		  created_at: Time.now - (60*60*24),
+		  updated_at: Time.now - (60*60*24),
+		  author_id: 6},
 	])
 end
 
