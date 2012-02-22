@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module IdeasHelper
   def idea_state_image(idea)
     filename = {
@@ -7,5 +9,14 @@ module IdeasHelper
     }[idea.state]
     
     image_tag(filename, width: 954, height: 62)
+  end
+  
+  def vote_in_words(idea, citizen)
+    case idea.votes.by(citizen).first.option
+    when 0
+      "Ei"
+    when 1
+      "Kyllä"
+    end
   end
 end
