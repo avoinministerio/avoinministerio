@@ -49,14 +49,15 @@
       = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)
   .grid_7.prefix_1.omega
     .voting.sans_serif
-      - unless @vote
-        %h3 Tehdäänkö tästä laki?
-        = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-        = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+      - if @idea.voted_by?(current_citizen)
+        %h3
+          Äänestit #{vote_in_words(@idea, current_citizen)},
+          %br
+          voit vaihtaa:
       - else
-        %h3 Äänestit #{@vote.option == 0 ? "Ei" : "Kyllä"},<br/>voit vaihtaa:
-        = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-        = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+        %h3 Tehdäänkö tästä laki?
+      = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+      = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
     .votes
       %div{id: "votepie" }
 .expert_opinions
