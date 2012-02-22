@@ -14,7 +14,7 @@
   = javascript_include_tag "impact-code"
   /= javascript_include_tag "impact-data"
   = javascript_include_tag "application"
-  = javascript_include_tag params[:controller]
+  = javascript_include_tag "impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
