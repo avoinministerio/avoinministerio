@@ -33,12 +33,8 @@
       });
   });
 .grid_24
-  .state
-    %ul.horizontal
-      %li.active IDEA
-      %li LAKILUONNOS
-      %li LAKIESITYS
-      %li LAKI
+  - eteneminen_jpg = {"idea" => "eteneminen_1_idea.jpg", "lakiluonnos"=> "eteneminen_2_lakiluonnos.jpg", "lakiesitys"=> "eteneminen_3_lakiesitys.jpg", "laki"=> "eteneminen_4_laki.jpg"}[@idea.state]
+  %img{ src: "/assets/" + eteneminen_jpg, width: 950, height: 56 }
   .idea_author
     %img{ src: "", width: 48, height: 48 }
     %span= @idea.author.name
