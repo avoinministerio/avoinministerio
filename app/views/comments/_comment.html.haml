@@ -5,6 +5,6 @@
 		.grid_6.alpha
 			%span.sans_serif.name= comment.author.name
 		.grid_8.omega
-			%span.sans_serif= comment.created_at
+			%span.sans_serif= finnishTime(comment.created_at)
 	%span.sans_serif.title= markdown(comment.body)
 	
