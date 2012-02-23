@@ -7,6 +7,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+=begin
 Idea.create!([
 	{ title: "Kansanedustajien palkankorotus pannaan", 
 	  summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.", 
@@ -99,5 +100,41 @@ ideas.each do |idea|
 	end
 	vs.each do |v|
 		Vote.create!({ idea: idea, citizen: v, option: rand(2) })
+	end
+end
+=end
+
+# let's create some articles
+
+def read_till(f, breaker = /^---+/)
+	str = ""
+	while((l = f.gets) !~ breaker)
+		str.concat l
+	end
+	str
+end
+
+def field(f, name)
+	str = f.gets
+	if m = str.match(/^#{name}:/)
+		return m.post_match
+	else
+		raise "line #{str} does not match field name #{name}"
+	end
+end
+
+Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
+	next unless File.file?(name)
+	File.open(name) do |f|
+		article = {
+			article_type: 	field(f, "article_type"),
+			created_at: 	field(f, "created_at"),
+			updated_at: 	field(f, "updated_at"),
+			title: 			field(f, "title"),
+			ingress: 		field(f, "ingress") && read_till(f),
+			body: 			field(f, "body") && read_till(f),
+		}
+
+		Article.find_or_create_by_created_at(article)
 	end
 end
