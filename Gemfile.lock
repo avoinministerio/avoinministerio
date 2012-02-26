@@ -174,7 +174,6 @@ GEM
     simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-    spork (0.9.0.rc9)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -226,7 +225,6 @@ DEPENDENCIES
   sass-rails (~> 3.1.5)
   shoulda-matchers
   simple_form
-  spork (> 0.9.0.rc)
   sqlite3
   state_machine
   thin
