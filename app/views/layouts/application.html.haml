@@ -18,12 +18,14 @@
     = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
     .grid_6.top_row
       - if citizen_signed_in?
+        #{current_citizen.name}
         = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
       - else
         = link_to "Rekisteröidy", new_citizen_registration_path
         = link_to "Kirjaudu", new_citizen_session_path
     .grid_6.top_row
-      = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
+      - if !citizen_signed_in?
+        = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
     .grid_6.bottom_row
     .grid_3.bottom_row
       = link_to "Aloitteet", ideas_path
