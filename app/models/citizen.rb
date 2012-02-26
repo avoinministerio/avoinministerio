@@ -6,7 +6,8 @@ class Citizen < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :profile, :profile_attributes
-  
+
+  has_one :authentication, dependent: :destroy
   has_one :profile, dependent: :destroy
   
   has_many :ideas, foreign_key: "author_id"
@@ -20,20 +21,12 @@ class Citizen < ActiveRecord::Base
     :last_name,
     :name
   ].each { |attribute| delegate attribute, to: :profile }
-  
-  def self.find_for_facebook_oauth(access_token)
-    data = access_token.extra.raw_info
-    if user = Citizen.where(:email => data.email).first
-      user
-    else # Create a user with a stub password.
-      Citizen.create!(:email => data.email, 
-                      :password => Devise.friendly_token[0,20],
-                      :profile => Profile.create!(:first_name => data.first_name,
-                                                  :last_name => data.last_name)) 
-    end
+
+  def self.find_for_facebook_auth(auth_hash)
+    auth = Authentication.where(provider: auth_hash[:provider], uid: auth_hash[:uid]).first
+    auth.citizen
   end
 
-  
   private
   
   after_initialize do |citizen|
