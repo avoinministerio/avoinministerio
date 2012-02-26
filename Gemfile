@@ -37,8 +37,11 @@ group :test do
   gem "capybara"
   gem "database_cleaner"
   gem "factory_girl_rails", "1.4.0", :require => false
-  gem "rb-fsevent", :require => false if RUBY_PLATFORM =~ /darwin/i
   gem "shoulda-matchers"
   gem "spork", "> 0.9.0.rc"
   gem "turn", "~> 0.8.3", :require => false
+end
+
+group :mac_test do
+  gem "rb-fsevent", :require => false
 end
