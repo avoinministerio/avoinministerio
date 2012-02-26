@@ -44,3 +44,7 @@ group :test do
   gem "spork", "> 0.9.0.rc"
   gem "turn", "~> 0.8.3", :require => false
 end
+
+group :mac_test do
+  gem "rb-fsevent", :require => false
+end
