@@ -30,13 +30,13 @@ group :development do
 end
 
 group :production do
+  gem "newrelic_rpm"
   gem "pg"
-  gem 'thin'
+  gem "thin"
 end
 
 group :test do
-  gem "spork", "> 0.9.0.rc"
-  gem 'rb-fsevent'
+  gem "rb-fsevent"
   gem "capybara"
   gem "database_cleaner"
   gem "factory_girl_rails", "1.4.0", :require => false
@@ -46,5 +46,5 @@ group :test do
 end
 
 group :mac_test do
-  gem "rb-fsevent", :require => false
+  gem "rb-fsevent", require: false
 end
