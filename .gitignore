@@ -7,6 +7,7 @@
 # Ignore bundler config and rvmrv
 /.bundle
 /.rvmrc
+/vendor/bundle
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
