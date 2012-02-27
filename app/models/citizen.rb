@@ -24,7 +24,18 @@ class Citizen < ActiveRecord::Base
 
   def self.find_for_facebook_auth(auth_hash)
     auth = Authentication.where(provider: auth_hash[:provider], uid: auth_hash[:uid]).first
-    auth.citizen
+    auth && auth.citizen || nil
+  end
+
+  def self.build_from_auth_hash(auth_hash)
+    info = auth_hash[:extra][:raw_info]
+    c = Citizen.where(email: info[:email]).first
+    c ||= Citizen.new email: info[:email],
+                      password: Devise.friendly_token[0,20],
+                      profile: Profile.new(first_name: info[:first_name], last_name: info[:last_name])
+    c.authentication = Authentication.new provider: auth_hash[:provider], uid: auth_hash[:uid], citizen: c
+    c.save!
+    c
   end
 
   private
