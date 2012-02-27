@@ -3,13 +3,12 @@ require 'rubygems'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'factory_girl'
+require 'factory_girl_rails'
 require 'rspec/autorun'
 require "capybara/rspec"
 require "database_cleaner"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-require File.join(File.dirname(__FILE__), 'factories', 'avoinministerio')
 
 RSpec.configure do |config|
   config.mock_with :rspec
