@@ -6,7 +6,9 @@ rvm:
   - 1.9.2
 
 env:
-  - DB=sqlite
+  - DB=postgres
+
+gemfile: Gemfile.ci
 
 before_script:
   - "cp config/database.travis.$DB.yml config/database.yml"
