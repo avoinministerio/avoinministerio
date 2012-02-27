@@ -11,13 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120217162249) do
+ActiveRecord::Schema.define(:version => 20120223230917) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
     t.text     "ingress"
     t.text     "body"
     t.string   "article_type"
+    t.integer  "idea_id"
+    t.integer  "citizen_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
