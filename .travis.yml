@@ -1,0 +1,14 @@
+language: ruby
+
+bundler_args: "--without production development mac_test"
+
+rvm:
+  - 1.9.2
+
+env:
+  - DB=sqlite
+
+before_script:
+  - "cp config/database.travis.$DB.yml config/database.yml"
+
+script: "RAILS_ENV=test bundle exec rake db:setup spec"
