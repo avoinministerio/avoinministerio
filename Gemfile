@@ -36,7 +36,6 @@ group :production do
 end
 
 group :test do
-  gem "rb-fsevent"
   gem "capybara"
   gem "database_cleaner"
   gem "factory_girl_rails", "1.4.0", :require => false
@@ -47,5 +46,5 @@ group :test do
 end
 
 group :mac_test do
-  gem "rb-fsevent", require: false
+  gem "rb-fsevent", :require => false
 end
