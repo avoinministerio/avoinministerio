@@ -1,6 +1,7 @@
 class Idea < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_many :votes
+  has_many :articles
   
   default_scope order("created_at DESC")
   
