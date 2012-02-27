@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20120226181658) do
   end
 
   add_index "authentications", ["citizen_id"], :name => "index_authentications_on_citizen_id"
-  add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid"
+  add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid", :unique => true
 
   create_table "citizens", :force => true do |t|
     t.string   "email"
