@@ -136,8 +136,7 @@ Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
 			body:           field(f, "body") && read_till(f),
 		}
 
-		p article
 		a = Article.find_or_create_by_created_at(article)
-		a.save!
+		a.save!  # TODO: needed?
 	end
 end
