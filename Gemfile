@@ -41,6 +41,7 @@ group :test do
   gem "factory_girl_rails", "1.4.0", :require => false
   gem "shoulda-matchers"
   gem "spork", "> 0.9.0.rc"
+  gem "sqlite3"
   gem "turn", "~> 0.8.3", :require => false
 end
 
