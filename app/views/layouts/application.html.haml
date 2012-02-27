@@ -48,12 +48,6 @@
 
   = render :partial => 'shared/ga' if Rails.env == 'production'
 
-<<<<<<< HEAD
-/- if controller_name == "ideas" && action_name == "vote_flow"
-/  :javascript
-/    $.getScript("#{javascript_path("vote-flow/impact-code.js")}");
-=======
   - if controller_name == "ideas" && action_name == "vote_flow"
     :javascript
       $.getScript("#{javascript_path("vote-flow/impact-code.js")}");
->>>>>>> facebook
