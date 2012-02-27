@@ -1,18 +1,25 @@
 <h2>Rekisteröidy</h2>
 
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <p class="notification grid_16">
+    Reksiteröidy tästä Avoimen ministeirön nettipalvelun käyttäjäksi. Voit luoda uuden tunnuksen vahvistamalla sen sähköpostitse tai vahvistamalla sen Facebook-tunnuksillasi. Palvelussa keskustellaan omalla nimellä ja asiallisesti. Palvelua ja sen toiminnallisuuksia kehitetään käyttäjäpalautteen perusteella. Voit lähettää risuja ja ruusuja osoitteeseen <a href="mailto:kanslia@avoinministerio.fi">kanslia@avoinministerio.fi</a>. Tervetuloa!
+  </p>
+
   <%= f.error_notification %>
 
   <div class="inputs grid_16">
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :password, :required => true %>
-    <%= f.input :password_confirmation, :required => true %>
+    <%= f.input :email, :required => false, :autofocus => true %>
+    <%= f.input :password, :required => false %>
+    <%= f.input :password_confirmation, :required => false %>
     <%= f.simple_fields_for :profile do |f| %>
-      <%= f.input :first_name, required: true %>
-      <%= f.input :last_name, required: true %>
+      <%= f.input :first_name, required: false %>
+      <%= f.input :last_name, required: false %>
     <% end %>
   </div>
 
+  <p class="grid_16">
+    Hyväksyn palvelun käyttöehdot.
+  </p>
   <div class="actions grid_16">
     <%= f.button :submit, "Rekisteröidy" %>
   </div>

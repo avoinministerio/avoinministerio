@@ -16,6 +16,9 @@ fi:
         title: "Otsikko"
         summary: "Tiivistelmä"
         body: "Kuvaus"
+      profile:
+        first_name: "Etunimi"
+        last_name: "Sukunimi"
   layout:
     your_profile: "Profiilisi"
     sign_out: "Kirjaudu ulos"
