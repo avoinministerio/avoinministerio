@@ -188,16 +188,12 @@ Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
       article_type: field(f, "article_type"),
       created_at:   field(f, "created_at"),
       updated_at:   field(f, "updated_at"),
+      citizen:      Citizen.find(field(f, "author")),
+      idea:         Idea.find(field(f, "idea")),
       title:        field(f, "title"),
       ingress:      field(f, "ingress") && read_till(f),
       body:         field(f, "body") && read_till(f),
-      citizen:      Citizen.find(field(f, "author")),
-      idea:         Idea.find(field(f, "idea")),
     }
-    
-    p article
-    a = Article.find_or_create_by_created_at(article)
-    a.save!
     
     Article.find_or_create_by_created_at(article)
   end
