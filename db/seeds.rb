@@ -78,11 +78,11 @@ end
 end
 
 voters = (0..100).map do |i|
-  Citizen.create!({
-    email: "voter#{i}@voter.com",
-    password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true,
-    profile_attributes: {first_name: "Voter", last_name: "#{i}", name: "Voter #{i}"}, }
-  )
+  Citizen.find_or_create_by_email(
+      email: "voter#{i}@voter.com",
+      password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true,
+      profile_attributes: {first_name: "Voter", last_name: "#{i}", name: "Voter #{i}"}
+    )
 end
 
 voter_count = voters.size
