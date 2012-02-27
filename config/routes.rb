@@ -10,6 +10,7 @@ AvoinMinisterio::Application.routes.draw do
     resources :ideas do
       resources :comments
     end
+    resources :articles
   end
 
   root to: "pages#home"
