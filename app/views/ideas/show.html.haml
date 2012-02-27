@@ -59,7 +59,7 @@
       = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
       = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
     .votes
-      %div{id: "votepie" }
+      #votepie
 .expert_opinions
   %h2.grid_24 Asiantuntijalausunnot
   .grid_8

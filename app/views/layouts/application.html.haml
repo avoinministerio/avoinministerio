@@ -19,6 +19,7 @@
     = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
     - if citizen_signed_in?
       .grid_6.top_row
+        #{current_citizen.name}
         = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
     - else
       .grid_3.top_row
@@ -26,7 +27,8 @@
       .grid_3.top_row
         = link_to "Kirjaudu", new_citizen_session_path
     .grid_6.top_row
-      = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
+      - if !citizen_signed_in?
+        = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
     .grid_6.bottom_row
     .grid_3.bottom_row
       = link_to "Aloitteet", ideas_path
@@ -46,6 +48,12 @@
 
   = render :partial => 'shared/ga' if Rails.env == 'production'
 
+<<<<<<< HEAD
 /- if controller_name == "ideas" && action_name == "vote_flow"
 /  :javascript
 /    $.getScript("#{javascript_path("vote-flow/impact-code.js")}");
+=======
+  - if controller_name == "ideas" && action_name == "vote_flow"
+    :javascript
+      $.getScript("#{javascript_path("vote-flow/impact-code.js")}");
+>>>>>>> facebook
