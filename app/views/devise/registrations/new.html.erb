@@ -3,7 +3,7 @@
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
-  <div class="inputs">
+  <div class="inputs grid_16">
     <%= f.input :email, :required => true, :autofocus => true %>
     <%= f.input :password, :required => true %>
     <%= f.input :password_confirmation, :required => true %>
@@ -13,9 +13,11 @@
     <% end %>
   </div>
 
-  <div class="actions">
-    <%= f.button :submit, "Sign up" %>
+  <div class="actions grid_16">
+    <%= f.button :submit, "Rekisteröidy" %>
   </div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+<a href="/citizens/sign_in" class="grid_24">Kirjaudu sisään</a>
+<a href="/citizens/password/new" class="grid_24">Unohditko salasanasi?</a>
+<a href="/citizens/auth/facebook" class="grid_24">Kirjaudu Facebookilla</a>
