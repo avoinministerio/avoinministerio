@@ -33,7 +33,12 @@ class Citizen < ActiveRecord::Base
     c ||= Citizen.new email: info[:email],
                       password: Devise.friendly_token[0,20],
                       profile: Profile.new(first_name: info[:first_name], last_name: info[:last_name])
-    c.authentication = Authentication.new provider: auth_hash[:provider], uid: auth_hash[:uid], citizen: c
+    c.authentication = Authentication.new provider: auth_hash[:provider],
+                                          uid: auth_hash[:uid],
+                                          citizen: c,
+                                          info: auth_hash[:info],
+                                          credentials: auth_hash[:credentials],
+                                          extra: auth_hash[:extra]
     c.save!
     c
   end
