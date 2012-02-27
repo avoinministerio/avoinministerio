@@ -7,7 +7,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-=begin
 Idea.create!([
 	{ title: "Kansanedustajien palkankorotus pannaan", 
 	  summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.", 
@@ -102,7 +101,6 @@ ideas.each do |idea|
 		Vote.create!({ idea: idea, citizen: v, option: rand(2) })
 	end
 end
-=end
 
 # let's create some articles
 
@@ -125,16 +123,21 @@ end
 
 Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
 	next unless File.file?(name)
+	puts name
 	File.open(name) do |f|
 		article = {
-			article_type: 	field(f, "article_type"),
-			created_at: 	field(f, "created_at"),
-			updated_at: 	field(f, "updated_at"),
-			title: 			field(f, "title"),
-			ingress: 		field(f, "ingress") && read_till(f),
-			body: 			field(f, "body") && read_till(f),
+			article_type:   field(f, "article_type"),
+			created_at:     field(f, "created_at"),
+			updated_at:     field(f, "updated_at"),
+      citizen:        Citizen.find(field(f, "author")),
+      idea:           Idea.find(field(f, "idea")),
+			title:          field(f, "title"),
+			ingress:        field(f, "ingress") && read_till(f),
+			body:           field(f, "body") && read_till(f),
 		}
 
-		Article.find_or_create_by_created_at(article)
+		p article
+		a = Article.find_or_create_by_created_at(article)
+		a.save!
 	end
 end
