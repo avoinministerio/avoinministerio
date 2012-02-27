@@ -67,3 +67,33 @@ footer > a {
   font-weight: bold;
   font-size: 11px;
 }
+
+.inputs > .input {
+  width: 100%;
+}
+
+.input {
+  margin-bottom: 1em;
+}
+
+.input > label, .input > input {
+  display: block;
+}
+
+.input > input[type=email], .input > input[type=text], .input > input[type=password] {
+  border: 2px #e6e6e6 solid;
+  font-size: 1.6em;
+}
+
+.actions > input {
+  float: right;
+}
+
+input[type=submit] {
+  background-color: #473161;
+  border: none;
+  padding: 0.8em 2em;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
