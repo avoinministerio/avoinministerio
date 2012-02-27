@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20120229113917) do
     t.text     "ingress"
     t.text     "body"
     t.string   "article_type"
+    t.integer  "idea_id"
+    t.integer  "citizen_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
