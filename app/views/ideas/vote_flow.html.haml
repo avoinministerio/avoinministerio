@@ -1,0 +1,67 @@
+:css
+    #chart {
+        width: 100%;
+        _width: 500px;
+        overflow: auto;
+        clear: left;
+    }
+    .invisible {
+        visibility: hidden;
+    }
+    .hidden {
+        display: none;
+    }
+    #legend,
+    #legend2 {
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        width: 1em;
+        height: 1em;
+        border: solid 1px #000;
+        margin-right: .3em;
+        line-height: 1;
+    }
+    #name, 
+    #name2 {
+        float: left;
+        clear: left;
+    }
+    #name div,
+    #name2 div {
+        float: left;
+    }
+    #placeholder {
+        clear: left;
+        color: #999;
+    }
+    em {
+        color: #666;
+        font-style: normal;
+    }
+    form {
+        margin: 0;
+        padding: 0;
+    }
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+:javascript
+    var json =
+    {
+        "max":196419,
+        "buckets": #{@buckets},
+        "authors": #{@authors}
+    };
+
+.hidden#name2
+    #legend2 &nbsp;
+    #username2 legend
+
+#placeholder liikuta hiirtä palkkien päälle nähdäksesi lisätietoja, ja vieritä ikkunaa
+#chart
+%p#copy
+    10 eniten äänestettyä ideaa viikottaisine äänineen. Näet lisää vierittämällä palkkia. Viemällä hiiren palkin päälle näet mistä ideasta on kyse.
+
