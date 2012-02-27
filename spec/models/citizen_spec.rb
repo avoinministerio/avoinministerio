@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe Citizen do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should have_one :profile }
 end
