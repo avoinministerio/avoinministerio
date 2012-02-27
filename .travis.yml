@@ -14,3 +14,8 @@ before_script:
   - "cp config/database.travis.$DB.yml config/database.yml"
 
 script: "RAILS_ENV=test bundle exec rake db:setup spec"
+
+notifications:
+  email:
+    recipients:
+      - travis-notifications@avoinministerio.fi
