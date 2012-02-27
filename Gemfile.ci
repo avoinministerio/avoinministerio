@@ -1,0 +1,12 @@
+case ENV['DB']
+when "sqlite"; gem "sqlite3"
+when "postgres"; gem "pg"
+end
+
+def gem(*args)
+  # Override 'gem' method to block any other database gems in the 'real' Gemfile
+  super unless %w(pg sqlite3).include?(args.first)
+end
+
+# Eval Gemfile
+eval(IO.read(File.join(File.dirname(__FILE__), 'Gemfile')), binding)
