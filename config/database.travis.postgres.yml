@@ -1,0 +1,5 @@
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: avoin_ministerio_test
+  pool: 5
