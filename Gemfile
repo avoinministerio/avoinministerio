@@ -20,7 +20,7 @@ gem "simple_form"
 gem "state_machine"
 gem "omniauth-facebook"
 
-gem "rspec-rails", group: [ :development, :test ]
+gem "rspec-rails", :groups => [ :development, :test ]
 
 group :development do
   gem "sqlite3"
@@ -35,10 +35,10 @@ end
 
 group :test do
   gem "spork", "> 0.9.0.rc"
-  gem 'rb-fsevent'#, require: false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fsevent'
   gem "capybara"
-  gem "factory_girl_rails", "1.4.0", require: false
+  gem "factory_girl_rails", "1.4.0", :require => false
   gem "shoulda-matchers"
   gem "database_cleaner"
-  gem "turn", "~> 0.8.3", require: false
+  gem "turn", "~> 0.8.3", :require => false
 end
