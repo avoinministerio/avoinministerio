@@ -46,7 +46,7 @@ AvoinMinisterio::Application.configure do
   config.assets.precompile += %w( vote-flow/impact-code.js )
 
   config.serve_static_assets = true
-  config.static_cache_control = "public, max-age=31536"
+  config.static_cache_control = "public, max-age=315360"
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
