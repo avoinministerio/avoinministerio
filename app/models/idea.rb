@@ -8,9 +8,12 @@ class Idea < ActiveRecord::Base
   def vote(citizen, option)
     vote = votes.by(citizen).first
     if vote
+      REDIS.decr "idea:#{self.id}:vote:#{vote.option}"
       vote.update_attribute(:option, option) unless vote.option == option
+      REDIS.incr "idea:#{self.id}:vote:#{vote.option}"
     else
       votes.create(citizen: citizen, option: option)
+      REDIS.incr "idea:#{self.id}:vote:#{option}"
     end
   end
   

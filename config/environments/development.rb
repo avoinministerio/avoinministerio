@@ -29,4 +29,7 @@ AvoinMinisterio::Application.configure do
   config.assets.debug = true
   
   config.action_mailer.default_url_options = { host: "rails.fi:3000" }
+
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:2b3d3bff217f47d2844349763fff9291@viperfish.redistogo.com:9855/' 
+
 end
