@@ -9,11 +9,14 @@ module IdeasHelper
       law:      "state_4_law.png",
     }[idea.state.to_sym]
 
-  logger.info(idea.inspect)
-  logger.info(idea.state.inspect)
-  logger.info(idea.state.to_sym.inspect)
-  logger.info(filename.inspect)
-  logger.info(image_tag(filename, width: 954, height: 62).inspect)
+    unless filename
+      logger.error("We cannot convert #{idea.state} to symbol that matches some state")
+      logger.info(idea.inspect)
+      logger.info(idea.state.inspect)
+      logger.info(idea.state.to_sym.inspect)
+      logger.info(filename.inspect)
+      logger.info(image_tag(filename, width: 954, height: 62).inspect)
+    end
     image_tag(filename, width: 954, height: 62)
   end
   
