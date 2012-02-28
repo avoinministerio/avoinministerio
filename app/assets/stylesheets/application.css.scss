@@ -5,6 +5,9 @@
  *= require_self
  *= require_tree . 
 */
+$turquoise: #29abe2;
+$violet: #473161;
+
 body > header {
     height: 150px;
 }
@@ -58,10 +61,11 @@ body > header > .top_row > a, body > header > .bottom_row > a {
   height: 45px;
   padding-top: 25px;
   border-top: 10px #e5ebeb solid;
+  margin-top: 25px;
 }
 
 footer > a {
-  color: #29abe2;
+  color: $turquoise;
   text-transform: uppercase;
   font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
   font-weight: bold;
@@ -90,7 +94,7 @@ footer > a {
 }
 
 input[type=submit] {
-  background-color: #473161;
+  background-color: $violet;
   border: none;
   padding: 0.8em 2em;
   color: #fff;

@@ -1,13 +1,9 @@
 <h2>Rekisteröidy</h2>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <p class="notification grid_16">
-    Reksiteröidy tästä Avoimen ministeirön nettipalvelun käyttäjäksi. Voit luoda uuden tunnuksen vahvistamalla sen sähköpostitse tai vahvistamalla sen Facebook-tunnuksillasi. Palvelussa keskustellaan omalla nimellä ja asiallisesti. Palvelua ja sen toiminnallisuuksia kehitetään käyttäjäpalautteen perusteella. Voit lähettää risuja ja ruusuja osoitteeseen <a href="mailto:kanslia@avoinministerio.fi">kanslia@avoinministerio.fi</a>. Tervetuloa!
-  </p>
-
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "grid_16"}) do |f| %>
   <%= f.error_notification %>
 
-  <div class="inputs grid_16">
+  <div class="inputs">
     <%= f.input :email, :required => false, :autofocus => true %>
     <%= f.input :password, :required => false %>
     <%= f.input :password_confirmation, :required => false %>
@@ -17,14 +13,13 @@
     <% end %>
   </div>
 
-  <p class="grid_16">
-    Hyväksyn palvelun käyttöehdot.
+  <p>
+    Hyväksyn palvelun <a href="/todo">käyttöehdot</a>.
   </p>
-  <div class="actions grid_16">
+  <div class="actions">
     <%= f.button :submit, "Rekisteröidy" %>
   </div>
 <% end %>
-
-<a href="/citizens/sign_in" class="grid_24">Kirjaudu sisään</a>
-<a href="/citizens/password/new" class="grid_24">Unohditko salasanasi?</a>
-<a href="/citizens/auth/facebook" class="grid_24">Kirjaudu Facebookilla</a>
+<p class="notification grid_8">
+  Reksiteröidy tästä Avoimen ministeirön nettipalvelun käyttäjäksi. Voit luoda uuden tunnuksen vahvistamalla sen sähköpostitse tai vahvistamalla sen Facebook-tunnuksillasi. Palvelussa keskustellaan omalla nimellä ja asiallisesti. Palvelua ja sen toiminnallisuuksia kehitetään käyttäjäpalautteen perusteella. Voit lähettää risuja ja ruusuja osoitteeseen <a href="mailto:kanslia@avoinministerio.fi">kanslia@avoinministerio.fi</a>. Tervetuloa!
+</p>
