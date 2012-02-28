@@ -13,15 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120217162249) do
 
-  create_table "articles", :force => true do |t|
-    t.string   "title"
-    t.text     "ingress"
-    t.text     "body"
-    t.string   "article_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "citizens", :force => true do |t|
     t.string   "email"
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false

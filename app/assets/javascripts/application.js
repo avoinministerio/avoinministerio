@@ -6,7 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//=require raphael-min
-//=require g.raphael-min
-//=require g.pie-min
-//= require_tree .
+//= require raphael-min
+//= require g.raphael-min
+//= require g.pie-min
+//= require_directory .
