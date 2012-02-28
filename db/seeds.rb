@@ -92,8 +92,10 @@ ideas = Idea.find(:all).to_a
 # first idea has 0 votes
 ideas.shift  
 # next ideas have only one for and against
-Vote.create!({ idea: ideas.shift, citizen: voters[rand(voter_count)], option: 0 })
-Vote.create!({ idea: ideas.shift, citizen: voters[rand(voter_count)], option: 1 })
+Vote.create!({ idea: i = ideas.shift, citizen: voters[rand(voter_count)], option: o = 0 })
+  REDIS.incr "idea:#{i.id}:vote:#{o}"
+Vote.create!({ idea: i = ideas.shift, citizen: voters[rand(voter_count)], option: o = 1 })
+  REDIS.incr "idea:#{i.id}:vote:#{o}"
 
 class RandomGaussian
   def initialize(mean = 0.0, sd = 1.0, rng = lambda { Kernel.rand })
@@ -132,7 +134,8 @@ ideas.each do |idea|
 	vs.each do |v|
 #		t = Time.now - rand(secs_per_week*10)
 		t = Time.now - rd.rand()
-		Vote.create!({ idea: idea, citizen: v, option: rand(2), created_at: t, updated_at: t})
+		Vote.create!({ idea: idea, citizen: v, option: o = rand(2), created_at: t, updated_at: t})
+		REDIS.incr "idea:#{idea.id}:vote:#{o}"
 	end
 end
 
