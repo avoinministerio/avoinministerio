@@ -33,8 +33,7 @@
       });
   });
 .grid_24
-  - eteneminen_jpg = {"idea" => "eteneminen_1_idea.jpg", "lakiluonnos"=> "eteneminen_2_lakiluonnos.jpg", "lakiesitys"=> "eteneminen_3_lakiesitys.jpg", "laki"=> "eteneminen_4_laki.jpg"}[@idea.state]
-  %img{ src: "/assets/" + eteneminen_jpg, width: 950, height: 56 }
+  = idea_state_image(@idea)
   .idea_author
     %img{ src: "", width: 48, height: 48 }
     %span= @idea.author.name
@@ -50,16 +49,17 @@
       = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)
   .grid_7.prefix_1.omega
     .voting.sans_serif
-      - unless @vote
-        %h3 Tehdäänkö tästä laki?
-        = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
-        = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
+      - if @idea.voted_by?(current_citizen)
+        %h3
+          Äänestit #{vote_in_words(@idea, current_citizen)},
+          %br
+          voit vaihtaa:
       - else
-        %h3 Äänestit #{@vote.option == 0 ? "Ei" : "Kyllä"},<br/>voit vaihtaa:
-        = link_to "Kyllä", "/vote/vote_for/#{@idea.id}", class: "btn jaa-btn"
-        = link_to "Ei", "/vote/vote_against/#{@idea.id}", class: "btn ei-btn"
+        %h3 Tehdäänkö tästä laki?
+      = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+      = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
     .votes
-      %div{id: "votepie" }
+      #votepie
 .expert_opinions
   %h2.grid_24 Asiantuntijalausunnot
   .grid_8

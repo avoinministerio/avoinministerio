@@ -130,9 +130,19 @@ h2 {
   margin-left: -10px;
 }
 
-.idea_comments {
-  margin-top: 50px;
+.expert_opinions .expert span.name {
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
 }
+
+.idea_comments .comments span.name{
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
+}
+
+
 
 ul.horizontal {
   list-style: none;
