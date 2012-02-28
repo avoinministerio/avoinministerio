@@ -45,6 +45,9 @@ AvoinMinisterio::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( vote-flow/impact-code.js )
 
+  config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=31536"
+
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
