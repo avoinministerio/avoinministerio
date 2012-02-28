@@ -30,13 +30,13 @@ gem "rspec-rails", :groups => [ :development, :test ]
 group :development do
   gem "rails-erd"
   gem "sqlite3"
-  gem "thin"
+  gem 'unicorn'
 end
 
 group :production do
   gem "newrelic_rpm"
   gem "pg"
-  gem "thin"
+  gem 'unicorn'
 end
 
 group :test do
