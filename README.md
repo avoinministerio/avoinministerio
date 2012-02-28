@@ -82,6 +82,7 @@ Run tests with:
 
 5. Pull and rebase the upstream repository
 
+        git checkout master
         git pull avoinministerio master
         git checkout new-feature
         git rebase master
