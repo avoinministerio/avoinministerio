@@ -12,8 +12,8 @@ class IdeasController < ApplicationController
     @idea = Idea.find(params[:id])
     @vote = @idea.votes.by(current_citizen).first
     
-    @idea_vote_for_count      = @idea.votes.in_favor.count
-    @idea_vote_against_count  = @idea.votes.against.count
+    @idea_vote_for_count      = REDIS.get("idea:#{@idea.id}:vote:1").to_i || 0
+    @idea_vote_against_count  = REDIS.get("idea:#{@idea.id}:vote:0").to_i || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
     
     @colors = ["#8cc63f", "#a9003f"]
