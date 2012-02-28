@@ -16,17 +16,17 @@
 	{ title: "Poistetaan perintöverotus", 
 	  summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!", 
 	  body: "Ankarin perintövero korvattakoon tasaverolla!", 
-	  state: "lakiluonnos", author_id: 2},
+	  state: "draft", author_id: 2},
 	
 	{ title: "Raiskauksille kunnon tuomiot", 
 	  summary: "Joku roti!", 
 	  body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
-	  state: "lakiesitys", author_id: 3},
+	  state: "proposal", author_id: 3},
 	
 	{ title: "Kaikelle isommat tuomiot", 
 	  summary: "Joku roti!", 
 	  body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
-	  state: "laki", author_id: 4},
+	  state: "law", author_id: 4},
 	
 	{ title: "Vielä isommat tuomiot", 
 	  summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!", 
