@@ -65,6 +65,7 @@ Run tests with:
         # The first two commands are not needed if you just cloned, but they don't hurt you either
         git checkout master
         git pull avoinministerio master
+        git push     # to push commits from avoinministerio/master to your fork's master
         git push origin origin:refs/heads/new-feature
         git fetch origin
         git checkout --track -b new-feature origin/new-feature
