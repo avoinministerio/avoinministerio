@@ -20,6 +20,7 @@ gem "rake", ">= 0.9.2"
 gem "redcarpet"
 gem "simple_form"
 gem "state_machine"
+gem "redis"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
