@@ -3,7 +3,7 @@ class Vote < ActiveRecord::Base
   belongs_to :citizen
   
   def self.by(citizen)
-    where(citizen_id: citizen.id)
+    where(citizen_id: citizen && citizen.id || nil)
   end
   
   def self.in_favor
