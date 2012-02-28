@@ -4,12 +4,17 @@
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.input :email, :required => false, :autofocus => true %>
-    <%= f.input :password, :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
+    <%= f.label :email, :required => false %>
+    <%= f.input :email, :required => true, :autofocus => true, :label => false %>
+    <%= f.label :password, :required => false %>
+    <%= f.input :password, :required => true, :label => false %>
+    <%= f.label :password_confirmation, :required => false %>
+    <%= f.input :password_confirmation, :required => true, :label => false %>
     <%= f.simple_fields_for :profile do |f| %>
-      <%= f.input :first_name, required: false %>
-      <%= f.input :last_name, required: false %>
+      <%= f.label :first_name, :required => false %>
+      <%= f.input :first_name, :required => true, :label => false %>
+      <%= f.label :last_name, :required => false %>
+      <%= f.input :last_name, :required => true, :label => false %>
     <% end %>
   </div>
 
