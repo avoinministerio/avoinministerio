@@ -5,9 +5,14 @@ module IdeasHelper
     filename = {
       idea:     "state_1_idea.png",
       draft:    "state_2_draft.png",
-      proposal: "state_3_proposal.png"
+      proposal: "state_3_proposal.png",
     }[idea.state.to_sym]
-    
+
+  logger.info(idea.inspect)
+  logger.info(idea.state.inspect)
+  logger.info(idea.state.to_sym.inspect)
+  logger.info(filename.inspect)
+  logger.info(image_tag(filename, width: 954, height: 62).inspect)
     image_tag(filename, width: 954, height: 62)
   end
   
