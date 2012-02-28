@@ -20,5 +20,7 @@ FactoryGirl.define do
     title     "Perusidea"
     body      "Hankitaan kaikille kansalaisille ..."
     summary   "Hyvä idea"
+    state     "idea"
+    association :author, factory: :citizen
   end
 end
