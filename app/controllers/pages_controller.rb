@@ -17,8 +17,8 @@ class PagesController < ApplicationController
   	@recent_ideas = Idea.order("updated_at DESC").limit(4).find_all_by_state('idea')
   	@idea_counts = {}
   	@recent_ideas.map do |idea|
-	    for_count      = Vote.count(:conditions => "idea_id = #{idea.id} AND option = 1")
-	    against_count  = Vote.count(:conditions => "idea_id = #{idea.id} AND option = 0")
+	    for_count      = REDIS.get("idea:#{idea.id}:vote:1").to_i || 0
+	    against_count  = REDIS.get("idea:#{idea.id}:vote:0").to_i || 0
 	    comment_count  = idea.comments.count()
 	    total = for_count + against_count
 	    if total == 0
