@@ -48,3 +48,7 @@ end
 group :mac_test do
   gem "rb-fsevent", :require => false
 end
+
+group :linux_test do
+  gem "therubyracer", :require => false
+end
