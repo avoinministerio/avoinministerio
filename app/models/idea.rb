@@ -5,6 +5,8 @@ class Idea < ActiveRecord::Base
   
   default_scope order("created_at DESC")
   
+  default_scope order("created_at DESC")
+  
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
   
   state_machine :publish_state, initial: :published do
