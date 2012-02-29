@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(:version => 20120229113917) do
   add_index "administrators", ["email"], :name => "index_administrators_on_email", :unique => true
   add_index "administrators", ["reset_password_token"], :name => "index_administrators_on_reset_password_token", :unique => true
 
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "ingress"
+    t.text     "body"
+    t.string   "article_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "authentications", :force => true do |t|
     t.string   "provider"
     t.string   "uid"
