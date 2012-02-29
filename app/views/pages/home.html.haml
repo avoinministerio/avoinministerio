@@ -35,11 +35,14 @@
 
 .grid_8.news.omega
   %h2 Ministeriössä tapahtuu
-  - @front_page_articles.each do |article|
-    .news_item
-      =link_to article.citizen.profile.name, article_path(article)
-      #{finnishTime(article.updated_at)}
-    .content=link_to shorten(article.title, 100, 20, ">>"), article_path(article)
+  - if @front_page_articles.empty?
+    %p Ei kirjoituksia tällä hetkellä
+  - else
+    - @front_page_articles.each do |article|
+      .news_item
+        =link_to article.citizen.profile.name, article_path(article)
+        #{finnishTime(article.updated_at)}
+      .content=link_to shorten(article.title, 100, 20, ">>"), article_path(article)
 .grid_8.newsletter.omega
   %h2 Tilaa uutiskirje
 
