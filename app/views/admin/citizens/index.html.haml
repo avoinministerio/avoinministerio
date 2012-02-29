@@ -1,7 +1,7 @@
 .row-fluid
   .span12
     %h1 Käyttäjät
-    %table.table.table-striped
+    %table.table.table-striped.citizens
       %thead
         %tr
           %th 
@@ -10,16 +10,14 @@
           %th
       %tbody
         - @citizens.each do |citizen|
-          %tr
+          %tr[citizen]
+            %td.citizen_image
+              = image_tag(citizen.image, width: 32, height: 32)
             %td
-              = image_tag(citizen.image)
+              %h3.name= link_to citizen.name, [:admin, citizen]
             %td
-              = citizen.name
-            %td
-              = citizen.email
+              %h3.email= citizen.email
             %td
               .btn-group{ style: "float: right"}
-                = link_to "Julkaise", [:publish, :admin, comment], class: "btn btn-success" if citizen.locked?
-                = link_to "Moderoi", [:moderate, :admin, comment], class: "btn btn-inverse"
-                = link_to "Piilota", [:unpublish, :admin, comment], class: "btn btn-danger"
-                = link_to "Moderoi", [:moderate, :admin, comment], class: "btn btn-inverse"
+                = link_to "Lukitse", [:lock, :admin, citizen], class: "btn btn-success" unless citizen.locked?
+                = link_to "Vapauta", [:unlock, :admin, citizen], class: "btn btn-inverse" if citizen.locked?

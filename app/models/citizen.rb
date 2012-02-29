@@ -30,6 +30,18 @@ class Citizen < ActiveRecord::Base
   def active_for_authentication?
     super && !locked_at
   end
+  
+  def locked?
+    !!locked_at
+  end
+  
+  def lock!
+    update_attribute(:locked_at, Time.now)
+  end
+  
+  def unlock!
+    update_attribute(:locked_at, nil)
+  end
 
   def self.find_for_facebook_auth(auth_hash)
     auth = Authentication.where(provider: auth_hash[:provider], uid: auth_hash[:uid]).first
