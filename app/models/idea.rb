@@ -1,4 +1,6 @@
 class Idea < ActiveRecord::Base
+  include PublishingStateMachine
+  
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
@@ -9,20 +11,6 @@ class Idea < ActiveRecord::Base
   
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
   
-  state_machine :publish_state, initial: :published do
-    event :publish do
-      transition [ :in_moderation, :unpublished ] => :published
-    end
-    
-    event :unpublish do
-      transition [ :published ] => :unpublished
-    end
-    
-    event :moderate do
-      transition [ :published ] => :in_moderation
-    end    
-  end
-    
   def vote(citizen, option)
     vote = votes.by(citizen).first
     if vote
