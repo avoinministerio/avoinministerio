@@ -39,3 +39,13 @@ input[type=submit], a.button {
   font-size: 52px;
   text-transform: uppercase;
 }
+
+.top_drafts > .popular > h3 {
+  font-size: 20px;
+  font-weight: normal;
+  font-family: $serif;
+}
+
+.top_drafts > .popular > h3 > a {
+  text-decoration: none;
+}
