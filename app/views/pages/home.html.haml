@@ -1,5 +1,12 @@
+.container_24.headline
+  %hgroup.grid_18
+    %h1 Tuulivoimalat pelastavat maailman?
+    %h2 Tee siitä laki
+  .actions.grid_6
+    = link_to "Listaa kaikki", ideas_path, class: "button"
+    %a.button{href: "/todo"} Lisätietoa
 .container_24.top_drafts
-  %h2 Lakiluonnokset
+  %h2 Suositut
   - [["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]].each_with_index do |klasses, i|
     %div{:class => klasses}
       - if recent_draft = @recent_drafts[i]
@@ -15,7 +22,7 @@
           r.text(261,11, "#{against_}").attr({fill: "#fff", "font-size": 12});
 
 .grid_16.top_ideas.alpha
-  %h2 Ajankohtaiset aloitteet
+  %h2 Ajankohtaiset
   - @recent_ideas.each do |idea|
     .idea
       .author

@@ -16,12 +16,26 @@ footer > a {
   font-size: 11px;
 }
 
-input[type=submit] {
+input[type=submit], a.button {
   font-family: $sans_serif;
   text-transform: uppercase;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .input > input[type=email], .input > input[type=text], .input > input[type=password] {
   font-size: 1.6em;
+}
+
+.headline > hgroup > h1, .headline > hgroup > h2 {
+  font-family: $serif;
+}
+
+.headline > hgroup > h1 {
+  font-size: 20px;
+}
+
+.headline > hgroup > h2 {
+  font-size: 52px;
+  text-transform: uppercase;
 }
