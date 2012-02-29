@@ -6,7 +6,7 @@ describe Idea do
   let(:idea)    { Factory(:idea) }
   let(:citizen) { Factory(:citizen) }
     
-  describe "#vote(citizen, option)" do
+  describe "#vote" do
     it "casts a vote on an idea" do
       idea.vote(citizen, 1)
       idea.votes.count.should == 1
@@ -22,7 +22,7 @@ describe Idea do
     end
   end
   
-  describe "#voted_by?(citizen)" do
+  describe "#voted_by?" do
     it "tells whether citizen has voted for the idea or not" do
       idea.voted_by?(citizen).should be_false
       idea.vote(citizen, 1)
@@ -60,6 +60,38 @@ describe Idea do
       idea.moderate!
       idea.published?.should be_false
       idea.in_moderation?.should be_true
+    end
+  end
+
+  describe "Scopes" do
+    before do
+      3.times { Factory(:idea, publish_state: "published" ) }
+      2.times { Factory(:idea, publish_state: "unpublished" ) }
+      1.times { Factory(:idea, publish_state: "in_moderation" ) }
+    end
+    
+    describe ".published" do
+      it "returns published ideas" do
+        ideas = Idea.published
+        ideas.count.should == 3
+        ideas.map(&:published?).should be_true
+      end
+    end
+
+    describe ".unpublished" do
+      it "returns unpublished ideas" do
+        ideas = Idea.unpublished
+        ideas.count.should == 2
+        ideas.map(&:unpublished?).should be_true
+      end
+    end
+
+    describe ".in_moderation" do
+      it "returns ideas that are in moderation" do
+        ideas = Idea.in_moderation
+        ideas.count.should == 1
+        ideas.map(&:in_moderation?).should be_true
+      end
     end
   end
 end
