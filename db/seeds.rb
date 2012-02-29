@@ -7,6 +7,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Administrator.find_or_create_by_email({
+  email: "admin@avoinministerio.fi",
+  password: "hallinta"
+})
+
 [
 	{ email: "joonas@pekkanen.com",
 	  password: "joonas1", password_confirmation: "joonas1", remember_me: true,
