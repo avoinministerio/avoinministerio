@@ -16,3 +16,6 @@
 /log/*.log
 /tmp
 /config/database.yml
+
+# Ignore test coverage results
+/coverage
