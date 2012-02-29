@@ -1,9 +1,10 @@
 class Citizens::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    omniauth = request.env["omniauth.auth"]
-    
-    #TODO Handle current_user situation
-    @citizen = Citizen.find_for_facebook_oauth(omniauth)
+    @citizen = Citizen.find_for_facebook_auth(request.env["omniauth.auth"])
+
+    unless @citizen
+      @citizen = Citizen.build_from_auth_hash(request.env["omniauth.auth"])
+    end
 
     if @citizen.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Facebook"
