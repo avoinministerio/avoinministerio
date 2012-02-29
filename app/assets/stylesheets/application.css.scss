@@ -84,6 +84,10 @@ footer > a {
   display: block;
 }
 
+.input.checkbox > label, .input.checkbox > input {
+  display: inline;
+}
+
 .input > input[type=email], .input > input[type=text], .input > input[type=password] {
   border: 2px #e6e6e6 solid;
   font-size: 1.6em;
