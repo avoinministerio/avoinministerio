@@ -30,6 +30,21 @@ describe Idea do
     end
   end
   
+  describe "#vote_counts" do
+    before do
+      5.times { Vote.create(option: 1, idea: idea) }
+      3.times { Vote.create(option: 0, idea: idea) }
+    end
+    
+    it "returns the vote counts" do
+      counts = idea.vote_counts
+      counts.should be_kind_of Hash
+      counts.size.should == 2
+      counts[0].should == 3
+      counts[1].should == 5
+    end
+  end
+  
   describe "Publishing state of an idea" do
     it "is published by default" do
       idea.published?.should be_true
