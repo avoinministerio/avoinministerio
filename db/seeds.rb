@@ -7,6 +7,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+require 'factory_girl_rails'
+
 Administrator.find_or_create_by_email({
   email: "admin@avoinministerio.fi",
   password: "hallinta"
@@ -88,6 +90,10 @@ voters = (0..100).map do |i|
       password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true,
       profile_attributes: {first_name: "Voter", last_name: "#{i}", name: "Voter #{i}"}
     )
+end
+
+Idea.all.each do |idea|
+  rand(5).times { Factory(:comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count))) }
 end
 
 voter_count = voters.size
