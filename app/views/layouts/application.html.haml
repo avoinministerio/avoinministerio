@@ -19,7 +19,8 @@
     = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
     - if citizen_signed_in?
       .grid_6.top_row
-        #{current_citizen.name}
+        %img{ src: current_citizen.image, width: 32, height: 32}
+        #{current_citizen.name} 
         = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
     - else
       .grid_3.top_row

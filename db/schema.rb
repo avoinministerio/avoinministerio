@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20120229101345) do
     t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image"
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
