@@ -16,6 +16,8 @@ AvoinMinisterio::Application.routes.draw do
 
   devise_for :administrators
   
+  match "/admin", to: "admin/ideas#index", as: :administrator_root
+  
   namespace :admin do
     resources :articles
     resources :citizens

@@ -14,16 +14,32 @@ class Admin::ArticlesController < Admin::AdminController
   end
 
   def new
-    respond_with @article = resource_scope.build
+    respond_with @article = build_article
   end
   
   def create
-    @article = resource_scope.build(params[:article])
+    @article = build_article
     @article.save
-    respond_with @article, location: [:admin, @article.idea]
+    respond_with @article, location: article_return_location
   end
-      
+
   private
+
+  def article_return_location
+    if parent_resource
+      [:admin, @article.idea]
+    else
+      [:admin, :articles]
+    end
+  end
+
+  def build_article
+    if parent_resource
+      resource_scope.build(params[:article])
+    else
+      resource_scope.new(params[:article])
+    end
+  end
   
   def resource
     @article ||= resource_scope.find(params[:id])
