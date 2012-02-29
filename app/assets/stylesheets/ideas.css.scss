@@ -151,3 +151,20 @@ ul.horizontal {
 ul.horizontal li {
   float: left;
 }
+
+#idea_form {
+  position:relative;
+}
+
+.help_cont {
+  margin-top: 30px;
+  display: none; 
+  padding-top: 60px;
+  background-image:url("/assets/ohje_nuoli.png");
+  background-repeat: no-repeat;
+}
+
+#title_help, #summary_help, #body_help { 
+  position: absolute;
+  left: 640px; 
+}
