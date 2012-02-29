@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120226181658) do
+ActiveRecord::Schema.define(:version => 20120229101345) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -58,6 +58,9 @@ ActiveRecord::Schema.define(:version => 20120226181658) do
     t.datetime "updated_at"
   end
 
+  add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "body"
@@ -68,6 +71,8 @@ ActiveRecord::Schema.define(:version => 20120226181658) do
     t.text     "summary"
   end
 
+  add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
+
   create_table "profiles", :force => true do |t|
     t.integer  "citizen_id"
     t.string   "first_name"
@@ -75,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20120226181658) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
 
   create_table "votes", :force => true do |t|
     t.integer  "option"
