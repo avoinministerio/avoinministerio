@@ -125,14 +125,10 @@ input[type=submit] {
 .top_drafts > .popular > h3 {
   font-size: 20px;
   font-weight: normal;
+  height: 120px;
 }
 
 .top_drafts > .popular > h3 > a {
   text-decoration: none;
   color: #000;
-}
-
-.top_drafts > .popular > .bar {
-  position: absolute;
-  bottom: 0;
 }
