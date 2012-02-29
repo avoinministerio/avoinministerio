@@ -135,3 +135,42 @@ ideas.each do |idea|
 		Vote.create!({ idea: idea, citizen: v, option: rand(2), created_at: t, updated_at: t})
 	end
 end
+
+# let's create some articles
+
+def read_till(f, breaker = /^---+/)
+	str = ""
+	while((l = f.gets) !~ breaker)
+		str.concat l
+	end
+	str
+end
+
+def field(f, name)
+	str = f.gets
+	if m = str.match(/^#{name}:/)
+		return m.post_match
+	else
+		raise "line #{str} does not match field name #{name}"
+	end
+end
+
+Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
+	next unless File.file?(name)
+	puts name
+	File.open(name) do |f|
+		article = {
+			article_type:   field(f, "article_type"),
+			created_at:     field(f, "created_at"),
+			updated_at:     field(f, "updated_at"),
+      citizen:        Citizen.find(field(f, "author")),
+      idea:           Idea.find(field(f, "idea")),
+			title:          field(f, "title"),
+			ingress:        field(f, "ingress") && read_till(f),
+			body:           field(f, "body") && read_till(f),
+		}
+
+		a = Article.find_or_create_by_created_at(article)
+		a.save!  # TODO: needed?
+	end
+end
