@@ -7,6 +7,7 @@ require 'factory_girl_rails'
 require 'rspec/autorun'
 require "capybara/rspec"
 require "database_cleaner"
+require 'controller_test_helper'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
