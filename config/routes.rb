@@ -21,6 +21,7 @@ AvoinMinisterio::Application.routes.draw do
       get "publish",    on: :member
       get "unpublish",  on: :member
       get "moderate",   on: :member
+      resources :comments
     end
     resources :comments
     resources :citizens
