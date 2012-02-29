@@ -17,8 +17,9 @@ AvoinMinisterio::Application.routes.draw do
   
   namespace :admin do
     resources :ideas do
-      get "publish", on: :member
-      get "unpublish", on: :member
+      get "publish",    on: :member
+      get "unpublish",  on: :member
+      get "moderate",   on: :member
     end
     resources :comments
     resources :citizens
