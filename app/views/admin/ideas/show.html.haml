@@ -1,32 +1,42 @@
-.span12
-  %h3 IDEA
-  %h1= @idea.title
+.row-fluid
+  .span12
+    %h3 IDEA
+    %h1= @idea.title
 
-  .btn-group
-    - if !@idea.published?
-      = link_to "Julkaise", [:publish, :admin, @idea], class: "btn btn-success"
-      - if !@idea.in_moderation?
+    .btn-group
+      - if !@idea.published?
+        = link_to "Julkaise", [:publish, :admin, @idea], class: "btn btn-success"
+        - if !@idea.in_moderation?
+          = link_to "Aseta moderoitavaksi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+      - if @idea.published?
+        = link_to "Piilota", [:unpublish, :admin, @idea], class: "btn btn-danger"
         = link_to "Aseta moderoitavaksi", [:moderate, :admin, @idea], class: "btn btn-inverse"
-    - if @idea.published?
-      = link_to "Piilota", [:unpublish, :admin, @idea], class: "btn btn-danger"
-      = link_to "Aseta moderoitavaksi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+
+.row-fluid
+  .span6  
+    %table.table.idea_stats
+      %thead
+        %tr
+          %th Äänet
+          %th Kommentit
+      %tbody
+        %tr
+          %td
+            %strong.total_votes= @idea.votes.count
+            (
+            %span.votes_for= @idea.votes.in_favor.count
+            \-
+            %span.votes_against= @idea.votes.against.count
+            )
+          %td
+            = link_to [:admin, @idea, :comments] do
+              = @idea.comments.count
+              kommenttia
   
-  %ul.stats
-    %li
-      Äänet: 
-      = @idea.votes.count
-    %li
-      Puolesta:
-      = @idea.votes.in_favor.count
-    %li
-      Vastaan:
-      = @idea.votes.against.count
-    %li
-      Kommentit
-      = @idea.comments.count
+.row-fluid
+  .span12
+    .summary
+      = @idea.summary
   
-  .summary
-    = @idea.summary
-  
-  .body
-    = @idea.body
+    .body
+      = @idea.body
