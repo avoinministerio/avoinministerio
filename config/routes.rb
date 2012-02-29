@@ -13,5 +13,15 @@ AvoinMinisterio::Application.routes.draw do
     end
   end
 
+  devise_for :administrators
+  
+  namespace :admin do
+    resources :ideas
+    resources :comments
+    resources :citizens
+    
+    root to: "admin/ideas#index"
+  end
+
   root to: "pages#home"
 end
