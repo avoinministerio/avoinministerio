@@ -4,7 +4,7 @@ class IdeasController < ApplicationController
   respond_to :html
   
   def index
-    @ideas = Idea.all
+    @ideas = Idea.published.all
     respond_with @ideas
   end
   

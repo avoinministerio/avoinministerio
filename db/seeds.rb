@@ -7,32 +7,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Idea.create!([
-  { title: "Kansanedustajien palkankorotus pannaan", 
-    summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.", 
-    body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!", 
-    state: "idea", author_id: 1},
-  
-  { title: "Poistetaan perintöverotus", 
-    summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!", 
-    body: "Ankarin perintövero korvattakoon tasaverolla!", 
-    state: "lakiluonnos", author_id: 2},
-  
-  { title: "Raiskauksille kunnon tuomiot", 
-    summary: "Joku roti!", 
-    body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
-    state: "lakiesitys", author_id: 3},
-  
-  { title: "Kaikelle isommat tuomiot", 
-    summary: "Joku roti!", 
-    body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
-    state: "laki", author_id: 4},
-  
-  { title: "Vielä isommat tuomiot", 
-    summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!", 
-    body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
-    state: "idea", author_id: 5},
-])
+
+require 'factory_girl_rails'
+
+Administrator.find_or_create_by_email({
+  email: "admin@avoinministerio.fi",
+  password: "hallinta"
+})
 
 [
   { email: "joonas@pekkanen.com",
@@ -110,6 +91,10 @@ voters = (0..100).map do |i|
       password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true,
       profile_attributes: {first_name: "Voter", last_name: "#{i}", name: "Voter #{i}"}
     )
+end
+
+Idea.all.each do |idea|
+  rand(5).times { Factory(:comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count))) }
 end
 
 voter_count = voters.size
