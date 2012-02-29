@@ -71,6 +71,7 @@ GEM
       multipart-post (~> 1.1)
       rack (~> 1.1)
     ffi (1.0.11)
+    friendly_id (4.0.1)
     gravatar-ultimate (1.0.3)
     haml (3.1.4)
     haml-rails (0.3.4)
@@ -213,6 +214,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails (= 1.4.0)
+  friendly_id
   gravatar-ultimate
   haml-rails
   i18n_routing
