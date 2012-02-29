@@ -28,16 +28,8 @@
 
 .grid_8.news.omega
   %h2 Ministeriössä tapahtuu
-  
-  .news_item
-    .video Video
-    .title Video 6.2.2012
-    .content Sauli Niinistä vs.Avoin yliopisto >>
-   
-  .news_item
-    .title Tero Jokilehto 4.2.2012
-    .content Avoimen ministeriön nopea ja kivuon startti >>
-    
-  .news_item
-    .title Tero Jokilehto 2.2.2012
-    .content Tähän ei jäädä - katso Avoimen ministeriön roadmap >>
+  - @front_page_articles.each do |article|
+    .news_item
+      =link_to article.author.profile.name, article_path(article)
+      #{finnishTime(article.updated_at)}
+    .content=link_to shorten(article.title, 100, 20, ">>"), article_path(article)
