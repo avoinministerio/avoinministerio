@@ -28,7 +28,7 @@
       .author
         =link_to idea.author.profile.name, idea_path(idea)
         #{finnishTime(idea.updated_at)}
-      .title=link_to shorten(idea.summary, 100, 20, ">>"), idea_path(idea)
+      .title=link_to shorten(idea.summary, 100, 20, "»"), idea_path(idea)
       - for_, against, comments = @idea_counts[idea.id]
       .poll #{for_} #{against}
       .poll #{comments}
@@ -41,7 +41,7 @@
       .news_item
         =link_to article.citizen.profile.name, article_path(article)
         #{finnishTime(article.updated_at)}
-      .content=link_to shorten(article.title, 100, 20, ">>"), article_path(article)
+      .content=link_to shorten(article.title, 100, 20, "»"), article_path(article)
   - else
     %p Ei kirjoituksia tällä hetkellä
 .grid_8.newsletter.omega
