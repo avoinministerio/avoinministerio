@@ -35,7 +35,7 @@
 .grid_24
   = idea_state_image(@idea)
   .idea_author
-    %img{ src: "", width: 48, height: 48 }
+    %img{ src: @idea.author.image, width: 48, height: 48 }
     %span= @idea.author.name
 .idea.grid_24
   .grid_16.alpha
