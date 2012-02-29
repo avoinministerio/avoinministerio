@@ -7,12 +7,10 @@ AvoinMinisterio::Application.routes.draw do
 
   devise_for :citizens, :controllers => { :omniauth_callbacks => "citizens/omniauth_callbacks" }
   
-  localized do
-    resources :ideas do
-      resources :comments
-    end
-    resources :articles
+  resources :ideas do
+    resources :comments
   end
+  resources :articles
 
   devise_for :administrators
   
@@ -39,3 +37,5 @@ AvoinMinisterio::Application.routes.draw do
 
   root to: "pages#home"
 end
+
+ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :no_prefixes => true })
