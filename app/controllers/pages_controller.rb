@@ -31,6 +31,12 @@ class PagesController < ApplicationController
 			   						]
 		end
   	end
+
+#    @front_page_articles = Article.limit(3).find_all_by_article_type('statement')
+#    @front_page_articles = Article.limit(3).find_all_by_article_type('blogi')
+    @front_page_articles = Article.limit(3).all
+
+
   end
 
 end
