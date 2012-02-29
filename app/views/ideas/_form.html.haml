@@ -4,32 +4,23 @@
       = f.input :title, label: I18n.t("ideas.new.title")
     .grid_8.help_cont
       #title_help
-        %h2 Otsikon ohje
-        %p 
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta 
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta
-        %p Ohjetta ohjetta ohjetta
+        %p Anna ideallesi muutaman sanan otsikko. Otsikosta tulisi käydä ilmi yleinen aihealue.      
     .grid_16
       = f.input :summary, as: :text
     .grid_8.help_cont
       #summary_help
-        %h2 Tiivistelmän ohje
         %p 
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta 
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta
-        %p Ohjetta ohjetta ohjetta
+          Anna idealle tiivistelmä. Siitä tulisi käydä ilmi ideasi perusajatus muutamalla lauseella. 
+          Voit muokata sitä myöhemmin.
     .grid_16
       = f.input :body, as: :text
     .grid_8.help_cont
       #body_help
-        %h2 Kuvauksen ohje
-        %p 
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta 
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta
-          Ohjetta ohjetta ohjetta Ohjetta ohjetta ohjetta
-        %p Ohjetta ohjetta ohjetta  
+        %p
+          Anna halutessasi idealle tarkempi kuvaus. Se voi sisältää linkkejä muihin lähteisiin, 
+          listauksia puolesta ja vastaan argumenteista ja kysymyksiä joihin toivot kommentoijilta ja 
+          asiantuntijoilta palautetta. Aluksi sinun ei tarvite täyttää tätä kohtaa, pääset muokkaamaan tietoja myöhemmin.
+  
     .grid_16
       = f.submit @idea.new_record? ? I18n.t("buttons.create") : I18n.t("buttons.update")
 
