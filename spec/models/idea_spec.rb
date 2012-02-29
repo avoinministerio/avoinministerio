@@ -29,4 +29,22 @@ describe Idea do
       idea.voted_by?(citizen).should be_true
     end
   end
+  
+  describe "Publishing state of an idea" do
+    it "is published by default" do
+      idea.published?.should be_true
+    end
+    
+    it "can be unpublished" do
+      idea.unpublish!
+      idea.unpublished?.should be_true
+      idea.published?.should be_false
+    end
+    
+    it "can be sent for moderation" do
+      idea.moderate!
+      idea.published?.should be_false
+      idea.in_moderation?.should be_true
+    end
+  end
 end
