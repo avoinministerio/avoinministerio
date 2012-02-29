@@ -4,7 +4,7 @@ class IdeasController < ApplicationController
   respond_to :html
   
   def index
-    @ideas = Idea.published.all
+    @ideas = Idea.published.paginate(page: params[:page])
     respond_with @ideas
   end
   

@@ -53,3 +53,8 @@ fi:
     edit:
       update: "Päivitä profiilisi"
       change_password_or_email: "Vaihda salasanasi tai sähköpostiosoitteesi"
+  will_paginate:
+    previous_label: "&laquo; Edelliset ideat"
+    next_label: "Seuraavat ideat &raquo;"
+    page_gap: "..."
+    
