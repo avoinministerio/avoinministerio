@@ -8,9 +8,13 @@ class Idea < ActiveRecord::Base
   has_many :votes
   has_many :articles
 
+  belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
+
   default_scope order("created_at DESC")
 
-  belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
+  def self.per_page
+    25
+  end
 
   def vote(citizen, option)
     vote = votes.by(citizen).first
