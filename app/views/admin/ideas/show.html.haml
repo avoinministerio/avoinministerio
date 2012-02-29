@@ -3,14 +3,17 @@
     %h3 IDEA
     %h1= @idea.title
 
-    .btn-group
-      - if !@idea.published?
-        = link_to "Julkaise", [:publish, :admin, @idea], class: "btn btn-success"
-        - if !@idea.in_moderation?
-          = link_to "Aseta moderoitavaksi", [:moderate, :admin, @idea], class: "btn btn-inverse"
-      - if @idea.published?
-        = link_to "Piilota", [:unpublish, :admin, @idea], class: "btn btn-danger"
-        = link_to "Aseta moderoitavaksi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+    .row-fluid
+      .btn-group{ style: "float: left" }
+        = link_to "Uusi artikkeli", [:new, :admin, @idea, :article], class: "btn btn-info"
+      .btn-group{ style: "float: left" }
+        - if !@idea.published?
+          = link_to "Julkaise", [:publish, :admin, @idea], class: "btn btn-success"
+          - if !@idea.in_moderation?
+            = link_to "Moderoi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+        - if @idea.published?
+          = link_to "Piilota", [:unpublish, :admin, @idea], class: "btn btn-danger"
+          = link_to "Moderoi", [:moderate, :admin, @idea], class: "btn btn-inverse"
 
 .row-fluid
   .span6  
@@ -19,6 +22,7 @@
         %tr
           %th Äänet
           %th Kommentit
+          %th Artikkelit
       %tbody
         %tr
           %td
@@ -32,6 +36,10 @@
             = link_to [:admin, @idea, :comments] do
               = @idea.comments.count
               kommenttia
+          %td
+            = link_to [:admin, @idea, :articles] do
+              = @idea.articles.count
+              artikkelia
   
 .row-fluid
   .span12
