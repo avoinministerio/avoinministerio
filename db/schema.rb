@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229113917) do
+ActiveRecord::Schema.define(:version => 20120229153530) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -42,15 +42,6 @@ ActiveRecord::Schema.define(:version => 20120229113917) do
     t.string   "article_type"
     t.integer  "idea_id"
     t.integer  "citizen_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "articles", :force => true do |t|
-    t.string   "title"
-    t.text     "ingress"
-    t.text     "body"
-    t.string   "article_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -113,11 +104,13 @@ ActiveRecord::Schema.define(:version => 20120229113917) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "summary"
+    t.string   "slug"
     t.string   "publish_state", :default => "published"
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
   add_index "ideas", ["publish_state"], :name => "index_ideas_on_publish_state"
+  add_index "ideas", ["slug"], :name => "index_ideas_on_slug", :unique => true
 
   create_table "profiles", :force => true do |t|
     t.integer  "citizen_id"
