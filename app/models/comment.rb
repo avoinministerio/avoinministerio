@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  include PublishingStateMachine
+
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
   belongs_to :commentable, polymorphic: true
   

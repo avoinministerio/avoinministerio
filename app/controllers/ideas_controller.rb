@@ -4,17 +4,17 @@ class IdeasController < ApplicationController
   respond_to :html
   
   def index
-    @ideas = Idea.all
+    @ideas = Idea.published.all
     respond_with @ideas
   end
   
   def show
-    @idea = Idea.find(params[:id])
-    @vote = @idea.votes.by(current_citizen).first
+    @idea = Idea.includes(:votes).find(params[:id])
+    @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     
-    @idea_vote_count          = @idea.votes.count
-    @idea_vote_for_count      = @idea.votes.in_favor.count
-    @idea_vote_against_count  = @idea.votes.against.count
+    @idea_vote_for_count      = @idea.vote_counts[1] || 0
+    @idea_vote_against_count  = @idea.vote_counts[0] || 0
+    @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
     
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count

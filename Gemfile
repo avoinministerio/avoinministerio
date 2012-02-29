@@ -11,11 +11,14 @@ group :assets do
 end
 
 gem "devise"
+gem "friendly_id"
+gem "gravatar-ultimate"
 gem "haml-rails"
 gem "i18n_routing"
 gem "jquery-rails"
 gem "omniauth-facebook"
 gem "rails-i18n"
+gem "rails-translate-routes"
 gem "rake", ">= 0.9.2"
 gem "redcarpet"
 gem "simple_form"

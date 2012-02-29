@@ -1,21 +1,28 @@
+.container_24.headline
+  %hgroup.grid_18
+    %h1 Tuulivoimalat pelastavat maailman?
+    %h2 Tee siitä laki
+  .actions.grid_6
+    = link_to "Listaa kaikki", ideas_path, class: "button"
+    %a.button{href: "/todo"} Lisätietoa
 .container_24.top_drafts
-  %h2 Lakiluonnokset
-  - [["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]].each_with_index do |klasses, i|
+  %h2 Luonnokset
+  - [["grid_8", "popular", "alpha"], ["grid_8", "popular"], ["grid_8", "popular", "omega"]][0, [3, @recent_drafts.size].min].each_with_index do |klasses, i|
     %div{:class => klasses}
       - if recent_draft = @recent_drafts[i]
-        .title=link_to shorten(recent_draft.summary, 100, 20, ">>"), idea_path(recent_draft)
-        %div{id: "draft_bar#{i}"}
+        %h3.title=link_to shorten(recent_draft.summary, 100, 20, "»"), idea_path(recent_draft)
+        %div{id: "draft_bar#{i}", class: "bar"}
         - for_portion, for_, against_portion, against_ = @draft_counts[recent_draft.id]
         - for_length = [35, (280-5-35)*for_portion].max
         :javascript
           var r = Raphael("draft_bar#{i}", 280, 20);
-          r.rect(  0, 0, #{for_length}, 20).attr({fill: "#6d6", stroke: "#fff", strokewidth: 5});
-          r.rect(#{for_length+5}, 0, #{280-5-for_length}, 20).attr({fill: "#944", stroke: "#fff", strokewidth: 5});
+          r.rect(  0, 0, #{for_length}, 20).attr({fill: "#8cc63f", stroke: "#fff", strokewidth: 5});
+          r.rect(#{for_length+5}, 0, #{280-5-for_length}, 20).attr({fill: "#a9003f", stroke: "#fff", strokewidth: 5});
           r.text( 18,11, "#{for_}").attr({fill: "#fff", "font-size": 12});
           r.text(261,11, "#{against_}").attr({fill: "#fff", "font-size": 12});
 
 .grid_16.top_ideas.alpha
-  %h2 Ajankohtaiset aloitteet
+  %h2 Ajankohtaiset
   - @recent_ideas.each do |idea|
     .idea
       .author
@@ -33,3 +40,13 @@
       =link_to article.author.profile.name, article_path(article)
       #{finnishTime(article.updated_at)}
     .content=link_to shorten(article.title, 100, 20, ">>"), article_path(article)
+.grid_8.newsletter.omega
+  %h2 Tilaa uutiskirje
+
+  %div{:id => "mc_embed_signup"}
+    %form{ :action => "http://avoinministerio.us4.list-manage.com/subscribe/post?u=639187372f3d5221161f16dba&id=13448f1e4e", :method => "post", :id => "mc-embedded-subscribe-form", :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank"}
+      %label{:for => "mce-EMAIL"} Pysy ajan tasalla Avoimen ministeriön toiminnasta tilaamalla uutiskirjeemme.
+      %br
+      %input{:type => "email", :name => "EMAIL", :class => "email", :id => "mce-EMAIL", :placeholder => "Sähköpostiosoitteesi", :required => true}
+      %br
+      %input{:type => "submit", :value => "Tilaa", :name => "subscribe", :id => "mc-embedded-subscribe", :class => "button"}

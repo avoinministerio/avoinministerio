@@ -7,12 +7,35 @@ AvoinMinisterio::Application.routes.draw do
 
   devise_for :citizens, :controllers => { :omniauth_callbacks => "citizens/omniauth_callbacks" }
   
-  localized do
+  resources :ideas do
+    resources :comments
+  end
+  resources :articles
+
+  devise_for :administrators
+  
+  namespace :admin do
     resources :ideas do
-      resources :comments
+      get "publish",    on: :member
+      get "unpublish",  on: :member
+      get "moderate",   on: :member
+      resources :comments do
+        get "publish",    on: :member
+        get "unpublish",  on: :member
+        get "moderate",   on: :member
+      end
     end
-    resources :articles
+    resources :comments do
+      get "publish",    on: :member
+      get "unpublish",  on: :member
+      get "moderate",   on: :member
+    end
+    resources :citizens
+    
+    root to: "admin/ideas#index"
   end
 
   root to: "pages#home"
 end
+
+ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :no_prefixes => true })

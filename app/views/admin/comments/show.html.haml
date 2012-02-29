@@ -1,0 +1,23 @@
+.row-fluid
+  .span12
+    %h3
+      KOMMENTTI
+      = link_to ":: #{@comment.commentable.title}", [:admin, @comment.commentable]
+
+    .btn-group
+      - if !@comment.published?
+        = link_to "Julkaise", [:publish, :admin, @comment.commentable, @comment], class: "btn btn-success"
+        - if !@comment.in_moderation?
+          = link_to "Moderoi", [:moderate, :admin, @comment.commentable, @comment], class: "btn btn-inverse"
+      - if @comment.published?
+        = link_to "Piilota", [:unpublish, :admin, @comment.commentable, @comment], class: "btn btn-danger"
+        = link_to "Moderoi", [:moderate, :admin, @comment.commentable, @comment], class: "btn btn-inverse"
+    
+    .author.row-fluid
+      .span1
+        = image_tag(@comment.author.image)
+      .span3
+        = @comment.author.name
+    
+    .body
+      = markdown(@comment.body)

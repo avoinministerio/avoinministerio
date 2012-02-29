@@ -9,6 +9,11 @@
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
+  :javascript
+    if (window.location.hash == '#_=_') {
+      if (console && 'function' == typeof console.warn) console.warn("Remove this ugly Facebook auth hax when https://developers.facebook.com/bugs/196125357123225 is fixed.");
+      window.location.href = window.location.toString().split("#")[0];
+    }
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
@@ -17,35 +22,47 @@
     .container_24.top_row
   %header.container_24
     = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
-    - if citizen_signed_in?
-      .grid_6.top_row
-        %img{ src: current_citizen.image, width: 32, height: 32}
-        #{current_citizen.name} 
-        = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
-    - else
-      .grid_3.top_row
-        = link_to "Rekisteröidy", new_citizen_registration_path
-      .grid_3.top_row
-        = link_to "Kirjaudu", new_citizen_session_path
-    .grid_6.top_row
-      - if !citizen_signed_in?
-        = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
-    .grid_6.bottom_row
-    .grid_3.bottom_row
-      = link_to "Aloitteet", ideas_path
-    .grid_3.bottom_row
-      = link_to "Tee aloite", new_idea_path
+    .login_actions.top_row
+      - if citizen_signed_in?
+        .grid_6
+          #{current_citizen.name}
+          = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
+      - else
+        .grid_3
+          = link_to "Rekisteröidy", new_citizen_registration_path
+        .grid_3
+          = link_to "Kirjaudu", new_citizen_session_path
+      .grid_6
+        - if !citizen_signed_in?
+          = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
+    .idea_actions.bottom_row
+      .grid_6
+        &nbsp;
+      .grid_3
+        = link_to "Listaa kaikki", ideas_path
+      .grid_3
+        = link_to "Anna idea", new_idea_path
   .container.container_24
     %section
       = yield
   #footer_container
     %footer.container_24
       %a.grid_4{ src: "/foo" } Asiantuntijoille ja juristeille
-      %a.grid_4{ src: "/bar" } Footer text
+      %a.grid_4{ src: "/bar" } Käyttöehdot
       %a.grid_4{ src: "/baz" } Footer text
       %a.grid_4{ src: "/foo" } Footer text
       %a.grid_4{ src: "/bar" } Footer text
-      %a.grid_4{ src: "/baz" } Footer text
+
+      %footer.grid_4
+        %div{:class => "addthis_toolbox addthis_default_style"}
+          %a{:class => "addthis_button_preferred_1"}
+          %a{:class => "addthis_button_preferred_2"}
+          %a{:class => "addthis_button_preferred_3"}
+          %a{:class => "addthis_button_preferred_4"}
+          %a{:class => "addthis_button_compact"}
+          %a{:class => "addthis_counter addthis_bubble_style"}
+
+  %script{:type => "text/javascript", :src => "http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f4e6d6b380c6e19"}
 
   = render :partial => 'shared/ga' if Rails.env == 'production'
 

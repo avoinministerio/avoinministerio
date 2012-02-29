@@ -47,6 +47,17 @@
 
     - if @idea.author == current_citizen
       = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)
+
+  .grid_7.prefix_1.omega
+    .share
+      %div{:class => "addthis_toolbox addthis_default_style"}
+        %a{:class => "addthis_button_preferred_1"}
+        %a{:class => "addthis_button_preferred_2"}
+        %a{:class => "addthis_button_preferred_3"}
+        %a{:class => "addthis_button_preferred_4"}
+        %a{:class => "addthis_button_compact"}
+        %a{:class => "addthis_counter addthis_bubble_style"}
+
   .grid_7.prefix_1.omega
     .voting.sans_serif
       - if @idea.voted_by?(current_citizen)
