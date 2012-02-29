@@ -1,0 +1,26 @@
+.span12
+  %h3 IDEA
+  %h1= @idea.title
+  
+  %ul.actions
+    %li= link_to "Julkaise", [:publish, :admin, @idea], class: "btn btn-success"
+  
+  %ul.stats
+    %li
+      Äänet: 
+      = @idea.votes.count
+    %li
+      Puolesta:
+      = @idea.votes.in_favor.count
+    %li
+      Vastaan:
+      = @idea.votes.against.count
+    %li
+      Kommentit
+      = @idea.comments.count
+  
+  .summary
+    = @idea.summary
+  
+  .body
+    = @idea.body
