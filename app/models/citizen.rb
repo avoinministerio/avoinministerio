@@ -36,7 +36,6 @@ class Citizen < ActiveRecord::Base
                       profile: Profile.new(first_name: info[:first_name], 
                                            last_name: info[:last_name],
                                            image: auth_hash[:info][:image])
-                                           
     c.authentication = Authentication.new provider: auth_hash[:provider],
                                           uid: auth_hash[:uid],
                                           citizen: c,
@@ -52,6 +51,4 @@ class Citizen < ActiveRecord::Base
   after_initialize do |citizen|
     citizen.build_profile unless citizen.profile
   end
-  
-    
 end
