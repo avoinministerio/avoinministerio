@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120217162249) do
+ActiveRecord::Schema.define(:version => 20120226181658) do
+
+  create_table "authentications", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.text     "info"
+    t.text     "credentials"
+    t.text     "extra"
+    t.integer  "citizen_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authentications", ["citizen_id"], :name => "index_authentications_on_citizen_id"
+  add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid", :unique => true
 
   create_table "citizens", :force => true do |t|
     t.string   "email"
