@@ -17,4 +17,8 @@ class Idea < ActiveRecord::Base
   def voted_by?(citizen)
     votes.by(citizen).exists?
   end
+
+  def vote_counts
+    votes.group(:option).count
+  end
 end
