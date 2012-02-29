@@ -1,0 +1,6 @@
+.row-fluid
+  .span12
+    %h1 Kommentit
+    %ul.ideas
+      = list_of @comments do |comment|
+        = link_to truncate(comment.body, length: 100), [:admin, comment]
