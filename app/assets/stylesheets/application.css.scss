@@ -9,50 +9,43 @@ $turquoise: #29abe2;
 $violet: #473161;
 
 body > header {
-    height: 150px;
+  height: 150px;
 }
 
 body > header.top_row_container {
-    height: 0;
-    z-index: -1;
-    border: 0 none;
-}
-
-body > header.top_row_container > .container_24 {
+  height: 0;
+  z-index: -1;
+  border: 0 none;
 }
 
 body > header, body > header.top_row_container > .container_24 {
-    border-width: 6px;
-    -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    border-top: 0 none;
-    border-left: 0 none;
-    border-right: 0 none;
+  border-width: 6px;
+  -moz-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  -webkit-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  border-top: 0 none;
+  border-left: 0 none;
+  border-right: 0 none;
+}
+
+header .login_actions a, header .idea_actions a {
+  color: $turquoise;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 body > header > .top_row {
-    height: 35px;
-    margin-top: 15px;
+  height: 35px;
+  margin-top: 15px;
 }
 
 body > header > .top_row > a {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 body > header > .bottom_row {
-    height: 60px;
-    margin-top: 40px;
-}
-
-body > header > .top_row, body > header > .bottom_row {
-}
-
-body > header > .top_row > a, body > header > .bottom_row > a {
-}
-
-.sans_serif {
-  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+  height: 60px;
+  margin-top: 40px;
 }
 
 #footer_container {
@@ -66,10 +59,6 @@ body > header > .top_row > a, body > header > .bottom_row > a {
 
 footer > a {
   color: $turquoise;
-  text-transform: uppercase;
-  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
-  font-weight: bold;
-  font-size: 11px;
 }
 
 .inputs > .input > input {
@@ -86,18 +75,50 @@ footer > a {
 
 .input > input[type=email], .input > input[type=text], .input > input[type=password] {
   border: 2px #e6e6e6 solid;
-  font-size: 1.6em;
 }
 
-.actions > input {
+.actions > input[type=submit] {
   float: right;
+}
+
+input[type=submit], a.button {
+  border: none;
+  padding: 0.8em 2em;
 }
 
 input[type=submit] {
   background-color: $violet;
-  border: none;
-  padding: 0.8em 2em;
   color: #fff;
-  text-transform: uppercase;
-  font-weight: bold;
+}
+
+a.button {
+  color: $violet;
+  background-color: #fff;
+}
+
+.headline {
+  background-color: $violet;
+  margin-top: 0.2em;
+  height: 200px;
+}
+
+.headline > hgroup, .headline > .actions {
+  margin: 80px 0 0;
+}
+
+.headline > hgroup > h1, .headline > hgroup > h2 {
+  color: #fff;
+  margin: 0 0 0 20px;
+  padding: 0;
+}
+
+.headline > .actions > a.button {
+  float: right;
+}
+
+.headline a.button {
+  width: 120px;
+  text-align: center;
+  margin: 0 20px 20px 0;
+  display: block;
 }
