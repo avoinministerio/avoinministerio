@@ -19,7 +19,8 @@ class Citizen < ActiveRecord::Base
   [
     :first_name,
     :last_name,
-    :name
+    :name,
+    :image
   ].each { |attribute| delegate attribute, to: :profile }
 
   def self.find_for_facebook_auth(auth_hash)
@@ -32,7 +33,7 @@ class Citizen < ActiveRecord::Base
     c = Citizen.where(email: info[:email]).first
     c ||= Citizen.new email: info[:email],
                       password: Devise.friendly_token[0,20],
-                      profile: Profile.new(first_name: info[:first_name], last_name: info[:last_name])
+                      profile: Profile.new(first_name: info[:first_name], last_name: info[:last_name], image: info[:image])
     c.authentication = Authentication.new provider: auth_hash[:provider],
                                           uid: auth_hash[:uid],
                                           citizen: c,
@@ -48,6 +49,4 @@ class Citizen < ActiveRecord::Base
   after_initialize do |citizen|
     citizen.build_profile unless citizen.profile
   end
-  
-    
 end
