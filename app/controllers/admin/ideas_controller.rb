@@ -13,12 +13,17 @@ class Admin::IdeasController < Admin::AdminController
   
   def publish
     @idea.publish!
-    respond_with @idea
+    redirect_to [:admin, @idea]
   end
   
   def unpublish
     @idea.unpublish!
-    respond_with @idea
+    redirect_to [:admin, @idea]
+  end
+  
+  def moderate
+    @idea.moderate!
+    redirect_to [:admin, @idea]
   end
   
   private
