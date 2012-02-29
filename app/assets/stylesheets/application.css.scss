@@ -81,9 +81,44 @@ footer > a {
   float: right;
 }
 
-input[type=submit] {
-  background-color: $violet;
+input[type=submit], a.button {
   border: none;
   padding: 0.8em 2em;
+}
+
+input[type=submit] {
+  background-color: $violet;
   color: #fff;
+}
+
+a.button {
+  color: $violet;
+  background-color: #fff;
+}
+
+.headline {
+  background-color: $violet;
+  margin-top: 0.2em;
+  height: 200px;
+}
+
+.headline > hgroup, .headline > .actions {
+  margin: 80px 0 0;
+}
+
+.headline > hgroup > h1, .headline > hgroup > h2 {
+  color: #fff;
+  margin: 0 0 0 20px;
+  padding: 0;
+}
+
+.headline > .actions > a.button {
+  float: right;
+}
+
+.headline a.button {
+  width: 120px;
+  text-align: center;
+  margin: 0 20px 20px 0;
+  display: block;
 }
