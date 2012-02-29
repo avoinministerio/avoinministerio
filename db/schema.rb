@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229101345) do
+ActiveRecord::Schema.define(:version => 20120229113917) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -78,10 +78,12 @@ ActiveRecord::Schema.define(:version => 20120229101345) do
     t.string   "commentable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "publish_state",    :default => "published"
   end
 
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+  add_index "comments", ["publish_state"], :name => "index_comments_on_publish_state"
 
   create_table "ideas", :force => true do |t|
     t.string   "title"
@@ -91,9 +93,11 @@ ActiveRecord::Schema.define(:version => 20120229101345) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "summary"
+    t.string   "publish_state", :default => "published"
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
+  add_index "ideas", ["publish_state"], :name => "index_ideas_on_publish_state"
 
   create_table "profiles", :force => true do |t|
     t.integer  "citizen_id"
