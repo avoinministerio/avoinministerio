@@ -1,0 +1,32 @@
+.span12
+  %h3 IDEA
+  %h1= @idea.title
+  
+  %ul.actions
+    - if !@idea.published?
+      %li= link_to "Julkaise", [:publish, :admin, @idea], class: "btn btn-success"
+      - if !@idea.in_moderation?
+        %li= link_to "Aseta moderoitavaksi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+    - if @idea.published?
+      %li= link_to "Piilota", [:unpublish, :admin, @idea], class: "btn btn-danger"
+      %li= link_to "Aseta moderoitavaksi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+  
+  %ul.stats
+    %li
+      Äänet: 
+      = @idea.votes.count
+    %li
+      Puolesta:
+      = @idea.votes.in_favor.count
+    %li
+      Vastaan:
+      = @idea.votes.against.count
+    %li
+      Kommentit
+      = @idea.comments.count
+  
+  .summary
+    = @idea.summary
+  
+  .body
+    = @idea.body

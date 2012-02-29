@@ -1,0 +1,6 @@
+.span12
+  %h1 Ideat
+  %ul.ideas
+    = list_of @ideas do |idea|
+      = link_to idea.title, [:admin, idea]
+  
