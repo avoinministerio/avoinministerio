@@ -16,7 +16,10 @@ AvoinMinisterio::Application.routes.draw do
   devise_for :administrators
   
   namespace :admin do
-    resources :ideas
+    resources :ideas do
+      get "publish", on: :member
+      get "unpublish", on: :member
+    end
     resources :comments
     resources :citizens
     
