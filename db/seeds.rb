@@ -174,7 +174,7 @@ Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
       created_at:   field(f, "created_at"),
       updated_at:   field(f, "updated_at"),
       citizen:      Citizen.find(field(f, "author")),
-      idea:         Idea.find(field(f, "idea")),
+      idea:         (iid = field(f, "idea").chomp; iid == "" ? nil : Idea.find(iid)),
       title:        field(f, "title"),
       ingress:      field(f, "ingress") && read_till(f),
       body:         field(f, "body") && read_till(f),
