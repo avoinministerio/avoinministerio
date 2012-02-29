@@ -161,14 +161,14 @@ ul.horizontal li {
 }
 
 .help_cont {
-  margin-top: 30px;
+  margin-top: 15px;
   display: none; 
-  padding-top: 60px;
-  background-image:url("/assets/ohje_nuoli.png");
-  background-repeat: no-repeat;
 }
 
-#title_help, #summary_help, #body_help { 
+#title_help, #summary_help, #body_help {
+  padding-top: 60px;
+  background-image:url("/assets/ohje_nuoli.png");
+  background-repeat: no-repeat; 
   position: absolute;
   left: 640px; 
 }
