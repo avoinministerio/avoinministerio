@@ -42,4 +42,10 @@ FactoryGirl.define do
     state     "idea"
     association :author, factory: :citizen
   end
+  
+  factory :comment do
+    body      "Tongue pancetta ball tip, t-bone short loin shankle short ribs ribeye. Salami turducken pork, venison jowl fatback pork loin pancetta hamburger."
+    # association :author, factory: :citizen
+    # association :idea, factory: :idea
+  end
 end

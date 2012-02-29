@@ -1,6 +1,28 @@
 .row-fluid
   .span12
     %h1 Kommentit
-    %ul.ideas
-      = list_of @comments do |comment|
-        = link_to truncate(comment.body, length: 100), [:admin, comment]
+    %table.table.table-striped
+      %tbody
+        - @comments.each do |comment|
+          %tr
+            %td
+              %h2
+                \#
+                = @comments.index(comment) + 1
+            %td
+              .row-fluid
+                = link_to truncate(comment.body, length: 500), [:admin, comment]
+              .row-fluid
+                .span1
+                  = image_tag(comment.author.image)
+                .span3
+                  = comment.author.name
+            %td
+              .btn-group{ style: "float: right"}
+                - if !comment.published?
+                  = link_to "Julkaise", [:publish, :admin, comment], class: "btn btn-success"
+                  - if !comment.in_moderation?
+                    = link_to "Moderoi", [:moderate, :admin, comment], class: "btn btn-inverse"
+                - if comment.published?
+                  = link_to "Piilota", [:unpublish, :admin, comment], class: "btn btn-danger"
+                  = link_to "Moderoi", [:moderate, :admin, comment], class: "btn btn-inverse"
