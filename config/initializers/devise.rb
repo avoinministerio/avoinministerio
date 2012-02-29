@@ -199,7 +199,10 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   require "omniauth-facebook"
-  config.omniauth :facebook, "335755509797497", "bcb1a32fffff77041552bd0f4eccf322", 
+  # the default tokens are for local development
+  app_id = ENV["FACEBOOK_APP_ID"] || "335755509797497"
+  app_secret = ENV["FACEBOOK_APP_SECRET"] || "bcb1a32fffff77041552bd0f4eccf322"
+  config.omniauth :facebook, app_id, app_secret,
     { :client_options => { :ssl => { :ca_file => "#{Rails.root}/config/ca-bundle.crt" } } }
 
   # ==> Warden configuration
