@@ -16,7 +16,7 @@ class IdeasController < ApplicationController
     @idea_vote_for_count      = @idea.votes.in_favor.count
     @idea_vote_against_count  = @idea.votes.against.count
     
-    @colors = ["#4a4", "#a44"]
+    @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
     
     respond_with @idea
