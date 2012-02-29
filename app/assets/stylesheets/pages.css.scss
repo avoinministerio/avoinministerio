@@ -35,3 +35,42 @@ $main-color: #473161;
 .newsletter {
   background: #eeeeee;
 }
+
+.author a{
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
+}
+
+.author a:hover {
+  text-decoration: underline;
+}
+.author a:link {
+  text-decoration: none;
+}
+.author a:visited {
+  text-decoration: none;
+}
+
+.idea .title a {
+  font-size: 16px;
+}
+.title a:hover {
+  text-decoration: underline;
+}
+.title a:link {
+  text-decoration: none;
+}
+.title a:visited {
+  text-decoration: none;
+}
+
+.vote .for {
+  color: #8CC63F;
+  font-weight: bold;
+}
+
+.vote .against {
+  color: #A9003F;
+  font-weight: bold;
+}
