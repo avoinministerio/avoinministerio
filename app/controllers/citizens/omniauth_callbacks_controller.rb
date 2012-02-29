@@ -2,7 +2,6 @@ class Citizens::OmniauthCallbacksController < Devise::OmniauthCallbacksControlle
   def facebook
     omniauth = request.env["omniauth.auth"]
     
-    #TODO Handle current_user situation
     @citizen = Citizen.find_for_facebook_oauth(omniauth)
 
     if @citizen.persisted?
