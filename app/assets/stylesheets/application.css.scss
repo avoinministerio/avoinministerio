@@ -101,3 +101,38 @@ input[type=submit] {
   text-transform: uppercase;
   font-weight: bold;
 }
+
+.top_drafts > h2 {
+  margin-bottom: 0;
+}
+
+.top_drafts > .popular {
+  margin: 10px auto 0;
+  height: 160px;
+  border-width: 3px;
+  -moz-border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
+  -webkit-border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
+  border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
+  border-top: 0 none;
+  border-left: 0 none;
+  border-bottom: 0 none;
+}
+
+.top_drafts > .popular.omega {
+  border: none;
+}
+
+.top_drafts > .popular > h3 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.top_drafts > .popular > h3 > a {
+  text-decoration: none;
+  color: #000;
+}
+
+.top_drafts > .popular > .bar {
+  position: absolute;
+  bottom: 0;
+}
