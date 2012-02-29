@@ -11,6 +11,7 @@ group :assets do
 end
 
 gem "devise"
+gem "gravatar-ultimate"
 gem "haml-rails"
 gem "i18n_routing"
 gem "jquery-rails"
