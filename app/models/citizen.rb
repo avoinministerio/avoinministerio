@@ -18,18 +18,24 @@ class Citizen < ActiveRecord::Base
   [
     :first_name,
     :last_name,
-    :name
+    :name,
+    :image
   ].each { |attribute| delegate attribute, to: :profile }
   
   def self.find_for_facebook_oauth(access_token)
+    
     data = access_token.extra.raw_info
+    info = access_token.info
+    
     if user = Citizen.where(:email => data.email).first
       user
     else # Create a user with a stub password.
+      
       Citizen.create!(:email => data.email, 
                       :password => Devise.friendly_token[0,20],
-                      :profile => Profile.create!(:first_name => data.first_name,
-                                                  :last_name => data.last_name)) 
+                      :profile_attributes => {:first_name => data.first_name,
+                                              :last_name => data.last_name,
+                                              :image => info.image }) 
     end
   end
 
