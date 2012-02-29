@@ -32,6 +32,7 @@
       - for_, against, comments = @idea_counts[idea.id]
       .poll #{for_} #{against}
       .poll #{comments}
+  =link_to "Listaa kaikki", ideas_path
 
 .grid_8.news.omega
   %h2 Ministeriössä tapahtuu
