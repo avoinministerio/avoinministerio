@@ -23,6 +23,10 @@ class Citizen < ActiveRecord::Base
     :image
   ].each { |attribute| delegate attribute, to: :profile }
 
+  def image
+    profile.image || Gravatar.new(email).image_url
+  end
+
   def self.find_for_facebook_auth(auth_hash)
     auth = Authentication.where(provider: auth_hash[:provider], uid: auth_hash[:uid]).first
     auth && auth.citizen || nil

@@ -1,10 +1,10 @@
 class PagesController < ApplicationController
   def home
-  	@recent_drafts = Idea.order("updated_at DESC").limit(3).find_all_by_state('lakiluonnos')
+    @recent_drafts = Idea.where(state: 'lakiluonnos').order("updated_at DESC").limit(3).includes(:votes).all
   	@draft_counts = {}
   	@recent_drafts.map do |idea|
-	    for_count      = Vote.count(:conditions => "idea_id = #{idea.id} AND option = 1")
-	    against_count  = Vote.count(:conditions => "idea_id = #{idea.id} AND option = 0")
+      for_count      = idea.vote_counts[1] || 0
+      against_count  = idea.vote_counts[0] || 0
 	    comment_count  = idea.comments.count()
 	    total = for_count + against_count
 	    for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
@@ -14,11 +14,11 @@ class PagesController < ApplicationController
 	    @draft_counts[idea.id] = [for_portion, for_, against_portion, against_]
   	end
 
-  	@recent_ideas = Idea.order("updated_at DESC").limit(4).find_all_by_state('idea')
+    @recent_ideas = Idea.where(state: 'idea').order("updated_at DESC").limit(4).includes(:votes).all
   	@idea_counts = {}
   	@recent_ideas.map do |idea|
-	    for_count      = Vote.count(:conditions => "idea_id = #{idea.id} AND option = 1")
-	    against_count  = Vote.count(:conditions => "idea_id = #{idea.id} AND option = 0")
+      for_count      = idea.vote_counts[1] || 0
+      against_count  = idea.vote_counts[0] || 0
 	    comment_count  = idea.comments.count()
 	    total = for_count + against_count
 	    if total == 0
