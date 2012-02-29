@@ -13,6 +13,15 @@
 
 ActiveRecord::Schema.define(:version => 20120229101345) do
 
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "ingress"
+    t.text     "body"
+    t.string   "article_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "authentications", :force => true do |t|
     t.string   "provider"
     t.string   "uid"
