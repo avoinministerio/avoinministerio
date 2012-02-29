@@ -17,22 +17,29 @@ AvoinMinisterio::Application.routes.draw do
   devise_for :administrators
   
   namespace :admin do
-    resources :ideas do
-      get "publish",    on: :member
-      get "unpublish",  on: :member
-      get "moderate",   on: :member
-      resources :comments do
-        get "publish",    on: :member
-        get "unpublish",  on: :member
-        get "moderate",   on: :member
-      end
-    end
+    resources :articles
+    resources :citizens
     resources :comments do
       get "publish",    on: :member
       get "unpublish",  on: :member
       get "moderate",   on: :member
     end
-    resources :citizens
+    resources :ideas do
+      resources :articles do
+        get "publish",    on: :member
+        get "unpublish",  on: :member
+        get "moderate",   on: :member        
+      end
+      resources :comments do
+        get "publish",    on: :member
+        get "unpublish",  on: :member
+        get "moderate",   on: :member
+      end
+      
+      get "publish",    on: :member
+      get "unpublish",  on: :member
+      get "moderate",   on: :member
+    end
     
     root to: "admin/ideas#index"
   end

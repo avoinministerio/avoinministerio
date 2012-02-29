@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229113917) do
+ActiveRecord::Schema.define(:version => 20120229155944) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20120229113917) do
     t.integer  "citizen_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "publish_state", :default => "unpublished"
   end
 
   create_table "authentications", :force => true do |t|
