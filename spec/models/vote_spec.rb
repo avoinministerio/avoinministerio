@@ -4,7 +4,7 @@ describe Vote do
   let(:idea)    { Factory(:idea) }
   let(:citizen) { Factory(:citizen) }
   
-  describe ".by(citizen)" do
+  describe ".by" do
     before do
       5.times { Vote.create(option: 1, idea: idea) }
       Vote.create(option: 1, citizen: citizen, idea: idea)
@@ -20,7 +20,8 @@ describe Vote do
 
     it "returns votes for a specific idea by citizen" do
       @scope = idea.votes
-      subject.size.should == 1
+      subject.count.should == 1
+      subject.first.citizen == citizen
     end
   end
   
@@ -33,7 +34,7 @@ describe Vote do
     subject { Vote.in_favor }
     
     it "returns votes in favor" do
-      subject.size.should == 5
+      subject.count.should == 5
     end
   end
   
@@ -46,7 +47,7 @@ describe Vote do
     subject { Vote.against }
     
     it "returns votes against" do
-      subject.size.should == 3
+      subject.count.should == 3
     end
   end
 end
