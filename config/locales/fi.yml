@@ -1,10 +1,14 @@
 fi:
   resources:
+    articles: "artikkelit"
     citizens: "kansalaiset"
+    comments: "kommentit"
     ideas: "ideat"
   activerecord:
     models:
+      article: "Artikkeli"
       citizen: "Kansalainen"
+      comment: "Kommentti"
       idea: "Idea"
       profile: "Profiili"
     attributes:
