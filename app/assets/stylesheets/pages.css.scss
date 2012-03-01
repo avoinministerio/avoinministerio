@@ -28,12 +28,10 @@ $main-color: #473161;
   border-bottom:  10px solid $main-color; 
 }
 
-.news {
+.news, .newsletter {
+  padding: 5px;
   background: #eeeeee;
-}
-
-.newsletter {
-  background: #eeeeee;
+  border-top: 3px solid #000000;
 }
 
 .author a{
@@ -102,4 +100,8 @@ $main-color: #473161;
   background-image:url('/assets/kommentit.png') no-repeat;
   background-position: -1 1.5em;
 
+}
+
+input#mce-EMAIL {
+  margin: 10px 0px;
 }
