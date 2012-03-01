@@ -103,8 +103,10 @@ ideas = Idea.find(:all).to_a
 # first idea has 0 votes
 ideas.shift  
 # next ideas have only one for and against
-Vote.create!({ idea: ideas.shift, citizen: voters[rand(voter_count)], option: 0 })
-Vote.create!({ idea: ideas.shift, citizen: voters[rand(voter_count)], option: 1 })
+Vote.create!({ idea: i = ideas.shift, citizen: voters[rand(voter_count)], option: o = 0 })
+  REDIS.incr "idea:#{i.id}:vote:#{o}"
+Vote.create!({ idea: i = ideas.shift, citizen: voters[rand(voter_count)], option: o = 1 })
+  REDIS.incr "idea:#{i.id}:vote:#{o}"
 
 class RandomGaussian
   def initialize(mean = 0.0, sd = 1.0, rng = lambda { Kernel.rand })
@@ -143,7 +145,47 @@ ideas.each do |idea|
 	vs.each do |v|
 #		t = Time.now - rand(secs_per_week*10)
 		t = Time.now - rd.rand()
-		Vote.create!({ idea: idea, citizen: v, option: rand(2), created_at: t, updated_at: t})
+		Vote.create!({ idea: idea, citizen: v, option: o = rand(2), created_at: t, updated_at: t})
+		REDIS.incr "idea:#{idea.id}:vote:#{o}"
+	end
+end
+
+# let's create some articles
+
+def read_till(f, breaker = /^---+/)
+	str = ""
+	while((l = f.gets) !~ breaker)
+		str.concat l
+	end
+	str
+end
+
+def field(f, name)
+	str = f.gets
+	if m = str.match(/^#{name}:/)
+		return m.post_match
+	else
+		raise "line #{str} does not match field name #{name}"
+	end
+end
+
+Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
+	next unless File.file?(name)
+	puts name
+	File.open(name) do |f|
+		article = {
+			article_type:   field(f, "article_type"),
+			created_at:     field(f, "created_at"),
+			updated_at:     field(f, "updated_at"),
+      citizen:        Citizen.find(field(f, "author")),
+      idea:           Idea.find(field(f, "idea")),
+			title:          field(f, "title"),
+			ingress:        field(f, "ingress") && read_till(f),
+			body:           field(f, "body") && read_till(f),
+		}
+
+		a = Article.find_or_create_by_created_at(article)
+		a.save!  # TODO: needed?
 	end
 end
 

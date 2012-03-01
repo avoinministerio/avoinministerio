@@ -8,6 +8,7 @@ class Idea < ActiveRecord::Base
   friendly_id :title, use: :slugged
 
   has_many :comments, as: :commentable
+  has_many :articles
   has_many :votes
   has_many :articles
 
@@ -18,9 +19,12 @@ class Idea < ActiveRecord::Base
   def vote(citizen, option)
     vote = votes.by(citizen).first
     if vote
+      REDIS.decr "idea:#{self.id}:vote:#{vote.option}"
       vote.update_attribute(:option, option) unless vote.option == option
+      REDIS.incr "idea:#{self.id}:vote:#{vote.option}"
     else
       votes.create(citizen: citizen, option: option)
+      REDIS.incr "idea:#{self.id}:vote:#{option}"
     end
   end
 
