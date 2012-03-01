@@ -1,6 +1,14 @@
-%h1 Ideat
-- @ideas.each do |idea|
-  %h2= link_to idea.title, idea
-  = markdown(idea.body)
+.ideas_header.container_24
+  %h1.grid_24 Ideat
+.ideas.container_24
+  - @ideas.each do |idea|
+    .idea.container_24
+      .info.grid_10
+        .date= finnishTime(idea.created_at)
+        %h2= link_to idea.title, idea
+      .content.grid_12
+        = markdown(idea.body)
+      .grid_10 &nbsp;
+      .grid_12.statistics
 .pagination
   = will_paginate @ideas
