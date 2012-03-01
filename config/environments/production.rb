@@ -43,7 +43,7 @@ AvoinMinisterio::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( vote-flow/impact-code.js )
+  config.assets.precompile += %w( vote-flow/impact-code.js admin/admin.css )
 
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=315360"
