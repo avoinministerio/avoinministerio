@@ -160,6 +160,13 @@ input[type=submit] {
   margin-top:40px;
 }
 
+.top_ideas > a.list_ideas {
+  margin-top: 10px;
+  margin-right: 20px;
+  float: right;
+  color: $turquoise;
+}
+
 .ideas_header {
   height: 100px;
   position: relative;
