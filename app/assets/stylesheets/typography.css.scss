@@ -52,18 +52,67 @@ input[type=submit], a.button {
 .ideas_header h1 {
   font-family: $serif;
 }
-.ideas > .idea > .info > .date {
-  font-weight: bold;
-}
 
-.ideas > .idea > .info > h2 {
-  font-size: 24px;
-  font-family: $serif;
-  text-transform: none;
-}
+.idea {
+  .info {
+    .type, .date {
+      text-transform: uppercase;
+    }
 
-.ideas > .idea > .info > h2 > a {
-  text-decoration: none;
+    .type {
+      font-weight: bold;
+    }
+
+    h3, h2 {
+      font-family: $serif;
+      font-weight: normal;
+      text-transform: none;
+
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  .statistics {
+    .total {
+      color: #404040;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .for {
+      color: #8CC63F;
+      font-weight: bold;
+    }
+
+    .against {
+      color: #A9003F;
+      font-weight: bold;
+    }
+
+    .comments {
+      min-width: 38px;
+      min-height: 28px;
+      padding-left: 20px;
+      background-image:url('/assets/kommentit.png') no-repeat;
+      background-position: -1 1.5em;
+
+    }
+  }
 }
 
 .ideas > .idea > .content {
