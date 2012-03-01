@@ -1,0 +1,9 @@
+.row-fluid
+  .span12
+    %h3
+      IDEA
+      = link_to ":: #{@parent.title}", [:admin, @parent] if @parent
+    %h1 Artikkelit
+    %ul.articles
+      = list_of @articles do |article|
+        = link_to article.title, [:admin, @parent, article]
