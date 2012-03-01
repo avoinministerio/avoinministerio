@@ -72,6 +72,7 @@ Yleisperustelut
     - eri kunnissa asuvat erilaisessa asemassa
 
 ### Esityksen vaikutukset
+
 1. Taloudelliset vaikutukset
     - Veron menetykset Hgille ja Treelle
 2. Vaikutukset koiranomistajille
@@ -208,15 +209,15 @@ EOS
 [
   {
     title: "Koiraverolain kumoaminen",
-    summary: "Koiraverolain kumoaminen alkaen vuoden 2013 alusta",
+    summary: "Koiraverolain kumoaminen",
     body: koiravero_body,    
-    state: "lakiluonnos", author_id: joonas.id 
+    state: "draft", author_id: joonas.id 
   },
   {
     title: "Opintorahan takaisinperinnän muuttaminen",
     summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
     body: opintotuki_body,    
-    state: "lakiluonnos", author_id: joonas.id 
+    state: "draft", author_id: joonas.id 
   },
   { title: "Kansanedustajien palkankorotus pannaan",
     summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
