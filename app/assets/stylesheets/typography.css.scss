@@ -44,11 +44,24 @@ input[type=submit], a.button {
   font-size: 20px;
   font-weight: normal;
   font-family: $serif;
+
+  a {
+    text-decoration: none;
+  }
 }
 
-.top_drafts > .popular > h3 > a {
-  text-decoration: none;
+.top_ideas {
+  a.list_ideas {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a.list_ideas:hover {
+    text-decoration: underline;
+  }
 }
+
 .ideas_header h1 {
   font-family: $serif;
 }
