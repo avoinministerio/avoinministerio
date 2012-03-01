@@ -11,6 +11,7 @@ group :assets do
 end
 
 gem "devise"
+gem "factory_girl_rails", "1.4.0", require: false
 gem "friendly_id"
 gem "gravatar-ultimate"
 gem "haml-rails"
@@ -41,10 +42,10 @@ end
 group :test do
   gem "capybara"
   gem "database_cleaner"
-  gem "factory_girl_rails", "1.4.0", :require => false
   gem "shoulda-matchers"
   gem "sqlite3"
-  gem "turn", "~> 0.8.3", :require => false
+  gem "turn", "~> 0.8.3", require: false
+  gem "simplecov", require: false
 end
 
 group :mac_test do
