@@ -1,0 +1,51 @@
+$sans_serif: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+$serif: "Georgia";
+
+body {
+  font-family: $sans_serif;
+}
+
+header .bottom_row a {
+  font-size: 1.1em;
+}
+
+footer > a {
+  text-transform: uppercase;
+  font-family: $sans_serif;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+input[type=submit], a.button {
+  font-family: $sans_serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.input > input[type=email], .input > input[type=text], .input > input[type=password] {
+  font-size: 1.6em;
+}
+
+.headline > hgroup > h1, .headline > hgroup > h2 {
+  font-family: $serif;
+}
+
+.headline > hgroup > h1 {
+  font-size: 20px;
+}
+
+.headline > hgroup > h2 {
+  font-size: 52px;
+  text-transform: uppercase;
+}
+
+.top_drafts > .popular > h3 {
+  font-size: 20px;
+  font-weight: normal;
+  font-family: $serif;
+}
+
+.top_drafts > .popular > h3 > a {
+  text-decoration: none;
+}

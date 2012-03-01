@@ -31,3 +31,75 @@ $main-color: #473161;
 .news {
   background: #eeeeee;
 }
+
+.newsletter {
+  background: #eeeeee;
+}
+
+.author a{
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
+}
+
+.author a:hover {
+  text-decoration: underline;
+}
+.author a:link {
+  text-decoration: none;
+}
+.author a:visited {
+  text-decoration: none;
+}
+
+.vote {
+  padding-bottom: 25px;
+}
+
+.idea span.sans_serif {
+  text-transform: uppercase;
+  font-weight: bold;  
+  color: #a0a0a0;
+}
+.idea span.time.sans_serif {
+  text-transform: uppercase;
+  font-weight: normal;  
+  color: #a0a0a0;
+}
+
+.idea .title a {
+  font-size: 16px;
+}
+.title a:hover {
+  text-decoration: underline;
+}
+.title a:link {
+  text-decoration: none;
+}
+.title a:visited {
+  text-decoration: none;
+}
+
+.vote .total {
+  color: #404040;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.vote .for {
+  color: #8CC63F;
+  font-weight: bold;
+}
+
+.vote .against {
+  color: #A9003F;
+  font-weight: bold;
+}
+
+.vote .comments {
+  min-width: 38px;
+  min-height: 28px;
+  padding-left: 20px;
+  background-image:url('/assets/kommentit.png') no-repeat;
+  background-position: -1 1.5em;
+
+}

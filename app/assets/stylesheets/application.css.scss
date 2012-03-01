@@ -3,53 +3,49 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree . 
+ *= require_directory . 
 */
+$turquoise: #29abe2;
+$violet: #473161;
+
 body > header {
-    height: 150px;
+  height: 150px;
 }
 
 body > header.top_row_container {
-    height: 0;
-    z-index: -1;
-    border: 0 none;
-}
-
-body > header.top_row_container > .container_24 {
+  height: 0;
+  z-index: -1;
+  border: 0 none;
 }
 
 body > header, body > header.top_row_container > .container_24 {
-    border-width: 6px;
-    -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    border-top: 0 none;
-    border-left: 0 none;
-    border-right: 0 none;
+  border-width: 6px;
+  -moz-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  -webkit-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  border-top: 0 none;
+  border-left: 0 none;
+  border-right: 0 none;
+}
+
+header .login_actions a, header .idea_actions a {
+  color: $turquoise;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 body > header > .top_row {
-    height: 35px;
-    margin-top: 15px;
+  height: 35px;
+  margin-top: 15px;
 }
 
 body > header > .top_row > a {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 body > header > .bottom_row {
-    height: 60px;
-    margin-top: 40px;
-}
-
-body > header > .top_row, body > header > .bottom_row {
-}
-
-body > header > .top_row > a, body > header > .bottom_row > a {
-}
-
-.sans_serif {
-  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+  height: 60px;
+  margin-top: 40px;
 }
 
 #footer_container {
@@ -58,17 +54,14 @@ body > header > .top_row > a, body > header > .bottom_row > a {
   height: 45px;
   padding-top: 25px;
   border-top: 10px #e5ebeb solid;
+  margin-top: 25px;
 }
 
 footer > a {
-  color: #29abe2;
-  text-transform: uppercase;
-  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
-  font-weight: bold;
-  font-size: 11px;
+  color: $turquoise;
 }
 
-.inputs > .input {
+.inputs > .input > input {
   width: 100%;
 }
 
@@ -80,20 +73,90 @@ footer > a {
   display: block;
 }
 
-.input > input[type=email], .input > input[type=text], .input > input[type=password] {
-  border: 2px #e6e6e6 solid;
-  font-size: 1.6em;
+.input.checkbox > label, .input.checkbox > input {
+  display: inline;
 }
 
-.actions > input {
+.input > input[type=email], .input > input[type=text], .input > input[type=password] {
+  border: 2px #e6e6e6 solid;
+}
+
+.actions > input[type=submit] {
   float: right;
 }
 
-input[type=submit] {
-  background-color: #473161;
+input[type=submit], a.button {
   border: none;
   padding: 0.8em 2em;
+}
+
+a.button {
+  color: $violet;
+  background-color: #fff;
+}
+
+.headline {
+  background-color: $violet;
+  margin-top: 0.2em;
+  height: 200px;
+}
+
+.headline > hgroup, .headline > .actions {
+  margin: 80px 0 0;
+}
+
+.headline > hgroup > h1, .headline > hgroup > h2 {
+  color: #fff;
+  margin: 0 0 0 20px;
+  padding: 0;
+}
+
+.headline > .actions > a.button {
+  float: right;
+}
+
+.headline a.button {
+  width: 120px;
+  text-align: center;
+  margin: 0 20px 20px 0;
+  display: block;
+}
+
+input[type=submit] {
+  background-color: $violet;
   color: #fff;
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.top_drafts > h2 {
+  margin-bottom: 0;
+}
+
+.top_drafts > .popular {
+  margin: 10px auto 0;
+  height: 160px;
+  border-width: 3px;
+  -moz-border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
+  -webkit-border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
+  border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
+  border-top: 0 none;
+  border-left: 0 none;
+  border-bottom: 0 none;
+}
+
+.top_drafts > .popular.omega {
+  border: none;
+}
+
+.top_drafts > .popular > h3 {
+  height: 120px;
+}
+
+.top_drafts > .popular > h3 > a {
+  color: #000;
+}
+
+.top_ideas, .news {
+  margin-top:40px;
 }

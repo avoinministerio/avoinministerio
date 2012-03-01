@@ -35,7 +35,7 @@
 .grid_24
   = idea_state_image(@idea)
   .idea_author
-    %img{ src: "", width: 48, height: 48 }
+    %img{ src: @idea.author.image, width: 48, height: 48 }
     %span= @idea.author.name
 .idea.grid_24
   .grid_16.alpha
@@ -47,6 +47,17 @@
 
     - if @idea.author == current_citizen
       = link_to I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)
+
+  .grid_7.prefix_1.omega
+    .share
+      %div{:class => "addthis_toolbox addthis_default_style"}
+        %a{:class => "addthis_button_preferred_1"}
+        %a{:class => "addthis_button_preferred_2"}
+        %a{:class => "addthis_button_preferred_3"}
+        %a{:class => "addthis_button_preferred_4"}
+        %a{:class => "addthis_button_compact"}
+        %a{:class => "addthis_counter addthis_bubble_style"}
+
   .grid_7.prefix_1.omega
     .voting.sans_serif
       - if @idea.voted_by?(current_citizen)
@@ -72,7 +83,11 @@
             .grid_6.omega
               %span.sans_serif.name= article.citizen.name
               %span.sans_serif= finnishTime(article.created_at)
+<<<<<<< HEAD
               %span.sans_serif.title= shorten((article.title + "<br/>" + article.ingress), 100, 20, ">>").html_safe
+=======
+              %span.sans_serif.title= shorten((article.title + "<br/>" + article.ingress), 100, 20, "»").html_safe
+>>>>>>> front-idea-styling
   .clear
 .idea_comments
   %h2.grid_24 Kommentit

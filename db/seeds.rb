@@ -7,32 +7,70 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
+require 'factory_girl_rails'
+
+Administrator.find_or_create_by_email({
+  email: "admin@avoinministerio.fi",
+  password: "hallinta"
+})
+
 [
-	{ title: "Kansanedustajien palkankorotus pannaan", 
-	  summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.", 
-	  body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!", 
-	  state: "idea", author_id: 1},
-	
-	{ title: "Poistetaan perintöverotus", 
-	  summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!", 
-	  body: "Ankarin perintövero korvattakoon tasaverolla!", 
-	  state: "draft", author_id: 2},
-	
-	{ title: "Raiskauksille kunnon tuomiot", 
-	  summary: "Joku roti!", 
-	  body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
-	  state: "proposal", author_id: 3},
-	
-	{ title: "Kaikelle isommat tuomiot", 
-	  summary: "Joku roti!", 
-	  body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
-	  state: "law", author_id: 4},
-	
-	{ title: "Vielä isommat tuomiot", 
-	  summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!", 
-	  body: "Suuremmat rangaistukset olisivat linjakkaampia!", 
-	  state: "idea", author_id: 5},
-	
+  { email: "joonas@pekkanen.com",
+    password: "joonas1", password_confirmation: "joonas1", remember_me: true,
+    profile_attributes: {first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
+  
+  { email: "arttu.tervo@gmail.com",
+    password: "arttu1", password_confirmation: "arttu1", remember_me: true,
+    profile_attributes: {first_name: "Arttu", last_name: "Tervo", name: "Arttu Tervo"}, },
+  
+  { email: "aleksi.rossi@iki.fi",
+    password: "aleksi1", password_confirmation: "aleksi1", remember_me: true,
+    profile_attributes: {first_name: "Aleksi", last_name: "Rossi", name: "Aleksi Rossi"}, },
+  
+  { email: "hleinone@gmail.com",
+    password: "hannu1", password_confirmation: "hannu1", remember_me: true,
+    profile_attributes: {first_name: "Hannu", last_name: "Leinonen", name: "Hannu Leinonen"}, },
+  
+  { email: "juha.yrjola@iki.fi",
+    password: "juhay1", password_confirmation: "juhay1", remember_me: true,
+    profile_attributes: {first_name: "Juha", last_name: "Yrjölä", name: "Juha Yrjölä"}, },
+  
+  { email: "lauri@kiskolabs.com",
+    password: "lauri1", password_confirmation: "lauri1", remember_me: true,
+    profile_attributes: {first_name: "Lauri", last_name: "Jutila", name: "Lauri Jutila"}, },
+  
+  { email: "mikael.kopteff@gmail.com",
+    password: "mikael1", password_confirmation: "mikael1", remember_me: true,
+    profile_attributes: {first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
+].each { |citizen| Citizen.find_or_create_by_email(citizen) }
+
+def random_citizen_id
+  ids = Citizen.all.map(&:id)
+  ids[rand(ids.size)]
+end
+
+[
+  { title: "Kansanedustajien palkankorotus pannaan",
+    summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
+    body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
+    state: "idea", author_id: random_citizen_id},
+  { title: "Poistetaan perintöverotus",
+    summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
+    body: "Ankarin perintövero korvattakoon tasaverolla!",
+    state: "draft", author_id: random_citizen_id},
+  { title: "Raiskauksille kunnon tuomiot",
+    summary: "Joku roti!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state: "proposal", author_id: random_citizen_id},
+  { title: "Kaikelle isommat tuomiot",
+    summary: "Joku roti!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state: "law", author_id: random_citizen_id},
+  { title: "Vielä isommat tuomiot",
+    summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state: "idea", author_id: random_citizen_id},
 ].each { |idea| Idea.find_or_create_by_title(idea) }
 
 20.times do |i|
@@ -43,47 +81,20 @@
       state: "idea", 
       created_at: Time.now - (60*60*24),
       updated_at: Time.now - (60*60*24),
-      author_id: 6},
+      author_id: random_citizen_id},
   ])
 end
 
-[
-	{ email: "joonas@pekkanen.com", 
-	  password: "joonas1", password_confirmation: "joonas1", remember_me: true, 
-	  profile_attributes: {first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
-
-	{ email: "arttu.tervo@gmail.com", 
-	  password: "arttu1", password_confirmation: "arttu1", remember_me: true, 
-	  profile_attributes: {first_name: "Arttu", last_name: "Tervo", name: "Arttu Tervo"}, },
-
-	{ email: "aleksi.rossi@iki.fi", 
-	  password: "aleksi1", password_confirmation: "aleksi1", remember_me: true, 
-	  profile_attributes: {first_name: "Aleksi", last_name: "Rossi", name: "Aleksi Rossi"}, },
-
-	{ email: "hleinone@gmail.com", 
-	  password: "hannu1", password_confirmation: "hannu1", remember_me: true, 
-	  profile_attributes: {first_name: "Hannu", last_name: "Leinonen", name: "Hannu Leinonen"}, },
-
-	{ email: "juha.yrjola@iki.fi", 
-	  password: "juhay1", password_confirmation: "juhay1", remember_me: true, 
-	  profile_attributes: {first_name: "Juha", last_name: "Yrjölä", name: "Juha Yrjölä"}, },
-
-	{ email: "lauri@kiskolabs.com", 
-	  password: "lauri1", password_confirmation: "lauri1", remember_me: true, 
-	  profile_attributes: {first_name: "Lauri", last_name: "Jutila", name: "Lauri Jutila"}, },
-
-	{ email: "mikael.kopteff@gmail.com", 
-	  password: "mikael1", password_confirmation: "mikael1", remember_me: true, 
-	  profile_attributes: {first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
-
-].each { |citizen| Citizen.find_or_create_by_email(citizen) }
-
 voters = (0..100).map do |i|
-	Citizen.find_or_create_by_email({
-		email: "voter#{i}@voter.com", 
-	  	password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true, 
-	  	profile_attributes: {first_name: "Voter", last_name: "#{i}", name: "Voter #{i}"}, },		
-	)
+  Citizen.find_or_create_by_email(
+      email: "voter#{i}@voter.com",
+      password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true,
+      profile_attributes: {first_name: "Voter", last_name: "#{i}", name: "Voter #{i}"}
+    )
+end
+
+Idea.all.each do |idea|
+  rand(5).times { Factory(:comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count))) }
 end
 
 voter_count = voters.size
@@ -176,4 +187,41 @@ Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
 		a = Article.find_or_create_by_created_at(article)
 		a.save!  # TODO: needed?
 	end
+end
+
+# let's create some articles
+
+def read_till(f, breaker = /^---+/)
+	str = ""
+	while((l = f.gets) !~ breaker)
+		str.concat l
+	end
+	str
+end
+
+def field(f, name)
+	str = f.gets
+	if m = str.match(/^#{name}:/)
+		return m.post_match
+	else
+		raise "line #{str} does not match field name #{name}"
+	end
+end
+
+Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
+  next unless File.file?(name)
+  File.open(name) do |f|
+    article = {
+      article_type: field(f, "article_type"),
+      created_at:   field(f, "created_at"),
+      updated_at:   field(f, "updated_at"),
+      citizen:      Citizen.find(field(f, "author")),
+      idea:         (iid = field(f, "idea").chomp; iid == "" ? nil : Idea.find(iid)),
+      title:        field(f, "title"),
+      ingress:      field(f, "ingress") && read_till(f),
+      body:         field(f, "body") && read_till(f),
+    }
+    
+    Article.find_or_create_by_created_at(article)
+  end
 end
