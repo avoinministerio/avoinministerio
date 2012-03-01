@@ -14,6 +14,7 @@ AvoinMinisterio::Application.routes.draw do
 
   devise_for :administrators
   
+  match "/admin", to: "admin/ideas#index", as: :administrator_root
   namespace :admin do
     resources :ideas do
       get "publish",    on: :member
@@ -30,7 +31,10 @@ AvoinMinisterio::Application.routes.draw do
       get "unpublish",  on: :member
       get "moderate",   on: :member
     end
-    resources :citizens
+    resources :citizens do
+      get "lock",       on: :member
+      get "unlock",     on: :member
+    end
     
     root to: "admin/ideas#index"
   end

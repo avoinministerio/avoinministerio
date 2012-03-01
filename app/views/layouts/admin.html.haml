@@ -20,5 +20,6 @@
           %li= link_to "Ideat", admin_ideas_path
           %li= link_to "Kommentit", admin_comments_path
           %li= link_to "Kansalaiset", admin_citizens_path
+          %li= link_to "Kirjaudu ulos", destroy_administrator_session_path, method: :delete
   .container-fluid{ style: "padding-top: 50px" }
     = yield
