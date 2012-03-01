@@ -67,8 +67,38 @@ input[type=submit], a.button {
 }
 
 .idea {
+  font-family: $serif;
+  font-weight: normal;
+  text-transform: none;
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .author > .name {
+    font-size: 16px;
+  }
+
+  .summary {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+
+  .body > p {
+    font-size: 16px;
+  }
+
+  .body > p:first-child:first-letter {
+    font-size: 3em;
+  }
+
+  .body > p:first-child:first-line {
+    line-height: 1em;
+  }
+
   .info {
     .type, .date {
+      font-family: $sans_serif;
       text-transform: uppercase;
     }
 
@@ -101,30 +131,16 @@ input[type=submit], a.button {
   }
 
   .statistics {
-    .total {
-      color: #404040;
-      text-transform: uppercase;
+    font-family: $sans_serif;
+    text-transform: uppercase;
+
+    .total, .for, .against {
       font-weight: bold;
     }
+  }
 
-    .for {
-      color: #8CC63F;
-      font-weight: bold;
-    }
-
-    .against {
-      color: #A9003F;
-      font-weight: bold;
-    }
-
-    .comments {
-      min-width: 38px;
-      min-height: 28px;
-      padding-left: 20px;
-      background-image:url('/assets/kommentit.png') no-repeat;
-      background-position: -1 1.5em;
-
-    }
+  aside {
+    font-family: $sans_serif;
   }
 }
 
