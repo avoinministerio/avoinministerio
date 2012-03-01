@@ -2,6 +2,9 @@ class Idea < ActiveRecord::Base
   include PublishingStateMachine
   extend FriendlyId
 
+  MAX_FB_TITLE_LENGTH = 100
+  MAX_FB_DESCRIPTION_LENGTH = 500
+
   friendly_id :title, use: :slugged
 
   has_many :comments, as: :commentable
