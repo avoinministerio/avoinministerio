@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    @recent_drafts = Idea.where(state: 'lakiluonnos').order("updated_at DESC").limit(3).includes(:votes).all
+    @recent_drafts = Idea.where(state: 'draft').order("updated_at DESC").limit(3).includes(:votes).all
   	@draft_counts = {}
   	@recent_drafts.map do |idea|
       for_count      = idea.vote_counts[1] || 0
