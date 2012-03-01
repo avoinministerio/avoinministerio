@@ -18,7 +18,7 @@ body > header.top_row_container {
   border: 0 none;
 }
 
-body > header, body > header.top_row_container > .container_24 {
+body > header, body > header.top_row_container > .container_24, .ideas_header.container_24 {
   border-width: 6px;
   -moz-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   -webkit-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
@@ -137,9 +137,9 @@ input[type=submit] {
   margin: 10px auto 0;
   height: 160px;
   border-width: 3px;
-  -moz-border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
-  -webkit-border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
-  border-image:url("/assets/border-dotted.png") 0 3 0 0 repeat;
+  -moz-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
+  -webkit-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
+  border-image:url("/assets/border-dotted.png-vertical") 0 3 0 0 repeat;
   border-top: 0 none;
   border-left: 0 none;
   border-bottom: 0 none;
@@ -158,4 +158,40 @@ input[type=submit] {
 .top_drafts > .popular > h3 > a {
   text-decoration: none;
   color: #000;
+}
+
+.ideas_header {
+  height: 100px;
+  position: relative;
+}
+
+.ideas_header h1 {
+  bottom: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.ideas > .idea {
+  margin: 0;
+  height: 150px;
+  border-width: 2px;
+  -moz-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
+  -webkit-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
+  border-image:url("/assets/border-dotted.png-horizontal") 0 0 2 0 repeat;
+  border-top: 0 none;
+  border-left: 0 none;
+  border-right: 0 none;
+}
+
+.ideas > .idea > .info, .ideas > .idea > .content {
+  margin-top: 20px;
+  height: 80px;
+}
+
+.ideas > .idea > .info > h2 > a {
+  color: #000;
+}
+
+.ideas > .idea > .info > .date {
+  color: #bbb;
 }
