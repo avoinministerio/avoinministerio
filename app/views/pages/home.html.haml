@@ -22,16 +22,24 @@
           r.text(261,11, "#{against_}").attr({fill: "#fff", "font-size": 12});
 
 .grid_16.top_ideas.alpha
-  %h2 Ajankohtaiset
+  %h2 Ajankohtaiset ideat
   - @recent_ideas.each do |idea|
     .idea
-      .author
-        =link_to idea.author.profile.name, idea_path(idea)
-        #{finnishTime(idea.updated_at)}
-      .title=link_to shorten(idea.summary, 100, 20, "»"), idea_path(idea)
-      - for_, against, comments = @idea_counts[idea.id]
-      .poll #{for_} #{against}
-      .poll #{comments}
+      .grid_16.omega
+        %span.sans_serif
+          Idea/ 
+        %span.time.sans_serif
+          = finnishDate(idea.updated_at)
+      .grid_16.omega
+        .title=link_to shorten(idea.summary, 100, 20, "»"), idea_path(idea)
+        - for_, against, comments, total = @idea_counts[idea.id]
+        .vote
+          %span.total #{total} ääntä:&nbsp;
+          %span.for #{for_}
+          |
+          %span.against #{against}
+          %span.comments #{comments}
+
   =link_to "Listaa kaikki", ideas_path
 
 .grid_8.news.omega
