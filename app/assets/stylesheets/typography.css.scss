@@ -49,3 +49,24 @@ input[type=submit], a.button {
 .top_drafts > .popular > h3 > a {
   text-decoration: none;
 }
+.ideas_header h1 {
+  font-family: $serif;
+}
+.ideas > .idea > .info > .date {
+  font-weight: bold;
+}
+
+.ideas > .idea > .info > h2 {
+  font-size: 24px;
+  font-family: $serif;
+  text-transform: none;
+}
+
+.ideas > .idea > .info > h2 > a {
+  text-decoration: none;
+}
+
+.ideas > .idea > .content {
+  font-size: 16px;
+  font-family: $serif;
+}
