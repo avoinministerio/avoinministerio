@@ -5,6 +5,10 @@
   %meta{ :charset => "utf-8" }/
   %meta{ :content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible" }/
   %meta{ :content => "width=device-width, initial-scale=1", :name => "viewport" }/
+  - if @idea
+    = yield :facebook_metadata_for_idea
+  - else
+    = render 'shared/facebook_meta_tags'
   %title Avoin Ministeriö
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
