@@ -16,6 +16,8 @@ class Citizen < ActiveRecord::Base
   
   accepts_nested_attributes_for :profile
   
+  default_scope includes(:profile)
+  
   [
     :first_name,
     :last_name,
