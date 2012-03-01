@@ -18,6 +18,7 @@ $main-color: #473161;
     border-top: 0px none;
     border-left: 0px none;
     border-right: 0px none;
+    margin-bottom: 0;
   }
 }
 
@@ -48,58 +49,6 @@ $main-color: #473161;
 }
 .author a:visited {
   text-decoration: none;
-}
-
-.vote {
-  padding-bottom: 25px;
-}
-
-.idea span.sans_serif {
-  text-transform: uppercase;
-  font-weight: bold;  
-  color: #a0a0a0;
-}
-.idea span.time.sans_serif {
-  text-transform: uppercase;
-  font-weight: normal;  
-  color: #a0a0a0;
-}
-
-.idea .title a {
-  font-size: 16px;
-}
-.title a:hover {
-  text-decoration: underline;
-}
-.title a:link {
-  text-decoration: none;
-}
-.title a:visited {
-  text-decoration: none;
-}
-
-.vote .total {
-  color: #404040;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.vote .for {
-  color: #8CC63F;
-  font-weight: bold;
-}
-
-.vote .against {
-  color: #A9003F;
-  font-weight: bold;
-}
-
-.vote .comments {
-  min-width: 38px;
-  min-height: 28px;
-  padding-left: 20px;
-  background-image:url('/assets/kommentit.png') no-repeat;
-  background-position: -1 1.5em;
-
 }
 
 input#mce-EMAIL {

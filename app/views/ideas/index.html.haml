@@ -4,11 +4,13 @@
   - @ideas.each do |idea|
     .idea.container_24
       .info.grid_10
-        .date= finnishTime(idea.created_at)
+        %span.type
+          Idea/
+        %span.date
+          = finnishDate(idea.updated_at)
         %h2= link_to idea.title, idea
       .content.grid_12
         = markdown(shorten(idea.summary, 270, 230, "»"))
       .grid_10 &nbsp;
       .grid_12.statistics
-.pagination
-  = will_paginate @ideas
+= will_paginate @ideas
