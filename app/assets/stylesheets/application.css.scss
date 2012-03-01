@@ -134,7 +134,7 @@ input[type=submit] {
 }
 
 .top_drafts > .popular {
-  margin: 10px auto 0;
+  margin: 10px 7px 0 0;
   height: 160px;
   border-width: 3px;
   -moz-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
@@ -173,15 +173,7 @@ input[type=submit] {
 }
 
 .ideas > .idea {
-  margin: 0;
   height: 150px;
-  border-width: 2px;
-  -moz-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-  -webkit-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-  border-image:url("/assets/border-dotted.png-horizontal") 0 0 2 0 repeat;
-  border-top: 0 none;
-  border-left: 0 none;
-  border-right: 0 none;
 }
 
 .ideas > .idea > .info, .ideas > .idea > .content {
@@ -195,4 +187,19 @@ input[type=submit] {
 
 .ideas > .idea > .info > .date {
   color: #bbb;
+}
+
+.top_ideas > .idea {
+  height: 120px;
+}
+
+.ideas > .idea, .top_ideas > .idea {
+  margin: 0;
+  border-width: 2px;
+  -moz-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
+  -webkit-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
+  border-image:url("/assets/border-dotted.png-horizontal") 0 0 2 0 repeat;
+  border-top: 0 none;
+  border-left: 0 none;
+  border-right: 0 none;
 }
