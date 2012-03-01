@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20120229203252) do
     t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "locked_at"
   end
 
   add_index "citizens", ["email"], :name => "index_citizens_on_email", :unique => true
