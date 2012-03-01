@@ -1,0 +1,7 @@
+%meta{ property: "fb:app_id", content: ENV["FACEBOOK_APP_ID"] || "335755509797497" }
+%meta{ property: "og:url", content: request.env['url'] }
+%meta{ property: "og:title", content: @idea.title.truncate(Idea::MAX_FB_TITLE_LENGTH) }
+%meta{ property: "og:description", content: @idea.summary.truncate(Idea::MAX_FB_DESCRIPTION_LENGTH) }
+%meta{ property: "og:type", content: "article" }
+%meta{ property: "og:image", content: "#{request.protocol}#{request.host}/assets/avoinministerio.png" }
+%meta{ property: "og:site_name", content: "Avoin ministeriö" }
