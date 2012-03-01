@@ -10,7 +10,7 @@
           = finnishDate(idea.updated_at)
         %h2= link_to idea.title, idea
       .content.grid_12
-        = markdown(shorten(idea.summary, 270, 230, "»"))
+        = markdown(shorten(idea.summary, 230, 200, "»"))
       .grid_10 &nbsp;
       .grid_12.statistics
 = will_paginate @ideas
