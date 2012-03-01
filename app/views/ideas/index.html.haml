@@ -7,7 +7,7 @@
         .date= finnishTime(idea.created_at)
         %h2= link_to idea.title, idea
       .content.grid_12
-        = markdown(idea.summary)
+        = markdown(shorten(idea.summary, 270, 230, "»"))
       .grid_10 &nbsp;
       .grid_12.statistics
 .pagination
