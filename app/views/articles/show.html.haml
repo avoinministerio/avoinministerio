@@ -1,7 +1,7 @@
 .grid_24
   .idea_author
     %img{ src: "", width: 48, height: 48 }
-    %span= @article.citizen.name
+    %span= @article.author.name
 .idea.grid_24
   .grid_16.alpha
     %span.sans_serif= finnishTime(@article.created_at)
@@ -12,14 +12,5 @@
     .idea_body
       = markdown(@article.body) if @article.body
 
-    - if @article.citizen == current_citizen
+    - if @article.author == current_citizen
       = link_to I18n.t("articles.links.edit_article"), edit_article_path(@article)
-/.idea_comments
-/  %h2.grid_24 Kommentit
-/  .grid_24.comment_form
-/    = render "comments/form", model: @article
-/  .grid_16
-/    .comments
-/      - @article.comments && @article.comments.each do |comment|
-/        - unless comment.new_record?
-/          = render "comments/comment", comment: comment
