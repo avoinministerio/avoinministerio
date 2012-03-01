@@ -53,8 +53,6 @@ end
 joonas = Citizen.where(email: "joonas@pekkanen.com").first
 koiravero_body = <<EOS
 
-Laki on tarkoitettu tulemaan voimaan 1 päivänä tammikuuta 2013. 
-
 Yleisperustelut
 =========
 
@@ -106,8 +104,6 @@ Tämä laki tulee voimaan 1. päivänä tammikuuta 2013.
 EOS
 
 opintotuki_body = <<EOS
-
-Laki on tarkoitettu tulemaan voimaan 1 päivänä tammikuuta 2013. 
 
 Yleisperustelut
 ===============

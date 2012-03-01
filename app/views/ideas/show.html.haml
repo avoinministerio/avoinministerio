@@ -83,7 +83,7 @@
             .grid_2.alpha
               %img{ src: "", width: 50, height: 50 }
             .grid_6.omega
-              %span.sans_serif.name= article.citizen.name
+              %span.sans_serif.name= article.author.name
               %span.sans_serif= finnishTime(article.created_at)
               %span.sans_serif.title= shorten((article.title + "<br/>" + article.ingress), 100, 20, "»").html_safe
   .clear
