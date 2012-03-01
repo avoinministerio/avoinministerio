@@ -2,7 +2,8 @@
   .span12
     %h3
       ARTIKKELI
-      = link_to ":: #{@article.idea.title}", [:admin, @article.idea]
+      - if @article.idea
+        = link_to ":: #{@article.idea.title}", [:admin, @article.idea]
 
     .btn-group
       - if !@article.published?
