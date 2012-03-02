@@ -1,10 +1,11 @@
-.grid_2.alpha
-	%img{ src: comment.author.image, width: 50, height: 50 }
-.grid_14.omega
-	.grid_14
-		.grid_6.alpha
-			%span.sans_serif.name= comment.author.name
-		.grid_8.omega
-			%span.sans_serif= finnishTime(comment.created_at)
-	%span.sans_serif.title= markdown(comment.body)
-	
+.comment
+  .avatar.grid_2
+    %img{ src: comment.author.image, width: 50, height: 50 }
+  .info
+    .grid_6
+      %span.index
+      %span.name= comment.author.name
+    .grid_8
+      %span.separator= "|"
+      %span.datetime= finnishTime(comment.created_at)
+  .body.grid_14= markdown(comment.body)
