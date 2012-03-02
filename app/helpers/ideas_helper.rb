@@ -20,4 +20,8 @@ module IdeasHelper
       "Kyllä"
     end
   end
+  
+  def shortened_summary(summary)
+    shorten(Nokogiri::HTML(markdown(summary)).text, 230, 200, "»")
+  end
 end

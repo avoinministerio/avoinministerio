@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20120229203252) do
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.string   "state"
+    t.string   "state",         :default => "idea"
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
