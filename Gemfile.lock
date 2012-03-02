@@ -227,6 +227,7 @@ DEPENDENCIES
   i18n_routing
   jquery-rails
   newrelic_rpm
+  nokogiri
   omniauth-facebook
   pg
   rails (= 3.1.3)
