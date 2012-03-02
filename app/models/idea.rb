@@ -12,6 +12,10 @@ class Idea < ActiveRecord::Base
   has_many :articles
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
+  
+  validates :title,     presence: true
+  validates :body,      presence: true
+  validates :author_id, presence: true
 
   default_scope order("created_at DESC")
 
