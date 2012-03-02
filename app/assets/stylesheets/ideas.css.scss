@@ -132,13 +132,26 @@ h2 {
   text-transform: uppercase;
 }
 
-.idea_comments .comments span.name{
-  font-weight: bold;
-  color: #29abe2;
-  text-transform: uppercase;
+.idea_comments {
+  .comment {
+    .info {
+      .name{
+        font-weight: bold;
+        color: #29abe2;
+        text-transform: uppercase;
+        padding-right: 5px;
+      }
+
+      .separator {
+        color: #ccc;
+      }
+
+      .datetime {
+        padding-left: 10px;
+      }
+    }
+  }
 }
-
-
 
 ul.horizontal {
   list-style: none;
