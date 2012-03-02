@@ -38,7 +38,7 @@ class Citizen < ActiveRecord::Base
   end
   
   def lock!
-    update_attribute(:locked_at, Time.now)
+    update_attribute(:locked_at, Time.now.in_time_zone)
   end
   
   def unlock!

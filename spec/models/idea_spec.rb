@@ -5,6 +5,13 @@ describe Idea do
 
   let(:idea)    { Factory(:idea) }
   let(:citizen) { Factory(:citizen) }
+  
+  describe ".per_page" do
+    it "returns number of items per page" do
+      Idea.per_page.should be_a Fixnum
+      Idea.per_page.should > 0
+    end
+  end
     
   describe "#vote" do
     it "casts a vote on an idea" do
