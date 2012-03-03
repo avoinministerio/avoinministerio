@@ -44,26 +44,105 @@ input[type=submit], a.button {
   font-size: 20px;
   font-weight: normal;
   font-family: $serif;
+
+  a {
+    text-decoration: none;
+  }
 }
 
-.top_drafts > .popular > h3 > a {
-  text-decoration: none;
+.top_ideas {
+  a.list_ideas {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a.list_ideas:hover {
+    text-decoration: underline;
+  }
 }
+
 .ideas_header h1 {
   font-family: $serif;
 }
-.ideas > .idea > .info > .date {
-  font-weight: bold;
-}
 
-.ideas > .idea > .info > h2 {
-  font-size: 24px;
+.idea {
   font-family: $serif;
+  font-weight: normal;
   text-transform: none;
-}
 
-.ideas > .idea > .info > h2 > a {
-  text-decoration: none;
+  h1 {
+    font-size: 32px;
+  }
+
+  .author > .name {
+    font-family: $sans_serif;
+    font-size: 16px;
+  }
+
+  .summary {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+
+  .body > p {
+    font-size: 16px;
+  }
+
+  .body > p:first-child:first-letter {
+    font-size: 3em;
+  }
+
+  .body > p:first-child:first-line {
+    line-height: 1em;
+  }
+
+  .info {
+    .type, .date {
+      font-family: $sans_serif;
+      text-transform: uppercase;
+    }
+
+    .type {
+      font-weight: bold;
+    }
+
+    h3, h2 {
+      font-family: $serif;
+      font-weight: normal;
+      text-transform: none;
+
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  .statistics {
+    font-family: $sans_serif;
+    text-transform: uppercase;
+
+    .total, .for, .against {
+      font-weight: bold;
+    }
+  }
+
+  aside {
+    font-family: $sans_serif;
+  }
 }
 
 .ideas > .idea > .content {

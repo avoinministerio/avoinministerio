@@ -36,15 +36,15 @@
   });
 .grid_24
   = idea_state_image(@idea)
-  .idea_author
-    %img{ src: @idea.author.image, width: 48, height: 48 }
-    %span= @idea.author.name
 .idea.grid_24
+  .author
+    %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
+    %span.name= @idea.author.name
   .grid_16.alpha
     %h1= @idea.title
-    .idea_summary
+    .summary
       = markdown(@idea.summary) if @idea.summary
-    .idea_body
+    .body
       = markdown(@idea.body) if @idea.body
 
     - if @idea.author == current_citizen
@@ -60,8 +60,8 @@
         %a{:class => "addthis_button_compact"}
         %a{:class => "addthis_counter addthis_bubble_style"}
 
-  .grid_7.prefix_1.omega
-    .voting.sans_serif
+  %aside.grid_7.prefix_1.omega
+    .voting
       - if @idea.voted_by?(current_citizen)
         %h3
           Äänestit #{vote_in_words(@idea, current_citizen)},
@@ -91,8 +91,7 @@
   %h2.grid_24 Kommentit
   .grid_24.comment_form
     = render "comments/form", model: @idea
-  .grid_16
-    .comments
-      - @idea.comments && @idea.comments.each do |comment|
-        - unless comment.new_record?
-          = render "comments/comment", comment: comment
+  .comments.suffix_8
+    - @idea.comments && @idea.comments.each do |comment|
+      - unless comment.new_record?
+        = render "comments/comment", comment: comment

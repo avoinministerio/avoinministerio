@@ -25,22 +25,21 @@
   %h2 Ajankohtaiset ideat
   - @recent_ideas.each do |idea|
     .idea
-      .grid_16.omega
-        %span.sans_serif
+      .grid_16.info
+        %span.type
           Idea/ 
-        %span.time.sans_serif
+        %span.date
           = finnishDate(idea.updated_at)
-      .grid_16.omega
-        .title=link_to shorten(idea.summary, 100, 20, "»"), idea_path(idea)
+        %h3=link_to shorten(idea.summary, 100, 20, "»"), idea_path(idea)
+      .grid_16.statistics
         - for_, against, comments, total = @idea_counts[idea.id]
-        .vote
-          %span.total #{total} ääntä:&nbsp;
-          %span.for #{for_}
-          |
-          %span.against #{against}
-          %span.comments #{comments} kommenttia
+        %span.total #{total} ääntä:&nbsp;
+        %span.for #{for_}
+        |
+        %span.against #{against}
+        %span.comments #{comments} kommenttia
 
-  =link_to "Listaa kaikki", ideas_path
+  =link_to "Listaa kaikki»", ideas_path, class: "list_ideas"
 
 .grid_8.news.omega
   %h2 Ministeriössä tapahtuu
