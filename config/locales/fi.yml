@@ -50,6 +50,8 @@ fi:
     edit:
       title: "Muokkaa ideaa"
   articles:
+    links:
+      edit_article: "Muokkaa artikkelia"
     edit:
       title: "Muokkaa artikkelia"
   registrations:
