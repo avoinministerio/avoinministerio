@@ -22,7 +22,7 @@ class PagesController < ApplicationController
       comment_count  = idea.comments.count()
       total = for_count + against_count
       if total == 0
-        @idea_counts[idea.id] = ["50%", "50%", comment_count, total]
+        @idea_counts[idea.id] = ["0%", "0%", comment_count, total]
       else
         total = for_count + against_count
         @idea_counts[idea.id] = [
@@ -31,12 +31,9 @@ class PagesController < ApplicationController
           comment_count, 
           total.format(" ")
         ]
-    end
+      end
     end
 
     @front_page_articles = Article.limit(3).find_all_by_article_type('blog')
-
-
   end
-
 end
