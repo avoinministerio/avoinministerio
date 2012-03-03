@@ -35,16 +35,4 @@ class Idea < ActiveRecord::Base
   def vote_counts
     votes.group(:option).count
   end
-
-  def self.published
-    where(publish_state: "published")
-  end
-
-  def self.unpublished
-    where(publish_state: "unpublished")
-  end
-
-  def self.in_moderation
-    where(publish_state: "in_moderation")
-  end
 end
