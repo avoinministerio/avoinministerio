@@ -48,7 +48,8 @@
   - if @front_page_articles.any?
     - @front_page_articles.each do |article|
       .news_item
-        =link_to article.citizen.profile.name, article_path(article)
+        - author_name = (article.author && article.author.profile.name) || "Tuntematon"
+        =link_to author_name, article_path(article)
         #{finnishTime(article.updated_at)}
       .content=link_to shorten(article.title, 100, 20, "»"), article_path(article)
   - else
