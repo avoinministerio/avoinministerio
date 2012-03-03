@@ -17,7 +17,11 @@ AvoinMinisterio::Application.routes.draw do
   match "/admin", to: "admin/ideas#index", as: :administrator_root
 
   namespace :admin do
-    resources :articles
+    resources :articles do
+      get "publish",    on: :member
+      get "unpublish",  on: :member
+      get "moderate",   on: :member
+    end
     resources :citizens
     resources :comments do
       get "publish",    on: :member
