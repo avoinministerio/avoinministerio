@@ -1,2 +1,3 @@
 :plain
-  $(".comments").before("#{escape_javascript(render("comments/comment", comment: @comment))}")
+  $(".comments").before("#{escape_javascript(render("comments/comment", comment: @comment))}");
+  $(".comment_form #comment_body").val("");
