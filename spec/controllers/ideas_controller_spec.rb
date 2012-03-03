@@ -29,7 +29,7 @@ describe IdeasController do
         @idea.author = @citizen
         @idea.save!
         get :show, id: @idea.id
-        response.body.should include(link_to(I18n.t("ideas.links.edit_idea"), edit_idea_path(@idea)))
+        response.body.should include(link_to(I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)))
       end
 
       it "should show the voting form if not already voted" do
