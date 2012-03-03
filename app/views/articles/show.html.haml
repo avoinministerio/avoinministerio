@@ -1,7 +1,10 @@
 .grid_24
   .idea_author
     %img{ src: "", width: 48, height: 48 }
-    %span= @article.author.name
+    - if @article.author
+      %span= @article.author.name
+    - else
+      %span= No author
 .idea.grid_24
   .grid_16.alpha
     %span.sans_serif= finnishTime(@article.created_at)
