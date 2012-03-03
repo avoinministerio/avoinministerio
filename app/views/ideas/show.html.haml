@@ -4,11 +4,15 @@
   $(document).ready(function(){
       var r = Raphael("votepie");
       var pie = r.piechart(135, 92, 57, [
-        // piechart requires non-zero sizes to draw properly, so let's guard these values
-        #{@idea_vote_for_count      == 0 ? 0.00001 : @idea_vote_for_count}, 
-        #{@idea_vote_against_count  == 0 ? 0.00001 : @idea_vote_against_count}], 
-        { legend: ["%%.% eli #{@idea_vote_for_count} Kyllä ääni", 
-                   " %%.% eli #{@idea_vote_against_count} Ei ääni"], 
+          // piechart requires non-zero sizes to draw properly, so let's guard these values
+          #{@idea_vote_for_count      == 0 ? 0.00001 : @idea_vote_for_count},
+          #{@idea_vote_against_count  == 0 ? 0.00001 : @idea_vote_against_count}
+        ],
+        {
+          legend: [
+              "#{@idea_vote_for_count} Kyllä #{@idea_vote_for_count == 1 ? "ääni" : "ääntä"} %%.%",
+              "#{@idea_vote_against_count} Ei #{@idea_vote_against_count == 1 ? "ääni" : "ääntä"} %%.%"
+            ],
           legendpos: "south", 
           colors: #{@colors.inspect},
           // Clicking portions could link somewhere
