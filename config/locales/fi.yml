@@ -35,7 +35,7 @@ fi:
   buttons:
     create: "Luo"
     update: "Päivitä"
-  ideas:
+  idea:
     links:
       new_idea: "Uusi idea"
       edit_idea: "Muokkaa ideaa"

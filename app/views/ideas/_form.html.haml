@@ -1,16 +1,16 @@
 #idea_form
   = simple_form_for @idea do |f|
     .grid_16
-      = f.input :title, label: I18n.t("ideas.new.title")
+      = f.input :title, label: I18n.t("idea.new.title")
     .grid_8.help_cont
       #title_help
-        %p Anna ideallesi muutaman sanan otsikko. Otsikosta tulisi käydä ilmi yleinen aihealue.      
+        %p Anna ideallesi muutaman sanan otsikko. Otsikosta tulisi käydä ilmi yleinen aihealue.
     .grid_16
       = f.input :summary, as: :text
     .grid_8.help_cont
       #summary_help
-        %p 
-          Anna idealle tiivistelmä. Siitä tulisi käydä ilmi ideasi perusajatus muutamalla lauseella. 
+        %p
+          Anna idealle tiivistelmä. Siitä tulisi käydä ilmi ideasi perusajatus muutamalla lauseella.
           Voit muokata sitä myöhemmin.
     .grid_16
       = f.input :body, as: :text

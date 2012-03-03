@@ -31,7 +31,7 @@ class IdeasController < ApplicationController
     @idea = Idea.new(params[:idea])
     @idea.author = current_citizen
     @idea.state  = "idea"
-    flash[:notice] = I18n.t("ideas.created") if @idea.save
+    flash[:notice] = I18n.t("idea.created") if @idea.save
     respond_with @idea
   end
   
@@ -42,7 +42,7 @@ class IdeasController < ApplicationController
   
   def update
     @idea = current_citizen.ideas.find(params[:id])
-    flash[:notice] = I18n.t("ideas.updated") if @idea.update_attributes(params[:idea])
+    flash[:notice] = I18n.t("idea.updated") if @idea.update_attributes(params[:idea])
     respond_with @idea
   end
 
