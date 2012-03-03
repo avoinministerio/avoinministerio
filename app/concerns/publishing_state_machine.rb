@@ -16,16 +16,8 @@ module PublishingStateMachine
       end
     end
 
-    def self.published
-      where(publish_state: "published")
-    end
-
-    def self.unpublished
-      where(publish_state: "unpublished")
-    end
-
-    def self.in_moderation
-      where(publish_state: "in_moderation")
-    end
+    scope :published, where(publish_state: "published")
+    scope :unpublished, where(publish_state: "unpublished")
+    scope :in_moderation, where(publish_state: "in_moderation")
   end
 end
