@@ -49,6 +49,9 @@ fi:
       title: "Ehdotuksesi"
     edit:
       title: "Muokkaa ideaa"
+  articles:
+    edit:
+      title: "Muokkaa artikkelia"
   registrations:
     credentials:
       password_change_hint: "Jätä tämä tyhjäksi jos et halua vaihtaa salasanaasi"

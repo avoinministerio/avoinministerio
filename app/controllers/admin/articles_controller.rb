@@ -23,6 +23,18 @@ class Admin::ArticlesController < Admin::AdminController
     respond_with @article, location: article_return_location
   end
 
+  def edit
+    @article = Article.find(params[:id])
+
+    respond_with @article
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    flash[:notice] = I18n.t("articles.updated") if @article.update_attributes(params[:article])
+    respond_with @article
+  end
+
   private
 
   def article_return_location
