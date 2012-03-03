@@ -32,7 +32,7 @@ class Admin::ArticlesController < Admin::AdminController
   def update
     @article = Article.find(params[:id])
     flash[:notice] = I18n.t("articles.updated") if @article.update_attributes(params[:article])
-    respond_with @article
+    respond_with [:admin, @article]
   end
 
   private
