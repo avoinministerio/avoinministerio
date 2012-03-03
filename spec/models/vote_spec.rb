@@ -7,8 +7,8 @@ describe Vote do
   describe ".by" do
     before do
       5.times { Vote.create(option: 1, idea: idea) }
-      Vote.create(option: 1, citizen: citizen, idea: idea)
-      Vote.create(option: 0, citizen: citizen, idea: nil)
+      Factory(:vote, option: 1, citizen: citizen, idea: idea)
+      Factory(:vote, option: 0, citizen: citizen, idea: nil)
     end
 
     subject { @scope.by(citizen) }
@@ -27,8 +27,8 @@ describe Vote do
   
   describe ".in_favor" do
     before do
-      5.times { Vote.create(option: 1, idea: idea) }
-      3.times { Vote.create(option: 0, idea: idea) }
+      5.times { Factory(:vote, option: 1, idea: idea) }
+      3.times { Factory(:vote, option: 0, idea: idea) }
     end
     
     subject { Vote.in_favor }
@@ -40,8 +40,8 @@ describe Vote do
   
   describe ".against" do
     before do
-      5.times { Vote.create(option: 1, idea: idea) }
-      3.times { Vote.create(option: 0, idea: idea) }
+      5.times { Factory(:vote, option: 1, idea: idea) }
+      3.times { Factory(:vote, option: 0, idea: idea) }
     end
     
     subject { Vote.against }

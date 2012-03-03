@@ -39,8 +39,8 @@ describe Idea do
   
   describe "#vote_counts" do
     before do
-      5.times { Vote.create(option: 1, idea: idea) }
-      3.times { Vote.create(option: 0, idea: idea) }
+      5.times { Factory(:vote, option: 1, idea: idea) }
+      3.times { Factory(:vote, option: 0, idea: idea) }
     end
     
     it "returns the vote counts" do
