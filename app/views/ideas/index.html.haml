@@ -8,9 +8,12 @@
           Idea/
         %span.date
           = finnishDate(idea.updated_at)
-        %h2= link_to idea.title, idea
+        - if idea.title.size > 0
+          %h2= link_to idea.title, idea
+        - else
+          %h2.notitle= link_to "Ei otsikkoa", idea
       .content.grid_12
-        = shortened_summary(idea.summary, 230, 200, "»")
+        = link_to shortened_summary(idea.summary, 230, 200, "»"), idea
       .grid_10 &nbsp;
       .grid_12.statistics
 = will_paginate @ideas

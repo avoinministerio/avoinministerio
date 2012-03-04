@@ -177,3 +177,25 @@ ul.horizontal li {
   position: absolute;
   left: 640px; 
 }
+
+.ideas .idea .info h2.notitle a {
+  color: #bbb;
+}
+
+.ideas .idea .content {
+  padding-top: 22px;  
+}
+
+.ideas .idea .content a {
+  text-decoration: none;
+  color: #000;
+}
+.ideas .idea .content a:hover {
+  text-decoration: underline;
+}
+.ideas .idea .content a:link {
+  text-decoration: none;
+}
+.ideas .idea .content a:visited {
+  text-decoration: none;
+}
