@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_changer
-    Thread.current[:changer] = current_citizen || current_administrator
+    Thread.current[:changer] = current_administrator || current_citizen
   end
 end
