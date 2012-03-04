@@ -149,7 +149,7 @@ input[type=submit] {
   border-width: 3px;
   -moz-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
   -webkit-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  border-image:url("/assets/border-dotted.png-vertical") 0 3 0 0 repeat;
+  border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
   border-top: 0 none;
   border-left: 0 none;
   border-bottom: 0 none;
@@ -218,7 +218,7 @@ input[type=submit] {
     border-width: 2px;
     -moz-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
     -webkit-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    border-image:url("/assets/border-dotted.png-horizontal") 0 0 2 0 repeat;
+    border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
     border-top: 0 none;
     border-left: 0 none;
     border-right: 0 none;
