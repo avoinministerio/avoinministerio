@@ -37,7 +37,7 @@
         %span.for #{for_}
         |
         %span.against #{against}
-        %span.comments #{comments} kommenttia
+        %span.comments= link_to "#{comments} kommenttia", idea_path(idea, anchor: "comments")
 
   =link_to "Listaa kaikki»", ideas_path, class: "list_ideas"
 
