@@ -10,6 +10,7 @@ module Changelogger
 
     def changelog_for!(action)
       self.changelogs.create!(
+          changer: Thread.current[:changer], # not actually thread-safe, but enough for our needs
           changelogged_type: self.class,
           changelogged_id: self.id,
           change_type: action,
