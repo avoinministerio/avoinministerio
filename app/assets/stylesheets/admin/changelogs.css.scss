@@ -8,10 +8,13 @@ ins.differ {
 }
 
 table.changelogs {
-  tr > td { padding: 3px; }
+  tr > td { vertical-align: top; padding: 3px; }
   tr.changelog {
     border-bottom: 1px solid #ddd;
+    td.changer > img { line-height: 18px; vertical-align: middle; }
+    td.changer > span.name { line-height: 18px; }
     td.changes {
+      vertical-align: top;
       table {
         width: 100%;
         tr { border-bottom: 1px solid #ddd; }
@@ -25,4 +28,10 @@ table.changelogs {
   }
   tr.odd { background: #fff; }
   tr.even { background: #eee; }
+}
+
+span.admin {
+  color: #aa4444;
+  font-size: 11px;
+  font-weight: bolder;
 }
