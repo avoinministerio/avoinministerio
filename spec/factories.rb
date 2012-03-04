@@ -54,4 +54,18 @@ FactoryGirl.define do
     association :author, factory: :citizen
     association :commentable, factory: :idea
   end
+
+  sequence :title do |n|
+    "Title #{n}"
+  end
+
+  factory :article do
+    article_type  'statement'
+    title
+    ingress       'Article ingress'
+    body          'Article body'
+    association :idea, factory: :idea
+    association :author, factory: :citizen
+    publish_state 'published'
+  end
 end

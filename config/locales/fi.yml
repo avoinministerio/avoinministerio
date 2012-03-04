@@ -23,6 +23,12 @@ fi:
       profile:
         first_name: "Etunimi"
         last_name: "Sukunimi"
+    errors:
+      models:
+        article:
+          attributes:
+            article_type:
+              inclusion: "%{value} ei ole sallittu artikkelityyppi"
   layout:
     your_profile: "Profiilisi"
     sign_out: "Kirjaudu ulos"
