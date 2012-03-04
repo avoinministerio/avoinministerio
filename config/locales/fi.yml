@@ -49,7 +49,7 @@ fi:
       title: "Ehdotuksesi"
     edit:
       title: "Muokkaa ideaa"
-  articles:
+  article:
     links:
       edit_article: "Muokkaa artikkelia"
     edit:
