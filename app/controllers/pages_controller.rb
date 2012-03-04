@@ -34,6 +34,6 @@ class PagesController < ApplicationController
       end
     end
 
-    @front_page_articles = Article.limit(3).find_all_by_article_type('blog')
+    @front_page_articles = Article.published.where(article_type: 'blog').limit(3).all
   end
 end
