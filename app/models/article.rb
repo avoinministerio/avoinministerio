@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
   include PublishingStateMachine
+  include Changelogger
   extend FriendlyId
 
   VALID_ARTICLE_TYPES = %w(blog footer statement)
