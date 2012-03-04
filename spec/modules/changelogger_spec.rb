@@ -6,9 +6,6 @@ describe Changelogger do
       host.connection.execute <<-eosql
           CREATE TABLE #{host.table_name} (
             #{host.primary_key} integer PRIMARY KEY AUTOINCREMENT,
-            associated_model_id integer,
-            mockable_model_id integer,
-            nonexistent_model_id integer,
             title string
           )
         eosql
