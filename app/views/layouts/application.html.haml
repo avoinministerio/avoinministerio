@@ -67,7 +67,7 @@
 
   %script{:type => "text/javascript", :src => "http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f4e6d6b380c6e19"}
 
-  = render :partial => 'shared/ga' if Rails.env == 'production'
+  = render :partial => 'shared/ga' if ENV["GA_TRACKING_ID"]
 
   - if controller_name == "ideas" && action_name == "vote_flow"
     :javascript
