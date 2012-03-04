@@ -1,0 +1,13 @@
+.changelogs_header.container_24
+  %h1.grid_24 Muutokset
+= will_paginate @changelogs
+.changelogs.container_24
+  %table.changelogs
+    %thead
+      %th.span2 Muutoksen tekijä
+      %th{style: "width: 60px;"} 
+      %th.span1 Aika
+      %th.span2 Muutoksen kohde
+      %th.span10 Muutokset
+    = render partial: 'changelog', collection: @changelogs
+= will_paginate @changelogs
