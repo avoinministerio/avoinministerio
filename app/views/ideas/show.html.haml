@@ -91,7 +91,7 @@
               %span.sans_serif= finnishTime(article.created_at)
               %span.sans_serif.title= shorten((article.title + "<br/>" + article.ingress), 100, 20, "»").html_safe
   .clear
-.idea_comments
+.idea_comments#comments
   %h2.grid_24 Kommentit
   .grid_24.comment_form
     = render "comments/form", model: @idea
