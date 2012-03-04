@@ -1,0 +1,5 @@
+fi:
+  changelog:
+    create: "loi uuden"
+    update: "päivitti"
+    destroy: "poisti"
