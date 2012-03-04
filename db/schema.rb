@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229203252) do
+ActiveRecord::Schema.define(:version => 20120304000619) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(:version => 20120229203252) do
   add_index "authentications", ["citizen_id"], :name => "index_authentications_on_citizen_id"
   add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid", :unique => true
 
+  create_table "changelogs", :force => true do |t|
+    t.string   "changelogged_type"
+    t.integer  "changelogged_id"
+    t.string   "change_type"
+    t.text     "attribute_changes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "changelogs", ["changelogged_type", "changelogged_id"], :name => "index_changelogs_on_changelogged_type_and_changelogged_id"
+
   create_table "citizens", :force => true do |t|
     t.string   "email"
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
@@ -101,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20120229203252) do
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.string   "state"
+    t.string   "state",         :default => "idea"
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
