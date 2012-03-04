@@ -16,6 +16,11 @@ FactoryGirl.define do
     association :profile
   end
 
+  factory :administrator do
+    email
+    password "ylläpitäjä"
+  end
+
   factory :erkki, :parent => :citizen do |e|
     email 'erkki@esimerkki.fi'
     first_name 'Erkki'
