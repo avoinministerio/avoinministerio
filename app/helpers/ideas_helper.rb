@@ -21,7 +21,7 @@ module IdeasHelper
     end
   end
   
-  def shortened_summary(summary)
-    shorten(Nokogiri::HTML(markdown(summary)).text, 230, 200, "»")
+  def shortened_summary(summary, max_length, cut_characters, ending_sign)
+    shorten(Nokogiri::HTML(markdown(summary)).text, max_length, cut_characters, ending_sign)
   end
 end
