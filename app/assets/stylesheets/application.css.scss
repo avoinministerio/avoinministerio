@@ -61,6 +61,17 @@ footer > a {
   color: $turquoise;
 }
 
+footer > a:hover {
+  text-decoration: underline;
+}
+footer > a:link {
+  text-decoration: none;
+}
+footer > a:visited {
+  text-decoration: none;
+}
+
+
 .inputs > .input > input {
   width: 100%;
 }
