@@ -60,4 +60,24 @@ describe Changelogger do
     cl.change_type.should == "destroy"
     cl.attribute_changes.should == {}
   end
+
+  it "should log a citizen changer" do
+    citizen = Factory(:citizen)
+    Thread.current[:changer] = citizen
+    lambda {
+      @item.save!
+    }.should change(Changelog, :count).by(1)
+    cl = Changelog.last
+    cl.changer.should == citizen
+  end
+
+  it "should log an administrator changer" do
+    administrator = Factory(:administrator)
+    Thread.current[:changer] = administrator
+    lambda {
+      @item.save!
+    }.should change(Changelog, :count).by(1)
+    cl = Changelog.last
+    cl.changer.should == administrator
+  end
 end
