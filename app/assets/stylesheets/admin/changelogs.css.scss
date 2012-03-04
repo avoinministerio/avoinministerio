@@ -1,0 +1,28 @@
+del.differ {
+  text-decoration: none;
+  background: #ffcccc;
+}
+ins.differ {
+  text-decoration: none;
+  background: #ccffcc;
+}
+
+table.changelogs {
+  tr > td { padding: 3px; }
+  tr.changelog {
+    border-bottom: 1px solid #ddd;
+    td.changes {
+      table {
+        width: 100%;
+        tr { border-bottom: 1px solid #ddd; }
+        tr > td.field { width: 80px; }
+        tr > td { padding: 3px; }
+      }
+    }
+  }
+  tr.changelog:hover {
+    background: #fafafa;
+  }
+  tr.odd { background: #fff; }
+  tr.even { background: #eee; }
+}
