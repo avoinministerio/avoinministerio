@@ -6,7 +6,7 @@ module Changelogger
 
     after_create { changelog_for!(:create) }
     before_update { changelog_for!(:update) }
-    after_destroy { changelog_for!(:destroy) }
+    before_destroy { changelog_for!(:destroy) }
 
     def changelog_for!(action)
       self.changelogs.create!(
