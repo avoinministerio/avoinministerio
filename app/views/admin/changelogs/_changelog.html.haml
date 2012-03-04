@@ -1,0 +1,28 @@
+%tr.changelog
+  %td.changer
+    %span.name TODO
+  %td.change_type
+    = I18n.t "changelog.#{changelog.change_type}"
+  %td.changed_at
+    %span.date
+      = finnishTime(changelog.created_at).split(' ').join('<br/>').html_safe
+  %td.changelogged
+    = link_to "#{I18n.t('activerecord.models.'+changelog.changelogged_type.downcase)} ( ##{changelog.changelogged_id} )", changelog.changelogged
+  %td.changes
+    %table
+      %tr
+        %td Kenttä
+        %td Muutos
+        %td Vanha arvo
+        %td Uusi arvo
+      - changelog.attribute_changes.each_pair do |changed_field, change|
+        - next if ["created_at", "updated_at", "id"].include?(changed_field)
+        %tr
+          %td.field
+            = changed_field
+          %td.span4.diff
+            = Differ.diff(change.last.to_s, change.first.to_s, 'i').to_s.html_safe
+          %td.span3.old
+            = change.first
+          %td.span3.new
+            = change.last
