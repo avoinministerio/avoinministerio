@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe PagesController do
@@ -73,8 +74,38 @@ describe PagesController do
     end
 
     describe "blog articles section" do
-      it "should show articles with type = 'blog'"
-      it "should show only published blog articles"
+      render_views
+
+      before :each do
+        @article = Factory(:article, article_type: 'blog')
+      end
+
+      it "should show a temporary text on home page when no there are no blog posts" do
+        @article.update_attributes(article_type: 'statement')
+
+        get :home
+
+        response.body.should include("Ei kirjoituksia tällä hetkellä")
+      end
+
+      it "should show articles with type = 'blog'" do
+        not_blog = Factory(:article, article_type: 'footer')
+
+        get :home
+
+        assigns[:front_page_articles].should include(@article)
+        assigns[:front_page_articles].should_not include(not_blog)
+      end
+
+      it "should show only published blog articles" do
+        unpublished = Factory(:article, publish_state: 'unpublished')
+        moderated = Factory(:article, publish_state: 'in_moderation')
+
+        get :home
+
+        assigns[:front_page_articles].should_not include(unpublished)
+        assigns[:front_page_articles].should_not include(moderated)
+      end
     end
   end
 end
