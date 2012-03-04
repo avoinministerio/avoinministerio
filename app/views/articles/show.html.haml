@@ -16,4 +16,7 @@
       = markdown(@article.body) if @article.body
 
     - if @article.author == current_citizen
-      = link_to I18n.t("articles.links.edit_article"), edit_admin_idea_article_path(@article.idea, @article)
+      - @article.idea.present?
+        = link_to I18n.t("articles.links.edit_article"), edit_admin_idea_article_path(@article.idea, @article)
+      - else
+        = link_to I18n.t("articles.links.edit_article"), edit_admin_article_path(@article)
