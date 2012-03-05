@@ -15,21 +15,21 @@ If you want more information about the project, drop us an email to main@avoinmi
 2. .rvmrc
 
     It might be a good idea to use .rvmrc file to set ruby environment
-    
+
         w168:avoinministerio arttu$ cat .rvmrc
         rvm use 1.9.3-p125@avoinministerio --create
         w168:avoinministerio arttu$
-    
+
     This way you will always be running the same ruby version with a defined gemset under this directory.
 
 3. Check that you have the right ruby version (1.9.X)
 
 4. Install the required gems
 
-        cd avoinministerio    
-        bundle install
+        cd avoinministerio
+        bundle install --without production:linux_test
 
-    in development you might want to also pass `--without production`
+    if you are developing on Linux replace `linux_test` with `mac_test`
 
 5. Create database.yml in the config folder by copying database.yml.example and modifying it
 
@@ -76,7 +76,7 @@ Run tests with:
 
         # Before adding and committing, it is a good practice to run tests
         bundle exec rake spec
-        
+
         git add .
         git commit -m "Commit message"
         git push
@@ -102,7 +102,28 @@ Run tests with:
 
 ## Deployment
 
-Undecided, probably Capistrano.
+To create your personal instance on [Heroku](http://www.heroku.com/):
+
+1. Set up [Heroku account](http://devcenter.heroku.com/articles/quickstart)
+
+2. Create and configure your own instance
+
+        heroku create --stack cedar
+        heroku config:add BUNDLE_WITHOUT="development:test:mac_test:linux_test" -r heroku
+
+3. Initial deployment
+
+        git push heroku master
+
+4. Initialize database with test data
+
+        heroku run rake db:setup
+
+You can deploy whatever branch/commit by
+
+    git push heroku +<local_ref>:master
+    # e.g. the currently checked out branch
+    git push heroku +HEAD:master
 
 ## Dependencies
 
