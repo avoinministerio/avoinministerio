@@ -5,6 +5,8 @@ class IdeasController < ApplicationController
   
   def index
     @ideas = Idea.published.paginate(page: params[:page])
+    KM.identify(current_citizen)
+    KM.push("record", "idea list viewed", page: params[:page] || 0)
     respond_with @ideas
   end
   
@@ -19,6 +21,9 @@ class IdeasController < ApplicationController
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
     
+    KM.identify(current_citizen)
+    KM.push("record", "idea viewed", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
+
     respond_with @idea
   end
   
@@ -31,7 +36,11 @@ class IdeasController < ApplicationController
     @idea = Idea.new(params[:idea])
     @idea.author = current_citizen
     @idea.state  = "idea"
-    flash[:notice] = I18n.t("idea.created") if @idea.save
+    if @idea.save
+      flash[:notice] = I18n.t("idea.created")
+      KM.identify(current_citizen)
+      KM.push("record", "idea created", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
+    end
     respond_with @idea
   end
   
@@ -42,7 +51,11 @@ class IdeasController < ApplicationController
   
   def update
     @idea = current_citizen.ideas.find(params[:id])
-    flash[:notice] = I18n.t("idea.updated") if @idea.update_attributes(params[:idea])
+    if @idea.update_attributes(params[:idea])
+      flash[:notice] = I18n.t("idea.updated") 
+      KM.identify(current_citizen)
+      KM.push("record", "idea edited", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
+    end
     respond_with @idea
   end
 
@@ -77,6 +90,9 @@ class IdeasController < ApplicationController
     end.to_json
 
     @authors = @idea_counts.to_json
+
+    KM.identify(current_citizen)
+    KM.push("record", "vote flow viewed")
 
     render 
   end

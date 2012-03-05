@@ -21,9 +21,14 @@ class Idea < ActiveRecord::Base
 
   def vote(citizen, option)
     vote = votes.by(citizen).first
+    KM.identify(citizen)
     if vote
       vote.update_attribute(:option, option) unless vote.option == option
+      KM.push("record", "voted",               {option: option, idea: self.id})
+      KM.push("record", "vote change of mind", {option: option, idea: self.id})
     else
+      KM.push("record", "voted",               {option: option, idea: self.id})
+      KM.push("record", "first vote on idea",  {option: option, idea: self.id})
       votes.create(citizen: citizen, option: option)
     end
   end
