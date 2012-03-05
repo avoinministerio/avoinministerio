@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Idea do
   it { should belong_to :author }
+  it { should ensure_length_of(:title).is_at_least(5).with_short_message(/on liian lyhyt/) }
 
   let(:idea)    { Factory(:idea) }
   let(:citizen) { Factory(:citizen) }

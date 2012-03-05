@@ -13,6 +13,8 @@ class Idea < ActiveRecord::Base
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
+  validates :title, length: { minimum: 5 }
+
   default_scope order("created_at DESC")
 
   def self.per_page
