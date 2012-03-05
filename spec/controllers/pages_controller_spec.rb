@@ -16,8 +16,8 @@ describe PagesController do
 
       it "should include only drafts to drafts section" do
         get :home
-        assigns[:recent_drafts].should include(@recent_draft)
-        assigns[:recent_drafts].should_not include(@recent_idea)
+        assigns(:recent_drafts).should include(@recent_draft)
+        assigns(:recent_drafts).should_not include(@recent_idea)
       end
 
       it "should calculate vote counts for a draft" do
@@ -30,8 +30,8 @@ describe PagesController do
 
         get :home
 
-        assigns[:draft_counts][@recent_draft.id].should == [7.0/11, '64%', 4.0/11, '36%']
-        assigns[:draft_counts][voteless_draft.id].should == [0.0, ' 0%', 0.0, ' 0%']
+        assigns(:draft_counts)[@recent_draft.id].should == [7.0/11, '64%', 4.0/11, '36%']
+        assigns(:draft_counts)[voteless_draft.id].should == [0.0, ' 0%', 0.0, ' 0%']
       end
     end
 
@@ -43,8 +43,8 @@ describe PagesController do
 
       it "should include only ideas in state 'idea' to ideas section" do
         get :home
-        assigns[:recent_ideas].should include(@recent_idea)
-        assigns[:recent_ideas].should_not include(@recent_draft)
+        assigns(:recent_ideas).should include(@recent_idea)
+        assigns(:recent_ideas).should_not include(@recent_draft)
       end
 
       it "should calculate vote counts for an idea" do
@@ -57,8 +57,8 @@ describe PagesController do
 
         get :home
 
-        assigns[:idea_counts][@recent_idea.id].should == ['12%', '88%', 0, '8']
-        assigns[:idea_counts][voteless_idea.id].should == ['0%', '0%', 0, 0]
+        assigns(:idea_counts)[@recent_idea.id].should == ['12%', '88%', 0, '8']
+        assigns(:idea_counts)[voteless_idea.id].should == ['0%', '0%', 0, 0]
       end
 
       it "should include comments count" do
@@ -68,8 +68,8 @@ describe PagesController do
 
         get :home
 
-        assigns[:idea_counts][@recent_idea.id].should == ['0%', '0%', 3, 0]
-        assigns[:idea_counts][another_idea.id].should == ['0%', '0%', 1, 0]
+        assigns(:idea_counts)[@recent_idea.id].should == ['0%', '0%', 3, 0]
+        assigns(:idea_counts)[another_idea.id].should == ['0%', '0%', 1, 0]
       end
     end
 
@@ -85,7 +85,7 @@ describe PagesController do
 
         get :home
 
-        response.body.should include("Ei kirjoituksia tällä hetkellä")
+        rendered.should =~ /Ei kirjoituksia tällä hetkellä/
       end
 
       it "should show articles with type = 'blog'" do
@@ -93,8 +93,8 @@ describe PagesController do
 
         get :home
 
-        assigns[:front_page_articles].should include(@article)
-        assigns[:front_page_articles].should_not include(not_blog)
+        assigns(:front_page_articles).should include(@article)
+        assigns(:front_page_articles).should_not include(not_blog)
       end
 
       it "should show only published blog articles" do
@@ -103,8 +103,8 @@ describe PagesController do
 
         get :home
 
-        assigns[:front_page_articles].should_not include(unpublished)
-        assigns[:front_page_articles].should_not include(moderated)
+        assigns(:front_page_articles).should_not include(unpublished)
+        assigns(:front_page_articles).should_not include(moderated)
       end
     end
   end
