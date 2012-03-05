@@ -10,4 +10,5 @@ class Article < ActiveRecord::Base
   belongs_to :author, class_name: "Citizen", foreign_key: "citizen_id"
 
   validates :article_type, inclusion: { in: VALID_ARTICLE_TYPES }
+  validates :title, length: { minimum: 5 }
 end
