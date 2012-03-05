@@ -15,18 +15,18 @@ If you want more information about the project, drop us an email to main@avoinmi
 2. .rvmrc
 
     It might be a good idea to use .rvmrc file to set ruby environment
-    
+
         w168:avoinministerio arttu$ cat .rvmrc
         rvm use 1.9.3-p125@avoinministerio --create
         w168:avoinministerio arttu$
-    
+
     This way you will always be running the same ruby version with a defined gemset under this directory.
 
 3. Check that you have the right ruby version (1.9.X)
 
 4. Install the required gems
 
-        cd avoinministerio    
+        cd avoinministerio
         bundle install
 
     in development you might want to also pass `--without production`
@@ -76,7 +76,7 @@ Run tests with:
 
         # Before adding and committing, it is a good practice to run tests
         bundle exec rake spec
-        
+
         git add .
         git commit -m "Commit message"
         git push
