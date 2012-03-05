@@ -7,9 +7,9 @@
     %a.button{href: "/artikkelit/miten-palvelu-toimii"} Lisätietoa
 .container_24.top_drafts
   %h2 Luonnokset
-  - [["grid_8", "popular", "alpha"], ["grid_8", "popular"], ["grid_8", "popular", "omega"]][0, [3, @recent_drafts.size].min].each_with_index do |klasses, i|
+  - [["grid_8", "popular", "alpha"], ["grid_8", "popular"], ["grid_8", "popular", "omega"]][0, [3, @drafts.size].min].each_with_index do |klasses, i|
     %div{:class => klasses}
-      - if recent_draft = @recent_drafts[i]
+      - if recent_draft = @drafts[i]
         %h3.title=link_to shorten(recent_draft.summary, 100, 20, "»"), idea_path(recent_draft)
         %div{id: "draft_bar#{i}", class: "bar"}
         - for_portion, for_, against_portion, against_ = @draft_counts[recent_draft.id]
@@ -23,7 +23,7 @@
 
 .grid_16.top_ideas.alpha
   %h2 Ajankohtaiset ideat
-  - @recent_ideas.each do |idea|
+  - @ideas.each do |idea|
     .idea
       .grid_16.info
         %span.type
@@ -44,8 +44,8 @@
 .grid_8.news.omega
   %h2 Ministeriössä tapahtuu
   %iframe{width: "310", height: "192", src: "http://www.youtube.com/embed/R2wa2O0EBTg?rel=0", frameborder: "0", allowfullscreen: ""}
-  - if @front_page_articles.any?
-    - @front_page_articles.each do |article|
+  - if @blog_articles.any?
+    - @blog_articles.each do |article|
       .news_item
         - author_name = (article.author && article.author.profile.name) || "Tuntematon"
         =link_to author_name, article_path(article)
