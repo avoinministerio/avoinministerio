@@ -36,7 +36,7 @@ FactoryGirl.define do
   end
   
   factory :idea do
-    title     "Perusidea"
+    title     "Idea uudesta laista"
     body      "Hankitaan kaikille kansalaisille ..."
     summary   "Hyvä idea"
     state     "idea"
@@ -51,7 +51,7 @@ FactoryGirl.define do
 
   factory :comment do
     body      "Tongue pancetta ball tip, t-bone short loin shankle short ribs ribeye. Salami turducken pork, venison jowl fatback pork loin pancetta hamburger."
-    # association :author, factory: :citizen
-    # association :idea, factory: :idea
+    association :author, factory: :citizen
+    association :commentable, factory: :idea
   end
 end
