@@ -1,0 +1,10 @@
+.grid_8.newsletter.omega
+  %h2 Tilaa uutiskirje
+
+  %div{:id => "mc_embed_signup"}
+    %form{ :action => "http://avoinministerio.us4.list-manage.com/subscribe/post?u=639187372f3d5221161f16dba&id=13448f1e4e", :method => "post", :id => "mc-embedded-subscribe-form", :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank"}
+      %label{:for => "mce-EMAIL"} Pysy ajan tasalla Avoimen ministeriön toiminnasta tilaamalla uutiskirjeemme.
+      %br
+      %input{:type => "email", :name => "EMAIL", :class => "email", :id => "mce-EMAIL", :placeholder => "Sähköpostiosoitteesi", :required => true}
+      %br
+      %input{:type => "submit", :value => "Tilaa", :name => "subscribe", :id => "mc-embedded-subscribe", :class => "button"}
