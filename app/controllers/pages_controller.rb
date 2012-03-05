@@ -35,5 +35,9 @@ class PagesController < ApplicationController
     end
 
     @front_page_articles = Article.limit(3).find_all_by_article_type('blog')
+
+    KM.identify(current_citizen)
+    KM.push("record", "front page viewed")
+
   end
 end
