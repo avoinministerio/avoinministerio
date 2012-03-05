@@ -85,7 +85,7 @@ describe PagesController do
 
         get :home
 
-        rendered.should =~ /Ei kirjoituksia tällä hetkellä/
+        response.body.should =~ /Ei kirjoituksia tällä hetkellä/
       end
 
       it "should show articles with type = 'blog'" do

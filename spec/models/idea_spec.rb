@@ -4,6 +4,8 @@ require 'spec_helper'
 
 describe Idea do
   it { should belong_to :author }
+  it { should ensure_length_of(:title).is_at_least(5).with_short_message(/on liian lyhyt/) }
+  it { should ensure_length_of(:body).is_at_least(5).with_short_message(/ideasi hieman/) }
 
   let(:idea)    { Factory(:idea) }
   let(:citizen) { Factory(:citizen) }
@@ -16,34 +18,6 @@ describe Idea do
   end
 
   describe "Validations" do
-    describe "title" do
-      it "should be present" do
-        idea.title = nil
-        idea.should_not be_valid
-      end
-      
-      it "should be reasonably long" do
-        idea.title = "Uusi idea"
-        idea.should_not be_valid
-        idea.title = "Selkeä idean kuvaus"
-        idea.should be_valid
-      end
-    end
-
-    describe "body" do
-      it "should be present" do
-        idea.body = nil
-        idea.should_not be_valid
-      end
-      
-      it "should be reasonably long" do
-        idea.body = "Too short"
-        idea.should_not be_valid
-        idea.body = "Very short explanation."
-        idea.should be_valid
-      end
-    end
-
     describe "associations" do
       it "is associated to an author" do
         idea.author.should_not be_nil

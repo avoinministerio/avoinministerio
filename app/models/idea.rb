@@ -15,9 +15,9 @@ class Idea < ActiveRecord::Base
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
-  validates_length_of   :title, minimum: 10, message: "Otsikko on liian lyhyt."
-  validates_length_of   :body,  minimum: 10, message: "Kuvaa ideasi hieman tarkemmin."
   validates :author_id, presence: true
+  validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
+  validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
 
   default_scope order("created_at DESC")
 
