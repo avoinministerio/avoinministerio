@@ -254,6 +254,9 @@ input[type=submit] {
         padding-left: 20px;
         background-image:url('/assets/kommentit.png') no-repeat;
         background-position: -1 1.5em;
+        a {
+          color: $turquoise;
+        }
         a:hover {
           text-decoration: underline;
         }
