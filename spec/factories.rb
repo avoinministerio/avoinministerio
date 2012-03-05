@@ -36,7 +36,7 @@ FactoryGirl.define do
   end
   
   factory :idea do
-    title     "Perusidea"
+    title     "Idea uudesta laista"
     body      "Hankitaan kaikille kansalaisille ..."
     summary   "Hyvä idea"
     state     "idea"
