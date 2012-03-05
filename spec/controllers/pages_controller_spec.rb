@@ -8,7 +8,7 @@ describe PagesController do
       response.should be_success
     end
 
-    describe "recent drafts section" do
+    describe "drafts section" do
       before :each do
         @recent_draft = Factory(:idea, state: 'draft')
         @recent_idea = Factory(:idea, state: 'idea')
@@ -16,8 +16,8 @@ describe PagesController do
 
       it "should include only drafts to drafts section" do
         get :home
-        assigns(:recent_drafts).should include(@recent_draft)
-        assigns(:recent_drafts).should_not include(@recent_idea)
+        assigns(:drafts).should include(@recent_draft)
+        assigns(:drafts).should_not include(@recent_idea)
       end
 
       it "should calculate vote counts for a draft" do
@@ -35,7 +35,7 @@ describe PagesController do
       end
     end
 
-    describe "recent ideas section" do
+    describe "ideas section" do
       before :each do
         @recent_idea = Factory(:idea, state: 'idea')
         @recent_draft = Factory(:idea, state: 'draft')
@@ -43,8 +43,8 @@ describe PagesController do
 
       it "should include only ideas in state 'idea' to ideas section" do
         get :home
-        assigns(:recent_ideas).should include(@recent_idea)
-        assigns(:recent_ideas).should_not include(@recent_draft)
+        assigns(:ideas).should include(@recent_idea)
+        assigns(:ideas).should_not include(@recent_draft)
       end
 
       it "should calculate vote counts for an idea" do
@@ -80,7 +80,7 @@ describe PagesController do
         @article = Factory(:article, article_type: 'blog')
       end
 
-      it "should show a temporary text on home page when no there are no blog posts" do
+      it "should show a temporary text on home page when no there are no blog articles" do
         @article.update_attributes(article_type: 'statement')
 
         get :home
@@ -93,8 +93,8 @@ describe PagesController do
 
         get :home
 
-        assigns(:front_page_articles).should include(@article)
-        assigns(:front_page_articles).should_not include(not_blog)
+        assigns(:blog_articles).should include(@article)
+        assigns(:blog_articles).should_not include(not_blog)
       end
 
       it "should show only published blog articles" do
@@ -103,8 +103,8 @@ describe PagesController do
 
         get :home
 
-        assigns(:front_page_articles).should_not include(unpublished)
-        assigns(:front_page_articles).should_not include(moderated)
+        assigns(:blog_articles).should_not include(unpublished)
+        assigns(:blog_articles).should_not include(moderated)
       end
     end
   end
