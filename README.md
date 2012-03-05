@@ -102,7 +102,28 @@ Run tests with:
 
 ## Deployment
 
-Undecided, probably Capistrano.
+To create your personal instance on [Heroku](http://www.heroku.com/):
+
+1. Set up [Heroku account](http://devcenter.heroku.com/articles/quickstart)
+
+2. Create and configure your own instance
+
+        heroku create --stack cedar
+        heroku config:add BUNDLE_WITHOUT="development:test:mac_test:linux_test" -r heroku
+
+3. Initial deployment
+
+        git push heroku master
+
+4. Initialize database with test data
+
+        heroku run rake db:setup
+
+You can deploy whatever branch/commit by
+
+    git push heroku +<local_ref>:master
+    # e.g. the currently checked out branch
+    git push heroku +HEAD:master
 
 ## Dependencies
 
