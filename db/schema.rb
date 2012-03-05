@@ -64,20 +64,6 @@ ActiveRecord::Schema.define(:version => 20120304183018) do
   add_index "authentications", ["citizen_id"], :name => "index_authentications_on_citizen_id"
   add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid", :unique => true
 
-  create_table "changelogs", :force => true do |t|
-    t.string   "changer_type"
-    t.integer  "changer_id"
-    t.string   "changelogged_type"
-    t.integer  "changelogged_id"
-    t.string   "change_type"
-    t.text     "attribute_changes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "changelogs", ["changelogged_type", "changelogged_id"], :name => "index_changelogs_on_changelogged_type_and_changelogged_id"
-  add_index "changelogs", ["changer_type", "changer_id"], :name => "index_changelogs_on_changer_type_and_changer_id"
-
   create_table "citizens", :force => true do |t|
     t.string   "email"
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
