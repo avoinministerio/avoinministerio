@@ -27,9 +27,9 @@ If you want more information about the project, drop us an email to main@avoinmi
 4. Install the required gems
 
         cd avoinministerio
-        bundle install
+        bundle install --without production:linux_test
 
-    in development you might want to also pass `--without production`
+    if you are developing on Linux replace `linux_test` with `mac_test`
 
 5. Create database.yml in the config folder by copying database.yml.example and modifying it
 
