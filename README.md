@@ -31,9 +31,9 @@ If you want more information about the project, drop us an email to main@avoinmi
 
     in development you might want to also pass `--without production`
 
-5. Create database.yml in the config folder by copying database.example.yml and modifying it
+5. Create database.yml in the config folder by copying database.yml.example and modifying it
 
-        cp config/database.example.yml config/database.yml
+        cp config/database.yml.example config/database.yml
 
 6. Setup the database (create DB, load schema, load seed data)
 
