@@ -7,14 +7,16 @@ class Idea < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
+  attr_accessible :title, :body, :summary
+
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
-  
-  validates :title,     presence: true
-  validates :body,      presence: true
+
+  validates_length_of   :title, minimum: 10, message: "Otsikko on liian lyhyt."
+  validates_length_of   :body,  minimum: 10, message: "Kuvaa ideasi hieman tarkemmin."
   validates :author_id, presence: true
 
   default_scope order("created_at DESC")

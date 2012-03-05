@@ -7,10 +7,17 @@ describe Comment do
   let(:comment) { Factory(:comment) }
   
   describe "Validations" do
-    describe "validates presence of mandatory fields" do
-      it "validates presence of body" do
+    describe "body" do
+      it "should be present" do
         comment.body = nil
         comment.should_not be_valid
+      end
+      
+      it "should be reasonably long" do
+        comment.body = "."
+        comment.should_not be_valid
+        comment.body = "OK"
+        comment.should be_valid
       end
     end
     

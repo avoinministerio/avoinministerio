@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'spec_helper'
 
 describe Idea do
@@ -14,15 +16,31 @@ describe Idea do
   end
 
   describe "Validations" do
-    describe "validates presence of mandatory fields" do
-      it "validates presence of title" do
+    describe "title" do
+      it "should be present" do
         idea.title = nil
         idea.should_not be_valid
       end
       
-      it "validates presence of body" do
+      it "should be reasonably long" do
+        idea.title = "Uusi idea"
+        idea.should_not be_valid
+        idea.title = "Selkeä idean kuvaus"
+        idea.should be_valid
+      end
+    end
+
+    describe "body" do
+      it "should be present" do
         idea.body = nil
         idea.should_not be_valid
+      end
+      
+      it "should be reasonably long" do
+        idea.body = "Too short"
+        idea.should_not be_valid
+        idea.body = "Very short explanation."
+        idea.should be_valid
       end
     end
 
