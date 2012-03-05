@@ -134,6 +134,7 @@ h2 {
 
 .idea_comments {
   .comment {
+    min-height: 50px;
     .info {
       .name{
         font-weight: bold;
@@ -149,6 +150,9 @@ h2 {
       .datetime {
         padding-left: 10px;
       }
+    }
+    .body {
+      min-height: inherit;
     }
   }
 }

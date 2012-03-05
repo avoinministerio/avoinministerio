@@ -196,7 +196,8 @@ input[type=submit] {
 }
 
 .ideas > .idea > .info, .ideas > .idea > .content {
-  height: 80px;
+  height: 160px;
+  overflow: hidden;
 }
 
 .top_ideas > .idea {
@@ -253,6 +254,9 @@ input[type=submit] {
         padding-left: 20px;
         background-image:url('/assets/kommentit.png') no-repeat;
         background-position: -1 1.5em;
+        a {
+          color: $turquoise;
+        }
         a:hover {
           text-decoration: underline;
         }
