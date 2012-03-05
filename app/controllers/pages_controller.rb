@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   def home
-    @recent_drafts = Idea.where(state: 'draft').order("updated_at DESC").limit(3).includes(:votes).all
+    @drafts = Idea.where(state: 'draft').order("updated_at DESC").limit(3).includes(:votes).all
     @draft_counts = {}
-    @recent_drafts.map do |idea|
+    @drafts.map do |idea|
       for_count      = idea.vote_counts[1] || 0
       against_count  = idea.vote_counts[0] || 0
       comment_count  = idea.comments.count()
@@ -14,9 +14,9 @@ class PagesController < ApplicationController
       @draft_counts[idea.id] = [for_portion, for_, against_portion, against_]
     end
 
-    @recent_ideas = Idea.where(state: 'idea').order("updated_at DESC").limit(4).includes(:votes).all
+    @ideas = Idea.where(state: 'idea').order("updated_at DESC").limit(4).includes(:votes).all
     @idea_counts = {}
-    @recent_ideas.map do |idea|
+    @ideas.map do |idea|
       for_count      = idea.vote_counts[1] || 0
       against_count  = idea.vote_counts[0] || 0
       comment_count  = idea.comments.count()
@@ -34,6 +34,6 @@ class PagesController < ApplicationController
       end
     end
 
-    @front_page_articles = Article.published.where(article_type: 'blog').limit(3).all
+    @blog_articles = Article.published.where(article_type: 'blog').limit(3).all
   end
 end
