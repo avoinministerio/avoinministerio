@@ -196,7 +196,8 @@ input[type=submit] {
 }
 
 .ideas > .idea > .info, .ideas > .idea > .content {
-  height: 80px;
+  height: 160px;
+  overflow: hidden;
 }
 
 .top_ideas > .idea {
