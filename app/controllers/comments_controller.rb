@@ -7,7 +7,12 @@ class CommentsController < ApplicationController
   def create
     @comment = @idea.comments.build(params[:comment])
     @comment.author = current_citizen
-    flash[:notice] = I18n.t("comments.create") if @comment.save
+    if @comment.save
+      flash[:notice] = I18n.t("comments.create")
+      KM.identify(current_citizen)
+      KM.push("record", "comment created", idea_id: @idea.id)
+    end
+
     respond_with @comment
   end
   
