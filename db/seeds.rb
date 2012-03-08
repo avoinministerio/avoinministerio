@@ -235,18 +235,19 @@ EOS
     summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
     state: "idea", author_id: random_citizen_id},
-].each { |idea| Idea.find_or_create_by_title(idea) }
+].each { |idea| i = Idea.create(idea); i.state = idea[:state]; i.author_id = idea[:author_id]; i.save! }
 
 20.times do |i|
-  Idea.create!([
+  idea = Idea.create(
     { title: "Esimerkki-idea #{i}", 
       summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
-      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.", 
-      state: "idea", 
+      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
       created_at: Time.now - (60*60*24),
       updated_at: Time.now - (60*60*24),
-      author_id: random_citizen_id},
-  ])
+      })
+  idea.state = "idea"
+  idea.author_id = random_citizen_id
+  idea.save!
 end
 
 voters = (0..100).map do |i|
