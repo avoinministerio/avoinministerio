@@ -4,7 +4,7 @@
     %div{:class => klasses}
       - if recent_draft = @drafts[i]
         .popular
-          %h3.title=link_to shorten(recent_draft.summary, 100, 20, "»"), idea_path(recent_draft)
+          %h3.title=link_to shorten(recent_draft.title, 100, 20, "»"), idea_path(recent_draft)
           %div{id: "draft_bar#{i}", class: "bar"}
           - for_portion, for_, against_portion, against_ = @draft_counts[recent_draft.id]
           - for_length = [35, (280-5-35)*for_portion].max

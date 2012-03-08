@@ -139,7 +139,7 @@ input[type=submit] {
   font-weight: bold;
 }
 
-.top_drafts > h2 {
+.top_drafts h2 {
   margin-bottom: 0;
 }
 
@@ -153,17 +153,19 @@ input[type=submit] {
   border-top: 0 none;
   border-left: 0 none;
   border-bottom: 0 none;
+  padding-right: 7px;
 }
 
-.top_drafts > .omega > div.popular {
+.top_drafts .omega > div.popular {
   border: none;
+  padding-right: 0;
 }
 
-.top_drafts > div.popular > h3 {
+.top_drafts div.popular > h3 {
   height: 120px;
 }
 
-.top_drafts > div.popular > h3 > a {
+.top_drafts div.popular > h3 > a {
   color: #000;
 }
 
