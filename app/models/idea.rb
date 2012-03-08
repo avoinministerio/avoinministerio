@@ -1,5 +1,6 @@
 class Idea < ActiveRecord::Base
   include PublishingStateMachine
+  include Changelogger
   extend FriendlyId
 
   MAX_FB_TITLE_LENGTH = 100
