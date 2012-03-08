@@ -22,7 +22,6 @@ AvoinMinisterio::Application.routes.draw do
       get "unpublish",  on: :member
       get "moderate",   on: :member
     end
-    resources :citizens
     resources :comments do
       get "publish",    on: :member
       get "unpublish",  on: :member
@@ -48,6 +47,7 @@ AvoinMinisterio::Application.routes.draw do
       get "lock",       on: :member
       get "unlock",     on: :member
     end
+    resources :changelogs
     root to: "admin/ideas#index"
   end
 
