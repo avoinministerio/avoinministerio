@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   include PublishingStateMachine
+  include Changelogger
 
   attr_accessible :body
 
