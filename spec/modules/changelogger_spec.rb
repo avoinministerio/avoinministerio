@@ -1,26 +1,41 @@
 require 'spec_helper'
 
 describe Changelogger do
-  module Connections
-    def self.extended(host)
-      host.connection.execute <<-eosql
-          CREATE TABLE #{host.table_name} (
-            #{host.primary_key} integer PRIMARY KEY AUTOINCREMENT,
-            title string
-          )
-        eosql
+  class CreateChangeloggableItems < ActiveRecord::Migration
+    def up
+      create_table :changeloggable_items do |t|
+        t.string :title
+        t.timestamps
+      end
+    end
+    def down
+      drop_table :changeloggable_items
     end
   end
 
   class ChangeloggableItem < ActiveRecord::Base
-    extend Connections
     include Changelogger
+  end
 
-    # attr_accessor :title, :created_at, :updated_at
+  before :all do
+    silence_stream(STDOUT) {
+      silence_stream(STDERR) {
+        # migrate down just in case the table exists
+        # reason might be a terminated test suite, hence not running the after :all hook
+        begin
+          CreateChangeloggableItems.new.down
+        rescue ActiveRecord::StatementInvalid => ex
+          raise ex unless ex.message =~ /no such table/
+        end
+      }
+      CreateChangeloggableItems.new.up
+    }
   end
 
   after :all do
-    ChangeloggableItem.connection.execute "DROP TABLE changeloggable_items"
+    silence_stream(STDOUT) {
+      CreateChangeloggableItems.new.down
+    }
   end
 
   before :each do
