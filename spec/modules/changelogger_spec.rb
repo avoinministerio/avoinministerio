@@ -19,15 +19,6 @@ describe Changelogger do
 
   before :all do
     silence_stream(STDOUT) {
-      silence_stream(STDERR) {
-        # migrate down just in case the table exists
-        # reason might be a terminated test suite, hence not running the after :all hook
-        begin
-          CreateChangeloggableItems.new.down
-        rescue ActiveRecord::StatementInvalid => ex
-          raise ex unless ex.message =~ /no such table/
-        end
-      }
       CreateChangeloggableItems.new.up
     }
   end
