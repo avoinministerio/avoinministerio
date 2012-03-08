@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::ArticlesController do
+describe Admin::ChangelogsController do
 
   before :each do
     @administrator = Factory(:administrator)
