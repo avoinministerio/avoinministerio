@@ -125,6 +125,8 @@ You can deploy whatever branch/commit by
     # e.g. the currently checked out branch
     git push heroku +HEAD:master
 
+The site can be protected with Basic Authentication by adding variables `AM_AUTH_USERNAME` and `AM_AUTH_PASSWORD` to Heroku.
+
 ## Dependencies
 
 **JS Libraries**
