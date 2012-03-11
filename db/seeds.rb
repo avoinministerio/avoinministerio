@@ -45,9 +45,10 @@ Administrator.find_or_create_by_email({
     profile_attributes: {first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
 ].each { |citizen| Citizen.find_or_create_by_email(citizen) }
 
-def random_citizen_id
-  ids = Citizen.all.map(&:id)
-  ids[rand(ids.size)]
+@citizens = Citizen.all
+
+def random_citizen
+  @citizens[rand(@citizens.size)]
 end
 
 joonas = Citizen.where(email: "joonas@pekkanen.com").first
@@ -207,46 +208,47 @@ EOS
     title: "Koiraverolain kumoaminen",
     summary: "Koiraverolain kumoaminen",
     body: koiravero_body,    
-    state: "draft", author_id: joonas.id 
+    state: "draft", author: joonas 
   },
   {
     title: "Opintorahan takaisinperinnän muuttaminen",
     summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
     body: opintotuki_body,    
-    state: "draft", author_id: joonas.id 
+    state: "draft", author: joonas 
   },
   { title: "Kansanedustajien palkankorotus pannaan",
     summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
     body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
-    state: "idea", author_id: random_citizen_id},
+    state: "idea", author: random_citizen},
   { title: "Poistetaan perintöverotus",
     summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
     body: "Ankarin perintövero korvattakoon tasaverolla!",
-    state: "draft", author_id: random_citizen_id},
+    state: "draft", author: random_citizen},
   { title: "Raiskauksille kunnon tuomiot",
     summary: "Joku roti!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "proposal", author_id: random_citizen_id},
+    state: "proposal", author: random_citizen},
   { title: "Kaikelle isommat tuomiot",
     summary: "Joku roti!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "law", author_id: random_citizen_id},
+    state: "law", author: random_citizen},
   { title: "Vielä isommat tuomiot",
     summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "idea", author_id: random_citizen_id},
-].each { |idea| Idea.find_or_create_by_title(idea) }
+    state: "idea", author: random_citizen},
+].each { |idea| i = Idea.create(idea); i.state = idea[:state]; i.author = idea[:author]; i.save! }
 
 20.times do |i|
-  Idea.create!([
+  idea = Idea.create(
     { title: "Esimerkki-idea #{i}", 
       summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
-      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.", 
-      state: "idea", 
+      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
       created_at: Time.now - (60*60*24),
       updated_at: Time.now - (60*60*24),
-      author_id: random_citizen_id},
-  ])
+      })
+  idea.state = "idea"
+  idea.author = random_citizen
+  idea.save!
 end
 
 voters = (0..100).map do |i|
