@@ -58,6 +58,7 @@
       %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
       %a.grid_4{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
       %a.grid_4{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
+      %a.grid_4{ href: asset_path('henkilorekisteriseloste.pdf') } Rekisteriseloste (pdf)
 
       %footer.grid_4
         %div{:class => "addthis_toolbox addthis_default_style"}
@@ -68,7 +69,7 @@
           %a{:class => "addthis_button_compact"}
           %a{:class => "addthis_counter addthis_bubble_style"}
 
-  %script{:type => "text/javascript", :src => "http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f4e6d6b380c6e19"}
+  %script{:type => "text/javascript", :src => "//s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f4e6d6b380c6e19"}
 
   = render :partial => 'shared/ga' if ENV["GA_TRACKING_ID"]
 

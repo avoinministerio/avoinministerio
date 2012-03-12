@@ -60,13 +60,10 @@ AvoinMinisterio::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
-  config.action_mailer.default_url_options = { host: "avoinministerio.fi"  }
-end
 
-# Ensure the agent is started using Unicorn
-# This is needed when using Unicorn and preload_app is not set to true.
-# See https://newrelic.com/docs/troubleshooting/im-using-unicorn-and-i-dont-see-any-data
-#if defined? Unicorn #and defined? NewRelic and defined? NewRelic::Agent
-#  NewRelic::Agent.after_fork(:force_reconnect => true) 
-#end
+  config.action_mailer.default_url_options = { host: "avoinministerio.fi"  }
+
+  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Avoin ministerio") do |u, p|
+    [u, p] == [ENV['AM_AUTH_USERNAME'], ENV['AM_AUTH_PASSWORD']]
+  end if ENV['AM_AUTH_PASSWORD']
+end
