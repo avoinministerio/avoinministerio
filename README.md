@@ -2,7 +2,7 @@
 
 Avoin Ministeriö -verkkopalvelu.
 
-<http://avoinministerio.fi>
+<https://www.avoinministerio.fi/>
 
 If you want more information about the project, drop us an email to main@avoinministerio.flowdock.com.
 
@@ -10,7 +10,7 @@ If you want more information about the project, drop us an email to main@avoinmi
 
 1. Clone the repository
 
-        git clone git@github.com:avoinministerio/avoinministerio
+        git clone git@github.com:avoinministerio/avoinministerio.git
 
 2. .rvmrc
 
@@ -147,6 +147,6 @@ Run the tests using the following command(s):
 
 ## Code Repository
 
-[Git repository](http://github.com/avoinministerio/avoinministerio)
+[Git repository](https://github.com/avoinministerio/avoinministerio)
 
 Everything is currently in the master branch. When building bigger features, use feature branches. When the feature is ready, delete the feature branch.
