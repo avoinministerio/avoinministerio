@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_changer
 
   def after_sign_in_path_for(resource)
+      KM.identify(current_citizen)
+      KM.push("record", "signed in")
       return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end
 
