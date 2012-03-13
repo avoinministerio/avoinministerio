@@ -18,8 +18,8 @@ describe Citizen do
         @citizen = Factory(:citizen, :email => "foo@example.com")
       end
 
-      it "should use gravatar by default" do
-        @citizen.image.should == "http://www.gravatar.com/avatar/b48def645758b95537d4424c84d1a9ff"
+      it "should use gravatar as a fallback" do
+        @citizen.image.should == "https://secure.gravatar.com/avatar/b48def645758b95537d4424c84d1a9ff"
       end
     end
   end

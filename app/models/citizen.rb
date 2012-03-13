@@ -26,7 +26,7 @@ class Citizen < ActiveRecord::Base
   ].each { |attribute| delegate attribute, to: :profile }
 
   def image
-    profile.image || Gravatar.new(email).image_url
+    profile.image || Gravatar.new(email).image_url(ssl: true)
   end
   
   def active_for_authentication?
