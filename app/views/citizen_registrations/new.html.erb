@@ -1,0 +1,38 @@
+<h2>Rekisteröidy</h2>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "grid_16"}) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs grid_12">
+    <%= f.label :email, :required => false %>
+    <%= f.input :email, :required => true, :autofocus => true, :label => false %>
+    <%= f.label :password, :required => false %>
+    <%= f.input :password, :required => true, :label => false %>
+    <%= f.label :password_confirmation, :required => false %>
+    <%= f.input :password_confirmation, :required => true, :label => false %>
+    <%= f.simple_fields_for :profile do |f| %>
+      <%= f.label :first_name, :required => false %>
+      <%= f.input :first_name, :required => true, :label => false %>
+      <%= f.label :last_name, :required => false %>
+      <%= f.input :last_name, :required => true, :label => false %>
+    <% end %>
+  </div>
+
+  <p class="grid_16">
+    Hyväksyn palvelun <a href="/artikkelit/4">käyttöehdot</a>.
+  </p>
+  <div class="actions grid_16">
+    <%= f.button :submit, "Rekisteröidy" %>
+  </div>
+<% end %>
+<div class="notification grid_8">
+  <p>
+    Rekisteröidy tästä Avoimen ministeriön nettipalvelun käyttäjäksi. Voit luoda uuden tunnuksen vahvistamalla sen sähköpostitse tai vahvistamalla sen Facebook-tunnuksillasi.
+  </p>
+  <p>
+    Palvelussa keskustellaan omalla nimellä ja asiallisesti. Palvelua ja sen toiminnallisuuksia kehitetään käyttäjäpalautteen perusteella. Voit lähettää risuja ja ruusuja osoitteeseen <a href="mailto:kanslia@avoinministerio.fi">kanslia@avoinministerio.fi</a>.
+  </p>
+  <p>
+    Tervetuloa!
+  </p>
+</div>
