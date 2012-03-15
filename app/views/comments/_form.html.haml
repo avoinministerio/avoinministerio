@@ -1,4 +1,4 @@
-= simple_form_for model.comments.build, url: [model, :comments], remote: true do |f|
+= simple_form_for Comment.new(commentable: model), url: [model, :comments], remote: true do |f|
   .grid_16.alpha
     = f.input :body, as: :text, label: false
   .grid_8.omega

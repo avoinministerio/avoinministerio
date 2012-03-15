@@ -77,25 +77,15 @@
       = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
     .votes
       #votepie
+
 .expert_opinions
   %h2.grid_24 Asiantuntijalausunnot
-  - if @idea.articles.any?
-    - @idea.articles.each do |article|
-      = link_to article do
-        .grid_8
-          .expert
-            .grid_2.alpha
-              %img{ src: "", width: 50, height: 50 }
-            .grid_6.omega
-              %span.sans_serif.name= article.author.name
-              %span.sans_serif= finnishTime(article.created_at)
-              %span.sans_serif.title= shorten((article.title + "<br/>" + article.ingress), 100, 20, "»").html_safe
+  = render partial: 'article', collection: @idea.articles
   .clear
+
 .idea_comments#comments
   %h2.grid_24 Kommentit
   .grid_24.comment_form
     = render "comments/form", model: @idea
   .comments.suffix_8
-    - @idea.comments && @idea.comments.each do |comment|
-      - unless comment.new_record?
-        = render "comments/comment", comment: comment
+    = render partial: 'comments/comment', collection: @idea.comments
