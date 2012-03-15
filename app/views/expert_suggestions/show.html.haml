@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Firstname:
+  = @expert_suggestion.firstname
+%p
+  %b Lastname:
+  = @expert_suggestion.lastname
+%p
+  %b Email:
+  = @expert_suggestion.email
+%p
+  %b Title:
+  = @expert_suggestion.title
+%p
+  %b Organisation:
+  = @expert_suggestion.organisation
+%p
+  %b Expertise:
+  = @expert_suggestion.expertise
+%p
+  %b Recommendation:
+  = @expert_suggestion.recommendation
+%p
+  %b Supporter:
+  = @expert_suggestion.supporter
+
+= link_to 'Edit', edit_expert_suggestion_path(@expert_suggestion)
+\|
+= link_to 'Back', expert_suggestions_path

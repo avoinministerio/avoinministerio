@@ -80,7 +80,23 @@
 
 .expert_opinions
   %h2.grid_24 Asiantuntijalausunnot
-  = render partial: 'article', collection: @idea.articles
+  - if @idea.articles.any?
+    - @idea.articles.each do |article|
+      = link_to article do
+        .grid_8
+          .expert
+            .grid_2.alpha
+              %img{ src: "", width: 50, height: 50 }
+            .grid_6.omega
+              %span.sans_serif.name= article.author.name
+              %span.sans_serif= finnishTime(article.created_at)
+              %span.sans_serif.title= shorten((article.title + "<br/>" + article.ingress), 100, 20, "»").html_safe
+  - else
+    Ei vielä lausuntoja
+  .clear
+  %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+  .clear
+  =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea.id), class: "grid_4"
   .clear
 
 .idea_comments#comments
