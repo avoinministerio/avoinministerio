@@ -34,7 +34,7 @@
           %td.field
             = changed_field
           %td.span4.diff
-            = Differ.diff(change.last.to_s, change.first.to_s, 'i').to_s.html_safe
+            = short_diff(change)
           %td.span3.old
             = change.first
           %td.span3.new
