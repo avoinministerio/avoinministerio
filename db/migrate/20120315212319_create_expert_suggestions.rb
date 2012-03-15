@@ -1,0 +1,16 @@
+class CreateExpertSuggestions < ActiveRecord::Migration
+  def change
+    create_table :expert_suggestions do |t|
+      t.string :firstname
+      t.string :lastname
+      t.string :email
+      t.string :title
+      t.string :organisation
+      t.string :expertise
+      t.string :recommendation
+      t.references :supporter
+
+      t.timestamps
+    end
+  end
+end
