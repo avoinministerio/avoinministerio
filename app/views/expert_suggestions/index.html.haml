@@ -1,0 +1,33 @@
+%h1 Listing expert_suggestions
+
+%table
+  %tr
+    %th Firstname
+    %th Lastname
+    %th Email
+    %th Title
+    %th Organisation
+    %th Expertise
+    %th Recommendation
+    %th Supporter
+    %th
+    %th
+    %th
+
+  - @expert_suggestions.each do |expert_suggestion|
+    %tr
+      %td= expert_suggestion.firstname
+      %td= expert_suggestion.lastname
+      %td= expert_suggestion.email
+      %td= expert_suggestion.title
+      %td= expert_suggestion.organisation
+      %td= expert_suggestion.expertise
+      %td= expert_suggestion.recommendation
+      %td= expert_suggestion.supporter.name
+      %td= link_to 'Show', expert_suggestion
+      %td= link_to 'Edit', edit_expert_suggestion_path(expert_suggestion)
+      %td= link_to 'Destroy', expert_suggestion, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Expert suggestion', new_expert_suggestion_path
