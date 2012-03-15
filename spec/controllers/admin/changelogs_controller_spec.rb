@@ -46,7 +46,7 @@ EOS
       assigns(:changelogs).size.should be == 2
 
       chars_around = Admin::ChangelogsHelper::CHARACTERS_AROUND_DIFF
-      response.body.should =~ /&hellip; (.|\n){#{chars_around}}<del class="differ">qua.\nUt en<\/del><ins class="differ">qua.\nLorem ipsum dolor sit amet, consectetur adipisicing elit.\nUt en<\/ins>(.|\n){#{chars_around}} &hellip;/
+      response.body.should =~ /&hellip; (.|\n){#{chars_around}}<ins class="differ">Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n<\/ins>(.|\n){#{chars_around}} &hellip;/
     end
 
     it "doesn't show all the text in between two diffs for the same attribute"

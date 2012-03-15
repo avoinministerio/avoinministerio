@@ -17,11 +17,13 @@ module Admin::ChangelogsHelper
 
   def short_diff(change)
     if change.first.present? && change.last.present?
-      diffed = Differ.diff(change.last.to_s, change.first.to_s, 'i').to_s
+      diffed = Differ.diff(change.last.to_s, change.first.to_s, '').to_s
 
       # location of the actual diff
       diff_start = diffed.index("<del class=\"differ\">")
+      diff_start ||= diffed.index("<ins class=\"differ\">")
       diff_end = diffed.rindex("</ins>") + "</ins>".length - 1
+      diff_end ||= diffed.rindex("</del>") + "</del>".length - 1
 
       # take along some extra chars around the diff
       from = [0, diff_start - CHARACTERS_AROUND_DIFF].max
@@ -33,7 +35,7 @@ module Admin::ChangelogsHelper
       diff << ' &hellip;' if to < diffed.length
       diff.html_safe
     else
-      Differ.diff(change.last.to_s, change.first.to_s, 'i').to_s.html_safe
+      Differ.diff(change.last.to_s, change.first.to_s, '').to_s.html_safe
     end
   end
 end

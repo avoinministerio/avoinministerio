@@ -21,7 +21,7 @@ EOS
       change = [original, updated]
 
       chars_around = Admin::ChangelogsHelper::CHARACTERS_AROUND_DIFF
-      helper.short_diff(change).should =~ /&hellip; (.|\n){#{chars_around}}<del class="differ">qua.\nUt en<\/del><ins class="differ">qua.\nLorem ipsum dolor sit amet, consectetur adipisicing elit.\nUt en<\/ins>(.|\n){#{chars_around}} &hellip;/
+      helper.short_diff(change).should =~ /&hellip; (.|\n){#{chars_around}}<ins class="differ">Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n<\/ins>(.|\n){#{chars_around}} &hellip;/
     end
 
     it "should not shorten the diff unnecessarily" do
