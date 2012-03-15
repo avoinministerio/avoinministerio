@@ -1,0 +1,15 @@
+= simple_form_for(@expert_suggestion) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :firstname
+    = f.input :lastname
+    = f.input :email
+    = f.input :title
+    = f.input :organisation
+    = f.input :expertise
+    = f.input :recommendation, as: :text
+    = f.hidden_field :idea_id, :value => @idea.id
+
+  .actions
+    = f.button :submit
