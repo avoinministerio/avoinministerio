@@ -4,6 +4,7 @@ fi:
     citizens: "kansalaiset"
     comments: "kommentit"
     ideas: "ideat"
+    expert_suggestions: "asiantuntijaehdotukset"
   activerecord:
     models:
       article: "Artikkeli"
@@ -11,6 +12,7 @@ fi:
       comment: "Kommentti"
       idea: "Idea"
       profile: "Profiili"
+      expert_suggestion: "asiantuntijaehdotus"
     attributes:
       citizen:
         email: "Sähköposti"
@@ -23,6 +25,14 @@ fi:
       profile:
         first_name: "Etunimi"
         last_name: "Sukunimi"
+      expert_suggestion:
+        firstname: "Etunimi"
+        lastname: "Sukunimi"
+        email: "Sähköposti"
+        title: "Titteli / nimike"
+        organisation: "Organisaatio"
+        expertise: "Erityisosaaminen"
+        recommendation: "Suositus"
     errors:
       models:
         article:
@@ -68,6 +78,11 @@ fi:
     edit:
       update: "Päivitä profiilisi"
       change_password_or_email: "Vaihda salasanasi tai sähköpostiosoitteesi"
+  expert_suggestion:
+    links:
+      new_expert_suggestion: "Uusi asiantuntijan ehdotus"
+    new:
+      title: "Asiantuntijan ehdotus"
   will_paginate:
     previous_label: "&laquo; Edelliset ideat"
     next_label: "Seuraavat ideat &raquo;"
