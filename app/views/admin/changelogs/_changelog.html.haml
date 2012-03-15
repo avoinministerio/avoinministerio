@@ -18,7 +18,7 @@
       = finnishTime(changelog.created_at).split(' ').last
   %td.changelogged
     - if changelog.changelogged
-      = link_to "#{I18n.t('activerecord.models.'+changelog.changelogged_type.downcase)} ##{changelog.changelogged_id}", changelog.changelogged
+      = changelogged_link_for(changelog)
     - else
       = "#{I18n.t('activerecord.models.'+changelog.changelogged_type.downcase)} ##{changelog.changelogged_id}<br/> ( poistettu )".html_safe
   %td.changes
