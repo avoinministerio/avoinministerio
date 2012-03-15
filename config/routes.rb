@@ -1,4 +1,6 @@
 AvoinMinisterio::Application.routes.draw do
+  resources :expert_suggestions
+
   match "/ideas/:id/vote/:vote"     => "vote#vote", as: :vote_idea
 
   get "pages/home"
@@ -9,6 +11,7 @@ AvoinMinisterio::Application.routes.draw do
   
   resources :ideas do
     resources :comments
+    resources :expert_suggestions
   end
   resources :articles
 
