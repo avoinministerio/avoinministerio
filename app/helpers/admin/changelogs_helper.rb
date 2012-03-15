@@ -1,6 +1,20 @@
 module Admin::ChangelogsHelper
   CHARACTERS_AROUND_DIFF = 40
 
+  def changelogged_link_for(changelog)
+    link_text = "#{I18n.t('activerecord.models.'+changelog.changelogged_type.downcase)} ##{changelog.changelogged_id}"
+    if changelog.changelogged.class == Comment
+      comment = changelog.changelogged
+      if comment.commentable.class == Idea
+        link_to link_text, idea_path(comment.commentable, anchor: "comments")
+      elsif comment.commentable.class == Article
+        link_to link_text, article_path(comment.commentable, anchor: "comments")
+      end
+    else
+      link_to link_text, changelog.changelogged
+    end
+  end
+
   def short_diff(change)
     if change.first.present? && change.last.present?
       diffed = Differ.diff(change.last.to_s, change.first.to_s, 'i').to_s
