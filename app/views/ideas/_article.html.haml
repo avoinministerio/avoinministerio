@@ -1,0 +1,9 @@
+= link_to article do
+  .grid_8
+    .expert
+      .grid_2.alpha
+        %img.avatar{ src: article.author.image, width: 48, height: 48 }
+      .grid_6.omega
+        %span.sans_serif.name= article.author.name
+        %span.sans_serif= finnishTime(article.created_at)
+        %span.sans_serif.title= shorten((article.title + "<br/>" + article.ingress), 100, 20, "»").html_safe
