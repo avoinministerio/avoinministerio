@@ -9,11 +9,18 @@ describe IdeasController do
 
   describe "#show" do
     before :each do
-      @idea = Factory.create :idea
+      @idea = Factory :idea
     end
 
     it "should show an idea" do
       get :show, id: @idea.id
+      response.body.should include(@idea.title)
+      response.body.should include(@idea.author.name)
+      response.body.should include("Tehdäänkö tästä laki?")
+    end
+
+    it "should show an idea with slugged url" do
+      get :show, id: "#{@idea.id}-#{@idea.slug}"
       response.body.should include(@idea.title)
       response.body.should include(@idea.author.name)
       response.body.should include("Tehdäänkö tästä laki?")
