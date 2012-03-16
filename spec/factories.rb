@@ -66,7 +66,7 @@ FactoryGirl.define do
 
   factory :article do
     article_type  'statement'
-    title
+    title         'Article title'
     ingress       'Article ingress'
     body          'Article body'
     association :idea, factory: :idea
