@@ -24,8 +24,6 @@ class IdeasController < ApplicationController
     KM.identify(current_citizen)
     KM.push("record", "idea viewed", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
 
-    @page_title = "AM Idea: " + @idea.title
-
     respond_with @idea
   end
   
