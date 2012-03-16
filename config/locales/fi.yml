@@ -12,7 +12,7 @@ fi:
       comment: "Kommentti"
       idea: "Idea"
       profile: "Profiili"
-      expert_suggestion: "asiantuntijaehdotus"
+      expert_suggestion: "Asiantuntijaehdotus"
     attributes:
       citizen:
         email: "Sähköposti"
