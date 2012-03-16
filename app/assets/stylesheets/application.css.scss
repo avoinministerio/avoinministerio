@@ -275,3 +275,9 @@ input[type=submit] {
   width: 100%;
   height: 120px;
 }
+
+.expert_opinions a, .expert_opinions a:visited {
+  color: $turquoise;
+  font-weight: bold;
+  text-decoration: none;
+}
