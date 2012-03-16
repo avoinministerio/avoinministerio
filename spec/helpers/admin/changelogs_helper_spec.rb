@@ -34,27 +34,27 @@ EOS
     it "should build a link for an Idea" do
       idea = Factory :idea
       link = helper.changelogged_link_for(idea.changelogs.last)
-      link.should include("<a href=\"/ideat/#{idea.slug}\">Idea ##{idea.id}</a>")
+      link.should include("<a href=\"/ideat/#{idea.to_param}\">Idea ##{idea.id}</a>")
     end
 
     it "should build a link for an Idea comment" do
       idea = Factory :idea
       comment = Factory :comment, commentable: idea
       link = helper.changelogged_link_for(comment.changelogs.last)
-      link.should include("<a href=\"/ideat/#{idea.slug}#comments\">Kommentti ##{comment.id}</a>")
+      link.should include("<a href=\"/ideat/#{idea.to_param}#comments\">Kommentti ##{comment.id}</a>")
     end
 
     it "should build a link for an Article" do
       article = Factory :article
       link = helper.changelogged_link_for(article.changelogs.last)
-      link.should include("<a href=\"/artikkelit/#{article.slug}\">Artikkeli ##{article.id}</a>")
+      link.should include("<a href=\"/artikkelit/#{article.to_param}\">Artikkeli ##{article.id}</a>")
     end
 
     it "should build a link for an Article comment" do
       article = Factory :article
       comment = Factory :comment, commentable: article
       link = helper.changelogged_link_for(comment.changelogs.last)
-      link.should include("<a href=\"/artikkelit/#{article.slug}#comments\">Kommentti ##{comment.id}</a>")
+      link.should include("<a href=\"/artikkelit/#{article.to_param}#comments\">Kommentti ##{comment.id}</a>")
     end
   end
 end
