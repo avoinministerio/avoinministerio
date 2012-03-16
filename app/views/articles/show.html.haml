@@ -1,7 +1,7 @@
 .grid_24
   .idea_author
-    %img{ src: @article.author.image, width: 48, height: 48 }
     - if @article.author
+      %img{ src: @article.author.image, width: 48, height: 48 }
       %span= @article.author.name
     - else
       %span= No author
