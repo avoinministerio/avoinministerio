@@ -91,11 +91,12 @@
               %span.sans_serif= finnishTime(article.created_at)
               %span.sans_serif.title= shorten((article.title + "<br/>" + article.ingress), 100, 20, "»").html_safe
   - else
-    Ei vielä lausuntoja
-  .clear
-  %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
-  .clear
-  =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea.id), class: "grid_4"
+    .grid_17
+      Ei vielä lausuntoja
+  .grid_7
+    %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+    .clear
+    =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea.id), class: "grid_4"
   .clear
 .idea_comments#comments
   %h2.grid_24 Kommentit
