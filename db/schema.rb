@@ -123,7 +123,8 @@ ActiveRecord::Schema.define(:version => 20120315212319) do
     t.string   "organisation"
     t.string   "expertise"
     t.string   "recommendation"
-    t.integer  "supporter_id"
+    t.integer  "citizen_id"
+    t.integer  "idea_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

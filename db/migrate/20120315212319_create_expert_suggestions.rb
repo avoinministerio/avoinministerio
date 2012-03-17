@@ -8,7 +8,8 @@ class CreateExpertSuggestions < ActiveRecord::Migration
       t.string :organisation
       t.string :expertise
       t.string :recommendation
-      t.references :supporter
+      t.references :citizen
+      t.references :idea
 
       t.timestamps
     end
