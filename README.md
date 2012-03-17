@@ -139,9 +139,9 @@ Run tests with:
 
         # merge to local master
         git checkout master
-        git pull avoinministerio master
+        git pull --rebase avoinministerio master
         # resolve possible conflicts
-        git merge <feature-branch
+        git merge <feature-branch>          # please notice this branch is now local, ie. not kalleay/feature-branch anymore
         # resolve possible conflicts again
         # finally
         git push   # if cannot due non-fastforward, first git pull
