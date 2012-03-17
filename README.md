@@ -100,6 +100,57 @@ Run tests with:
 
         https://github.com/<username>/avoinministerio/pull/new/new-feature
 
+## Pull request process
+
+1. Add new developer's repository to remote if needed
+
+        git remote add kalleya git@github.com:kalleya/avoinministerio.git
+
+2. Bring his repository into yours. Please notice the output of the command, it says which branches the fetch brought.
+
+        git fetch kalleya
+
+3.  Check the branch if needed with 
+
+        git branch -a   # lists all local and remote branches
+        # pick one remote branch that you'll test for merging
+
+        # checkout remote branch as a local branch
+        git checkout -b ui-fixes-incl-drafts kalleya/ui-fixes-incl-drafts
+
+4. Setup for testing
+
+        bundle install
+        bundle exec rake db:migrate db:test:prepare
+
+        # if db:migrate also emptied your db you probably need to seed some data
+        bundle exec rake db:seed
+
+        bundle exec rake spec
+        rails s
+
+        # if everything works then you're ready for final step, jump to 6
+
+5. If things fail, hack around, make needed commits, and push to avoinministerio/master
+
+6. Merge either way:
+6.1 If automerge is possible and no local commits were needed, Open github pull request, and click Merge pull request button, 
+6.2 Manual merging:
+
+        # merge to local master
+        git checkout master
+        git pull avoinministerio master
+        # resolve possible conflicts
+        git merge <feature-branch
+        # resolve possible conflicts again
+        # finally
+        git push   # if cannot due non-fastforward, first git pull
+        git push avoinministerio master
+
+7. Deploy as needed, probably to staging for wider audience testing
+
+
+
 ## Deployment
 
 To create your personal instance on [Heroku](http://www.heroku.com/):
@@ -126,6 +177,9 @@ You can deploy whatever branch/commit by
     git push heroku +HEAD:master
 
 The site can be protected with Basic Authentication by adding variables `AM_AUTH_USERNAME` and `AM_AUTH_PASSWORD` to Heroku.
+
+
+
 
 ## Dependencies
 
