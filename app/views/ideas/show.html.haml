@@ -1,5 +1,7 @@
 - content_for :facebook_metadata_for_idea do
   = render partial: 'facebook_meta_tags'
+- content_for :head do
+  %title= "AM #{@idea.state}: #{@idea.title}"
 :javascript
   $(document).ready(function(){
       var r = Raphael("votepie");
@@ -80,8 +82,23 @@
 
 .expert_opinions
   %h2.grid_24 Asiantuntijalausunnot
-  = render partial: 'article', collection: @idea.articles
-  .clear
+  - if @idea.articles.any?
+    = render partial: 'article', collection: @idea.articles
+    .clear
+    .grid_17 &nbsp;
+    .grid_7
+      %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+      .clear
+      =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
+    .clear
+  - else
+    .grid_17
+      Ei vielä lausuntoja
+    .grid_7
+      %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+      .clear
+      =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
+    .clear
 
 .idea_comments#comments
   %h2.grid_24 Kommentit
