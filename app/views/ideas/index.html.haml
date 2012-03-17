@@ -2,8 +2,8 @@
   %h1.grid_24 Ideat
 .ideas.container_24
   - @ideas.each do |idea|
-    .idea.container_24
-      .info.grid_10
+    .idea.container_24.clearfix
+      .info.grid_12
         %span.type
           Idea/
         %span.date
@@ -14,6 +14,4 @@
           %h2.notitle= link_to "Ei otsikkoa", idea
       .content.grid_12
         = link_to shortened_summary(idea.summary, 230, 200, "»"), idea
-      .grid_10 &nbsp;
-      .grid_12.statistics
 = will_paginate @ideas
