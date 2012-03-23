@@ -88,4 +88,4 @@
   .grid_24.comment_form
     = render "comments/form", model: @idea
   .comments.suffix_8
-    = render partial: 'comments/comment', collection: @idea.comments.find_all{|c| c.published?}
+    = render partial: 'comments/comment', collection: @idea.comments.published
