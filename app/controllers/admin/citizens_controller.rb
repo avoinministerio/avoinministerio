@@ -4,10 +4,12 @@ class Admin::CitizensController < Admin::AdminController
   before_filter :build_resource, except: [ :index ]
   
   def index
-    @citizens = Citizen.all
     respond_to do |wants|
-        wants.html
+        wants.html do
+          @citizens = Citizen.paginate(page: params[:page])
+        end
         wants.csv do
+          @citizens = Citizen.all
           csv_string = CSV.generate do |csv|
             csv << ["email", "firstname", "lastname"]
             @citizens.each do |citizen|
