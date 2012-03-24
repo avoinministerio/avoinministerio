@@ -40,11 +40,16 @@
             = link_to [:admin, @idea, :articles] do
               = @idea.articles.count
               artikkelia
+
+%h4
+  = @idea.author.profile.first_name
+  = @idea.author.profile.last_name
+  = @idea.author.email
   
 .row-fluid
   .span12
     .summary
-      = @idea.summary
+      = markdown(@idea.summary)
   
     .body
-      = @idea.body
+      = markdown(@idea.body)

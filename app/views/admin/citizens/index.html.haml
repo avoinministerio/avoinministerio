@@ -21,3 +21,4 @@
               .btn-group{ style: "float: right"}
                 = link_to "Lukitse", [:lock, :admin, citizen], class: "btn btn-success" unless citizen.locked?
                 = link_to "Vapauta", [:unlock, :admin, citizen], class: "btn btn-inverse" if citizen.locked?
+= will_paginate @citizens
