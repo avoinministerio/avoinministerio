@@ -4,7 +4,7 @@ class Admin::IdeasController < Admin::AdminController
   respond_to :html
 
   def index
-    respond_with @ideas = Idea.all
+    respond_with @ideas = Idea.paginate(page: params[:page])
   end
   
   def show
