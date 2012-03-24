@@ -4,4 +4,6 @@
     %ul.ideas
       = list_of @ideas do |idea|
         = link_to idea.title, [:admin, idea]
-  
+%div
+  .container_20
+    = will_paginate @ideas
