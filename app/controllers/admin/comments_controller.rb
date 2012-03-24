@@ -4,7 +4,7 @@ class Admin::CommentsController < Admin::AdminController
   respond_to :html
   
   def index
-    @comments = resource_scope.all
+    @comments = resource_scope.paginate(page: params[:page])
   end
   
   def show
