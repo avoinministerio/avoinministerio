@@ -26,3 +26,4 @@
                 - if comment.published?
                   = link_to "Piilota", [:unpublish, :admin, comment], class: "btn btn-danger"
                   = link_to "Moderoi", [:moderate, :admin, comment], class: "btn btn-inverse"
+= will_paginate @comments
