@@ -9,16 +9,16 @@ class Admin::CitizensController < Admin::AdminController
           @citizens = Citizen.paginate(page: params[:page])
         end
         wants.csv do
-          @citizens = Citizen.all
+          @citizens = Citizen.paginate(page: params[:page], per_page: 1200)
           csv_string = CSV.generate do |csv|
             csv << ["email", "firstname", "lastname", "idea_count", "comment_count", "comments_on_ideas", "votes_on_ideas", "earliest_idea_date", "idea_date_last_1", "idea_date_last_2", "idea_date_last_3", "idea_date_last_4", "idea_date_last_5"]
             @citizens.each do |citizen|
-              idea_dates = citizen.ideas.map {|idea| idea.created_at}
+              idea_dates = citizen.ideas.order("created_at ASC").map {|idea| idea.created_at}
               ideas = idea_dates.reverse[0,5]
               earliest_idea_date = idea_dates[0] || ""
               idea_count = citizen.ideas.count
-              comments_on_ideas = citizen.ideas.inject(0){|sum, idea| p idea.comments.count; sum + idea.comments.count}
-              votes_on_ideas = citizen.ideas.inject(0){|sum, idea| vc = idea.vote_counts; p vc; sum + (vc[0]||0) + (vc[1]||0)}
+              comments_on_ideas = citizen.ideas.inject(0){|sum, idea| sum + idea.comments.count}
+              votes_on_ideas = citizen.ideas.inject(0){|sum, idea| vc = idea.vote_counts; sum + (vc[0]||0) + (vc[1]||0)}
               comment_count = citizen.comments.count
               csv << [citizen.email, citizen.first_name, citizen.last_name, idea_count, comment_count, comments_on_ideas, votes_on_ideas, earliest_idea_date, *ideas]
             end
