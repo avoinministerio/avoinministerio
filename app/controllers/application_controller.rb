@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   [404, 422, 500].each do |code|
     class_eval(<<-EOCODE)
       def render_#{code}
-        render 'shared/#{code}', layout: false, status: #{code}
+        render 'shared/#{code}', layout: 'error', status: #{code}
         return false
       end
     EOCODE
