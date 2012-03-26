@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
       KM.push("record", "comment created", idea_id: @idea.id)
     end
 
-    respond_with @comment
+    redirect_to :back
   end
   
   private

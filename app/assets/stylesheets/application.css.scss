@@ -278,6 +278,12 @@ input[type=submit] {
   height: 120px;
 }
 
+#new_comment textarea.disabled {
+  width: 100%;
+  height: 120px;
+  background-color: #eee;
+}
+
 .clearfix:after {
 	visibility: hidden;
 	display: block;
