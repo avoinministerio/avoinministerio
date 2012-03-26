@@ -13,6 +13,33 @@ class ApplicationController < ActionController::Base
 
   private
 
+  rescue_from 'Exception' do |exception|
+    case exception
+      # 404
+      when ActiveRecord::RecordNotFound,
+           ActionController::UnknownController,
+           ActionController::UnknownAction
+        render_404
+      # 422
+      when ActiveRecord::RecordInvalid,
+           ActiveRecord::RecordNotSaved,
+           ActionController::InvalidAuthenticityToken
+        render_422
+      # 500
+      else
+        render_500
+    end
+  end
+
+  [404, 422, 500].each do |code|
+    class_eval(<<-EOCODE)
+      def render_#{code}
+        render 'shared/#{code}', layout: false, status: #{code}
+        return false
+      end
+    EOCODE
+  end
+
   def set_locale
     I18n.locale = params[:locale] || ((lang = request.env['HTTP_ACCEPT_LANGUAGE']) && lang[/^[a-z]{2}/])
   end
