@@ -12,8 +12,6 @@ class CommentsController < ApplicationController
       KM.identify(current_citizen)
       KM.push("record", "comment created", idea_id: @idea.id)
     end
-
-    redirect_to :back
   end
   
   private

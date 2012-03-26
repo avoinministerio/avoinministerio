@@ -1,4 +1,4 @@
-= simple_form_for Comment.new(commentable: model), url: [model, :comments], remote: false do |f|
+= simple_form_for Comment.new(commentable: model), url: [model, :comments], remote: true do |f|
   .grid_16.alpha
     - if citizen_signed_in?
       = f.input :body, as: :text, label: false
