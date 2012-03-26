@@ -1,5 +1,11 @@
-= simple_form_for Comment.new(commentable: model), url: [model, :comments], remote: true do |f|
+= simple_form_for Comment.new(commentable: model), url: [model, :comments], remote: false do |f|
   .grid_16.alpha
-    = f.input :body, as: :text, label: false
+    - if citizen_signed_in?
+      = f.input :body, as: :text, label: false
+    - else
+      = f.input :body, as: :text, label: false, disabled: true, input_html: { :class => 'disabled', value: "Voit kirjoittaa kommentteja kirjautumalla sisään"}
   .grid_8.omega
-    = f.submit "Lisää kommentti"
+    - if citizen_signed_in?
+      = f.submit "Lisää kommentti"
+    - else
+      = f.submit "Lisää kommentti", disabled: true, input_html: { :class => 'disabled' }
