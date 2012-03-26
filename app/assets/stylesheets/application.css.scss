@@ -33,6 +33,9 @@ header .login_actions a, header .idea_actions a {
   font-weight: bold;
   text-decoration: none;
 }
+header > .login_actions > div {
+  float: right;
+}
 
 body > header > .top_row {
   height: 35px;

@@ -33,6 +33,7 @@
     .login_actions.top_row
       - if citizen_signed_in?
         .grid_6
+          %img.avatar{ src: current_citizen.image, width: 25, height: 25 }
           #{current_citizen.name}
           = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
       - else
