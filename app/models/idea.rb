@@ -13,6 +13,7 @@ class Idea < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
+  has_many :expert_suggestions
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 

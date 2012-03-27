@@ -1,0 +1,14 @@
+= simple_form_for ExpertSuggestion.new(idea: idea), url: [idea, :expert_suggestions] do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :firstname
+    = f.input :lastname
+    = f.input :email
+    = f.input :jobtitle
+    = f.input :organisation
+    = f.input :expertise
+    = f.input :recommendation, as: :text
+
+  .actions
+    = f.button :submit

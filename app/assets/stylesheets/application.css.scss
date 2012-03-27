@@ -287,6 +287,12 @@ input[type=submit] {
   background-color: #eee;
 }
 
+.expert_opinions a, .expert_opinions a:visited {
+  color: $turquoise;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .clearfix:after {
 	visibility: hidden;
 	display: block;
@@ -297,3 +303,4 @@ input[type=submit] {
 	}
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
