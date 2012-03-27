@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20120315212319) do
     t.string   "firstname"
     t.string   "lastname"
     t.string   "email"
-    t.string   "title"
+    t.string   "jobtitle"
     t.string   "organisation"
     t.string   "expertise"
     t.string   "recommendation"
