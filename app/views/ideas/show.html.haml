@@ -44,6 +44,7 @@
   .author
     %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
     %span.name= @idea.author.name
+    %span.date.sans_serif= finnishDate(@idea.created_at)
   .grid_16.alpha
     %h1= @idea.title
     .summary
