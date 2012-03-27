@@ -6,7 +6,7 @@ describe "expert_suggestions/edit" do
       :firstname => "MyString",
       :lastname => "MyString",
       :email => "MyString",
-      :title => "MyString",
+      :jobtitle => "MyString",
       :organisation => "MyString",
       :expertise => "MyString",
       :recommendation => "MyString",
@@ -22,7 +22,7 @@ describe "expert_suggestions/edit" do
       assert_select "input#expert_suggestion_firstname", :name => "expert_suggestion[firstname]"
       assert_select "input#expert_suggestion_lastname", :name => "expert_suggestion[lastname]"
       assert_select "input#expert_suggestion_email", :name => "expert_suggestion[email]"
-      assert_select "input#expert_suggestion_title", :name => "expert_suggestion[title]"
+      assert_select "input#expert_suggestion_jobtitle", :name => "expert_suggestion[jobtitle]"
       assert_select "input#expert_suggestion_organisation", :name => "expert_suggestion[organisation]"
       assert_select "input#expert_suggestion_expertise", :name => "expert_suggestion[expertise]"
       assert_select "input#expert_suggestion_recommendation", :name => "expert_suggestion[recommendation]"

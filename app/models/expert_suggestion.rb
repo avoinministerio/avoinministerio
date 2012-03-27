@@ -5,5 +5,5 @@ class ExpertSuggestion < ActiveRecord::Base
   validates_presence_of :idea
   validates_presence_of :supporter
  
-  attr_accessible :firstname, :lastname, :email, :title, :organisation, :expertise, :recommendation
+  attr_accessible :firstname, :lastname, :email, :jobtitle, :organisation, :expertise, :recommendation
 end

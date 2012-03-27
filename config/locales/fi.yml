@@ -29,7 +29,7 @@ fi:
         firstname: "Etunimi"
         lastname: "Sukunimi"
         email: "Sähköposti"
-        title: "Titteli / nimike"
+        jobtitle: "Titteli / nimike"
         organisation: "Organisaatio"
         expertise: "Erityisosaaminen"
         recommendation: "Suositus"

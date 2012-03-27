@@ -6,7 +6,7 @@ describe "expert_suggestions/show" do
       :firstname => "Firstname",
       :lastname => "Lastname",
       :email => "Email",
-      :title => "Title",
+      :jobtitle => "Jobtitle",
       :organisation => "Organisation",
       :expertise => "Expertise",
       :recommendation => "Recommendation",
@@ -23,7 +23,7 @@ describe "expert_suggestions/show" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Email/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Title/)
+    rendered.should match(/Jobtitle/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Organisation/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
