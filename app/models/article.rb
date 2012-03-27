@@ -12,4 +12,8 @@ class Article < ActiveRecord::Base
 
   validates :article_type, inclusion: { in: VALID_ARTICLE_TYPES }
   validates :title, length: { minimum: 5 }
+
+  def to_param
+    "#{self.id}-#{self.slug}"
+  end
 end

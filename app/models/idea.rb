@@ -26,6 +26,10 @@ class Idea < ActiveRecord::Base
     25
   end
 
+  def to_param
+    "#{self.id}-#{self.slug}"
+  end
+
   def vote(citizen, option)
     vote = votes.by(citizen).first
     KM.identify(citizen)
