@@ -80,6 +80,12 @@ input[type=submit], a.button {
     font-size: 16px;
   }
 
+  .author > .date {
+    font-family: $sans_serif;
+    font-size: 13px;
+    padding-left: 10px;
+  }
+
   .summary {
     font-size: 24px;
     margin-bottom: 40px;
