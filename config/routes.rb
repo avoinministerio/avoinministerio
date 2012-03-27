@@ -10,7 +10,9 @@ AvoinMinisterio::Application.routes.draw do
   resources :ideas do
     resources :comments
   end
-  resources :articles
+  resources :articles do
+    resources :comments
+  end
 
   devise_for :administrators
   
