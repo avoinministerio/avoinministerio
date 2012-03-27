@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304183018) do
+ActiveRecord::Schema.define(:version => 20120315212319) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -114,6 +114,20 @@ ActiveRecord::Schema.define(:version => 20120304183018) do
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["publish_state"], :name => "index_comments_on_publish_state"
+
+  create_table "expert_suggestions", :force => true do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "email"
+    t.string   "jobtitle"
+    t.string   "organisation"
+    t.string   "expertise"
+    t.string   "recommendation"
+    t.integer  "citizen_id"
+    t.integer  "idea_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "ideas", :force => true do |t|
     t.string   "title"
