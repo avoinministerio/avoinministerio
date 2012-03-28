@@ -54,7 +54,7 @@
     .body
       = markdown(@idea.body) if @idea.body
 
-    - if @idea.author == current_citizen
+    - if @idea.author == current_citizen or administrator_signed_in?
       = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
 
   .grid_7.prefix_1.omega
