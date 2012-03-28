@@ -1,5 +1,7 @@
 class IdeasController < ApplicationController
-  before_filter :authenticate_citizen!, except: [ :index, :show ]
+  # also admin can edit user's idea, but admin cannot create one
+  before_filter :authenticate_any!,     only: [:edit, :update]
+  before_filter :authenticate_citizen!, except: [ :index, :show, :edit, :update ]
   
   respond_to :html
   
@@ -50,7 +52,7 @@ class IdeasController < ApplicationController
   end
   
   def update
-    @idea = current_citizen.ideas.find(params[:id])
+    @idea = Idea.find(params[:id])
     if @idea.update_attributes(params[:idea])
       flash[:notice] = I18n.t("idea.updated") 
       KM.identify(current_citizen)
@@ -96,4 +98,6 @@ class IdeasController < ApplicationController
 
     render 
   end
+
+
 end
