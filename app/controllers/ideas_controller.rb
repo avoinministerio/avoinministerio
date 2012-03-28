@@ -1,7 +1,5 @@
 class IdeasController < ApplicationController
-  # also admin can edit user's idea, but admin cannot create one
-  before_filter :authenticate_any!,     only: [:edit, :update]
-  before_filter :authenticate_citizen!, except: [ :index, :show, :edit, :update ]
+  before_filter :authenticate_citizen!, except: [ :index, :show ]
   
   respond_to :html
   
