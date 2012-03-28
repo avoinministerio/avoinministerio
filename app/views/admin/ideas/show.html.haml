@@ -14,6 +14,7 @@
         - if @idea.published?
           = link_to "Piilota", [:unpublish, :admin, @idea], class: "btn btn-danger"
           = link_to "Moderoi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+        =link_to "Muokkaa", [:edit, :admin, @idea], class: "btn btn-danger"
 
 .row-fluid
   .span6  
