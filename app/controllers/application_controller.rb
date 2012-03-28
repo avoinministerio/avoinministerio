@@ -11,14 +11,6 @@ class ApplicationController < ActionController::Base
       return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end
 
-  def authenticate_any!
-    if administrator_signed_in?
-      true
-    else
-      authenticate_citizen!
-    end
-  end
-
   private
 
   rescue_from 'Exception' do |exception|
