@@ -10,7 +10,7 @@ AvoinMinisterio::Application.routes.draw do
   
   resources :ideas do
     resources :comments
-    resources :expert_suggestions
+    resources :expert_suggestions, only: [:new, :create]
   end
   resources :articles do
     resources :comments

@@ -5,6 +5,7 @@ fi:
   citizens: kansalaiset
   comments: kommentit
   ideas: ideat
+  expert_suggestions: asiantuntijaehdotukset
   new: uusi
   sign_in: kirjaudu
   sign_up: rekisteroidy
