@@ -1,12 +1,21 @@
-.comment.clearfix
+.comment.clearfix{ comment_id: comment.id }
   .avatar.grid_2
     %img{ src: comment.author.image, width: 50, height: 50 }
   .grid_14
     .info
-      .grid_6
+      .grid_5
         %span.index
         %span.name= comment.author.name
-      .grid_7
+      .grid_4
         %span.separator= "|"
         %span.datetime= finnishTime(comment.created_at)
+      - if current_citizen == comment.author
+        .grid_4
+          %span.separator= "|"
+          %span.hide_link
+            = link_to 'Piilota kommentti',
+                      idea_comment_hide_path(comment.commentable, comment),
+                      remote: true,
+                      method: :post,
+                      confirm: 'Vahvista kommentin piilotus'
     .body.grid_14= markdown(comment.body)

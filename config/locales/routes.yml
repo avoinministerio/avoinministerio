@@ -10,3 +10,4 @@ fi:
   sign_in: kirjaudu
   sign_up: rekisteroidy
   vote: aanesta
+  hide: piilota

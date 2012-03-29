@@ -9,7 +9,9 @@ AvoinMinisterio::Application.routes.draw do
   devise_for :citizens, :controllers => { :omniauth_callbacks => "citizens/omniauth_callbacks" }
   
   resources :ideas do
-    resources :comments
+    resources :comments do
+      post "hide"
+    end
     resources :expert_suggestions, only: [:new, :create]
   end
   resources :articles do
