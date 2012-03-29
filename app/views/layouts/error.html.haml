@@ -12,6 +12,7 @@
     = yield :title
   %link{ href: asset_path('favicon.ico'), rel: 'shortcut icon', type: 'image/x-icon' }
   = stylesheet_link_tag 'application.css', media: 'screen'
+  = csrf_meta_tag
 
 %body
   %header.container_24.top_row_container
