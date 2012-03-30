@@ -62,10 +62,7 @@
           %a{:class => "addthis_button_compact"}
           %a{:class => "addthis_counter addthis_bubble_style"}
 
-  %script{:type => "text/javascript", :src => "//s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f4e6d6b380c6e19"}
+  %script{:type => "text/javascript", :src => "http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f201d4978456053"}
 
-  = render :partial => 'shared/ga' if ENV["GA_TRACKING_ID"]
-
-  - if controller_name == "ideas" && action_name == "vote_flow"
-    :javascript
-      $.getScript("#{javascript_path("vote-flow/impact-code.js")}");
+  = render :partial => 'shared/ga' if Rails.env == 'production'
+  = render :partial => 'shared/metrify' if Rails.env == 'production'
