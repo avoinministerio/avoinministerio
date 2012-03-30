@@ -7,8 +7,8 @@ AvoinMinisterio::Application.routes.draw do
 
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
-    registrations: "citizen_registrations",
-    sessions: "citizen_sessions",
+    registrations: "citizens/registrations",
+    sessions: "citizens/sessions",
   }
   
   resources :ideas do
