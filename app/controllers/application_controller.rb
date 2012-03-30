@@ -14,6 +14,13 @@ class ApplicationController < ActionController::Base
   private
 
   rescue_from 'Exception' do |exception|
+    # log the exception to get a clue what's going wrong
+    Rails.logger.fatal formatted_exception(exception)
+    Rails.logger.flush
+
+    # re-raise exception in dev and test env to easen debugging
+    raise exception unless Rails.env.production?
+
     case exception
       # 404
       when ActiveRecord::RecordNotFound,
@@ -29,6 +36,13 @@ class ApplicationController < ActionController::Base
       else
         render_500
     end
+  end
+
+  def formatted_exception(exception)
+    "\n\n" + ('#' * 80) + "\n\n" +
+    "#{exception.class} (#{exception.message}):\n  " +
+    Rails.backtrace_cleaner.clean(exception.backtrace).join("\n  ") +
+    "\n\n" + ('#' * 80) + "\n\n"
   end
 
   [404, 422, 500].each do |code|
