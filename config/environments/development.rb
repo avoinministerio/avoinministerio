@@ -1,6 +1,9 @@
 AvoinMinisterio::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # Rails secret token for development environment
+  config.secret_token = '6425e157ad45a7585847f91cd58634d6630cb82a60cdfdfa4c9f20a3292aaebc2f1650f8f480cd48b7a626fb02b0c2a35b9d5fde4d17e6c3b844b4fd5bf00ea6'
+
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
