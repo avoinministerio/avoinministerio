@@ -22,7 +22,7 @@ module Admin::ChangelogsHelper
       # location of the actual diff
       diff_start = diffed.index("<del class=\"differ\">")
       diff_start ||= diffed.index("<ins class=\"differ\">")
-      diff_end = diffed.rindex("</ins>") + "</ins>".length - 1
+      diff_end = diffed.rindex("</ins>") && (diffed.rindex("</ins>") + "</ins>".length - 1) || nil
       diff_end ||= diffed.rindex("</del>") + "</del>".length - 1
 
       # take along some extra chars around the diff

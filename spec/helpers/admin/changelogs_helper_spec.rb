@@ -28,6 +28,22 @@ EOS
       change = ['', 'new value']
       helper.short_diff(change).should == '<ins class="differ">new value</ins>'
     end
+
+    it "should show an insert diff alone" do
+      original = "The sentence."
+      updated = "The whole sentence."
+      change = [original, updated]
+
+      helper.short_diff(change).should == 'The <ins class="differ">whole </ins>sentence.'
+    end
+
+    it "should show a delete diff alone" do
+      original = "The whole sentence."
+      updated = "The sentence."
+      change = [original, updated]
+
+      helper.short_diff(change).should == 'The <del class="differ">whole </del>sentence.'
+    end
   end
 
   describe "#changelogged_link_for" do
