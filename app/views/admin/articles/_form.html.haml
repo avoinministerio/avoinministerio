@@ -3,6 +3,6 @@
   = f.input :title
   = f.input :ingress, as: :text
   = f.input :body, as: :text
-  = f.association :author
+  = f.association :author, collection: Citizen.unscoped.joins(:profile).order("profiles.last_name ASC, profiles.first_name ASC").all.collect{|c| ["#{c.profile.last_name}, #{c.profile.first_name}", c.id]}
   = f.association :idea
   = f.submit
