@@ -35,6 +35,10 @@ fi:
         recommendation: "Suositus"
     errors:
       models:
+        idea:
+          attributes:
+            state:
+              inclusion: "%{value} ei ole sallittu"
         article:
           attributes:
             article_type:
