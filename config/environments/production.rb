@@ -1,12 +1,8 @@
 AvoinMinisterio::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  # Rails secret token for production environment
-  if ENV['RAILS_SECRET_TOKEN'].blank?
-    raise "No secret token in environment variables. Please set RAILS_SECRET_TOKEN to proceed."
-  else
-    config.secret_token = ENV['RAILS_SECRET_TOKEN']
-  end
+  # Rails secret token from environment variable
+  config.secret_token = ENV['RAILS_SECRET_TOKEN']
 
   # Code is not reloaded between requests
   config.cache_classes = true
