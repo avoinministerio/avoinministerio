@@ -3,12 +3,14 @@ class Idea < ActiveRecord::Base
   include Changelogger
   extend FriendlyId
 
+  VALID_STATES = %w(idea draft proposal law)
+
   MAX_FB_TITLE_LENGTH = 100
   MAX_FB_DESCRIPTION_LENGTH = 500
 
   friendly_id :title, use: :slugged
 
-  attr_accessible :title, :body, :summary
+  attr_accessible :title, :body, :summary, :state
 
   has_many :comments, as: :commentable
   has_many :votes
@@ -20,6 +22,7 @@ class Idea < ActiveRecord::Base
   validates :author_id, presence: true
   validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
+  validates :state, inclusion: { in: VALID_STATES }
 
   default_scope order("created_at DESC")
 
