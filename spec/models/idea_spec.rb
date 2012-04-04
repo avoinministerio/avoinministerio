@@ -26,6 +26,12 @@ describe Idea do
         idea.should_not be_valid
       end
     end
+
+    it "should not be valid with a 'random' state" do
+      idea.state = 'random'
+      idea.should_not be_valid
+      idea.errors[:state].should include("random ei ole sallittu")
+    end
   end
 
   describe "#vote" do
