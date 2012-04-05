@@ -14,6 +14,7 @@ class AddCountersToIdea < ActiveRecord::Migration
 #      Idea.skip_callback :validate, :before
 #      Idea.skip_callback :update
 #      Idea.skip_callback :save
+      ActiveRecord::Base.record_timestamps = false
       Idea.all.each do |idea|
         vc = idea.vote_counts
         for_, against_ = vc[1] || 0, vc[0] || 0
@@ -38,6 +39,7 @@ class AddCountersToIdea < ActiveRecord::Migration
 #        )
         idea.save(validate: false)
       end
+      ActiveRecord::Base.record_timestamps = true
     end
   end
   def down
