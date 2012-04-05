@@ -8,6 +8,9 @@ class AddCountersToIdea < ActiveRecord::Migration
       add_column :ideas, :vote_proportion, :float
       add_column :ideas, :vote_proportion_away_mid, :float
 
+      # Skipping validation is required for the production data as there are ideas 
+      # with body.size < 5 which is validated minimal length
+      Idea.skip_callback :validate  
       Idea.all.each do |idea|
         vc = idea.vote_counts
         for_, against_ = vc[1] || 0, vc[0] || 0
