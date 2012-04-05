@@ -10,7 +10,10 @@ class AddCountersToIdea < ActiveRecord::Migration
 
       # Skipping validation is required for the production data as there are ideas 
       # with body.size < 5 which is validated minimal length
-      Idea.skip_callback :validate  
+#      Idea.skip_callback :validate, :before
+#      Idea.skip_callback :validate, :before
+#      Idea.skip_callback :update
+#      Idea.skip_callback :save
       Idea.all.each do |idea|
         vc = idea.vote_counts
         for_, against_ = vc[1] || 0, vc[0] || 0
@@ -19,14 +22,21 @@ class AddCountersToIdea < ActiveRecord::Migration
         else
           proportion = 0.5
         end
-        idea.update_attributes!(
-          comment_count: idea.comments.count,
-          vote_count: for_ + against_,
-          vote_for_count: for_,
-          vote_against_count: against_,
-          vote_proportion: proportion,
-          vote_proportion_away_mid: (0.5 - proportion).abs,
-        )
+        idea.comment_count = idea.comments.count
+        idea.vote_count = for_ + against_
+        idea.vote_for_count = for_
+        idea.vote_against_count = against_
+        idea.vote_proportion = proportion
+        idea.vote_proportion_away_mid = (0.5 - proportion).abs
+#        idea.update_attributes!(
+#          comment_count: idea.comments.count,
+#          vote_count: for_ + against_,
+#          vote_for_count: for_,
+#          vote_against_count: against_,
+#          vote_proportion: proportion,
+#          vote_proportion_away_mid: (0.5 - proportion).abs,
+#        )
+        idea.save(validate: false)
       end
     end
   end
