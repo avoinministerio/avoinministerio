@@ -2,6 +2,10 @@
   %title= "Avoin Ministeriö ideat"
 .ideas_header.container_24
   %h1.grid_24 Ideat
+  -@sorting_order.each do |sorting_order|
+    - field, order = sorting_order
+    =link_to @field_names[field][order.first], reorder: field
+
 .ideas.container_24
   - @ideas.each do |idea|
     .idea.container_24.clearfix
