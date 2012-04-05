@@ -153,6 +153,11 @@ h2 {
     }
     .body {
       min-height: inherit;
+      blockquote {
+        margin-left: 20px;
+        font-size: 12px;
+        background-color: #f2f2f2;
+      }
     }
   }
 }
