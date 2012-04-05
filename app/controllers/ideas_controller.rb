@@ -1,10 +1,54 @@
+#encoding: UTF-8
+
 class IdeasController < ApplicationController
   before_filter :authenticate_citizen!, except: [ :index, :show ]
   
   respond_to :html
-  
+
+  # should be implemented instead with counter_caches and also vote_pro (and vote_even_abs_diff cache)
   def index
-    @ideas = Idea.published.paginate(page: params[:page])
+    @orders = {
+      age:      {newest:  "created_at DESC",              oldest: "created_at ASC"}, 
+      comments: {most:    "comment_count DESC",           least: "comment_count ASC"}, 
+      voted:    {most:    "vote_count DESC",              least: "vote_count DESC"}, 
+      support:  {most:    "vote_proportion DESC",         least: "vote_proportion ASC"},
+      tilt:     {even:    "vote_proportion_away_mid ASC", polarized: "vote_proportion_away_mid DESC"},
+    }
+    @field_names = {
+      age:      {newest:  "Uusimmat ideat",               oldest: "Vanhimmat ideat"}, 
+      comments: {most:    "Eniten kommentteja",           least: "Vähiten kommentteja"}, 
+      voted:    {most:    "Eniten ääniä",                 least: "Vähiten ääniä"}, 
+      support:  {most:    "Eniten tukea",                 least: "Vähiten tukea"},
+      tilt:     {even:    "Ääniä jakavin",                polarized: "Selkeimmin puolesta tai vastaan"},
+    }
+
+
+    @sorting_order = session[:sorting_order] 
+    @sorting_order ||= [
+      [:age,      [:newest, :oldest]], 
+      [:comments, [:most,   :least]], 
+      [:voted,    [:most,   :least]], 
+      [:support,  [:most,   :least]],
+      [:tilt,     [:even,   :polarized]],
+    ]
+    if params[:reorder] and @orders.keys.include? params[:reorder].to_sym
+      i = @sorting_order.index{|so| so.first == params[:reorder].to_sym }
+      if i > 0
+        # reshuffle reordered key to first in array
+        @sorting_order.unshift(@sorting_order.delete_at i)
+      elsif i == 0
+        # if it was first, reshuffle the sorting order
+        sorting_options = @sorting_order[0][1]
+        sorting_options.push sorting_options.shift
+      else
+        raise "Sorting order error: unknown field #{params[:reorder]}"
+      end
+      session[:sorting_order] = @sorting_order
+      params.delete :reorder # reordering done now, don't redo it on next page load
+    end
+    ordering = @sorting_order.map{|ord| field, order = ord; @orders[field][order.first]}.join(", ")
+    @ideas = Idea.published.order(ordering).paginate(page: params[:page])
+
     KM.identify(current_citizen)
     KM.push("record", "idea list viewed", page: params[:page] || 0)
     respond_with @ideas
