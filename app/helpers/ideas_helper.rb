@@ -11,6 +11,18 @@ module IdeasHelper
     
     image_tag(filename, width: 954, height: 62)
   end
+
+  def state_localised(state)
+    states = { 
+      "idea" => "idea", 
+      "draft" => "luonnos", 
+      "proposal" => "aloite", # TODO needs to be cleaned up after migrated to two types of proposals
+      "law proposal" => "lakialoite", 
+      "action proposal" => "toimenpidealoite", 
+      "law" => "laki"}
+    raise "invalid state '#{state.inspect}'" unless states.keys.include? state
+    states[state]
+  end
   
   def vote_in_words(idea, citizen)
     case idea.votes.by(citizen).first.option
