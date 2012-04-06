@@ -1,13 +1,90 @@
+#encoding: UTF-8
+
 class IdeasController < ApplicationController
   before_filter :authenticate_citizen!, except: [ :index, :show ]
   
   respond_to :html
-  
+
+  # should be implemented instead with counter_caches and also vote_pro (and vote_even_abs_diff cache)
   def index
-    @ideas = Idea.published.paginate(page: params[:page])
+    setup_filtering_and_sorting_options
+
+    @sorting_order, ordering = update_sorting_order(params[:reorder])
+    @current_filter, code, @filter_name, filterer = update_filter(params[:filter])
+
+    filtered = filterer.call(Idea.published)
+    @ideas = filtered.order(ordering).paginate(page: params[:page])
+
     KM.identify(current_citizen)
+    # TODO: track which sorting options are most commonly used
     KM.push("record", "idea list viewed", page: params[:page] || 0)
     respond_with @ideas
+  end
+
+  def setup_filtering_and_sorting_options
+    @filters = [
+      [:all,                "Kaikki",                proc {|f| f} ],
+      [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
+      [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
+      [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
+      [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
+      [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
+    ]
+
+    @orders = {
+      age:      {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
+      comments: {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
+      voted:    {most:    "vote_count DESC",              least:      "vote_count DESC"}, 
+      support:  {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
+      tilt:     {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
+    }
+    @field_names = {
+      age:      {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
+      comments: {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
+      voted:    {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
+      support:  {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
+      tilt:     {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
+    }
+  end
+
+  def update_sorting_order(reorder)
+    sorting_order = session[:sorting_order] 
+    sorting_order ||= [
+      [:age,      [:newest, :oldest]], 
+      [:comments, [:most,   :least]], 
+      [:voted,    [:most,   :least]], 
+      [:support,  [:most,   :least]],
+      [:tilt,     [:even,   :polarized]],
+    ]
+    if reorder and @orders.keys.include? reorder.to_sym
+      i = sorting_order.index{|so| so.first == reorder.to_sym }
+      if i > 0
+        # reshuffle reordered key to first in array
+        sorting_order.unshift(sorting_order.delete_at i)
+      elsif i == 0
+        # if it was first, reshuffle the sorting order
+        sorting_options = sorting_order[0][1]
+        sorting_options.push sorting_options.shift
+      else
+        raise "Sorting order error: unknown field #{reorder}"
+      end
+      # these two lines are a side-effect. TODO: Refactor out, but these are out-of-place in controller#index too.
+      session[:sorting_order] = sorting_order
+      params.delete :reorder # reordering done now, don't redo it on next page load
+    end
+    ordering = sorting_order.map{|ord| field, order = ord; @orders[field][order.first]}.join(", ")
+    return sorting_order, ordering
+  end
+
+  def update_filter(params_filter)
+    current_filter = params_filter || session[:filter] || :all
+    session[:filter] = current_filter
+    params.delete :filter
+
+    code, filter_name, filterer = @filters.find {|f| f.first == current_filter.to_sym}
+    raise "unknown filter #{current_filter}" unless code
+
+    return current_filter, code, filter_name, filterer
   end
   
   def show

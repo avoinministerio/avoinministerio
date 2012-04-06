@@ -1,6 +1,11 @@
 // Place all the styles related to the Ideas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$turquoise: #29abe2;
+$violet: #473161;
+$grey: #888888;
+
 #new_idea .input label {
   display: block;
 }
@@ -209,3 +214,60 @@ ul.horizontal li {
   text-decoration: none;
 }
 
+.ideas_header .h1 {
+  font-size: 14px;
+}
+
+.ideas_header .h1 span.selected {
+  color: $violet;
+  font-weight: bold;
+}
+
+.ideas_header .filtering .h1 {
+  color: $grey;
+}
+.ideas_header .filtering .h1 a:hover {
+  color: $grey;
+  text-decoration: underline;
+}
+.ideas_header .filtering .h1 a:link {
+  color: $grey;
+  text-decoration: none;
+}
+.ideas_header .filtering .h1 a:visited {
+  color: $grey;
+  text-decoration: none;
+}
+
+.ideas_header .ordering {
+  color: $grey;
+}
+.ideas_header .ordering span.selected {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .ordering span.selected a:link {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .ordering span.selected a:visited {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .ordering a:hover {
+  color: $grey;
+  text-decoration: underline;
+}
+.ideas_header .ordering a:link {
+  color: $grey;
+  text-decoration: none;
+}
+.ideas_header .ordering a:visited {
+  color: $grey;
+  text-decoration: none;
+}
+
+.ideas_header .filtered_title {
+  padding-top:20px;
+  font-size: 24px;
+}

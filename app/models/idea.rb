@@ -24,7 +24,7 @@ class Idea < ActiveRecord::Base
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
   validates :state, inclusion: { in: VALID_STATES }
 
-  default_scope order("created_at DESC")
+#  default_scope order("created_at DESC")
 
   def self.per_page
     25
