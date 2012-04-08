@@ -127,7 +127,7 @@ class IdeasController < ApplicationController
 =======
     sorting_order_code = params[:so].to_i
 #    p sorting_order_code, params[:id]
-    if sorting_order_code && (session[:sorting_orders] && session[:sorting_orders].include? sorting_order_code)
+    if sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(sorting_order_code)
 #      puts "finding ideas_around"
 #      p session[:sorting_orders]
 #      p session[:sorting_orders][sorting_order_code]
