@@ -116,30 +116,13 @@ class IdeasController < ApplicationController
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
 
-<<<<<<< HEAD
     @sorting_order_code = params[:so]
-#    p sorting_order_code, params[:id]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
-#      puts "finding ideas_around"
-#      p session[:sorting_orders]
-#      p session[:sorting_orders][sorting_order_code]
       ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
-=======
-    sorting_order_code = params[:so].to_i
-#    p sorting_order_code, params[:id]
-    if sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(sorting_order_code)
-#      puts "finding ideas_around"
-#      p session[:sorting_orders]
-#      p session[:sorting_orders][sorting_order_code]
-      ideas_around = session[:sorting_orders][sorting_order_code]
->>>>>>> First try to bring sort orderings into Idea page Next and Prev through ids array stored in session
-#      p ideas_around
       ix = ideas_around.index{|i| p i; i == params[:id].to_i}
-#      p ix
       # TODO: translate numerical Idea.id into friendlyed id-and-name format
       @prev = ((ix-1) >= 0)                ? ideas_around[ix-1] : nil
       @next = ((ix+1) < ideas_around.size) ? ideas_around[ix+1] : nil
-#      p @prev, @next
     end
     
     KM.identify(current_citizen)
