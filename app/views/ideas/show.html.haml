@@ -42,12 +42,12 @@
   });
 .grid_12
   - if @prev
-    =link_to "Edellinen", idea_path(@prev)
+    =link_to "Edellinen", idea_path(@prev, so: @sorting_order_code)
   - else
     .no-prev-next Edellinen
 .grid_12.right
   - if @next
-    =link_to "Seuraava", idea_path(@next)
+    =link_to "Seuraava", idea_path(@next, so: @sorting_order_code)
   - else
     .no-prev-next Seuraava
 .clear

@@ -14,7 +14,7 @@ class IdeasController < ApplicationController
 
     on_page = 20
     extras = 20
-    page = params[:page] || 1
+    page = (params[:page] && params[:page].to_i) || 1
     filtered_and_ordered = filterer.call(Idea.published).order(ordering)
     # limit assumes no error on overflow, ie. on N rows limit(N+1) returns just N
     # @ideas_around receives all ideas on current page and also extras amount before and after
@@ -116,13 +116,13 @@ class IdeasController < ApplicationController
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
 
-    sorting_order_code = params[:so].to_i
+    @sorting_order_code = params[:so]
 #    p sorting_order_code, params[:id]
-    if sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(sorting_order_code)
+    if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
 #      puts "finding ideas_around"
 #      p session[:sorting_orders]
 #      p session[:sorting_orders][sorting_order_code]
-      ideas_around = session[:sorting_orders][sorting_order_code]
+      ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
 #      p ideas_around
       ix = ideas_around.index{|i| p i; i == params[:id].to_i}
 #      p ix
