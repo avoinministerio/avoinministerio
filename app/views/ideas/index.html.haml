@@ -53,7 +53,7 @@
         %span.date
           = finnishDate(idea.updated_at)
         - if idea.title.size > 0
-          %h2= link_to idea.title, idea
+          %h2= link_to idea.title, idea_path(idea, so: @sorting_order_code)
         - else
           %h2.notitle= link_to "Ei otsikkoa", idea
       .content.grid_12

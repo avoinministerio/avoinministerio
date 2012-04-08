@@ -40,6 +40,17 @@
           }
       });
   });
+.grid_12
+  - if @prev
+    =link_to "Edellinen", idea_path(@prev)
+  - else
+    .no-prev-next Edellinen
+.grid_12.right
+  - if @next
+    =link_to "Seuraava", idea_path(@next)
+  - else
+    .no-prev-next Seuraava
+.clear
 .grid_24
   = idea_state_image(@idea)
 .idea.grid_24
