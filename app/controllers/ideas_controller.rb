@@ -31,6 +31,7 @@ class IdeasController < ApplicationController
     session[:sorting_orders][@sorting_order_code] = @ideas_around_ids
 #    p session[:sorting_orders]
 
+    # TODO: this hit to database might not be needed as @ideas_around basically contains these already
     @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
 
     KM.identify(current_citizen)
