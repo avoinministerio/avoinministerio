@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120403211306) do
+ActiveRecord::Schema.define(:version => 20120409205333) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -161,6 +161,14 @@ ActiveRecord::Schema.define(:version => 20120403211306) do
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
+
+  create_table "signatures", :force => true do |t|
+    t.integer  "citizen_id"
+    t.integer  "idea_id"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "votes", :force => true do |t|
     t.integer  "option"
