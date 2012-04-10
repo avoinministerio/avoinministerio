@@ -70,42 +70,6 @@ class SignaturesController < ApplicationController
         name:       "Elisa Mobiilivarmenne",
         url:        "https://mtupasprod.elisa.fi/tunnistus/signature.cmd", 
       },
-=begin
-      # Elisa testi
-      { action_id:  "701",
-        vers:       "0001",
-        rcvid:      "Elisa testi",
-        langcode:   "FI",
-#        stamp:      "20120410091600000001",
-        stamp:      DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s,
-        idtype:     "12",
-        retlink:    "#{server}/signatures/#{@signature.id}/returning",
-        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
-        name:       "Mobiilivarmenne",
-        url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd", 
-      },
-=end
-=begin
-      { action_id:  "701",
-        vers:       "0001",
-        rcvid:      "Elisa testi",
-        langcode:   "EN",
-        stamp:      (1333377795 + rand(100000)).to_s,
-        idtype:     "02",
-        retlink:    "https://80.88.186.245/Main/Return",
-        canlink:    "https://80.88.186.245/Main/Cancel",
-        rejlink:    "https://80.88.186.245/Main/Rejected", 
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
-        name:       "Mobiilivarmenne test2",
-        url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd", 
-      }
-=end
     ]
 
     @services.each do |service| 
