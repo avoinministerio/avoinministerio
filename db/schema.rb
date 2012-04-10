@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(:version => 20120412140019) do
     t.string   "occupancy_county"
     t.boolean  "vow"
     t.date     "signing_date"
+
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"

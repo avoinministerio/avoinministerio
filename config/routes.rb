@@ -12,6 +12,15 @@ AvoinMinisterio::Application.routes.draw do
 
   resources :signatures   # TODO FIX FIXME: this is very dangerous route if controller#destroy will be defined
 
+  post "signatures/returning"
+  post "signatures/cancelling"
+  post "signatures/rejected"
+
+  get "signatures/returning"
+  get "signatures/cancelling"
+  get "signatures/rejected"
+  resources :signatures
+
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
     registrations: "citizens/registrations",
