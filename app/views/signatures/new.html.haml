@@ -1,0 +1,33 @@
+.container_24
+  #signature_form
+    - @services.each do |service|
+      .grid_16
+        / %form_tag {action: service[:url], authenticity_token: false, method: :post do |f|
+        /  = hidden_field_tag 'A01Y_ACTION_ID', "701"
+        /  = hidden_field_tag 'A01Y_VERS', "0001"
+        /  = hidden_field_tag 'A01Y_RCVID', "Elisa testi"
+        /  = hidden_field_tag 'A01Y_LANGCODE', "FI"
+        /  = hidden_field_tag 'A01Y_STAMP', "20120410091600000001"
+        /  = hidden_field_tag 'A01Y_IDTYPE', "12"
+        /  = hidden_field_tag 'A01Y_RETLINK', service[:retlink]
+        /  = hidden_field_tag 'A01Y_CANLINK', service[:canlink]
+        /  = hidden_field_tag 'A01Y_REJLINK', service[:rejlink]
+        /  = hidden_field_tag 'A01Y_KEYVERS', "0001"
+        /  = hidden_field_tag 'A01Y_ALG', "03"
+        /  = hidden_field_tag 'A01Y_MAC', service[:mac]
+        /  = submit_tag service[:name]
+        / %form{action: service[:url], method: :post}
+        %form{:action => service[:url], :method => "post"}
+          %input{:type => 'hidden', :name => 'A01Y_ACTION_ID', :value => "701"}
+          %input{:type => 'hidden', :name => 'A01Y_VERS', :value => "0001"}
+          %input{:type => 'hidden', :name => 'A01Y_RCVID', :value => "Elisa testi"}
+          %input{:type => 'hidden', :name => 'A01Y_LANGCODE', :value => "FI"}
+          %input{:type => 'hidden', :name => 'A01Y_STAMP', :value => "20120410091600000001"}
+          %input{:type => 'hidden', :name => 'A01Y_IDTYPE', :value => "12"}
+          %input{:type => 'hidden', :name => 'A01Y_RETLINK', :value => service[:retlink]}
+          %input{:type => 'hidden', :name => 'A01Y_CANLINK', :value => service[:canlink]}
+          %input{:type => 'hidden', :name => 'A01Y_REJLINK', :value => service[:rejlink]}
+          %input{:type => 'hidden', :name => 'A01Y_KEYVERS', :value => "0001"}
+          %input{:type => 'hidden', :name => 'A01Y_ALG', :value => "03"}
+          %input{:type => 'hidden', :name => 'A01Y_MAC', :value => service[:mac]}
+          %input{:type => 'submit', :value => service[:name]}

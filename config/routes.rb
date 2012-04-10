@@ -7,6 +7,15 @@ AvoinMinisterio::Application.routes.draw do
   get "pages/home"
 
 
+  post "signatures/returning"
+  post "signatures/cancelling"
+  post "signatures/rejected"
+
+  get "signatures/returning"
+  get "signatures/cancelling"
+  get "signatures/rejected"
+  resources :signatures
+
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
     registrations: "citizens/registrations",

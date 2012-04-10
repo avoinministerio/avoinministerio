@@ -1,3 +1,6 @@
+# TUPAS requests require SHA256 MAC calculations
+require 'digest/sha2'
+
 module ApplicationHelper
   def markdown(text)
     renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true)
