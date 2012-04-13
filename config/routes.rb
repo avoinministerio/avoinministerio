@@ -1,19 +1,21 @@
 AvoinMinisterio::Application.routes.draw do
 
-  match "/ideas/:id/vote/:vote"     => "vote#vote", as: :vote_idea
+  match "/ideas/:id/vote/:vote"         => "vote#vote", as: :vote_idea
+  match "/ideas/:id/signature"          => "signatures#sign", as: :signature_idea
+  match "/signatures/:id/:returncode"   => "signatures#back"
 
   get "pages/home"
 
   get "ideas/vote_flow"
 
-  post "signatures/returning"
-  post "signatures/cancelling"
-  post "signatures/rejected"
+#  post "signatures/returning"
+#  post "signatures/cancelling"
+#  post "signatures/rejected"
 
-  get "signatures/returning"
-  get "signatures/cancelling"
-  get "signatures/rejected"
-  resources :signatures
+#  get "signatures/returning"
+#  get "signatures/cancelling"
+#  get "signatures/rejected"
+#  resources :signatures
 
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
