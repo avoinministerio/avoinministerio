@@ -1,32 +1,64 @@
 #encoding: UTF-8
 
+require 'date'
+
 class SignaturesController < ApplicationController
   before_filter :authenticate_citizen!
   
   respond_to :html
 
-  def new
+  def sign
     @signature = Signature.new()
-    @signature.idea = Idea.find(params[:idea] || 4)
+    @signature.idea = Idea.find(params[:id] || 4)
     @signature.citizen = current_citizen
     @signature.state = "initial"
+
+    if @signature.save
+      # all good
+    else
+      raise "couldn't save Signature #{@signature}"
+    end
+
+    server = "https://am-staging.herokuapp.com"
+    logger.info "Server is #{server}"
+    server = "https://" + request.domain
+    server += ":" + request.port.to_s unless request.port == 80
+    logger.info "Server is #{server}"
 
     @services = [
       { action_id:  "701",
         vers:       "0001",
         rcvid:      "Elisa testi",
         langcode:   "FI",
-        stamp:      "20120410091600000001",
-        idtype:     "12",
-        retlink:    "https://mobilesignature.herokuapp.com/signature/#{1}/returning",
-        canlink:    "https://mobilesignature.herokuapp.com/signature/#{1}/cancelling",
-        rejlink:    "https://mobilesignature.herokuapp.com/signature/#{1}/rejecting", 
+#        stamp:      "20120410091600000001",
+        stamp:      DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s,
+        idtype:     "02",
+        retlink:    "#{server}/signatures/#{@signature.id}/returning",
+        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
         keyvers:    "0001",
         alg:        "03",
         mac:        nil,
         name:       "Mobiilivarmenne",
         url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd", 
+      },
+=begin
+      { action_id:  "701",
+        vers:       "0001",
+        rcvid:      "Elisa testi",
+        langcode:   "EN",
+        stamp:      (1333377795 + rand(100000)).to_s,
+        idtype:     "02",
+        retlink:    "https://80.88.186.245/Main/Return",
+        canlink:    "https://80.88.186.245/Main/Cancel",
+        rejlink:    "https://80.88.186.245/Main/Rejected", 
+        keyvers:    "0001",
+        alg:        "03",
+        mac:        nil,
+        name:       "Mobiilivarmenne test2",
+        url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd", 
       }
+=end
     ]
 
     @services.each do |service| 
@@ -38,17 +70,49 @@ class SignaturesController < ApplicationController
       secret = ENV[secret_key]
       secret = "" unless secret
       string = vals.join("&") + "&" + secret + "&"
-      print string
+      puts string
       service[:mac] = Digest::SHA256.new.update(string).hexdigest.upcase
     end
 
-    if @signature.save
-      # all good
-    else
-      raise "couldn't save Signature #{@signature}"
-    end
     respond_with @signature
   end
+
+  def valid_returning
+    logger.info params.inspect
+    false
+  end
+
+  def back
+    @signature = Signature.find(params[:id])
+    case params[:returncode]
+    when "returning"
+      if not valid_returning
+        logger.info "save invalidity"
+        logger.info "notify client with redirect back to sign"
+      elsif not within timelimit
+        logger.info "save invalidity"
+        logger.info "notify client with redirect back to sign"
+      elsif repeated returning
+        logger.info "save invalidity"
+        logger.info "notify client with redirect back to sign"
+      else
+        # all success!
+        logger.info "save"
+        logger.info "notify client with a page that redirects back to idea"
+      end
+    when "cancelling"
+      logger.info "redirect to sign"
+    when "rejecting"
+      logger.info "save"
+      logger.info "notify client with a page that redirects back to sign"
+    else
+      logger.info "notify client"
+    end
+        
+    logger.info @signature.inspect
+    respond_with @signature
+  end
+
 
   def create
     @signature = Signature.new()
