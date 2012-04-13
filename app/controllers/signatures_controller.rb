@@ -19,11 +19,17 @@ class SignaturesController < ApplicationController
       raise "couldn't save Signature #{@signature}"
     end
 
-    server = "https://am-staging.herokuapp.com"
+    server = "https://am-signing.herokuapp.com"
     logger.info "Server is #{server}"
     server = "https://" + request.domain
     server += ":" + request.port.to_s unless request.port == 80
     logger.info "Server is #{server}"
+    puts request.host
+    puts request.host_with_port
+    puts request.subdomain
+    puts request.subdomains
+    puts request.inspect
+    logger.error "Server is #{server}"
 
     @services = [
       { action_id:  "701",
