@@ -22,12 +22,12 @@ class AddSignatureCollectingToIdea < ActiveRecord::Migration
     end
   end
   def down
-    remove_column :ideas, :collecting_started, :boolean
-    remove_column :ideas, :collecting_ended, :boolean
-    remove_column :ideas, :collecting_start_date, :date
-    remove_column :ideas, :collecting_end_date, :date
-    remove_column :ideas, :additional_signatures_count, :integer
-    remove_column :ideas, :additional_signatures_count_date, :date
-    remove_column :ideas, :target_count, :integer
+    remove_column :ideas, :collecting_started
+    remove_column :ideas, :collecting_ended
+    remove_column :ideas, :collecting_start_date
+    remove_column :ideas, :collecting_end_date
+    remove_column :ideas, :additional_signatures_count
+    remove_column :ideas, :additional_signatures_count_date
+    remove_column :ideas, :target_count
   end
 end
