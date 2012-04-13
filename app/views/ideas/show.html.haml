@@ -99,6 +99,7 @@
           - else
             Jaa ideaa aktiivisesti eteenpäin! Lisäät sen painoarvoa, oletpa puolesta tai vastaan!
 
+<<<<<<< HEAD
   -if @idea.published?
     %aside.grid_7.prefix_1.omega
       .voting
@@ -118,6 +119,107 @@
           %h4 Ilmoitamme ideaa tukeneille, kun idea on kehittynyt lakiluonnokseksi.
           = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
           = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+=======
+  %aside.grid_7.prefix_1.omega
+    - if @idea.state == "idea" || @idea.state == "draft"
+      .voting
+        - if @idea.voted_by?(current_citizen)
+          %h3
+            Äänestit #{vote_in_words(@idea, current_citizen)},
+            %br
+            voit vaihtaa:
+        - else
+          %h3 Tehdäänkö tästä laki?
+        = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+        = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+      .votes
+        #votepie
+    - elsif @idea.state == "proposal"
+      .signature
+        - started = @idea.collecting_started || @idea.collecting_start_date <= Date.today
+        - ended = @idea.collecting_ended     || @idea.collecting_end_date    < Date.today
+        - on_going = started and (not ended)
+        .button
+          = link_to "Allekirjoita kannatusilmoitus", signature_idea_path(@idea.id), class: "btn jaa-btn"
+        .stat Aloitteen kannatusilmoitukset
+        .stat
+          Keruu on 
+          = (on_going ? "käynnissä" : (not started ? "alkamatta" : "päättynyt"))
+        .stat
+          Keräys on
+          = (started ? "käynnistynyt" : "käynnistymässä")
+          = finnishDate(@idea.collecting_start_date)
+        .stat
+          Keräys 
+          = (ended ? "päättyi" : "päättyy")
+          = finnishDate(@idea.collecting_end_date)
+        .stat
+          Kerätty 
+          - dates_collected = (Date.today - @idea.collecting_start_date + 1).to_i
+          - p dates_collected
+          = dates_collected
+          päivää
+
+        .stat
+          Avoimessa ministeriössä kerätty
+          = @idea.signatures.count
+          kpl
+        .stat
+          Kerätty muualla n.
+          = @idea.additional_signatures_count
+          kpl (arvioitu ja n. kerran viikossa päivitettävä tieto)
+        .stat
+          Kerätty yhteensä siis n.
+          - total_signatures = @idea.signatures.count + @idea.additional_signatures_count
+          = total_signatures
+          kpl (arvio)
+        .stat
+          Tavoitemäärä 
+          = @idea.target_count
+          kpl
+        .stat
+          Tavoitteesta kerätty
+          = sprintf("%.1f%%", total_signatures.to_f / @idea.target_count)
+
+        - signatures_per_day = (total_signatures.to_f) / dates_collected
+        - total_days_to_reach_target = (@idea.target_count)                    / signatures_per_day
+        - still_days_to_reach_target = (@idea.target_count - total_signatures) / signatures_per_day
+        - if on_going
+          .stat
+            Tähän mennessä kerätty keskimäärin
+            = sprintf("%.1f", signatures_per_day)
+            kpl / päivä
+          - if signatures_per_day > 0.0
+            .stat
+              Tällä tahdilla kerääminen kestänee kaikkiaan
+              = sprintf("%.1f", total_days_to_reach_target)
+              päivää
+            .stat
+              Eli vielä
+              = sprintf("%.1f", still_days_to_reach_target)
+              päivää
+            .stat
+              Eli olisi arviolta valmis
+              = finnishDate(Date.today + still_days_to_reach_target)
+            .stat
+              Tällä tahdilla 
+              = ((Date.today + still_days_to_reach_target) <= @idea.collecting_end_date) ? "ehditään kerätä ilmoitukset" : "ei ehditä kerätä ilmoituksia riittävästi"
+              ennen päättymispäivää
+        - if ended
+          .stat
+            Kannatusilmoitusten keräys on päättynyt
+          .stat
+            Ilmoituksia kerättiin keskimäärin
+            = sprintf("%.1f", signatures_per_day)
+            kpl / päivä
+          .stat
+            Sillä tahdilla kerääminen olisi arvioidusti kestänyt
+            = total_days_to_reach_target
+            päivää
+    - else # idea is already a law, no voting
+      Idea on jo laki
+
+>>>>>>> Initial version to request mobile signing, and printing different returns.
 
         - when "draft"
           - if @idea.voted_by?(current_citizen)

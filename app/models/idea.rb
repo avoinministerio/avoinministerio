@@ -13,12 +13,18 @@ class Idea < ActiveRecord::Base
   friendly_id :title, use: :slugged
 
   attr_accessible   :title, :body, :summary, :state, 
-                    :comment_count, :vote_count, :vote_for_count, :vote_against_count, :vote_proportion, :vote_proportion_away_mid
+                    :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
+                    :vote_proportion, :vote_proportion_away_mid,
+                    :collecting_started, :collecting_ended,
+                    :collecting_start_date, :collecting_end_date, 
+                    :additional_signatures_count, :additional_signatures_count_date, 
+                    :target_count
 
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
   has_many :expert_suggestions
+  has_many :signatures
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
