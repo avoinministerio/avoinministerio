@@ -13,10 +13,10 @@ class AddSignatureCollectingToIdea < ActiveRecord::Migration
     Idea.where(state: "proposal").each do |proposal|
       proposal.collecting_started = true
       proposal.collecting_ended = false
-      proposal.collecting_start_date = Date.today
-      proposal.collecting_end_date = Date.today + 180
-      proposal.additional_signatures_count = 0
-      proposal.additional_signatures_count_date = Date.today
+      proposal.collecting_start_date = Date.today-2
+      proposal.collecting_end_date = Date.today-2 + 180
+      proposal.additional_signatures_count = 102
+      proposal.additional_signatures_count_date = Date.today-1
       proposal.target_count = 51_500
       proposal.save(validate: false)
     end
