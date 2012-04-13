@@ -28,7 +28,7 @@ class SignaturesController < ApplicationController
     puts request.host_with_port
     puts request.subdomain
     puts request.subdomains
-    puts request.inspect
+#    puts request.inspect
     logger.error "Server is #{server}"
 
     @services = [
