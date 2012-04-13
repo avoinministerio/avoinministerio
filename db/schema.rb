@@ -172,6 +172,13 @@ ActiveRecord::Schema.define(:version => 20120412140019) do
   create_table "signatures", :force => true do |t|
     t.integer  "citizen_id"
     t.integer  "idea_id"
+    t.string   "idea_title"
+    t.date     "idea_date"
+    t.string   "fullname"
+    t.date     "birth_date"
+    t.string   "occupancy_county"
+    t.boolean  "vow"
+    t.date     "signing_date"
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
