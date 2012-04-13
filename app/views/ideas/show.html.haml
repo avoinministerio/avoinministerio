@@ -86,8 +86,18 @@
         - started = @idea.collecting_started || @idea.collecting_start_date <= Date.today
         - ended = @idea.collecting_ended     || @idea.collecting_end_date    < Date.today
         - on_going = started and (not ended)
-        .button
-          = link_to "Allekirjoita kannatusilmoitus", signature_idea_path(@idea.id), class: "btn jaa-btn"
+
+        - completed_signature = Signature.where(state: "completed", citizen_id: current_citizen.id, idea_id: @idea.id).first
+        - if completed_signature
+          Olet jo allekirjoittanut kannatusilmoituksen onnistuneesti. Et voi allekirjoittaa sitä uudelleen, mutta nyt koska kyseessä on demo niin sallimme uusia ilmoituksia.
+
+        - if on_going
+          .button
+            = link_to "Allekirjoita kannatusilmoitus", signature_idea_path(@idea.id), class: "btn jaa-btn"
+        - if ended
+          Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta keräämme ilmoituksia silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit allekirjoittaa sen uudelleen.
+          .button
+            = link_to "Allekirjoita kannatusilmoitus jälkikäteen", signature_idea_path(@idea.id), class: "btn jaa-btn"
         .stat Aloitteen kannatusilmoitukset
         .stat
           Keruu on 
@@ -109,15 +119,19 @@
 
         .stat
           Avoimessa ministeriössä kerätty
-          = @idea.signatures.count
+          - signatures_count = @idea.signatures.where(state: "completed").count
+          = signatures_count
           kpl
         .stat
           Kerätty muualla n.
           = @idea.additional_signatures_count
           kpl (arvioitu ja n. kerran viikossa päivitettävä tieto)
         .stat
+          Muualla kerättyjen lukumäärä päivitetty
+          = finnishDate(@idea.additional_signatures_count_date)
+        .stat
           Kerätty yhteensä siis n.
-          - total_signatures = @idea.signatures.count + @idea.additional_signatures_count
+          - total_signatures = signatures_count + @idea.additional_signatures_count
           = total_signatures
           kpl (arvio)
         .stat
@@ -126,7 +140,7 @@
           kpl
         .stat
           Tavoitteesta kerätty
-          = sprintf("%.1f%%", total_signatures.to_f / @idea.target_count)
+          = sprintf("%.3f%%", total_signatures.to_f / @idea.target_count * 100.0)
 
         - signatures_per_day = (total_signatures.to_f) / dates_collected
         - total_days_to_reach_target = (@idea.target_count)                    / signatures_per_day
