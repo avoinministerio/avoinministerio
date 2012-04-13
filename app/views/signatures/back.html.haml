@@ -1,2 +1,25 @@
 .returning
-	= params.inspect
+  - if not @error
+    %h1 Tunnistaminen onnistui
+
+    =simple_form_for @signature do |f|
+      Varmista, että seuraavassa kentässä on täydellinen nimesi (yleensä useampi etunimi).
+      =f.input :fullname
+      Varmista, että kotikuntasi vastaa Väestörekisterikeskuksen tietoja.
+      =f.input :occupancy_county
+      Syntymäpäiväsi on alustettu tunnistamispalvelusta saaduilla tiedoilla. Varmista, että se on oikein.
+      =f.input :birth_date
+      Rastimalla tämän vakuutat, että olet äänioikeutettu Suomen kansalainen, ja olet tehnyt kannatusilmoituksen aloitteeseen vain kerran.
+      =f.input :vow
+      =f.input :idea_title,   :disabled => true
+      =f.input :idea_date,    :disabled => true
+
+
+    Voit nyt palata
+    =link_to "takaisin aloitteeseen", @signature.idea
+  - else
+    .error
+      %h1 Tunnistaminen epäonnistui
+      Virhe
+      = @error
+      =link_to "takaisin aloitteeseen", @signature.idea

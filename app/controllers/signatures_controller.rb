@@ -11,6 +11,12 @@ class SignaturesController < ApplicationController
     @signature = Signature.new()
     @signature.idea = Idea.find(params[:id] || 4)
     @signature.citizen = current_citizen
+    @signature.idea_title = @signature.idea.title
+    @signature.idea_date  = @signature.idea.updated_at
+    @signature.fullname = @signature.citizen.name
+    # @signature.birth_date = ""
+    @signature.occupancy_county = ""
+    @signature.vow = false
     @signature.state = "initial"
 
     if @signature.save
@@ -38,7 +44,7 @@ class SignaturesController < ApplicationController
         langcode:   "FI",
 #        stamp:      "20120410091600000001",
         stamp:      DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s,
-        idtype:     "02",
+        idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
         rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
@@ -68,43 +74,74 @@ class SignaturesController < ApplicationController
     ]
 
     @services.each do |service| 
+      secret = service_secret(service[:rcvid])
       keys = [:action_id, :vers, :rcvid, :langcode, :stamp, :idtype, :retlink, :canlink, :rejlink, :keyvers, :alg]
-      secret_key = "SECRET_" + service[:rcvid].gsub(/\s/, "")
 #      vals = keys.map{|k| service[k].gsub(/\s/, "") }
       vals = keys.map{|k| service[k] }
-      logger.info "Using key #{secret_key}" 
-      secret = ENV[secret_key]
-      secret = "" unless secret
       string = vals.join("&") + "&" + secret + "&"
       puts string
-      service[:mac] = Digest::SHA256.new.update(string).hexdigest.upcase
+      service[:mac] = mac(string)
     end
 
     respond_with @signature
   end
 
-  def valid_returning
+  def service_secret(service)
+      secret_key = "SECRET_" + service.gsub(/\s/, "")
+      logger.info "Using key #{secret_key}" 
+      secret = ENV[secret_key]
+      secret = "" unless secret
+      secret
+  end
+
+  def mac(string)
+    Digest::SHA256.new.update(string).hexdigest.upcase
+  end
+
+  def valid_returning(signature)
     logger.info params.inspect
-    false
+    puts params.inspect
+    values = %w(VERS TIMESTMP IDNBR STAMP CUSTNAME KEYVERS ALG CUSTID CUSTTYPE).map {|key| params["B02K_" + key]}
+    #service = @signature.service
+    service = "Elisa testi"
+    puts "in valid returning"
+    p service_secret(service)
+    p values[0,9].join("&")
+    string = values[0,9].join("&") + "&" + service_secret(service) + "&"
+    puts string
+    puts mac(string)
+    puts params["B02K_MAC"]
+    params["B02K_MAC"] == mac(string)
   end
 
   def back
     @signature = Signature.find(params[:id])
     case params[:returncode]
     when "returning"
-      if not valid_returning
+      if not valid_returning(@signature)
+        logger.info "Invalid return"
         logger.info "save invalidity"
         logger.info "notify client with redirect back to sign"
-      elsif not within timelimit
+        @error = "Invalid return"
+      elsif not "within timelimit"
+        logger.info "not within timelimit"
         logger.info "save invalidity"
         logger.info "notify client with redirect back to sign"
-      elsif repeated returning
+        @error = "Not within timelimit"
+      elsif not "repeated returning"
+        logger.info "repeated returning"
         logger.info "save invalidity"
         logger.info "notify client with redirect back to sign"
+        @error = "Repeated returning"
       else
         # all success!
         logger.info "save"
         logger.info "notify client with a page that redirects back to idea"
+        @error = nil
+        bd = params["B02K_CUSTID"].gsub(/\-.+$/, "")
+        birth_date = Date.new(1900+bd[4,2].to_i, bd[2,2].to_i, bd[0,2].to_i)
+        p birth_date
+        @signature.update_attributes(state: "completed", signing_date: Date.today, birth_date: birth_date)
       end
     when "cancelling"
       logger.info "redirect to sign"
