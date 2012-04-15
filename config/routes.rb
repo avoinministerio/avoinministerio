@@ -8,13 +8,6 @@ AvoinMinisterio::Application.routes.draw do
 
   get "ideas/vote_flow"
 
-#  post "signatures/returning"
-#  post "signatures/cancelling"
-#  post "signatures/rejected"
-
-#  get "signatures/returning"
-#  get "signatures/cancelling"
-#  get "signatures/rejected"
   resources :signatures   # TODO FIX FIXME: this is very dangerous route if controller#destroy will be defined
 
   devise_for :citizens, :controllers => { 
