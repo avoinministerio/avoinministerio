@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    @drafts = Idea.where(state: 'draft').order("updated_at DESC").limit(3).includes(:votes).all
+    @drafts = Idea.published.where(state: 'draft').order("updated_at DESC").limit(3).includes(:votes).all
     @draft_counts = {}
     @drafts.map do |idea|
       for_count      = idea.vote_counts[1] || 0
@@ -14,7 +14,7 @@ class PagesController < ApplicationController
       @draft_counts[idea.id] = [for_portion, for_, against_portion, against_]
     end
 
-    @ideas = Idea.where(state: 'idea').order("updated_at DESC").limit(4).includes(:votes).all
+    @ideas = Idea.published.where(state: 'idea').order("updated_at DESC").limit(4).includes(:votes).all
     @idea_counts = {}
     @ideas.map do |idea|
       for_count      = idea.vote_counts[1] || 0
