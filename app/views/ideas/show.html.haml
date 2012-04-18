@@ -44,9 +44,10 @@
   = idea_state_image(@idea)
 .idea.grid_24
   .author
-    %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
-    %span.name= @idea.author.name
-    %span.date.sans_serif= finnishDate(@idea.created_at)
+    -if @idea.published?
+      %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
+      %span.name= @idea.author.name
+      %span.date.sans_serif= finnishDate(@idea.created_at)
   .grid_16.alpha
     - if @idea.published?
       %h1= @idea.title
@@ -58,7 +59,7 @@
       %h1 Piilotettu
       .summary
         Tämä idea on tällä hetkellä piilotettu. Voit kääntyä 
-        %a{href="mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
+        %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
         puoleen mahdollisilla kysymyksilläsi.
       .body
     - if @idea.author == current_citizen or administrator_signed_in?
