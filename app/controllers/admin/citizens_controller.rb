@@ -9,7 +9,7 @@ class Admin::CitizensController < Admin::AdminController
           @citizens = Citizen.paginate(page: params[:page])
         end
         wants.csv do
-          @citizens = Citizen.paginate(page: params[:page], per_page: 1200)
+          @citizens = Citizen.paginate(page: params[:page], per_page: 700)
           csv_string = CSV.generate do |csv|
             csv << ["email", "firstname", "lastname", "idea_count", "comment_count", "comments_on_ideas", "votes_on_ideas", "earliest_idea_date", "idea_date_last_1", "idea_date_last_2", "idea_date_last_3", "idea_date_last_4", "idea_date_last_5"]
             @citizens.each do |citizen|
