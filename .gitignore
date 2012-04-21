@@ -19,3 +19,4 @@
 
 # Ignore test coverage results
 /coverage
+/nbproject/private/
