@@ -37,6 +37,12 @@ class IdeasController < ApplicationController
     KM.identify(current_citizen)
     # TODO: track which sorting options are most commonly used
     KM.push("record", "idea list viewed", page: params[:page] || 1)
+
+#    @ideas.each do |idea|
+#      idea.comments_count = 0
+#      idea.articles.count = 0
+#    end
+
     respond_with @ideas
   end
 
