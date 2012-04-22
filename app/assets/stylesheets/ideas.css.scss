@@ -196,6 +196,10 @@ ul.horizontal li {
   color: #bbb;
 }
 
+.ideas .idea .info h2 {
+  margin-right: 35px;
+}
+
 .ideas .idea .content {
   padding-top: 22px;  
 }
@@ -270,4 +274,19 @@ ul.horizontal li {
 .ideas_header .filtered_title {
   padding-top:20px;
   font-size: 24px;
+}
+
+.stats {
+  margin-top: 20px;
+}
+
+span.comments {
+  display: inline-block;
+  width: 42px;
+  padding: 2px 6px 0 0;
+  height: 32px;
+  margin: 0 10px 0 20px;
+  background: transparent url("/assets/comment-bg.png") top left no-repeat;
+  text-align: right;
+  color: #fff;
 }
