@@ -5,6 +5,8 @@
 $turquoise: #29abe2;
 $violet: #473161;
 $grey: #888888;
+$green: #8cc63f;
+$red: #a9003f;
 
 #new_idea .input label {
   display: block;
@@ -280,7 +282,7 @@ ul.horizontal li {
   margin-top: 20px;
 }
 
-span.comments {
+.stats span.comment-count {
   display: inline-block;
   width: 42px;
   padding: 2px 6px 0 0;
@@ -289,4 +291,16 @@ span.comments {
   background: transparent url("/assets/comment-bg.png") top left no-repeat;
   text-align: right;
   color: #fff;
+}
+
+.stats .votes{
+  color: $grey;
+}
+
+.stats span.for {
+  color: $green;
+}
+
+.stats span.against {
+  color: $red;
 }
