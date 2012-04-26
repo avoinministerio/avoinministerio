@@ -27,6 +27,7 @@ gem "simple_form"
 gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
+gem "hominid"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
