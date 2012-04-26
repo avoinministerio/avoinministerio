@@ -59,7 +59,7 @@ class IdeasController < ApplicationController
     @orders = {
       age:      {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
       comments: {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
-      voted:    {most:    "vote_count DESC",              least:      "vote_count DESC"}, 
+      voted:    {most:    "vote_count DESC",              least:      "vote_count ASC"}, 
       support:  {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
       tilt:     {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
     }
