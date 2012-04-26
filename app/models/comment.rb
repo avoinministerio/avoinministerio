@@ -14,4 +14,12 @@ class Comment < ActiveRecord::Base
   validates :author_id,         presence: true
   validates :commentable_id,    presence: true
   validates :commentable_type,  presence: true
+
+  def prepare_for_unpublishing
+    if self.body.blank?
+      self.body = "  "
+    elsif self.body.length == 1
+      self.body += " "
+    end
+  end
 end
