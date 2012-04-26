@@ -1,13 +1,115 @@
+#encoding: UTF-8
+
 class IdeasController < ApplicationController
   before_filter :authenticate_citizen!, except: [ :index, :show ]
   
   respond_to :html
-  
+
+  # should be implemented instead with counter_caches and also vote_pro (and vote_even_abs_diff cache)
   def index
-    @ideas = Idea.published.paginate(page: params[:page])
+    setup_filtering_and_sorting_options
+
+    @sorting_order, ordering = update_sorting_order(params[:reorder])
+    @current_filter, code, @filter_name, filterer = update_filter(params[:filter])
+
+    on_page = 20
+    extras = 20
+    page = (params[:page] && params[:page].to_i) || 1
+    filtered_and_ordered = filterer.call(Idea.published).order(ordering)
+    # limit assumes no error on overflow, ie. on N rows limit(N+1) returns just N
+    # @ideas_around receives all ideas on current page and also extras amount before and after
+    @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
+    @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}
+
+    session[:sorting_orders] ||= {}
+    # always update the ids for certain sorting order (for every pagination and sorting)
+    # ie. this also remembers just the last, which also means next page, back and open idea gives wrong
+    # TODO: fix by incorporating page number besides sorting order
+    # TODO: we actually need to add whole user_id of some sorts here to prevent copy&pasted urls
+    #       give wrong prev-next links if you happen to have the same sorting order in session
+    @sorting_order_code = @sorting_order.hash
+    session[:sorting_orders][@sorting_order_code] = @ideas_around_ids
+#    p session[:sorting_orders]
+
+    # TODO: this hit to database might not be needed as @ideas_around basically contains these already
+    @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
+
     KM.identify(current_citizen)
-    KM.push("record", "idea list viewed", page: params[:page] || 0)
+    # TODO: track which sorting options are most commonly used
+    KM.push("record", "idea list viewed", page: params[:page] || 1)
+
+#    @ideas.each do |idea|
+#      idea.comments_count = 0
+#      idea.articles.count = 0
+#    end
+
     respond_with @ideas
+  end
+
+  def setup_filtering_and_sorting_options
+    @filters = [
+      [:all,                "Kaikki",                proc {|f| f} ],
+      [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
+      [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
+      [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
+      [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
+      [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
+    ]
+
+    @orders = {
+      age:      {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
+      comments: {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
+      voted:    {most:    "vote_count DESC",              least:      "vote_count DESC"}, 
+      support:  {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
+      tilt:     {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
+    }
+    @field_names = {
+      age:      {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
+      comments: {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
+      voted:    {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
+      support:  {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
+      tilt:     {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
+    }
+  end
+
+  def update_sorting_order(reorder)
+    sorting_order = session[:sorting_order] 
+    sorting_order ||= [
+      [:age,      [:newest, :oldest]], 
+      [:comments, [:most,   :least]], 
+      [:voted,    [:most,   :least]], 
+      [:support,  [:most,   :least]],
+      [:tilt,     [:even,   :polarized]],
+    ]
+    if reorder and @orders.keys.include? reorder.to_sym
+      i = sorting_order.index{|so| so.first == reorder.to_sym }
+      if i > 0
+        # reshuffle reordered key to first in array
+        sorting_order.unshift(sorting_order.delete_at i)
+      elsif i == 0
+        # if it was first, reshuffle the sorting order
+        sorting_options = sorting_order[0][1]
+        sorting_options.push sorting_options.shift
+      else
+        raise "Sorting order error: unknown field #{reorder}"
+      end
+      # these two lines are a side-effect. TODO: Refactor out, but these are out-of-place in controller#index too.
+      session[:sorting_order] = sorting_order
+      params.delete :reorder # reordering done now, don't redo it on next page load
+    end
+    ordering = sorting_order.map{|ord| field, order = ord; @orders[field][order.first]}.join(", ")
+    return sorting_order, ordering
+  end
+
+  def update_filter(params_filter)
+    current_filter = params_filter || session[:filter] || :all
+    session[:filter] = current_filter
+    params.delete :filter
+
+    code, filter_name, filterer = @filters.find {|f| f.first == current_filter.to_sym}
+    raise "unknown filter #{current_filter}" unless code
+
+    return current_filter, code, filter_name, filterer
   end
   
   def show
@@ -20,6 +122,15 @@ class IdeasController < ApplicationController
     
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
+
+    @sorting_order_code = params[:so]
+    if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
+      ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
+      ix = ideas_around.index{|i| p i; i == params[:id].to_i}
+      # TODO: translate numerical Idea.id into friendlyed id-and-name format
+      @prev = ((ix-1) >= 0)                ? ideas_around[ix-1] : nil
+      @next = ((ix+1) < ideas_around.size) ? ideas_around[ix+1] : nil
+    end
     
     KM.identify(current_citizen)
     KM.push("record", "idea viewed", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
