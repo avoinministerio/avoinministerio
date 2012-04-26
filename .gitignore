@@ -19,4 +19,6 @@
 
 # Ignore test coverage results
 /coverage
-/nbproject/private/
+
+# Ignore NetBeans project (eases development with NetBeans)
+/nbproject
