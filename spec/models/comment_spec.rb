@@ -37,4 +37,21 @@ describe Comment do
       end
     end
   end
+
+  describe "#prepare_for_unpublishing" do
+    let(:invalid_comment)   { Factory.build(:comment, body: "") }
+    let(:invalid_comment_2) { Factory.build(:comment, body: "a") }
+
+    it "adds two spaces for empty comments" do
+      invalid_comment.prepare_for_unpublishing
+      invalid_comment.should be_valid
+      invalid_comment.body.should == "  "
+    end
+
+    it "adds a space for one-character comments" do
+      invalid_comment_2.prepare_for_unpublishing
+      invalid_comment_2.should be_valid
+      invalid_comment_2.body.should == "a "
+    end
+  end
 end
