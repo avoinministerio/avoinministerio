@@ -22,4 +22,18 @@ class Comment < ActiveRecord::Base
       self.body += " "
     end
   end
+
+  after_create :increment_idea_comment_count
+  def increment_idea_comment_count
+    update_idea_comment_count(1)
+  end
+
+  after_destroy :decrement_idea_comment_count
+  def decrement_idea_comment_count
+    update_idea_comment_count(-1)
+  end
+
+  def update_idea_comment_count(incrdecr)
+    self.commentable.update_attributes(comment_count: self.commentable.comment_count + incrdecr) if self.commentable_type == "Idea"
+  end
 end
