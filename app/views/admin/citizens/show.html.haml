@@ -7,6 +7,8 @@
         = image_tag(@citizen.image)
       %h1.name
         = @citizen.name
+      %div
+        = @citizen.email
 
     .btn-group
       = link_to "Lukitse", [:lock, :admin, @citizen], class: "btn btn-danger" unless @citizen.locked?
