@@ -36,4 +36,5 @@ class Comment < ActiveRecord::Base
   def update_idea_comment_count(incrdecr)
     self.commentable.update_attributes(comment_count: self.commentable.comment_count + incrdecr) if self.commentable_type == "Idea"
   end
+
 end
