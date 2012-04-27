@@ -53,9 +53,22 @@
         %span.date
           = finnishDate(idea.updated_at)
         - if idea.title.size > 0
-          %h2= link_to idea.title, idea
+          %h2= link_to idea.title, idea_path(idea, so: @sorting_order_code)
         - else
           %h2.notitle= link_to "Ei otsikkoa", idea
       .content.grid_12
-        = link_to shortened_summary(idea.summary, 230, 200, "»"), idea
+        = link_to shortened_summary(idea.summary, 215, 185, "»"), idea
+        .clear
+        .stats
+          %span.votes
+            = number_with_delimiter((idea.vote_count || 10_000), delimiter: " ")
+            = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")
+          %span.for= sprintf("%.0f%%", (idea.vote_proportion || 0.0)*100.0)
+          |
+          %span.against= sprintf("%.0f%%", (1.0-(idea.vote_proportion || 0.0))*100.0)
+          %span.comment-count= (idea.comment_count || 0)
+          -if idea.articles.count > 0
+            %span.articles
+              = idea.articles.count
+              = (idea.articles.count == 1 ? "lausunto" : "lausuntoa")
 = will_paginate @ideas

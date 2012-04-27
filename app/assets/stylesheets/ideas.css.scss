@@ -5,6 +5,8 @@
 $turquoise: #29abe2;
 $violet: #473161;
 $grey: #888888;
+$green: #8cc63f;
+$red: #a9003f;
 
 #new_idea .input label {
   display: block;
@@ -196,6 +198,10 @@ ul.horizontal li {
   color: #bbb;
 }
 
+.ideas .idea .info h2 {
+  margin-right: 35px;
+}
+
 .ideas .idea .content {
   padding-top: 22px;  
 }
@@ -270,4 +276,35 @@ ul.horizontal li {
 .ideas_header .filtered_title {
   padding-top:20px;
   font-size: 24px;
+}
+
+.stats {
+  margin-top: 20px;
+}
+
+.stats span.comment-count {
+  display: inline-block;
+  width: 42px;
+  padding: 2px 6px 0 0;
+  height: 32px;
+  margin: 0 10px 0 20px;
+  background: transparent url("/assets/comment-bg.png") top left no-repeat;
+  text-align: right;
+  color: #fff;
+}
+
+.stats .votes{
+  color: $grey;
+}
+
+.stats span.for {
+  color: $green;
+}
+
+.stats span.against {
+  color: $red;
+}
+
+.stats .articles{
+  color: $grey;
 }
