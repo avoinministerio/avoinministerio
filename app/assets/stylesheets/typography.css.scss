@@ -162,3 +162,18 @@ input[type=submit], a.button {
   font-family: $sans_serif;
 }
 
+.news .news-item .datetime {
+  font-family: $sans_serif;
+  text-transform: uppercase;
+}
+
+.blogs .blog .info h2 a {
+  font-size: 24px;
+  font-family: $serif;
+}
+
+.blogs > .blog > .content {
+  font-size: 16px;
+  font-family: $serif;
+}
+
