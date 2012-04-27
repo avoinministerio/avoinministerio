@@ -12,12 +12,37 @@ class IdeasController < ApplicationController
     @sorting_order, ordering = update_sorting_order(params[:reorder])
     @current_filter, code, @filter_name, filterer = update_filter(params[:filter])
 
-    filtered = filterer.call(Idea.published)
-    @ideas = filtered.order(ordering).paginate(page: params[:page])
+    on_page = 20
+    extras = 20
+    page = (params[:page] && params[:page].to_i) || 1
+    filtered_and_ordered = filterer.call(Idea.published).order(ordering)
+    # limit assumes no error on overflow, ie. on N rows limit(N+1) returns just N
+    # @ideas_around receives all ideas on current page and also extras amount before and after
+    @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
+    @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}
+
+    session[:sorting_orders] ||= {}
+    # always update the ids for certain sorting order (for every pagination and sorting)
+    # ie. this also remembers just the last, which also means next page, back and open idea gives wrong
+    # TODO: fix by incorporating page number besides sorting order
+    # TODO: we actually need to add whole user_id of some sorts here to prevent copy&pasted urls
+    #       give wrong prev-next links if you happen to have the same sorting order in session
+    @sorting_order_code = @sorting_order.hash
+    session[:sorting_orders][@sorting_order_code] = @ideas_around_ids
+#    p session[:sorting_orders]
+
+    # TODO: this hit to database might not be needed as @ideas_around basically contains these already
+    @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
 
     KM.identify(current_citizen)
     # TODO: track which sorting options are most commonly used
-    KM.push("record", "idea list viewed", page: params[:page] || 0)
+    KM.push("record", "idea list viewed", page: params[:page] || 1)
+
+#    @ideas.each do |idea|
+#      idea.comments_count = 0
+#      idea.articles.count = 0
+#    end
+
     respond_with @ideas
   end
 
@@ -97,6 +122,15 @@ class IdeasController < ApplicationController
     
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
+
+    @sorting_order_code = params[:so]
+    if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
+      ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
+      ix = ideas_around.index{|i| p i; i == params[:id].to_i}
+      # TODO: translate numerical Idea.id into friendlyed id-and-name format
+      @prev = ((ix-1) >= 0)                ? ideas_around[ix-1] : nil
+      @next = ((ix+1) < ideas_around.size) ? ideas_around[ix+1] : nil
+    end
     
     KM.identify(current_citizen)
     KM.push("record", "idea viewed", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
