@@ -308,3 +308,13 @@ ul.horizontal li {
 .stats .articles{
   color: $grey;
 }
+
+.prevnext .right {
+  text-align: right;
+}
+
+.prevnext a {
+  color: $turquoise;
+  font-weight: bold;
+  text-decoration: none;
+}
