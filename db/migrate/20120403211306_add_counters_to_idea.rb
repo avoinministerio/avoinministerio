@@ -1,12 +1,12 @@
 class AddCountersToIdea < ActiveRecord::Migration
   def up
     Idea.transaction do 
-      add_column :ideas, :comment_count, :integer
-      add_column :ideas, :vote_count, :integer
-      add_column :ideas, :vote_for_count, :integer
-      add_column :ideas, :vote_against_count, :integer
-      add_column :ideas, :vote_proportion, :float
-      add_column :ideas, :vote_proportion_away_mid, :float
+      add_column :ideas, :comment_count, :integer, default: 0
+      add_column :ideas, :vote_count, :integer, default: 0
+      add_column :ideas, :vote_for_count, :integer, default: 0
+      add_column :ideas, :vote_against_count, :integer, default: 0
+      add_column :ideas, :vote_proportion, :float, default: 0.0
+      add_column :ideas, :vote_proportion_away_mid, :float, default: 0.5
 
       # Skipping validation is required for the production data as there are ideas 
       # with body.size < 5 which is validated minimal length
