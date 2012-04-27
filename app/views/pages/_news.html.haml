@@ -3,10 +3,12 @@
   %iframe{width: "310", height: "192", src: "//www.youtube.com/embed/R2wa2O0EBTg?rel=0", frameborder: "0", allowfullscreen: ""}
   - if @blog_articles.any?
     - @blog_articles.each do |article|
-      .news_item
+      .news-item
         - author_name = (article.author && article.author.profile.name) || "Tuntematon"
-        =link_to author_name, article_path(article)
-        #{finnishTime(article.updated_at)}
+        %span.author= link_to author_name, article_path(article)
+        %span.datetime= finnishTime(article.updated_at)
+      .clear
       .content=link_to shorten(article.title, 100, 20, "»"), article_path(article)
+    .all-blogs=link_to "Kaikki blogit", Article
   - else
     %p Ei kirjoituksia tällä hetkellä
