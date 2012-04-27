@@ -61,7 +61,7 @@
         .clear
         .stats
           %span.votes
-            = number_with_delimiter((idea.vote_count || 10_000), delimiter: " ")
+            = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
             = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")
           %span.for= sprintf("%.0f%%", (idea.vote_proportion || 0.0)*100.0)
           |

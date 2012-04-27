@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120403211306) do
+ActiveRecord::Schema.define(:version => 20120412140019) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20120403211306) do
   end
 
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
-  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_type"
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["publish_state"], :name => "index_comments_on_publish_state"
 
   create_table "expert_suggestions", :force => true do |t|
@@ -132,19 +132,26 @@ ActiveRecord::Schema.define(:version => 20120403211306) do
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.string   "state",                    :default => "idea"
+    t.string   "state",                            :default => "idea"
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "summary"
-    t.string   "publish_state",            :default => "published"
+    t.string   "publish_state",                    :default => "published"
     t.string   "slug"
-    t.integer  "comment_count"
-    t.integer  "vote_count"
-    t.integer  "vote_for_count"
-    t.integer  "vote_against_count"
-    t.float    "vote_proportion"
-    t.float    "vote_proportion_away_mid"
+    t.boolean  "collecting_started"
+    t.boolean  "collecting_ended"
+    t.date     "collecting_start_date"
+    t.date     "collecting_end_date"
+    t.integer  "additional_signatures_count"
+    t.date     "additional_signatures_count_date"
+    t.integer  "target_count"
+    t.integer  "comment_count",                    :default => 0
+    t.integer  "vote_count",                       :default => 0
+    t.integer  "vote_for_count",                   :default => 0
+    t.integer  "vote_against_count",               :default => 0
+    t.float    "vote_proportion",                  :default => 0.0
+    t.float    "vote_proportion_away_mid",         :default => 0.5
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
@@ -161,6 +168,21 @@ ActiveRecord::Schema.define(:version => 20120403211306) do
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
+
+  create_table "signatures", :force => true do |t|
+    t.integer  "citizen_id"
+    t.integer  "idea_id"
+    t.string   "idea_title"
+    t.date     "idea_date"
+    t.string   "fullname"
+    t.date     "birth_date"
+    t.string   "occupancy_county"
+    t.boolean  "vow"
+    t.date     "signing_date"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "votes", :force => true do |t|
     t.integer  "option"
