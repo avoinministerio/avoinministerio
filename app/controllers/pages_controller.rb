@@ -34,7 +34,7 @@ class PagesController < ApplicationController
       end
     end
 
-    @blog_articles = Article.published.where(article_type: 'blog').limit(3).all
+    @blog_articles = Article.published.where(article_type: 'blog').order("created_at DESC").limit(3).all
 
     KM.identify(current_citizen)
     KM.push("record", "front page viewed")
