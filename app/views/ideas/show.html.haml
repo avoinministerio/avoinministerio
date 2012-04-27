@@ -109,8 +109,8 @@
 -if @idea.published?
   .expert_opinions
     %h2.grid_24 Asiantuntijalausunnot
-    - if @idea.articles.any?
-      = render partial: 'article', collection: @idea.articles
+    - if @idea.articles.published.any?
+      = render partial: 'article', collection: @idea.articles.published
       .clear
       .grid_17 &nbsp;
       .grid_7
