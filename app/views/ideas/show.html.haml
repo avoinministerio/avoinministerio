@@ -40,16 +40,20 @@
           }
       });
   });
-.grid_12
-  - if @prev
-    =link_to "Edellinen", idea_path(@prev, so: @sorting_order_code)
-  - else
-    .no-prev-next Edellinen
-.grid_12.right
-  - if @next
-    =link_to "Seuraava", idea_path(@next, so: @sorting_order_code)
-  - else
-    .no-prev-next Seuraava
+.prevnext
+  .grid_24
+    / This is a layout BUG: grid_12 + grid_12 does not fit in .grid_24 due some margins set somewhere
+    / Workaround with grid_11 + grid_12 < grid_24
+    .grid_11 
+      - if @prev
+        =link_to "Edellinen", idea_path(@prev, so: @sorting_order_code)
+      - else
+        .noprevnext &nbsp;
+    .grid_12.right
+      - if @next
+        =link_to "Seuraava", idea_path(@next, so: @sorting_order_code)
+      - else
+        .noprevnext
 .clear
 .grid_24
   = idea_state_image(@idea)
