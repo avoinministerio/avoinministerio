@@ -3,6 +3,11 @@ class ArticlesController < ApplicationController
   
   respond_to :html
 
+  def index
+  	@published_blogs = Article.published.where(article_type: "blog").order("created_at DESC")
+  	@blogs = @published_blogs.paginate(page: params[:page], per_page: 30)
+  end
+
   def show
     @article = Article.find(params[:id])
 
