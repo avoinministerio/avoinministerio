@@ -4,8 +4,14 @@ class ArticlesController < ApplicationController
   respond_to :html
 
   def index
-  	@published_blogs = Article.published.where(article_type: "blog").order("created_at DESC")
-  	@blogs = @published_blogs.paginate(page: params[:page], per_page: 30)
+    article_type = params[:article_type] || "blog"
+    @article_type_heading = {
+      "blog"            => "Blogikirjoitukset",
+      "statement"       => "Lausunnot",
+      # no other types needed at the moment
+    }[article_type]
+    @published_blogs = Article.published.where(article_type: article_type).order("created_at DESC")
+    @blogs = @published_blogs.paginate(page: params[:page], per_page: 15)
   end
 
   def show
