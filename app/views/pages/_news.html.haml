@@ -9,6 +9,6 @@
         %span.datetime= finnishTime(article.updated_at)
       .clear
       .content=link_to shorten(article.title, 100, 20, "»"), article_path(article)
-    .all-blogs=link_to "Kaikki blogit", Article
+    .all-blogs=link_to "Kaikki blogit", articles_path(article_type: "blog")
   - else
     %p Ei kirjoituksia tällä hetkellä
