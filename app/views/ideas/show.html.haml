@@ -83,13 +83,18 @@
   -if @idea.published?
     .grid_7.prefix_1.omega
       .share
-        %div{:class => "addthis_toolbox addthis_default_style"}
-          %a{:class => "addthis_button_preferred_1"}
-          %a{:class => "addthis_button_preferred_2"}
-          %a{:class => "addthis_button_preferred_3"}
-          %a{:class => "addthis_button_preferred_4"}
-          %a{:class => "addthis_button_compact"}
-          %a{:class => "addthis_counter addthis_bubble_style"}
+        %div{:class => "addthis_toolbox addthis_default_style addthis_32x32_style"}
+          %a{:class => "addthis_button_facebook"}
+          %a{:class => "addthis_button_twitter"}
+          %a{:class => "addthis_button_gmail"}
+          %a{:class => "addthis_button_google_plusone_share"}
+          / This like does not seem to scale to 32x32 style
+          /%a{:class => "addthis_button_facebook_like", "fb:like:width" => "115"}
+        .sharing-suggestion
+          - if @idea.voted_by?(current_citizen)
+            Saat idean taakse huomattavasti enemmän painoa kun jaat sitä eteenpäin!
+          - else
+            Jaa ideaa aktiivisesti eteenpäin! Se saa painoarvoa, oletpa puolesta tai vastaan!
 
   -if @idea.published?
     %aside.grid_7.prefix_1.omega
