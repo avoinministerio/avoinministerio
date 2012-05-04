@@ -1,9 +1,9 @@
 - content_for :head do
-  %title= "Avoin Ministeriö -- Blogikirjoitukset"
+  %title= "Avoin Ministeriö -- #{@article_type_heading}"
 .grid_24
   .blogs_header.container_24
     .grid_24
-      %h1 Blogikirjoitukset
+      %h1= @article_type_heading
 .clear
 .blogs.container_24
   - @blogs.each do |blog|
@@ -18,7 +18,7 @@
         - else
           %h2.notitle= link_to "Ei otsikkoa", blog
       .content.grid_12
-        = link_to shortened_summary(blog.ingress, 215, 185, "»"), blog
+        = link_to shortened_summary(blog.ingress, 307, 264, "»"), blog
         .clear
         .stats
           /%span.comment-count= (blog.comment_count || 0)
