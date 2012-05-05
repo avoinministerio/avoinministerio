@@ -69,7 +69,5 @@
           %span.against= sprintf("%.0f%%", (1.0-for_)*100.0)
           %span.comment-count= (idea.comment_count || 0)
           -if idea.articles.count > 0
-            %span.articles
-              = idea.articles.count
-              = (idea.articles.count == 1 ? "lausunto" : "lausuntoa")
+            %span.article-count= idea.articles.count
 = will_paginate @ideas
