@@ -5,7 +5,9 @@ class Admin::ArticlesController < Admin::AdminController
   
   def index
     @parent = parent_resource
-    @articles = resource_scope.all
+    @blogs      = resource_scope.where(article_type: "blog").all
+    @statements = resource_scope.where(article_type: "statement").all
+    @footers    = resource_scope.where(article_type: "footer").all
   end
   
   def show
