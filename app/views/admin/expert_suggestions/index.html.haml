@@ -1,0 +1,16 @@
+.row-fluid
+  .span12
+    %h1 Asiantuntijaehdotukset
+    %ul.ideas
+      = list_of @expert_suggestions do |expert_suggestion|
+        = expert_suggestion.id
+        = link_to expert_suggestion.firstname + " " + expert_suggestion.lastname, [:admin, expert_suggestion]
+        = expert_suggestion.email
+        = expert_suggestion.supporter.profile.first_name
+        = expert_suggestion.supporter.profile.last_name
+        = expert_suggestion.idea.id
+        = expert_suggestion.idea.title
+
+%div
+  .container_20
+    = will_paginate @expert_suggestions

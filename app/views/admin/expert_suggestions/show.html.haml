@@ -1,0 +1,19 @@
+.row-fluid
+  .span12
+    %h3 Asiantuntijaehdotus
+    %h1= @expert_suggestion.firstname + " " + @expert_suggestion.lastname
+
+%h4
+.expert-suggestion-data
+  = @expert_suggestion.firstname
+  = @expert_suggestion.lastname
+  = mail_to @expert_suggestion.email
+  = @expert_suggestion.jobtitle
+  = @expert_suggestion.organisation
+  = @expert_suggestion.expertise
+  = @expert_suggestion.recommendation
+  = @expert_suggestion.supporter.profile.first_name
+  = @expert_suggestion.supporter.profile.last_name
+  = mail_to @expert_suggestion.supporter.email
+  = link_to "#{@expert_suggestion.idea.id} #{@expert_suggestion.idea.title}", @expert_suggestion.idea
+
