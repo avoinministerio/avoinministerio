@@ -56,6 +56,7 @@ AvoinMinisterio::Application.routes.draw do
       get "unlock",     on: :member
     end
     resources :changelogs
+    resources :expert_suggestions
     root to: "admin/ideas#index"
   end
 
