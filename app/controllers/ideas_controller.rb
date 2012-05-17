@@ -126,10 +126,13 @@ class IdeasController < ApplicationController
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
       ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
-      ix = ideas_around.index{|i| p i; i == params[:id].to_i}
+      ix = ideas_around.index{|i| i == params[:id].to_i}
       # TODO: translate numerical Idea.id into friendlyed id-and-name format
-      @prev = ((ix-1) >= 0)                ? ideas_around[ix-1] : nil
-      @next = ((ix+1) < ideas_around.size) ? ideas_around[ix+1] : nil
+      @prev, @next = nil, nil
+      if ix
+        @prev = ((ix-1) >= 0)                ? ideas_around[ix-1] : nil
+        @next = ((ix+1) < ideas_around.size) ? ideas_around[ix+1] : nil
+      end
     end
     
     KM.identify(current_citizen)
