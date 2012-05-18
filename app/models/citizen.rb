@@ -85,7 +85,7 @@ class Citizen < ActiveRecord::Base
     )
     
     S3Stream::Upload.to(:s3object => s3object) do |stream|
-      Citizen.all do |citizen|
+      Citizen.all.each do |citizen|
         stream.write(citizen.profile.first_name)
         stream.write(',')
         stream.write(citizen.profile.last_name)
