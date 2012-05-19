@@ -36,6 +36,17 @@ require 'digest/sha1'
 
 class KM
   $pushes ||= []
+  $sets ||= []
+  $tracks ||= []
+
+  def KM.track(element_id, event_name)
+    $tracks.push [element_id, event_name]
+  end
+
+  def KM.set(params)
+    $sets.push [params.to_json]
+  end
+
   def KM.push(command, event_name, params=nil)
     if params
       $pushes.push [command, event_name, params.to_json]
@@ -43,6 +54,7 @@ class KM
       $pushes.push [command, event_name]
     end
   end
+
   # if no user id given, create default by logged in user email hash, or "null" if not logged in
   def KM.identify(current_citizen)
     if current_citizen
@@ -52,6 +64,7 @@ class KM
     end
     KM.push("identify", identify)
   end
+
   def KM.api_key
     ENV['KISSMETRICS_API_KEY'] || "690626c087893eef5f7307868202023d84f79acb"
   end
@@ -66,6 +79,17 @@ class KM
         end
       end.join("\n")
       $pushes = []
+
+      sets = $sets.map do |se|
+        "_kmq.push(['set', #{se[0]}]);"
+      end.join("\n")
+      $sets = []
+
+      tracks = $tracks.map do |tr|
+        "_kmq.push(['trackClick', '#{tr[0]}', '#{tr[1]}' ]);"
+      end.join("\n")
+      $tracks = []
+
       "var _kmq = _kmq || [];
       function _kms(u){
         setTimeout(function(){
@@ -79,6 +103,8 @@ class KM
       }
       _kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/#{KM.api_key}.1.js');
       #{recs}
+      #{sets}
+      #{tracks}
       "
     else
       ""
