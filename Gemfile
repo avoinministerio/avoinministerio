@@ -28,6 +28,7 @@ gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
+gem "aws-sdk", :require => "aws/s3"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 

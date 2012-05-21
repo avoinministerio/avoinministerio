@@ -14,19 +14,46 @@ module ApplicationHelper
   def finnishDate(time)
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
+  
+  def save_to_amazon_s3(data, bucket_name, object_name, options = {})
+    require 'aws/s3'
+    
+    options[:use_ssl] = true
+    s3 = AWS::S3.new(options)
+    
+    bucket = s3.buckets[bucket_name]
+    
+    s3object = AWS::S3::S3Object.new(
+      bucket,
+      object_name,
+      :access => :private
+    )
+    
+    s3object.write(
+      data,
+      :storage_class => :reduced_redundancy,
+      :server_side_encryption => :aes256
+    )
+    
+    s3object.url_for(
+      :read,
+      :expires => 5 * 60,
+      :secure => true
+    )
+  end
 end
 
 class Numeric
-     def format(separator = ',', decimal_point = '.')
-         num_parts = self.to_s.split('.')
-         x = num_parts[0].reverse.scan(/.{1,3}/).join(separator).reverse
-         x << decimal_point + num_parts[1] if num_parts.length == 2
-         return x
-     end
+  def format(separator = ',', decimal_point = '.')
+    num_parts = self.to_s.split('.')
+    x = num_parts[0].reverse.scan(/.{1,3}/).join(separator).reverse
+    x << decimal_point + num_parts[1] if num_parts.length == 2
+    return x
+  end
 
-     def Numeric.format(number, *args)
-         number.format(*args)
-     end
+  def Numeric.format(number, *args)
+    number.format(*args)
+  end
 
 end
 
