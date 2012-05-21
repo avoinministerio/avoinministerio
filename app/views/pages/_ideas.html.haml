@@ -1,13 +1,13 @@
 .grid_16.top_ideas.alpha
   %h2 Ajankohtaiset ideat
-  - @ideas.each do |idea|
+  - @ideas.each_with_index do |idea, i|
     .idea
       .grid_16.info
         %span.type
           Idea/ 
         %span.date
           = finnishDate(idea.updated_at)
-        %h3=link_to shorten(idea.title + ": " + idea.summary, 200, 20, "»"), idea_path(idea)
+        %h3=link_to shorten(idea.title + ": " + idea.summary, 200, 20, "»"), idea_path(idea), id: "ab_ideas_#{i}"
       .grid_16.statistics
         - for_, against, comments, total = @idea_counts[idea.id]
         %span.total #{total} ääntä:&nbsp;

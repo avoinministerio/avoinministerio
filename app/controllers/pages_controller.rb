@@ -24,7 +24,11 @@ class PagesController < ApplicationController
     session[:ab_section_count] = rand(2)+1 unless session[:ab_section_count]
     KM.set({"section_count" => "#{session[:ab_section_count]}"})
     ["proposal_and_draft", "draft", "proposal"].each do |section|
-      3.times { |i| s = "ab_#{section}_#{i}_link";  KM.track(s, s) }
+      3.times do |i| 
+        section_index_link = "ab_section_#{section}_#{i}_link"
+        KM.track(section_index_link, section_index_link)            # track both, which section and which item
+        KM.track(section_index_link, "ab_section_#{section}_link")  # track only which section got the click
+      end
     end
 
     # B: two rows of examples:
@@ -35,7 +39,8 @@ class PagesController < ApplicationController
     @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
     @proposal_and_drafts_counts = @proposals_counts.merge @drafts_counts
 
-    @ideas = Idea.published.where(state: 'idea').order("updated_at DESC").limit(4).includes(:votes).all
+    idea_count = 4
+    @ideas = Idea.published.where(state: 'idea').order("updated_at DESC").limit(idea_count).includes(:votes).all
     @idea_counts = {}
     @ideas.map do |idea|
       for_count      = idea.vote_counts[1] || 0
@@ -53,6 +58,11 @@ class PagesController < ApplicationController
           total.format(" ")
         ]
       end
+    end
+
+    idea_count.times do |i|
+      KM.track("ab_ideas_#{i}", "ab_ideas_#{i}")    # track both, which section and which item
+      KM.track("ab_ideas_#{i}", "ab_ideas")         # track just idea section got the click
     end
 
     @blog_articles = Article.published.where(article_type: 'blog').order("created_at DESC").limit(3).all
