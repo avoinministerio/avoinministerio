@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 class PagesController < ApplicationController
 
   def load(state, count)
@@ -66,6 +68,32 @@ class PagesController < ApplicationController
     end
 
     @blog_articles = Article.published.where(article_type: 'blog').order("created_at DESC").limit(3).all
+
+    @headline_1 = [
+      "Tuulivoimalat pelastavat maailman?",
+      "Turkistarhaus on kiellettävä?",
+      "Turkistarhausta kehitettävä?",
+      "Perustulo kaikille?",
+      "Nykyistä tukijärjestelmää on kehitettävä?",
+      "Koiravero vanhentunut?",
+      "Koiravero koko maahan?",
+      "Sitovat kansanäänestykset?",
+      "Tasa-arvoisempi avioliittolaki?",
+      "Lisää kansalaisaloitteita",
+    ]
+    @headline_2 = [
+      "Tee siitä laki",
+      "Tee omat lakisi",
+      "Laista itse",
+      "Anna oma ehdotuksesi",
+      "Kommentoi",
+      "Ota kantaa",
+      "Anna tukesi",
+      "Tee vastaehdotus",
+      "Jaa tietoa",
+      "Levitä aloitetta",
+    ]
+
 
     KM.identify(current_citizen)
     KM.push("record", "front page viewed")
