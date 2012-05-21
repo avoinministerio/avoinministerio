@@ -67,41 +67,6 @@ class Citizen < ActiveRecord::Base
     c.save!
     c
   end
-  
-  def self.export_to_csv(bucket_name, object_name, options = {})
-    require 'aws/s3'
-    require 's3stream'
-    
-    options[:use_ssl] = true
-    s3 = AWS::S3.new(options)
-    
-    bucket = s3.buckets[bucket_name]
-    
-    s3object = AWS::S3::S3Object.new(
-      bucket,
-      object_name,
-      :content_type => 'text/csv',
-      :access => :private
-    )
-    
-    S3Stream::Upload.to(:s3object => s3object) do |stream|
-      Citizen.all.each do |citizen|
-        stream.write(citizen.profile.first_name)
-        stream.write(',')
-        stream.write(citizen.profile.last_name)
-        stream.write(',')
-        stream.write(citizen.email)
-        stream.write("\n")
-      end
-    end
-    
-    puts 'List of citizens has been exported to '
-    puts s3object.url_for(
-      :read,
-      :expires => 5 * 60,
-      :secure => true
-    )
-  end
 
   private
   
