@@ -29,7 +29,6 @@ gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
 gem "aws-s3", :require => "aws/s3"
-gem "s3stream"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
