@@ -63,6 +63,34 @@ describe Citizen do
       unlocked_citizen.active_for_authentication?.should be_true
     end
   end
+  
+  describe "exporting citizens into a CSV file" do
+    before do
+      citizen_without_ideas = Factory(:citizen, :profile => Factory(:profile, first_name: "Erkki", last_name: "Esimerkki"))
+      citizen_with_ideas = Factory(:citizen, :profile => Factory(:profile, first_name: "Pelle", last_name: "Peloton"))
+      idea = Factory(:idea, title: "Idea uudesta laista", :author => citizen_with_ideas)
+    end
+    
+    context "all citizens" do
+      it "contains a citizen without ideas" do
+        Citizen.export_all_citizens_to_csv.should include("Erkki,Esimerkki")
+      end
+      
+      it "contains a citizen with ideas" do
+        Citizen.export_all_citizens_to_csv.should include("Pelle,Peloton")
+      end
+    end
+    
+    context "citizens with ideas" do
+      it "does not contain a citizen without ideas" do
+        Citizen.export_citizens_with_ideas_to_csv.should_not include("Erkki,Esimerkki")
+      end
+      
+      it "contains a citizen with ideas" do
+        Citizen.export_citizens_with_ideas_to_csv.should include("Pelle,Peloton")
+      end
+    end
+  end
 
   it { should have_one :profile }
 end
