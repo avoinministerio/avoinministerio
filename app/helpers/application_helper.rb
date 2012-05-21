@@ -18,29 +18,28 @@ module ApplicationHelper
   def save_to_amazon_s3(data, bucket_name, object_name, options = {})
     require 'aws/s3'
     
-    # makes sure that we connect to the right region
-    # and can access the bucket
-    AWS::S3::DEFAULT_HOST.replace bucket_name + '.s3.amazonaws.com'
-    
     options[:use_ssl] = true
-    AWS::S3::Base.establish_connection!(options)
+    s3 = AWS::S3.new(options)
     
-    s3object = AWS::S3::S3Object.store(
+    bucket = s3.buckets[bucket_name]
+    
+    s3object = AWS::S3::S3Object.new(
+      bucket,
       object_name,
-      data,
-      bucket_name,
       :access => :private
     )
     
-    url = s3object.url(
-      :expires_in => 5 * 60,
-      :use_ssl => true,
-      :authenticated => true
+    s3object.write(
+      data,
+      :storage_class => :reduced_redundancy,
+      :server_side_encryption => :aes256
     )
     
-    AWS::S3::Base.disconnect
-    
-    url
+    s3object.url_for(
+      :read,
+      :expires => 5 * 60,
+      :secure => true
+    )
   end
 end
 
