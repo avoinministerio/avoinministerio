@@ -2,6 +2,8 @@ class Comment < ActiveRecord::Base
   include PublishingStateMachine
   include Changelogger
 
+  include Tanker
+
   attr_accessible :body
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
@@ -14,6 +16,16 @@ class Comment < ActiveRecord::Base
   validates :author_id,         presence: true
   validates :commentable_id,    presence: true
   validates :commentable_type,  presence: true
+
+  tankit 'Comments' do
+    # add conditions do .. end
+    indexes :body
+    indexes :author do
+      self.author.first_name + " " + self.author.last_name
+    end
+  end
+  after_save :update_tank_indexes
+  after_destroy :delete_tank_indexes
 
   def prepare_for_unpublishing
     if self.body.blank?

@@ -39,6 +39,16 @@
             =link_to @field_names[field][order.first], reorder: field 
           - unless field == :tilt
             |
+    .grid_24.search
+      .search
+        Haku:
+        = form_tag "/ideat/haku", :method => "get"
+        = text_field_tag 'searchterm'
+        (esim. 
+        %i tasa*
+        tai 
+        %i koira ja vero
+        )
     .grid_24
       .filtered_title
         = @filter_name

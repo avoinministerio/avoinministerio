@@ -3,6 +3,8 @@ class Idea < ActiveRecord::Base
   include Changelogger
   extend FriendlyId
 
+  include Tanker
+
   VALID_STATES = %w(idea draft proposal law)
 
   MAX_FB_TITLE_LENGTH = 100
@@ -24,6 +26,26 @@ class Idea < ActiveRecord::Base
   validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
   validates :state, inclusion: { in: VALID_STATES }
+
+  tankit 'Ideas' do
+    #conditions do
+    #  indexable?
+    #end
+    indexes :title
+    indexes :summary
+    indexes :body
+    indexes :state
+    indexes :author do
+      self.author.first_name + " " + self.author.last_name
+    end
+  end
+  after_save :update_tank_indexes
+  after_destroy :delete_tank_indexes
+
+  def indexable?
+    self.title.present?
+  end
+
 
 #  default_scope order("created_at DESC")
 
