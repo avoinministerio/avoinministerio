@@ -15,14 +15,18 @@ class Article < ActiveRecord::Base
   validates :article_type, inclusion: { in: VALID_ARTICLE_TYPES }
   validates :title, length: { minimum: 5 }
 
-  tankit 'Articles' do
-    # add conditions do .. end
+#  tankit 'Articles' do
+  tankit 'BasicData' do
+    conditions do
+      published?
+    end
     indexes :title
     indexes :ingress
     indexes :body
     indexes :author do
       self.author.first_name + " " + self.author.last_name
     end
+    indexes :type do "article" end
   end
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes

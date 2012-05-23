@@ -27,10 +27,11 @@ class Idea < ActiveRecord::Base
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
   validates :state, inclusion: { in: VALID_STATES }
 
-  tankit 'Ideas' do
-    #conditions do
-    #  indexable?
-    #end
+#  tankit 'Ideas' do
+  tankit 'BasicData' do
+    conditions do
+      published?
+    end
     indexes :title
     indexes :summary
     indexes :body
@@ -38,6 +39,7 @@ class Idea < ActiveRecord::Base
     indexes :author do
       self.author.first_name + " " + self.author.last_name
     end
+    indexes :type do "idea" end
   end
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes
