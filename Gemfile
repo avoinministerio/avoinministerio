@@ -29,7 +29,7 @@ gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
 #gem "indextank"
-gem "tanker"
+gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
