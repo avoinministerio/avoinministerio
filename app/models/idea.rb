@@ -27,7 +27,6 @@ class Idea < ActiveRecord::Base
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
   validates :state, inclusion: { in: VALID_STATES }
 
-#  tankit 'Ideas' do
   tankit 'BasicData' do
     conditions do
       published?

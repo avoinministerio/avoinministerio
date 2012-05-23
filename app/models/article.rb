@@ -15,7 +15,6 @@ class Article < ActiveRecord::Base
   validates :article_type, inclusion: { in: VALID_ARTICLE_TYPES }
   validates :title, length: { minimum: 5 }
 
-#  tankit 'Articles' do
   tankit 'BasicData' do
     conditions do
       published?
