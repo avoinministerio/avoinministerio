@@ -1,7 +1,7 @@
 #encoding: UTF-8
 
 class IdeasController < ApplicationController
-  before_filter :authenticate_citizen!, except: [ :index, :show ]
+  before_filter :authenticate_citizen!, except: [ :index, :show, :search ]
   
   respond_to :html
 
@@ -171,6 +171,13 @@ class IdeasController < ApplicationController
       KM.push("record", "idea edited", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
     end
     respond_with @idea
+  end
+
+  def search
+    @ideas = Idea.search_tank(params['searchterm'])
+    @comments = Comment.search_tank(params['searchterm'])
+    @articles = Article.search_tank(params['searchterm'])
+    @citizens = Citizen.search_tank(params['searchterm'])
   end
 
   def vote_flow
