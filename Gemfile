@@ -28,6 +28,8 @@ gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
+#gem "indextank"
+gem "tanker"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
