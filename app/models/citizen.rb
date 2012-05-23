@@ -25,6 +25,16 @@ class Citizen < ActiveRecord::Base
     :image
   ].each { |attribute| delegate attribute, to: :profile }
 
+  include Tanker
+  tankit 'Citizens' do
+    # add conditions do .. end
+    indexes :first_name
+    indexes :last_name
+    indexes :name
+  end
+  after_save :update_tank_indexes
+  after_destroy :delete_tank_indexes
+
   def image
     profile.image || Gravatar.new(email).image_url(ssl: true)
   end

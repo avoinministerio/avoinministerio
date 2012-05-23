@@ -1,0 +1,39 @@
+- content_for :head do
+  %title= "Avoin Ministeriö ideat"
+.grid_24.search-results
+  %h1 
+    Tulokset haulle
+    %i= params['searchterm']
+.grid_24.search
+  .search
+    Haku:
+    = form_tag "/ideat/haku", :method => "get"
+    = text_field_tag 'searchterm', params['searchterm']
+    (esim. 
+    %i tasa*
+    tai 
+    %i koira ja vero
+    )
+  %h2 Ideat
+  - @ideas.each do |idea|
+    .search-result
+    =link_to idea.title, idea
+  %h2 Kommentit
+  - @comments.each do |comment|
+    .search-result
+    - case comment.commentable_type
+    - when "Idea"
+      =link_to comment.body, idea_path(comment.commentable_id)
+    - else
+      Tuntematon kommenttityyppi
+      =comment.commentable_type
+  %h2 Artikkelit
+  - @articles.each do |article|
+    .search-result
+    =link_to article.title, article
+  %h2 Kansalaiset
+  - @citizens.each do |citizen|
+    .search-result
+    =link_to citizen.name, idea_path(1)
+
+
