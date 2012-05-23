@@ -26,7 +26,6 @@ class Citizen < ActiveRecord::Base
   ].each { |attribute| delegate attribute, to: :profile }
 
   include Tanker
-#  tankit 'Citizens' do
   tankit 'BasicData' do
     conditions do
       published_something?

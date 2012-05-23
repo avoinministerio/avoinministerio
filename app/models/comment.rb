@@ -17,7 +17,6 @@ class Comment < ActiveRecord::Base
   validates :commentable_id,    presence: true
   validates :commentable_type,  presence: true
 
-#  tankit 'Comments' do
   tankit 'BasicData' do
     conditions do
       published?
