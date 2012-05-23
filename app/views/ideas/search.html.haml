@@ -33,7 +33,15 @@
     =link_to article.title, article
   %h2 Kansalaiset
   - @citizens.each do |citizen|
-    .search-result
-    =link_to citizen.name, idea_path(1)
-
-
+    .search-result-citizen
+    %h3= citizen.name
+    - unless citizen.ideas.empty?
+      %h4 Ideat:
+      - citizen.ideas.each do |idea|
+        =link_to idea.title, idea
+    - unless citizen.comments.empty?
+      %h4 Kommentit:
+      - citizen.comments.each do |comment|
+        - case comment.commentable_type
+        - when "Idea"
+          =link_to comment.body, idea_path(comment.commentable_id)
