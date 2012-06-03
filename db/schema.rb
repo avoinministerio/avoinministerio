@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412140019) do
+ActiveRecord::Schema.define(:version => 20120604134535) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -139,7 +139,12 @@ ActiveRecord::Schema.define(:version => 20120412140019) do
     t.text     "summary"
     t.string   "publish_state",                    :default => "published"
     t.string   "slug"
-
+    t.integer  "comment_count",                    :default => 0
+    t.integer  "vote_count",                       :default => 0
+    t.integer  "vote_for_count",                   :default => 0
+    t.integer  "vote_against_count",               :default => 0
+    t.float    "vote_proportion",                  :default => 0.0
+    t.float    "vote_proportion_away_mid",         :default => 0.5
     t.boolean  "collecting_started"
     t.boolean  "collecting_ended"
     t.date     "collecting_start_date"
@@ -147,13 +152,6 @@ ActiveRecord::Schema.define(:version => 20120412140019) do
     t.integer  "additional_signatures_count"
     t.date     "additional_signatures_count_date"
     t.integer  "target_count"
-
-    t.integer  "comment_count",                    :default => 0
-    t.integer  "vote_count",                       :default => 0
-    t.integer  "vote_for_count",                   :default => 0
-    t.integer  "vote_against_count",               :default => 0
-    t.float    "vote_proportion",                  :default => 0.0
-    t.float    "vote_proportion_away_mid",         :default => 0.5
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
@@ -176,15 +174,17 @@ ActiveRecord::Schema.define(:version => 20120412140019) do
     t.integer  "idea_id"
     t.string   "idea_title"
     t.date     "idea_date"
-    t.string   "fullname"
     t.date     "birth_date"
     t.string   "occupancy_county"
     t.boolean  "vow"
     t.date     "signing_date"
-
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "stamp"
+    t.datetime "started"
+    t.string   "firstnames"
+    t.string   "lastname"
   end
 
   create_table "votes", :force => true do |t|
