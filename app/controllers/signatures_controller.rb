@@ -56,7 +56,7 @@ class SignaturesController < ApplicationController
       },
       { action_id:  "701",
         vers:       "0001",
-        rcvid:      "Elisa",
+        rcvid:      "Avoinministerio",
         langcode:   "FI",
 #        stamp:      "20120410091600000001",
         stamp:      DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s,
@@ -73,7 +73,7 @@ class SignaturesController < ApplicationController
     ]
 
     @services.each do |service| 
-      secret = service_secret(service[:rcvid])
+      secret = service_secret(service[:name])
       keys = [:action_id, :vers, :rcvid, :langcode, :stamp, :idtype, :retlink, :canlink, :rejlink, :keyvers, :alg]
 #      vals = keys.map{|k| service[k].gsub(/\s/, "") }
       vals = keys.map{|k| service[k] }
@@ -108,7 +108,7 @@ class SignaturesController < ApplicationController
     puts params.inspect
     values = %w(VERS TIMESTMP IDNBR STAMP CUSTNAME KEYVERS ALG CUSTID CUSTTYPE).map {|key| params["B02K_" + key]}
     #service = @signature.service
-    service = "Elisa testi"
+    service = "Elisa Mobiilivarmenne testi"
     puts "in valid returning"
     p service_secret(service)
     p values[0,9].join("&")
