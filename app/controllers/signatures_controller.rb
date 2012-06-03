@@ -68,7 +68,7 @@ class SignaturesController < ApplicationController
         alg:        "03",
         mac:        nil,
         name:       "Elisa Mobiilivarmenne",
-        url:        "https://mtupasprod.elisa.fi/tunnistus/signature.cmd", 
+        url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd", 
       },
     ]
 
@@ -144,9 +144,11 @@ class SignaturesController < ApplicationController
       end
     when "cancelling"
       logger.info "redirect to sign"
+      @error = "Repeated returning"
     when "rejecting"
       logger.info "save"
       logger.info "notify client with a page that redirects back to sign"
+      @error = "Repeated returning"
     else
       logger.info "notify client"
     end
