@@ -7,17 +7,29 @@ class SignaturesController < ApplicationController
   
   respond_to :html
 
+  def introduction
+  end
+
+  def approval
+  end
+
   def sign
-    @signature = Signature.new()
-    @signature.idea = Idea.find(params[:id] || 4)
-    @signature.citizen = current_citizen
-    @signature.idea_title = @signature.idea.title
-    @signature.idea_date  = @signature.idea.updated_at
-    @signature.fullname = @signature.citizen.name
-    # @signature.birth_date = ""
+    @signature                  = Signature.new()
+    @signature.idea             = Idea.find(params[:id])
+    @signature.citizen          = current_citizen
+    @signature.idea_title       = @signature.idea.title
+    @signature.idea_date        = @signature.idea.updated_at
+    @signature.firstnames       = @signature.citizen.first_name
+    @signature.lastname         = @signature.citizen.last_name
+    
     @signature.occupancy_county = ""
-    @signature.vow = false
-    @signature.state = "initial"
+    @signature.vow              = false
+    @signature.state            = "initial"
+
+    stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
+    @signature.stamp            = stamp
+
+    @signature.started          = Time.now
 
     if @signature.save
       # all good
@@ -25,25 +37,16 @@ class SignaturesController < ApplicationController
       raise "couldn't save Signature #{@signature}"
     end
 
-    server = "https://am-signing.herokuapp.com"
-    logger.info "Server is #{server}"
     server = "https://" + request.host
     server += ":" + request.port.to_s unless request.port == 80
-    logger.info "Server is #{server}"
-    puts request.host
-    puts request.host_with_port
-    puts request.subdomain
-    puts request.subdomains
-#    puts request.inspect
-    logger.error "Server is #{server}"
+    Rails.logger.info "Server is #{server}"
 
     @services = [
       { action_id:  "701",
         vers:       "0001",
-        rcvid:      "Elisa testi",
+        rcvid:      "",
         langcode:   "FI",
-#        stamp:      "20120410091600000001",
-        stamp:      DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s,
+        stamp:      stamp,
         idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -56,10 +59,9 @@ class SignaturesController < ApplicationController
       },
       { action_id:  "701",
         vers:       "0001",
-        rcvid:      "Elisa",
+        rcvid:      "",
         langcode:   "FI",
-#        stamp:      "20120410091600000001",
-        stamp:      DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s,
+        stamp:      stamp,
         idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -68,114 +70,190 @@ class SignaturesController < ApplicationController
         alg:        "03",
         mac:        nil,
         name:       "Elisa Mobiilivarmenne",
-        url:        "https://mtupasprod.elisa.fi/tunnistus/signature.cmd", 
+        url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd", 
+      },
+
+      { action_id:  "701",
+        vers:       "0002",
+        rcvid:      "",
+        langcode:   "FI",
+        stamp:      stamp,
+        idtype:     "02",
+        retlink:    "#{server}/signatures/#{@signature.id}/returning",
+        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        keyvers:    "0001",
+        alg:        "03",
+        mac:        nil,
+        name:       "Alandsbanken testi",
+        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do", 
+      },
+      { action_id:  "701",
+        vers:       "0002",
+        rcvid:      "",
+        langcode:   "FI",
+        stamp:      stamp,
+        idtype:     "02",
+        retlink:    "#{server}/signatures/#{@signature.id}/returning",
+        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        keyvers:    "0001",
+        alg:        "03",
+        mac:        nil,
+        name:       "Alandsbanken",
+        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do", 
       },
     ]
 
+    @services.each do |service|
+      service_name = "/" + service[:name].gsub(/\s+/, "")
+      service[:retlink] += service_name
+      service[:canlink] += service_name
+      service[:rejlink] += service_name
+    end
     @services.each do |service| 
-      secret = service_secret(service[:rcvid])
+      secret = service_secret(service[:name])
+      service[:rcvid] = service_rcvid(service[:name])
       keys = [:action_id, :vers, :rcvid, :langcode, :stamp, :idtype, :retlink, :canlink, :rejlink, :keyvers, :alg]
-#      vals = keys.map{|k| service[k].gsub(/\s/, "") }
       vals = keys.map{|k| service[k] }
       string = vals.join("&") + "&" + secret + "&"
-      puts string
       service[:mac] = mac(string)
     end
 
     respond_with @signature
   end
 
+  def service_rcvid(service)
+    rcvid_key = "RCVID_" + service.gsub(/\s/, "")
+    rcvid = ENV[rcvid_key] || ""
+  end
+
   def service_secret(service)
       secret_key = "SECRET_" + service.gsub(/\s/, "")
-      logger.info "Using key #{secret_key}" 
-      secret = ENV[secret_key]
-      secret = "" unless secret
+      
+      Rails.logger.info "Using key #{secret_key}" 
+      secret = ENV[secret_key] || ""
+
+      if service =~ /^Alandsbanken$/
+        secret = alandsbanken_secret_to_mac_string(secret)
+      end
+
+      unless secret
+        Rails.logger.error "No SECRET found for #{secret_key}" 
+        secret = "" 
+      end
+
       secret
+  end
+
+  def alandsbanken_secret_to_mac_string(secret)
+    str = ""
+    secret.split(//).each_slice(2){|a| str += a.join("").hex.chr}
+    str
   end
 
   def mac(string)
     Digest::SHA256.new.update(string).hexdigest.upcase
   end
 
-  def valid_returning(signature)
-    logger.info params.inspect
-    puts params.inspect
+
+  def valid_returning(signature, service_name)
+    Rails.logger.info params.inspect
     values = %w(VERS TIMESTMP IDNBR STAMP CUSTNAME KEYVERS ALG CUSTID CUSTTYPE).map {|key| params["B02K_" + key]}
-    #service = @signature.service
-    service = "Elisa testi"
-    puts "in valid returning"
-    p service_secret(service)
-    p values[0,9].join("&")
-    string = values[0,9].join("&") + "&" + service_secret(service) + "&"
-    puts string
-    puts mac(string)
-    puts params["B02K_MAC"]
+    string = values[0,9].join("&") + "&" + service_secret(service_name) + "&"
     params["B02K_MAC"] == mac(string)
   end
 
+  def hetu_to_birth_date(hetu)
+    date_part = hetu.gsub(/\-.+$/, "")
+    year = date_part[4,2].to_i + hetu_separator_as_years(hetu)
+    birth_date = Date.new(year, date_part[2,2].to_i, date_part[0,2].to_i)
+  end
+
+  # the latter part fixes -, + or A in HETU separator
+  def hetu_separator_as_years(hetu)
+    # convert 010203+1234 as years from 1800
+    # convert 010203A1234 as years from 2000
+    # otherwise it's year from 1900
+    hetu[6,1] == "+" ? 1800 : hetu[6,1] == "A" ? 2000 : 1900
+  end
+
+  def within_timelimit(signature)
+    elapsed = (Time.now - signature.started)#*(60*60*24) # in seconds
+    timelimit = (20*60)   # 20 mins
+    within = elapsed <= timelimit
+    Rails.logger.info "#{Time.now} - #{signature.started} = #{elapsed} which > #{timelimit}" unless within
+    within
+  end
+
+  def repeated_returning(signature)
+    signature.state == "initial"
+  end
+
   def back
-    @signature = Signature.find(params[:id])
-    case params[:returncode]
-    when "returning"
-      if not valid_returning(@signature)
-        logger.info "Invalid return"
-        logger.info "save invalidity"
-        logger.info "notify client with redirect back to sign"
-        @error = "Invalid return"
-      elsif not "within timelimit"
-        logger.info "not within timelimit"
-        logger.info "save invalidity"
-        logger.info "notify client with redirect back to sign"
-        @error = "Not within timelimit"
-      elsif not "repeated returning"
-        logger.info "repeated returning"
-        logger.info "save invalidity"
-        logger.info "notify client with redirect back to sign"
-        @error = "Repeated returning"
-      else
-        # all success!
-        logger.info "save"
-        logger.info "notify client with a page that redirects back to idea"
-        @error = nil
-        bd = params["B02K_CUSTID"].gsub(/\-.+$/, "")
-        birth_date = Date.new(1900+bd[4,2].to_i, bd[2,2].to_i, bd[0,2].to_i)
-        p birth_date
-        @signature.update_attributes(state: "completed", signing_date: Date.today, birth_date: birth_date)
-      end
-    when "cancelling"
-      logger.info "redirect to sign"
-    when "rejecting"
-      logger.info "save"
-      logger.info "notify client with a page that redirects back to sign"
+    @signature = Signature.find(params[:id])   # TODO: Add find for current_citizen
+    if not @signature.citizen == current_citizen
+      Rails.logger.info "Invalid user, not for the same user who initiated the signing"
+      @error = "Invalid user"
     else
-      logger.info "notify client"
+      service_name = params[:servicename]
+      case params[:returncode]
+      when "returning"
+        if not valid_returning(@signature, service_name)
+          Rails.logger.info "Invalid return"
+          @signature.update_attributes(state: "invalid return")
+          @error = "Invalid return"
+        elsif not within_timelimit(@signature)
+          Rails.logger.info "not within timelimit"
+          @signature.update_attributes(state: "too late")
+          @error = "Not within timelimit"
+        elsif not repeated_returning(@signature)
+          Rails.logger.info "repeated returning"
+          @signature.update_attributes(state: "repeated_returning")
+          @error = "Repeated returning"
+        else
+          # all success!
+          Rails.logger.info "All success, authentication ok, storing into session"
+          @error = nil
+          birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
+          @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date)
+          session["authenticated_at"] = DateTime.now
+          session["authenticated_birth_date"] = birth_date
+        end
+      when "cancelling"
+        Rails.logger.info "Cancelling"
+        @signature.update_attributes(state: "cancelled")
+        @error = "Cancelling authentication"
+      when "rejecting"
+        Rails.logger.info "Rejecting"
+        @signature.update_attributes(state: "rejected")
+        @error = "Rejecting authentication"
+      else
+        Rails.logger.info "notify client"
+      end
     end
-        
-    logger.info @signature.inspect
+
     respond_with @signature
   end
 
+  def finalize_signing
+#    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
+    @signature = Signature.where(state: 'authenticated').find(params[:id])
+    if @signature.citizen == current_citizen and @signature.state == "authenticated"   # TODO: and duration since last authentication less that threshold
+      @signature.firstnames       = params["signature"]["firstnames"]
+      @signature.lastname         = params["signature"]["lastname"]
+      @signature.occupancy_county = params["signature"]["occupancy_county"]
+      @signature.vow              = params["signature"]["vow"]
+      @signature.state            = "signed"
+      @signature.signing_date     = today_date
+      @error = "Couldn't save signature" unless @signature.save
 
-  def create
-    @signature = Signature.new()
-    @signature.idea = Idea.find(params[:signature][:idea])
-    @signature.citizen = current_citizen
-    @signature.state = "initial"
-    if @signature.save
-      flash[:notice] = I18n.t("signature.created")
-      KM.identify(current_citizen)
-      KM.push("record", "signing initiated", signature_id: @signature.id,  idea_id: @signature.idea.id, idea_title: @signature.idea.title) 
+      ideas = Arel::Table.new(:ideas)
+      @initiatives = Idea.where(ideas[:state].eq('proposal')).order("vote_for_count DESC").limit(5).all
+    else
+      @error = "Trying to alter other citizen or signature with other than authenticated state"
     end
     respond_with @signature
-  end
-
-  def show
-    @article = Article.find(params[:id])
-
-    KM.identify(current_citizen)
-    KM.push("record", "article read", article_id: @article.id,  article_title: @article.title)  # TODO use permalink title
-
-    respond_with @article
   end
   
 end

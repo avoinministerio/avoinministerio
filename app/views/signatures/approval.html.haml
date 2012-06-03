@@ -1,0 +1,39 @@
+.returning
+  - if not @error
+    %h1 Vaihe 2/4 - Hyväksy ehdot ja julkisuusasetukset
+
+    =form_tag(url_for(action: "sign", controller: "signatures"), :html => {:class => "grid_16"}) do |f|
+      .box
+        .instructions
+          .title Ehdot
+          .text 
+          .checkbox
+            = check_box_tag :accept_general
+            = label_tag :accept_general, "Hyväksyn palvelun yleiset ehdot"
+          .checkbox
+            = check_box_tag :accept_general
+            = label_tag :accept_general, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
+          .radiobox
+            = radio_button_tag :publicity, "Normal"
+            = label_tag :publicity, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
+            %br
+            = radio_button_tag :publicity, "Immediately"
+            = label_tag :publicity, "Nimeni voi julkistaa välittömästi"
+          .checkbox
+            = check_box_tag :accept_science
+            = label_tag :accept_science, "Sallin, että tieteellisissä tutkimustarkoituksista minulta voidaan kysyä lisää. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
+
+      .big-button
+        .actions
+          = submit_tag "Hyväksy ehdot ja siirry tunnistautumaan"
+
+    .sidebox
+      .text
+        (Tänne voi tulla help-osio)
+        =link_to "etusivulle", "/"
+
+
+  - else
+    .error
+      %h1 Virhetilanne
+      = @error
