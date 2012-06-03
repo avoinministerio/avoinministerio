@@ -88,8 +88,14 @@ class SignaturesController < ApplicationController
   def service_secret(service)
       secret_key = "SECRET_" + service.gsub(/\s/, "")
       logger.info "Using key #{secret_key}" 
+      puts "Using key #{secret_key}" 
       secret = ENV[secret_key]
-      secret = "" unless secret
+      unless secret
+        logger.error "No SECRET found for #{secker_key}" 
+        puts "No SECRET found for #{secker_key}"
+        secret = "" 
+      end
+
       secret
   end
 
