@@ -8,19 +8,20 @@ class SignaturesController < ApplicationController
   respond_to :html
 
   def sign
-    @signature = Signature.new()
-    @signature.idea = Idea.find(params[:id] || 4)
-    @signature.citizen = current_citizen
-    @signature.idea_title = @signature.idea.title
-    @signature.idea_date  = @signature.idea.updated_at
-    @signature.fullname = @signature.citizen.name
+    @signature                  = Signature.new()
+    @signature.idea             = Idea.find(params[:id] || 4)   # TODO, remove || 4
+    @signature.citizen          = current_citizen
+    @signature.idea_title       = @signature.idea.title
+    @signature.idea_date        = @signature.idea.updated_at
+    @signature.firstnames       = @signature.citizen.first_name
+    @signature.lastname         = @signature.citizen.last_name
     # @signature.birth_date = ""
     @signature.occupancy_county = ""
-    @signature.vow = false
-    @signature.state = "initial"
+    @signature.vow              = false
+    @signature.state            = "initial"
 
     stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
-    @signature.stamp = stamp
+    @signature.stamp            = stamp
 
     if @signature.save
       # all good
