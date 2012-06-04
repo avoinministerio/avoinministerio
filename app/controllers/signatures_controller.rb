@@ -224,7 +224,6 @@ class SignaturesController < ApplicationController
     respond_with @signature
   end
 
-
   def create
     @signature = Signature.new()
     @signature.idea = Idea.find(params[:signature][:idea])
