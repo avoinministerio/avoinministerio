@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120604100818) do
+ActiveRecord::Schema.define(:version => 20120604134535) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -174,7 +174,6 @@ ActiveRecord::Schema.define(:version => 20120604100818) do
     t.integer  "idea_id"
     t.string   "idea_title"
     t.date     "idea_date"
-    t.string   "fullname"
     t.date     "birth_date"
     t.string   "occupancy_county"
     t.boolean  "vow"
@@ -183,6 +182,8 @@ ActiveRecord::Schema.define(:version => 20120604100818) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "stamp"
+    t.string   "firstnames"
+    t.string   "lastname"
   end
 
   create_table "votes", :force => true do |t|
