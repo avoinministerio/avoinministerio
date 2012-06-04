@@ -129,7 +129,7 @@ class SignaturesController < ApplicationController
       puts "Using key #{secret_key}" 
       secret = ENV[secret_key]
 
-      if service =~ /^Alandsbanken/
+      if service =~ /^Alandsbanken$/
         puts "Converting Alandsbanken secret"
         secret = alandsbanken_secret_to_mac_string(secret)
       end
