@@ -71,6 +71,22 @@ class SignaturesController < ApplicationController
         name:       "Elisa Mobiilivarmenne",
         url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd", 
       },
+
+      { action_id:  "701",
+        vers:       "0002",
+        rcvid:      "ELEKAMINNID",
+        langcode:   "FI",
+        stamp:      stamp,
+        idtype:     "02",
+        retlink:    "#{server}/signatures/#{@signature.id}/returning",
+        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        keyvers:    "0001",
+        alg:        "03",
+        mac:        nil,
+        name:       "Alandsbanken",
+        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do", 
+      },
     ]
 
     @services.each do |service|
