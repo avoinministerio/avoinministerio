@@ -128,6 +128,12 @@ class SignaturesController < ApplicationController
       logger.info "Using key #{secret_key}" 
       puts "Using key #{secret_key}" 
       secret = ENV[secret_key]
+
+      if service =~ /^Alandsbanken/
+        puts "Converting Alandsbanken secret"
+        secret = alandsbanken_secret_to_mac_string(secret)
+      end
+
       unless secret
         logger.error "No SECRET found for #{secret_key}" 
         puts "No SECRET found for #{secret_key}"
@@ -137,9 +143,16 @@ class SignaturesController < ApplicationController
       secret
   end
 
+  def alandsbanken_secret_to_mac_string(secret)
+    str = ""
+    secret.split(//).each_slice(2){|a| str += a.join("").hex.chr}
+    str
+  end
+
   def mac(string)
     Digest::SHA256.new.update(string).hexdigest.upcase
   end
+
 
   def valid_returning(signature, service_name)
     logger.info params.inspect
