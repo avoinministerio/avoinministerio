@@ -13,10 +13,12 @@
       =f.input :signing_date, :disabled => true
 
       .linebreak
+      - p @signature
+      - p @signature.firstnames
       Varmista, että seuraavassa kentässä on kaikki etunimesi (usein useampi etunimi).
       =f.input :firstnames
       Varmista, että seuraavassa kentässä on sukunimesi (usein useampi etunimi).
-      =f.input :firstnames
+      =f.input :lastname
       Varmista, että kotikuntasi vastaa Väestörekisterikeskuksen tietoja.
       =f.input :occupancy_county
       Syntymäpäiväsi on alustettu tunnistamispalvelusta saaduilla tiedoilla. Varmista, että se on oikein.
