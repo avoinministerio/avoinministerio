@@ -206,15 +206,15 @@ class SignaturesController < ApplicationController
         year = 1900+bd[4,2].to_i + hetu_separator_as_years_from_1900(bd)
         birth_date = Date.new(year, bd[2,2].to_i, bd[0,2].to_i)
         p birth_date
-        @signature.update_attributes(state: "completed", signing_date: Date.today, birth_date: birth_date)
+        @signature.update_attributes(state: "authenticated", signing_date: Date.today, birth_date: birth_date)
       end
     when "cancelling"
       logger.info "redirect to sign"
-      @error = "Repeated returning"
+      @error = "Cancelling authentication"
     when "rejecting"
       logger.info "save"
       logger.info "notify client with a page that redirects back to sign"
-      @error = "Repeated returning"
+      @error = "Rejecting authentication"
     else
       logger.info "notify client"
     end
