@@ -139,7 +139,6 @@ ActiveRecord::Schema.define(:version => 20120412140019) do
     t.text     "summary"
     t.string   "publish_state",                    :default => "published"
     t.string   "slug"
-
     t.boolean  "collecting_started"
     t.boolean  "collecting_ended"
     t.date     "collecting_start_date"
@@ -147,7 +146,6 @@ ActiveRecord::Schema.define(:version => 20120412140019) do
     t.integer  "additional_signatures_count"
     t.date     "additional_signatures_count_date"
     t.integer  "target_count"
-
     t.integer  "comment_count",                    :default => 0
     t.integer  "vote_count",                       :default => 0
     t.integer  "vote_for_count",                   :default => 0
@@ -181,7 +179,6 @@ ActiveRecord::Schema.define(:version => 20120412140019) do
     t.string   "occupancy_county"
     t.boolean  "vow"
     t.date     "signing_date"
-
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"

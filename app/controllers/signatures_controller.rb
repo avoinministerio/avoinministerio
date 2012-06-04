@@ -8,6 +8,7 @@ class SignaturesController < ApplicationController
   respond_to :html
 
   def sign
+    stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
     @signature = Signature.new()
     @signature.idea = Idea.find(params[:id] || 4)
     @signature.citizen = current_citizen
@@ -42,8 +43,7 @@ class SignaturesController < ApplicationController
         vers:       "0001",
         rcvid:      "Elisa testi",
         langcode:   "FI",
-#        stamp:      "20120410091600000001",
-        stamp:      DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s,
+        stamp:      stamp,
         idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -58,8 +58,7 @@ class SignaturesController < ApplicationController
         vers:       "0001",
         rcvid:      "Avoinministerio",
         langcode:   "FI",
-#        stamp:      "20120410091600000001",
-        stamp:      DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s,
+        stamp:      stamp,
         idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -72,6 +71,12 @@ class SignaturesController < ApplicationController
       },
     ]
 
+    @services.each do |service|
+      service_name = "/" + service[:name].gsub(/\s+/, "")
+      service[:retlink] += service_name
+      service[:canlink] += service_name
+      service[:rejlink] += service_name
+    end
     @services.each do |service| 
       secret = service_secret(service[:name])
       keys = [:action_id, :vers, :rcvid, :langcode, :stamp, :idtype, :retlink, :canlink, :rejlink, :keyvers, :alg]
@@ -91,8 +96,8 @@ class SignaturesController < ApplicationController
       puts "Using key #{secret_key}" 
       secret = ENV[secret_key]
       unless secret
-        logger.error "No SECRET found for #{secker_key}" 
-        puts "No SECRET found for #{secker_key}"
+        logger.error "No SECRET found for #{secret_key}" 
+        puts "No SECRET found for #{secret_key}"
         secret = "" 
       end
 
@@ -103,16 +108,15 @@ class SignaturesController < ApplicationController
     Digest::SHA256.new.update(string).hexdigest.upcase
   end
 
-  def valid_returning(signature)
+  def valid_returning(signature, service_name)
     logger.info params.inspect
     puts params.inspect
     values = %w(VERS TIMESTMP IDNBR STAMP CUSTNAME KEYVERS ALG CUSTID CUSTTYPE).map {|key| params["B02K_" + key]}
-    #service = @signature.service
-    service = "Elisa Mobiilivarmenne testi"
     puts "in valid returning"
-    p service_secret(service)
+    p service_name
+    p service_secret(service_name)
     p values[0,9].join("&")
-    string = values[0,9].join("&") + "&" + service_secret(service) + "&"
+    string = values[0,9].join("&") + "&" + service_secret(service_name) + "&"
     puts string
     puts mac(string)
     puts params["B02K_MAC"]
@@ -121,9 +125,10 @@ class SignaturesController < ApplicationController
 
   def back
     @signature = Signature.find(params[:id])
+    service_name = params[:service_name]
     case params[:returncode]
     when "returning"
-      if not valid_returning(@signature)
+      if not valid_returning(@signature, service_name)
         logger.info "Invalid return"
         logger.info "save invalidity"
         logger.info "notify client with redirect back to sign"

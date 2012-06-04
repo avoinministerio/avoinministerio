@@ -1,8 +1,8 @@
 AvoinMinisterio::Application.routes.draw do
 
-  match "/ideas/:id/vote/:vote"         => "vote#vote", as: :vote_idea
-  match "/ideas/:id/signature"          => "signatures#sign", as: :signature_idea
-  match "/signatures/:id/:returncode"   => "signatures#back"
+  match "/ideas/:id/vote/:vote"                       => "vote#vote", as: :vote_idea
+  match "/ideas/:id/signature"                        => "signatures#sign", as: :signature_idea
+  match "/signatures/:id/:returncode/:servicename"    => "signatures#back"
 
   match "/ideat/haku" => "ideas#search"
   get "ideas/vote_flow"
