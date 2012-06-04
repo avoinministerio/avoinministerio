@@ -8,7 +8,6 @@ class SignaturesController < ApplicationController
   respond_to :html
 
   def sign
-    stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
     @signature = Signature.new()
     @signature.idea = Idea.find(params[:id] || 4)
     @signature.citizen = current_citizen
@@ -19,6 +18,9 @@ class SignaturesController < ApplicationController
     @signature.occupancy_county = ""
     @signature.vow = false
     @signature.state = "initial"
+
+    stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
+    @signature.stamp = stamp
 
     if @signature.save
       # all good
