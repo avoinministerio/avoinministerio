@@ -3,20 +3,32 @@
     %h1 Tunnistaminen onnistui
 
     =simple_form_for @signature do |f|
-      Varmista, että seuraavassa kentässä on täydellinen nimesi (yleensä useampi etunimi).
-      =f.input :fullname
+      Seuraavien kenttien tiedot tulee olla juuri kuten ne ovat Väestörekisterikeskuksella. Voit täyttää lomakkeen vain omasta puolestasi, eli et voi täyttää lomaketta kenenkään muun puolesta. Kansalaisaloitelain 16 pykälän mukaan rangaistus väärän henkilötiedon antamisesta on rikoslain 
+        %a{href: "http://www.finlex.fi/fi/laki/ajantasa/1889/18890039001"}16 luvun 5 § tai 8 § mukainen.
+      .linebreak
+      Kannatusilmoitus
+      =f.input :idea_title,   :disabled => true
+      =f.input :idea_date,    :disabled => true
+
+      =f.input :signing_date, :disabled => true
+
+      .linebreak
+      Varmista, että seuraavassa kentässä on kaikki etunimesi (usein useampi etunimi).
+      =f.input :firstnames
+      Varmista, että seuraavassa kentässä on sukunimesi (usein useampi etunimi).
+      =f.input :firstnames
       Varmista, että kotikuntasi vastaa Väestörekisterikeskuksen tietoja.
       =f.input :occupancy_county
       Syntymäpäiväsi on alustettu tunnistamispalvelusta saaduilla tiedoilla. Varmista, että se on oikein.
       =f.input :birth_date
       Rastimalla tämän vakuutat, että olet äänioikeutettu Suomen kansalainen, ja olet tehnyt kannatusilmoituksen aloitteeseen vain kerran.
       =f.input :vow
-      =f.input :idea_title,   :disabled => true
-      =f.input :idea_date,    :disabled => true
+
+      =f.submit "Allekirjoita"
 
 
-    Voit nyt palata
-    =link_to "takaisin aloitteeseen", @signature.idea
+    /Voit nyt palata
+    /=link_to "takaisin aloitteeseen", @signature.idea
   - else
     .error
       %h1 Tunnistaminen epäonnistui

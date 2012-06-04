@@ -169,6 +169,13 @@ class SignaturesController < ApplicationController
     params["B02K_MAC"] == mac(string)
   end
 
+  def hetu_separator_as_years_from_1900(hetu)
+    # convert 010203+1234 as years from 1800, ie add -100
+    # convert 010203A1234 as years from 2000, ie add +100
+    # otherwise it's year from 1900, ie. add +0
+    hetu[6,1] == "+" ? -100 : hetu[6,1] == "A" ? 100 : 0
+  end
+
   def back
     @signature = Signature.find(params[:id])
     service_name = params[:servicename]
@@ -195,7 +202,9 @@ class SignaturesController < ApplicationController
         logger.info "notify client with a page that redirects back to idea"
         @error = nil
         bd = params["B02K_CUSTID"].gsub(/\-.+$/, "")
-        birth_date = Date.new(1900+bd[4,2].to_i, bd[2,2].to_i, bd[0,2].to_i)
+        # the latter part fixes -, + or A in HETU separator
+        year = 1900+bd[4,2].to_i + hetu_separator_as_years_from_1900(bd)
+        birth_date = Date.new(year, bd[2,2].to_i, bd[0,2].to_i)
         p birth_date
         @signature.update_attributes(state: "completed", signing_date: Date.today, birth_date: birth_date)
       end
