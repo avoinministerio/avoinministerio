@@ -125,7 +125,7 @@ class SignaturesController < ApplicationController
 
   def back
     @signature = Signature.find(params[:id])
-    service_name = params[:service_name]
+    service_name = params[:servicename]
     case params[:returncode]
     when "returning"
       if not valid_returning(@signature, service_name)
