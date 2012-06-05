@@ -15,7 +15,7 @@ fi:
       title: Otsikko
       ingress: Johdanto
       body: Teksti
-      author: Kirjoittaja
+      author: Kirjoittaja (nimi tai sähköpostiosoite)
       idea: Idea
     # Labels and hints examples
     # labels:
