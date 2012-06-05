@@ -26,4 +26,6 @@
           %li= link_to "Muutosloki", admin_changelogs_path
           %li= link_to "Kirjaudu ulos", destroy_administrator_session_path, method: :delete
   .container-fluid{ style: "padding-top: 50px" }
+    - flash.each do |name, message|
+      %div{:id => ["flash", name]}= message
     = yield
