@@ -22,7 +22,7 @@ class Admin::ArticlesController < Admin::AdminController
   def create
     @article = build_article
     begin
-      @article.author = find_citizen_by_name(params[:author])
+      set_author
       @article.save
       respond_with @article, location: article_return_location
     rescue
@@ -40,7 +40,7 @@ class Admin::ArticlesController < Admin::AdminController
   def update
     @article = Article.find(params[:id])
     begin
-      @article.author = find_citizen_by_name(params[:author])
+      set_author
       flash[:notice] = I18n.t("articles.updated") if @article.update_attributes(params[:article])
       respond_with [:admin, @article]
     rescue
@@ -96,6 +96,14 @@ class Admin::ArticlesController < Admin::AdminController
     else
       Profile.where(:first_name => name_array[0],
         :last_name => name_array[1]).first.citizen
+    end
+  end
+  
+  def set_author
+    if params[:author].include? "@"
+      @article.author = Citizen.where(:email => params[:author]).first
+    else
+      @article.author = find_citizen_by_name(params[:author])
     end
   end
 end
