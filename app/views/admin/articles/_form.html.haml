@@ -28,6 +28,10 @@
       - name = @article.author.profile.first_name + " " + @article.author.profile.last_name
     - else
       - name = ""
+
+    / Even though one can enter the name in reversed order with a comma
+    / (such as "Esimerkki, Erkki"), suggesting a certain form
+    / reduces confusion and makes filling the form faster.
     = text_field_tag(:author, name, :placeholder => "Erkki Esimerkki")
 
   %p

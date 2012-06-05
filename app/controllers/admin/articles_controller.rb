@@ -86,7 +86,11 @@ class Admin::ArticlesController < Admin::AdminController
   end
   
   def find_citizen_by_name(name)
-    name_array = name.split
+    if name.include? ","
+      name_array = name.split(", ").reverse
+    else
+      name_array = name.split
+    end
     if name_array.length != 2
       raise "invalid name"
     else
