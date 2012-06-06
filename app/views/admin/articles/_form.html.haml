@@ -22,7 +22,7 @@
     = text_area(:article, :body)
 
   %p
-    %label{:for => "article_author"}
+    %label{:for => "author"}
       = I18n.t("simple_form.labels.author")
     - if @article.author
       - name = @article.author.profile.first_name + " " + @article.author.profile.last_name
