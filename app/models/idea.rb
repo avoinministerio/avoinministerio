@@ -62,26 +62,37 @@ class Idea < ActiveRecord::Base
     vote = votes.by(citizen).first
     KM.identify(citizen)
     if vote
+      update_vote_counts(option, vote.option)
       vote.update_attribute(:option, option) unless vote.option == option
-      update_vote_counts(0, option)
       KM.push("record", "voted",               {option: option, idea: self.id})
       KM.push("record", "vote change of mind", {option: option, idea: self.id})
     else
+      update_vote_counts(option, nil)
       votes.create(citizen: citizen, option: option)
-      update_vote_counts(1, option)
       KM.push("record", "voted",               {option: option, idea: self.id})
       KM.push("record", "first vote on idea",  {option: option, idea: self.id})
     end
   end
-
-  def update_vote_counts(new_votes, option)
-    # following updates the counters regardless if option == 0 or == 1, note (option+1)%2 just flips 0->1 and 1->0
-    prop = (vote_for_count + option.to_i).to_f / (vote_for_count + vote_against_count + new_votes)
-    self.update_attributes(vote_count: vote_count + new_votes, 
-                           vote_for_count: vote_for_count + option.to_i, 
-                           vote_against_count: vote_against_count + (option.to_i+1) % 2, 
-                           vote_proportion: prop,
-                           vote_proportion_away_mid: (0.5 - prop).abs)
+  
+  def update_vote_counts(option, old_option)
+    if old_option == nil
+      self.vote_count += 1
+    elsif old_option == 0
+      # delete old vote
+      self.vote_against_count -= 1
+    else
+      # delete old vote
+      self.vote_for_count -= 1
+    end
+    
+    if option == 0
+      self.vote_against_count += 1
+    else
+      self.vote_for_count += 1
+    end
+    
+    self.vote_proportion = self.vote_for_count.to_f / self.vote_count
+    self.vote_proportion_away_mid = (0.5 - self.vote_proportion).abs
   end
 
   def voted_by?(citizen)
