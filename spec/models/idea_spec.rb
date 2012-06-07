@@ -48,6 +48,69 @@ describe Idea do
       idea.vote(citizen, 0)
       idea.votes.by(citizen).count.should == 1
     end
+    
+    it "updates total vote count" do
+      idea.vote(citizen, 1)
+      idea.vote_count.should == 1
+    end
+    
+    it "updates total vote count only once per citizen" do
+      idea.vote(citizen, 1)
+      idea.vote_count.should == 1
+      idea.vote(citizen, 1)
+      idea.vote_count.should == 1
+      idea.vote(citizen, 0)
+      idea.vote_count.should == 1
+    end
+    
+    it "increments vote_for_count" do
+      idea.vote(citizen, 1)
+      idea.vote_for_count.should == 1
+    end
+    
+    it "increments vote_against_count" do
+      idea.vote(citizen, 0)
+      idea.vote_against_count.should == 1
+    end
+    
+    it "increments vote_for_count only once per citizen" do
+      idea.vote(citizen, 1)
+      idea.vote_for_count.should == 1
+      idea.vote(citizen, 1)
+      idea.vote_for_count.should == 1
+    end
+    
+    it "decrements vote_for_count when citizen changes his/her mind" do
+      idea.vote(citizen, 1)
+      idea.vote_for_count.should == 1
+      idea.vote(citizen, 0)
+      idea.vote_for_count.should == 0
+      idea.vote(citizen, 0)
+      idea.vote_for_count.should == 0
+    end
+    
+    it "decrements vote_against_count when citizen changes his/her mind" do
+      idea.vote(citizen, 0)
+      idea.vote_against_count.should == 1
+      idea.vote(citizen, 1)
+      idea.vote_against_count.should == 0
+      idea.vote(citizen, 1)
+      idea.vote_against_count.should == 0
+    end
+    
+    it "calculates vote proportion" do
+      another_citizen = Factory(:citizen)
+      idea.vote(citizen, 0)
+      idea.vote(another_citizen, 1)
+      idea.vote_proportion.should be_within(0.001).of(1.0/2)
+    end
+    
+    it "calculates vote_proportion_away_mid" do
+      another_citizen = Factory(:citizen)
+      idea.vote(citizen, 0)
+      idea.vote(another_citizen, 1)
+      idea.vote_proportion_away_mid.should be_within(0.001).of(0.0)
+    end
   end
 
   describe "#voted_by?" do
