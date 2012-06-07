@@ -78,10 +78,10 @@ class Idea < ActiveRecord::Base
     if old_option == nil
       self.vote_count += 1
     elsif old_option == 0
-      # delete old vote
+      # decrement vote counter to keep the citizen from voting multiple times
       self.vote_against_count -= 1
     else
-      # delete old vote
+      # decrement vote counter
       self.vote_for_count -= 1
     end
     
@@ -93,6 +93,8 @@ class Idea < ActiveRecord::Base
     
     self.vote_proportion = self.vote_for_count.to_f / self.vote_count
     self.vote_proportion_away_mid = (0.5 - self.vote_proportion).abs
+    
+    self.save
   end
 
   def voted_by?(citizen)
