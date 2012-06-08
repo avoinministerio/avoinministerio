@@ -235,7 +235,8 @@ class SignaturesController < ApplicationController
   end
 
   def finalize_signing
-    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
+#    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
+    @signature = Signature.where(state: 'authenticated').find(params[:id])
     if @signature.citizen == current_citizen and @signature.state == "authenticated"   # TODO: and duration since last authentication less that threshold
       @signature.firstnames       = params[:first_names]
       @signature.lastname         = params[:last_name]
