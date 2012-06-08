@@ -26,7 +26,7 @@ class Admin::CitizensController < Admin::AdminController
           end
           send_data csv_string, 
             type: 'text/csv; charset=ISO-8859-1; header=present',
-            disposition: "attachment; filename=citizens-#{Date.today.to_s}.csv"
+            disposition: "attachment; filename=citizens-#{today_date.to_s}.csv"
         end
     end
   end
