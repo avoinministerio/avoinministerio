@@ -30,16 +30,19 @@ class SignaturesController < ApplicationController
     end
 
     server = "https://am-signing.herokuapp.com"
-    logger.info "Server is #{server}"
+    
+    Rails.logger.info "Server is #{server}"
     server = "https://" + request.host
     server += ":" + request.port.to_s unless request.port == 80
-    logger.info "Server is #{server}"
+    
+    Rails.logger.info "Server is #{server}"
     puts request.host
     puts request.host_with_port
     puts request.subdomain
     puts request.subdomains
 #    puts request.inspect
-    logger.error "Server is #{server}"
+    
+    Rails.logger.error "Server is #{server}"
 
     @services = [
       { action_id:  "701",
@@ -126,7 +129,8 @@ class SignaturesController < ApplicationController
 
   def service_secret(service)
       secret_key = "SECRET_" + service.gsub(/\s/, "")
-      logger.info "Using key #{secret_key}" 
+      
+      Rails.logger.info "Using key #{secret_key}" 
       puts "Using key #{secret_key}" 
       secret = ENV[secret_key]
 
@@ -136,7 +140,8 @@ class SignaturesController < ApplicationController
       end
 
       unless secret
-        logger.error "No SECRET found for #{secret_key}" 
+        
+      Rails.logger.error "No SECRET found for #{secret_key}" 
         puts "No SECRET found for #{secret_key}"
         secret = "" 
       end
@@ -156,7 +161,8 @@ class SignaturesController < ApplicationController
 
 
   def valid_returning(signature, service_name)
-    logger.info params.inspect
+    
+    Rails.logger.info params.inspect
     puts params.inspect
     values = %w(VERS TIMESTMP IDNBR STAMP CUSTNAME KEYVERS ALG CUSTID CUSTTYPE).map {|key| params["B02K_" + key]}
     puts "in valid returning"
@@ -190,41 +196,41 @@ class SignaturesController < ApplicationController
     case params[:returncode]
     when "returning"
       if not valid_returning(@signature, service_name)
-        logger.info "Invalid return"
-        logger.info "save invalidity"
-        logger.info "notify client with redirect back to sign"
+        Rails.logger.info "Invalid return"
+        Rails.logger.info "save invalidity"
+        Rails.logger.info "notify client with redirect back to sign"
         @error = "Invalid return"
       elsif not "within timelimit"
-        logger.info "not within timelimit"
-        logger.info "save invalidity"
-        logger.info "notify client with redirect back to sign"
+        Rails.logger.info "not within timelimit"
+        Rails.logger.info "save invalidity"
+        Rails.logger.info "notify client with redirect back to sign"
         @error = "Not within timelimit"
       elsif not "repeated returning"
-        logger.info "repeated returning"
-        logger.info "save invalidity"
-        logger.info "notify client with redirect back to sign"
+        Rails.logger.info "repeated returning"
+        Rails.logger.info "save invalidity"
+        Rails.logger.info "notify client with redirect back to sign"
         @error = "Repeated returning"
       else
         # all success!
-        logger.info "save"
-        logger.info "notify client with a page that redirects back to idea"
+        Rails.logger.info "save"
+        Rails.logger.info "notify client with a page that redirects back to idea"
         @error = nil
         birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
         p birth_date
-        @signature.update_attributes(state: "authenticated", signing_date: today_date, birth_date: birth_date)
+        @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date)
       end
     when "cancelling"
-      logger.info "redirect to sign"
+      Rails.logger.info "redirect to sign"
       @error = "Cancelling authentication"
     when "rejecting"
-      logger.info "save"
-      logger.info "notify client with a page that redirects back to sign"
+      Rails.logger.info "save"
+      Rails.logger.info "notify client with a page that redirects back to sign"
       @error = "Rejecting authentication"
     else
-      logger.info "notify client"
+      Rails.logger.info "notify client"
     end
-        
-    logger.info @signature.inspect
+
+    Rails.logger.info @signature.inspect
     respond_with @signature
   end
 
