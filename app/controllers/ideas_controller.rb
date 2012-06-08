@@ -1,5 +1,7 @@
 #encoding: UTF-8
 
+require 'will_paginate/array'
+
 class IdeasController < ApplicationController
   before_filter :authenticate_citizen!, except: [ :index, :show, :search ]
   
@@ -174,10 +176,25 @@ class IdeasController < ApplicationController
   end
 
   def search
-    @ideas = Idea.search_tank(params['searchterm'])
-    @comments = Comment.search_tank(params['searchterm'])
-    @articles = Article.search_tank(params['searchterm'])
-    @citizens = Citizen.search_tank(params['searchterm'])
+    per_page = 20
+    page = (params[:page] && params[:page].to_i) || 1
+    
+    all_ideas = Idea.search_tank(params['searchterm']).select {
+      |result| result.published?}
+    all_comments = Comment.search_tank(params['searchterm']).select {
+      |result| result.published?}
+    all_articles = Article.search_tank(params['searchterm']).select {
+      |result| result.published?}
+    all_citizens = Citizen.search_tank(params['searchterm']).select {
+      |result| result.published?}
+    all_results = all_ideas + all_comments + all_articles + all_citizens
+    
+    @results = all_results.paginate(page: page, per_page: per_page)
+    
+    @ideas = all_ideas & @results
+    @comments = all_comments & @results
+    @articles = all_articles & @results
+    @citizens = all_citizens & @results
   end
 
   def vote_flow
