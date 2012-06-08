@@ -14,34 +14,39 @@
     tai 
     %i koira ja vero
     )
-  %h2 Ideat
-  - @ideas.each do |idea|
-    .search-result
-    =link_to idea.title, idea
-  %h2 Kommentit
-  - @comments.each do |comment|
-    .search-result
-    - case comment.commentable_type
-    - when "Idea"
-      =link_to comment.body, idea_path(comment.commentable_id)
-    - else
-      Tuntematon kommenttityyppi
-      =comment.commentable_type
-  %h2 Artikkelit
-  - @articles.each do |article|
-    .search-result
-    =link_to article.title, article
-  %h2 Kansalaiset
-  - @citizens.each do |citizen|
-    .search-result-citizen
-    %h3= citizen.name
-    - unless citizen.ideas.empty?
-      %h4 Ideat:
-      - citizen.ideas.each do |idea|
-        =link_to idea.title, idea
-    - unless citizen.comments.empty?
-      %h4 Kommentit:
-      - citizen.comments.each do |comment|
-        - case comment.commentable_type
-        - when "Idea"
-          =link_to comment.body, idea_path(comment.commentable_id)
+  - unless @ideas.empty?
+    %h2 Ideat
+    - @ideas.each do |idea|
+      .search-result
+      =link_to idea.title, idea
+  - unless @comments.empty?
+    %h2 Kommentit
+    - @comments.each do |comment|
+      .search-result
+      - case comment.commentable_type
+      - when "Idea"
+        =link_to comment.body, idea_path(comment.commentable_id)
+      - else
+        Tuntematon kommenttityyppi
+        =comment.commentable_type
+  -unless @articles.empty?
+    %h2 Artikkelit
+    - @articles.each do |article|
+      .search-result
+      =link_to article.title, article
+  -unless @citizens.empty?
+    %h2 Kansalaiset
+    - @citizens.each do |citizen|
+      .search-result-citizen
+      %h3= citizen.name
+      - unless citizen.ideas.empty?
+        %h4 Ideat:
+        - citizen.ideas.each do |idea|
+          =link_to idea.title, idea
+      - unless citizen.comments.empty?
+        %h4 Kommentit:
+        - citizen.comments.each do |comment|
+          - case comment.commentable_type
+          - when "Idea"
+            =link_to comment.body, idea_path(comment.commentable_id)
+= will_paginate @results
