@@ -17,6 +17,16 @@ module ApplicationHelper
   def finnishDate(time)
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
+
+  def current_timezone
+    timezone = ENV['FinnishTimezone'] || 3.0/24   # TODO: needs to be changed into GMT+2 for winter time
+  end
+
+  def today_date(timezone = current_timezone)
+    # changes UTC time into Finnish timezone and then converts it to date, yielding correct date around midnight
+    DateTime.now.new_offset(timezone).to_date   
+  end
+
 end
 
 class Numeric
