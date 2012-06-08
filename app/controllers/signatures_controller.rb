@@ -244,6 +244,7 @@ class SignaturesController < ApplicationController
       @signature.birth_date       = params[:birth_date]
       @signature.state            = "signed"
       @signature.signing_date     = today_date
+      @error = "Couldn't save signature" unless @signature.save
     else
       @error = "Trying to alter other citizen or signature with other than authenticated state"
     end
