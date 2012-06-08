@@ -25,7 +25,8 @@
       .search-result
       - case comment.commentable_type
       - when "Idea"
-        =link_to comment.body, idea_path(comment.commentable_id)
+        =link_to shorten(comment.body, 100, 10, "»"),
+          idea_path(comment.commentable_id, :anchor => "comment_#{comment.id}")
       - else
         Tuntematon kommenttityyppi
         =comment.commentable_type
