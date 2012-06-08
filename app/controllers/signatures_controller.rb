@@ -9,13 +9,13 @@ class SignaturesController < ApplicationController
 
   def sign
     @signature                  = Signature.new()
-    @signature.idea             = Idea.find(params[:id] || 4)   # TODO, remove || 4
+    @signature.idea             = Idea.find(params[:id])
     @signature.citizen          = current_citizen
     @signature.idea_title       = @signature.idea.title
     @signature.idea_date        = @signature.idea.updated_at
     @signature.firstnames       = @signature.citizen.first_name
     @signature.lastname         = @signature.citizen.last_name
-    # @signature.birth_date = ""
+    
     @signature.occupancy_county = ""
     @signature.vow              = false
     @signature.state            = "initial"
@@ -170,6 +170,13 @@ class SignaturesController < ApplicationController
     params["B02K_MAC"] == mac(string)
   end
 
+  def hetu_to_birth_date(hetu)
+    date_part = hetu.gsub(/\-.+$/, "")
+    year = 1900+date_part[4,2].to_i + hetu_separator_as_years_from_1900(hetu)
+    birth_date = Date.new(year, date_part[2,2].to_i, date_part[0,2].to_i)
+  end
+
+  # the latter part fixes -, + or A in HETU separator
   def hetu_separator_as_years_from_1900(hetu)
     # convert 010203+1234 as years from 1800, ie add -100
     # convert 010203A1234 as years from 2000, ie add +100
@@ -178,7 +185,7 @@ class SignaturesController < ApplicationController
   end
 
   def back
-    @signature = Signature.find(params[:id])
+    @signature = Signature.find(params[:id])   # TODO: Add find for current_citizen
     service_name = params[:servicename]
     case params[:returncode]
     when "returning"
@@ -202,12 +209,9 @@ class SignaturesController < ApplicationController
         logger.info "save"
         logger.info "notify client with a page that redirects back to idea"
         @error = nil
-        bd = params["B02K_CUSTID"].gsub(/\-.+$/, "")
-        # the latter part fixes -, + or A in HETU separator
-        year = 1900+bd[4,2].to_i + hetu_separator_as_years_from_1900(bd)
-        birth_date = Date.new(year, bd[2,2].to_i, bd[0,2].to_i)
+        birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
         p birth_date
-        @signature.update_attributes(state: "authenticated", signing_date: Date.today, birth_date: birth_date)
+        @signature.update_attributes(state: "authenticated", signing_date: today_date, birth_date: birth_date)
       end
     when "cancelling"
       logger.info "redirect to sign"
@@ -221,6 +225,22 @@ class SignaturesController < ApplicationController
     end
         
     logger.info @signature.inspect
+    respond_with @signature
+  end
+
+  def finalize_signing
+    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
+    if @signature.citizen == current_citizen and @signature.state == "authenticated"   # TODO: and duration since last authentication less that threshold
+      @signature.firstnames       = params[:first_names]
+      @signature.lastname         = params[:last_name]
+      @signature.occupancy_county = params[:last_name]
+      @signature.vow              = params[:occupancy_county]
+      @signature.birth_date       = params[:birth_date]
+      @signature.state            = "signed"
+      @signature.signing_date     = today_date
+    else
+      @error = "Trying to alter other citizen or signature with other than authenticated state"
+    end
     respond_with @signature
   end
 

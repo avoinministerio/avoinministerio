@@ -151,8 +151,8 @@
             #votepie
 
           .signature
-            - started = @idea.collecting_started || @idea.collecting_start_date <= Date.today
-            - ended = @idea.collecting_ended     || @idea.collecting_end_date    < Date.today
+            - started = @idea.collecting_started || @idea.collecting_start_date <= today_date
+            - ended = @idea.collecting_ended     || @idea.collecting_end_date    < today_date
             - on_going = started and (not ended)
 
             - completed_signature = Signature.where(state: "completed", citizen_id: current_citizen.id, idea_id: @idea.id).first
@@ -180,7 +180,7 @@
               = finnishDate(@idea.collecting_end_date)
             .stat
               Kerätty 
-              - dates_collected = (Date.today - @idea.collecting_start_date + 1).to_i
+              - dates_collected = (today_date - @idea.collecting_start_date + 1).to_i
               - p dates_collected
               = dates_collected
               päivää
@@ -229,10 +229,10 @@
                   päivää
                 .stat
                   Eli olisi arviolta valmis
-                  = finnishDate(Date.today + still_days_to_reach_target)
+                  = finnishDate(today_date + still_days_to_reach_target)
                 .stat
                   Tällä tahdilla 
-                  = ((Date.today + still_days_to_reach_target) <= @idea.collecting_end_date) ? "ehditään kerätä ilmoitukset" : "ei ehditä kerätä ilmoituksia riittävästi"
+                  = ((today_date + still_days_to_reach_target) <= @idea.collecting_end_date) ? "ehditään kerätä ilmoitukset" : "ei ehditä kerätä ilmoituksia riittävästi"
                   ennen päättymispäivää
             - if ended
               .stat
