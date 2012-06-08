@@ -88,6 +88,6 @@ fi:
     new:
       title: "Asiantuntijan ehdotus"
   will_paginate:
-    previous_label: "&laquo; Edelliset ideat"
-    next_label: "Seuraavat ideat &raquo;"
+    previous_label: "&laquo; Edelliset"
+    next_label: "Seuraavat &raquo;"
     page_gap: "..."
