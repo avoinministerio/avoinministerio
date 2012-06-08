@@ -2,7 +2,7 @@
   - if not @error
     %h1 Tunnistaminen onnistui
 
-    =simple_form_for @signature, action: finalize_signing do |f|
+    =simple_form_for @signature, url: url_for(action: "finalize_signing", controller: "signatures") do |f|
       Seuraavien kenttien tiedot tulee olla juuri kuten ne ovat Väestörekisterikeskuksella. Voit täyttää lomakkeen vain omasta puolestasi, eli et voi täyttää lomaketta kenenkään muun puolesta. Kansalaisaloitelain 16 pykälän mukaan rangaistus väärän henkilötiedon antamisesta on rikoslain 
       %a{href: "http://www.finlex.fi/fi/laki/ajantasa/1889/18890039001"}16 luvun 5 § tai 8 § mukainen.
       .linebreak
