@@ -43,6 +43,8 @@ fi:
           attributes:
             article_type:
               inclusion: "%{value} ei ole sallittu artikkelityyppi"
+        citizen:
+          not_found: "Henkilöä ei löytynyt"
   layout:
     your_profile: "Profiilisi"
     sign_out: "Kirjaudu ulos"
@@ -74,6 +76,8 @@ fi:
       edit_article: "Muokkaa artikkelia"
     edit:
       title: "Muokkaa artikkelia"
+  articles:
+    updated: "Artikkeli päivitetty"
   registrations:
     credentials:
       password_change_hint: "Jätä tämä tyhjäksi jos et halua vaihtaa salasanaasi"

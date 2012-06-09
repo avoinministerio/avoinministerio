@@ -48,6 +48,7 @@ end
 group :test do
   gem "capybara"
   gem "database_cleaner"
+  gem "rspec-rails-controller"
   gem "shoulda-matchers"
   gem "simplecov", :require => false
   gem "sqlite3"
