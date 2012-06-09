@@ -165,6 +165,23 @@ h2 {
   text-transform: uppercase;
 }
 
+.front-page-comment-count {
+  display: inline-block;
+  width: 42px;
+  padding: 2px 6px 0 0;
+  height: 32px;
+  margin: 0 10px 0 20px;
+  background: transparent url("/assets/comment-bg.png") top left no-repeat;
+  text-align: right;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+  a {
+    color: rgb(10, 50, 70);
+  }
+}
+
 .idea_comments {
   .comment {
     margin-bottom: 10px;
