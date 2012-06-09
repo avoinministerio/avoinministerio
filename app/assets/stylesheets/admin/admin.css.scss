@@ -4,3 +4,9 @@
  *= require admin/bootstrap-responsive
  *= require_directory .
  */
+
+#flash_error {
+    background: darken(red, 10%);
+    color: white;
+    padding: 0.5em;
+}

@@ -11,10 +11,12 @@ fi:
     error_notification:
       default_message: "Lomakkeessa oli virheitä, tarkistathan tiedot:"
     labels:
+      article_type: Artikkelin tyyppi
       title: Otsikko
       ingress: Johdanto
       body: Teksti
-      author: Kirjoittaja
+      author: Kirjoittaja (nimi tai sähköpostiosoite)
+      idea: Idea
     # Labels and hints examples
     # labels:
     #   password: 'Password'

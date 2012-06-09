@@ -171,6 +171,8 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.8.0)
+    rspec-rails-controller (0.1.2)
+      rspec-rails (>= 2.4.0)
     ruby-graphviz (0.9.21)
     rubyzip (0.9.5)
     sass (3.1.12)
@@ -249,6 +251,7 @@ DEPENDENCIES
   rb-fsevent
   redcarpet
   rspec-rails
+  rspec-rails-controller
   sass-rails (~> 3.1.5)
   shoulda-matchers
   simple_form
