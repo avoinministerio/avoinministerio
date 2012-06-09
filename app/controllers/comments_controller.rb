@@ -13,7 +13,17 @@ class CommentsController < ApplicationController
       KM.push("record", "comment created", idea_id: @idea.id)
     end
   end
-  
+
+  def hide
+    @comment = @idea.comments.find(params[:comment_id])
+    if @comment.author == current_citizen
+      @comment.unpublish!
+    else
+      render nothing: true, status: :unauthorized
+      return
+    end
+  end
+
   private
   
   def load_resource

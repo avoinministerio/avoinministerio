@@ -27,7 +27,9 @@ AvoinMinisterio::Application.routes.draw do
   }
   
   resources :ideas do
-    resources :comments
+    resources :comments do
+      post "hide"
+    end
     resources :expert_suggestions, only: [:new, :create]
   end
   resources :articles do

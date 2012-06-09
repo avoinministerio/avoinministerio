@@ -8,6 +8,7 @@
   %link{ href: asset_path('favicon.ico'), rel: 'shortcut icon', type: 'image/x-icon' }
   %title Avoin Ministeriö :: Hallinta
   = stylesheet_link_tag "admin/admin.css"
+  = csrf_meta_tag
   = javascript_include_tag "application"
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
