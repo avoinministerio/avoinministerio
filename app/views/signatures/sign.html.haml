@@ -1,0 +1,58 @@
+.container_24
+  %h1 Kannatusilmoituksen sähköinen allekirjoitus
+  .text
+    Olet siirtymässä antamaan sähköisen allekirjoituksen ja tukesi ehdotukselle
+    .ideatitle= @signature.idea.title
+    .ideasummary= markdown(@signature.idea.summary)
+  .text
+    Kannatusilmoituksen allekirjoitus etenee seuraavasti:
+    %ol
+      %li 
+        Valitset alla olevista tunnistuspalveluista sinulle sopivimman. Huomioi, että sinulla tulee olla joko
+        %ul
+          %li mobiilivarmenne eli operaattorisi kanssa tehty erillinen sopimus jonka yhteydessä he yleensä vaihtavat  allekirjoittamiseen sopivan SIM-kortin puhelimeesi ja tunnistautumiseen tarvittu erillinen PIN-koodi, tai
+          %li sovittuna pankkisi kanssa tunnistautumisesta, jolloin he antavat sinulle salasanalistan
+      %li Saavut tunnistuspalvelun tarjoajan web-sivulle. Mobiilivarmenteen tapauksessa se on Elisa, pankkien tapauksessa pankki itse
+      %li 
+        Tunnistaudut:
+        %ul
+          %li Mobiilitunnistautumisessa syötät itse oman puhelinnumerosi, ja tunnistautuminen tehdään puhelimella.
+          %li Pankkitunnistautumisessa syötät pankin vaatimat koodit, yleensä asiakastunnuksen ja kertakäyttöisestä salasanalistasta kysytyn tunnuksen.
+      %li 
+        Tunnistautumisen jälkeen palaat takaisin tälle sivulle. Kirjaamme allekirjoituksesi onnistuneeksi kun tarkistat ja tarvittaessa täydennät lain vaatimat tiedot, jotka myös tallennamme.
+        %ul
+          %li Tukemasi aloitteen otsikon ja sen päiväyksen
+          %li Täydellisen nimesi 
+          %li Syntymäajan
+          %li Kotikunnan, jonka joudumme pyytämään erikseen, ja jonka tulee olla Väestörekisterikeskuksen tietoja vastaava
+          %li Vakuutuksesi siitä, että olet äänioikeutettu Suomen kansalainen, ja olet tehnyt kannatusilmoituksen aloitteeseen vain kerran
+          %li Päivämäärän
+      %li Aloitteen kannatusilmoitusten määrän ylitettyä vaadittu raja (yleensä hieman yli 50 000), annamme ylläolevat tietosi edelleen Väestörekisterikeskukselle tarkistettavaksi. Mikäli aloite oli jonkun muun kuin Avoimen ministeriön avaama, annamme tietosi sen organisaation vastuuhenkilöiden välityksellä.
+      %li Väestörekisterikeskuksen toivottavasti onnistuneen tarkastuksen jälkeen tietosi annetaan edelleen Eduskuntaan. Vasta he julkistavat lain mukaisesti listan kannattajista eli myös sinun . Siinä tuodaan esiin nimesi mutta ei henkilötunnustasi.
+  .text
+    Olemme koonneet 
+    %a{href:"/article/999"}vastauksia yleisimpiin kysymyksiin.
+  .text 
+    Kaikesta tästä on säädetty 
+    %a{href:"http://www.finlex.fi/fi/laki/alkup/2012/20120012"}Kansalaisaloitelaissa
+    , jota kehotamme lukemaan epäselvissä tilanteissa. Lähetä toki myös meille kysymyksesi, pyrimme vastaamaan siihen: 
+    %a{href:"mailto:kysymykset@avoinministerio.fi"}kysymykset@avoinministerio.fi.
+
+  #signature_form
+    %h1 Valitse tunnistuspalvelu
+    - @services.each do |service|
+      .grid_16
+        %form{:action => service[:url], :method => "post"}
+          %input{:type => 'hidden', :name => 'A01Y_ACTION_ID',  :value => service[:action_id]}
+          %input{:type => 'hidden', :name => 'A01Y_VERS',       :value => service[:vers]}
+          %input{:type => 'hidden', :name => 'A01Y_RCVID',      :value => service[:rcvid]}
+          %input{:type => 'hidden', :name => 'A01Y_LANGCODE',   :value => service[:langcode]}
+          %input{:type => 'hidden', :name => 'A01Y_STAMP',      :value => service[:stamp]}
+          %input{:type => 'hidden', :name => 'A01Y_IDTYPE',     :value => service[:idtype]}
+          %input{:type => 'hidden', :name => 'A01Y_RETLINK',    :value => service[:retlink]}
+          %input{:type => 'hidden', :name => 'A01Y_CANLINK',    :value => service[:canlink]}
+          %input{:type => 'hidden', :name => 'A01Y_REJLINK',    :value => service[:rejlink]}
+          %input{:type => 'hidden', :name => 'A01Y_KEYVERS',    :value => service[:keyvers]}
+          %input{:type => 'hidden', :name => 'A01Y_ALG',        :value => service[:alg]}
+          %input{:type => 'hidden', :name => 'A01Y_MAC',        :value => service[:mac]}
+          %input{:type => 'submit', :value => service[:name]}
