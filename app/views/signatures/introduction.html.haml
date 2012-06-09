@@ -1,0 +1,24 @@
+.returning
+  - if not @error
+    %h1 Vaihe 1/4 - Tutustu ohjeisiin
+
+    .box
+      .instructions
+        .title Ohjeita
+        .text Jatkossa ehkä video
+
+    =form_tag(url_for(action: "approval", controller: "signatures"), :html => {:class => "grid_16"}) do |f|
+      .big-button
+        .actions
+          =submit_tag "Siirry hyväksymään ehdot"
+
+    .sidebox
+      .text
+        (Tänne voi tulla help-osio)
+        =link_to "etusivulle", "/"
+
+
+  - else
+    .error
+      %h1 Virhetilanne
+      = @error
