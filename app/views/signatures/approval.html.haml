@@ -37,9 +37,9 @@
             $("#accept").attr({"disabled": true, "class": "accept-btn-disabled"});
           };
         };
-        $("#accept_general").click(toggleButton);
-        $("#accept_non_eu").click(toggleButton);
-        $("input:radio[name=publicity]").click(toggleButton);
+        $("#accept_general").change(toggleButton);
+        $("#accept_non_eu").change(toggleButton);
+        $("input:radio[name=publicity]").change(toggleButton);
 
     .sidebox
       .text
