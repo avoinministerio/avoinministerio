@@ -151,17 +151,22 @@
             #votepie
 
           .signature
-            - started = @idea.collecting_started || @idea.collecting_start_date <= today_date
-            - ended = @idea.collecting_ended     || @idea.collecting_end_date    < today_date
-            - on_going = started and (not ended)
+            - started   = @idea.collecting_started || @idea.collecting_start_date <= today_date
+            - ended     = @idea.collecting_ended   || @idea.collecting_end_date    < today_date
+            - on_going  = started and (not ended)
 
-            - completed_signature = Signature.where(state: "completed", citizen_id: current_citizen.id, idea_id: @idea.id).first
-            - if completed_signature
-              Olet jo allekirjoittanut kannatusilmoituksen onnistuneesti. Et voi allekirjoittaa sitä uudelleen, mutta nyt koska kyseessä on demo niin sallimme uusia ilmoituksia.
+            - if current_citizen
+              - completed_signature = Signature.where(state: "completed", citizen_id: current_citizen.id, idea_id: @idea.id).first
+              - if completed_signature
+                Olet jo allekirjoittanut kannatusilmoituksen onnistuneesti. Et voi allekirjoittaa sitä uudelleen, mutta nyt koska kyseessä on demo niin sallimme uusia ilmoituksia.
 
             - if on_going
               .button
-                = link_to "Allekirjoita kannatusilmoitus", signature_idea_path(@idea.id), class: "btn jaa-btn"
+                - if current_citizen
+                  = link_to "Allekirjoita kannatusilmoitus", signature_idea_path(@idea.id), class: "btn jaa-btn"
+                - else
+                  = link_to "Sisäänkirjaudu allekirjoittaaksesi kannatusilmoituksen", signature_idea_path(@idea.id), class: "btn jaa-btn-disabled", disabled: true
+
             - if ended
               Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta keräämme ilmoituksia silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit allekirjoittaa sen uudelleen.
               .button
