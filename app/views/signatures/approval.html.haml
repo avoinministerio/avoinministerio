@@ -2,30 +2,44 @@
   - if not @error
     %h1 Vaihe 2/4 - Hyväksy ehdot ja julkisuusasetukset
 
-    =form_tag(url_for(action: "sign", controller: "signatures"), :html => {:class => "grid_16"}) do |f|
-      .box
-        .instructions
-          .title Ehdot
-          .text 
-          .checkbox
-            = check_box_tag :accept_general
-            = label_tag :accept_general, "Hyväksyn palvelun yleiset ehdot"
-          .checkbox
-            = check_box_tag :accept_general
-            = label_tag :accept_general, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
-          .radiobox
-            = radio_button_tag :publicity, "Normal"
-            = label_tag :publicity, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
-            %br
-            = radio_button_tag :publicity, "Immediately"
-            = label_tag :publicity, "Nimeni voi julkistaa välittömästi"
-          .checkbox
-            = check_box_tag :accept_science
-            = label_tag :accept_science, "Sallin, että tieteellisissä tutkimustarkoituksista minulta voidaan kysyä lisää. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
+    .accepting
+      =form_tag(url_for(action: "sign", controller: "signatures"), :html => {:class => "grid_16"}) do |f|
+        .box
+          .instructions
+            .title Ehdot
+            .text 
+            .checkbox
+              = check_box_tag :accept_general
+              = label_tag :accept_general, "Hyväksyn palvelun yleiset ehdot"
+            .checkbox
+              = check_box_tag :accept_non_eu
+              = label_tag :accept_non_eu, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
+            .radiobox
+              = radio_button_tag :publicity, "Normal"
+              = label_tag :publicity, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
+              %br
+              = radio_button_tag :publicity, "Immediately"
+              = label_tag :publicity, "Nimeni voi julkistaa välittömästi"
+            .checkbox
+              = check_box_tag :accept_science
+              = label_tag :accept_science, "Sallin lisäkysymyksiä tieteellisissä tutkimuksissa. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
 
-      .big-button
-        .actions
-          = submit_tag "Hyväksy ehdot ja siirry tunnistautumaan"
+        .big-button
+          .actions
+            = submit_tag "Hyväksy ehdot ja siirry tunnistautumaan", disabled: true, id: "accept", class: "accept-btn-disabled"
+
+      :javascript
+        var toggleButton = function() {
+          if( $("#accept_general").attr("checked") && $("#accept_non_eu").attr("checked") && 
+              ( $("input:radio[name=publicity]:checked").val() ) ) {
+            $("#accept").attr({"disabled": false, "class": "accept-btn"});
+          } else {
+            $("#accept").attr({"disabled": true, "class": "accept-btn-disabled"});
+          };
+        };
+        $("#accept_general").click(toggleButton);
+        $("#accept_non_eu").click(toggleButton);
+        $("input:radio[name=publicity]").click(toggleButton);
 
     .sidebox
       .text
