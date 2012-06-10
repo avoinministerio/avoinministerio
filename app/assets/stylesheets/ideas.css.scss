@@ -4,6 +4,7 @@
 
 $turquoise: #29abe2;
 $violet: #473161;
+$violet-muted: #271141;
 $grey: #888888;
 $green: #8cc63f;
 $red: #a9003f;
@@ -130,6 +131,20 @@ h1 {
 .signature .stat {
   font-size: 10px;
 }
+
+.accepting .accept-btn {
+  background: $violet;
+  color: #fff;
+  text-decoration: none;
+}
+.accepting .accept-btn-disabled {
+  background: $violet-muted;
+  color: #999;
+  text-decoration: none;
+}
+
+
+
 
 .expert_opinions h2,
 .idea_comments h2 {
