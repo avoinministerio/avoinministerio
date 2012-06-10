@@ -248,8 +248,12 @@ class SignaturesController < ApplicationController
       @signature.signing_date     = today_date
       @error = "Couldn't save signature" unless @signature.save
 
+      # show only proposals that haven't yet been signed by current_user
+      signatures = Arel::Table.new(:signatures)
+      already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
       ideas = Arel::Table.new(:ideas)
-      @initiatives = Idea.where(ideas[:state].eq('proposal')).order("vote_for_count DESC").limit(5).all
+      proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
+      @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
     else
       @error = "Trying to alter other citizen or signature with other than authenticated state"
     end
