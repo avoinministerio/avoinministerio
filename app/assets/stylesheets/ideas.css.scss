@@ -129,7 +129,20 @@ h1 {
 }
 
 .signature .stat {
-  font-size: 10px;
+  font-size: 12px;
+}
+
+.signature .stat-header {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.signature-statistics {
+  margin: 20px 10px 10px 10px;
+}
+
+.signature-statistics .stat-divider {
+  margin: 10px 0 0 0;
 }
 
 .accepting .accept-btn {
