@@ -1,0 +1,110 @@
+.signature
+  - started   = idea.collecting_started || idea.collecting_start_date <= today_date
+  - ended     = idea.collecting_ended   || idea.collecting_end_date    < today_date
+  - on_going  = started and (not ended)
+
+  - if current_citizen
+    - completed_signature = Signature.where(state: "completed", citizen_id: current_citizen.id, idea_id: idea.id).first
+    - if completed_signature
+      Olet jo allekirjoittanut kannatusilmoituksen onnistuneesti. Et voi allekirjoittaa sitä uudelleen, mutta nyt koska kyseessä on demo niin sallimme uusia ilmoituksia.
+
+  - if on_going
+    .button
+      - if current_citizen
+        = link_to "Allekirjoita kannatusilmoitus", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
+      - else
+        = link_to "Sisäänkirjaudu allekirjoittaaksesi kannatusilmoituksen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn-disabled", disabled: true
+
+  - if ended
+    Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta keräämme ilmoituksia silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit allekirjoittaa sen uudelleen.
+    .button
+      = link_to "Allekirjoita kannatusilmoitus jälkikäteen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
+
+  .signature-statistics
+    .stat-header Aloitteen kannatusilmoitusten
+    .stat-header keruu
+    .stat
+      Keruu on 
+      %b= (on_going ? "käynnissä" : (not started ? "alkamatta" : "päättynyt"))
+    .stat
+      = (started ? "Käynnistynyt" : "Käynnistymässä")
+      = finnishDate(idea.collecting_start_date)
+    .stat
+      Keräys 
+      = (ended ? "päättyi" : "päättyy")
+      %b= finnishDate(idea.collecting_end_date)
+    .stat
+      Kerätty 
+      - dates_collected = (today_date - idea.collecting_start_date + 1).to_i
+      - p dates_collected
+      = dates_collected
+      päivää
+    .stat
+      Tavoitemäärä 
+      = idea.target_count
+      kpl
+
+    .stat-divider
+    .stat-header Tähän mennessä
+    .stat
+      Avoimessa ministeriössä kerätty
+      - signatures_count = idea.signatures.where(state: "completed").count
+      %b= signatures_count
+      kpl
+    .stat
+      Kerätty muualla n.
+      %b= idea.additional_signatures_count
+      kpl 
+    .stat
+      Kerätty yhteensä siis n.
+      - total_signatures = signatures_count + idea.additional_signatures_count
+      %b= total_signatures
+      kpl (arvio)
+    .stat
+      Tavoitteesta kerätty n.
+      %b= sprintf("%.3f%%", total_signatures.to_f / idea.target_count * 100.0)
+    .stat
+      Arvio lukumäärästä päivitetty
+      = finnishDate(idea.additional_signatures_count_date)
+    .stat
+      (Muualla kerätyt ovat arvioitu ja noin kerran viikossa päivitettävä tieto.)
+
+    .stat-divider
+    - signatures_per_day = (total_signatures.to_f) / dates_collected
+    - total_days_to_reach_target = (idea.target_count)                    / signatures_per_day
+    - still_days_to_reach_target = (idea.target_count - total_signatures) / signatures_per_day
+    - if on_going
+      .stat
+        Kerätty keskimäärin
+        = sprintf("%.1f", signatures_per_day)
+        kpl / päivä
+      - if signatures_per_day > 0.0 and total_signatures < idea.target_count
+        .stat
+          Tällä tahdilla kerääminen kestänee kaikkiaan
+          = sprintf("%.1f", total_days_to_reach_target)
+          päivää
+        .stat
+          Eli vielä
+          = sprintf("%.1f", still_days_to_reach_target)
+          päivää
+        .stat
+          Tavoite täyttyisi arviolta
+          %b= finnishDate(today_date + still_days_to_reach_target)
+        .stat
+          Tällä tahdilla 
+          %b= ((today_date + still_days_to_reach_target) <= idea.collecting_end_date) ? "ehditään kerätä ilmoitukset" : "ei ehditä kerätä ilmoituksia riittävästi"
+          ennen päättymispäivää
+      - if total_signatures >= idea.target_count
+        .stat
+          %b Tavoite on täyttynyt
+    - if ended
+      .stat
+        Kannatusilmoitusten keräys on päättynyt
+      .stat
+        Ilmoituksia kerättiin keskimäärin
+        = sprintf("%.1f", signatures_per_day)
+        kpl / päivä
+      .stat
+        Sillä tahdilla kerääminen olisi arvioidusti kestänyt
+        = total_days_to_reach_target
+        päivää
