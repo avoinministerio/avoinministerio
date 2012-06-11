@@ -36,7 +36,31 @@
       Rastimalla tämän vakuutat, että olet äänioikeutettu Suomen kansalainen, ja olet tehnyt kannatusilmoituksen aloitteeseen vain kerran.
       =f.input :vow
 
-      =f.submit "Allekirjoita"
+      =f.submit "Allekirjoita", disabled: true, id: "commit", class: "accept-btn-disabled"
+
+      :javascript
+        function isEmpty(str) {
+          return (!str || 0 === str.length);
+        }
+        function isBlank(str) {
+          return (!str || /^\s*$/.test(str));
+        }
+        var toggleButton = function() {
+          var f = $("#signature_firstnames").val();
+          var l = $("#signature_lastname").val();
+          var o = $("#signature_occupancy_county").val();
+          var v = $("#signature_vow").attr("checked");
+          if( !isEmpty(f) && !isBlank(f) && !isEmpty(l) && !isBlank(l) && !isBlank(o) && v ) {
+            $("#commit").attr({"disabled": false, "class": "accept-btn"});
+          } else {
+            $("#commit").attr({"disabled": true, "class": "accept-btn-disabled"});
+          };
+        };
+        $("#signature_firstnames").change(toggleButton);
+        $("#signature_firstnames").change(toggleButton);
+        $("#signature_occupancy_county").change(toggleButton);
+        $("#signature_vow").change(toggleButton);
+
 
 
     /Voit nyt palata

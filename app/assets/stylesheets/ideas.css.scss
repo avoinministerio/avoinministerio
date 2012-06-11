@@ -4,6 +4,7 @@
 
 $turquoise: #29abe2;
 $violet: #473161;
+$violet-muted: #271141;
 $grey: #888888;
 $green: #8cc63f;
 $red: #a9003f;
@@ -121,9 +122,42 @@ h1 {
   text-decoration: none;
 }
 
-.signature .stat {
-  font-size: 10px;
+.signature .jaa-btn-disabled {
+  background: #4c761f;
+  color: #ddd;
+  text-decoration: none;
 }
+
+.signature .stat {
+  font-size: 12px;
+}
+
+.signature .stat-header {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.signature-statistics {
+  margin: 20px 10px 10px 10px;
+}
+
+.signature-statistics .stat-divider {
+  margin: 10px 0 0 0;
+}
+
+.accepting .accept-btn {
+  background: $violet;
+  color: #fff;
+  text-decoration: none;
+}
+.accepting .accept-btn-disabled {
+  background: $violet-muted;
+  color: #999;
+  text-decoration: none;
+}
+
+
+
 
 .expert_opinions h2,
 .idea_comments h2 {
