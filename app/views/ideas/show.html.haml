@@ -136,115 +136,37 @@
             #votepie
 
         - when "proposal"
-          - if @idea.voted_by?(current_citizen)
-            %h3
-              Annoit tukesi
-              %b #{vote_in_words(@idea, current_citizen)},
-            %h4 voit halutessasi vaihtaa kantaasi.
+          / show voting for proposals if Signatures are not enabled, or if Signatures are enabled and this idea is not in given list
+          - if((not ENV['Feature_Signatures']) || (not (ENV['Feature_Signatures'].split(/\,?\s+/).map{|s| s.to_i}.include?(@idea.id))))
+            - if @idea.voted_by?(current_citizen)
+              %h3
+                Annoit tukesi
+                %b #{vote_in_words(@idea, current_citizen)},
+              %h4 voit halutessasi vaihtaa kantaasi.
+            - else
+              %h3 Kannatatko lakiehdotusta? 
+            %h4 Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Pyrimme valmistelemaan sen mahdollisimman pian. Tarkista aloitteen lopusta kuinka voit allekirjoittaa paperisen kannatusilmoituksen.
+            %h4 Sillä välin voit ilmoittaa epämuodollisen tukesi lakiehdotukselle. Ilmoitamme kaikille tukeneille kun myös sähköiset kannatusilmoitukset ovat mahdollisia.
+            = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+            = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+            .votes
+              #votepie
           - else
-            %h3 Kannatatko lakiehdotusta? 
-          %h4 Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Pyrimme valmistelemaan sen mahdollisimman pian. Tarkista aloitteen lopusta kuinka voit allekirjoittaa paperisen kannatusilmoituksen.
-          %h4 Sillä välin voit ilmoittaa epämuodollisen tukesi lakiehdotukselle. Ilmoitamme kaikille tukeneille kun myös sähköiset kannatusilmoitukset ovat mahdollisia.
-          = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-          = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
-          .votes
-            #votepie
-
-          .signature
-            - started = @idea.collecting_started || @idea.collecting_start_date <= today_date
-            - ended = @idea.collecting_ended     || @idea.collecting_end_date    < today_date
-            - on_going = started and (not ended)
-
-            - completed_signature = Signature.where(state: "completed", citizen_id: current_citizen.id, idea_id: @idea.id).first
-            - if completed_signature
-              Olet jo allekirjoittanut kannatusilmoituksen onnistuneesti. Et voi allekirjoittaa sitä uudelleen, mutta nyt koska kyseessä on demo niin sallimme uusia ilmoituksia.
-
-            - if on_going
-              .button
-                = link_to "Allekirjoita kannatusilmoitus", signature_idea_path(@idea.id), class: "btn jaa-btn"
-            - if ended
-              Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta keräämme ilmoituksia silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit allekirjoittaa sen uudelleen.
-              .button
-                = link_to "Allekirjoita kannatusilmoitus jälkikäteen", signature_idea_path(@idea.id), class: "btn jaa-btn"
-            .stat Aloitteen kannatusilmoitukset
-            .stat
-              Keruu on 
-              = (on_going ? "käynnissä" : (not started ? "alkamatta" : "päättynyt"))
-            .stat
-              Keräys on
-              = (started ? "käynnistynyt" : "käynnistymässä")
-              = finnishDate(@idea.collecting_start_date)
-            .stat
-              Keräys 
-              = (ended ? "päättyi" : "päättyy")
-              = finnishDate(@idea.collecting_end_date)
-            .stat
-              Kerätty 
-              - dates_collected = (today_date - @idea.collecting_start_date + 1).to_i
-              - p dates_collected
-              = dates_collected
-              päivää
-
-            .stat
-              Avoimessa ministeriössä kerätty
-              - signatures_count = @idea.signatures.where(state: "completed").count
-              = signatures_count
-              kpl
-            .stat
-              Kerätty muualla n.
-              = @idea.additional_signatures_count
-              kpl (arvioitu ja n. kerran viikossa päivitettävä tieto)
-            .stat
-              Muualla kerättyjen lukumäärä päivitetty
-              = finnishDate(@idea.additional_signatures_count_date)
-            .stat
-              Kerätty yhteensä siis n.
-              - total_signatures = signatures_count + @idea.additional_signatures_count
-              = total_signatures
-              kpl (arvio)
-            .stat
-              Tavoitemäärä 
-              = @idea.target_count
-              kpl
-            .stat
-              Tavoitteesta kerätty
-              = sprintf("%.3f%%", total_signatures.to_f / @idea.target_count * 100.0)
-
-            - signatures_per_day = (total_signatures.to_f) / dates_collected
-            - total_days_to_reach_target = (@idea.target_count)                    / signatures_per_day
-            - still_days_to_reach_target = (@idea.target_count - total_signatures) / signatures_per_day
-            - if on_going
-              .stat
-                Tähän mennessä kerätty keskimäärin
-                = sprintf("%.1f", signatures_per_day)
-                kpl / päivä
-              - if signatures_per_day > 0.0
-                .stat
-                  Tällä tahdilla kerääminen kestänee kaikkiaan
-                  = sprintf("%.1f", total_days_to_reach_target)
-                  päivää
-                .stat
-                  Eli vielä
-                  = sprintf("%.1f", still_days_to_reach_target)
-                  päivää
-                .stat
-                  Eli olisi arviolta valmis
-                  = finnishDate(today_date + still_days_to_reach_target)
-                .stat
-                  Tällä tahdilla 
-                  = ((today_date + still_days_to_reach_target) <= @idea.collecting_end_date) ? "ehditään kerätä ilmoitukset" : "ei ehditä kerätä ilmoituksia riittävästi"
-                  ennen päättymispäivää
-            - if ended
-              .stat
-                Kannatusilmoitusten keräys on päättynyt
-              .stat
-                Ilmoituksia kerättiin keskimäärin
-                = sprintf("%.1f", signatures_per_day)
-                kpl / päivä
-              .stat
-                Sillä tahdilla kerääminen olisi arvioidusti kestänyt
-                = total_days_to_reach_target
-                päivää
+            - if @idea.voted_by?(current_citizen)
+              %h3
+                Annoit tukesi
+                %b #{vote_in_words(@idea, current_citizen)}
+              %h4 Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Tämä aloite on esillä virallista testausta varten. 
+              %h4 Huomaa että et ole tekemässä virallista kannatusilmoituksen allekirjoitusta.
+            -if @idea.votes.empty?
+              %h3 Idea ei ollut Avoimessa ministeriössa kehitettävänä tai se sille ei ole kannatusta
+            -else
+              %h4 Idea on ollut Avoimessa ministeriössa ja sille on aiempaa (epävirallista) kannatusta
+              .votes
+                #votepie
+            %br
+            %br
+            = render "signature_info", idea: @idea
 
         - else # idea is already a law, no voting
           Idea on jo laki
