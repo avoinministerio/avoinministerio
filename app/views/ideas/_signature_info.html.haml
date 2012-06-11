@@ -13,12 +13,12 @@
       - if current_citizen
         = link_to "Allekirjoita kannatusilmoitus", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
       - else
-        = link_to "Sisäänkirjaudu allekirjoittaaksesi kannatusilmoituksen", signature_idea_path(idea.id), class: "btn jaa-btn-disabled", disabled: true
+        = link_to "Sisäänkirjaudu allekirjoittaaksesi kannatusilmoituksen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn-disabled", disabled: true
 
   - if ended
     Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta keräämme ilmoituksia silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit allekirjoittaa sen uudelleen.
     .button
-      = link_to "Allekirjoita kannatusilmoitus jälkikäteen", signature_idea_path(idea.id), class: "btn jaa-btn"
+      = link_to "Allekirjoita kannatusilmoitus jälkikäteen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
 
   .signature-statistics
     .stat-header Aloitteen kannatusilmoitusten
