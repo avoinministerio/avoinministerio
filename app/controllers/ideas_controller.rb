@@ -190,6 +190,7 @@ class IdeasController < ApplicationController
     all_results = all_ideas + all_comments + all_articles + all_citizens
     
     @results = all_results.paginate(page: page, per_page: per_page)
+    @result_count = all_results.length
     
     @ideas = all_ideas & @results
     @comments = all_comments & @results
