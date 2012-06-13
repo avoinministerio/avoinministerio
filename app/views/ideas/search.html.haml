@@ -62,3 +62,10 @@
     = @result_count
     tulosta
   = will_paginate @results
+
+- KM.identify(current_citizen)
+:javascript
+  var results = document.getElementsByClassName("search-result")
+  for (var i=0;i<results.length;i++) {
+    _kmq.push(['trackClick', results[i], "search result " + i + " clicked"])
+  }
