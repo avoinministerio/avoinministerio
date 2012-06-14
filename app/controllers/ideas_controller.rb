@@ -176,8 +176,8 @@ class IdeasController < ApplicationController
   end
 
   def search
-    per_page = 20
-    page = (params[:page] && params[:page].to_i) || 1
+    @per_page = 20
+    @page = (params[:page] && params[:page].to_i) || 1
     
     all_ideas = Idea.search_tank(params['searchterm']).select {
       |result| result.published?}
@@ -189,7 +189,7 @@ class IdeasController < ApplicationController
       |result| result.published?}
     all_results = all_ideas + all_comments + all_articles + all_citizens
     
-    @results = all_results.paginate(page: page, per_page: per_page)
+    @results = all_results.paginate(page: @page, per_page: @per_page)
     @result_count = all_results.length
     
     @ideas = all_ideas & @results
