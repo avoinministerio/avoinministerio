@@ -24,3 +24,16 @@ $turquoise: #29abe2;
 .search-result-citizen {
   margin: 5px 0px 35px;
 }
+
+.search-result a {
+  color: #000;
+
+  .match {
+    font-weight: bold;
+  }
+}
+
+.result-count {
+  clear: both;
+  padding-top: 10px;
+}
