@@ -41,8 +41,7 @@ module IdeasHelper
   
   def shorten_and_highlight(text, pattern, max_length, starting_sign, ending_sign)
     # highlighting is case insensitive, which requires a regular expression
-    regex = Regexp.new('(?<match>' + Regexp.escape(pattern) + ')',
-      Regexp::IGNORECASE)
+    regex = build_regex(pattern)
     escaped_text = CGI.escapeHTML(text)
     first_match_index = escaped_text.index(regex)
     if first_match_index.nil?
@@ -72,5 +71,27 @@ module IdeasHelper
       shortened_text.insert(0, starting_sign + " ")
     end
     return shortened_text
+  end
+  
+  def build_regex(pattern)
+    local_pattern = String.new(pattern)
+    # remove quotes
+    local_pattern.gsub!('"','')
+    # a term can be prefixed with a field name: remove such prefixes
+    index_of_last_colon = local_pattern.rindex(":")
+    if index_of_last_colon
+      pattern_substrings = local_pattern.split(":")
+      local_pattern = pattern_substrings[-1]
+    end
+    # a term can be suffixed with desired priority: remove such suffixes
+    index_of_first_caret = local_pattern.index("^")
+    if index_of_first_caret
+      pattern_substrings = local_pattern.split("^")
+      local_pattern = pattern_substrings[0]
+    end
+    # remove asterisks
+    local_pattern.gsub!("*","")
+    Regexp.new('(?<match>' + Regexp.escape(local_pattern) + ')',
+      Regexp::IGNORECASE)
   end
 end
