@@ -68,5 +68,5 @@
   var results = document.getElementsByClassName("search-result")
   for (var i=0;i<results.length;i++) {
     _kmq.push(['trackClick', results[i],
-      "search result " + (i + #{(@page-1) * @per_page}) + " clicked"])
+      "search result " + (i + 1 + #{(@page-1) * @per_page}) + " clicked"])
   }
