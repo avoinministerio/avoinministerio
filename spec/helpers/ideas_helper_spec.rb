@@ -106,4 +106,36 @@ eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       shortened_and_highlighted.should_not include "«"
     end
   end
+  
+  describe "#build_regex" do
+    it "builds regex from a string" do
+      regex = helper.build_regex("lorem ipsum")
+      regex.should == /(?<match>lorem\ ipsum)/i
+    end
+    
+    it "removes quotes" do
+      regex = helper.build_regex('"lorem ipsum"')
+      regex.should == /(?<match>lorem\ ipsum)/i
+    end
+    
+    it "removes field name prefixes" do
+      regex = helper.build_regex("body:lorem")
+      regex.should == /(?<match>lorem)/i
+    end
+    
+    it "removes priority suffixes" do
+      regex = helper.build_regex("lorem^2")
+      regex.should == /(?<match>lorem)/i
+    end
+    
+    it "removes asterisks" do
+      regex = helper.build_regex("lorem*")
+      regex.should == /(?<match>lorem)/i
+    end
+    
+    it "escapes regex syntax" do
+      regex = helper.build_regex("lorem|ipsum")
+      regex.should == /(?<match>lorem\|ipsum)/i
+    end
+  end
 end
