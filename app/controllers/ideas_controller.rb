@@ -196,6 +196,19 @@ class IdeasController < ApplicationController
     @comments = all_comments & @results
     @articles = all_articles & @results
     @citizens = all_citizens & @results
+    
+    KM.identify(current_citizen)
+    track_clicks("idea", @ideas.length, @page)
+    track_clicks("comment", @comments.length, @page)
+    track_clicks("article", @articles.length, @page)
+    track_clicks("citizen", @citizens.length, @page)
+  end
+  
+  def track_clicks(type, count, page)
+    1.upto(count) do |i|
+      KM.track(type + "_" + i.to_s,
+        "search result #{type}_#{i} on page #{page} clicked")
+    end
   end
 
   def vote_flow
