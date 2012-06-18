@@ -39,7 +39,6 @@ class Citizen < ActiveRecord::Base
   after_destroy :delete_tank_indexes
 
   def published_something?
-    p [ideas.count, comments.count, ideas.count > 0 || comments.count > 0 ]
     ideas.count > 0 || comments.count > 0 
 #    Idea.where("author_id = ?", author.id).count > 0 ||
 #      Article.where("author_id = ?", author.id).count > 0 ||
