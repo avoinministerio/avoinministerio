@@ -181,12 +181,17 @@ class IdeasController < ApplicationController
     
     all_ideas = Idea.search_tank(params['searchterm']).select {
       |result| result.published?}
+    @idea_count = all_ideas.length
+    @idea_categories = Idea.search_tank(params['searchterm']).categories
     all_comments = Comment.search_tank(params['searchterm']).select {
       |result| result.published?}
+    @comment_count = all_comments.length
     all_articles = Article.search_tank(params['searchterm']).select {
       |result| result.published?}
+    @article_count = all_articles.length
     all_citizens = Citizen.search_tank(params['searchterm']).select {
       |result| result.published?}
+    @citizen_count = all_citizens.length
     all_results = all_ideas + all_comments + all_articles + all_citizens
     
     @results = all_results.paginate(page: @page, per_page: @per_page)
