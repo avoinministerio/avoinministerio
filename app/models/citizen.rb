@@ -34,6 +34,10 @@ class Citizen < ActiveRecord::Base
     indexes :last_name
     indexes :name
     indexes :type do "citizen" end
+    
+    category :type do
+      "citizen"
+    end
   end
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes
