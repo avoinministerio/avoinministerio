@@ -46,11 +46,11 @@ module IdeasHelper
     first_match_index = escaped_text.index(regex)
     if first_match_index.nil?
       # the pattern doesn't match the text
-      return shorten(text, max_length, max_length/10, ending_sign)
+      return shorten(escaped_text, max_length, max_length/10, ending_sign)
     end
-    highlighted_part_length = '<span class="match">'.length +
+    highlighted_part_length = "**".length +
       pattern.length +
-      '</span>'.length
+      "**".length
     if first_match_index + highlighted_part_length > max_length
       # we need to truncate the string at the beginning
       if highlighted_part_length < max_length
@@ -59,13 +59,12 @@ module IdeasHelper
       else
         # highlighted result won't fit in the truncated string,
         # so let's not highlight
-        return shorten(text, max_length, max_length/10, ending_sign)
+        return shorten(escaped_text, max_length, max_length/10, ending_sign)
       end
     else
       start_index = 0
     end
-    highlighted_text = escaped_text.gsub(regex,
-      '<span class="match">\k<match></span>')
+    highlighted_text = escaped_text.gsub(regex, "**\\k<match>**")
     shortened_text = highlighted_text[start_index, max_length] + " " + ending_sign
     if start_index > 0
       shortened_text.insert(0, starting_sign + " ")
