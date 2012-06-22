@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require "cgi"
-
 module IdeasHelper
   def idea_state_image(idea)
     filename = {
@@ -42,11 +40,10 @@ module IdeasHelper
   def shorten_and_highlight(text, pattern, max_length, starting_sign, ending_sign)
     # highlighting is case insensitive, which requires a regular expression
     regex = build_regex(pattern)
-    escaped_text = CGI.escapeHTML(text)
-    first_match_index = escaped_text.index(regex)
+    first_match_index = text.index(regex)
     if first_match_index.nil?
       # the pattern doesn't match the text
-      return shorten(escaped_text, max_length, max_length/10, ending_sign)
+      return shorten(text, max_length, max_length/10, ending_sign)
     end
     highlighted_part_length = "**".length +
       pattern.length +
@@ -59,12 +56,12 @@ module IdeasHelper
       else
         # highlighted result won't fit in the truncated string,
         # so let's not highlight
-        return shorten(escaped_text, max_length, max_length/10, ending_sign)
+        return shorten(text, max_length, max_length/10, ending_sign)
       end
     else
       start_index = 0
     end
-    highlighted_text = escaped_text.gsub(regex, "**\\k<match>**")
+    highlighted_text = text.gsub(regex, "**\\k<match>**")
     shortened_text = highlighted_text[start_index, max_length] + " " + ending_sign
     if start_index > 0
       shortened_text.insert(0, starting_sign + " ")

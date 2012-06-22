@@ -179,6 +179,8 @@ class IdeasController < ApplicationController
     @per_page = 20
     @page = (params[:page] && params[:page].to_i) || 1
     
+    params[:category_filters] ||= {}
+    
     all_ideas = Idea.search_tank(params['searchterm'],
     :category_filters => params[:category_filters]).select {
       |result| result.published?}
