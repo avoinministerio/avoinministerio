@@ -30,7 +30,6 @@ gem "differ"
 gem "hominid"
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
-gem "bluecloth"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 

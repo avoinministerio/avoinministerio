@@ -46,17 +46,6 @@ eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       shortened_and_highlighted.should include "**Lorem ipsum**"
     end
     
-    it "escapes HTML syntax" do
-      escaped = helper.shorten_and_highlight(
-        '<script type="text/javascript">alert("XSS")</script>',
-        "XSS",
-        100,
-        "«",
-        "»")
-      escaped.should_not include '<script type="text/javascript">'
-      escaped.should include '&lt;script type=&quot;text/javascript&quot;&gt;'
-    end
-    
     it "does not highlight anything if the pattern doesn't match the text" do
       shortened = helper.shorten_and_highlight(
         "Lorem ipsum dolor sit amet", "äoughÄ", 100, "«", "»")
