@@ -43,7 +43,7 @@ module IdeasHelper
     first_match_index = text.index(regex)
     if first_match_index.nil?
       # the pattern doesn't match the text
-      return shorten(escaped_text, max_length, max_length/10, ending_sign)
+      return shorten(text, max_length, max_length/10, ending_sign)
     end
     highlighted_part_length = "**".length +
       pattern.length +
@@ -56,7 +56,7 @@ module IdeasHelper
       else
         # highlighted result won't fit in the truncated string,
         # so let's not highlight
-        return shorten(escaped_text, max_length, max_length/10, ending_sign)
+        return shorten(text, max_length, max_length/10, ending_sign)
       end
     else
       start_index = 0
