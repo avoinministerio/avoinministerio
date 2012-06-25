@@ -1,5 +1,7 @@
 AvoinMinisterio::Application.routes.draw do
 
+  get "profiles/edit"
+
   match "/ideas/:id/vote/:vote"                       => "vote#vote",               as: :vote_idea
 
   match "/ideas/:id/introduction"                     => "signatures#introduction", as: :signature_idea_introduction
