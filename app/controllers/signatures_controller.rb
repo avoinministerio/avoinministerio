@@ -2,21 +2,7 @@
 
 require 'date'
 
-module SignaturesControllerHelpers
-  def SignaturesControllerHelpers.guess_names(names, firstnames, lastname)
-    # let's make sure lastname is just characters before interpolating it into regexp
-    unless lastname =~ /^[\wäÄöÖåÅ \-]+$/
-      Logger.error "Lastname #{lastname.to_s} is not just characters"
-    else
-      if m = /^\s*#{lastname}\s*/.match(names)          # known lastname is at the beginning
-        firstnames = m.post_match
-      elsif m = /\s*#{lastname}\s*$/.match(names)       # known lastname is at the end
-        firstnames = m.pre_match
-      end
-    end
-    return firstnames, lastname
-  end
-end
+require 'signatures_controller_helpers'
 
 class SignaturesController < ApplicationController
 
@@ -231,14 +217,19 @@ class SignaturesController < ApplicationController
           @signature.update_attributes(state: "repeated_returning")
           @error = "Repeated returning"
         else
-          # all success!
-          Rails.logger.info "All success, authentication ok, storing into session"
-          @error = nil
-          birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
-          firstnames, lastname = guess_names(params["B02K_CUSTNAME"], @signature.firstnames, @signature.lastname)
-          @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
-          session["authenticated_at"] = DateTime.now
-          session["authenticated_birth_date"] = birth_date
+          if params["B02K_CUSTID"] =~ /^\d{6}[\-+A]\d{3}[A-Z\d]$/ and justNameCharacters(params["B02K_CUSTNAME"])
+            # all success!
+            Rails.logger.info "All success, authentication ok, storing into session"
+            @error = nil
+            birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
+            firstnames, lastname = guess_names(params["B02K_CUSTNAME"], @signature.firstnames, @signature.lastname)
+            @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
+            session["authenticated_at"] = DateTime.now
+            session["authenticated_birth_date"] = birth_date
+          else
+            Rails.logger.error "Invalid parameters"
+            @error = "Invalid parameters"
+          end
         end
       when "cancelling"
         Rails.logger.info "Cancelling"
@@ -260,20 +251,29 @@ class SignaturesController < ApplicationController
 #    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
     @signature = Signature.where(state: 'authenticated').find(params[:id])
     if @signature.citizen == current_citizen and @signature.state == "authenticated"   # TODO: and duration since last authentication less that threshold
-      @signature.firstnames       = params["signature"]["firstnames"]
-      @signature.lastname         = params["signature"]["lastname"]
-      @signature.occupancy_county = params["signature"]["occupancy_county"]
-      @signature.vow              = params["signature"]["vow"]
-      @signature.state            = "signed"
-      @signature.signing_date     = today_date
-      @error = "Couldn't save signature" unless @signature.save
+      # validate input before storing
+      if justNameCharacters(params["signature"]["firstnames"]) and 
+         justNameCharacters(params["signature"]["lastname"])   and 
+         municipalities.include? params["signature"]["occupancy_county"] and
+         params["signature"]["vow"] == "1"
 
-      # show only proposals that haven't yet been signed by current_user
-      signatures = Arel::Table.new(:signatures)
-      already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
-      ideas = Arel::Table.new(:ideas)
-      proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
-      @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
+        @signature.firstnames       = params["signature"]["firstnames"]
+        @signature.lastname         = params["signature"]["lastname"]
+        @signature.occupancy_county = params["signature"]["occupancy_county"]
+        @signature.vow              = params["signature"]["vow"]
+        @signature.state            = "signed"
+        @signature.signing_date     = today_date
+        @error = "Couldn't save signature" unless @signature.save
+
+        # show only proposals that haven't yet been signed by current_user
+        signatures = Arel::Table.new(:signatures)
+        already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
+        ideas = Arel::Table.new(:ideas)
+        proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
+        @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
+      else
+        @error = "Invalid parameters"
+      end
     else
       @error = "Trying to alter other citizen or signature with other than authenticated state"
     end
