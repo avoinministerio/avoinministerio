@@ -2,7 +2,26 @@
 
 require 'date'
 
+module SignaturesControllerHelpers
+  def SignaturesControllerHelpers.guess_names(names, firstnames, lastname)
+    # let's make sure lastname is just characters before interpolating it into regexp
+    unless lastname =~ /^[\wäÄöÖåÅ \-]+$/
+      Logger.error "Lastname #{lastname.to_s} is not just characters"
+    else
+      if m = /^\s*#{lastname}\s*/.match(names)          # known lastname is at the beginning
+        firstnames = m.post_match
+      elsif m = /\s*#{lastname}\s*$/.match(names)       # known lastname is at the end
+        firstnames = m.pre_match
+      end
+    end
+    return firstnames, lastname
+  end
+end
+
 class SignaturesController < ApplicationController
+
+  include SignaturesControllerHelpers
+
   before_filter :authenticate_citizen!
 
   respond_to :html
