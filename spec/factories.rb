@@ -73,4 +73,9 @@ FactoryGirl.define do
     association :author, factory: :citizen
     publish_state 'published'
   end
+
+  factory :signature do
+    association :citizen, factory: :citizen
+    association :idea, factory: :idea
+  end
 end
