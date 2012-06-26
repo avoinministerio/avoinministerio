@@ -37,6 +37,7 @@ group :development do
   gem "rails-erd"
   gem "sqlite3"
   gem 'unicorn'
+  gem 'pry-rails'
 end
 
 group :production do
