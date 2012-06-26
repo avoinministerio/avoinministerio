@@ -217,7 +217,7 @@ class SignaturesController < ApplicationController
           @signature.update_attributes(state: "repeated_returning")
           @error = "Repeated returning"
         else
-          if params["B02K_CUSTID"] =~ /^\d{6}[\-+A]\d{3}[A-Z\d]$/ and justNameCharacters(params["B02K_CUSTNAME"])
+          if hetu_like(params["B02K_CUSTID"]) and justNameCharacters(params["B02K_CUSTNAME"])
             # all success!
             Rails.logger.info "All success, authentication ok, storing into session"
             @error = nil

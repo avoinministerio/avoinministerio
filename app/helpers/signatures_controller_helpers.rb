@@ -21,6 +21,10 @@ module SignaturesControllerHelpers
     name =~ /^[\wäÄöÖåÅ \-]+$/
   end
 
+  def hetu_like(hetu)
+    hetu =~ /^\d{6}[\-+A]\d{3}[A-Z\d]$/
+  end
+
   def municipalities
     [
     "Alajärvi",
