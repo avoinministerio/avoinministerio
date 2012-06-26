@@ -103,6 +103,54 @@ class SignaturesController < ApplicationController
         name:       "Alandsbanken",
         url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do", 
       },
+
+
+      { action_id:  "701",
+        vers:       "0002",
+        rcvid:      "",
+        langcode:   "FI",
+        stamp:      stamp,
+        idtype:     "02",
+        retlink:    "#{server}/signatures/#{@signature.id}/returning",
+        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        keyvers:    "0001",
+        alg:        "03",
+        mac:        nil,
+        name:       "Tapiola testi",
+        url:        "https://pankki.tapiola.fi/service/identify", 
+      },
+      { action_id:  "701",
+        vers:       "0002",
+        rcvid:      "",
+        langcode:   "FI",
+        stamp:      stamp,
+        idtype:     "02",
+        retlink:    "#{server}/signatures/#{@signature.id}/returning",
+        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        keyvers:    "0001",
+        alg:        "03",
+        mac:        nil,
+        name:       "Tapiola",
+        url:        "https://pankki.tapiola.fi/service/identify", 
+      },
+
+      { action_id:  "701",
+        vers:       "0003",
+        rcvid:      "",
+        langcode:   "FI",
+        stamp:      stamp,
+        idtype:     "02",
+        retlink:    "#{server}/signatures/#{@signature.id}/returning",
+        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        keyvers:    "0001",
+        alg:        "03",
+        mac:        nil,
+        name:       "Sampo",
+        url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp", 
+      },
     ]
 
     @services.each do |service|
@@ -134,8 +182,9 @@ class SignaturesController < ApplicationController
       Rails.logger.info "Using key #{secret_key}" 
       secret = ENV[secret_key] || ""
 
-      if service =~ /^Alandsbanken$/
-        secret = alandsbanken_secret_to_mac_string(secret)
+      if service == "Alandsbanken" or service == "Tapiola"
+        secret = secret_to_mac_string(secret)
+        Rails.logger.info "Converting secret to #{secret}"
       end
 
       unless secret
@@ -146,7 +195,7 @@ class SignaturesController < ApplicationController
       secret
   end
 
-  def alandsbanken_secret_to_mac_string(secret)
+  def secret_to_mac_string(secret)
     str = ""
     secret.split(//).each_slice(2){|a| str += a.join("").hex.chr}
     str
