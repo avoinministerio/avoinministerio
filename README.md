@@ -52,15 +52,17 @@ Run tests with:
 
 ## Development process
 
-1. Fork the repository in Github
+1. Optionally read [unofficial Ruby style guidelines](http://www.caliban.org/ruby/rubyguide.shtml#style) before starting to write code
 
-2. Clone your fork and setup the remote repository
+2. Fork the repository in Github
+
+3. Clone your fork and setup the remote repository
 
         git clone git@github.com:<username>/avoinministerio.git
         cd avoinministerio
         git remote add avoinministerio git@github.com:avoinministerio/avoinministerio.git
 
-3. Create a feature branch
+4. Create a feature branch
 
         # The first two commands are not needed if you just cloned, but they don't hurt you either
         git checkout master
@@ -72,7 +74,7 @@ Run tests with:
         git pull
         git rebase master
 
-4. Hack, commit and push your feature. Tests too :)
+5. Hack, commit and push your feature. Tests too :)
 
         # Before adding and committing, it is a good practice to run tests
         bundle exec rake spec
@@ -81,7 +83,7 @@ Run tests with:
         git commit -m "Commit message"
         git push
 
-5. Pull and rebase the upstream repository
+6. Pull and rebase the upstream repository
 
         git checkout master
         git pull avoinministerio master
@@ -90,13 +92,13 @@ Run tests with:
         # fix possible conflicts
         git push
 
-6. Run tests to confirm your tests work with rebased master
+7. Run tests to confirm your tests work with rebased master
 
         bundle install
         bundle exec rake db:migrate db:test:prepare
         bundle exec rake spec
 
-7. Create a pull request in Github
+8. Create a pull request in Github
 
         https://github.com/<username>/avoinministerio/pull/new/new-feature
 
