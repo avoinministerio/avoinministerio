@@ -1,6 +1,7 @@
 AvoinMinisterio::Application.routes.draw do
 
   get "profiles/edit"
+  put "profiles/update_password"
 
   match "/ideas/:id/vote/:vote"                       => "vote#vote",               as: :vote_idea
 

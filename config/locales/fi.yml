@@ -18,6 +18,7 @@ fi:
         email: "Sähköposti"
         password: "Salasana"
         password_confirmation: "Salasanan vahvistus"
+        current_password: "Nykyinen salasana"
       idea:
         title: "Otsikko"
         summary: "Tiivistelmä"
@@ -86,6 +87,7 @@ fi:
     edit:
       update: "Päivitä profiilisi"
       change_password_or_email: "Vaihda salasanasi tai sähköpostiosoitteesi"
+      password_updated: "Salasana vaihdettu"
   expert_suggestion:
     links:
       new_expert_suggestion: "Uusi asiantuntijan ehdotus"
