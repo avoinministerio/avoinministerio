@@ -37,5 +37,9 @@ describe ProfilesController do
       end
     end
   end
+  
+  post :update_password do
+    pending "Need a way to check if the password has been changed"
+  end
 
 end
