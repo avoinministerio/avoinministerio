@@ -1,5 +1,8 @@
 class ProfilesController < ApplicationController
-  def edit
+  
+  before_filter :fetch_objects
+  
+  def fetch_objects
     if current_citizen
       @citizen = current_citizen
       @profile = current_citizen.profile
@@ -12,6 +15,19 @@ class ProfilesController < ApplicationController
     else
       redirect_to :back
     end
+  end
+  
+  def edit
+    
+  end
+  
+  # based on https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password
+  def update_password
+    if @citizen.update_with_password(params[:citizen])
+      flash[:notice] = I18n.t("registrations.edit.password_updated")
+      sign_in @citizen, :bypass => true
+    end
+    render "edit"
   end
 
 end
