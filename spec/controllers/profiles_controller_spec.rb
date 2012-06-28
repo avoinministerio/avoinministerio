@@ -71,10 +71,11 @@ describe ProfilesController do
         end
       end
       it "as anonymous user" do
-        original_citizen = citizen.dup
+        original_profile = citizen.profile.dup
         @request.env['HTTP_REFERER'] = root_path
         action! do
-          citizen.attributes.should == original_citizen.attributes
+          citizen.profile.reload
+          citizen.profile.attributes.should == original_profile.attributes
           response.should be_redirect
           response.should redirect_to(root_path)
         end
@@ -93,19 +94,21 @@ describe ProfilesController do
             :accept_terms_of_use => true
           }}}
       before do
-        @original_citizen = citizen.dup
+        @original_profile = citizen.profile.dup
         @request.env['HTTP_REFERER'] = root_path
       end
       it "logged in" do
         sign_in citizen
         action! do
-          citizen.attributes.should == @original_citizen.attributes
+          citizen.profile.reload
+          citizen.profile.attributes.should == @original_profile.attributes
           response.should render_template(:edit)
         end
       end
       it "as anonymous user" do
         action! do
-          citizen.attributes.should == @original_citizen.attributes
+          citizen.profile.reload
+          citizen.profile.attributes.should == @original_profile.attributes
           response.should be_redirect
           response.should redirect_to(root_path)
         end
