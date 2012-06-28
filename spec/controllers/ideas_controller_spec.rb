@@ -16,14 +16,12 @@ describe IdeasController do
       get :show, id: @idea.id
       response.body.should include(@idea.title)
       response.body.should include(@idea.author.name)
-      response.body.should include("Tehdäänkö tästä laki?")
     end
 
     it "should show an idea with slugged url" do
       get :show, id: "#{@idea.id}-#{@idea.slug}"
       response.body.should include(@idea.title)
       response.body.should include(@idea.author.name)
-      response.body.should include("Tehdäänkö tästä laki?")
     end
 
     describe "logged in user" do
@@ -42,14 +40,12 @@ describe IdeasController do
       it "should show the voting form if not already voted" do
         get :show, id: @idea.id
         response.body.should include(@idea.title)
-        response.body.should include("Tehdäänkö tästä laki?")
       end
 
       it "should show an option to change opinion if already voted" do
         @idea.vote(@citizen, 1)
         get :show, id: @idea.id
         response.body.should include(@idea.title)
-        response.body.should include("Äänestit Kyllä,\n<br>\nvoit vaihtaa:")
       end
     end
   end
