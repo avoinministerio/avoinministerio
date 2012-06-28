@@ -26,6 +26,10 @@ class Article < ActiveRecord::Base
       self.author.first_name + " " + self.author.last_name
     end
     indexes :type do "article" end
+    
+    category :type do
+      "article"
+    end
   end
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes
