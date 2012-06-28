@@ -6,34 +6,23 @@ describe ProfilesController do
   }
 
   get :edit do
-    context "logged in" do
-      before do
-        sign_in citizen
-        @vote = Factory :vote, :citizen => citizen
-        @comment = Factory :comment, :author => citizen
-      end
-      action! do
-        it "assigns the profile as @profile" do
-          assigns(:profile).should == citizen.profile
-        end
-        it "assigns the citizen as @citizen" do
-          assigns(:citizen).should == citizen
-        end
-        it "adds a voted idea into @voted_ideas" do
-          assigns(:voted_ideas).should include @vote.idea
-        end
-        it "adds a commented idea into @commented_ideas" do
-          assigns(:commented_ideas).should include @comment.commentable
-        end
-      end
+    before do
+      sign_in citizen
+      @vote = Factory :vote, :citizen => citizen
+      @comment = Factory :comment, :author => citizen
     end
-    context "as anonymous user" do
-      before do
-        @request.env['HTTP_REFERER'] = root_path
+    action! do
+      it "assigns the profile as @profile" do
+        assigns(:profile).should == citizen.profile
       end
-      action! do
-        its(:response) {should be_redirect}
-        its(:response) {should redirect_to(root_path)}
+      it "assigns the citizen as @citizen" do
+        assigns(:citizen).should == citizen
+      end
+      it "adds a voted idea into @voted_ideas" do
+        assigns(:voted_ideas).should include @vote.idea
+      end
+      it "adds a commented idea into @commented_ideas" do
+        assigns(:commented_ideas).should include @comment.commentable
       end
     end
   end
@@ -72,12 +61,9 @@ describe ProfilesController do
       end
       it "as anonymous user" do
         original_profile = citizen.profile.dup
-        @request.env['HTTP_REFERER'] = root_path
         action! do
           citizen.profile.reload
           citizen.profile.attributes.should == original_profile.attributes
-          response.should be_redirect
-          response.should redirect_to(root_path)
         end
       end
     end
@@ -95,7 +81,6 @@ describe ProfilesController do
           }}}
       before do
         @original_profile = citizen.profile.dup
-        @request.env['HTTP_REFERER'] = root_path
       end
       it "logged in" do
         sign_in citizen
@@ -109,8 +94,6 @@ describe ProfilesController do
         action! do
           citizen.profile.reload
           citizen.profile.attributes.should == @original_profile.attributes
-          response.should be_redirect
-          response.should redirect_to(root_path)
         end
       end
     end
