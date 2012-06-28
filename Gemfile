@@ -51,8 +51,11 @@ group :test do
   gem "rspec-rails-controller"
   gem "shoulda-matchers"
   gem "simplecov", :require => false
-  gem "sqlite3"
   gem "turn", "~> 0.8.3", :require => false
+
+  # We need both SQLite and PG
+  gem "sqlite3"
+  gem "pg"
 end
 
 group :mac_test do
