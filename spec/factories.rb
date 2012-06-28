@@ -6,6 +6,7 @@ FactoryGirl.define do
   end
 
   factory :profile do |p|
+    first_names 'Erkki Kalevi'
     first_name 'Erkki'
     last_name 'Esimerkki'
   end

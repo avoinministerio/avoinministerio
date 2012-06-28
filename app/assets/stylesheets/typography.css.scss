@@ -23,7 +23,10 @@ input[type=submit], a.button {
   text-decoration: none;
 }
 
-.input > input[type=email], .input > input[type=text], .input > input[type=password] {
+.input > input[type=email],
+.input > input[type=text],
+.input > input[type=password],
+.input > input[type=url] {
   font-size: 1.6em;
 }
 
