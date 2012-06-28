@@ -4,7 +4,7 @@ require 'date'
 
 class SignaturesController < ApplicationController
   before_filter :authenticate_citizen!
-  
+
   respond_to :html
 
   def introduction
@@ -21,7 +21,7 @@ class SignaturesController < ApplicationController
     @signature.idea_date        = @signature.idea.updated_at
     @signature.firstnames       = @signature.citizen.first_name
     @signature.lastname         = @signature.citizen.last_name
-    
+
     @signature.occupancy_county = ""
     @signature.vow              = false
     @signature.state            = "initial"
@@ -31,14 +31,11 @@ class SignaturesController < ApplicationController
 
     @signature.started          = Time.now
 
-    if @signature.save
-      # all good
-    else
+    unless @signature.save
       raise "couldn't save Signature #{@signature}"
     end
 
-    server = "https://" + request.host
-    server += ":" + request.port.to_s unless request.port == 80
+    server = "https://#{request.host_with_port}"
     Rails.logger.info "Server is #{server}"
 
     @services = [
@@ -50,12 +47,12 @@ class SignaturesController < ApplicationController
         idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
         keyvers:    "0001",
         alg:        "03",
         mac:        nil,
         name:       "Elisa Mobiilivarmenne testi",
-        url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd", 
+        url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd",
       },
       { action_id:  "701",
         vers:       "0001",
@@ -65,12 +62,12 @@ class SignaturesController < ApplicationController
         idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
         keyvers:    "0001",
         alg:        "03",
         mac:        nil,
         name:       "Elisa Mobiilivarmenne",
-        url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd", 
+        url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd",
       },
 
       { action_id:  "701",
@@ -81,12 +78,12 @@ class SignaturesController < ApplicationController
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
         keyvers:    "0001",
         alg:        "03",
         mac:        nil,
         name:       "Alandsbanken testi",
-        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do", 
+        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
       },
       { action_id:  "701",
         vers:       "0002",
@@ -96,12 +93,12 @@ class SignaturesController < ApplicationController
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
         keyvers:    "0001",
         alg:        "03",
         mac:        nil,
         name:       "Alandsbanken",
-        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do", 
+        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
       },
 
 
@@ -113,12 +110,12 @@ class SignaturesController < ApplicationController
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
         keyvers:    "0001",
         alg:        "03",
         mac:        nil,
         name:       "Tapiola testi",
-        url:        "https://pankki.tapiola.fi/service/identify", 
+        url:        "https://pankki.tapiola.fi/service/identify",
       },
       { action_id:  "701",
         vers:       "0002",
@@ -128,12 +125,12 @@ class SignaturesController < ApplicationController
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
         keyvers:    "0001",
         alg:        "03",
         mac:        nil,
         name:       "Tapiola",
-        url:        "https://pankki.tapiola.fi/service/identify", 
+        url:        "https://pankki.tapiola.fi/service/identify",
       },
 
       { action_id:  "701",
@@ -144,12 +141,12 @@ class SignaturesController < ApplicationController
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting", 
+        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
         keyvers:    "0001",
         alg:        "03",
         mac:        nil,
         name:       "Sampo",
-        url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp", 
+        url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp",
       },
     ]
 
@@ -159,7 +156,7 @@ class SignaturesController < ApplicationController
       service[:canlink] += service_name
       service[:rejlink] += service_name
     end
-    @services.each do |service| 
+    @services.each do |service|
       secret = service_secret(service[:name])
       service[:rcvid] = service_rcvid(service[:name])
       keys = [:action_id, :vers, :rcvid, :langcode, :stamp, :idtype, :retlink, :canlink, :rejlink, :keyvers, :alg]
@@ -177,22 +174,22 @@ class SignaturesController < ApplicationController
   end
 
   def service_secret(service)
-      secret_key = "SECRET_" + service.gsub(/\s/, "")
-      
-      Rails.logger.info "Using key #{secret_key}" 
-      secret = ENV[secret_key] || ""
+    secret_key = "SECRET_" + service.gsub(/\s/, "")
 
-      if service == "Alandsbanken" or service == "Tapiola"
-        secret = secret_to_mac_string(secret)
-        Rails.logger.info "Converting secret to #{secret}"
-      end
+    Rails.logger.info "Using key #{secret_key}"
+    secret = ENV[secret_key] || ""
 
-      unless secret
-        Rails.logger.error "No SECRET found for #{secret_key}" 
-        secret = "" 
-      end
+    if service == "Alandsbanken" or service == "Tapiola"
+      secret = secret_to_mac_string(secret)
+      Rails.logger.info "Converting secret to #{secret}"
+    end
 
-      secret
+    unless secret
+      Rails.logger.error "No SECRET found for #{secret_key}"
+      secret = ""
+    end
+
+    secret
   end
 
   def secret_to_mac_string(secret)
@@ -308,5 +305,5 @@ class SignaturesController < ApplicationController
     end
     respond_with @signature
   end
-  
+
 end
