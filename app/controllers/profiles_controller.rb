@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
   end
   
   def update
-    if @citizen.update_attributes(params[:citizen])
+    if @profile.update_attributes(params[:profile])
       flash[:notice] = I18n.t("settings.updated")
     end
     render "edit"
