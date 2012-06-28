@@ -1,18 +1,20 @@
-require 'rubygems'
-require 'simplecov'
-SimpleCov.start 'rails' do
+require "rubygems"
+require "simplecov"
+SimpleCov.start "rails" do
   add_filter "/spec/"
 end
 
-ENV["RAILS_ENV"] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
-require 'rspec/rails'
-require 'factory_girl_rails'
-require 'rspec/autorun'
+require "rspec/rails"
+require "factory_girl_rails"
+require "rspec/autorun"
 require "capybara/rspec"
 require "database_cleaner"
-require 'controller_test_helper'
-require 'rspec/rails/controller'
+require "controller_test_helper"
+require "rspec/rails/controller"
+
+require "webmock/rspec"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
@@ -30,11 +32,12 @@ RSpec.configure do |config|
   #   DatabaseCleaner.strategy = :transaction
   #   DatabaseCleaner.clean_with(:truncation)
   # end
-  #
-  # config.before(:each) do
-  #   DatabaseCleaner.start
-  # end
-  #
+
+  config.before(:each) do
+    WebMock.stub_request(:any, /4na.api.searchify.com/)
+    # DatabaseCleaner.start
+  end
+
   # config.after(:each) do
   #   DatabaseCleaner.clean
   # end
