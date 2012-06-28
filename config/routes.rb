@@ -1,6 +1,6 @@
 AvoinMinisterio::Application.routes.draw do
 
-  resource :profile, :only => [:edit] do
+  resource :profile, :only => [:edit, :update] do
     put "update_password", :on => :member
   end
 

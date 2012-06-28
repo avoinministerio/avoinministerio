@@ -41,5 +41,76 @@ describe ProfilesController do
   post :update_password do
     pending "Need a way to check if the password has been changed"
   end
+  
+  post :update do
+    context "with a valid profile" do
+      params {{:profile => {
+            :receive_newsletter => true,
+            :receive_other_announcements => true,
+            :receive_weekletter => true,
+            :first_names => "Erkki Kalevi",
+            :first_name => "Erkki",
+            :last_name => "Esimerkki",
+            :image => "http://www.example.com/avatar.png",
+            :accept_science => true,
+            :accept_terms_of_use => true
+          }}}
+      it "logged in" do
+        sign_in citizen
+        action! do
+          citizen.profile.reload
+          citizen.profile.receive_newsletter.should be_true
+          citizen.profile.receive_other_announcements.should be_true
+          citizen.profile.receive_weekletter.should be_true
+          citizen.profile.first_names.should == "Erkki Kalevi"
+          citizen.profile.first_name.should == "Erkki"
+          citizen.profile.last_name.should == "Esimerkki"
+          citizen.profile.image.should == "http://www.example.com/avatar.png"
+          citizen.profile.accept_science.should be_true
+          citizen.profile.accept_terms_of_use.should be_true
+        end
+      end
+      it "as anonymous user" do
+        original_citizen = citizen.dup
+        @request.env['HTTP_REFERER'] = root_path
+        action! do
+          citizen.attributes.should == original_citizen.attributes
+          response.should be_redirect
+          response.should redirect_to(root_path)
+        end
+      end
+    end
+    context "without first name" do
+      params {{:profile => {
+            :receive_newsletter => true,
+            :receive_other_announcements => true,
+            :receive_weekletter => true,
+            :first_names => "",
+            :first_name => "",
+            :last_name => "Esimerkki",
+            :image => "http://www.example.com/avatar.png",
+            :accept_science => true,
+            :accept_terms_of_use => true
+          }}}
+      before do
+        @original_citizen = citizen.dup
+        @request.env['HTTP_REFERER'] = root_path
+      end
+      it "logged in" do
+        sign_in citizen
+        action! do
+          citizen.attributes.should == @original_citizen.attributes
+          response.should render_template(:edit)
+        end
+      end
+      it "as anonymous user" do
+        action! do
+          citizen.attributes.should == @original_citizen.attributes
+          response.should be_redirect
+          response.should redirect_to(root_path)
+        end
+      end
+    end
+  end
 
 end
