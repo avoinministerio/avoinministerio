@@ -8,7 +8,6 @@ rvm:
 
 env:
   - DB=postgres
-  - DB=sqlite
 
 before_script:
   - "cp config/database.travis.$DB.yml config/database.yml"
