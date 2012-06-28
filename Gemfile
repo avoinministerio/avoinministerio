@@ -30,19 +30,19 @@ gem "differ"
 gem "hominid"
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
+gem "unicorn"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
 group :development do
   gem "rails-erd"
   gem "sqlite3"
-  gem 'unicorn'
+  gem "brakeman", "~> 1.6.2"
 end
 
 group :production do
   gem "newrelic_rpm"
   gem "pg"
-  gem 'unicorn'
 end
 
 group :test do
