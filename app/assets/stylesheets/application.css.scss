@@ -87,11 +87,17 @@ footer > a:visited {
   display: block;
 }
 
-.input.checkbox > label, .input.checkbox > input {
+.input.checkbox > label,
+.input.checkbox > input,
+.input.boolean > label,
+.input.boolean > input {
   display: inline;
 }
 
-.input > input[type=email], .input > input[type=text], .input > input[type=password] {
+.input > input[type=email],
+.input > input[type=text],
+.input > input[type=password],
+.input > input[type=url] {
   border: 2px #e6e6e6 solid;
 }
 

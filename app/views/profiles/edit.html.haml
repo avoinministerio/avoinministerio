@@ -1,0 +1,43 @@
+- unless @voted_ideas.empty?
+  %h2{:style => "margin-top: 20px;"} Ideat, joita olet äänestänyt
+  
+  %ul
+    - @voted_ideas.each do |idea|
+      %li= link_to idea.title, idea_path(idea)
+
+- unless @commented_ideas.empty?
+  %h2{:style => "margin-top: 20px;"} Ideat, joita olet kommentoinut
+  
+  %ul
+    - @commented_ideas.each do |idea|
+      %li= link_to idea.title, idea_path(idea)
+
+%h2{:style => "margin-top: 20px;"} Asetukset
+= simple_form_for @profile do |f|
+  = f.input :receive_newsletter
+  = f.input :receive_other_announcements
+  = f.input :receive_weekletter
+  = f.input :first_names
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :image, :as => :url
+  = f.input :accept_science
+  = f.input :accept_terms_of_use
+  = f.submit "Tallenna asetukset"
+
+%h2{:style => "margin-top: 20px;"} Vaihda salasanasi
+= form_for(@citizen, :url => {:action => "update_password"}) do |f|
+  .input
+    = f.label :current_password
+    = f.password_field :current_password
+  
+  .input
+    = f.label :password
+    = f.text_field :password, :autocomplete => "off"
+  
+  .input
+    = f.label :password_confirmation
+    = f.text_field :password_confirmation
+  
+  .action_container
+    = f.submit "Vaihda salasana"
