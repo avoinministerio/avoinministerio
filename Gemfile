@@ -53,9 +53,11 @@ group :test do
   gem "simplecov", :require => false
   gem "turn", "~> 0.8.3", :require => false
 
-  # We need both SQLite and PG
   gem "sqlite3"
-  gem "pg"
+
+  if ENV["DB"] == "postgres"
+    gem "pg"
+  end
 end
 
 group :mac_test do
