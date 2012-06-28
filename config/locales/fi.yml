@@ -24,8 +24,15 @@ fi:
         summary: "Tiivistelmä"
         body: "Kuvaus"
       profile:
-        first_name: "Etunimi"
+        first_names: "Etunimet"
+        first_name: "Kutsumanimi"
         last_name: "Sukunimi"
+        receive_newsletter: "Tilaan uutiskirjeen"
+        receive_other_announcements: "Minulle saa lähettää muita tiedotteita"
+        receive_weekletter: "Tilaan viikkokirjeen"
+        image: "Profiilikuvan URL-osoite"
+        accept_science: "Minuun saa ottaa yhteyttä tieteellisten tutkimusten puitteissa"
+        accept_terms_of_use: "Hyväksyn palvelun <a href='/artikkelit/4'>käyttöehdot</a>"
       expert_suggestion:
         firstname: "Etunimi"
         lastname: "Sukunimi"
@@ -79,6 +86,8 @@ fi:
       title: "Muokkaa artikkelia"
   articles:
     updated: "Artikkeli päivitetty"
+  settings:
+    updated: "Asetukset tallennettu"
   registrations:
     credentials:
       password_change_hint: "Jätä tämä tyhjäksi jos et halua vaihtaa salasanaasi"

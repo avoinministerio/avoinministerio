@@ -21,6 +21,13 @@ class ProfilesController < ApplicationController
     
   end
   
+  def update
+    if @citizen.update_attributes(params[:citizen])
+      flash[:notice] = I18n.t("settings.updated")
+    end
+    render "edit"
+  end
+  
   # based on https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password
   def update_password
     if @citizen.update_with_password(params[:citizen])
