@@ -1,6 +1,6 @@
-source 'http://rubygems.org'
+source "https://rubygems.org"
 
-gem "rails", "3.1.3"
+gem "rails", "3.1.6"
 
 # Gems used only for assets and not required
 # in production environments by default.
