@@ -37,6 +37,10 @@ gem "rspec-rails", :groups => [ :development, :test ]
 group :development do
   gem "rails-erd"
   gem "sqlite3"
+  gem "unicorn"
+  gem "guard"
+  gem "guard-rspec"
+  gem "guard-spork"
   gem "brakeman", "~> 1.6.2"
 end
 
@@ -46,6 +50,7 @@ group :production do
 end
 
 group :test do
+  gem "spork-rails"
   gem "capybara"
   gem "database_cleaner"
   gem "rspec-rails-controller"
