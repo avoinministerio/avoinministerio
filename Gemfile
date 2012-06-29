@@ -51,8 +51,14 @@ group :test do
   gem "rspec-rails-controller"
   gem "shoulda-matchers"
   gem "simplecov", :require => false
-  gem "sqlite3"
   gem "turn", "~> 0.8.3", :require => false
+  gem "webmock", :require => false
+
+  gem "sqlite3"
+
+  if ENV["DB"] == "postgres"
+    gem "pg"
+  end
 end
 
 group :mac_test do

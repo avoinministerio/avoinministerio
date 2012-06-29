@@ -48,8 +48,6 @@ EOS
       chars_around = Admin::ChangelogsHelper::CHARACTERS_AROUND_DIFF
       response.body.should =~ /&hellip; (.|\n){#{chars_around}}<ins class="differ">Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n<\/ins>(.|\n){#{chars_around}} &hellip;/
     end
-
-    it "doesn't show all the text in between two diffs for the same attribute"
   end
 
 end
