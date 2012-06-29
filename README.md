@@ -50,6 +50,10 @@ Run tests with:
     bundle exec rake db:test:prepare
     bundle exec rake spec
 
+Run tests when RED-GREEN-REFACTOR:
+
+    bundle exec guard
+
 ## Development process
 
 1. Fork the repository in Github
@@ -110,7 +114,7 @@ Run tests with:
 
         git fetch kalleya
 
-3.  Check the branch if needed with 
+3.  Check the branch if needed with
 
         git branch -a   # lists all local and remote branches
         # pick one remote branch that you'll test for merging
@@ -134,7 +138,7 @@ Run tests with:
 5. If things fail, hack around, make needed commits, and push to avoinministerio/master
 
 6. Merge either way:
-6.1 If automerge is possible and no local commits were needed, Open github pull request, and click Merge pull request button, 
+6.1 If automerge is possible and no local commits were needed, Open github pull request, and click Merge pull request button,
 6.2 Manual merging:
 
         # merge to local master
@@ -197,7 +201,7 @@ The site can be protected with Basic Authentication by adding variables `AM_AUTH
 
 Run the tests using the following command(s):
 
-`rspec spec` or `bundle exec rspec spec`
+`rspec spec` or `bundle exec rspec spec` or `bundle exec guard`
 
 ## Code Repository
 
