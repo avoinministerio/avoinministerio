@@ -48,9 +48,7 @@ module IdeasHelper
       # the pattern doesn't match the text
       return shorten(escaped_text, max_length, max_length/10, ending_sign)
     end
-    highlighted_part_length = '<span class="match">'.length +
-      pattern.length +
-      '</span>'.length
+    highlighted_part_length = ('<span class="match">' + pattern + '</span>').length
     if first_match_index + highlighted_part_length > max_length
       # we need to truncate the string at the beginning
       if highlighted_part_length < max_length
