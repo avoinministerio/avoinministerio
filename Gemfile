@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source "http://rubygems.org"
 
 gem "rails", "3.1.3"
 
@@ -36,16 +36,20 @@ gem "rspec-rails", :groups => [ :development, :test ]
 group :development do
   gem "rails-erd"
   gem "sqlite3"
-  gem 'unicorn'
+  gem "unicorn"
+  gem "guard"
+  gem "guard-rspec"
+  gem "guard-spork"
 end
 
 group :production do
   gem "newrelic_rpm"
   gem "pg"
-  gem 'unicorn'
+  gem "unicorn"
 end
 
 group :test do
+  gem "spork-rails"
   gem "capybara"
   gem "database_cleaner"
   gem "rspec-rails-controller"
