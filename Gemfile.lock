@@ -120,6 +120,8 @@ GEM
     json (1.7.3)
     json_pure (1.6.2)
     kgio (2.7.2)
+    libnotify (0.7.2)
+      ffi (~> 1.0.0)
     libv8 (3.3.10.4)
     mail (2.3.3)
       i18n (>= 0.4.0)
@@ -282,6 +284,7 @@ DEPENDENCIES
   hominid
   i18n_routing
   jquery-rails
+  libnotify
   newrelic_rpm
   nokogiri
   omniauth-facebook
