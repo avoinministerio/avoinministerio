@@ -43,13 +43,25 @@ eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "«",
         "»")
       shortened_and_highlighted.length.should == 50 + " »".length
-      shortened_and_highlighted.should include "**Lorem ipsum**"
+      shortened_and_highlighted.should include(
+        '<span class="match">Lorem ipsum</span>')
+    end
+    
+    it "escapes HTML syntax" do
+      escaped = helper.shorten_and_highlight(
+        '<script type="text/javascript">alert("XSS")</script>',
+        "XSS",
+        100,
+        "«",
+        "»")
+      escaped.should_not include '<script type="text/javascript">'
+      escaped.should include '&lt;script type=&quot;text/javascript&quot;&gt;'
     end
     
     it "does not highlight anything if the pattern doesn't match the text" do
       shortened = helper.shorten_and_highlight(
         "Lorem ipsum dolor sit amet", "äoughÄ", 100, "«", "»")
-      shortened.should_not include "**"
+      shortened.should_not include '<span class="match">'
     end
     
     it "truncates the string at the beginning if the first match is too far" do
@@ -61,14 +73,15 @@ eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "«",
         "»")
       shortened_and_highlighted.should_not include "Lorem ipsum"
-      shortened_and_highlighted.should include "**dolore magna aliqua**"
+      shortened_and_highlighted.should include(
+        '<span class="match">dolore magna aliqua</span>')
       shortened_and_highlighted.should =~ /^« /
     end
     
     it "does not highlight anything if the first match doesn't fit in the truncated string" do
       shortened = helper.shorten_and_highlight(
         "Lorem ipsum dolor sit amet", "lorem ipsum", 10, "«", "»")
-      shortened.should_not include "**"
+      shortened.should_not include '<span'
     end
     
     it "inserts the ending sign" do
