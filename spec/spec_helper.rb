@@ -84,7 +84,7 @@ Spork.each_run do
   FactoryGirl.reload
   I18n.backend.reload!
 
-  # REVIEW: Using inmemory Sqlite3, so we need reload schema on each run - jaakko
+  # REVIEW: Using inmemory Sqlite3, we have to reload schema on each run - jaakko
   ActiveRecord::Schema.verbose = false
   load "#{Rails.root.to_s}/db/schema.rb"
 
