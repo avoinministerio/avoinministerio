@@ -25,4 +25,36 @@ describe Signature do
       it { should validate_presence_of(:idea_id) }
     end
   end
+
+  describe "create_with_citizen_and_idea!" do
+    before do
+      @citizen = mock_model(Citizen, :first_name => "John", :last_name => "Doe")
+      @idea = Factory :idea, :title => "helmet compulsory"
+
+      @signature = Signature.create_with_citizen_and_idea(@citizen, @idea)
+    end
+
+    it "creates a new Signature" do
+      @signature.new_record?.should be_false
+    end
+
+    it "assigns Citizen names" do
+      @signature.firstnames.should == "John"
+      @signature.lastname.should == "Doe"
+    end
+
+    it "assigns details from the Idea" do
+      @signature.idea_title.should == "helmet compulsory"
+      @signature.idea_date.should == @idea.updated_at
+    end
+
+    it { @signature.state.should == "initial" }
+    it { @signature.vow.should be_false }
+    it { @signature.occupancy_county.should == "" }
+    it { @signature.started.should be_an_instance_of(ActiveSupport::TimeWithZone)}
+    
+    it "assigns a random DateTime string as stamp" do
+      @signature.stamp.should include(DateTime.now.strftime("%Y%m%d%H%M%S").to_s)
+    end
+  end
 end
