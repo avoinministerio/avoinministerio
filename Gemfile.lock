@@ -93,6 +93,14 @@ GEM
     ffi (1.0.11)
     friendly_id (4.0.1)
     gravatar-ultimate (1.0.3)
+    guard (1.0.3)
+      ffi (>= 0.5.0)
+      thor (>= 0.14.6)
+    guard-rspec (0.7.3)
+      guard (>= 0.10.0)
+    guard-spork (1.0.0)
+      guard (>= 1.0.0)
+      spork (>= 0.8.4)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -208,7 +216,8 @@ GEM
       multi_json (~> 1.0.4)
       rubyzip
     sexp_processor (3.1.0)
-    shoulda-matchers (1.0.0)
+    shoulda-matchers (1.2.0)
+      activesupport (>= 3.0.0)
     simple_form (1.5.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -216,6 +225,10 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
+    spork (1.0.0rc3)
+    spork-rails (3.2.0)
+      rails (>= 3.0.0, < 3.3.0)
+      spork (>= 1.0rc0)
     sprockets (2.0.4)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -262,6 +275,9 @@ DEPENDENCIES
   factory_girl_rails (= 1.4.0)
   friendly_id
   gravatar-ultimate
+  guard
+  guard-rspec
+  guard-spork
   haml-rails
   hominid
   i18n_routing
@@ -283,6 +299,7 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   simplecov
+  spork-rails
   sqlite3
   state_machine
   tanker!
