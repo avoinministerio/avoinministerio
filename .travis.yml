@@ -4,11 +4,10 @@ bundler_args: "--without production development mac_test"
 
 rvm:
   - 1.9.2
+  - 1.9.3
 
 env:
   - DB=postgres
-
-gemfile: Gemfile.ci
 
 before_script:
   - "cp config/database.travis.$DB.yml config/database.yml"

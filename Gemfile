@@ -1,6 +1,6 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
-gem "rails", "3.1.3"
+gem "rails", "3.1.6"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -30,6 +30,7 @@ gem "differ"
 gem "hominid"
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
+gem "unicorn"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
@@ -40,12 +41,12 @@ group :development do
   gem "guard"
   gem "guard-rspec"
   gem "guard-spork"
+  gem "brakeman", "~> 1.6.2"
 end
 
 group :production do
   gem "newrelic_rpm"
   gem "pg"
-  gem "unicorn"
 end
 
 group :test do
@@ -55,8 +56,14 @@ group :test do
   gem "rspec-rails-controller"
   gem "shoulda-matchers"
   gem "simplecov", :require => false
-  gem "sqlite3"
   gem "turn", "~> 0.8.3", :require => false
+  gem "webmock", :require => false
+
+  gem "sqlite3"
+
+  if ENV["DB"] == "postgres"
+    gem "pg"
+  end
 end
 
 group :mac_test do

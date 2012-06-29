@@ -2,10 +2,6 @@ require "rubygems"
 require "simplecov"
 require "spork"
 
-SimpleCov.start "rails" do
-  add_filter "/spec/"
-end
-
 # --- Instructions ---
 # Sort the contents of this file into a Spork.prefork and a Spork.each_run
 # block.
@@ -52,6 +48,7 @@ Spork.prefork do
   require "capybara/rspec"
   require "database_cleaner"
   require "controller_test_helper"
+  require "webmock/rspec"
 
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -72,7 +69,7 @@ Spork.prefork do
     end
 
     config.before(:each) do
-
+      WebMock.stub_request(:any, /4na.api.searchify.com/)
     end
 
     config.after(:each) do
@@ -92,6 +89,7 @@ Spork.each_run do
   load "#{Rails.root.to_s}/db/schema.rb"
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
 end
 
 # REVIEW: https://github.com/sporkrb/spork/wiki/Spork.trap_method-Jujitsu Devise - jaakko
