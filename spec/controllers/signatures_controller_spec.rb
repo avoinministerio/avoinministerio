@@ -8,6 +8,13 @@ describe SignaturesController do
     sign_in citizen
   end
 
+  describe "GET introduction" do
+    it "renders introduction view" do
+      get :introduction, :id => idea.id
+      response.should render_template("introduction")
+    end
+  end
+
   describe "POST sign" do
     before do
       @vote = Factory :vote, :citizen => citizen
