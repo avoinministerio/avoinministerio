@@ -72,4 +72,5 @@ end
 
 group :linux_test do
   gem "therubyracer", :require => false
+  gem "libnotify", :require => false
 end
