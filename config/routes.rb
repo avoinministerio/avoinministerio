@@ -4,13 +4,13 @@ AvoinMinisterio::Application.routes.draw do
     put "update_password", :on => :member
   end
 
-  match "/ideas/:id/vote/:vote"                       => "vote#vote",               as: :vote_idea
+  match "/ideas/:id/vote/:vote"                       => "vote#vote",                   as: :vote_idea
 
-  match "/ideas/:id/introduction"                     => "signatures#introduction", as: :signature_idea_introduction
-  get "/ideas/:id/approval"                         => "signatures#approval",     as: :signature_idea_approval
-  match "/ideas/:id/signature"                        => "signatures#sign",         as: :signature_idea
-  match "/signatures/:id/finalize_signing"            => "signatures#finalize_signing"
-  match "/signatures/:id/:returncode/:servicename"    => "signatures#back"
+  match "/ideas/:id/introduction"                     => "signatures#introduction",     via: :get,  as: :signature_idea_introduction
+  match "/ideas/:id/approval"                         => "signatures#approval",         via: :post, as: :signature_idea_approval
+  match "/ideas/:id/signature"                        => "signatures#sign",             via: :post, as: :signature_idea
+  match "/signatures/:id/finalize_signing"            => "signatures#finalize_signing", via: :put
+  match "/signatures/:id/:returncode/:servicename"    => "signatures#back",             via: :get
 
   match "/ideat/haku" => "ideas#search"
   get "ideas/vote_flow"
