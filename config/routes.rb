@@ -7,7 +7,7 @@ AvoinMinisterio::Application.routes.draw do
   match "/ideas/:id/vote/:vote"                       => "vote#vote",               as: :vote_idea
 
   match "/ideas/:id/introduction"                     => "signatures#introduction", as: :signature_idea_introduction
-  match "/ideas/:id/approval"                         => "signatures#approval",     as: :signature_idea_approval
+  get "/ideas/:id/approval"                         => "signatures#approval",     as: :signature_idea_approval
   match "/ideas/:id/signature"                        => "signatures#sign",         as: :signature_idea
   match "/signatures/:id/finalize_signing"            => "signatures#finalize_signing"
   match "/signatures/:id/:returncode/:servicename"    => "signatures#back"
@@ -16,13 +16,6 @@ AvoinMinisterio::Application.routes.draw do
   get "ideas/vote_flow"
 
   get "pages/home"
-
-
-  resources :signatures   # TODO FIX FIXME: this is very dangerous route if controller#destroy will be defined
-
-  resources :signatures   # TODO FIX FIXME: this is very dangerous route if controller#destroy will be defined
-
-  resources :signatures   # TODO FIX FIXME: this is very dangerous route if controller#destroy will be defined
 
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
