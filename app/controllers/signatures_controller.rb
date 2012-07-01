@@ -14,26 +14,7 @@ class SignaturesController < ApplicationController
   end
 
   def sign
-    @signature                  = Signature.new()
-    @signature.idea             = Idea.find(params[:id])
-    @signature.citizen          = current_citizen
-    @signature.idea_title       = @signature.idea.title
-    @signature.idea_date        = @signature.idea.updated_at
-    @signature.firstnames       = @signature.citizen.first_name
-    @signature.lastname         = @signature.citizen.last_name
-
-    @signature.occupancy_county = ""
-    @signature.vow              = false
-    @signature.state            = "initial"
-
-    stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
-    @signature.stamp            = stamp
-
-    @signature.started          = Time.now
-
-    unless @signature.save
-      raise "couldn't save Signature #{@signature}"
-    end
+    @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
 
     server = "https://#{request.host_with_port}"
     Rails.logger.info "Server is #{server}"
@@ -43,7 +24,7 @@ class SignaturesController < ApplicationController
         vers:       "0001",
         rcvid:      "",
         langcode:   "FI",
-        stamp:      stamp,
+        stamp:      @signature.stamp,
         idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -58,7 +39,7 @@ class SignaturesController < ApplicationController
         vers:       "0001",
         rcvid:      "",
         langcode:   "FI",
-        stamp:      stamp,
+        stamp:      @signature.stamp,
         idtype:     "12",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -74,7 +55,7 @@ class SignaturesController < ApplicationController
         vers:       "0002",
         rcvid:      "",
         langcode:   "FI",
-        stamp:      stamp,
+        stamp:      @signature.stamp,
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -89,7 +70,7 @@ class SignaturesController < ApplicationController
         vers:       "0002",
         rcvid:      "",
         langcode:   "FI",
-        stamp:      stamp,
+        stamp:      @signature.stamp,
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -106,7 +87,7 @@ class SignaturesController < ApplicationController
         vers:       "0002",
         rcvid:      "",
         langcode:   "FI",
-        stamp:      stamp,
+        stamp:      @signature.stamp,
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -121,7 +102,7 @@ class SignaturesController < ApplicationController
         vers:       "0002",
         rcvid:      "",
         langcode:   "FI",
-        stamp:      stamp,
+        stamp:      @signature.stamp,
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
@@ -137,7 +118,7 @@ class SignaturesController < ApplicationController
         vers:       "0003",
         rcvid:      "",
         langcode:   "FI",
-        stamp:      stamp,
+        stamp:      @signature.stamp,
         idtype:     "02",
         retlink:    "#{server}/signatures/#{@signature.id}/returning",
         canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
