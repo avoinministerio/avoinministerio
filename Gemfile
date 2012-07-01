@@ -42,6 +42,7 @@ group :development do
   gem "guard-rspec"
   gem "guard-spork"
   gem "brakeman", "~> 1.6.2"
+  gem 'pry-rails'
 end
 
 group :production do
