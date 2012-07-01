@@ -16,142 +16,85 @@ class SignaturesController < ApplicationController
   def sign
     @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
 
-    server = "https://#{request.host_with_port}"
-    Rails.logger.info "Server is #{server}"
-
     @services = [
-      { action_id:  "701",
-        vers:       "0001",
-        rcvid:      "",
-        langcode:   "FI",
-        stamp:      @signature.stamp,
+      { vers:       "0001",
+        rcvid:      "Elisa testi",
         idtype:     "12",
-        retlink:    "#{server}/signatures/#{@signature.id}/returning",
-        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
         name:       "Elisa Mobiilivarmenne testi",
         url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd",
       },
-      { action_id:  "701",
-        vers:       "0001",
-        rcvid:      "",
-        langcode:   "FI",
-        stamp:      @signature.stamp,
+      { vers:       "0001",
+        rcvid:      "Avoinministerio",
         idtype:     "12",
-        retlink:    "#{server}/signatures/#{@signature.id}/returning",
-        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
         name:       "Elisa Mobiilivarmenne",
         url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd",
       },
 
-      { action_id:  "701",
-        vers:       "0002",
-        rcvid:      "",
-        langcode:   "FI",
-        stamp:      @signature.stamp,
+      { vers:       "0002",
+        rcvid:      "AABTUPASID",
         idtype:     "02",
-        retlink:    "#{server}/signatures/#{@signature.id}/returning",
-        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
         name:       "Alandsbanken testi",
         url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
       },
-      { action_id:  "701",
-        vers:       "0002",
-        rcvid:      "",
-        langcode:   "FI",
-        stamp:      @signature.stamp,
+      { vers:       "0002",
+        rcvid:      "ELEKAMINNID",
         idtype:     "02",
-        retlink:    "#{server}/signatures/#{@signature.id}/returning",
-        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
         name:       "Alandsbanken",
         url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
       },
-
-
-      { action_id:  "701",
-        vers:       "0002",
-        rcvid:      "",
-        langcode:   "FI",
-        stamp:      @signature.stamp,
+      { vers:       "0002",
+        rcvid:      "KANNATUSTUPAS12",
         idtype:     "02",
-        retlink:    "#{server}/signatures/#{@signature.id}/returning",
-        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
         name:       "Tapiola testi",
         url:        "https://pankki.tapiola.fi/service/identify",
       },
-      { action_id:  "701",
-        vers:       "0002",
-        rcvid:      "",
-        langcode:   "FI",
-        stamp:      @signature.stamp,
+      { vers:       "0002",
+        rcvid:      "KANNATUSTUPAS12",
         idtype:     "02",
-        retlink:    "#{server}/signatures/#{@signature.id}/returning",
-        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
         name:       "Tapiola",
         url:        "https://pankki.tapiola.fi/service/identify",
       },
 
-      { action_id:  "701",
-        vers:       "0003",
-        rcvid:      "",
-        langcode:   "FI",
-        stamp:      @signature.stamp,
+      { vers:       "0003",
+        rcvid:      "024744039900",
         idtype:     "02",
-        retlink:    "#{server}/signatures/#{@signature.id}/returning",
-        canlink:    "#{server}/signatures/#{@signature.id}/cancelling",
-        rejlink:    "#{server}/signatures/#{@signature.id}/rejecting",
-        keyvers:    "0001",
-        alg:        "03",
-        mac:        nil,
         name:       "Sampo",
         url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp",
       },
     ]
 
     @services.each do |service|
-      service_name = "/" + service[:name].gsub(/\s+/, "")
-      service[:retlink] += service_name
-      service[:canlink] += service_name
-      service[:rejlink] += service_name
-    end
-    @services.each do |service|
-      secret = service_secret(service[:name])
-      service[:rcvid] = service_rcvid(service[:name])
-      keys = [:action_id, :vers, :rcvid, :langcode, :stamp, :idtype, :retlink, :canlink, :rejlink, :keyvers, :alg]
-      vals = keys.map{|k| service[k] }
-      string = vals.join("&") + "&" + secret + "&"
-      service[:mac] = mac(string)
+      set_defaults(service)
+      set_mac(service)
     end
 
     respond_with @signature
   end
 
-  def service_rcvid(service)
-    rcvid_key = "RCVID_" + service.gsub(/\s/, "")
-    rcvid = ENV[rcvid_key] || ""
+  def set_defaults(service)
+    service[:action_id] = "701"
+    service[:langcode]  = "FI"
+    service[:keyvers]   = "0001"
+    service[:alg]       = "03"
+    service[:stamp]     = @signature.stamp
+
+    service[:mac]       = nil
+
+    server = "https://#{request.host_with_port}"
+    Rails.logger.info "Server is #{server}"
+
+    service_name = service[:name].gsub(/\s+/, "")
+    service[:retlink]   = "#{server}/signatures/#{@signature.id}/returning/#{service_name}"
+    service[:canlink]   = "#{server}/signatures/#{@signature.id}/cancelling/#{service_name}"
+    service[:rejlink]   = "#{server}/signatures/#{@signature.id}/rejecting/#{service_name}"
+  end
+
+  def set_mac(service)
+    secret = service_secret(service[:name])
+    keys = [:action_id, :vers, :rcvid, :langcode, :stamp, :idtype, :retlink, :canlink, :rejlink, :keyvers, :alg]
+    vals = keys.map{|k| service[k] }
+    string = vals.join("&") + "&" + secret + "&"
+    service[:mac] = mac(string)
   end
 
   def service_secret(service)
@@ -160,6 +103,7 @@ class SignaturesController < ApplicationController
     Rails.logger.info "Using key #{secret_key}"
     secret = ENV[secret_key] || ""
 
+    # TODO: precalc the secret into environment variable, and remove this special handling
     if service == "Alandsbanken" or service == "Tapiola"
       secret = secret_to_mac_string(secret)
       Rails.logger.info "Converting secret to #{secret}"
