@@ -190,9 +190,12 @@ class SignaturesController < ApplicationController
         Rails.logger.info "All success, authentication ok, storing into session"
         @error = nil
         birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
-        @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date)
+        firstnames, lastname = guess_names(params["B02K_CUSTNAME"], @signature.firstnames, @signature.lastname)
+        @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
         session["authenticated_at"] = DateTime.now
         session["authenticated_birth_date"] = birth_date
+        session["authenticated_firstnames"] = firstnames
+        session["authenticated_lastname"]   = lastname
       end
     end
     respond_with @signature
