@@ -192,10 +192,8 @@ class SignaturesController < ApplicationController
         birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
         firstnames, lastname = guess_names(params["B02K_CUSTNAME"], @signature.firstnames, @signature.lastname)
         @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
-        session["authenticated_at"] = DateTime.now
+        session["authenticated_at"]         = DateTime.now
         session["authenticated_birth_date"] = birth_date
-        session["authenticated_firstnames"] = firstnames
-        session["authenticated_lastname"]   = lastname
       end
     end
     respond_with @signature
@@ -246,6 +244,10 @@ class SignaturesController < ApplicationController
         @signature.state            = "signed"
         @signature.signing_date     = today_date
         @error = "Couldn't save signature" unless @signature.save
+
+        session["authenticated_firstnames"]       = @signature.firstnames
+        session["authenticated_lastname"]         = @signature.lastname
+        session["authenticated_occupancy_county"] = @signature.occupancy_county
 
         # show only proposals that haven't yet been signed by current_user
         signatures = Arel::Table.new(:signatures)
