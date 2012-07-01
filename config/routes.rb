@@ -10,7 +10,9 @@ AvoinMinisterio::Application.routes.draw do
   match "/ideas/:id/approval"                         => "signatures#approval",         via: :post, as: :signature_idea_approval
   match "/ideas/:id/signature"                        => "signatures#sign",             via: :post, as: :signature_idea
   match "/signatures/:id/finalize_signing"            => "signatures#finalize_signing", via: :put
-  match "/signatures/:id/:returncode/:servicename"    => "signatures#back",             via: :get
+  match "/signatures/:id/returning/:servicename"      => "signatures#returning",        via: :get
+  match "/signatures/:id/cancelling/:servicename"     => "signatures#cancelling",       via: :get
+  match "/signatures/:id/rejecting/:servicename"      => "signatures#rejecting",        via: :get
 
   match "/ideat/haku" => "ideas#search"
   get "ideas/vote_flow"

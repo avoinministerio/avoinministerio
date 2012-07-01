@@ -161,49 +161,63 @@ class SignaturesController < ApplicationController
     signature.state == "initial"
   end
 
-  def back
+  def returning
     @signature = Signature.find(params[:id])   # TODO: Add find for current_citizen
     if not @signature.citizen == current_citizen
       Rails.logger.info "Invalid user, not for the same user who initiated the signing"
       @error = "Invalid user"
     else
       service_name = params[:servicename]
-      case params[:returncode]
-      when "returning"
-        if not valid_returning(@signature, service_name)
-          Rails.logger.info "Invalid return"
-          @signature.update_attributes(state: "invalid return")
-          @error = "Invalid return"
-        elsif not within_timelimit(@signature)
-          Rails.logger.info "not within timelimit"
-          @signature.update_attributes(state: "too late")
-          @error = "Not within timelimit"
-        elsif not repeated_returning(@signature)
-          Rails.logger.info "repeated returning"
-          @signature.update_attributes(state: "repeated_returning")
-          @error = "Repeated returning"
-        else
-          # all success!
-          Rails.logger.info "All success, authentication ok, storing into session"
-          @error = nil
-          birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
-          @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date)
-          session["authenticated_at"] = DateTime.now
-          session["authenticated_birth_date"] = birth_date
-        end
-      when "cancelling"
-        Rails.logger.info "Cancelling"
-        @signature.update_attributes(state: "cancelled")
-        @error = "Cancelling authentication"
-      when "rejecting"
-        Rails.logger.info "Rejecting"
-        @signature.update_attributes(state: "rejected")
-        @error = "Rejecting authentication"
+      if not valid_returning(@signature, service_name)
+        Rails.logger.info "Invalid return"
+        @signature.update_attributes(state: "invalid return")
+        @error = "Invalid return"
+      elsif not within_timelimit(@signature)
+        Rails.logger.info "not within timelimit"
+        @signature.update_attributes(state: "too late")
+        @error = "Not within timelimit"
+      elsif not repeated_returning(@signature)
+        Rails.logger.info "repeated returning"
+        @signature.update_attributes(state: "repeated_returning")
+        @error = "Repeated returning"
       else
-        Rails.logger.info "notify client"
+        # all success!
+        Rails.logger.info "All success, authentication ok, storing into session"
+        @error = nil
+        birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
+        @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date)
+        session["authenticated_at"] = DateTime.now
+        session["authenticated_birth_date"] = birth_date
       end
     end
+    respond_with @signature
+  end
 
+  def cancelling
+    @signature = Signature.find(params[:id])   # TODO: Add find for current_citizen
+    if not @signature.citizen == current_citizen
+      Rails.logger.info "Invalid user, not for the same user who initiated the signing"
+      @error = "Invalid user"
+    else
+      service_name = params[:servicename]
+      Rails.logger.info "Cancelling"
+      @signature.update_attributes(state: "cancelled")
+      @error = "Cancelling authentication"
+    end
+    respond_with @signature
+  end
+
+  def rejecting
+    @signature = Signature.find(params[:id])   # TODO: Add find for current_citizen
+    if not @signature.citizen == current_citizen
+      Rails.logger.info "Invalid user, not for the same user who initiated the signing"
+      @error = "Invalid user"
+    else
+      service_name = params[:servicename]
+      Rails.logger.info "Rejecting"
+      @signature.update_attributes(state: "rejected")
+      @error = "Rejecting authentication"
+    end
     respond_with @signature
   end
 
