@@ -2,7 +2,12 @@
 
 require 'date'
 
+require 'signatures_controller_helpers'
+
 class SignaturesController < ApplicationController
+
+  include SignaturesControllerHelpers
+
   before_filter :authenticate_citizen!
 
   respond_to :html
@@ -185,8 +190,9 @@ class SignaturesController < ApplicationController
         Rails.logger.info "All success, authentication ok, storing into session"
         @error = nil
         birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
-        @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date)
-        session["authenticated_at"] = DateTime.now
+        firstnames, lastname = guess_names(params["B02K_CUSTNAME"], @signature.firstnames, @signature.lastname)
+        @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
+        session["authenticated_at"]         = DateTime.now
         session["authenticated_birth_date"] = birth_date
       end
     end
@@ -225,20 +231,33 @@ class SignaturesController < ApplicationController
 #    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
     @signature = Signature.where(state: 'authenticated').find(params[:id])
     if @signature.citizen == current_citizen and @signature.state == "authenticated"   # TODO: and duration since last authentication less that threshold
-      @signature.firstnames       = params["signature"]["firstnames"]
-      @signature.lastname         = params["signature"]["lastname"]
-      @signature.occupancy_county = params["signature"]["occupancy_county"]
-      @signature.vow              = params["signature"]["vow"]
-      @signature.state            = "signed"
-      @signature.signing_date     = today_date
-      @error = "Couldn't save signature" unless @signature.save
+      # validate input before storing
+      if justNameCharacters(params["signature"]["firstnames"]) and 
+         justNameCharacters(params["signature"]["lastname"])   and 
+         municipalities.include? params["signature"]["occupancy_county"] and
+         params["signature"]["vow"] == "1"
 
-      # show only proposals that haven't yet been signed by current_user
-      signatures = Arel::Table.new(:signatures)
-      already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
-      ideas = Arel::Table.new(:ideas)
-      proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
-      @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
+        @signature.firstnames       = params["signature"]["firstnames"]
+        @signature.lastname         = params["signature"]["lastname"]
+        @signature.occupancy_county = params["signature"]["occupancy_county"]
+        @signature.vow              = params["signature"]["vow"]
+        @signature.state            = "signed"
+        @signature.signing_date     = today_date
+        @error = "Couldn't save signature" unless @signature.save
+
+        session["authenticated_firstnames"]       = @signature.firstnames
+        session["authenticated_lastname"]         = @signature.lastname
+        session["authenticated_occupancy_county"] = @signature.occupancy_county
+
+        # show only proposals that haven't yet been signed by current_user
+        signatures = Arel::Table.new(:signatures)
+        already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
+        ideas = Arel::Table.new(:ideas)
+        proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
+        @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
+      else
+        @error = "Invalid parameters"
+      end
     else
       @error = "Trying to alter other citizen or signature with other than authenticated state"
     end
