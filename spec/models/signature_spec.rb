@@ -26,7 +26,7 @@ describe Signature do
     end
   end
 
-  describe "create_with_citizen_and_idea!" do
+  describe "create_with_citizen_and_idea" do
     before do
       @citizen = mock_model(Citizen, :first_name => "John", :last_name => "Doe")
       @idea = Factory :idea, :title => "helmet compulsory"
@@ -53,8 +53,8 @@ describe Signature do
     it { @signature.occupancy_county.should == "" }
     it { @signature.started.should be_an_instance_of(ActiveSupport::TimeWithZone)}
     
-    it "assigns a random DateTime string as stamp" do
-      @signature.stamp.should include(DateTime.now.strftime("%Y%m%d%H%M%S").to_s)
+    it "assigns a randomized DateTime string as stamp" do
+      @signature.stamp.should match(/\A[0-9]{14,20}\Z/)
     end
   end
 end
