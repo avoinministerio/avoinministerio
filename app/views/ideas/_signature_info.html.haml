@@ -4,7 +4,7 @@
   - on_going  = started and (not ended)
 
   - if current_citizen
-    - completed_signature = Signature.where(state: "completed", citizen_id: current_citizen.id, idea_id: idea.id).first
+    - completed_signature = Signature.where(state: "signed", citizen_id: current_citizen.id, idea_id: idea.id).first
     - if completed_signature
       Olet jo allekirjoittanut kannatusilmoituksen onnistuneesti. Et voi allekirjoittaa sitä uudelleen, mutta nyt koska kyseessä on demo niin sallimme uusia ilmoituksia.
 
@@ -36,7 +36,6 @@
     .stat
       Kerätty 
       - dates_collected = (today_date - idea.collecting_start_date + 1).to_i
-      - p dates_collected
       = dates_collected
       päivää
     .stat
@@ -48,7 +47,7 @@
     .stat-header Tähän mennessä
     .stat
       Avoimessa ministeriössä kerätty
-      - signatures_count = idea.signatures.where(state: "completed").count
+      - signatures_count = idea.signatures.where(state: "signed").count
       %b= signatures_count
       kpl
     .stat
