@@ -68,9 +68,9 @@ Spork.prefork do
 
     # config.infer_base_class_for_anonymous_controllers = false
 
-    # config.treat_symbols_as_metadata_keys_with_true_values = true
+    config.treat_symbols_as_metadata_keys_with_true_values = true
     # config.filter_run :focus => true
-    # config.run_all_when_everything_filtered = true
+    config.run_all_when_everything_filtered = true
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :transaction
@@ -98,11 +98,10 @@ Spork.each_run do
   ActiveRecord::Schema.verbose = false
   load "#{Rails.root.to_s}/db/schema.rb"
 
-  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+  Dir[Rails.root.join("spec/support/**/*.rb")].each {|_support_file| require _support_file}
 
   # Put your acceptance spec helpers inside spec/acceptance/support
-  Dir[Rails.root.join("spec/acceptance/support/**/*.rb")].each {|f| require f}
-
+  Dir[Rails.root.join("spec/acceptance/support/**/*.rb")].each {|_support_file| require _support_file}
 end
 
 # REVIEW: https://github.com/sporkrb/spork/wiki/Spork.trap_method-Jujitsu Devise - jaakko
