@@ -38,11 +38,11 @@ group :development do
   gem "rails-erd"
   gem "sqlite3"
   gem "unicorn"
-  gem "guard"
-  gem "guard-rspec"
-  gem "guard-spork"
+  gem "guard", "1.0.3"
+  gem "guard-rspec", "0.7.3"
+  gem "guard-spork", "1.0.0"
   gem "brakeman", "~> 1.6.2"
-  gem 'pry-rails'
+  gem "pry-rails"
 end
 
 group :production do
