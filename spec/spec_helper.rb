@@ -43,20 +43,29 @@ Spork.prefork do
   require "rspec/rails/controller"
   require "rspec/autorun"
 
+  require "steak"
+
   require "shoulda/matchers/integrations/rspec"
   require "factory_girl_rails"
-  require "capybara/rspec"
+
   require "database_cleaner"
   require "controller_test_helper"
   require "webmock/rspec"
+  require "email_spec"
 
-
-  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+  # Capybara + Steak for integration test
+  require "capybara/rspec"
+  require "steak"
 
   RSpec.configure do |config|
     config.mock_with :rspec
     config.use_transactional_fixtures = true
-    config.include RSpec::Rails::Controller::Macros, :type => :controller
+    config.include(RSpec::Rails::Controller::Macros, :type => :controller)
+
+    # REVIEW: https://github.com/bmabey/email-spec - jaakko
+    config.include(EmailSpec::Helpers)
+    config.include(EmailSpec::Matchers)
+
     # config.infer_base_class_for_anonymous_controllers = false
 
     # config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -74,6 +83,7 @@ Spork.prefork do
 
     config.after(:each) do
       DatabaseCleaner.clean
+      Warden.test_reset!
     end
   end
 end
@@ -89,6 +99,9 @@ Spork.each_run do
   load "#{Rails.root.to_s}/db/schema.rb"
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+  # Put your acceptance spec helpers inside spec/acceptance/support
+  Dir[Rails.root.join("spec/acceptance/support/**/*.rb")].each {|f| require f}
 
 end
 
