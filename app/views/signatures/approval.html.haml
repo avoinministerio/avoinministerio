@@ -16,10 +16,10 @@
               = label_tag :accept_non_eu, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
             .radiobox
               = radio_button_tag :publicity, "Normal"
-              = label_tag :publicity, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
+              = label_tag :publicity_Normal, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
               %br
               = radio_button_tag :publicity, "Immediately"
-              = label_tag :publicity, "Nimeni voi julkistaa välittömästi"
+              = label_tag :publicity_Immediately, "Nimeni voi julkistaa välittömästi"
             .checkbox
               = check_box_tag :accept_science
               = label_tag :accept_science, "Sallin lisäkysymyksiä tieteellisissä tutkimuksissa. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
