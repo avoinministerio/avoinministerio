@@ -37,7 +37,7 @@
   %p
     %label{:for => "article_idea_id"}
       = I18n.t("simple_form.labels.idea")
-    = collection_select(:article, :idea_id, Idea.all, :id, :title)
+    = collection_select(:article, :idea_id, Idea.all, :id, :title, :include_blank => true)
 
   %p
     - if @article.persisted?
