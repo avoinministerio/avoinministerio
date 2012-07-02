@@ -24,7 +24,7 @@ module HelperMethods
 
   def create_logged_in_administrator
     administrator = Factory(:administrator)
-    login(administrator)
+    login_as_administrator(administrator)
     administrator
   end
 
