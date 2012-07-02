@@ -59,6 +59,8 @@ group :test do
   gem "simplecov", :require => false
   gem "turn", "~> 0.8.3", :require => false
   gem "webmock", :require => false
+  gem "email_spec"
+  gem "steak"
 
   gem "sqlite3"
 
