@@ -32,7 +32,24 @@ gem "hominid"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 
-gem "rspec-rails", :groups => [ :development, :test ]
+gem "redis"
+# FYI: Async / Long jobs - https://github.com/defunkt/resque/
+gem "resque"
+# FYI: Automatic dyno scaled for Heroku - https://github.com/ajmurmann/resque-heroku-autoscaler
+gem "resque-heroku-autoscaler", :require => "resque/plugins/resque_heroku_autoscaler"
+# RYI: Async emails using resque - https://github.com/zapnap/resque_mailer
+gem "resque_mailer"
+gem "fog"
+
+# FYI: Read more from - https://github.com/intridea/multi_json/
+gem "multi_json"
+gem "oj"
+
+gem "pry-rails"
+
+group :development, :test do
+  gem "rspec-rails"
+end
 
 group :development do
   gem "rails-erd"
@@ -42,7 +59,6 @@ group :development do
   gem "guard-rspec", "0.7.3"
   gem "guard-spork", "1.0.0"
   gem "brakeman", "~> 1.6.2"
-  gem "pry-rails"
 end
 
 group :production do
@@ -60,6 +76,9 @@ group :test do
   gem "turn", "~> 0.8.3", :require => false
   gem "webmock", :require => false
   gem "email_spec"
+
+  # FYI: When writing specs for Resque jobs https://github.com/leshill/resque_spec
+  gem "resque_spec"
   gem "steak"
 
   gem "sqlite3"
