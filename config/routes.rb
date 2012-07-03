@@ -19,12 +19,12 @@ AvoinMinisterio::Application.routes.draw do
 
   get "pages/home"
 
-  devise_for :citizens, :controllers => { 
+  devise_for :citizens, :controllers => {
     omniauth_callbacks: "citizens/omniauth_callbacks",
     registrations: "citizens/registrations",
     sessions: "citizens/sessions",
   }
-  
+
   resources :ideas do
     resources :comments
     resources :expert_suggestions, only: [:new, :create]
@@ -34,39 +34,54 @@ AvoinMinisterio::Application.routes.draw do
   end
 
   devise_for :administrators
-  
+
   match "/admin", to: "admin/ideas#index", as: :administrator_root
 
   namespace :admin do
     resources :articles do
-      get "publish",    on: :member
-      get "unpublish",  on: :member
-      get "moderate",   on: :member
+      member do
+        get "publish"
+        get "unpublish"
+        get "moderate"
+      end
+
     end
     resources :comments do
-      get "publish",    on: :member
-      get "unpublish",  on: :member
-      get "moderate",   on: :member
+      member do
+        get "publish"
+        get "unpublish"
+        get "moderate"
+      end
     end
     resources :ideas do
       resources :articles do
-        get "publish",    on: :member
-        get "unpublish",  on: :member
-        get "moderate",   on: :member        
+        member do
+          get "publish"
+          get "unpublish"
+          get "moderate"
+        end
       end
       resources :comments do
-        get "publish",    on: :member
-        get "unpublish",  on: :member
-        get "moderate",   on: :member
+        member do
+          get "publish"
+          get "unpublish"
+          get "moderate"
+        end
       end
-      
-      get "publish",    on: :member
-      get "unpublish",  on: :member
-      get "moderate",   on: :member
+      member do
+        get "publish"
+        get "unpublish"
+        get "moderate"
+      end
     end
     resources :citizens do
-      get "lock",       on: :member
-      get "unlock",     on: :member
+      member do
+        get "lock"
+        get "unlock"
+      end
+      collection do
+        get "export"
+      end
     end
     resources :changelogs
     resources :expert_suggestions
