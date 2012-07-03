@@ -22,3 +22,6 @@
 
 # Ignore NetBeans project (eases development with NetBeans)
 /nbproject
+
+.env
+.powenv
