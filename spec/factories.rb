@@ -40,7 +40,7 @@ FactoryGirl.define do
       Factory.create(:authentication, citizen: erkki)
     end
   end
-  
+
   factory :idea do
     title     "Idea uudesta laista"
     body      "Hankitaan kaikille kansalaisille ..."

@@ -1,6 +1,6 @@
 class Idea < ActiveRecord::Base
-  include PublishingStateMachine
-  include Changelogger
+  include Concerns::PublishingStateMachine
+  include Concerns::Changelogger
   extend FriendlyId
 
   include Tanker
@@ -12,12 +12,12 @@ class Idea < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
-  attr_accessible   :title, :body, :summary, :state, 
-                    :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
+  attr_accessible   :title, :body, :summary, :state,
+                    :comment_count, :vote_count, :vote_for_count, :vote_against_count,
                     :vote_proportion, :vote_proportion_away_mid,
                     :collecting_started, :collecting_ended,
-                    :collecting_start_date, :collecting_end_date, 
-                    :additional_signatures_count, :additional_signatures_count_date, 
+                    :collecting_start_date, :collecting_end_date,
+                    :additional_signatures_count, :additional_signatures_count_date,
                     :target_count
 
   has_many :comments, as: :commentable
@@ -45,15 +45,16 @@ class Idea < ActiveRecord::Base
       self.author.first_name + " " + self.author.last_name
     end
     indexes :type do "idea" end
-    
+
     category :type do
       "idea"
     end
-    
+
     category :state do
       state
     end
   end
+
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes
 
@@ -87,7 +88,7 @@ class Idea < ActiveRecord::Base
       KM.push("record", "first vote on idea",  {option: option, idea: self.id})
     end
   end
-  
+
   def update_vote_counts(option, old_option)
     if old_option == nil
       self.vote_count += 1
@@ -98,16 +99,16 @@ class Idea < ActiveRecord::Base
       # decrement vote counter
       self.vote_for_count -= 1
     end
-    
+
     if option == 0
       self.vote_against_count += 1
     else
       self.vote_for_count += 1
     end
-    
+
     self.vote_proportion = self.vote_for_count.to_f / self.vote_count
     self.vote_proportion_away_mid = (0.5 - self.vote_proportion).abs
-    
+
     self.save
   end
 
