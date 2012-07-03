@@ -37,7 +37,7 @@ Spork.prefork do
   # need to restart spork for it take effect.
 
   ENV["RAILS_ENV"] ||= "test"
-  require File.expand_path("../../config/environment", __FILE__)
+
 
   require "rspec/rails"
   require "rspec/rails/controller"
@@ -56,6 +56,17 @@ Spork.prefork do
   # Capybara + Steak for integration test
   require "capybara/rspec"
   require "steak"
+
+  ENV['AWS_ACCESS_KEY_ID'] = 'xxxxxxxxxxxxxxxxxxxxx'
+  ENV['AWS_SECRET_ACCESS_KEY'] = 'xxxxxxxxxxxxxxxxxxxxx'
+  Fog.mock!
+
+  require File.expand_path("../../config/environment", __FILE__)
+
+  # REVIEW: https://github.com/sporkrb/spork/wiki/Spork.trap_method-Jujitsu Devise - jaakko
+  Spork.trap_method(Rails::Application, :reload_routes!)
+  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
+  Spork.trap_method(Rails::Application, :eager_load!)
 
   RSpec.configure do |config|
     config.mock_with :rspec
@@ -94,6 +105,10 @@ Spork.each_run do
   FactoryGirl.reload
   I18n.backend.reload!
 
+  Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
+    load model
+  end
+
   # REVIEW: Using inmemory Sqlite3, we have to reload schema on each run - jaakko
   ActiveRecord::Schema.verbose = false
   load "#{Rails.root.to_s}/db/schema.rb"
@@ -102,7 +117,6 @@ Spork.each_run do
 
   # Put your acceptance spec helpers inside spec/acceptance/support
   Dir[Rails.root.join("spec/acceptance/support/**/*.rb")].each {|_support_file| require _support_file}
-end
 
-# REVIEW: https://github.com/sporkrb/spork/wiki/Spork.trap_method-Jujitsu Devise - jaakko
-Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
+  WebMock.stub_request(:any, /4na.api.searchify.com/)
+end

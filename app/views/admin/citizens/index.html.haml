@@ -1,10 +1,14 @@
 .row-fluid
   .span12
     %h1 Käyttäjät
+
+    = link_to_if(Citizen.export_file_url, "Lataa käyttäjät CSV", Citizen.export_file_url) do
+      = link_to("Generoi käyttäjäy CSV", [:export, :admin, :citizens])
+
     %table.table.table-striped.citizens
       %thead
         %tr
-          %th 
+          %th
           %th Nimi
           %th Sähköpostiosoite
           %th
@@ -22,3 +26,4 @@
                 = link_to "Lukitse", [:lock, :admin, citizen], class: "btn btn-success" unless citizen.locked?
                 = link_to "Vapauta", [:unlock, :admin, citizen], class: "btn btn-inverse" if citizen.locked?
 = will_paginate @citizens
+
