@@ -203,7 +203,8 @@ Devise.setup do |config|
   app_id = ENV["FACEBOOK_APP_ID"] || "335755509797497"
   app_secret = ENV["FACEBOOK_APP_SECRET"] || "bcb1a32fffff77041552bd0f4eccf322"
   config.omniauth :facebook, app_id, app_secret,
-    { :client_options => { :ssl => { :ca_file => "#{Rails.root}/config/ca-bundle.crt" } } }
+    { :client_options => { :ssl => { :ca_file => "#{Rails.root}/config/ca-bundle.crt" } },
+    :request_path => "/kansalaiset/auth/facebook" }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
