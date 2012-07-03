@@ -1,4 +1,4 @@
-module Changelogger
+module Concerns::Changelogger
   extend ActiveSupport::Concern
 
   included do

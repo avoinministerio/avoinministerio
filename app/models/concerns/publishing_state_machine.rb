@@ -1,4 +1,4 @@
-module PublishingStateMachine
+module Concerns::PublishingStateMachine
   extend ActiveSupport::Concern
 
   included do

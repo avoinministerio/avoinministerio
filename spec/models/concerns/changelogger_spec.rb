@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Changelogger do
+describe Concerns::Changelogger do
   class CreateChangeloggableItems < ActiveRecord::Migration
     def up
       create_table :changeloggable_items do |t|
@@ -14,7 +14,7 @@ describe Changelogger do
   end
 
   class ChangeloggableItem < ActiveRecord::Base
-    include Changelogger
+    include Concerns::Changelogger
   end
 
   before :all do
