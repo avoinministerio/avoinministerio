@@ -12,6 +12,7 @@ module NavigationHelpers
   def login_page
     new_citizen_session_fi_path
   end
+
 end
 
 RSpec.configuration.include NavigationHelpers, :type => :acceptance
