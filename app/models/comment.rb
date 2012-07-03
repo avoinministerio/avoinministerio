@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
-  include PublishingStateMachine
-  include Changelogger
+  include Concerns::PublishingStateMachine
+  include Concerns::Changelogger
 
   include Tanker
 
@@ -26,11 +26,12 @@ class Comment < ActiveRecord::Base
       self.author.first_name + " " + self.author.last_name
     end
     indexes :type do "comment" end
-    
+
     category :type do
       "comment"
     end
   end
+
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes
 
