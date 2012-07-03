@@ -7,10 +7,10 @@
         .title Ohjeita
         .text Jatkossa ehkä video
 
-    =form_tag(url_for(action: "approval", controller: "signatures"), :html => {:class => "grid_16"}) do |f|
-      .big-button
-        .actions
-          =submit_tag "Siirry hyväksymään ehdot"
+      =form_tag(url_for(action: "approval", controller: "signatures"), :class => "grid_16") do |f|
+        .big-button
+          .actions
+            =submit_tag "Siirry hyväksymään ehdot"
 
     .sidebox
       .text
