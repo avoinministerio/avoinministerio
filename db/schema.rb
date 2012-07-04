@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120628071713) do
+ActiveRecord::Schema.define(:version => 20120704061305) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -165,12 +165,12 @@ ActiveRecord::Schema.define(:version => 20120628071713) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
-    t.boolean  "receive_newsletter"
-    t.boolean  "receive_other_announcements"
-    t.boolean  "receive_weekletter"
+    t.boolean  "receive_newsletter",          :default => true
+    t.boolean  "receive_other_announcements", :default => true
+    t.boolean  "receive_weekletter",          :default => true
     t.string   "first_names"
-    t.boolean  "accept_science"
-    t.boolean  "accept_terms_of_use"
+    t.boolean  "accept_science",              :default => true
+    t.boolean  "accept_terms_of_use",         :default => true
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
