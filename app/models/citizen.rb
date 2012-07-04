@@ -1,4 +1,7 @@
 class Citizen < ActiveRecord::Base
+  include Concerns::Indexing
+  include Tanker
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -25,8 +28,7 @@ class Citizen < ActiveRecord::Base
     :image
   ].each { |attribute| delegate attribute, to: :profile }
 
-  include Tanker
-  tankit 'BasicData' do
+  tankit index_name do
     conditions do
       published_something?
     end
