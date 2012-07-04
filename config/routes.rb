@@ -1,8 +1,7 @@
 AvoinMinisterio::Application.routes.draw do
 
-  resource :profile, :only => [:edit, :update] do
-    put "update_password", :on => :member
-  end
+  resource :profile, :except => [:new, :create, :destroy]  
+  resource :citizen, :only => [:edit, :update]
 
   match "/ideas/:id/vote/:vote"                       => "vote#vote",                   as: :vote_idea
 

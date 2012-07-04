@@ -1,0 +1,15 @@
+%h2 Ideat, joita olet äänestänyt
+- if @voted_ideas.empty?
+  Et ole äänestänyt yhtään ideaa.
+- else
+  %ul
+    - @voted_ideas.each do |idea|
+      %li= link_to idea.title, idea_path(idea)
+
+%h2 Ideat, joita olet kommentoinut
+- if @commented_ideas.empty?
+  Et ole kommentoinut yhtään ideaa.
+- else
+  %ul
+    - @commented_ideas.each do |idea|
+      %li= link_to idea.title, idea_path(idea)
