@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   include PublishingStateMachine
   include Changelogger
-
+  include Concerns::Indexing
   include Tanker
 
   attr_accessible :body
@@ -17,7 +17,7 @@ class Comment < ActiveRecord::Base
   validates :commentable_id,    presence: true
   validates :commentable_type,  presence: true
 
-  tankit 'BasicData' do
+  tankit index_name do
     conditions do
       published?
     end
