@@ -1,9 +1,9 @@
 class Idea < ActiveRecord::Base
   include PublishingStateMachine
   include Changelogger
-  extend FriendlyId
-
+  include Concerns::Indexing
   include Tanker
+  extend FriendlyId
 
   VALID_STATES = %w(idea draft proposal law)
 
@@ -33,7 +33,7 @@ class Idea < ActiveRecord::Base
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
   validates :state, inclusion: { in: VALID_STATES }
 
-  tankit 'BasicData' do
+  tankit index_name do
     conditions do
       published?
     end
