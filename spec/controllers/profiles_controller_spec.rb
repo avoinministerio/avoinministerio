@@ -8,16 +8,21 @@ describe ProfilesController do
   get :edit do
     before do
       sign_in citizen
-      @vote = Factory :vote, :citizen => citizen
-      @comment = Factory :comment, :author => citizen
     end
     action! do
       it "assigns the profile as @profile" do
         assigns(:profile).should == citizen.profile
       end
-      it "assigns the citizen as @citizen" do
-        assigns(:citizen).should == citizen
-      end
+    end
+  end
+  
+  get :show do
+    before do
+      sign_in citizen
+      @vote = Factory :vote, :citizen => citizen
+      @comment = Factory :comment, :author => citizen
+    end
+    action! do
       it "adds a voted idea into @voted_ideas" do
         assigns(:voted_ideas).should include @vote.idea
       end
@@ -25,10 +30,6 @@ describe ProfilesController do
         assigns(:commented_ideas).should include @comment.commentable
       end
     end
-  end
-  
-  post :update_password do
-    pending "Need a way to check if the password has been changed"
   end
   
   post :update do
