@@ -2,27 +2,26 @@
   - if not @error
     %h1 Vaihe 2/4 - Hyväksy ehdot ja julkisuusasetukset
 
-    .accepting
-      =form_tag(url_for(action: "sign", controller: "signatures"), :html => {:class => "grid_16"}) do |f|
-        .box
-          .instructions
-            .title Ehdot
-            .text 
-            .checkbox
-              = check_box_tag :accept_general
-              = label_tag :accept_general, "Hyväksyn palvelun yleiset ehdot"
-            .checkbox
-              = check_box_tag :accept_non_eu
-              = label_tag :accept_non_eu, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
-            .radiobox
-              = radio_button_tag :publicity, "Normal"
-              = label_tag :publicity_Normal, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
-              %br
-              = radio_button_tag :publicity, "Immediately"
-              = label_tag :publicity_Immediately, "Nimeni voi julkistaa välittömästi"
-            .checkbox
-              = check_box_tag :accept_science
-              = label_tag :accept_science, "Sallin lisäkysymyksiä tieteellisissä tutkimuksissa. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
+    .accepting.box
+      =form_tag(url_for(action: "sign", controller: "signatures"), :class => "grid_16") do |f|
+        .instructions
+          .title Ehdot
+          .text 
+          .checkbox
+            = check_box_tag :accept_general
+            = label_tag :accept_general, "Hyväksyn palvelun yleiset ehdot"
+          .checkbox
+            = check_box_tag :accept_non_eu
+            = label_tag :accept_non_eu, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
+          .radiobox
+            = radio_button_tag :publicity, "Normal"
+            = label_tag :publicity_Normal, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
+            %br
+            = radio_button_tag :publicity, "Immediately"
+            = label_tag :publicity_Immediately, "Nimeni voi julkistaa välittömästi"
+          .checkbox
+            = check_box_tag :accept_science
+            = label_tag :accept_science, "Sallin lisäkysymyksiä tieteellisissä tutkimuksissa. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
 
         .big-button
           .actions
