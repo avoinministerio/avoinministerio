@@ -13,12 +13,31 @@ class SignaturesController < ApplicationController
   respond_to :html
 
   def introduction
+    # NICETOHAVE TODO FIXME: check if user don't have any in-progress signatures
+    # ie. cover case when user does not type in the url (when Sign button is not shown)
   end
 
   def approval
   end
 
+  def shortcut_approval
+    if check_session_validity
+      @s = Signature.find(session["authenticated_approvals"])
+    else
+      redirect_to_introduction
+    end
+  end
+
+  def check_session_validity
+    twenty_mins = (1.0/(24*(60/20)))
+    session["authenticated_at"] and (DateTime.now - session["authenticated_at"]) < twenty_mins
+  end
+
+
+
   def sign
+    # TODO FIXME: check if user don't have any in-progress signatures
+    # ie. cover case when user does not type in the url (when Sign button is not shown)
     @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
 
     @services = [
@@ -133,7 +152,7 @@ class SignaturesController < ApplicationController
   end
 
 
-  def valid_returning(signature, service_name)
+  def valid_returning?(signature, service_name)
     values = %w(VERS TIMESTMP IDNBR STAMP CUSTNAME KEYVERS ALG CUSTID CUSTTYPE).map {|key| params["B02K_" + key]}
     string = values[0,9].join("&") + "&" + service_secret(service_name) + "&"
     params["B02K_MAC"] == mac(string)
@@ -153,7 +172,7 @@ class SignaturesController < ApplicationController
     hetu[6,1] == "+" ? 1800 : hetu[6,1] == "A" ? 2000 : 1900
   end
 
-  def within_timelimit(signature)
+  def within_timelimit?(signature)
     elapsed = (Time.now - signature.started)#*(60*60*24) # in seconds
     timelimit = (20*60)   # 20 mins
     within = elapsed <= timelimit
@@ -161,8 +180,8 @@ class SignaturesController < ApplicationController
     within
   end
 
-  def repeated_returning(signature)
-    signature.state == "initial"
+  def repeated_returning?(signature)
+    signature.state != "initial"
   end
 
   def returning
@@ -172,15 +191,15 @@ class SignaturesController < ApplicationController
       @error = "Invalid user"
     else
       service_name = params[:servicename]
-      if not valid_returning(@signature, service_name)
+      if not valid_returning?(@signature, service_name)
         Rails.logger.info "Invalid return"
         @signature.update_attributes(state: "invalid return")
         @error = "Invalid return"
-      elsif not within_timelimit(@signature)
+      elsif not within_timelimit?(@signature)
         Rails.logger.info "not within timelimit"
         @signature.update_attributes(state: "too late")
         @error = "Not within timelimit"
-      elsif not repeated_returning(@signature)
+      elsif repeated_returning?(@signature)
         Rails.logger.info "repeated returning"
         @signature.update_attributes(state: "repeated_returning")
         @error = "Repeated returning"
@@ -193,6 +212,7 @@ class SignaturesController < ApplicationController
         @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
         session["authenticated_at"]         = DateTime.now
         session["authenticated_birth_date"] = birth_date
+        session["authenticated_approvals"]  = @signature.id
       end
     end
     respond_with @signature
