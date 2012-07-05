@@ -14,9 +14,9 @@
         .text Tunnistautumisesi on nyt voimassa 20 minuuttia tai kunnes kirjaudut ulos, joten voit allekirjoittaa aloitteita ilman, että sinun tarvitsee tunnistautua uudelleen.
       .other-initiatives
         %ul
-        - @initiatives.each do |initiative|
-          %li
-            =link_to initiative.title, initiative
+          - @initiatives.each do |initiative|
+            %li
+              =link_to initiative.title, initiative
         =link_to "Listaa kaikki", ideas_path
     .box
       .bullet
