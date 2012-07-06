@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120704061305) do
+ActiveRecord::Schema.define(:version => 20120705195735) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -191,6 +191,11 @@ ActiveRecord::Schema.define(:version => 20120704061305) do
     t.datetime "started"
     t.string   "firstnames"
     t.string   "lastname"
+    t.boolean  "accept_general"
+    t.boolean  "accept_non_eu_server"
+    t.string   "accept_publicity"
+    t.boolean  "accept_science"
+    t.string   "idea_mac"
   end
 
   create_table "votes", :force => true do |t|

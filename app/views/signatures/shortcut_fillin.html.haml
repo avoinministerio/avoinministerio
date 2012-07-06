@@ -1,0 +1,97 @@
+.returning
+  - if not @error
+    %h1 Vaihe 4/4 - Hyväksy ehdot, julkisuusasetukset ja täytä kannatusilmoitus
+
+    .accepting.box
+      =simple_form_for @signature, url: "/signatures/#{@signature.id}/shortcut_finalize_signing", :class => "grid_16" do |f|
+        .instructions
+          .title Ehdot
+          .text 
+          .checkbox
+            = f.input :accept_general, :label => "Hyväksyn palvelun yleiset ehdot"
+          .checkbox
+            = f.input :accept_science, :label => "Voin osallistua tieteelliseen tutkimukseen. Tietojasi voidaan käyttää henkilötietolain mukaisesti tieteelliseen tutkimukseen."
+          .checkbox
+            = f.input :accept_non_eu_server, :label => "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä."
+          .radiobox
+            = f.collection_radio_buttons :accept_publicity, [["Immediately", "Nimeni voi julkistaa välittömästi"], ["Normal", "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"]], :first, :last
+
+        .linebreak
+        .info-text
+          Seuraavien kenttien tiedot tulee olla juuri kuten ne ovat Väestörekisterikeskuksella. Voit täyttää lomakkeen vain omasta puolestasi, eli et voi täyttää lomaketta kenenkään muun puolesta. Kansalaisaloitelain 16 pykälän mukaan rangaistus väärän henkilötiedon antamisesta on rikoslain 
+          %a{href: "http://www.finlex.fi/fi/laki/ajantasa/1889/18890039001"}16 luvun 5 § tai 8 § mukainen.
+        .linebreak
+        %h3 Kannatusilmoitus
+
+        Idean otsikko
+        =f.input :idea_title,   :disabled => true
+
+        Idean päivämäärä
+        =f.input :idea_date,    :disabled => true
+
+        Kannatusilmoituksen päivämäärä
+        =f.input :signing_date, :disabled => true
+
+        Syntymäaikasi on alustettu tunnistamispalvelusta saaduilla tiedoilla, et voi muuttaa sitä.
+        =f.input :birth_date,   :disabled => true
+
+        %h4 Täytettävät tiedot
+        .linebreak
+        Varmista, että seuraavassa kentässä on 
+        %b kaikki 
+        etunimesi (usein useampi etunimi).
+        =f.input :firstnames
+
+        Varmista, että seuraavassa kentässä on sukunimesi.
+        =f.input :lastname
+
+        Varmista, että kotikuntasi vastaa Väestörekisterikeskuksen tietoja.
+        =f.input :occupancy_county, :collection => municipalities
+
+        Rastimalla tämän vakuutat, että olet äänioikeutettu Suomen kansalainen, ja olet tehnyt kannatusilmoituksen aloitteeseen vain kerran.
+        =f.input :vow
+
+        =f.submit "Allekirjoita", disabled: true, id: "commit", class: "accept-btn-disabled"
+
+        :javascript
+          function isEmpty(str) {
+            return (!str || 0 === str.length);
+          }
+          function isBlank(str) {
+            return (!str || /^\s*$/.test(str));
+          }
+
+          var toggleButton = function() {
+            var ag = $("#signature_accept_general").attr("checked");
+            var an = $("#signature_accept_non_eu_server").attr("checked");
+            var pu = $("input:radio[name=signature[accept_publicity]]:checked").val();
+
+            var f = $("#signature_firstnames").val();
+            var l = $("#signature_lastname").val();
+            var o = $("#signature_occupancy_county").val();
+            var v = $("#signature_vow").attr("checked");
+            if( !isEmpty(f) && !isBlank(f) && !isEmpty(l) && !isBlank(l) && !isBlank(o) && v && ag && an && pu) {
+              $("#commit").attr({"disabled": false, "class": "accept-btn"});
+            } else {
+              $("#commit").attr({"disabled": true, "class": "accept-btn-disabled"});
+            };
+          };
+          $("#accept_general").change(toggleButton);
+          $("#accept_non_eu_server").change(toggleButton);
+          $("input:radio[name=publicity]").change(toggleButton);
+          $("#signature_firstnames").change(toggleButton);
+          $("#signature_lastname").change(toggleButton);
+          $("#signature_occupancy_county").change(toggleButton);
+          $("#signature_vow").change(toggleButton);
+
+
+    .sidebox
+      .text
+        (Tänne voi tulla help-osio)
+        =link_to "etusivulle", "/"
+
+
+  - else
+    .error
+      %h1 Virhetilanne
+      = @error
