@@ -14,17 +14,18 @@
         - twenty_mins = (1.0/(24*(60/20)))
         - if session["authenticated_at"] and DateTime.now < session["authenticated_at"]
           raise "#{DateTime.now} is smaller than found session['authenticated_at'] #{session['authenticated_at']}"
-        - elsif session["authenticated_at"] and DateTime.now - session["authenticated_at"] < twenty_mins # shortcut
-          = link_to "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista", signature_idea_shortcut_approval_path(idea.id), class: "btn jaa-btn"
-        - else # no 
+        - elsif check_shortcut_session_validity
+          = link_to "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista", signature_idea_shortcut_fillin_path(idea.id), class: "btn jaa-btn"
+        - else
           = link_to "Allekirjoita kannatusilmoitus", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
       - else
         = link_to "Sisäänkirjaudu allekirjoittaaksesi kannatusilmoituksen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn-disabled", disabled: true
 
   - if ended
-    Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta keräämme ilmoituksia silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit allekirjoittaa sen uudelleen.
+    Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta käyttäjien tukea silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit allekirjoittaa sen uudelleen.
     .button
-      = link_to "Allekirjoita kannatusilmoitus jälkikäteen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
+      /= link_to "Allekirjoita kannatusilmoitus jälkikäteen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
+      /- # TODO: Add still supporting button
 
   .signature-statistics
     .stat-header Aloitteen kannatusilmoitusten

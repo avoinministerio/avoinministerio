@@ -13,32 +13,33 @@ class SignaturesController < ApplicationController
   respond_to :html
 
   def introduction
-    # NICETOHAVE TODO FIXME: check if user don't have any in-progress signatures
-    # ie. cover case when user does not type in the url (when Sign button is not shown)
+    # TODO FIXME: check that idea can be signed
+    # ie. cover case when user does type in the url (when Sign button is not shown, or link is copied over a mail)
   end
 
   def approval
+    # TODO FIXME: check that idea can be signed
+    # ie. cover case when user does type in the url (when Sign button is not shown, or link is copied over a mail)
   end
 
-  def shortcut_approval
-    if check_session_validity
-      @s = Signature.find(session["authenticated_approvals"])
-    else
-      redirect_to_introduction
-    end
+  def fill_in_acceptances(signature)
+    signature.accept_general       = params[:accept_general]
+    signature.accept_non_eu_server = params[:accept_non_eu_server]
+    signature.accept_publicity     = params[:publicity]
+    signature.accept_science       = params[:accept_science]
   end
-
-  def check_session_validity
-    twenty_mins = (1.0/(24*(60/20)))
-    session["authenticated_at"] and (DateTime.now - session["authenticated_at"]) < twenty_mins
-  end
-
-
 
   def sign
+    # ERROR: check that idea is on_going, otherwise no signatures should be collected
+    # ERROR: Check that user has not signed already
     # TODO FIXME: check if user don't have any in-progress signatures
     # ie. cover case when user does not type in the url (when Sign button is not shown)
     @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
+
+    # ERROR: check that there are enough acceptances
+    fill_in_acceptances(@signature)
+    @signature.idea_mac = idea_mac(@signature.idea)
+    @error = "Couldn't save signature" unless @signature.save!
 
     @services = [
       { vers:       "0001",
@@ -247,9 +248,14 @@ class SignaturesController < ApplicationController
   end
 
   def finalize_signing
+    signature = finalize_signing_by_checking
+    respond_with signature
+  end
+
+  def finalize_signing_by_checking
 #    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
     @signature = Signature.where(state: 'authenticated').find(params[:id])
-    if @signature.citizen == current_citizen and @signature.state == "authenticated"   # TODO: and duration since last authentication less that threshold
+    if @signature and @signature.citizen == current_citizen and @signature.state == "authenticated"   # TODO: and duration since last authentication less that threshold
       # validate input before storing
       if justNameCharacters(params["signature"]["firstnames"]) and 
          justNameCharacters(params["signature"]["lastname"])   and 
@@ -268,7 +274,7 @@ class SignaturesController < ApplicationController
         session["authenticated_lastname"]         = @signature.lastname
         session["authenticated_occupancy_county"] = @signature.occupancy_county
 
-        # show only proposals that haven't yet been signed by current_user
+        # show only proposals that haven't yet been signed by current_citizen
         signatures = Arel::Table.new(:signatures)
         already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
         ideas = Arel::Table.new(:ideas)
@@ -280,7 +286,60 @@ class SignaturesController < ApplicationController
     else
       @error = "Trying to alter other citizen or signature with other than authenticated state"
     end
-    respond_with @signature
+    @signature
+  end
+
+
+  def shortcut_fillin
+    if check_shortcut_session_validity 
+      if not check_previously_signed(current_citizen, params[:id])
+        @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
+
+        @previous_signature = Signature.find(session["authenticated_approvals"])
+        @signature.accept_general       = @previous_signature.accept_general
+        @signature.accept_non_eu_server = @previous_signature.accept_non_eu_server
+        @signature.accept_publicity     = @previous_signature.accept_publicity
+        @signature.accept_science       = @previous_signature.accept_science
+
+        # Consider: would it be better to use @previous_signature instead of session to pick up all of these
+        @signature.signing_date         = today_date()
+        @signature.birth_date           = session["authenticated_birth_date"]
+        @signature.firstnames           = session["authenticated_firstnames"]
+        @signature.lastname             = session["authenticated_lastname"]
+        @signature.occupancy_county     = session["authenticated_occupancy_county"]
+        @signature.idea_mac             = idea_mac(@signature.idea)
+        @signature.state                = "authenticated"
+        @error = "Couldn't save signature" unless @signature.save!
+      else
+        @error = "Aiemmin allekirjoitettu"
+      end
+      respond_with @signature
+    else
+      redirect_to_introduction
+    end
+  end
+
+  def shortcut_finalize_signing
+    if check_shortcut_session_validity 
+      if not check_previously_signed(current_citizen, params[:id])
+        @signature = finalize_signing_by_checking
+        p @signature
+        fill_in_acceptances(@signature)
+      else
+        @error = "Previously signed"
+      end
+      render :finalize_signing
+    else
+      redirect_to_introduction
+    end
+  end
+
+  def check_previously_signed(citizen, idea_id)
+    false
+  end
+
+  def idea_mac(idea)
+    mac(idea.title + idea.body + idea.updated_at.to_s)
   end
 
 end

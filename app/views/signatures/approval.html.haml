@@ -11,17 +11,17 @@
             = check_box_tag :accept_general
             = label_tag :accept_general, "Hyväksyn palvelun yleiset ehdot"
           .checkbox
-            = check_box_tag :accept_non_eu
-            = label_tag :accept_non_eu, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
+            = check_box_tag :accept_science
+            = label_tag :accept_science, "Voin osallistua tieteelliseen tutkimukseen. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
+          .checkbox
+            = check_box_tag :accept_non_eu_server
+            = label_tag :accept_non_eu_server, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
           .radiobox
-            = radio_button_tag :publicity, "Normal"
-            = label_tag :publicity_Normal, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
-            %br
             = radio_button_tag :publicity, "Immediately"
             = label_tag :publicity_Immediately, "Nimeni voi julkistaa välittömästi"
-          .checkbox
-            = check_box_tag :accept_science
-            = label_tag :accept_science, "Sallin lisäkysymyksiä tieteellisissä tutkimuksissa. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
+            %br
+            = radio_button_tag :publicity, "Normal"
+            = label_tag :publicity_Normal, "Haluan, että nimeni tulee julkiseksi vasta jos aloite saavuttaa 50000 kannattajaa"
 
         .big-button
           .actions
@@ -29,7 +29,7 @@
 
       :javascript
         var toggleButton = function() {
-          if( $("#accept_general").attr("checked") && $("#accept_non_eu").attr("checked") && 
+          if( $("#accept_general").attr("checked") && $("#accept_non_eu_server").attr("checked") && 
               ( $("input:radio[name=publicity]:checked").val() ) ) {
             $("#accept").attr({"disabled": false, "class": "accept-btn"});
           } else {
@@ -37,7 +37,7 @@
           };
         };
         $("#accept_general").change(toggleButton);
-        $("#accept_non_eu").change(toggleButton);
+        $("#accept_non_eu_server").change(toggleButton);
         $("input:radio[name=publicity]").change(toggleButton);
 
     .sidebox

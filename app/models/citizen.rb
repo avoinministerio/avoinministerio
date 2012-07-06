@@ -22,6 +22,7 @@ class Citizen < ActiveRecord::Base
   default_scope includes(:profile)
   
   [
+    :first_names,
     :first_name,
     :last_name,
     :name,

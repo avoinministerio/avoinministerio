@@ -11,7 +11,15 @@
         1.
       .instructions
         .title Allekirjoita muita aloitteita
-        .text Tunnistautumisesi on nyt voimassa 20 minuuttia tai kunnes kirjaudut ulos, joten voit allekirjoittaa aloitteita ilman, että sinun tarvitsee tunnistautua uudelleen.
+        - if check_shortcut_session_validity
+          .text 
+            Tunnistautumisesi on nyt voimassa 
+            = sprintf("%.0f", shortcut_session_remaining_mins)
+            minuuttia tai kunnes kirjaudut ulos, joten voit allekirjoittaa aloitteita ilman, että sinun tarvitsee tunnistautua uudelleen.
+        - else
+          .text 
+            Tunnistautumisesi on ei ole enää voimassa, joten seuraavan kannatusilmoituksen allekirjoitukseen tunnistaudut uudelleen.
+
       .other-initiatives
         %ul
           - @initiatives.each do |initiative|
