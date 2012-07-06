@@ -28,7 +28,7 @@ describe Signature do
 
   describe "create_with_citizen_and_idea" do
     before do
-      @citizen = mock_model(Citizen, :first_name => "John", :last_name => "Doe")
+      @citizen = mock_model(Citizen, :first_names => "John", :last_name => "Doe")
       @idea = Factory :idea, :title => "helmet compulsory"
 
       @signature = Signature.create_with_citizen_and_idea(@citizen, @idea)
