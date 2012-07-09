@@ -14,7 +14,7 @@ module HelperMethods
 
   def create_logged_in_citizen(extra_attributes = {})
     citizen = create_citizen(extra_attributes)
-    login(citizen)
+    login_as(citizen)
     citizen
   end
 
@@ -73,6 +73,15 @@ module HelperMethods
     end
   end
 
+  def should_be_disabled(elem)
+    elem["disabled"].should_not be_nil
+  end
+
+  def should_be_enabled(elem)
+    p elem["disabled"]
+    elem["disabled"].should be_nil
+  end
+
   def mock_facebook_omniauth(uid = "1234567", info = {})
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:facebook] = {
@@ -113,6 +122,11 @@ module HelperMethods
       }
     }
   end
+
+  def create_idea(extra_attributes = {})
+    Factory(:idea, extra_attributes)
+  end
+
 
 end
 

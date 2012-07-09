@@ -13,6 +13,14 @@ module NavigationHelpers
     new_citizen_session_fi_path
   end
 
+  def idea_page(idea_id)
+    idea_fi_path(idea_id)
+  end
+
+  def signature_idea_introduction(idea_id)
+    signature_idea_introduction_fi_path(idea_id)
+  end
+
 end
 
 RSpec.configuration.include NavigationHelpers, :type => :acceptance
