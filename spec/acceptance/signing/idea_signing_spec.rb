@@ -8,6 +8,13 @@ require 'webmock/rspec'
 feature "Idea signing" do
   let(:citizen_password) { '123456789' }
   let(:citizen_email) { 'citizen-kane@example.com'}
+  let(:idea) {
+    Factory :idea, state: "proposal", 
+                  collecting_started: true, collecting_ended: false, 
+                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
+                  additional_signatures_count: 0, additional_signatures_count_date: today_date, 
+                  target_count: 51500
+  }
 
   background do
     case 2
@@ -33,15 +40,10 @@ feature "Idea signing" do
 
   scenario "Succesful normal idea signing" do #, js: true do #, :driver => :webkit do
     # 1: Create idea and visit it's page to click on signing
-    create_idea({ state: "proposal", 
-                  collecting_started: true, collecting_ended: false, 
-                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
-                  additional_signatures_count: 0, additional_signatures_count_date: today_date, 
-                  target_count: 51500 })
-    visit idea_page(1)
-    should_be_on idea_page(1)
+    visit idea_page(idea.id)
+    should_be_on idea_page(idea.id)
     click_link "Allekirjoita kannatusilmoitus"
-    should_be_on signature_idea_introduction(1)
+    should_be_on signature_idea_introduction(idea.id)
 
     # 2: Click forward
     click_button "Siirry hyväksymään ehdot"
@@ -143,7 +145,15 @@ feature "Idea signing" do
     # 9: Thank you page again
     have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
   end
-
-
+  
+  context "individual steps" do
+    context "normal flow" do
+      scenario "1) go to signature introduction" do
+        visit idea_page(idea.id)
+        click_link "Allekirjoita kannatusilmoitus"
+        should_be_on signature_idea_introduction(idea.id)
+      end
+    end
+  end
 
 end
