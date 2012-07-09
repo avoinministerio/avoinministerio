@@ -153,6 +153,12 @@ feature "Idea signing" do
         click_link "Allekirjoita kannatusilmoitus"
         should_be_on signature_idea_introduction(idea.id)
       end
+      
+      scenario "2) go to the approval page" do
+        visit signature_idea_introduction(idea.id)
+        click_button "Siirry hyväksymään ehdot"
+        should_be_on signature_idea_approval_path(idea.id)
+      end
     end
   end
 
