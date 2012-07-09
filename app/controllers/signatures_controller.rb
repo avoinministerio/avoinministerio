@@ -323,7 +323,6 @@ class SignaturesController < ApplicationController
     if check_shortcut_session_validity 
       if not check_previously_signed(current_citizen, params[:id])
         @signature = finalize_signing_by_checking
-        p @signature
         fill_in_acceptances(@signature)
       else
         @error = "Previously signed"

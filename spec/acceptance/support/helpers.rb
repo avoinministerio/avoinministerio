@@ -78,7 +78,6 @@ module HelperMethods
   end
 
   def should_be_enabled(elem)
-    p elem["disabled"]
     elem["disabled"].should be_nil
   end
 
