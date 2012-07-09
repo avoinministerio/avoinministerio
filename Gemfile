@@ -43,6 +43,8 @@ group :development do
   gem "guard-spork", "1.0.0"
   gem "brakeman", "~> 1.6.2"
   gem "pry-rails"
+  gem "launchy"
+  gem "capybara-webkit"
 end
 
 group :production do
@@ -61,6 +63,7 @@ group :test do
   gem "webmock", :require => false
   gem "email_spec"
   gem "steak"
+  gem "capybara-webkit"
 
   gem "sqlite3"
 
