@@ -137,7 +137,8 @@
 
         - when "proposal"
           / show voting for proposals if Signatures are not enabled, or if Signatures are enabled and this idea is not in given list
-          - if((not ENV['Feature_Signatures']) || (not (ENV['Feature_Signatures'].split(/\,?\s+/).map{|s| s.to_i}.include?(@idea.id))))
+          /#- if((not ENV['Feature_Signatures']) || (not (ENV['Feature_Signatures'].split(/\,?\s+/).map{|s| s.to_i}.include?(@idea.id))))
+          - if not @idea.collecting_started or @idea.collecting_ended
             - if @idea.voted_by?(current_citizen)
               %h3
                 Annoit tukesi
