@@ -134,6 +134,14 @@ module HelperMethods
     visit signature_idea_introduction(id)
     click_button "Siirry hyväksymään ehdot"
   end
+  
+  def visit_signature_idea_path(id)
+    visit_signature_idea_approval_path(id)
+    check "accept_general"
+    check "accept_non_eu_server"
+    choose "publicity_Normal"
+    click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+  end
 
 end
 
