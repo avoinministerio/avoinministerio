@@ -168,6 +168,17 @@ feature "Idea signing" do
         click_button "Hyväksy ehdot ja siirry tunnistautumaan"
         should_be_on signature_idea_path(idea.id)
       end
+      
+      scenario "4) select TUPAS service" do
+        Capybara.current_driver = :mechanize
+        # swithing the driver invalidates the session,
+        # so we have to log in again
+        create_logged_in_citizen
+        visit_signature_idea_path(idea.id)
+        Capybara.app_host = "https://online.alandsbanken.fi/"
+        click_button "Alandsbanken testi"
+        should_be_on "https://online.alandsbanken.fi/ebank/auth/initLogin.do"
+      end
     end
   end
 
