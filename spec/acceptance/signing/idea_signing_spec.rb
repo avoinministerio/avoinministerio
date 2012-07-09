@@ -159,6 +159,15 @@ feature "Idea signing" do
         click_button "Siirry hyväksymään ehdot"
         should_be_on signature_idea_approval_path(idea.id)
       end
+      
+      scenario "3) approve terms of signing" do
+        visit_signature_idea_approval_path(idea.id)
+        check "accept_general"
+        check "accept_non_eu_server"
+        choose "publicity_Normal"
+        click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+        should_be_on signature_idea_path(idea.id)
+      end
     end
   end
 

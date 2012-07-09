@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # REVIEW: https://github.com/plataformatec/devise/wiki/How-To:-Controllers-and-Views-tests-with-Rails-3-(and-rspec) - jaakkos
 # REVIEW: https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara - jaakkos
 
@@ -126,6 +128,12 @@ module HelperMethods
     Factory(:idea, extra_attributes)
   end
 
+  # while sending POST requests with Capybara is possible,
+  # it's strongly not recommended
+  def visit_signature_idea_approval_path(id)
+    visit signature_idea_introduction(id)
+    click_button "Siirry hyväksymään ehdot"
+  end
 
 end
 
