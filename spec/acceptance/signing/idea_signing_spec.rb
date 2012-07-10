@@ -284,6 +284,16 @@ feature "Idea signing" do
         click_button "Hyväksy ehdot ja siirry tunnistautumaan"
         current_path.should_not == signature_idea_path(idea.id)
       end
+      
+      scenario "4) not logged in" do
+        visit_signature_idea_approval_path(idea.id)
+        logout
+        check "accept_general"
+        check "accept_non_eu_server"
+        choose "publicity_Normal"
+        click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+        should_be_on new_citizen_session_path
+      end
     end
   end
 
