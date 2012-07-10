@@ -263,6 +263,13 @@ feature "Idea signing" do
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
     end
+    context "abnormal situations" do
+      scenario "1) not logged in" do
+        logout
+        visit idea_page(idea.id)
+        page.should_not have_link "Allekirjoita kannatusilmoitus"
+      end
+    end
   end
 
 end
