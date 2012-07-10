@@ -275,6 +275,15 @@ feature "Idea signing" do
         visit signature_idea_introduction(idea.id)
         should_be_on new_citizen_session_path
       end
+      
+      scenario "3) citizen doesn't approve terms of signing" do
+        visit_signature_idea_approval_path(idea.id)
+        uncheck "accept_general"
+        check "accept_non_eu_server"
+        choose "publicity_Normal"
+        click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+        current_path.should_not == signature_idea_path(idea.id)
+      end
     end
   end
 
