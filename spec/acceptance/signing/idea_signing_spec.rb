@@ -269,6 +269,12 @@ feature "Idea signing" do
         visit idea_page(idea.id)
         page.should_not have_link "Allekirjoita kannatusilmoitus"
       end
+      
+      scenario "2) not logged in" do
+        logout
+        visit signature_idea_introduction(idea.id)
+        should_be_on new_citizen_session_path
+      end
     end
   end
 
