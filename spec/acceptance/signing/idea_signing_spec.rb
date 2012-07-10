@@ -15,6 +15,13 @@ feature "Idea signing" do
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
                   target_count: 51500
   }
+  let(:another_idea) {
+    Factory :idea, state: "proposal", 
+                  collecting_started: true, collecting_ended: false, 
+                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
+                  additional_signatures_count: 0, additional_signatures_count_date: today_date, 
+                  target_count: 51500
+  }
 
   background do
     case 2
@@ -102,12 +109,7 @@ feature "Idea signing" do
     page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
 
     # 7: Let's check the session works
-    create_idea({ state: "proposal", 
-                  collecting_started: true, collecting_ended: false, 
-                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
-                  additional_signatures_count: 0, additional_signatures_count_date: today_date, 
-                  target_count: 51500 })
-    visit idea_page(2)
+    visit idea_page(another_idea.id)
     # save_and_open_page
     page.should_not have_link "Allekirjoita kannatusilmoitus"
     page.should have_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
@@ -189,7 +191,7 @@ feature "Idea signing" do
                                     :citizen_id => @citizen.id).first
         
         page.should have_field("signature_idea_title", with: idea.title)
-        should_have_date("signature_idea_date", idea.updated_at)
+        should_have_date("signature_idea_date", today_date)
         should_have_date("signature_signing_date", today_date)
         should_have_date("signature_birth_date", Date.new(1970,1,1))
         page.should have_field("signature_firstnames",
@@ -201,6 +203,52 @@ feature "Idea signing" do
         should_be_disabled(find_button("Allekirjoita"))
         
         select "Helsinki", from: "signature_occupancy_county"
+        check "Vow"
+        click_button "Allekirjoita"
+        
+        should_be_on "/signatures/#{signature.id}/finalize_signing"
+      end
+      
+      scenario "6) thank you page" do
+        visit_signature_finalize_signing(idea.id,
+                                         @citizen.id,
+                                         "Alandsbankentesti")
+        page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+      end
+      
+      scenario "7) go to the shortcut fillin page" do
+        visit_signature_finalize_signing(idea.id,
+                                         @citizen.id,
+                                         "Alandsbankentesti")
+        visit idea_page(another_idea.id)
+        click_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
+        should_be_on signature_idea_shortcut_fillin_path(another_idea.id)
+      end
+      
+      scenario "8) fill in signature" do
+        visit_signature_finalize_signing(idea.id,
+                                         @citizen.id,
+                                         "Alandsbankentesti")
+        visit signature_idea_shortcut_fillin_path(another_idea.id)
+        signature = Signature.where(:idea_id => another_idea.id,
+                                    :citizen_id => @citizen.id).first
+        
+        page.should have_checked_field "accept_general"
+        page.should have_checked_field "accept_non_eu_server"
+        page.should have_checked_field "publicity_Normal"
+        page.should have_field("signature_idea_title", with: another_idea.title)
+        should_have_date("signature_idea_date", today_date)
+        should_have_date("signature_signing_date", today_date)
+        should_have_date("signature_birth_date", Date.new(1970,1,1))
+        page.should have_field("signature_firstnames",
+                               with: @citizen.first_names)
+        page.should have_field("signature_lastname",
+                               with: @citizen.last_name)
+        page.should have_select("signature_occupancy_county",
+                                selected: "Helsinki")
+        page.should have_unchecked_field("signature_vow")
+        should_be_disabled(find_button("Allekirjoita"))
+        
         check "Vow"
         click_button "Allekirjoita"
         
