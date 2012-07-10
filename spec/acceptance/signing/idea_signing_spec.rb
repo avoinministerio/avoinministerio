@@ -254,6 +254,14 @@ feature "Idea signing" do
         
         should_be_on "/signatures/#{signature.id}/finalize_signing"
       end
+      
+      scenario "9) thank you page again" do
+        visit_signature_finalize_signing_after_shortcut_fillin(idea.id,
+                                                               another_idea.id,
+                                                               @citizen.id,
+                                                               "Alandsbankentesti")
+        page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+      end
     end
   end
 
