@@ -163,6 +163,13 @@ module HelperMethods
     check "Vow"
     click_button "Allekirjoita"
   end
+  
+  def visit_signature_finalize_signing_after_shortcut_fillin(idea_id, another_idea_id, citizen_id, servicename)
+    visit_signature_finalize_signing(idea_id, citizen_id, servicename)
+    visit signature_idea_shortcut_fillin_path(another_idea_id)
+    check "Vow"
+    click_button "Allekirjoita"
+  end
 
 end
 
