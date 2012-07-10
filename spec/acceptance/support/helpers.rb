@@ -156,6 +156,13 @@ module HelperMethods
     signature = Signature.where(:idea_id => idea_id, :citizen_id => citizen_id).first
     visit "/signatures/#{signature.id}/returning/#{servicename}?B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08&B02K_MAC=31342513E20EB7374AAF867A91EA4FAB990B519E02C641C1376D7396D969AE3F"
   end
+  
+  def visit_signature_finalize_signing(idea_id, citizen_id, servicename)
+    visit_signature_returning(idea_id, citizen_id, servicename)
+    select "Helsinki", from: "signature_occupancy_county"
+    check "Vow"
+    click_button "Allekirjoita"
+  end
 
 end
 
