@@ -19,13 +19,13 @@ feature "Idea signing" do
   background do
     case 2
     when 1
-      create_citizen({ :password => citizen_password, :email => citizen_email })
+      @citizen = create_citizen({ :password => citizen_password, :email => citizen_email })
       visit login_page
       fill_in "Sähköposti", :with => citizen_email
       fill_in "Salasana", :with => citizen_password
       click_button "Kirjaudu"
     when 2
-      create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
+      @citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
 #      stub_request(:get, /http:\/\/127.0.0.1:\d+\/__identify__/).
 #               with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
 #               to_return(:status => 200, :body => "", :headers => {})
@@ -178,6 +178,33 @@ feature "Idea signing" do
         Capybara.app_host = "https://online.alandsbanken.fi/"
         click_button "Alandsbanken testi"
         should_be_on "https://online.alandsbanken.fi/ebank/auth/initLogin.do"
+        
+        Capybara.current_driver = Capybara.default_driver
+        Capybara.app_host = Capybara.default_host
+      end
+      
+      scenario "5) return from TUPAS" do
+        visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).first
+        
+        page.should have_field("signature_idea_title", with: idea.title)
+        should_have_date("signature_idea_date", idea.updated_at)
+        should_have_date("signature_signing_date", today_date)
+        should_have_date("signature_birth_date", Date.new(1970,1,1))
+        page.should have_field("signature_firstnames",
+                               with: @citizen.first_names)
+        page.should have_field("signature_lastname",
+                               with: @citizen.last_name)
+        page.should have_select("signature_occupancy_county", selected: nil)
+        page.should have_unchecked_field("signature_vow")
+        should_be_disabled(find_button("Allekirjoita"))
+        
+        select "Helsinki", from: "signature_occupancy_county"
+        check "Vow"
+        click_button "Allekirjoita"
+        
+        should_be_on "/signatures/#{signature.id}/finalize_signing"
       end
     end
   end
