@@ -74,19 +74,19 @@ feature "Idea signing" do
     # just inject in the right signature.id
     visit("/signatures/#{Signature.all.last.id}/returning/Alandsbankentesti?B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08&B02K_MAC=31342513E20EB7374AAF867A91EA4FAB990B519E02C641C1376D7396D969AE3F")
 
-    has_field?('signature_idea_title', with: "Idea uudesta laista")
-    has_select?('signature_idea_date_3i', selected: "8")
-    has_select?('signature_idea_date_2i', selected: "7")
-    has_select?('signature_idea_date_1i', selected: "2012")
-    has_select?('signature_signing_date_3i', selected: "9")
-    has_select?('signature_signing_date_2i', selected: "7")
-    has_select?('signature_signing_date_1i', selected: "2012")
-    has_select?('signature_birth_date_3i', selected: "1")
-    has_select?('signature_birth_date_2i', selected: "1")
-    has_select?('signature_birth_date_1i', selected: "1970")
-    has_field?('signature_firstnames', with: "Erkki Kalevi")
-    has_select?('signature_occupancy_county', selected: nil)
-    has_unchecked_field?('signature_vow')
+    page.should have_field('signature_idea_title', with: "Idea uudesta laista")
+    page.should have_select('signature_idea_date_3i', selected: "8")
+    page.should have_select('signature_idea_date_2i', selected: "7")
+    page.should have_select('signature_idea_date_1i', selected: "2012")
+    page.should have_select('signature_signing_date_3i', selected: "9")
+    page.should have_select('signature_signing_date_2i', selected: "7")
+    page.should have_select('signature_signing_date_1i', selected: "2012")
+    page.should have_select('signature_birth_date_3i', selected: "1")
+    page.should have_select('signature_birth_date_2i', selected: "1")
+    page.should have_select('signature_birth_date_1i', selected: "1970")
+    page.should have_field('signature_firstnames', with: "Erkki Kalevi")
+    page.should have_select('signature_occupancy_county', selected: nil)
+    page.should have_unchecked_field('signature_vow')
     should_be_disabled(find_button("Allekirjoita"))
 
     select "Helsinki", from: "signature_occupancy_county"
@@ -99,7 +99,7 @@ feature "Idea signing" do
     click_button "Allekirjoita"
 
     # 6: Thank you page
-    have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+    page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
 
     # 7: Let's check the session works
     create_idea({ state: "proposal", 
@@ -109,29 +109,29 @@ feature "Idea signing" do
                   target_count: 51500 })
     visit idea_page(2)
     # save_and_open_page
-    has_no_link? "Allekirjoita kannatusilmoitus"
-    has_link? "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
+    page.should_not have_link "Allekirjoita kannatusilmoitus"
+    page.should have_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
     click_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
 
     # 8: Let's check both forms and add only vows
-    has_checked_field?('accept_general')
-    has_checked_field?('accept_science')
-    has_checked_field?('accept_non_eu_server')
-    has_checked_field?('publicity_Immediately')
+    page.should have_checked_field('accept_general')
+    page.should have_checked_field('accept_science')
+    page.should have_checked_field('accept_non_eu_server')
+    page.should have_checked_field('publicity_Immediately')
 
-    has_field?('signature_idea_title', with: "Idea uudesta laista")
-    has_select?('signature_idea_date_3i', selected: "8")
-    has_select?('signature_idea_date_2i', selected: "7")
-    has_select?('signature_idea_date_1i', selected: "2012")
-    has_select?('signature_signing_date_3i', selected: "9")
-    has_select?('signature_signing_date_2i', selected: "7")
-    has_select?('signature_signing_date_1i', selected: "2012")
-    has_select?('signature_birth_date_3i', selected: "1")
-    has_select?('signature_birth_date_2i', selected: "1")
-    has_select?('signature_birth_date_1i', selected: "1970")
-    has_field?('signature_firstnames', with: "Erkki Kalevi")
-    has_select?('signature_occupancy_county', selected: "Helsinki")
-    has_unchecked_field?('signature_vow')
+    page.should have_field('signature_idea_title', with: "Idea uudesta laista")
+    page.should have_select('signature_idea_date_3i', selected: "8")
+    page.should have_select('signature_idea_date_2i', selected: "7")
+    page.should have_select('signature_idea_date_1i', selected: "2012")
+    page.should have_select('signature_signing_date_3i', selected: "9")
+    page.should have_select('signature_signing_date_2i', selected: "7")
+    page.should have_select('signature_signing_date_1i', selected: "2012")
+    page.should have_select('signature_birth_date_3i', selected: "1")
+    page.should have_select('signature_birth_date_2i', selected: "1")
+    page.should have_select('signature_birth_date_1i', selected: "1970")
+    page.should have_field('signature_firstnames', with: "Erkki Kalevi")
+    page.should have_select('signature_occupancy_county', selected: "Helsinki")
+    page.should have_unchecked_field('signature_vow')
     should_be_disabled(find_button("Allekirjoita"))
 
     check "Vow"
@@ -143,7 +143,7 @@ feature "Idea signing" do
     click_button "Allekirjoita"
 
     # 9: Thank you page again
-    have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+    page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
   end
   
   context "individual steps" do
