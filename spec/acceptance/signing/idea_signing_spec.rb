@@ -322,6 +322,17 @@ feature "Idea signing" do
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
+      
+      scenario "9) not logged in" do
+        visit_signature_finalize_signing(idea.id,
+                                         @citizen.id,
+                                         "Alandsbankentesti")
+        visit signature_idea_shortcut_fillin_path(another_idea.id)
+        logout
+        check "Vow"
+        click_button "Allekirjoita"
+        should_be_on new_citizen_session_path
+      end
     end
   end
 
