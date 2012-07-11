@@ -294,6 +294,15 @@ feature "Idea signing" do
         click_button "Hyväksy ehdot ja siirry tunnistautumaan"
         should_be_on new_citizen_session_path
       end
+      
+      scenario "5) citizen cancels authentication" do
+        visit_signature_idea_path(idea.id)
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).first
+        visit "/signatures/#{signature.id}/cancelling/Alandsbankentesti"
+        page.should have_content("Tunnistaminen epäonnistui")
+        page.should_not have_button("Allekirjoita")
+      end
     end
   end
 
