@@ -316,6 +316,17 @@ feature "Idea signing" do
         visit idea_page(idea.id)
         page.should_not have_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
       end
+      
+      scenario "8) citizen doesn't give the vow" do
+        visit_signature_finalize_signing(idea.id,
+                                         @citizen.id,
+                                         "Alandsbankentesti")
+        visit signature_idea_shortcut_fillin_path(another_idea.id)
+        uncheck "Vow"
+        click_button "Allekirjoita"
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+      end
     end
   end
 
