@@ -54,8 +54,8 @@ class Idea < ActiveRecord::Base
       state
     end
   end
-  after_save :update_tank_indexes
-  after_destroy :delete_tank_indexes
+  after_save Concerns::IndexingWrapper.new
+  after_destroy Concerns::IndexingWrapper.new
 
   def indexable?
     self.title.present?

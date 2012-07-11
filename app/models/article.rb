@@ -31,8 +31,8 @@ class Article < ActiveRecord::Base
       "article"
     end
   end
-  after_save :update_tank_indexes
-  after_destroy :delete_tank_indexes
+  after_save Concerns::IndexingWrapper.new
+  after_destroy Concerns::IndexingWrapper.new
 
 
   def to_param

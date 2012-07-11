@@ -31,8 +31,8 @@ class Comment < ActiveRecord::Base
       "comment"
     end
   end
-  after_save :update_tank_indexes
-  after_destroy :delete_tank_indexes
+  after_save Concerns::IndexingWrapper.new
+  after_destroy Concerns::IndexingWrapper.new
 
   def prepare_for_unpublishing
     if self.body.blank?
