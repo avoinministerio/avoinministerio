@@ -306,6 +306,11 @@ feature "Idea signing" do
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
+      
+      scenario "7) citizen has not authenticated" do
+        visit idea_page(idea.id)
+        page.should_not have_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
+      end
     end
   end
 
