@@ -84,9 +84,9 @@ module HelperMethods
   end
   
   def should_have_date(locator, date)
-    page.should have_select(locator + "_3i", selected: date.day)
-    page.should have_select(locator + "_2i", selected: date.month)
-    page.should have_select(locator + "_1i", selected: date.year)
+    page.should have_select(locator + "_3i", selected: date.day.to_s)
+    page.should have_select(locator + "_2i", selected: I18n.l(date, format: "%B"))
+    page.should have_select(locator + "_1i", selected: date.year.to_s)
   end
 
   def mock_facebook_omniauth(uid = "1234567", info = {})
