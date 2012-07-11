@@ -33,12 +33,6 @@ feature "Idea signing" do
       click_button "Kirjaudu"
     when 2
       @citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
-#      stub_request(:get, /http:\/\/127.0.0.1:\d+\/__identify__/).
-#               with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-#               to_return(:status => 200, :body => "", :headers => {})
-#      stub_request(:get, "http://127.0.0.1:63472/__identify__").
-#               with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'})
-#      stub_request(:any, "/4na.api.searchify.com/")
       visit homepage
     end
 

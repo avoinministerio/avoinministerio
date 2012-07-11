@@ -63,9 +63,6 @@ GEM
     capybara-mechanize (0.3.0)
       capybara (~> 1.1)
       mechanize (~> 2.3)
-    capybara-webkit (0.12.1)
-      capybara (>= 1.0.0, < 1.2)
-      json
     childprocess (0.3.3)
       ffi (~> 1.0.6)
     coderay (1.0.7)
@@ -318,7 +315,6 @@ DEPENDENCIES
   brakeman (~> 1.6.2)
   capybara
   capybara-mechanize
-  capybara-webkit
   coffee-rails (~> 3.1.1)
   database_cleaner
   devise
