@@ -59,6 +59,7 @@ Spork.prefork do
   # Capybara + Steak for integration test
   require "capybara/rspec"
   require "steak"
+  require "capybara/mechanize"
 
   RSpec.configure do |config|
     config.mock_with :rspec
@@ -82,6 +83,7 @@ Spork.prefork do
 
     config.before(:each) do
       WebMock.stub_request(:any, /4na.api.searchify.com/)
+      WebMock.stub_request(:any, /online.alandsbanken.fi/)
     end
 
     config.after(:each) do
