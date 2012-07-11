@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # REVIEW: https://github.com/plataformatec/devise/wiki/How-To:-Controllers-and-Views-tests-with-Rails-3-(and-rspec) - jaakkos
 # REVIEW: https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara - jaakkos
 
@@ -80,6 +82,12 @@ module HelperMethods
   def should_be_enabled(elem)
     elem["disabled"].should be_nil
   end
+  
+  def should_have_date(locator, date)
+    page.should have_select(locator + "_3i", selected: date.day)
+    page.should have_select(locator + "_2i", selected: date.month)
+    page.should have_select(locator + "_1i", selected: date.year)
+  end
 
   def mock_facebook_omniauth(uid = "1234567", info = {})
     OmniAuth.config.test_mode = true
@@ -126,6 +134,42 @@ module HelperMethods
     Factory(:idea, extra_attributes)
   end
 
+  # while sending POST requests with Capybara is possible,
+  # it's strongly not recommended
+  def visit_signature_idea_approval_path(id)
+    visit signature_idea_introduction(id)
+    click_button "Siirry hyväksymään ehdot"
+  end
+  
+  def visit_signature_idea_path(id)
+    visit_signature_idea_approval_path(id)
+    check "accept_general"
+    check "accept_non_eu_server"
+    choose "publicity_Normal"
+    click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+  end
+  
+  def visit_signature_returning(idea_id, citizen_id, servicename)
+    visit_signature_idea_path(idea_id)
+    # the signature didn't exist before this method was called,
+    # therefore it can't be passed as a parameter
+    signature = Signature.where(:idea_id => idea_id, :citizen_id => citizen_id).first
+    visit "/signatures/#{signature.id}/returning/#{servicename}?B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08&B02K_MAC=31342513E20EB7374AAF867A91EA4FAB990B519E02C641C1376D7396D969AE3F"
+  end
+  
+  def visit_signature_finalize_signing(idea_id, citizen_id, servicename)
+    visit_signature_returning(idea_id, citizen_id, servicename)
+    select "Helsinki", from: "signature_occupancy_county"
+    check "Vow"
+    click_button "Allekirjoita"
+  end
+  
+  def visit_signature_finalize_signing_after_shortcut_fillin(idea_id, another_idea_id, citizen_id, servicename)
+    visit_signature_finalize_signing(idea_id, citizen_id, servicename)
+    visit signature_idea_shortcut_fillin_path(another_idea_id)
+    check "Vow"
+    click_button "Allekirjoita"
+  end
 
 end
 
