@@ -42,8 +42,8 @@ class Citizen < ActiveRecord::Base
       "citizen"
     end
   end
-  after_save :update_tank_indexes
-  after_destroy :delete_tank_indexes
+  after_save Concerns::IndexingWrapper.new
+  after_destroy Concerns::IndexingWrapper.new
 
   def published_something?
     ideas.count > 0 || comments.count > 0 
