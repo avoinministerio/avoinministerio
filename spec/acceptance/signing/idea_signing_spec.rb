@@ -345,9 +345,6 @@ feature "Idea signing" do
     context "the idea is a proposal (can be signed)" do
       context "not authenticated" do
         context "logged in" do
-          background do
-            @citizen = create_logged_in_citizen
-          end
           context "already attempted to sign" do
             background do
               # AFAIK, @citizen can't be passed to let,
@@ -426,6 +423,11 @@ feature "Idea signing" do
                                                "Alandsbankentesti")
             page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
           end
+        end
+        scenario "not logged in" do
+          logout
+          visit idea_page(idea.id)
+          page.should_not have_link "Allekirjoita kannatusilmoitus"
         end
       end
     end
