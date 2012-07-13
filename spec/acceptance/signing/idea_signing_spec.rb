@@ -389,6 +389,17 @@ feature "Idea signing" do
               click_button "Allekirjoita"
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
+            scenario "existing signature is at the signed state" do
+              @signature.state = "signed"
+              @signature.save
+              
+              visit_signature_idea_approval_path(idea.id)
+              check "accept_general"
+              check "accept_non_eu_server"
+              choose "publicity_Normal"
+              click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+              current_path.should_not == signature_idea_path(idea.id)
+            end
           end
         end
       end
