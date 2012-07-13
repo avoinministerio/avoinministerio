@@ -358,13 +358,9 @@ feature "Idea signing" do
               @signature.state = ""
               @signature.save
               
-#             visit_signature_finalize_signing(idea.id,
-#                                              @citizen.id,
-#                                              "Alandsbankentesti")
-              visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
-              select "Helsinki", from: "signature_occupancy_county"
-              check "Vow"
-              click_button "Allekirjoita"
+              visit_signature_finalize_signing(idea.id,
+                                               @citizen.id,
+                                               "Alandsbankentesti")
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the initial state" do
@@ -380,13 +376,9 @@ feature "Idea signing" do
               @signature.state = "authenticated"
               @signature.save
               
-#             visit_signature_finalize_signing(idea.id,
-#                                              @citizen.id,
-#                                              "Alandsbankentesti")
-              visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
-              select "Helsinki", from: "signature_occupancy_county"
-              check "Vow"
-              click_button "Allekirjoita"
+              visit_signature_finalize_signing(idea.id,
+                                               @citizen.id,
+                                               "Alandsbankentesti")
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the signed state" do
