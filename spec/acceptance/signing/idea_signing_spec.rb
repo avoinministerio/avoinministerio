@@ -468,6 +468,19 @@ feature "Idea signing" do
                                                "Alandsbankentesti")
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
+            scenario "existing signature is at the authenticated state" do
+              @signature.state = "authenticated"
+              @signature.save
+              
+#             visit_signature_finalize_signing(idea.id,
+#                                              @citizen.id,
+#                                              "Alandsbankentesti")
+              visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
+              select "Helsinki", from: "signature_occupancy_county"
+              check "Vow"
+              click_button "Allekirjoita"
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
           end
         end
       end
