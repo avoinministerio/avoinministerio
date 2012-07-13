@@ -459,6 +459,15 @@ feature "Idea signing" do
               click_button "Allekirjoita"
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
+            scenario "existing signature is at the initial state" do
+              @signature.state = "initial"
+              @signature.save
+              
+              visit_signature_finalize_signing(idea.id,
+                                               @citizen.id,
+                                               "Alandsbankentesti")
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
           end
         end
       end
