@@ -175,7 +175,7 @@ module HelperMethods
     visit_signature_idea_path(idea_id)
     # the signature didn't exist before this method was called,
     # therefore it can't be passed as a parameter
-    signature = Signature.where(:idea_id => idea_id, :citizen_id => citizen_id).first
+    signature = Signature.where(:idea_id => idea_id, :citizen_id => citizen_id).last
     visit(capybara_test_return_url(signature.id))
   end
   
