@@ -340,5 +340,37 @@ feature "Idea signing" do
       end
     end
   end
+  
+  context "situation combinations" do
+    context "the idea is a proposal (can be signed)" do
+      context "not authenticated" do
+        context "logged in" do
+          background do
+            @citizen = create_logged_in_citizen
+          end
+          context "already attempted to sign" do
+            background do
+              # AFAIK, @citizen can't be passed to let,
+              # therefore let can't be used
+              @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
+            end
+            scenario "existing signature has empty state" do
+              @signature.state = ""
+              @signature.save
+              
+#             visit_signature_finalize_signing(idea.id,
+#                                              @citizen.id,
+#                                              "Alandsbankentesti")
+              visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
+              select "Helsinki", from: "signature_occupancy_county"
+              check "Vow"
+              click_button "Allekirjoita"
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+          end
+        end
+      end
+    end
+  end
 
 end
