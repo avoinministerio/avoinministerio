@@ -156,6 +156,7 @@ class SignaturesController < ApplicationController
   def valid_returning?(signature, service_name)
     values = %w(VERS TIMESTMP IDNBR STAMP CUSTNAME KEYVERS ALG CUSTID CUSTTYPE).map {|key| params["B02K_" + key]}
     string = values[0,9].join("&") + "&" + service_secret(service_name) + "&"
+    # puts string, mac(string)
     params["B02K_MAC"] == mac(string)
   end
 

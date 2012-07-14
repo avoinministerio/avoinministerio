@@ -4,7 +4,6 @@ require 'webmock/rspec'
 
 #Capybara.javascript_driver = :webkit
 
-
 feature "Idea signing" do
   let(:citizen_password) { '123456789' }
   let(:citizen_email) { 'citizen-kane@example.com'}
@@ -72,7 +71,8 @@ feature "Idea signing" do
     # here we're making a mock out of real TUPAS service. Instead we return with almost static, once valid url
     # just inject in the right signature.id
     signature = Signature.all.last
-    visit("/signatures/#{signature.id}/returning/Alandsbankentesti?B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08&B02K_MAC=31342513E20EB7374AAF867A91EA4FAB990B519E02C641C1376D7396D969AE3F")
+    # the url has a fake MAC, calculated with secret set up here
+    visit(capybara_test_return_url(signature.id))
     signature = Signature.all.last # requires reloading after visit, as controller updates for example date
 
     page.should have_field('signature_idea_title', with: "Idea uudesta laista")
