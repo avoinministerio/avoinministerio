@@ -134,6 +134,28 @@ module HelperMethods
     Factory(:idea, extra_attributes)
   end
 
+  # This should be refactored somewhere away
+  def mac(string)
+    Digest::SHA256.new.update(string).hexdigest.upcase
+  end
+
+  def calculate_mac(return_parameters)
+    values_string     = return_parameters.gsub(/&.+?=/, "&").gsub(/^.+?=/, "")    # just values
+    values_string     = values_string.gsub(/\+/, " ")                             # convert '+'' -> space
+    string = "#{values_string}&#{ENV['SECRET_Capybaratesti']}&"
+    test_mac = mac(string)
+    # p return_parameters, values_string, string, test_mac
+    test_mac
+  end
+
+  def capybara_test_return_url(signature_id)
+    service = "Capybaratesti"
+    ENV["SECRET_#{service}"] = "capybaratesti"
+    return_parameters = "B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08"
+    test_mac = calculate_mac(return_parameters)
+    "/signatures/#{signature_id}/returning/Capybaratesti?#{return_parameters}&B02K_MAC=#{test_mac}"
+  end
+
   # while sending POST requests with Capybara is possible,
   # it's strongly not recommended
   def visit_signature_idea_approval_path(id)
@@ -154,7 +176,7 @@ module HelperMethods
     # the signature didn't exist before this method was called,
     # therefore it can't be passed as a parameter
     signature = Signature.where(:idea_id => idea_id, :citizen_id => citizen_id).first
-    visit "/signatures/#{signature.id}/returning/#{servicename}?B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08&B02K_MAC=31342513E20EB7374AAF867A91EA4FAB990B519E02C641C1376D7396D969AE3F"
+    visit(capybara_test_return_url(signature.id))
   end
   
   def visit_signature_finalize_signing(idea_id, citizen_id, servicename)
