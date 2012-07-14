@@ -139,21 +139,21 @@ module HelperMethods
     Digest::SHA256.new.update(string).hexdigest.upcase
   end
 
-  def calculate_mac(return_parameters)
+  def calculate_mac(return_parameters, secret)
     values_string     = return_parameters.gsub(/&.+?=/, "&").gsub(/^.+?=/, "")    # just values
     values_string     = values_string.gsub(/\+/, " ")                             # convert '+'' -> space
-    string = "#{values_string}&#{ENV['SECRET_Capybaratesti']}&"
+    string = %Q!#{values_string}&#{secret}&!
     test_mac = mac(string)
-    # p return_parameters, values_string, string, test_mac
     test_mac
   end
 
   def capybara_test_return_url(signature_id)
     service = "Capybaratesti"
-    ENV["SECRET_#{service}"] = "capybaratesti"
+    secret  = "capybaratesti"
+    ENV["SECRET_#{service}"] = secret
     return_parameters = "B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08"
-    test_mac = calculate_mac(return_parameters)
-    "/signatures/#{signature_id}/returning/Capybaratesti?#{return_parameters}&B02K_MAC=#{test_mac}"
+    test_mac = calculate_mac(return_parameters, secret)
+    "/signatures/#{signature_id}/returning/#{service}?#{return_parameters}&B02K_MAC=#{test_mac}"
   end
 
   # while sending POST requests with Capybara is possible,
