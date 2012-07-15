@@ -22,7 +22,7 @@ feature "Idea signing" do
                   target_count: 51500
   }
 
-  background do
+  def logged_in_citizen_on_homepage
     case 2
     when 1
       @citizen = create_citizen({ :password => citizen_password, :email => citizen_email })
@@ -34,7 +34,10 @@ feature "Idea signing" do
       @citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
       visit homepage
     end
+  end
 
+  background do
+    logged_in_citizen_on_homepage
     should_be_on homepage
   end
 
@@ -137,7 +140,7 @@ feature "Idea signing" do
     # 9: Thank you page again
     page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
   end
-  
+
   context "individual steps" do
     context "normal flow" do
       scenario "1) go to the introduction page" do
