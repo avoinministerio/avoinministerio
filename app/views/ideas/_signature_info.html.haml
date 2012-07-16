@@ -8,7 +8,7 @@
     - if completed_signature
       Olet jo allekirjoittanut kannatusilmoituksen onnistuneesti. Et voi allekirjoittaa sitä uudelleen, mutta nyt koska kyseessä on demo niin sallimme uusia ilmoituksia.
 
-  - if on_going
+  - if on_going and idea.collecting_in_service
     .button
       - if current_citizen
         - twenty_mins = (1.0/(24*(60/20)))
@@ -28,8 +28,7 @@
       /- # TODO: Add still supporting button
 
   .signature-statistics
-    .stat-header Aloitteen kannatusilmoitusten
-    .stat-header keruu
+    .stat-header Kannatusilmoitusten keruu
     .stat
       Keruu on 
       %b= (on_going ? "käynnissä" : (not started ? "alkamatta" : "päättynyt"))
@@ -51,9 +50,9 @@
       kpl
 
     .stat-divider
-    .stat-header Tähän mennessä
+    .stat-header Kerätty tähän mennessä
     .stat
-      Avoimessa ministeriössä kerätty
+      Avoimessa ministeriössä
       - signatures_count = idea.signatures.where(state: "signed").count
       %b= signatures_count
       kpl
@@ -72,8 +71,14 @@
     .stat
       Arvio lukumäärästä päivitetty
       = finnishDate(idea.additional_signatures_count_date)
+    - additional_urls = idea.additional_collecting_service_urls.split(/!!!/)
+    - if additional_urls 
+      .stat
+        Kerääminen muualla:
+        - additional_urls.each do |add_url|
+          = link_to add_url, add_url
     .stat
-      (Muualla kerätyt ovat arvioitu ja noin kerran viikossa päivitettävä tieto.)
+      (Muualla kerättyjen määrät ovat arvioita ja noin kerran viikossa päivitettävä tieto.)
 
     .stat-divider
     - signatures_per_day = (total_signatures.to_f) / dates_collected

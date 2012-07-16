@@ -11,20 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120705195735) do
+ActiveRecord::Schema.define(:version => 20120716090326) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "failed_attempts",                       :default => 0
+    t.integer  "failed_attempts",        :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "password"
@@ -80,11 +80,11 @@ ActiveRecord::Schema.define(:version => 20120705195735) do
 
   create_table "citizens", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -132,19 +132,19 @@ ActiveRecord::Schema.define(:version => 20120705195735) do
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.string   "state",                            :default => "idea"
+    t.string   "state",                              :default => "idea"
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "summary"
-    t.string   "publish_state",                    :default => "published"
+    t.string   "publish_state",                      :default => "published"
     t.string   "slug"
-    t.integer  "comment_count",                    :default => 0
-    t.integer  "vote_count",                       :default => 0
-    t.integer  "vote_for_count",                   :default => 0
-    t.integer  "vote_against_count",               :default => 0
-    t.float    "vote_proportion",                  :default => 0.0
-    t.float    "vote_proportion_away_mid",         :default => 0.5
+    t.integer  "comment_count",                      :default => 0
+    t.integer  "vote_count",                         :default => 0
+    t.integer  "vote_for_count",                     :default => 0
+    t.integer  "vote_against_count",                 :default => 0
+    t.float    "vote_proportion",                    :default => 0.0
+    t.float    "vote_proportion_away_mid",           :default => 0.5
     t.boolean  "collecting_started"
     t.boolean  "collecting_ended"
     t.date     "collecting_start_date"
@@ -152,6 +152,8 @@ ActiveRecord::Schema.define(:version => 20120705195735) do
     t.integer  "additional_signatures_count"
     t.date     "additional_signatures_count_date"
     t.integer  "target_count"
+    t.boolean  "collecting_in_service"
+    t.string   "additional_collecting_service_urls"
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
