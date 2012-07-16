@@ -9,6 +9,7 @@ feature "Idea signing" do
   let(:citizen_email) { 'citizen-kane@example.com'}
   let(:idea) {
     Factory :idea, state: "proposal", 
+                  collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
                   collecting_start_date: today_date, collecting_end_date: today_date + 180, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
@@ -16,6 +17,7 @@ feature "Idea signing" do
   }
   let(:another_idea) {
     Factory :idea, state: "proposal", 
+                  collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
                   collecting_start_date: today_date, collecting_end_date: today_date + 180, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 

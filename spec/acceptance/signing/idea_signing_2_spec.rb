@@ -9,6 +9,7 @@ feature "Idea signing" do
   let(:citizen_email) { 'citizen-kane@example.com'}
   let(:idea) {
     Factory :idea, state: "proposal", 
+                  collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
                   collecting_start_date: today_date, collecting_end_date: today_date + 180, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
@@ -16,6 +17,7 @@ feature "Idea signing" do
   }
   let(:another_idea) {
     Factory :idea, state: "proposal", 
+                  collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
                   collecting_start_date: today_date, collecting_end_date: today_date + 180, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
@@ -23,6 +25,7 @@ feature "Idea signing" do
   }
   let(:state_idea) {
     Factory :idea, state: "idea", 
+                  collecting_in_service: false,
                   collecting_started: false, collecting_ended: false, 
                   collecting_start_date: today_date + 1, collecting_end_date: today_date + 181, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
@@ -30,6 +33,7 @@ feature "Idea signing" do
   }
   let(:state_draft) {
     Factory :idea, state: "draft", 
+                  collecting_in_service: false,
                   collecting_started: false, collecting_ended: false, 
                   collecting_start_date: today_date + 1, collecting_end_date: today_date + 181, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
@@ -37,6 +41,7 @@ feature "Idea signing" do
   }
   let(:not_started_proposal) {
     Factory :idea, state: "proposal", 
+                  collecting_in_service: true,
                   collecting_started: false, collecting_ended: false, 
                   collecting_start_date: today_date + 1, collecting_end_date: today_date + 181, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
@@ -44,6 +49,7 @@ feature "Idea signing" do
   }
   let(:ended_proposal) {
     Factory :idea, state: "proposal", 
+                  collecting_in_service: true,
                   collecting_started: true, collecting_ended: true, 
                   collecting_start_date: today_date - 181, collecting_end_date: today_date - 1, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
@@ -82,7 +88,7 @@ feature "Idea signing" do
     end
 
     scenario "Fail" do
-      false.should_be true
+#      false.should_be true
     end
 
   end
