@@ -553,6 +553,10 @@ feature "Idea signing" do
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
           end
+          scenario "not attempted to sign before" do
+            visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+            page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+          end
         end
       end
     end
