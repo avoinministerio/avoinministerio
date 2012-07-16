@@ -439,6 +439,27 @@ feature "Idea signing" do
               page.should have_content "Aiemmin allekirjoitettu"
               page.should_not have_button "Allekirjoita"
             end
+            scenario "existing signature is at the invalid return state" do
+              @signature.state = "invalid return"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the 'too late' state" do
+              @signature.state = "too late"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the repeated_returning state" do
+              @signature.state = "repeated_returning"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
           end
         end
       end
