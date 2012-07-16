@@ -171,7 +171,7 @@ module HelperMethods
     click_button "Hyväksy ehdot ja siirry tunnistautumaan"
   end
   
-  def visit_signature_returning(idea_id, citizen_id, servicename)
+  def visit_signature_returning(idea_id, citizen_id)
     visit_signature_idea_path(idea_id)
     # the signature didn't exist before this method was called,
     # therefore it can't be passed as a parameter
@@ -179,16 +179,15 @@ module HelperMethods
     visit(capybara_test_return_url(signature.id))
   end
   
-  def visit_signature_finalize_signing(idea_id, citizen_id, servicename)
-    visit_signature_returning(idea_id, citizen_id, servicename)
+  def visit_signature_finalize_signing(idea_id, citizen_id)
+    visit_signature_returning(idea_id, citizen_id)
     select "Helsinki", from: "signature_occupancy_county"
     check "Vow"
     click_button "Allekirjoita"
   end
   
-  def visit_signature_finalize_signing_after_shortcut_fillin(idea_id, another_idea_id, citizen_id, servicename)
-    visit_signature_finalize_signing(idea_id, citizen_id, servicename)
-    visit signature_idea_shortcut_fillin_path(another_idea_id)
+  def visit_signature_finalize_signing_after_shortcut_fillin(idea_id)
+    visit signature_idea_shortcut_fillin_path(idea_id)
     check "Vow"
     click_button "Allekirjoita"
   end

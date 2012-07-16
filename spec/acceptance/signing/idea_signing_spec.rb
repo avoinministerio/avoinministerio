@@ -181,7 +181,7 @@ feature "Idea signing" do
       end
       
       scenario "5) return from TUPAS" do
-        visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
+        visit_signature_returning(idea.id, @citizen.id)
         signature = Signature.where(:idea_id => idea.id,
                                     :citizen_id => @citizen.id).first
         
@@ -205,25 +205,19 @@ feature "Idea signing" do
       end
       
       scenario "6) thank you page" do
-        visit_signature_finalize_signing(idea.id,
-                                         @citizen.id,
-                                         "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
       
       scenario "7) go to the shortcut fillin page" do
-        visit_signature_finalize_signing(idea.id,
-                                         @citizen.id,
-                                         "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
         visit idea_page(another_idea.id)
         click_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
         should_be_on signature_idea_shortcut_fillin_path(another_idea.id)
       end
       
       scenario "8) fill in signature" do
-        visit_signature_finalize_signing(idea.id,
-                                         @citizen.id,
-                                         "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
         visit signature_idea_shortcut_fillin_path(another_idea.id)
         signature = Signature.where(:idea_id => another_idea.id,
                                     :citizen_id => @citizen.id).first
@@ -251,10 +245,8 @@ feature "Idea signing" do
       end
       
       scenario "9) thank you page again" do
-        visit_signature_finalize_signing_after_shortcut_fillin(idea.id,
-                                                               another_idea.id,
-                                                               @citizen.id,
-                                                               "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
+        visit_signature_finalize_signing_after_shortcut_fillin(another_idea.id)
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
     end
@@ -304,7 +296,7 @@ feature "Idea signing" do
       end
       
       scenario "6) citizen doesn't give the vow" do
-        visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
+        visit_signature_returning(idea.id, @citizen.id)
         select "Helsinki", from: "signature_occupancy_county"
         uncheck "Vow"
         click_button "Allekirjoita"
@@ -318,9 +310,7 @@ feature "Idea signing" do
       end
       
       scenario "8) citizen doesn't give the vow" do
-        visit_signature_finalize_signing(idea.id,
-                                         @citizen.id,
-                                         "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
         visit signature_idea_shortcut_fillin_path(another_idea.id)
         uncheck "Vow"
         click_button "Allekirjoita"
@@ -329,9 +319,7 @@ feature "Idea signing" do
       end
       
       scenario "9) not logged in" do
-        visit_signature_finalize_signing(idea.id,
-                                         @citizen.id,
-                                         "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
         visit signature_idea_shortcut_fillin_path(another_idea.id)
         logout
         check "Vow"
@@ -355,27 +343,21 @@ feature "Idea signing" do
               @signature.state = ""
               @signature.save
               
-              visit_signature_finalize_signing(idea.id,
-                                               @citizen.id,
-                                               "Alandsbankentesti")
+              visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the initial state" do
               @signature.state = "initial"
               @signature.save
               
-              visit_signature_finalize_signing(idea.id,
-                                               @citizen.id,
-                                               "Alandsbankentesti")
+              visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the authenticated state" do
               @signature.state = "authenticated"
               @signature.save
               
-              visit_signature_finalize_signing(idea.id,
-                                               @citizen.id,
-                                               "Alandsbankentesti")
+              visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the signed state" do
@@ -393,34 +375,26 @@ feature "Idea signing" do
               @signature.state = "invalid return"
               @signature.save
               
-              visit_signature_finalize_signing(idea.id,
-                                               @citizen.id,
-                                               "Alandsbankentesti")
+              visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the 'too late' state" do
               @signature.state = "too late"
               @signature.save
               
-              visit_signature_finalize_signing(idea.id,
-                                               @citizen.id,
-                                               "Alandsbankentesti")
+              visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the repeated_returning state" do
               @signature.state = "repeated_returning"
               @signature.save
               
-              visit_signature_finalize_signing(idea.id,
-                                               @citizen.id,
-                                               "Alandsbankentesti")
+              visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
           end
           scenario "not attempted to sign before" do
-            visit_signature_finalize_signing(idea.id,
-                                               @citizen.id,
-                                               "Alandsbankentesti")
+            visit_signature_finalize_signing(idea.id, @citizen.id)
             page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
           end
         end
@@ -428,6 +402,27 @@ feature "Idea signing" do
           logout
           visit idea_page(idea.id)
           page.should_not have_link "Allekirjoita kannatusilmoitus"
+        end
+      end
+      context "authenticated" do
+        background do
+          visit_signature_finalize_signing(another_idea.id, @citizen.id)
+        end
+        context "logged in" do
+          context "already attempted to sign" do
+            background do
+              # AFAIK, @citizen can't be passed to let,
+              # therefore let can't be used
+              @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
+            end
+            scenario "existing signature has empty state" do
+              @signature.state = ""
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+          end
         end
       end
     end
