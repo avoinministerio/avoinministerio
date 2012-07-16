@@ -514,6 +514,13 @@ feature "Idea signing" do
               visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
+            scenario "existing signature is at the initial state" do
+              @signature.state = "initial"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
           end
         end
       end
