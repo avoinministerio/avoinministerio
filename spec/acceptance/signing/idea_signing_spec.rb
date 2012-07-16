@@ -490,11 +490,6 @@ feature "Idea signing" do
             page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
           end
         end
-        scenario "not logged in" do
-          logout
-          visit idea_page(idea.id)
-          page.should_not have_link "Allekirjoita kannatusilmoitus"
-        end
       end
       context "authenticated" do
         background do
