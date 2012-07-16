@@ -15,9 +15,11 @@ class Idea < ActiveRecord::Base
   attr_accessible   :title, :body, :summary, :state, 
                     :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
                     :vote_proportion, :vote_proportion_away_mid,
+                    :collecting_in_service, 
                     :collecting_started, :collecting_ended,
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
+                    :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
                     :target_count
 
   has_many :comments, as: :commentable
