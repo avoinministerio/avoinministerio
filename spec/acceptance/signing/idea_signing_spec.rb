@@ -523,6 +523,14 @@ feature "Idea signing" do
               visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
+            scenario "existing signature is at the signed state" do
+              @signature.state = "signed"
+              @signature.save
+              
+              visit signature_idea_shortcut_fillin_path(idea.id)
+              page.should have_content "Aiemmin allekirjoitettu"
+              page.should_not have_button "Allekirjoita"
+            end
           end
         end
       end
