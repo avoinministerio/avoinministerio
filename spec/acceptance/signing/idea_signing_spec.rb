@@ -466,6 +466,11 @@ feature "Idea signing" do
             page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
           end
         end
+        scenario "not logged in" do
+          logout
+          visit signature_idea_shortcut_fillin_path(idea.id)
+          should_be_on new_citizen_session_path
+        end
       end
     end
   end
