@@ -474,5 +474,28 @@ feature "Idea signing" do
       end
     end
   end
+  
+  context "white-box testing" do
+    context "change the account in the middle of signing" do
+      scenario "change the account during authentication" do
+        visit_signature_idea_path(idea.id)
+        create_logged_in_citizen
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).last
+        visit(capybara_test_return_url(signature.id))
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_button "Allekirjoita"
+      end
+      scenario "change the account right before signing" do
+        visit_signature_returning(idea.id, @citizen.id)
+        create_logged_in_citizen
+        select "Helsinki", from: "signature_occupancy_county"
+        check "Vow"
+        click_button "Allekirjoita"
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+      end
+    end
+  end
 
 end
