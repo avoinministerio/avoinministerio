@@ -512,6 +512,21 @@ feature "Idea signing" do
       page.should have_content "Tunnistaminen epäonnistui"
       page.should_not have_button "Allekirjoita"
     end
+    scenario "not within timelimit" do
+      visit_signature_idea_path(idea.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+      Timecop.travel(Time.now + 30.minutes)
+      visit(capybara_test_return_url(signature.id))
+      
+      page.should have_content "Tunnistaminen epäonnistui"
+      page.should_not have_button "Allekirjoita"
+      
+      # BUG: when this test fails, the line below is not run
+      # and RSpec thinks that the test took half an hour.
+      # I'm not aware of any way to fix it.
+      Timecop.return
+    end
   end
 
 end
