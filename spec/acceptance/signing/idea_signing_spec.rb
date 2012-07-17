@@ -496,6 +496,22 @@ feature "Idea signing" do
         page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
     end
+    scenario "invalid returning" do
+      visit_signature_idea_path(idea.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+      
+      service = "Capybaratesti"
+      secret  = "capybaratesti"
+      ENV["SECRET_#{service}"] = secret
+      return_parameters = "B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08"
+      wrong_mac = mac(Random.new.bytes(100))
+      
+      visit "/signatures/#{signature.id}/returning/#{service}?#{return_parameters}&B02K_MAC=#{wrong_mac}"
+      
+      page.should have_content "Tunnistaminen epäonnistui"
+      page.should_not have_button "Allekirjoita"
+    end
   end
 
 end
