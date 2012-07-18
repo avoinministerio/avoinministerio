@@ -518,14 +518,18 @@ feature "Idea signing" do
                                   :citizen_id => @citizen.id).last
       Timecop.travel(Time.now + 30.minutes)
       visit(capybara_test_return_url(signature.id))
+      Timecop.return
       
       page.should have_content "Tunnistaminen epäonnistui"
       page.should_not have_button "Allekirjoita"
-      
-      # BUG: when this test fails, the line below is not run
-      # and RSpec thinks that the test took half an hour.
-      # I'm not aware of any way to fix it.
-      Timecop.return
+    end
+    scenario "repeated returning" do
+      visit_signature_returning(idea.id, @citizen.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+      visit(capybara_test_return_url(signature.id))
+      page.should have_content "Tunnistaminen epäonnistui"
+      page.should_not have_button "Allekirjoita"
     end
   end
 
