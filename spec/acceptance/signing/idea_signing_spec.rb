@@ -540,6 +540,16 @@ feature "Idea signing" do
       page.should have_content "Tunnistaminen epäonnistui"
       page.should_not have_button "Allekirjoita"
     end
+    context "authentication is rejected" do
+      scenario "everything else is normal" do
+        visit_signature_idea_path(idea.id)
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).last
+        visit "/signatures/#{signature.id}/rejecting/Capybaratesti"
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_button "Allekirjoita"
+      end
+    end
   end
 
 end
