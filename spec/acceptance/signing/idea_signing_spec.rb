@@ -589,6 +589,17 @@ feature "Idea signing" do
       # save_and_open_page
       should_be_on signature_idea_introduction(idea.id)
     end
+    
+    scenario "session['authenticated_at'] has an illegal value" do
+      visit_signature_finalize_signing(idea.id, @citizen.id)
+      Timecop.travel(Time.now - 1.minute)
+      expect {visit idea_page(idea.id)}.to raise_error
+      
+      # BUG: If this test fails, the line below is not run
+      # and RSpec thinks that the test took negative time.
+      # I'm not aware of any way to fix it.
+      Timecop.return
+    end
   end
 
 end
