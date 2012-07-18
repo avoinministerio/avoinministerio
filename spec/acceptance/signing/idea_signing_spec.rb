@@ -586,6 +586,7 @@ feature "Idea signing" do
                              :occupancy_county => "Helsinki",
                              :vow => true
                            }}})
+      # save_and_open_page
       should_be_on signature_idea_introduction(idea.id)
     end
   end
