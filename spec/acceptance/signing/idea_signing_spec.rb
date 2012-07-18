@@ -559,6 +559,10 @@ feature "Idea signing" do
         page.should_not have_button "Allekirjoita"
       end
     end
+    scenario "the citizen attempts to use shortcut fillin but has not authenticated" do
+      visit signature_idea_shortcut_fillin_path(idea.id)
+      should_be_on signature_idea_introduction(idea.id)
+    end
   end
 
 end
