@@ -549,6 +549,15 @@ feature "Idea signing" do
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_button "Allekirjoita"
       end
+      scenario "the citizen also changes the account while signing" do
+        visit_signature_idea_path(idea.id)
+        create_logged_in_citizen
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).last
+        visit "/signatures/#{signature.id}/rejecting/Capybaratesti"
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_button "Allekirjoita"
+      end
     end
   end
 
