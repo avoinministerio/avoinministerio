@@ -315,7 +315,7 @@ class SignaturesController < ApplicationController
       end
       respond_with @signature
     else
-      redirect_to_introduction
+      redirect_to signature_idea_introduction_path(params[:id])
     end
   end
 
@@ -329,7 +329,7 @@ class SignaturesController < ApplicationController
       end
       render :finalize_signing
     else
-      redirect_to_introduction
+      redirect_to signature_idea_introduction_path(params[:id])
     end
   end
 
