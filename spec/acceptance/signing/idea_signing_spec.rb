@@ -563,6 +563,31 @@ feature "Idea signing" do
       visit signature_idea_shortcut_fillin_path(idea.id)
       should_be_on signature_idea_introduction(idea.id)
     end
+    # Third parties only need to know HTML
+    # (and probably look at the source code)
+    # in order to create a form that sends users to
+    # signature_shortcut_finalize_signing_path.
+    # Therefore we need to test for that kind of attack.
+    scenario "the citizen attempts to sign with shortcut_fillin but has not authenticated" do
+      # PUT request
+      page.driver.put(signature_shortcut_finalize_signing_path(idea.id),
+                       {:params => {
+                           :signature => {
+                             :accept_general => true,
+                             :accept_science => true,
+                             :accept_non_eu_server => true,
+                             :accept_publicity => "Normal",
+                             :idea_title => idea.title,
+                             :idea_date => today_date,
+                             :signing_date => today_date,
+                             :birth_date => Date.new(1970,1,1),
+                             :firstnames => @citizen.profile.first_names,
+                             :lastname => @citizen.profile.last_name,
+                             :occupancy_county => "Helsinki",
+                             :vow => true
+                           }}})
+      should_be_on signature_idea_introduction(idea.id)
+    end
   end
 
 end
