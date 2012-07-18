@@ -2,7 +2,7 @@ AvoinMinisterio::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Rails secret token from environment variable
-  config.secret_token = ENV['RAILS_SECRET_TOKEN']
+  config.secret_token = File.read(File.join(Rails.root, "secret_token")) rescue ENV['RAILS_SECRET_TOKEN']
 
   # Code is not reloaded between requests
   config.cache_classes = true
