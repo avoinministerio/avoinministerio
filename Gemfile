@@ -63,6 +63,7 @@ group :test do
   gem "email_spec"
   gem "steak"
   gem "capybara-mechanize"
+  gem "timecop"
 
   gem "sqlite3"
 

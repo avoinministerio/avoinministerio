@@ -181,7 +181,7 @@ feature "Idea signing" do
       end
       
       scenario "5) return from TUPAS" do
-        visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
+        visit_signature_returning(idea.id, @citizen.id)
         signature = Signature.where(:idea_id => idea.id,
                                     :citizen_id => @citizen.id).first
         
@@ -205,25 +205,19 @@ feature "Idea signing" do
       end
       
       scenario "6) thank you page" do
-        visit_signature_finalize_signing(idea.id,
-                                         @citizen.id,
-                                         "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
       
       scenario "7) go to the shortcut fillin page" do
-        visit_signature_finalize_signing(idea.id,
-                                         @citizen.id,
-                                         "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
         visit idea_page(another_idea.id)
         click_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
         should_be_on signature_idea_shortcut_fillin_path(another_idea.id)
       end
       
       scenario "8) fill in signature" do
-        visit_signature_finalize_signing(idea.id,
-                                         @citizen.id,
-                                         "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
         visit signature_idea_shortcut_fillin_path(another_idea.id)
         signature = Signature.where(:idea_id => another_idea.id,
                                     :citizen_id => @citizen.id).first
@@ -251,10 +245,8 @@ feature "Idea signing" do
       end
       
       scenario "9) thank you page again" do
-        visit_signature_finalize_signing_after_shortcut_fillin(idea.id,
-                                                               another_idea.id,
-                                                               @citizen.id,
-                                                               "Alandsbankentesti")
+        visit_signature_finalize_signing(idea.id, @citizen.id)
+        visit_signature_finalize_signing_after_shortcut_fillin(another_idea.id)
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
     end
@@ -304,13 +296,316 @@ feature "Idea signing" do
       end
       
       scenario "6) citizen doesn't give the vow" do
-        visit_signature_returning(idea.id, @citizen.id, "Alandsbankentesti")
+        visit_signature_returning(idea.id, @citizen.id)
         select "Helsinki", from: "signature_occupancy_county"
         uncheck "Vow"
         click_button "Allekirjoita"
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
+      
+      scenario "7) citizen has not authenticated" do
+        visit idea_page(idea.id)
+        page.should_not have_link "Allekirjoita kannatusilmoitus ilman uutta tunnistautumista"
+      end
+      
+      scenario "8) citizen doesn't give the vow" do
+        visit_signature_finalize_signing(idea.id, @citizen.id)
+        visit signature_idea_shortcut_fillin_path(another_idea.id)
+        uncheck "Vow"
+        click_button "Allekirjoita"
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+      end
+      
+      scenario "9) not logged in" do
+        visit_signature_finalize_signing(idea.id, @citizen.id)
+        visit signature_idea_shortcut_fillin_path(another_idea.id)
+        logout
+        check "Vow"
+        click_button "Allekirjoita"
+        should_be_on new_citizen_session_path
+      end
+    end
+  end
+  
+  context "situation combinations" do
+    context "the idea is a proposal (can be signed)" do
+      context "not authenticated" do
+        context "logged in" do
+          context "already attempted to sign" do
+            background do
+              # AFAIK, @citizen can't be passed to let,
+              # therefore let can't be used
+              @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
+            end
+            scenario "existing signature has empty state" do
+              @signature.state = ""
+              @signature.save
+              
+              visit_signature_finalize_signing(idea.id, @citizen.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the initial state" do
+              @signature.state = "initial"
+              @signature.save
+              
+              visit_signature_finalize_signing(idea.id, @citizen.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the authenticated state" do
+              @signature.state = "authenticated"
+              @signature.save
+              
+              visit_signature_finalize_signing(idea.id, @citizen.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the signed state" do
+              @signature.state = "signed"
+              @signature.save
+              
+              visit_signature_idea_approval_path(idea.id)
+              check "accept_general"
+              check "accept_non_eu_server"
+              choose "publicity_Normal"
+              click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+              current_path.should_not == signature_idea_path(idea.id)
+            end
+            scenario "existing signature is at the invalid return state" do
+              @signature.state = "invalid return"
+              @signature.save
+              
+              visit_signature_finalize_signing(idea.id, @citizen.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the 'too late' state" do
+              @signature.state = "too late"
+              @signature.save
+              
+              visit_signature_finalize_signing(idea.id, @citizen.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the repeated_returning state" do
+              @signature.state = "repeated_returning"
+              @signature.save
+              
+              visit_signature_finalize_signing(idea.id, @citizen.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+          end
+          scenario "not attempted to sign before" do
+            visit_signature_finalize_signing(idea.id, @citizen.id)
+            page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+          end
+        end
+      end
+      context "authenticated" do
+        background do
+          visit_signature_finalize_signing(another_idea.id, @citizen.id)
+        end
+        context "logged in" do
+          context "already attempted to sign" do
+            background do
+              # AFAIK, @citizen can't be passed to let,
+              # therefore let can't be used
+              @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
+            end
+            scenario "existing signature has empty state" do
+              @signature.state = ""
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the initial state" do
+              @signature.state = "initial"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the authenticated state" do
+              @signature.state = "authenticated"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the signed state" do
+              @signature.state = "signed"
+              @signature.save
+              
+              visit signature_idea_shortcut_fillin_path(idea.id)
+              page.should have_content "Aiemmin allekirjoitettu"
+              page.should_not have_button "Allekirjoita"
+            end
+            scenario "existing signature is at the invalid return state" do
+              @signature.state = "invalid return"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the 'too late' state" do
+              @signature.state = "too late"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+            scenario "existing signature is at the repeated_returning state" do
+              @signature.state = "repeated_returning"
+              @signature.save
+              
+              visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+              page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+            end
+          end
+          scenario "not attempted to sign before" do
+            visit_signature_finalize_signing_after_shortcut_fillin(idea.id)
+            page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+          end
+        end
+        scenario "not logged in" do
+          logout
+          visit signature_idea_shortcut_fillin_path(idea.id)
+          should_be_on new_citizen_session_path
+        end
+      end
+    end
+  end
+  
+  context "white-box testing" do
+    context "change the account in the middle of signing" do
+      scenario "change the account during authentication" do
+        visit_signature_idea_path(idea.id)
+        create_logged_in_citizen
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).last
+        visit(capybara_test_return_url(signature.id))
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_button "Allekirjoita"
+      end
+      scenario "change the account right before signing" do
+        visit_signature_returning(idea.id, @citizen.id)
+        create_logged_in_citizen
+        select "Helsinki", from: "signature_occupancy_county"
+        check "Vow"
+        click_button "Allekirjoita"
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+      end
+    end
+    scenario "invalid returning" do
+      visit_signature_idea_path(idea.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+      
+      service = "Capybaratesti"
+      secret  = "capybaratesti"
+      ENV["SECRET_#{service}"] = secret
+      return_parameters = "B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08"
+      wrong_mac = mac(Random.new.bytes(100))
+      
+      visit "/signatures/#{signature.id}/returning/#{service}?#{return_parameters}&B02K_MAC=#{wrong_mac}"
+      
+      page.should have_content "Tunnistaminen epäonnistui"
+      page.should_not have_button "Allekirjoita"
+    end
+    scenario "not within timelimit" do
+      visit_signature_idea_path(idea.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+      Timecop.travel(Time.now + 30.minutes)
+      visit(capybara_test_return_url(signature.id))
+      Timecop.return
+      
+      page.should have_content "Tunnistaminen epäonnistui"
+      page.should_not have_button "Allekirjoita"
+    end
+    scenario "repeated returning" do
+      visit_signature_returning(idea.id, @citizen.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+      visit(capybara_test_return_url(signature.id))
+      page.should have_content "Tunnistaminen epäonnistui"
+      page.should_not have_button "Allekirjoita"
+    end
+    scenario "cancel authentication and change the account while signing" do
+      visit_signature_idea_path(idea.id)
+      create_logged_in_citizen
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+      visit "/signatures/#{signature.id}/cancelling/Alandsbankentesti"
+      page.should have_content "Tunnistaminen epäonnistui"
+      page.should_not have_button "Allekirjoita"
+    end
+    context "authentication is rejected" do
+      scenario "everything else is normal" do
+        visit_signature_idea_path(idea.id)
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).last
+        visit "/signatures/#{signature.id}/rejecting/Capybaratesti"
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_button "Allekirjoita"
+      end
+      scenario "the citizen also changes the account while signing" do
+        visit_signature_idea_path(idea.id)
+        create_logged_in_citizen
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).last
+        visit "/signatures/#{signature.id}/rejecting/Capybaratesti"
+        page.should have_content "Tunnistaminen epäonnistui"
+        page.should_not have_button "Allekirjoita"
+      end
+    end
+    scenario "the citizen attempts to use shortcut fillin but has not authenticated" do
+      visit signature_idea_shortcut_fillin_path(idea.id)
+      should_be_on signature_idea_introduction(idea.id)
+    end
+    # Third parties only need to know HTML
+    # (and probably look at the source code)
+    # in order to create a form that sends users to
+    # signature_shortcut_finalize_signing_path.
+    # Therefore we need to test for that kind of attack.
+    scenario "the citizen attempts to sign with shortcut_fillin but has not authenticated" do
+      # PUT request
+      page.driver.put(signature_shortcut_finalize_signing_path(idea.id),
+                       {:params => {
+                           :signature => {
+                             :accept_general => true,
+                             :accept_science => true,
+                             :accept_non_eu_server => true,
+                             :accept_publicity => "Normal",
+                             :idea_title => idea.title,
+                             :idea_date => today_date,
+                             :signing_date => today_date,
+                             :birth_date => Date.new(1970,1,1),
+                             :firstnames => @citizen.profile.first_names,
+                             :lastname => @citizen.profile.last_name,
+                             :occupancy_county => "Helsinki",
+                             :vow => true
+                           }}})
+      # save_and_open_page
+      should_be_on signature_idea_introduction(idea.id)
+    end
+    
+    scenario "session['authenticated_at'] has an illegal value" do
+      visit_signature_finalize_signing(idea.id, @citizen.id)
+      Timecop.travel(Time.now - 1.minute)
+      expect {visit idea_page(idea.id)}.to raise_error
+      
+      # BUG: If this test fails, the line below is not run
+      # and RSpec thinks that the test took negative time.
+      # I'm not aware of any way to fix it.
+      Timecop.return
+    end
+    
+    scenario "the idea can't be signed and the citizen enters the URL manually" do
+      idea_that_cannot_be_signed = Factory :idea
+      visit signature_idea_introduction(idea_that_cannot_be_signed.id)
+      page.should have_content "Can't be signed"
+      page.should_not have_button "Siirry hyväksymään ehdot"
     end
   end
 
