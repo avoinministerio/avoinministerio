@@ -2,6 +2,8 @@
 require "acceptance/acceptance_helper"
 require 'webmock/rspec'
 
+include ApplicationHelper
+
 #Capybara.javascript_driver = :webkit
 
 feature "Idea signing" do
@@ -65,6 +67,9 @@ feature "Idea signing" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
       visit idea_page(idea.id)
       page.should have_link("Allekirjoita kannatusilmoitus")
+      page.should have_content("Keruu on käynnissä")
+      page.should have_content("Käynnistynyt " + finnishDate(today_date))
+      page.should have_content("Keräys päättyy " + finnishDate(today_date + 180))
     end
     scenario "Ideas cannot be signed" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
@@ -80,11 +85,15 @@ feature "Idea signing" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
       visit idea_page(not_started_proposal.id)
       page.should_not have_link("Allekirjoita")
+      page.should have_content("Keruu on alkamatta")
+      page.should have_content("Käynnistymässä " + finnishDate(today_date + 1))
     end
     scenario "Ended proposal" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
       visit idea_page(ended_proposal.id)
       page.should_not have_link("Allekirjoita")
+      page.should have_content("Keruu on päättynyt")
+      page.should have_content("Keräys päättyi " + finnishDate(today_date - 1))
     end
 
     scenario "Fail" do
