@@ -58,6 +58,9 @@ feature "Idea signing" do
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
                   target_count: 51500
   }
+  let(:signature) {
+    Factory :signature, idea: idea
+  }
 
   context "Sign button on Idea page visible" do
     scenario "Not logged in user gets to log in to sign" do
@@ -73,6 +76,10 @@ feature "Idea signing" do
       page.should have_content("Keräys päättyy " + finnishDate(today_date + 180))
       page.should have_content("Kerääminen muualla")
       page.should have_link("http://www.example.com/initiative")
+      
+      page.should have_content("Kerätty keskimäärin " +
+                               sprintf("%.1f", idea.signatures_per_day) +
+                               " kpl / päivä")
     end
     scenario "Ideas cannot be signed" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
@@ -102,6 +109,14 @@ feature "Idea signing" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
       visit idea_page(another_idea.id)
       page.should_not have_content("Kerääminen muualla")
+    end
+    scenario "Idea is on going and has got a signature" do
+      citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
+      signature
+      visit idea_page(idea.id)
+      total_days_to_reach_target = (idea.target_count) / idea.signatures_per_day
+      
+      page.should have_content("Tällä tahdilla kerääminen kestänee kaikkiaan #{sprintf('%.1f', total_days_to_reach_target)} päivää")
     end
 
     scenario "Fail" do

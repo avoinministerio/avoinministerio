@@ -120,4 +120,11 @@ class Idea < ActiveRecord::Base
   def vote_counts
     votes.group(:option).count
   end
+  
+  def signatures_per_day
+    signatures_count = signatures.where(state: "signed").count
+    total_signatures = signatures_count + additional_signatures_count
+    dates_collected = (today_date - collecting_start_date + 1).to_i
+    (total_signatures.to_f) / dates_collected
+  end
 end
