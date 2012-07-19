@@ -127,4 +127,12 @@ class Idea < ActiveRecord::Base
     dates_collected = (today_date - collecting_start_date + 1).to_i
     (total_signatures.to_f) / dates_collected
   end
+  
+  def can_be_signed?
+    started   = collecting_started ||
+      (collecting_start_date && collecting_start_date <= today_date)
+    ended     = collecting_ended   ||
+      (collecting_end_date && collecting_end_date < today_date)
+    started and (not ended) and collecting_in_service and state == "proposal"
+  end
 end
