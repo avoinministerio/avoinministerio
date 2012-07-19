@@ -9,17 +9,18 @@ class SignaturesController < ApplicationController
   include SignaturesControllerHelpers
 
   before_filter :authenticate_citizen!
+  before_filter :check_if_idea_can_be_signed, :except => [:returning,
+                                                          :cancelling,
+                                                          :rejecting,
+                                                          :finalize_signing,
+                                                          :shortcut_finalize_signing]
 
   respond_to :html
 
   def introduction
-    # TODO FIXME: check that idea can be signed
-    # ie. cover case when user does type in the url (when Sign button is not shown, or link is copied over a mail)
   end
 
   def approval
-    # TODO FIXME: check that idea can be signed
-    # ie. cover case when user does type in the url (when Sign button is not shown, or link is copied over a mail)
   end
 
   def fill_in_acceptances(signature)
@@ -30,7 +31,6 @@ class SignaturesController < ApplicationController
   end
 
   def sign
-    # ERROR: check that idea is on_going, otherwise no signatures should be collected
     # ERROR: Check that user has not signed already
     # TODO FIXME: check if user don't have any in-progress signatures
     # ie. cover case when user does not type in the url (when Sign button is not shown)
@@ -315,7 +315,7 @@ class SignaturesController < ApplicationController
       end
       respond_with @signature
     else
-      redirect_to_introduction
+      redirect_to signature_idea_introduction_path(params[:id])
     end
   end
 
@@ -329,7 +329,7 @@ class SignaturesController < ApplicationController
       end
       render :finalize_signing
     else
-      redirect_to_introduction
+      redirect_to signature_idea_introduction_path(params[:id])
     end
   end
 
@@ -339,6 +339,14 @@ class SignaturesController < ApplicationController
 
   def idea_mac(idea)
     mac(idea.title + idea.body + idea.updated_at.to_s)
+  end
+  
+  def check_if_idea_can_be_signed
+    idea = Idea.find(params[:id])
+    if !idea.can_be_signed?
+      Rails.logger.info "can't be signed"
+      @error = "Can't be signed"
+    end
   end
 
 end

@@ -56,10 +56,11 @@ Spork.prefork do
   require "webmock/rspec"
   require "email_spec"
 
-  # Capybara + Steak for integration test
+  # Capybara + Steak + Timecop for integration test
   require "capybara/rspec"
   require "steak"
   require "capybara/mechanize"
+  require "timecop"
 
   RSpec.configure do |config|
     config.mock_with :rspec

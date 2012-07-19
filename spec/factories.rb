@@ -78,5 +78,6 @@ FactoryGirl.define do
   factory :signature do
     association :citizen, factory: :citizen
     association :idea, factory: :idea
+    state 'signed'
   end
 end

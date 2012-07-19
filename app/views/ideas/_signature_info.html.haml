@@ -72,7 +72,7 @@
       Arvio lukumäärästä päivitetty
       = finnishDate(idea.additional_signatures_count_date)
     - additional_urls = (idea.additional_collecting_service_urls || "").split(/!!!/)
-    - if additional_urls 
+    - if additional_urls != []
       .stat
         Kerääminen muualla:
         - additional_urls.each do |add_url|
