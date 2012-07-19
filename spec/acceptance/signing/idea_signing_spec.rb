@@ -600,6 +600,13 @@ feature "Idea signing" do
       # I'm not aware of any way to fix it.
       Timecop.return
     end
+    
+    scenario "the idea can't be signed and the citizen enters the URL manually" do
+      idea_that_cannot_be_signed = Factory :idea
+      visit signature_idea_introduction(idea_that_cannot_be_signed.id)
+      page.should have_content "Virhetilanne"
+      page.should_not have_button "Siirry hyväksymään ehdot"
+    end
   end
 
 end
