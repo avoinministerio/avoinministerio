@@ -77,9 +77,10 @@ feature "Idea signing" do
       page.should have_content("Kerääminen muualla")
       page.should have_link("http://www.example.com/initiative")
       
-      page.should have_content("Kerätty keskimäärin " +
-                               sprintf("%.1f", idea.signatures_per_day) +
-                               " kpl / päivä")
+      page.should have_content("Kerätty keskimäärin 0.0 kpl / päivä")
+      page.should_not have_content("Tällä tahdilla kerääminen kestänee kaikkiaan")
+      page.should_not have_content("Tavoite on täyttynyt")
+      page.should_not have_content("Kannatusilmoitusten keräys on päättynyt")
     end
     scenario "Ideas cannot be signed" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
@@ -97,6 +98,7 @@ feature "Idea signing" do
       page.should_not have_link("Allekirjoita")
 #      page.should have_content("Keruu on alkamatta")
 #      page.should have_content("Käynnistymässä " + finnishDate(today_date + 1))
+      page.should_not have_content("Kerätty keskimäärin")
     end
     scenario "Ended proposal" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
@@ -104,6 +106,7 @@ feature "Idea signing" do
       page.should_not have_link("Allekirjoita")
 #      page.should have_content("Keruu on päättynyt")
 #      page.should have_content("Keräys päättyi " + finnishDate(today_date - 1))
+#      page.should have_content("Kannatusilmoitusten keräys on päättynyt")
     end
     scenario "There are no additional collecting service URLs" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
@@ -117,6 +120,31 @@ feature "Idea signing" do
       total_days_to_reach_target = (idea.target_count) / idea.signatures_per_day
       
       page.should have_content("Tällä tahdilla kerääminen kestänee kaikkiaan #{sprintf('%.1f', total_days_to_reach_target)} päivää")
+      page.should have_content("Tällä tahdilla ei ehditä kerätä ilmoituksia riittävästi ennen päättymispäivää")
+    end
+    scenario "Idea is about to pass" do
+      idea_about_to_pass = Factory :idea, state: "proposal", 
+                  collecting_in_service: true,
+                  collecting_started: true, collecting_ended: false, 
+                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
+                  additional_signatures_count: 0, additional_signatures_count_date: today_date, 
+                  target_count: 10
+      signature_for_idea_about_to_pass = Factory :signature, idea: idea_about_to_pass
+      
+      visit idea_page(idea_about_to_pass.id)
+      page.should have_content("Tällä tahdilla ehditään kerätä ilmoitukset ennen päättymispäivää")
+    end
+    scenario "Idea has passed" do
+      passed_idea = Factory :idea, state: "proposal", 
+                  collecting_in_service: true,
+                  collecting_started: true, collecting_ended: false, 
+                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
+                  additional_signatures_count: 0, additional_signatures_count_date: today_date, 
+                  target_count: 1
+      signature_for_passed_idea = Factory :signature, idea: passed_idea
+      
+      visit idea_page(passed_idea.id)
+      page.should have_content("Tavoite on täyttynyt")
     end
 
     scenario "Fail" do
