@@ -207,6 +207,7 @@ feature "Idea signing" do
       scenario "6) thank you page" do
         visit_signature_finalize_signing(idea.id, @citizen.id)
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+        page.should have_content "Tunnistautumisesi on nyt voimassa"
       end
       
       scenario "7) go to the shortcut fillin page" do
@@ -614,6 +615,20 @@ feature "Idea signing" do
           idea_that_cannot_be_signed.id))
       page.should have_content "Can't be signed"
       page.should_not have_button "Hyväksy ehdot ja siirry tunnistautumaan"
+    end
+    
+    scenario "authentication expires before signing" do
+      # probably signing should actually fail,
+      # but we're not testing for that now
+      visit_signature_returning(idea.id, @citizen.id)
+      select "Helsinki", from: "signature_occupancy_county"
+      check "Vow"
+      Timecop.travel(Time.now + 30.minutes)
+      click_button "Allekirjoita"
+      Timecop.return
+      
+      page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+      page.should have_content "Tunnistautumisesi ei ole enää voimassa"
     end
   end
 
