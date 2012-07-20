@@ -91,6 +91,7 @@ Run tests when RED-GREEN-REFACTOR:
 
         git checkout master
         git pull avoinministerio master
+        git push
         git checkout new-feature
         git rebase master
         # fix possible conflicts
