@@ -607,6 +607,14 @@ feature "Idea signing" do
       page.should have_content "Can't be signed"
       page.should_not have_button "Siirry hyväksymään ehdot"
     end
+    
+    scenario "the idea can't be signed and the citizen attempts to enter the approval page directly" do
+      idea_that_cannot_be_signed = Factory :idea
+      page.driver.post(signature_idea_approval_path(
+          idea_that_cannot_be_signed.id))
+      page.should have_content "Can't be signed"
+      page.should_not have_button "Hyväksy ehdot ja siirry tunnistautumaan"
+    end
   end
 
 end
