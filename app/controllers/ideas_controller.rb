@@ -198,7 +198,7 @@ class IdeasController < ApplicationController
     @article_count = all_articles.length
     all_citizens = Citizen.search_tank(params['searchterm'],
                                        :category_filters => params[:category_filters]).
-                                       select {|result| result.published?}
+                                       select {|result| result.published_something?}
     @citizen_count = all_citizens.length
     all_results = all_ideas + all_comments + all_articles + all_citizens
     
