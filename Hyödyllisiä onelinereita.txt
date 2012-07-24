@@ -1,0 +1,76 @@
+Hyödyllisiä onelinereita:
+
+# Ideoiden lista esittäjineen CSV:ksi:
+
+puts csv = CSV.generate{ |c| Idea.all.sort{|a,b| a.id <=> b.id}.each {|i| c << [i.id, i.title, "http://avoinministerio.fi/ideat/#{i.id}-#{i.slug}", i.author.name, i.author.email]} }
+
+
+puts csv = CSV.generate{ |c| Idea.all.sort{|a,b| a.id <=> b.id}.each {|i| c << [i.id, i.title, "http://avoinministerio.fi/ideat/#{i.id}-#{i.slug}", i.author.name, i.author.email, i.votes.count, i.comments.count]} }
+
+puts csv = CSV.generate{ |c| Idea.all.sort{|a,b| a.id <=> b.id}.each {|i| c << [i.id, i.title, "http://avoinministerio.fi/ideat/#{i.id}-#{i.slug}", i.author.name, i.author.email, i.vote_for_count, i.vote_count, i.comment_count]} }
+
+
+# Syncing Citizen emails into MailChimp through Hominid
+
+h = Hominid::API.new('63f198b2d2ee064ba52435ffa0c34a57-us4')
+Citizen.where("created_at > ?", Date.parse("2012-04-18")).each_slice(10) { |cits| cits.each_with_index { |c,i| h.list_subscribe("13448f1e4e", "aleksi.rossi+#{i}@gmail' => c.last_name}, 'html', false, false, false, false) } }
+
+# Real syncing of citizens into MailChimp ** AFTER some date ** 
+h = Hominid::API.new('63f198b2d2ee064ba52435ffa0c34a57-us4')
+Citizen.where("created_at > ?", Date.parse("2012-04-18")).each_slice(10) do |cits| cits.each do |c| puts c.email; begin h.list_subscribe("13448f1e4e", c.email, { 'FNAME' => c.first_name, 'LNAME' => c.last_name}, 'html', false, false, false, false); rescue Exception => e; p e; end; end; puts "\n\nNext batch" end
+
+
+
+# Asiantuntijalausunnot tietyn päivämäärän jälkeen:
+
+puts csv = CSV.generate{ |c| ExpertSuggestion.where("created_at > ?", "2012-04-20").each {|es| c << [es.id, "http://avoinministerio.fi/ideat/#{es.idea.id}-#{es.idea.slug}", es.supporter.first_name + " " + es.supporter.last_name, es.supporter.email, es.firstname, es.lastname, es.email, es.jobtitle, es.organisation, es. recommendation] } }
+
+# Kaikki asiantuntijalausunnot
+puts csv = CSV.generate{ |c| ExpertSuggestion.all.each {|es| c << [es.id, "http://avoinministerio.fi/ideat/#{es.idea.id}-#{es.idea.slug}", es.supporter.first_name + " " + es.supporter.last_name, es.supporter.email, es.firstname, es.lastname, es.email, es.jobtitle, es.organisation, es. recommendation] } }
+
+
+Idea Ehdottaja Nimi Titteli Organisaatio Sähköposti Puhelin Osoite Suositus
+
+# Expert suggestions:
+
+puts JSON.pretty_generate(JSON.parse(ExpertSuggestion.all.to_json))
+
+
+
+# Likert-asteikolla plottaaminen:
+
+amt <- read.csv("/Users/aleksiniemela/Downloads/AM_tekninen_tulokset_2012-05-22_v3.csv", row.names=1)
+yl <- amt[,2:13]
+plot.likert(t(yl), main="", as.percent=TRUE,rightAxisLabels=NULL, rightAxis=NULL, ylab.right="", positive.order=TRUE)
+pi <- amt[,14:30]
+plot.likert(t(pi), main="", as.percent=TRUE,rightAxisLabels=NULL, rightAxis=NULL, ylab.right="", positive.order=TRUE)
+
+
+Aloitteiden hakuaikojen kestot 2012-2017
+
+File.open("initiative_durations.lst","w") {|f| (Date.parse("2012-01-01")..Date.parse("2017-01-01")).each { |d| c=0; begin; d2=Date.new(d.year+((((d.month+5)%12+1)<d.month) ? 1 : 0), (d.month+5)%12+1, d.mday-c); rescue ArgumentError; c+=1; retry; end; f.puts "#{(d2-d).to_i} #{d2} - #{d}" } }
+ 
+
+# Vote countereiden päivitys one-liner, ajettavaksi tuotannossa:
+ActiveRecord::Base.record_timestamps = false
+Idea.all.each { |idea| vc = idea.vote_counts ; for_, against_ = vc[1] || 0, vc[0] || 0 ; if for_ > 0 or against_ > 0; proportion = for_.to_f / (for_ + against_) ; else; proportion = 0.5; end; idea.comment_count = idea.comments.count ; idea.vote_count = for_ + against_ ; idea.vote_for_count = for_ ; idea.vote_against_count = against_ ; idea.vote_proportion = proportion ; idea.vote_proportion_away_mid = (0.5 - proportion).abs ; idea.save(validate: false); }
+
+# Idean muuttaminen allekirjoitettavaksi
+
+1) muuta Idea.state proposal:ksi admin-paneelissa
+2) siirry consoliin ja aseta arvot:
+
+heroku run console --app avoinministerio
+i = Idea.find(206)
+i.collecting_started=true
+i.collecting_ended=false
+i.collecting_start_date=Date.today
+i.collecting_end_date=Date.today+180
+i.additional_signatures_count=100
+i.additional_signatures_count_date = Date.today
+i.target_count=51_500
+i.save(validate:false)
+
+3) nykyisellään lisäksi aloitteen pitää olla Feature_Signatures=206,199  -listassa
+
+
