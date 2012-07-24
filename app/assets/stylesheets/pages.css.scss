@@ -14,6 +14,7 @@ $turquoise: #29abe2;
     //Refactor border to application.css 
     -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
     -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    -o-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
     border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
     border-width: 6px;
     border-top: 0px none;
