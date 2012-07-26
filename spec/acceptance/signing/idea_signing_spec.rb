@@ -2,26 +2,26 @@
 require "acceptance/acceptance_helper"
 require 'webmock/rspec'
 
-#Capybara.javascript_driver = :webkit
+# #Capybara.javascript_driver = :webkit
 
 feature "Idea signing" do
   let(:citizen_password) { '123456789' }
   let(:citizen_email) { 'citizen-kane@example.com'}
   let(:idea) {
     Factory :idea, state: "proposal", 
-                  collecting_in_service: true,
-                  collecting_started: true, collecting_ended: false, 
-                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
-                  additional_signatures_count: 0, additional_signatures_count_date: today_date, 
-                  target_count: 51500
+    collecting_in_service: true,
+    collecting_started: true, collecting_ended: false, 
+    collecting_start_date: today_date, collecting_end_date: today_date + 180, 
+    additional_signatures_count: 0, additional_signatures_count_date: today_date, 
+    target_count: 51500
   }
   let(:another_idea) {
     Factory :idea, state: "proposal", 
-                  collecting_in_service: true,
-                  collecting_started: true, collecting_ended: false, 
-                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
-                  additional_signatures_count: 0, additional_signatures_count_date: today_date, 
-                  target_count: 51500
+    collecting_in_service: true,
+    collecting_started: true, collecting_ended: false, 
+    collecting_start_date: today_date, collecting_end_date: today_date + 180, 
+    additional_signatures_count: 0, additional_signatures_count_date: today_date, 
+    target_count: 51500
   }
 
   def logged_in_citizen_on_homepage
@@ -63,18 +63,19 @@ feature "Idea signing" do
     should_be_disabled(find_button("accept"))
     choose("publicity_Immediately")
 
-    # this doesn't work before javascript gets activated, and 
-    # at the moment if one activates javascript there are loads of problems in other tests
+    # this doesn't work before javascript gets activated, and at the moment if
+    # one activates javascript there are loads of problems in other tests
     # should_be_enabled(find_button("accept"))
     click_button "Hyväksy ehdot ja siirry tunnistautumaan"
 
-    # 4: Select TUPAS service
-    # this doesn't work as WebMock.stubbing doesn't get activated. It seems the whole form gets converted into local
+    # 4: Select TUPAS service this doesn't work as WebMock.stubbing doesn't get
+    # activated. It seems the whole form gets converted into local
     # click_button "Alandsbanken testi"
 
-    # 5: Successful returning from TUPAS, let's fill in the remaining information
-    # here we're making a mock out of real TUPAS service. Instead we return with almost static, once valid url
-    # just inject in the right signature.id
+    # 5: Successful returning from TUPAS, let's fill in the remaining
+    # information here we're making a mock out of real TUPAS service. Instead we
+    # return with almost static, once valid url just inject in the right
+    # signature.id
     signature = Signature.all.last
     # the url has a fake MAC, calculated with secret set up here
     visit(capybara_test_return_url(signature.id))
@@ -98,9 +99,9 @@ feature "Idea signing" do
     select "Helsinki", from: "signature_occupancy_county"
     check "Vow"
 
-    # this doesn't work before javascript gets activated, and 
-    # at the moment if one activates javascript there are loads of problems in other tests
-    #should_be_enabled(find_button("Allekirjoita"))
+    # this doesn't work before javascript gets activated, and at the moment if
+    # one activates javascript there are loads of problems in other tests
+    # #should_be_enabled(find_button("Allekirjoita"))
     click_button "Allekirjoita"
 
     # 6: Thank you page
@@ -134,9 +135,9 @@ feature "Idea signing" do
 
     check "Vow"
 
-    # this doesn't work before javascript gets activated, and 
-    # at the moment if one activates javascript there are loads of problems in other tests
-    #should_be_enabled(find_button("Allekirjoita"))
+    # this doesn't work before javascript gets activated, and at the moment if
+    # one activates javascript there are loads of problems in other tests
+    # #should_be_enabled(find_button("Allekirjoita"))
     click_button "Allekirjoita"
 
     # 9: Thank you page again
@@ -168,8 +169,8 @@ feature "Idea signing" do
       
       scenario "4) select TUPAS service" do
         Capybara.current_driver = :mechanize
-        # swithing the driver invalidates the session,
-        # so we have to log in again
+        # swithing the driver invalidates the session, so we have to log in
+        # again
         create_logged_in_citizen
         visit_signature_idea_path(idea.id)
         Capybara.app_host = "https://online.alandsbanken.fi/"
@@ -183,16 +184,16 @@ feature "Idea signing" do
       scenario "5) return from TUPAS" do
         visit_signature_returning(idea.id, @citizen.id)
         signature = Signature.where(:idea_id => idea.id,
-                                    :citizen_id => @citizen.id).first
+          :citizen_id => @citizen.id).first
         
         page.should have_field("signature_idea_title", with: idea.title)
         should_have_date("signature_idea_date", today_date)
         should_have_date("signature_signing_date", today_date)
         should_have_date("signature_birth_date", Date.new(1970,1,1))
         page.should have_field("signature_firstnames",
-                               with: @citizen.first_names)
+          with: @citizen.first_names)
         page.should have_field("signature_lastname",
-                               with: @citizen.last_name)
+          with: @citizen.last_name)
         page.should have_select("signature_occupancy_county", selected: nil)
         page.should have_unchecked_field("signature_vow")
         should_be_disabled(find_button("Allekirjoita"))
@@ -221,7 +222,7 @@ feature "Idea signing" do
         visit_signature_finalize_signing(idea.id, @citizen.id)
         visit signature_idea_shortcut_fillin_path(another_idea.id)
         signature = Signature.where(:idea_id => another_idea.id,
-                                    :citizen_id => @citizen.id).first
+          :citizen_id => @citizen.id).first
         
         page.should have_checked_field "signature_accept_general"
         page.should have_checked_field "signature_accept_non_eu_server"
@@ -231,11 +232,11 @@ feature "Idea signing" do
         should_have_date("signature_signing_date", today_date)
         should_have_date("signature_birth_date", Date.new(1970,1,1))
         page.should have_field("signature_firstnames",
-                               with: @citizen.first_names)
+          with: @citizen.first_names)
         page.should have_field("signature_lastname",
-                               with: @citizen.last_name)
+          with: @citizen.last_name)
         page.should have_select("signature_occupancy_county",
-                                selected: "Helsinki")
+          selected: "Helsinki")
         page.should have_unchecked_field("signature_vow")
         should_be_disabled(find_button("Allekirjoita"))
         
@@ -270,9 +271,11 @@ feature "Idea signing" do
         check "accept_non_eu_server"
         choose "publicity_Normal"
         click_button "Hyväksy ehdot ja siirry tunnistautumaan"
-        # FIXME: the first line is correct in a way that javascript _and_ validation should prevent progressing
-        # to the next page. At the moment there is no validation so moving on is actually accepted.
-        # ie. fix validation, and then fix this test by removing comment from first line, and removing second line entirely
+        # FIXME: the first line is correct in a way that javascript _and_
+        # validation should prevent progressing to the next page. At the moment
+        # there is no validation so moving on is actually accepted. ie. fix
+        # validation, and then fix this test by removing comment from first
+        # line, and removing second line entirely
         # current_path.should_not == signature_idea_fi_path(idea.id)
         current_path.should eq(signature_idea_fi_path(idea.id))
       end
@@ -290,7 +293,7 @@ feature "Idea signing" do
       scenario "5) citizen cancels authentication" do
         visit_signature_idea_path(idea.id)
         signature = Signature.where(:idea_id => idea.id,
-                                    :citizen_id => @citizen.id).first
+          :citizen_id => @citizen.id).first
         visit "/signatures/#{signature.id}/cancelling/Alandsbankentesti"
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_button "Allekirjoita"
@@ -336,8 +339,8 @@ feature "Idea signing" do
         context "logged in" do
           context "already attempted to sign" do
             background do
-              # AFAIK, @citizen can't be passed to let,
-              # therefore let can't be used
+              # AFAIK, @citizen can't be passed to let, therefore let can't be
+              # used
               @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
             end
             scenario "existing signature has empty state" do
@@ -407,8 +410,8 @@ feature "Idea signing" do
         context "logged in" do
           context "already attempted to sign" do
             background do
-              # AFAIK, @citizen can't be passed to let,
-              # therefore let can't be used
+              # AFAIK, @citizen can't be passed to let, therefore let can't be
+              # used
               @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
             end
             scenario "existing signature has empty state" do
@@ -482,7 +485,7 @@ feature "Idea signing" do
         visit_signature_idea_path(idea.id)
         create_logged_in_citizen
         signature = Signature.where(:idea_id => idea.id,
-                                    :citizen_id => @citizen.id).last
+          :citizen_id => @citizen.id).last
         visit(capybara_test_return_url(signature.id))
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_button "Allekirjoita"
@@ -500,7 +503,7 @@ feature "Idea signing" do
     scenario "invalid returning" do
       visit_signature_idea_path(idea.id)
       signature = Signature.where(:idea_id => idea.id,
-                                  :citizen_id => @citizen.id).last
+        :citizen_id => @citizen.id).last
       
       service = "Capybaratesti"
       secret  = "capybaratesti"
@@ -516,7 +519,7 @@ feature "Idea signing" do
     scenario "not within timelimit" do
       visit_signature_idea_path(idea.id)
       signature = Signature.where(:idea_id => idea.id,
-                                  :citizen_id => @citizen.id).last
+        :citizen_id => @citizen.id).last
       Timecop.travel(Time.now + 30.minutes)
       visit(capybara_test_return_url(signature.id))
       Timecop.return
@@ -527,7 +530,7 @@ feature "Idea signing" do
     scenario "repeated returning" do
       visit_signature_returning(idea.id, @citizen.id)
       signature = Signature.where(:idea_id => idea.id,
-                                  :citizen_id => @citizen.id).last
+        :citizen_id => @citizen.id).last
       visit(capybara_test_return_url(signature.id))
       page.should have_content "Tunnistaminen epäonnistui"
       page.should_not have_button "Allekirjoita"
@@ -536,7 +539,7 @@ feature "Idea signing" do
       visit_signature_idea_path(idea.id)
       create_logged_in_citizen
       signature = Signature.where(:idea_id => idea.id,
-                                  :citizen_id => @citizen.id).last
+        :citizen_id => @citizen.id).last
       visit "/signatures/#{signature.id}/cancelling/Alandsbankentesti"
       page.should have_content "Tunnistaminen epäonnistui"
       page.should_not have_button "Allekirjoita"
@@ -545,7 +548,7 @@ feature "Idea signing" do
       scenario "everything else is normal" do
         visit_signature_idea_path(idea.id)
         signature = Signature.where(:idea_id => idea.id,
-                                    :citizen_id => @citizen.id).last
+          :citizen_id => @citizen.id).last
         visit "/signatures/#{signature.id}/rejecting/Capybaratesti"
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_button "Allekirjoita"
@@ -564,14 +567,17 @@ feature "Idea signing" do
       visit signature_idea_shortcut_fillin_path(idea.id)
       should_be_on signature_idea_introduction(idea.id)
     end
-    # Third parties only need to know HTML
-    # (and probably look at the source code)
-    # in order to create a form that sends users to
-    # signature_shortcut_finalize_signing_path.
-    # Therefore we need to test for that kind of attack.
+    # Third parties only need to know HTML (and probably look at the source
+    # code) in order to create a form that sends users to
+    # signature_shortcut_finalize_signing_path. Therefore we need to test for
+    # that kind of attack.
     scenario "the citizen attempts to sign with shortcut_fillin but has not authenticated" do
+      # create a signature
+      visit_signature_idea_path(idea.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
       # PUT request
-      page.driver.put(signature_shortcut_finalize_signing_path(idea.id),
+      page.driver.put(signature_shortcut_finalize_signing_path(signature.id),
                        {:params => {
                            :signature => {
                              :accept_general => true,
@@ -596,9 +602,8 @@ feature "Idea signing" do
       Timecop.travel(Time.now - 1.minute)
       expect {visit idea_page(idea.id)}.to raise_error
       
-      # BUG: If this test fails, the line below is not run
-      # and RSpec thinks that the test took negative time.
-      # I'm not aware of any way to fix it.
+      # BUG: If this test fails, the line below is not run and RSpec thinks that
+      # the test took negative time. I'm not aware of any way to fix it.
       Timecop.return
     end
     
@@ -618,8 +623,8 @@ feature "Idea signing" do
     end
     
     scenario "authentication expires before signing" do
-      # probably signing should actually fail,
-      # but we're not testing for that now
+      # probably signing should actually fail, but we're not testing for that
+      # now
       visit_signature_returning(idea.id, @citizen.id)
       select "Helsinki", from: "signature_occupancy_county"
       check "Vow"
@@ -629,6 +634,64 @@ feature "Idea signing" do
       
       page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       page.should have_content "Tunnistautumisesi ei ole enää voimassa"
+    end
+  end
+  
+  context "attacks" do
+    context "attempt to sign the proposal multiple times" do
+      background do
+        # this time we send direct POST requests in order to bypass as many
+        # security checks as possible
+        page.driver.post(signature_idea_path(idea.id))
+        @first_signature = Signature.where(:idea_id => idea.id,
+                                          :citizen_id => @citizen.id).last
+        # reload the page, which creates another signature
+        page.driver.post(signature_idea_path(idea.id))
+        @second_signature = Signature.where(:idea_id => idea.id,
+                                           :citizen_id => @citizen.id).last
+      end
+      scenario "go to the returning page after signing for the first time" do
+        # Try to complete the first signature
+        visit(capybara_test_return_url(@first_signature.id))
+        select "Helsinki", from: "signature_occupancy_county"
+        check "Vow"
+        click_button "Allekirjoita"
+        page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+        
+        # Try to complete the second signature
+        service = "Capybaratesti"
+        visit(capybara_test_return_url(@second_signature.id))
+        current_path.should_not ==
+          "/signatures/#{@second_signature.id}/returning/#{service}"
+      end
+      scenario "go to the finalize signing page after signing for the first time" do
+        # Authenticate for the second signature
+        visit(capybara_test_return_url(@second_signature.id))
+        
+        # Try to complete the first signature
+        visit(capybara_test_return_url(@first_signature.id))
+        select "Helsinki", from: "signature_occupancy_county"
+        check "Vow"
+        click_button "Allekirjoita"
+        page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+        
+        # Try to complete the second signature
+        visit_signature_finalize_signing_directly(@second_signature.id,
+                                                  idea.title,
+                                                  @citizen.profile)
+        current_path.should_not ==
+          "/signatures/#{@second_signature.id}/finalize_signing"
+      end
+    end
+    scenario "attempt to sign the proposal without authentication" do
+      visit_signature_idea_path(idea.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+      expect {
+        visit_signature_finalize_signing_directly(signature.id,
+                                                  idea.title,
+                                                  @citizen.profile)
+      }.to raise_error
     end
   end
 
