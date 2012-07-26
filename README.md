@@ -96,6 +96,21 @@ Run tests when RED-GREEN-REFACTOR:
         git rebase master
         # fix possible conflicts
         git push
+        
+  Sometimes git says this when you try to push the rebased branch:
+
+  > "To prevent you from losing history, non-fast-forward updates were rejected
+  Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+  'Note about fast-forwards' section of 'git push --help' for details."
+
+  In that case, you need to run
+
+        git pull --rebase
+        git push
+        
+  If you're lazy, you can configure git so that it always uses the --rebase switch when you run git pull.
+
+        git config pull.rebase true
 
 7. Run tests to confirm your tests work with rebased master
 

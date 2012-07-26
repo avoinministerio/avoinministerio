@@ -191,6 +191,21 @@ module HelperMethods
     check "Vow"
     click_button "Allekirjoita"
   end
+  
+  # simulates an attack
+  def visit_signature_finalize_signing_directly(signature_id, idea_title, profile)
+    page.driver.put("/signatures/#{signature_id}/finalize_signing",
+                    {:signature => {
+                      :idea_title => idea_title,
+                      :idea_date => today_date,
+                      :signing_date => today_date,
+                      :birth_date => Date.new(1970,1,1),
+                      :firstnames => profile.first_names,
+                      :lastname => profile.last_name,
+                      :occupancy_county => "Helsinki",
+                      :vow => true
+                    }})
+  end
 
 end
 
