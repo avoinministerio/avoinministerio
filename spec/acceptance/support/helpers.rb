@@ -203,7 +203,7 @@ module HelperMethods
                       :firstnames => profile.first_names,
                       :lastname => profile.last_name,
                       :occupancy_county => "Helsinki",
-                      :vow => true
+                      :vow => 1
                     }})
   end
 
