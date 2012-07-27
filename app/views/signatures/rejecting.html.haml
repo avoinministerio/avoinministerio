@@ -1,12 +1,6 @@
 .returning
-  - if not @error
-    %h1 Tunnistaminen ei onnistunut
-
-    Palaa 
+  .error
+    %h1 Tunnistaminen epäonnistui
+    Virhe
+    = @error
     =link_to "takaisin aloitteeseen", @signature.idea
-  - else
-    .error
-      %h1 Tunnistaminen epäonnistui
-      Virhe
-      = @error
-      =link_to "takaisin aloitteeseen", @signature.idea
