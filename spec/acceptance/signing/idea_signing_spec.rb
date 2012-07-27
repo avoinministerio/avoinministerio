@@ -274,13 +274,7 @@ feature "Idea signing" do
         check "accept_non_eu_server"
         choose "publicity_Normal"
         click_button "Hyväksy ehdot ja siirry tunnistautumaan"
-        # FIXME: the first line is correct in a way that javascript _and_
-        # validation should prevent progressing to the next page. At the moment
-        # there is no validation so moving on is actually accepted. ie. fix
-        # validation, and then fix this test by removing comment from first
-        # line, and removing second line entirely
-        # current_path.should_not == signature_idea_fi_path(idea.id)
-        current_path.should eq(signature_idea_fi_path(idea.id))
+        should_be_on signature_idea_introduction_path(idea.id)
       end
       
       scenario "4) not logged in" do
@@ -345,6 +339,9 @@ feature "Idea signing" do
               # AFAIK, @citizen can't be passed to let, therefore let can't be
               # used
               @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
+              @signature.accept_general = true
+              @signature.accept_non_eu_server = true
+              @signature.accept_publicity = "Normal"
             end
             scenario "existing signature has empty state" do
               @signature.state = ""
@@ -416,6 +413,9 @@ feature "Idea signing" do
               # AFAIK, @citizen can't be passed to let, therefore let can't be
               # used
               @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
+              @signature.accept_general = true
+              @signature.accept_non_eu_server = true
+              @signature.accept_publicity = "Normal"
             end
             scenario "existing signature has empty state" do
               @signature.state = ""
@@ -653,11 +653,19 @@ feature "Idea signing" do
       background do
         # this time we send direct POST requests in order to bypass as many
         # security checks as possible
-        page.driver.post(signature_idea_path(idea.id))
+        page.driver.post(signature_idea_path(idea.id),
+                         {:accept_general => 1,
+                          :accept_non_eu_server => 1,
+                          :publicity => "Normal"
+                         })
         @first_signature = Signature.where(:idea_id => idea.id,
                                           :citizen_id => @citizen.id).last
         # reload the page, which creates another signature
-        page.driver.post(signature_idea_path(idea.id))
+        page.driver.post(signature_idea_path(idea.id),
+                         {:accept_general => 1,
+                          :accept_non_eu_server => 1,
+                          :publicity => "Normal"
+                         })
         @second_signature = Signature.where(:idea_id => idea.id,
                                            :citizen_id => @citizen.id).last
       end
