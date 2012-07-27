@@ -39,7 +39,10 @@ class SignaturesController < ApplicationController
       # ERROR: check that there are enough acceptances
       fill_in_acceptances(@signature)
       @signature.idea_mac = idea_mac(@signature.idea)
-      @error = "Couldn't save signature" unless @signature.save!
+      unless @signature.save
+        @error = "Couldn't save signature"
+        redirect_to signature_idea_introduction_path(params[:id]) and return
+      end
 
       @services = [
         { vers:       "0001",
@@ -322,7 +325,7 @@ class SignaturesController < ApplicationController
         @signature.occupancy_county     = session["authenticated_occupancy_county"]
         @signature.idea_mac             = idea_mac(@signature.idea)
         @signature.state                = "authenticated"
-        @error = "Couldn't save signature" unless @signature.save!
+        @error = "Couldn't save signature" unless @signature.save
       else
         @error = "Aiemmin allekirjoitettu"
       end

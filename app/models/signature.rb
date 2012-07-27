@@ -1,5 +1,6 @@
 class Signature < ActiveRecord::Base
   VALID_STATES = %w(init query returned cancelled rejected)  # TODO: these are invalid at the moment, it's just initial, authenticated, and the last will be saved or error
+  VALID_PUBLICITY_OPTIONS = %w(Normal Immediately)
 
   attr_accessible :state, :firstnames, :lastname, :birth_date, :occupancy_county, :vow, :signing_date, :stamp, :started
   attr_accessible :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science
@@ -9,6 +10,9 @@ class Signature < ActiveRecord::Base
 
   validates :citizen_id, presence: true
   validates :idea_id, presence: true
+  validates :accept_general, acceptance: {accept: true, allow_nil: false}
+  validates :accept_non_eu_server, acceptance: {accept: true, allow_nil: false}
+  validates :accept_publicity, inclusion: VALID_PUBLICITY_OPTIONS
 
   def self.create_with_citizen_and_idea(citizen, idea)
     completed_signature = where(state: "signed", citizen_id: citizen.id, idea_id: idea.id).first
@@ -26,7 +30,6 @@ class Signature < ActiveRecord::Base
         s.occupancy_county = ""
       end
 
-      signature.save!
       signature
     else
       nil
