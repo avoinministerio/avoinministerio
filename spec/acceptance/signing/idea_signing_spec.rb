@@ -600,7 +600,7 @@ feature "Idea signing" do
     scenario "session['authenticated_at'] has an illegal value" do
       visit_signature_finalize_signing(idea.id, @citizen.id)
       Timecop.travel(Time.now - 1.minute)
-      expect {visit idea_page(idea.id)}.to raise_error
+      expect {visit idea_page(another_idea.id)}.to raise_error
       
       # BUG: If this test fails, the line below is not run and RSpec thinks that
       # the test took negative time. I'm not aware of any way to fix it.
@@ -661,8 +661,8 @@ feature "Idea signing" do
         # Try to complete the second signature
         service = "Capybaratesti"
         visit(capybara_test_return_url(@second_signature.id))
-        current_path.should_not ==
-          "/signatures/#{@second_signature.id}/returning/#{service}"
+        page.should have_content "Aiemmin allekirjoitettu"
+        page.should_not have_button "Allekirjoita"
       end
       scenario "go to the finalize signing page after signing for the first time" do
         # Authenticate for the second signature
@@ -679,8 +679,8 @@ feature "Idea signing" do
         visit_signature_finalize_signing_directly(@second_signature.id,
                                                   idea.title,
                                                   @citizen.profile)
-        current_path.should_not ==
-          "/signatures/#{@second_signature.id}/finalize_signing"
+        page.should have_content "Aiemmin allekirjoitettu"
+        page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
     end
     scenario "attempt to sign the proposal without authentication" do
