@@ -2,6 +2,9 @@
 require "acceptance/acceptance_helper"
 require 'webmock/rspec'
 
+# Set to true if you want to run tests which send PUT requests
+RUN_PUT_TESTS = false
+
 # #Capybara.javascript_driver = :webkit
 
 feature "Idea signing" do
@@ -271,13 +274,7 @@ feature "Idea signing" do
         check "accept_non_eu_server"
         choose "publicity_Normal"
         click_button "Hyväksy ehdot ja siirry tunnistautumaan"
-        # FIXME: the first line is correct in a way that javascript _and_
-        # validation should prevent progressing to the next page. At the moment
-        # there is no validation so moving on is actually accepted. ie. fix
-        # validation, and then fix this test by removing comment from first
-        # line, and removing second line entirely
-        # current_path.should_not == signature_idea_fi_path(idea.id)
-        current_path.should eq(signature_idea_fi_path(idea.id))
+        should_be_on signature_idea_introduction_path(idea.id)
       end
       
       scenario "4) not logged in" do
@@ -342,6 +339,9 @@ feature "Idea signing" do
               # AFAIK, @citizen can't be passed to let, therefore let can't be
               # used
               @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
+              @signature.accept_general = true
+              @signature.accept_non_eu_server = true
+              @signature.accept_publicity = "Normal"
             end
             scenario "existing signature has empty state" do
               @signature.state = ""
@@ -413,6 +413,9 @@ feature "Idea signing" do
               # AFAIK, @citizen can't be passed to let, therefore let can't be
               # used
               @signature = Signature.create_with_citizen_and_idea(@citizen, idea)
+              @signature.accept_general = true
+              @signature.accept_non_eu_server = true
+              @signature.accept_publicity = "Normal"
             end
             scenario "existing signature has empty state" do
               @signature.state = ""
@@ -571,36 +574,44 @@ feature "Idea signing" do
     # code) in order to create a form that sends users to
     # signature_shortcut_finalize_signing_path. Therefore we need to test for
     # that kind of attack.
-    scenario "the citizen attempts to sign with shortcut_fillin but has not authenticated" do
+    scenario "the citizen attempts to sign with shortcut_fillin but has not authenticated",
+      :if => RUN_PUT_TESTS do
       # create a signature
       visit_signature_idea_path(idea.id)
       signature = Signature.where(:idea_id => idea.id,
                                   :citizen_id => @citizen.id).last
-      # PUT request
-      page.driver.put(signature_shortcut_finalize_signing_path(signature.id),
-                       {:params => {
-                           :signature => {
-                             :accept_general => true,
-                             :accept_science => true,
-                             :accept_non_eu_server => true,
-                             :accept_publicity => "Normal",
-                             :idea_title => idea.title,
-                             :idea_date => today_date,
-                             :signing_date => today_date,
-                             :birth_date => Date.new(1970,1,1),
-                             :firstnames => @citizen.profile.first_names,
-                             :lastname => @citizen.profile.last_name,
-                             :occupancy_county => "Helsinki",
-                             :vow => true
-                           }}})
+      visit_signature_shortcut_finalize_signing_directly(signature.id,
+                                                         idea.title,
+                                                         @citizen.profile)
       # save_and_open_page
       should_be_on signature_idea_introduction(idea.id)
+    end
+    
+    scenario "the citizen attempts to finalize signing with shortcut_fillin but has already signed the proposal",
+      :if => RUN_PUT_TESTS do
+      visit_signature_returning(idea.id, @citizen.id)
+      signature = Signature.where(:idea_id => idea.id,
+                                  :citizen_id => @citizen.id).last
+                                      
+      # sign the proposal
+      visit_signature_returning(idea.id, @citizen.id)
+      select "Helsinki", from: "signature_occupancy_county"
+      check "Vow"
+      click_button "Allekirjoita"
+      page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
+                                
+      # attempt to sign again
+      visit_signature_shortcut_finalize_signing_directly(signature.id,
+                                                         idea.title,
+                                                         @citizen.profile)
+      page.should have_content "Previously signed"
+      page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
     end
     
     scenario "session['authenticated_at'] has an illegal value" do
       visit_signature_finalize_signing(idea.id, @citizen.id)
       Timecop.travel(Time.now - 1.minute)
-      expect {visit idea_page(idea.id)}.to raise_error
+      expect {visit idea_page(another_idea.id)}.to raise_error
       
       # BUG: If this test fails, the line below is not run and RSpec thinks that
       # the test took negative time. I'm not aware of any way to fix it.
@@ -642,11 +653,19 @@ feature "Idea signing" do
       background do
         # this time we send direct POST requests in order to bypass as many
         # security checks as possible
-        page.driver.post(signature_idea_path(idea.id))
+        page.driver.post(signature_idea_path(idea.id),
+                         {:accept_general => 1,
+                          :accept_non_eu_server => 1,
+                          :publicity => "Normal"
+                         })
         @first_signature = Signature.where(:idea_id => idea.id,
                                           :citizen_id => @citizen.id).last
         # reload the page, which creates another signature
-        page.driver.post(signature_idea_path(idea.id))
+        page.driver.post(signature_idea_path(idea.id),
+                         {:accept_general => 1,
+                          :accept_non_eu_server => 1,
+                          :publicity => "Normal"
+                         })
         @second_signature = Signature.where(:idea_id => idea.id,
                                            :citizen_id => @citizen.id).last
       end
@@ -661,10 +680,11 @@ feature "Idea signing" do
         # Try to complete the second signature
         service = "Capybaratesti"
         visit(capybara_test_return_url(@second_signature.id))
-        current_path.should_not ==
-          "/signatures/#{@second_signature.id}/returning/#{service}"
+        page.should have_content "Aiemmin allekirjoitettu"
+        page.should_not have_button "Allekirjoita"
       end
-      scenario "go to the finalize signing page after signing for the first time" do
+      scenario "go to the finalize signing page after signing for the first time",
+        :if => RUN_PUT_TESTS do
         # Authenticate for the second signature
         visit(capybara_test_return_url(@second_signature.id))
         
@@ -679,11 +699,12 @@ feature "Idea signing" do
         visit_signature_finalize_signing_directly(@second_signature.id,
                                                   idea.title,
                                                   @citizen.profile)
-        current_path.should_not ==
-          "/signatures/#{@second_signature.id}/finalize_signing"
+        page.should have_content "Aiemmin allekirjoitettu"
+        page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
       end
     end
-    scenario "attempt to sign the proposal without authentication" do
+    scenario "attempt to sign the proposal without authentication",
+      :if => RUN_PUT_TESTS do
       visit_signature_idea_path(idea.id)
       signature = Signature.where(:idea_id => idea.id,
                                   :citizen_id => @citizen.id).last
