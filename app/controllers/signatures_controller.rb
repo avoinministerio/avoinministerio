@@ -339,6 +339,9 @@ class SignaturesController < ApplicationController
         @signature = finalize_signing_by_checking
         fill_in_acceptances(@signature)
       else
+        # @signature.idea is referenced in the view,
+        # so @signature mustn't be nil
+        @signature = Signature.where(state: 'authenticated').find(params[:id])
         @error = "Previously signed"
       end
       render :finalize_signing
