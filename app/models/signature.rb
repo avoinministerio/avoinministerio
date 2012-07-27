@@ -11,20 +11,25 @@ class Signature < ActiveRecord::Base
   validates :idea_id, presence: true
 
   def self.create_with_citizen_and_idea(citizen, idea)
-    signature = new() do |s|
-      s.citizen = citizen
-      s.firstnames = citizen.first_names
-      s.lastname = citizen.last_name
-      s.idea = idea
-      s.idea_title = idea.title
-      s.idea_date = idea.updated_at
-      s.state = "initial"
-      s.stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
-      s.started = Time.now
-      s.occupancy_county = ""
-    end
+    completed_signature = where(state: "signed", citizen_id: citizen.id, idea_id: idea.id).first
+    unless completed_signature
+      signature = new() do |s|
+        s.citizen = citizen
+        s.firstnames = citizen.first_names
+        s.lastname = citizen.last_name
+        s.idea = idea
+        s.idea_title = idea.title
+        s.idea_date = idea.updated_at
+        s.state = "initial"
+        s.stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
+        s.started = Time.now
+        s.occupancy_county = ""
+      end
 
-    signature.save!
-    signature
+      signature.save!
+      signature
+    else
+      nil
+    end
   end
 end

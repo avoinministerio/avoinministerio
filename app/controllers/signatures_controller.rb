@@ -1,4 +1,4 @@
-#encoding: UTF-8
+# #encoding: UTF-8
 
 require 'date'
 
@@ -10,10 +10,10 @@ class SignaturesController < ApplicationController
 
   before_filter :authenticate_citizen!
   before_filter :check_if_idea_can_be_signed, :except => [:returning,
-                                                          :cancelling,
-                                                          :rejecting,
-                                                          :finalize_signing,
-                                                          :shortcut_finalize_signing]
+    :cancelling,
+    :rejecting,
+    :finalize_signing,
+    :shortcut_finalize_signing]
 
   respond_to :html
 
@@ -31,69 +31,74 @@ class SignaturesController < ApplicationController
   end
 
   def sign
-    # ERROR: Check that user has not signed already
-    # TODO FIXME: check if user don't have any in-progress signatures
-    # ie. cover case when user does not type in the url (when Sign button is not shown)
+    # TODO FIXME: check if user don't have any in-progress signatures ie. cover
+    # case when user does not type in the url (when Sign button is not shown)
     @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
 
-    # ERROR: check that there are enough acceptances
-    fill_in_acceptances(@signature)
-    @signature.idea_mac = idea_mac(@signature.idea)
-    @error = "Couldn't save signature" unless @signature.save!
+    if @signature
+      # ERROR: check that there are enough acceptances
+      fill_in_acceptances(@signature)
+      @signature.idea_mac = idea_mac(@signature.idea)
+      @error = "Couldn't save signature" unless @signature.save!
 
-    @services = [
-      { vers:       "0001",
-        rcvid:      "Elisa testi",
-        idtype:     "12",
-        name:       "Elisa Mobiilivarmenne testi",
-        url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd",
-      },
-      { vers:       "0001",
-        rcvid:      "Avoinministerio",
-        idtype:     "12",
-        name:       "Elisa Mobiilivarmenne",
-        url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd",
-      },
+      @services = [
+        { vers:       "0001",
+          rcvid:      "Elisa testi",
+          idtype:     "12",
+          name:       "Elisa Mobiilivarmenne testi",
+          url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd",
+        },
+        { vers:       "0001",
+          rcvid:      "Avoinministerio",
+          idtype:     "12",
+          name:       "Elisa Mobiilivarmenne",
+          url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd",
+        },
 
-      { vers:       "0002",
-        rcvid:      "AABTUPASID",
-        idtype:     "02",
-        name:       "Alandsbanken testi",
-        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
-      },
-      { vers:       "0002",
-        rcvid:      "ELEKAMINNID",
-        idtype:     "02",
-        name:       "Alandsbanken",
-        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
-      },
-      { vers:       "0002",
-        rcvid:      "KANNATUSTUPAS12",
-        idtype:     "02",
-        name:       "Tapiola testi",
-        url:        "https://pankki.tapiola.fi/service/identify",
-      },
-      { vers:       "0002",
-        rcvid:      "KANNATUSTUPAS12",
-        idtype:     "02",
-        name:       "Tapiola",
-        url:        "https://pankki.tapiola.fi/service/identify",
-      },
+        { vers:       "0002",
+          rcvid:      "AABTUPASID",
+          idtype:     "02",
+          name:       "Alandsbanken testi",
+          url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
+        },
+        { vers:       "0002",
+          rcvid:      "ELEKAMINNID",
+          idtype:     "02",
+          name:       "Alandsbanken",
+          url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
+        },
+        { vers:       "0002",
+          rcvid:      "KANNATUSTUPAS12",
+          idtype:     "02",
+          name:       "Tapiola testi",
+          url:        "https://pankki.tapiola.fi/service/identify",
+        },
+        { vers:       "0002",
+          rcvid:      "KANNATUSTUPAS12",
+          idtype:     "02",
+          name:       "Tapiola",
+          url:        "https://pankki.tapiola.fi/service/identify",
+        },
 
-      { vers:       "0003",
-        rcvid:      "024744039900",
-        idtype:     "02",
-        name:       "Sampo",
-        url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp",
-      },
-    ]
+        { vers:       "0003",
+          rcvid:      "024744039900",
+          idtype:     "02",
+          name:       "Sampo",
+          url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp",
+        },
+      ]
 
-    @services.each do |service|
-      set_defaults(service)
-      set_mac(service)
+      @services.each do |service|
+        set_defaults(service)
+        set_mac(service)
+      end
+      
+      respond_with @signature
+    
+    else
+      @error = "Aiemmin allekirjoitettu"
+      redirect_to idea_path(params[:id])
     end
-
-    respond_with @signature
   end
 
   def set_defaults(service)
@@ -128,7 +133,8 @@ class SignaturesController < ApplicationController
     Rails.logger.info "Using key #{secret_key}"
     secret = ENV[secret_key] || ""
 
-    # TODO: precalc the secret into environment variable, and remove this special handling
+    # TODO: precalc the secret into environment variable, and remove this
+    # special handling
     if service == "Alandsbanken" or service == "Tapiola"
       secret = secret_to_mac_string(secret)
       Rails.logger.info "Converting secret to #{secret}"
@@ -204,6 +210,8 @@ class SignaturesController < ApplicationController
         Rails.logger.info "repeated returning"
         @signature.update_attributes(state: "repeated_returning")
         @error = "Repeated returning"
+      elsif check_previously_signed(current_citizen, @signature.idea_id)
+        @error = "Aiemmin allekirjoitettu"
       else
         # all success!
         Rails.logger.info "All success, authentication ok, storing into session"
@@ -253,14 +261,15 @@ class SignaturesController < ApplicationController
   end
 
   def finalize_signing_by_checking
-#    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
+    #    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
     @signature = Signature.where(state: 'authenticated').find(params[:id])
     if @signature and @signature.citizen == current_citizen and @signature.state == "authenticated"   # TODO: and duration since last authentication less that threshold
       # validate input before storing
       if justNameCharacters(params["signature"]["firstnames"]) and 
-         justNameCharacters(params["signature"]["lastname"])   and 
-         municipalities.include? params["signature"]["occupancy_county"] and
-         params["signature"]["vow"] == "1"
+          justNameCharacters(params["signature"]["lastname"])   and 
+          municipalities.include? params["signature"]["occupancy_county"] and
+          params["signature"]["vow"] == "1"
+        unless check_previously_signed(current_citizen, @signature.idea_id)
 
         @signature.firstnames       = params["signature"]["firstnames"]
         @signature.lastname         = params["signature"]["lastname"]
@@ -280,6 +289,10 @@ class SignaturesController < ApplicationController
         ideas = Arel::Table.new(:ideas)
         proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
         @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
+        
+        else
+          @error = "Aiemmin allekirjoitettu"
+        end
       else
         @error = "Invalid parameters"
       end
@@ -301,7 +314,8 @@ class SignaturesController < ApplicationController
         @signature.accept_publicity     = @previous_signature.accept_publicity
         @signature.accept_science       = @previous_signature.accept_science
 
-        # Consider: would it be better to use @previous_signature instead of session to pick up all of these
+        # Consider: would it be better to use @previous_signature instead of
+        # session to pick up all of these
         @signature.signing_date         = today_date()
         @signature.birth_date           = session["authenticated_birth_date"]
         @signature.firstnames           = session["authenticated_firstnames"]
@@ -334,7 +348,12 @@ class SignaturesController < ApplicationController
   end
 
   def check_previously_signed(citizen, idea_id)
-    false
+    completed_signature = Signature.where(state: "signed", citizen_id: citizen.id, idea_id: idea_id).first
+    if completed_signature
+      true
+    else
+      false
+    end
   end
 
   def idea_mac(idea)
