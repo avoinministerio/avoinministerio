@@ -140,9 +140,8 @@ class SignaturesController < ApplicationController
       Rails.logger.info "Converting secret to #{secret}"
     end
 
-    unless secret
+    if secret == ""
       Rails.logger.error "No SECRET found for #{secret_key}"
-      secret = ""
     end
 
     secret
