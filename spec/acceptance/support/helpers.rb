@@ -206,6 +206,25 @@ module HelperMethods
                       :vow => 1
                     }})
   end
+  
+  def visit_signature_shortcut_finalize_signing_directly(signature_id, idea_title, profile)
+    page.driver.put(signature_shortcut_finalize_signing_path(signature_id),
+                    {:params => {
+                      :signature => {
+                       :accept_general => 1,
+                       :accept_science => 1,
+                       :accept_non_eu_server => 1,
+                       :accept_publicity => "Normal",
+                       :idea_title => idea_title,
+                       :idea_date => today_date,
+                       :signing_date => today_date,
+                       :birth_date => Date.new(1970,1,1),
+                       :firstnames => profile.first_names,
+                       :lastname => profile.last_name,
+                       :occupancy_county => "Helsinki",
+                       :vow => 1
+                     }}})
+  end
 
 end
 
