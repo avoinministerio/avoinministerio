@@ -34,8 +34,8 @@ describe Signature do
       @signature = Signature.create_with_citizen_and_idea(@citizen, @idea)
     end
 
-    it "creates a new Signature" do
-      @signature.new_record?.should be_false
+    it "builds a new Signature" do
+      @signature.new_record?.should be_true
     end
 
     it "assigns Citizen names" do
