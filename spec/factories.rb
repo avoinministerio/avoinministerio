@@ -79,5 +79,9 @@ FactoryGirl.define do
     association :citizen, factory: :citizen
     association :idea, factory: :idea
     state 'signed'
+    accept_general 1
+    accept_science 1
+    accept_non_eu_server 1
+    accept_publicity "Normal"
   end
 end
