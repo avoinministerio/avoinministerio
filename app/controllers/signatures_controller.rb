@@ -202,15 +202,15 @@ class SignaturesController < ApplicationController
       service_name = params[:servicename]
       if not valid_returning?(@signature, service_name)
         Rails.logger.info "Invalid return"
-        @signature.update_attributes(state: "invalid return")
+        @signature.state = "invalid return"
         @error = "Invalid return"
       elsif not within_timelimit?(@signature)
         Rails.logger.info "not within timelimit"
-        @signature.update_attributes(state: "too late")
+        @signature.state = "too late"
         @error = "Not within timelimit"
       elsif repeated_returning?(@signature)
         Rails.logger.info "repeated returning"
-        @signature.update_attributes(state: "repeated_returning")
+        @signature.state = "repeated_returning"
         @error = "Repeated returning"
       elsif check_previously_signed(current_citizen, @signature.idea_id)
         @error = "Aiemmin allekirjoitettu"
@@ -220,7 +220,8 @@ class SignaturesController < ApplicationController
         @error = nil
         birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
         firstnames, lastname = guess_names(params["B02K_CUSTNAME"], @signature.firstnames, @signature.lastname)
-        @signature.update_attributes(state: "authenticated", signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
+        @signature.state = "authenticated"
+        @signature.update_attributes(signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
         session["authenticated_at"]         = DateTime.now
         session["authenticated_birth_date"] = birth_date
         session["authenticated_approvals"]  = @signature.id
@@ -237,7 +238,7 @@ class SignaturesController < ApplicationController
     else
       service_name = params[:servicename]
       Rails.logger.info "Cancelling"
-      @signature.update_attributes(state: "cancelled")
+      @signature.state = "cancelled"
       @error = "Cancelling authentication"
     end
     respond_with @signature
@@ -251,7 +252,7 @@ class SignaturesController < ApplicationController
     else
       service_name = params[:servicename]
       Rails.logger.info "Rejecting"
-      @signature.update_attributes(state: "rejected")
+      @signature.state = "rejected"
       @error = "Rejecting authentication"
     end
     respond_with @signature
