@@ -80,7 +80,7 @@ class KM
   end
 
   def KM.api_key
-    ENV['KISSMETRICS_API_KEY'] || "690626c087893eef5f7307868202023d84f79acb"
+    ENV['KISSMETRICS_API_KEY']
   end
 
   def KM.js
