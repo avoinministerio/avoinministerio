@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Signature do
   describe "Attributes" do
-    it { should be_accessible(:state) }
+    it { should_not be_accessible(:state) }
     it { should be_accessible(:firstnames) }
     it { should be_accessible(:lastname) }
     it { should be_accessible(:birth_date) }
