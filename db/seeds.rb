@@ -269,8 +269,8 @@ ideas = Idea.find(:all).to_a
 # first idea has 0 votes
 ideas.shift  
 # next ideas have only one for and against
-Vote.create!({ idea: ideas.shift, citizen: voters[rand(voter_count)], option: 0 })
-Vote.create!({ idea: ideas.shift, citizen: voters[rand(voter_count)], option: 1 })
+ideas.shift.vote(voters[rand(voter_count)], 0)
+ideas.shift.vote(voters[rand(voter_count)], 1)
 
 class RandomGaussian
   def initialize(mean = 0.0, sd = 1.0, rng = lambda { Kernel.rand })
@@ -307,9 +307,7 @@ ideas.each do |idea|
 		vs.push v
 	end
 	vs.each do |v|
-#		t = Time.now - rand(secs_per_week*10)
-		t = Time.now - rd.rand()
-		Vote.create!({ idea: idea, citizen: v, option: rand(2), created_at: t, updated_at: t})
+    idea.vote(v, rand(2))
 	end
 end
 
