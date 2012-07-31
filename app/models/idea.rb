@@ -3,6 +3,7 @@ class Idea < ActiveRecord::Base
   include Changelogger
   include Concerns::Indexing
   include Tanker
+  include ApplicationHelper
   extend FriendlyId
 
   VALID_STATES = %w(idea draft proposal law)
