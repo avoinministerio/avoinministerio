@@ -66,7 +66,9 @@
       kpl (arvio)
     .stat
       Tavoitteesta kerätty n.
-      %b= sprintf("%.3f%%", total_signatures.to_f / idea.target_count * 100.0)
+      - collected_of_target = total_signatures.to_f / idea.target_count * 100.0
+      - decimals = [0,(-(Math.log([0.00001,collected_of_target].max)/Math.log(5))+3.3).floor].max
+      %b= sprintf("%.#{decimals}f%%", collected_of_target)
     .stat
       Arvio lukumäärästä päivitetty
       = finnishDate(idea.additional_signatures_count_date)
