@@ -42,7 +42,7 @@ class PagesController < ApplicationController
     @proposal_and_drafts_counts = @proposals_counts.merge @draft_counts
 
     idea_count = 4
-    @ideas = Idea.published.where(state: 'idea').order("updated_at DESC").limit(idea_count).includes(:votes).all
+    @ideas = Idea.published.where(state: 'idea').order("created_at DESC").limit(idea_count).includes(:votes).all
     @idea_counts = {}
     @ideas.map do |idea|
       for_count      = idea.vote_counts[1] || 0
