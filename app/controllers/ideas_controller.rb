@@ -62,6 +62,7 @@ class IdeasController < ApplicationController
       age:      {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
       comments: {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
       voted:    {most:    "vote_count DESC",              least:      "vote_count ASC"}, 
+      votes_for:{most:    "vote_for_count DESC",          least:      "vote_for_count ASC"},
       support:  {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
       tilt:     {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
     }
@@ -69,6 +70,7 @@ class IdeasController < ApplicationController
       age:      {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
       comments: {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
       voted:    {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
+      votes_for:{most:    "Eniten ääniä puolesta",        least:      "Vähiten ääniä puolesta"},
       support:  {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
       tilt:     {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
     }
@@ -80,6 +82,7 @@ class IdeasController < ApplicationController
       [:age,      [:newest, :oldest]], 
       [:comments, [:most,   :least]], 
       [:voted,    [:most,   :least]], 
+      [:votes_for,[:most,   :least]],
       [:support,  [:most,   :least]],
       [:tilt,     [:even,   :polarized]],
     ]
