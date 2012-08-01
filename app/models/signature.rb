@@ -16,24 +16,19 @@ class Signature < ActiveRecord::Base
   validates :accept_publicity, inclusion: VALID_PUBLICITY_OPTIONS
 
   def self.create_with_citizen_and_idea(citizen, idea)
-    completed_signature = where(state: "signed", citizen_id: citizen.id, idea_id: idea.id).first
-    unless completed_signature
-      signature = new() do |s|
-        s.citizen = citizen
-        s.firstnames = citizen.first_names
-        s.lastname = citizen.last_name
-        s.idea = idea
-        s.idea_title = idea.title
-        s.idea_date = idea.updated_at
-        s.state = "initial"
-        s.stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
-        s.started = Time.now
-        s.occupancy_county = ""
-      end
-
-      signature
-    else
-      nil
+    signature = new() do |s|
+      s.citizen = citizen
+      s.firstnames = citizen.first_names
+      s.lastname = citizen.last_name
+      s.idea = idea
+      s.idea_title = idea.title
+      s.idea_date = idea.updated_at
+      s.state = "initial"
+      s.stamp = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
+      s.started = Time.now
+      s.occupancy_county = ""
     end
+
+    signature
   end
 end
