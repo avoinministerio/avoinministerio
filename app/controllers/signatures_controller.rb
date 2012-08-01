@@ -227,6 +227,7 @@ class SignaturesController < ApplicationController
         session["authenticated_approvals"]  = @signature.id
       end
     end
+    @signature.save
     respond_with @signature
   end
 
@@ -239,6 +240,7 @@ class SignaturesController < ApplicationController
       service_name = params[:servicename]
       Rails.logger.info "Cancelling"
       @signature.state = "cancelled"
+      @signature.save
       @error = "Cancelling authentication"
     end
     respond_with @signature
@@ -253,6 +255,7 @@ class SignaturesController < ApplicationController
       service_name = params[:servicename]
       Rails.logger.info "Rejecting"
       @signature.state = "rejected"
+      @signature.save
       @error = "Rejecting authentication"
     end
     respond_with @signature
