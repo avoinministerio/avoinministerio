@@ -17,7 +17,7 @@ class Signature < ActiveRecord::Base
 
   def self.create_with_citizen_and_idea(citizen, idea)
     completed_signature = where(state: "signed", citizen_id: citizen.id, idea_id: idea.id).first
-    unless completed_signature
+    if !completed_signature || ENV["Allow_Signing_Multiple_Times"]
       signature = new() do |s|
         s.citizen = citizen
         s.firstnames = citizen.first_names

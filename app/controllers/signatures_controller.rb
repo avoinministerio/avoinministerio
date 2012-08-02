@@ -354,11 +354,15 @@ class SignaturesController < ApplicationController
   end
 
   def check_previously_signed(citizen, idea_id)
-    completed_signature = Signature.where(state: "signed", citizen_id: citizen.id, idea_id: idea_id).first
-    if completed_signature
-      true
-    else
+    if ENV["Allow_Signing_Multiple_Times"]
       false
+    else
+      completed_signature = Signature.where(state: "signed", citizen_id: citizen.id, idea_id: idea_id).first
+      if completed_signature
+        true
+      else
+        false
+      end
     end
   end
 
