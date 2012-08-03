@@ -3,7 +3,6 @@ class Idea < ActiveRecord::Base
   include Changelogger
   include Concerns::Indexing
   include Tanker
-  include ApplicationHelper
   extend FriendlyId
 
   VALID_STATES = %w(idea draft proposal law)
@@ -77,17 +76,12 @@ class Idea < ActiveRecord::Base
 
   def vote(citizen, option)
     vote = votes.by(citizen).first
-    KM.identify(citizen)
     if vote
       update_vote_counts(option, vote.option)
       vote.update_attribute(:option, option) unless vote.option == option
-      KM.push("record", "voted",               {option: option, idea: self.id})
-      KM.push("record", "vote change of mind", {option: option, idea: self.id})
     else
       update_vote_counts(option, nil)
       votes.create(citizen: citizen, option: option)
-      KM.push("record", "voted",               {option: option, idea: self.id})
-      KM.push("record", "first vote on idea",  {option: option, idea: self.id})
     end
   end
   
