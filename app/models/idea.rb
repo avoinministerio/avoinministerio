@@ -87,25 +87,23 @@ class Idea < ActiveRecord::Base
   
   def update_vote_counts(option, old_option)
     if old_option == nil
-      self.vote_count += 1
+      update_column("vote_count", self.vote_count + 1)
     elsif old_option == 0
       # decrement vote counter to keep the citizen from voting multiple times
-      self.vote_against_count -= 1
+      update_column("vote_against_count", self.vote_against_count - 1)
     else
       # decrement vote counter
-      self.vote_for_count -= 1
+      update_column("vote_for_count", self.vote_for_count - 1)
     end
     
     if option == 0
-      self.vote_against_count += 1
+      update_column("vote_against_count", self.vote_against_count + 1)
     else
-      self.vote_for_count += 1
+      update_column("vote_for_count", self.vote_for_count + 1)
     end
     
-    self.vote_proportion = self.vote_for_count.to_f / self.vote_count
-    self.vote_proportion_away_mid = (0.5 - self.vote_proportion).abs
-    
-    self.save
+    update_column("vote_proportion", self.vote_for_count.to_f / self.vote_count)
+    update_column("vote_proportion_away_mid", (0.5 - self.vote_proportion).abs)
   end
 
   def voted_by?(citizen)
