@@ -35,11 +35,23 @@ If you want more information about the project, drop us an email to main@avoinmi
 
         cp config/database.yml.example config/database.yml
 
-6. Setup the database (create DB, load schema, load seed data)
+6. Create a pre-commit hook that runs automated tests before each commit and keeps you from committing if some tests fail. Create a file called `pre-commit` in the `.git/hooks` directory, and copy this content to it:
+
+        #!/usr/bin/env ruby
+        require File.expand_path('../../../config/application', __FILE__)
+        AvoinMinisterio::Application.load_tasks
+        Rake.application["spec"].reenable
+        Rake.application["spec"].invoke
+    
+    Also make the file executable:
+    
+        chmod +x .git/hooks/pre-commit
+    
+7. Setup the database (create DB, load schema, load seed data)
 
         bundle exec rake db:setup
 
-7. Start the app
+8. Start the app
 
         bundle exec rails s
 
@@ -78,13 +90,15 @@ Run tests when RED-GREEN-REFACTOR:
         git pull
         git rebase master
 
-5. Hack, commit and push your feature. Tests too :)
-
-        # Before adding and committing, it is a good practice to run tests
-        bundle exec rake spec
+5. Hack, commit and push your feature
 
         git add .
         git commit -m "Commit message"
+        git push
+    
+    If the commit fails due to failing tests but you need to commit your changes nevertheless, use the `--no-verify` switch.
+    
+        git commit -m "Commit message" --no-verify
         git push
 
 6. Pull and rebase the upstream repository
