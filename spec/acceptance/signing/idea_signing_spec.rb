@@ -187,7 +187,7 @@ feature "Idea signing" do
       scenario "5) return from TUPAS" do
         visit_signature_returning(idea.id, @citizen.id)
         signature = Signature.where(:idea_id => idea.id,
-          :citizen_id => @citizen.id).first
+                                    :citizen_id => @citizen.id).first
         
         page.should have_field("signature_idea_title", with: idea.title)
         should_have_date("signature_idea_date", today_date)
@@ -200,6 +200,7 @@ feature "Idea signing" do
         page.should have_select("signature_occupancy_county", selected: nil)
         page.should have_unchecked_field("signature_vow")
         should_be_disabled(find_button("Allekirjoita"))
+        signature.state.should == "authenticated"
         
         select "Helsinki", from: "signature_occupancy_county"
         check "Vow"
@@ -212,6 +213,9 @@ feature "Idea signing" do
         visit_signature_finalize_signing(idea.id, @citizen.id)
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
         page.should have_content "Tunnistautumisesi on nyt voimassa"
+        signature = Signature.where(:idea_id => idea.id,
+                                    :citizen_id => @citizen.id).last
+        signature.state.should == "signed"
       end
       
       scenario "7) go to the shortcut fillin page" do
@@ -225,7 +229,7 @@ feature "Idea signing" do
         visit_signature_finalize_signing(idea.id, @citizen.id)
         visit signature_idea_shortcut_fillin_path(another_idea.id)
         signature = Signature.where(:idea_id => another_idea.id,
-          :citizen_id => @citizen.id).first
+                                    :citizen_id => @citizen.id).first
         
         page.should have_checked_field "signature_accept_general"
         page.should have_checked_field "signature_accept_non_eu_server"
@@ -242,6 +246,7 @@ feature "Idea signing" do
           selected: "Helsinki")
         page.should have_unchecked_field("signature_vow")
         should_be_disabled(find_button("Allekirjoita"))
+        signature.state.should == "authenticated"
         
         check "Vow"
         click_button "Allekirjoita"
@@ -294,6 +299,8 @@ feature "Idea signing" do
         visit "/signatures/#{signature.id}/cancelling/Alandsbankentesti"
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_button "Allekirjoita"
+        signature.reload
+        signature.state.should == "cancelled"
       end
       
       scenario "6) citizen doesn't give the vow" do
@@ -515,9 +522,11 @@ feature "Idea signing" do
       wrong_mac = mac(Random.new.bytes(100))
       
       visit "/signatures/#{signature.id}/returning/#{service}?#{return_parameters}&B02K_MAC=#{wrong_mac}"
+      signature.reload
       
       page.should have_content "Tunnistaminen epäonnistui"
       page.should_not have_button "Allekirjoita"
+      signature.state.should == "invalid return"
     end
     scenario "not within timelimit" do
       visit_signature_idea_path(idea.id)
@@ -526,9 +535,11 @@ feature "Idea signing" do
       Timecop.travel(Time.now + 30.minutes)
       visit(capybara_test_return_url(signature.id))
       Timecop.return
+      signature.reload
       
       page.should have_content "Tunnistaminen epäonnistui"
       page.should_not have_button "Allekirjoita"
+      signature.state.should == "too late"
     end
     scenario "repeated returning" do
       visit_signature_returning(idea.id, @citizen.id)
@@ -537,6 +548,8 @@ feature "Idea signing" do
       visit(capybara_test_return_url(signature.id))
       page.should have_content "Tunnistaminen epäonnistui"
       page.should_not have_button "Allekirjoita"
+      signature.reload
+      signature.state.should == "repeated_returning"
     end
     scenario "cancel authentication and change the account while signing" do
       visit_signature_idea_path(idea.id)
@@ -555,6 +568,8 @@ feature "Idea signing" do
         visit "/signatures/#{signature.id}/rejecting/Capybaratesti"
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_button "Allekirjoita"
+        signature.reload
+        signature.state.should == "rejected"
       end
       scenario "the citizen also changes the account while signing" do
         visit_signature_idea_path(idea.id)
@@ -564,6 +579,8 @@ feature "Idea signing" do
         visit "/signatures/#{signature.id}/rejecting/Capybaratesti"
         page.should have_content "Tunnistaminen epäonnistui"
         page.should_not have_button "Allekirjoita"
+        signature.reload
+        signature.state.should == "initial"
       end
     end
     scenario "the citizen attempts to use shortcut fillin but has not authenticated" do
