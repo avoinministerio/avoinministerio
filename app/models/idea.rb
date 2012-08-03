@@ -20,7 +20,7 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count
+                    :target_count, :anonymized
 
   has_many :comments, as: :commentable
   has_many :votes
@@ -44,7 +44,11 @@ class Idea < ActiveRecord::Base
     indexes :body
     indexes :state
     indexes :author do
-      self.author.first_name + " " + self.author.last_name
+      unless anonymized
+        self.author.first_name + " " + self.author.last_name
+      else
+        ""
+      end
     end
     indexes :type do "idea" end
     

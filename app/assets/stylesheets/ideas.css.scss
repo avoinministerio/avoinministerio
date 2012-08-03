@@ -9,16 +9,13 @@ $grey: #888888;
 $green: #8cc63f;
 $red: #a9003f;
 
-#new_idea .input label {
-  display: block;
-}
-
 #new_idea label[for=idea_title] {
   font-size: 2em;
 }
 
 #new_idea label[for=idea_summary],
-#new_idea label[for=idea_body] {
+#new_idea label[for=idea_body],
+#new_idea label[for=idea_anonymized] {
   font-size: 1.5em;
 }
 
@@ -407,4 +404,8 @@ ul.horizontal li {
 
 .share .addthis_32x32_style {
   height: 32px;
+}
+
+.notice_anonymized {
+  font-style: italic;
 }

@@ -23,6 +23,7 @@ fi:
         title: "Otsikko"
         summary: "Tiivistelmä"
         body: "Kuvaus"
+        anonymized: "Piilota nimesi"
       profile:
         first_names: "Etunimet"
         first_name: "Kutsumanimi"
