@@ -59,10 +59,12 @@
   = idea_state_image(@idea)
 .idea.grid_24
   .author
-    -if @idea.published?
+    -if @idea.published? && !@idea.anonymized
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
+    - elsif @idea.anonymized
+      %span.notice_anonymized Idean antaja ei halunnut nimeään julkaistavan netissä
   .grid_16.alpha
     - if @idea.published?
       %h1= @idea.title
