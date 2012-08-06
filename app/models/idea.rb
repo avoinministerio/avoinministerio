@@ -20,7 +20,7 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count
+                    :target_count, :updated_content_at
 
   has_many :comments, as: :commentable
   has_many :votes
