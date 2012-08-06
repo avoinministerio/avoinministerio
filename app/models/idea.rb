@@ -93,7 +93,7 @@ class Idea < ActiveRecord::Base
   def update_vote_counts(option, old_option)
     if old_option == nil
       self.vote_count += 1
-    elsif old_option == 0
+    elsif old_option == "0"
       # decrement vote counter to keep the citizen from voting multiple times
       self.vote_against_count -= 1
     else
@@ -101,7 +101,7 @@ class Idea < ActiveRecord::Base
       self.vote_for_count -= 1
     end
     
-    if option == 0
+    if option == "0"
       self.vote_against_count += 1
     else
       self.vote_for_count += 1
