@@ -57,6 +57,7 @@ class SignaturesController < ApplicationController
     param_string += "&requestor_secret=#{ENV['requestor_secret']}"
     mac(param_string)
   end
+<<<<<<< HEAD
 
   def generate_signing_service_url(signature, service)
     parameters = { 
@@ -89,6 +90,40 @@ class SignaturesController < ApplicationController
     base_url[Rails.env] + "?" + parameters.to_query
   end
 
+=======
+
+  def generate_signing_service_url(signature, service)
+    parameters = { 
+      service:                      service,
+      current_citizen_id:           current_citizen.id,
+      idea_id:                      signature.idea.id,
+      idea_title:                   signature.idea.title,
+      idea_date:                    signature.idea.updated_at,
+      idea_mac:                     signature.idea_mac,
+      accept_general:               signature.accept_general,
+      accept_non_eu_server:         signature.accept_non_eu_server,
+      accept_publicity:             signature.accept_publicity,
+      accept_science:               signature.accept_science,
+      last_fill_first_names:        session["authenticated_firstnames"],
+      last_fill_last_names:         session["authenticated_lastname"],
+      last_fill_birthdate:          session["authenticated_birthdate"],              # FIXME, not set at the moment
+      last_fill_occupancy_county:   session["authenticated_occupancy_county"],
+      valid_shortcut_session_mac:   session[:shortcut_session_mac],
+      signing_success:              signature_idea_signing_success_path(signature),
+      signing_failure:              signature_idea_signing_failure_path(signature)
+    }
+    parameters[:requestor_identifying_mac] = requestor_identifying_mac(parameters)
+    base_url = {
+      'production'  => "https://allekirjoitus.avoinministerio.fi/signatures", 
+      'staging'     => "https://staging.allekirjoitus.avoinministerio.fi/signatures", 
+      'development' => "http://localhost:3003/signatures", 
+    }
+    p base_url[Rails.env]
+    p parameters.to_query
+    base_url[Rails.env] + "?" + parameters.to_query
+  end
+
+>>>>>>> Linking Forum app to Signing
   def selected_free_service
     @signature = Signature.find_for(current_citizen, params[:id])
     puts "selected_free_service"
