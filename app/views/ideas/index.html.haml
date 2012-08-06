@@ -62,7 +62,7 @@
           =state_localised(idea.state)
           \/
         %span.date
-          = finnishDate(idea.updated_content_at)
+          = finnishDate(idea.created_at)
         - if idea.title.size > 0
           %h2= link_to idea.title, idea_path(idea, so: @sorting_order_code)
         - else
