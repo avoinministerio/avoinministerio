@@ -36,79 +36,79 @@ describe Idea do
 
   describe "#vote" do
     it "casts a vote on an idea" do
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.votes.count.should == 1
     end
 
     it "casts only one vote per idea per citizen" do
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.votes.by(citizen).count.should == 1
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.votes.by(citizen).count.should == 1
-      idea.vote(citizen, 0)
+      idea.vote(citizen, "0")
       idea.votes.by(citizen).count.should == 1
     end
     
     it "updates total vote count" do
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_count.should == 1
     end
     
     it "updates total vote count only once per citizen" do
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_count.should == 1
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_count.should == 1
-      idea.vote(citizen, 0)
+      idea.vote(citizen, "0")
       idea.vote_count.should == 1
     end
     
     it "increments vote_for_count" do
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_for_count.should == 1
     end
     
     it "increments vote_against_count" do
-      idea.vote(citizen, 0)
+      idea.vote(citizen, "0")
       idea.vote_against_count.should == 1
     end
     
     it "increments vote_for_count only once per citizen" do
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_for_count.should == 1
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_for_count.should == 1
     end
     
     it "decrements vote_for_count when citizen changes his/her mind" do
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_for_count.should == 1
-      idea.vote(citizen, 0)
+      idea.vote(citizen, "0")
       idea.vote_for_count.should == 0
-      idea.vote(citizen, 0)
+      idea.vote(citizen, "0")
       idea.vote_for_count.should == 0
     end
     
     it "decrements vote_against_count when citizen changes his/her mind" do
-      idea.vote(citizen, 0)
+      idea.vote(citizen, "0")
       idea.vote_against_count.should == 1
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_against_count.should == 0
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.vote_against_count.should == 0
     end
     
     it "calculates vote proportion" do
       another_citizen = Factory(:citizen)
-      idea.vote(citizen, 0)
-      idea.vote(another_citizen, 1)
+      idea.vote(citizen, "0")
+      idea.vote(another_citizen, "1")
       idea.vote_proportion.should be_within(0.001).of(1.0/2)
     end
     
     it "calculates vote_proportion_away_mid" do
       another_citizen = Factory(:citizen)
-      idea.vote(citizen, 0)
-      idea.vote(another_citizen, 1)
+      idea.vote(citizen, "0")
+      idea.vote(another_citizen, "1")
       idea.vote_proportion_away_mid.should be_within(0.001).of(0.0)
     end
   end
@@ -116,15 +116,15 @@ describe Idea do
   describe "#voted_by?" do
     it "tells whether citizen has voted for the idea or not" do
       idea.voted_by?(citizen).should be_false
-      idea.vote(citizen, 1)
+      idea.vote(citizen, "1")
       idea.voted_by?(citizen).should be_true
     end
   end
 
   describe "#vote_counts" do
     before do
-      5.times { Factory(:vote, option: 1, idea: idea) }
-      3.times { Factory(:vote, option: 0, idea: idea) }
+      5.times { Factory(:vote, option: "1", idea: idea) }
+      3.times { Factory(:vote, option: "0", idea: idea) }
     end
 
     it "returns the vote counts" do
