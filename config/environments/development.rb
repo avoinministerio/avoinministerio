@@ -32,4 +32,7 @@ AvoinMinisterio::Application.configure do
   config.assets.debug = false
   
   config.action_mailer.default_url_options = { host: "rails.fi:3000" }
+
+  # Signature application secret
+  config.signature_secret = ENV['SIGNATURE_SECRET'] || "abc123"
 end

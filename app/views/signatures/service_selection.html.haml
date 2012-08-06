@@ -1,0 +1,37 @@
+.container_24
+  %h1 Tunnistuspalvelu sähköiseen kannatusilmoitukseen
+  .text
+    Olet siirtymässä antamaan sähköisen allekirjoituksen
+    .ideatitle= @signature.idea.title
+  .text
+    Kannatusilmoituksen allekirjoitus etenee kun valitset sinulle sopivimman tunnistuspalvelun:
+    %ol
+      %li 
+        Avoin ministeriö voi saanut sovittua joidenkin tunnistuspalveluiden käytön ilmaiseksi.
+      %li
+        Jos valitset jonkin oikean laidan palveluista sinun tulee ensin lahjoittaa Avoimelle ministeriölle tunnistautumisen kustannukset. 
+  .text
+    Olemme koonneet 
+    %a{href:"/article/999"}vastauksia yleisimpiin kysymyksiin.
+  .text 
+    Kansalaisaloitteesta on säädetty 
+    %a{href:"http://www.finlex.fi/fi/laki/alkup/2012/20120012"}Kansalaisaloitelaissa
+    , jota kehotamme lukemaan epäselvissä tilanteissa. Lähetä toki myös meille kysymyksesi, pyrimme vastaamaan siihen: 
+    %a{href:"mailto:kysymykset@avoinministerio.fi"}kysymykset@avoinministerio.fi.
+
+  .grid_12
+    .signature_form
+      %h1 Ilmaiset tunnistuspalvelut
+      - @services.find_all{|s| not s[:min_fee]}.each do |service|
+        .grid_16
+          %a{:href => signature_idea_selected_free_service_path(@signature, service: service[:name])}
+            =service[:name]
+
+  .grid_12
+    .signature_form
+      %h1 Maksulliset tunnistuspalvelut
+      - @services.find_all{|s| s[:min_fee]}.each do |service|
+        .grid_16
+          %form{:action => service[:url], :method => "post"}
+            %input{:type => 'submit', :value => service[:name]}
+

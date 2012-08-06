@@ -9,11 +9,12 @@ class SignaturesController < ApplicationController
   include SignaturesControllerHelpers
 
   before_filter :authenticate_citizen!
-  before_filter :check_if_idea_can_be_signed, :except => [:returning,
-    :cancelling,
-    :rejecting,
-    :finalize_signing,
-    :shortcut_finalize_signing]
+  before_filter :check_if_idea_can_be_signed, :except => [:selected_free_service,
+                                                          :returning,
+                                                          :cancelling,
+                                                          :rejecting,
+                                                          :finalize_signing,
+                                                          :shortcut_finalize_signing]
 
   respond_to :html
 
@@ -26,100 +27,172 @@ class SignaturesController < ApplicationController
   def fill_in_acceptances(signature)
     signature.accept_general       = params[:accept_general]
     signature.accept_non_eu_server = params[:accept_non_eu_server]
-    signature.accept_publicity     = params[:publicity]
+    signature.accept_publicity     = params[:accept_publicity]
     signature.accept_science       = params[:accept_science]
   end
 
-  def sign
-    # TODO FIXME: check if user don't have any in-progress signatures ie. cover
-    # case when user does not type in the url (when Sign button is not shown)
+  def service_selection
     @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
+    # TODO: creation is now too late, so let's fake the data for development, needs to be cleared away
+    # FIXME: this is not even needed in signing so should not be passed
+    @signature.accept_general = true
+    @signature.accept_non_eu_server = true
+    @signature.accept_publicity = "normal"       
+    @signature.accept_science = true
+    @signature.save
 
+    services
+  end
+
+  def requestor_secret
+    config.signature_secret
+  end
+
+  def requestor_identifying_mac(parameters)
+    param_string = [
+      :service, :current_citizen_id, :idea_id, :idea_title, :idea_date, :idea_mac, 
+      :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
+      :last_fill_first_names, :last_fill_last_names, :last_fill_birthdate, :last_fill_occupancy_county, 
+      :valid_shortcut_session_mac, :returning, :failing].map {|key|  key.to_s + "=" + parameters[key].to_s }.join("&")
+    param_string += "&requestor_secret=#{ENV['requestor_secret']}"
+    mac(param_string)
+  end
+
+  def generate_signing_service_url(signature, service)
+    parameters = { 
+      service:                      service,
+      current_citizen_id:           current_citizen.id,
+      idea_id:                      signature.idea.id,
+      idea_title:                   signature.idea.title,
+      idea_date:                    signature.idea.updated_at,
+      idea_mac:                     signature.idea_mac,
+      accept_general:               signature.accept_general,
+      accept_non_eu_server:         signature.accept_non_eu_server,
+      accept_publicity:             signature.accept_publicity,
+      accept_science:               signature.accept_science,
+      last_fill_first_names:        session["authenticated_firstnames"],
+      last_fill_last_names:         session["authenticated_lastname"],
+      last_fill_birthdate:          session["authenticated_birthdate"],              # FIXME, not set at the moment
+      last_fill_occupancy_county:   session["authenticated_occupancy_county"],
+      valid_shortcut_session_mac:   session[:shortcut_session_mac],
+      signing_success:              signature_idea_signing_success_path(signature),
+      signing_failure:              signature_idea_signing_failure_path(signature)
+    }
+    parameters[:requestor_identifying_mac] = requestor_identifying_mac(parameters)
+    base_url = {
+      'production'  => "https://allekirjoitus.avoinministerio.fi/signatures", 
+      'staging'     => "https://staging.allekirjoitus.avoinministerio.fi/signatures", 
+      'development' => "http://localhost:3003/signatures", 
+    }
+    p base_url[Rails.env]
+    p parameters.to_query
+    base_url[Rails.env] + "?" + parameters.to_query
+  end
+
+  def selected_free_service
+    @signature = Signature.find_for(current_citizen, params[:id])
+    puts "selected_free_service"
+    p @signature
     if @signature
-      # ERROR: check that there are enough acceptances
-      fill_in_acceptances(@signature)
-      @signature.idea_mac = idea_mac(@signature.idea)
-      unless @signature.save
-        @error = "Couldn't save signature"
-        redirect_to signature_idea_introduction_path(params[:id]) and return
+      services
+      service = @services.find{|s| s[:name] == params[:service] } 
+      if service and (not service[:min_fee])
+        # user chose free service
+        @signature.service = params[:service]
+        @signature.save!
+        p generate_signing_service_url(@signature, params[:service])
+        redirect_to generate_signing_service_url(@signature, params[:service])
+      else
+        @error = "User chose non-free service"
       end
-
-      @services = [
-        { vers:       "0001",
-          rcvid:      "Elisa testi",
-          idtype:     "12",
-          name:       "Elisa Mobiilivarmenne testi",
-          url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd",
-        },
-        { vers:       "0001",
-          rcvid:      "Avoinministerio",
-          idtype:     "12",
-          name:       "Elisa Mobiilivarmenne",
-          url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd",
-        },
-
-        { vers:       "0002",
-          rcvid:      "AABTUPASID",
-          idtype:     "02",
-          name:       "Alandsbanken testi",
-          url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
-        },
-        { vers:       "0002",
-          rcvid:      "ELEKAMINNID",
-          idtype:     "02",
-          name:       "Alandsbanken",
-          url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
-        },
-        { vers:       "0002",
-          rcvid:      "KANNATUSTUPAS12",
-          idtype:     "02",
-          name:       "Tapiola testi",
-          url:        "https://pankki.tapiola.fi/service/identify",
-        },
-        { vers:       "0002",
-          rcvid:      "KANNATUSTUPAS12",
-          idtype:     "02",
-          name:       "Tapiola",
-          url:        "https://pankki.tapiola.fi/service/identify",
-        },
-
-        { vers:       "0003",
-          rcvid:      "024744039900",
-          idtype:     "02",
-          name:       "Sampo",
-          url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp",
-        },
-      ]
-
-      @services.each do |service|
-        set_defaults(service)
-        set_mac(service)
-      end
-      
-      respond_with @signature
-    
     else
-      @error = "Aiemmin allekirjoitettu"
-      redirect_to idea_path(params[:id])
+      @error = "No signature found for current_citizen with #{params[:id]}"
     end
   end
 
-  def set_defaults(service)
+  def services
+    @services = [
+      { vers:       "0001",
+        rcvid:      "Elisa testi",
+        idtype:     "12",
+        name:       "Elisa Mobiilivarmenne testi",
+        url:        "https://mtupaspreprod.elisa.fi/tunnistus/signature.cmd",
+        min_fee:    nil,
+      },
+      { vers:       "0001",
+        rcvid:      "Avoinministerio",
+        idtype:     "12",
+        name:       "Elisa Mobiilivarmenne",
+        url:        "https://tunnistuspalvelu.elisa.fi/tunnistus/signature.cmd",
+        min_fee:    nil,
+      },
+
+      { vers:       "0002",
+        rcvid:      "AABTUPASID",
+        idtype:     "02",
+        name:       "Alandsbanken testi",
+        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
+        min_fee:    0.50,
+      },
+      { vers:       "0002",
+        rcvid:      "ELEKAMINNID",
+        idtype:     "02",
+        name:       "Alandsbanken",
+        url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
+        min_fee:    0.22,
+      },
+      { vers:       "0002",
+        rcvid:      "KANNATUSTUPAS12",
+        idtype:     "02",
+        name:       "Tapiola testi",
+        url:        "https://pankki.tapiola.fi/service/identify",
+        min_fee:    nil,
+      },
+      { vers:       "0002",
+        rcvid:      "KANNATUSTUPAS12",
+        idtype:     "02",
+        name:       "Tapiola",
+        url:        "https://pankki.tapiola.fi/service/identify",
+        min_fee:    nil,
+      },
+
+      { vers:       "0003",
+        rcvid:      "024744039900",
+        idtype:     "02",
+        name:       "Sampo",
+        url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp",
+        min_fee:    nil,
+      },
+    ]
+  end
+
+  def setup_services(stamp)
+    @services = services
+    @services.each do |service|
+      set_defaults(service, stamp)
+      set_mac(service)
+      set_authenticated_urls(service, @signature.id)
+    end
+  end
+
+  def set_defaults(service, stamp)
     service[:action_id] = "701"
     service[:langcode]  = "FI"
     service[:keyvers]   = "0001"
     service[:alg]       = "03"
-    service[:stamp]     = @signature.stamp
+    service[:stamp]     = stamp
 
     service[:mac]       = nil
+  end
 
+  def set_authenticated_urls(service, signature_id)
     server = "https://#{request.host_with_port}"
     Rails.logger.info "Server is #{server}"
 
     service_name = service[:name].gsub(/\s+/, "")
-    service[:retlink]   = "#{server}/signatures/#{@signature.id}/returning/#{service_name}"
-    service[:canlink]   = "#{server}/signatures/#{@signature.id}/cancelling/#{service_name}"
-    service[:rejlink]   = "#{server}/signatures/#{@signature.id}/rejecting/#{service_name}"
+    service[:retlink]   = "#{server}/signatures/#{signature_id}/returning/#{service_name}"
+    service[:canlink]   = "#{server}/signatures/#{signature_id}/cancelling/#{service_name}"
+    service[:rejlink]   = "#{server}/signatures/#{signature_id}/rejecting/#{service_name}"
   end
 
   def set_mac(service)
@@ -154,6 +227,24 @@ class SignaturesController < ApplicationController
     str = ""
     secret.split(//).each_slice(2){|a| str += a.join("").hex.chr}
     str
+  end
+
+
+
+  def sign
+    # ERROR: Check that user has not signed already
+    # TODO FIXME: check if user don't have any in-progress signatures
+    # ie. cover case when user does not type in the url (when Sign button is not shown)
+    @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
+
+    setup_services(@signature.stamp)
+
+    # ERROR: check that there are enough acceptances
+    fill_in_acceptances(@signature)
+    @signature.idea_mac = idea_mac(@signature.idea)
+    @error = "Couldn't save signature" unless @signature.save!
+
+    respond_with @signature
   end
 
   def mac(string)

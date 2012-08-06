@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(:version => 20120806062640) do
     t.string   "accept_publicity"
     t.boolean  "accept_science"
     t.string   "idea_mac"
+    t.string   "service"
   end
 
   create_table "votes", :force => true do |t|
