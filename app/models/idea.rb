@@ -20,7 +20,7 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count
+                    :target_count, :updated_content_at
 
   has_many :comments, as: :commentable
   has_many :votes
@@ -87,23 +87,25 @@ class Idea < ActiveRecord::Base
   
   def update_vote_counts(option, old_option)
     if old_option == nil
-      update_column("vote_count", self.vote_count + 1)
+      self.vote_count += 1
     elsif old_option == 0
       # decrement vote counter to keep the citizen from voting multiple times
-      update_column("vote_against_count", self.vote_against_count - 1)
+      self.vote_against_count -= 1
     else
       # decrement vote counter
-      update_column("vote_for_count", self.vote_for_count - 1)
+      self.vote_for_count -= 1
     end
     
     if option == 0
-      update_column("vote_against_count", self.vote_against_count + 1)
+      self.vote_against_count += 1
     else
-      update_column("vote_for_count", self.vote_for_count + 1)
+      self.vote_for_count += 1
     end
     
-    update_column("vote_proportion", self.vote_for_count.to_f / self.vote_count)
-    update_column("vote_proportion_away_mid", (0.5 - self.vote_proportion).abs)
+    self.vote_proportion = self.vote_for_count.to_f / self.vote_count
+    self.vote_proportion_away_mid = (0.5 - self.vote_proportion).abs
+    
+    self.save
   end
 
   def voted_by?(citizen)
