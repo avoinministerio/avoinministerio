@@ -96,7 +96,7 @@ class Idea < ActiveRecord::Base
       self.vote_for_count -= 1
     end
     
-    if option == 0
+    if option == "0"
       self.vote_against_count += 1
     else
       self.vote_for_count += 1
