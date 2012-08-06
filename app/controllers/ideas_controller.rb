@@ -155,6 +155,7 @@ class IdeasController < ApplicationController
     @idea = Idea.new(params[:idea])
     @idea.author = current_citizen
     @idea.state  = "idea"
+    @idea.updated_content_at = DateTime.now
     if @idea.save
       flash[:notice] = I18n.t("idea.created")
       KM.identify(current_citizen)
@@ -170,6 +171,7 @@ class IdeasController < ApplicationController
   
   def update
     @idea = Idea.find(params[:id])
+    @idea.updated_content_at = DateTime.now
     if @idea.update_attributes(params[:idea])
       flash[:notice] = I18n.t("idea.updated") 
       KM.identify(current_citizen)
