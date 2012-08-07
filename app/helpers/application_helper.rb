@@ -15,6 +15,9 @@ module ApplicationHelper
   end
 
   def finnishDate(time)
+    if time.is_a? String
+      time = DateTime.parse(time)
+    end
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
 
