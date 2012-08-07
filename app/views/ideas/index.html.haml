@@ -74,10 +74,17 @@
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
             = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")
-          - for_ = (idea.vote_proportion || 0.0).to_f
-          %span.for= sprintf("%.0f%%", for_*100.0)
           |
-          %span.against= sprintf("%.0f%%", (1.0-for_)*100.0)
+          - for_ = (idea.vote_proportion || 0.0).to_f
+          %span.for
+            = idea.vote_for_count
+            PUOLESTA
+            = sprintf("(%.0f%%)", for_*100.0)
+          |
+          %span.against
+            = idea.vote_against_count
+            VASTAAN
+            = sprintf("(%.0f%%)", (1.0-for_)*100.0)
           %span.comment-count= (idea.comment_count || 0)
           -if idea.articles.count > 0
             %span.article-count= idea.articles.count
