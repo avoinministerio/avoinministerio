@@ -13,7 +13,7 @@
 // and Scalable and Modular Architecture for CSS (SMACSS) http://smacss.com/book
 
 //TODO Move to SUSY grid
-@import "960_24_col.css";
+//@import "960_24_col.css";
 
 
 // Compass Plugins
@@ -58,6 +58,7 @@
 @import "pages/pages.css.scss";
 @import "pages/ideas/ideas.css.scss";
 @import "pages/citizens.css.scss";
+@import "pages/articles.css.scss";
 
 //TODO Figure out where it used
 @import "scaffolds.css.scss";
@@ -86,7 +87,7 @@
 header {
   height: 150px;
   #logo {
-    @include span-columns(7,12);
+    @include span-columns(6.5,12);
   }
 }
 
@@ -219,18 +220,19 @@ header {
   margin-top: 55px;
 }
 
-.top-ideas {
-  @include span-columns(8,12);
+.top-ideas, .idea-content {
+  @include span-columns(8, 12);
   margin-right: 0; //TODO seems it's ugly hack
-  .list-ideas {
+}
+
+.top-ideas .list-ideas {
     margin-top: 10px;
     margin-right: 20px;
     color: $color-note;
   }
-}
 
 .ideas-header {
-  height: 100px;
+  height: 110px;
   position: relative;
   h1 {
     bottom: 0;
