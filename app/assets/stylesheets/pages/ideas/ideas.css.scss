@@ -288,16 +288,43 @@ ul.horizontal {
     a {
       &:hover {
         text-decoration: underline;
+        color: $grey;
       }
       &:link, &:visited {
         text-decoration: none;
+        color: $grey;
       }
     }
   }
   .ordering {
     color: $grey;
+    a {
+      &:hover {
+        color: $grey;
+        text-decoration: underline;
+      }
+      &:link {
+        color: $grey;
+        text-decoration: none;
+      }
+      &:visited {
+        color: $grey;
+        text-decoration: none;
+      }
+    }
     span.selected {
       color: $violet;
+      font-weight: bold;
+      a {
+        &:link {
+          color: $violet;
+          font-weight: bold;
+        }
+        &:visited {
+          color: $violet;
+          font-weight: bold;
+        }
+      }
     }
   }
   .filtered_title {
