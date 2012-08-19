@@ -52,16 +52,6 @@
     font-weight: normal;
   }
 
-  .idea {
-    margin-top: 32px;
-    .info {
-      @include span-columns(6, 12);
-    }
-    .idea-content {
-      @include span-columns(8, 12);
-    }
-  }
-
   .share {
     padding-bottom: 20px;
     @include span-columns(3.5 omega, 12);
@@ -187,11 +177,7 @@
     }
   }
 
-  #idea_form {
-    position:relative;
-  }
-
-  .help_cont {
+  .help-cont {
     margin-top: 15px;
     display: none;
   }
@@ -204,11 +190,16 @@
     left: 640px; 
   }
 
-  .ideas .idea {
-    .info h2 {
-      margin-right: 35px;
-      &.notitle a {
-        color: #bbb;
+  .idea {
+    margin-top: 32px;
+    @include legacy-pie-clearfix;
+    .info {
+      @include span-columns(6, 12);
+      h2 {
+        margin-right: 35px;
+        &.notitle a {
+          color: #bbb;
+        }
       }
     }
     .content {
@@ -227,63 +218,37 @@
     }
   }
 
-  .ideas-header {
-    .h1 {
-      font-size: 14px;
-      span.selected {
+  .filter-item {
+    @include float-left;
+    margin: 0;
+    list-style: none;
+    a, span {
+      margin: 0 .5em;
+      color: #888888;
+      &.selected, &.selected a {
         color: $color-primary;
         font-weight: bold;
       }
     }
-    //TODO here was $grey previously
-    .filtering .h1 {
+  }
+
+  //TODO do not sure it's the best solution
+  .filtering, .ordering {
+    @include legacy-pie-clearfix;
+    ul {
+      margin: 0;
+    }
+    h5 {
       color: $color-text;
-      a {
-        &:hover {
-          text-decoration: underline;
-          color: $color-text;
-        }
-        &:link, &:visited {
-          text-decoration: none;
-          color: $color-text;
-        }
-      }
+      @include float-left;
+      margin: 0;
     }
-    .ordering {
-      color: $color-text;
-      a {
-        &:hover {
-          color: $color-text;
-          text-decoration: underline;
-        }
-        &:link {
-          color: $color-text;
-          text-decoration: none;
-        }
-        &:visited {
-          color: $color-text;
-          text-decoration: none;
-        }
-      }
-      span.selected {
-        color: $color-primary;
-        font-weight: bold;
-        a {
-          &:link {
-            color: $color-primary;
-            font-weight: bold;
-          }
-          &:visited {
-            color: $color-primary;
-            font-weight: bold;
-          }
-        }
-      }
-    }
-    .filtered-title {
-      padding-top: 20px;
-      font-size: 24px;
-    }
+  }
+
+  .filtered-title {
+    @include inline-block;
+    padding-top: 20px;
+    font-size: 24px;
   }
 
   .stats {
