@@ -28,8 +28,8 @@
   :javascript
     #{KM.js}
 
-%body
-  %header.container_24.top_row_container
+%body{id: "#{params[:controller].parameterize}_controller"}
+  %header.container_24.top-row-container
     .container_24.top_row
   %header.container_24
     = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"

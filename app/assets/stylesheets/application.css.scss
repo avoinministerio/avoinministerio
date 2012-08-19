@@ -2,9 +2,16 @@
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
- *= require_self
- *= require_directory . 
 */
+
+@import "compass/reset";
+@import "960_24_col.css";
+@import "text.css";
+@import "pages/pages.css.scss";
+@import "scaffolds.css.scss";
+@import "typography.css.scss";
+@import "pages/ideas/ideas.css.scss";
+
 $turquoise: #29abe2;
 $violet: #473161;
 
@@ -12,13 +19,13 @@ body > header {
   height: 150px;
 }
 
-body > header.top_row_container {
+body > header.top-row-container {
   height: 0;
   z-index: -1;
   border: 0 none;
 }
 
-body > header, body > header.top_row_container > .container_24, .ideas_header.container_24 {
+body > header, body > header.top-row-container > .container_24, .ideas_header.container_24 {
   border-width: 6px;
   -moz-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   -webkit-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
@@ -269,7 +276,7 @@ input[type=submit] {
         min-height: 28px;
         padding-left: 20px;
         background-image:url('/assets/kommentit.png') no-repeat;
-        background-position: -1 1.5em;
+        background-position: -1px 1.5em;
         a {
           color: $turquoise;
         }
