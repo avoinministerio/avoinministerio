@@ -1,0 +1,51 @@
+.returning
+  - if not @error
+    %h1 Kiitos kannatusilmoituksen allekirjoittamisesta
+
+    .text
+      Olemme nyt kirjanneet virallisen kannatusilmoituksesi.
+    .text
+      Seuraavaksi voit halutessasi
+    .box
+      .bullet
+        1.
+      .instructions
+        .title Allekirjoita muita aloitteita
+        - if check_shortcut_session_validity
+          .text 
+            Tunnistautumisesi on nyt voimassa 
+            = sprintf("%.0f", shortcut_session_remaining_mins)
+            minuuttia tai kunnes kirjaudut ulos, joten voit allekirjoittaa aloitteita ilman, että sinun tarvitsee tunnistautua uudelleen.
+        - else
+          .text 
+            Tunnistautumisesi ei ole enää voimassa, joten seuraavan kannatusilmoituksen allekirjoitukseen tunnistaudut uudelleen.
+
+      .other-initiatives
+        %ul
+          - @initiatives.each do |initiative|
+            %li
+              =link_to initiative.title, initiative
+        =link_to "Listaa kaikki", ideas_path
+    .box
+      .bullet
+        2.
+      .instructions
+        .title Hanki aloitteelle lisää näkyvyyttä, kutsu ystäväsi allekirjoittamaan
+        .text
+          Mene takaisin 
+          =link_to "aloitteen", @signature.idea
+          \-sivulle, ja jaa se sähköpostitse tai sosiaalisen median kautta ystävillesi, jotta aloite saa mahdollisimman paljon kannatusta.
+    .sidebox
+      .text
+        Siirry takaisin palvelun 
+        =link_to "etusivulle", "/"
+      .text
+        Avoin ministeriö rekisteröity yhdistys on vapaaehtoisorganisaatio, joka pyrkii edistämään kansalaisdemokratiaa. Jos olet kiinnostunut osallistumaan toimintaamme omalla paikkakunnallasi, lähetä yhteystietosi sähköpostitse osoitteeseen palaute@avoinministerio.fi.
+
+
+  - else
+    .error
+      %h1 Tunnistaminen epäonnistui
+      Virhe
+      = @error
+      =link_to "takaisin aloitteeseen", @signature.idea

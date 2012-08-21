@@ -14,7 +14,10 @@ class SignaturesController < ApplicationController
                                                           :cancelling,
                                                           :rejecting,
                                                           :finalize_signing,
-                                                          :shortcut_finalize_signing]
+                                                          :shortcut_finalize_signing,
+                                                          :signing_success,
+                                                          :signing_failure,
+                                                        ]
 
   respond_to :html
 
@@ -32,16 +35,45 @@ class SignaturesController < ApplicationController
   end
 
   def service_selection
-    @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
-    # TODO: creation is now too late, so let's fake the data for development, needs to be cleared away
-    # FIXME: this is not even needed in signing so should not be passed
-    @signature.accept_general = true
-    @signature.accept_non_eu_server = true
-    @signature.accept_publicity = "normal"       
-    @signature.accept_science = true
-    @signature.save
+#    @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
+    @idea = Idea.find(params[:id])
+    unless check_previously_signed(current_citizen, params[:id])
+      @signature = Signature.new()
+      @signature.idea                   = @idea
+      @signature.idea_title             = @idea.title
+      @signature.idea_date              = @idea.updated_at
+      @signature.citizen                = current_citizen
+      @signature.firstnames             = current_citizen.first_names
+      @signature.lastname               = current_citizen.last_name
+      @signature.state                  = "initial"
+      @signature.stamp                  = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
+      @signature.started                = Time.now
+      @signature.occupancy_county       = ""
+      @signature.service                = nil
+  #    # TODO: creation is now too late, so let's fake the data for development, needs to be cleared away
+  #    # FIXME: this is not even needed in signing so should not be passed
+      @signature.accept_general         = true
+      @signature.accept_non_eu_server   = true
+      @signature.accept_publicity       = "Normal"
+      @signature.accept_science         = true
+      p @signature.valid?
+      p @signature.errors.full_messages
+      begin
+        unless @signature.save
+          p @signature
+          raise "couldn't save" 
+        end
+      rescue Exception => e
+        p e
+        puts e.backtrace.join("\n")
+      end
 
-    services
+      services
+      @parameters_and_urls = {}
+      @services.each {|service| @parameters_and_urls[service[:name]] = signing_service_parameters_and_url(@signature, service)}
+    else
+      @error = "Aiemmin allekirjoitettu"
+    end
   end
 
   def requestor_secret
@@ -49,35 +81,45 @@ class SignaturesController < ApplicationController
   end
 
   def requestor_identifying_mac(parameters)
-    param_string = [
-      :service, :current_citizen_id, :idea_id, :idea_title, :idea_date, :idea_mac, 
-      :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
-      :last_fill_first_names, :last_fill_last_names, :last_fill_birthdate, :last_fill_occupancy_county, 
-      :valid_shortcut_session_mac, :returning, :failing].map {|key|  key.to_s + "=" + parameters[key].to_s }.join("&")
+    mapped_params = 
+      [:idea_id, :idea_title, :idea_date, :idea_mac, 
+       :current_citizen_id, 
+       :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
+      ].map {|key| [key, parameters[:message][key]]} +
+      [:service, :signing_success, :signing_failure].map {|key| [key, parameters[:options][key]]} +
+      [:last_fill_first_names, :last_fill_last_names, :last_fill_birthdate, :last_fill_occupancy_county, 
+       :valid_shortcut_session_mac].map {|key| [key, parameters[key]]}
+    param_string = mapped_params.map{|key, value|  key.to_s + "=" + value.to_s }.join("&")
     param_string += "&requestor_secret=#{ENV['requestor_secret']}"
     mac(param_string)
   end
 <<<<<<< HEAD
 
-  def generate_signing_service_url(signature, service)
+  def signing_service_parameters_and_url(signature, service)
+    server = "http" + (Rails.env == "development" ? "" : "s" ) + "://#{request.host_with_port}"
     parameters = { 
-      service:                      service,
-      current_citizen_id:           current_citizen.id,
-      idea_id:                      signature.idea.id,
-      idea_title:                   signature.idea.title,
-      idea_date:                    signature.idea.updated_at,
-      idea_mac:                     signature.idea_mac,
-      accept_general:               signature.accept_general,
-      accept_non_eu_server:         signature.accept_non_eu_server,
-      accept_publicity:             signature.accept_publicity,
-      accept_science:               signature.accept_science,
+      message: {
+        idea_id:                      signature.idea.id,
+        idea_title:                   signature.idea.title,
+        idea_date:                    signature.idea.updated_at,
+        idea_mac:                     signature.idea_mac,
+        citizen_id:                   current_citizen.id,
+        accept_general:               signature.accept_general,
+        accept_non_eu_server:         signature.accept_non_eu_server,
+        accept_publicity:             signature.accept_publicity,
+        accept_science:               signature.accept_science,
+        },
+      options: {
+#        service:                      service[:name],
+        service:                      service,
+        success_url:                  server + signature_idea_signing_success_path(signature),
+        failure_url:                  server + signature_idea_signing_failure_path(signature),
+      },
       last_fill_first_names:        session["authenticated_firstnames"],
       last_fill_last_names:         session["authenticated_lastname"],
       last_fill_birthdate:          session["authenticated_birthdate"],              # FIXME, not set at the moment
       last_fill_occupancy_county:   session["authenticated_occupancy_county"],
       valid_shortcut_session_mac:   session[:shortcut_session_mac],
-      signing_success:              signature_idea_signing_success_path(signature),
-      signing_failure:              signature_idea_signing_failure_path(signature)
     }
     parameters[:requestor_identifying_mac] = requestor_identifying_mac(parameters)
     base_url = {
@@ -85,6 +127,11 @@ class SignaturesController < ApplicationController
       'staging'     => "https://staging.allekirjoitus.avoinministerio.fi/signatures", 
       'development' => "http://localhost:3003/signatures", 
     }
+    return parameters, base_url
+  end
+
+  def generate_signing_service_url(signature, service)
+    parameters, base_url = signing_service_parameters_and_url(signature, service)
     p base_url[Rails.env]
     p parameters.to_query
     base_url[Rails.env] + "?" + parameters.to_query
@@ -506,5 +553,64 @@ class SignaturesController < ApplicationController
       @error = "Can't be signed"
     end
   end
+
+  def signing_success
+    validate_service_provider!
+
+    #    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
+    @signature = Signature.where(state: 'initial').find(params[:id])
+    if @signature and @signature.citizen == current_citizen and @signature.state == "initial"   # TODO: and duration since last authentication less that threshold
+      # validate input before storing
+      if justNameCharacters(params["first_names"]) and 
+          justNameCharacters(params["last_name"])   and 
+          municipalities.include? params["occupancy_county"]
+        unless check_previously_signed(current_citizen, @signature.idea_id)
+          # TODO: these updates should be removed, and only be marked that user has signed the idea
+          @signature.firstnames       = params["first_names"]
+          @signature.lastname         = params["last_name"]
+          @signature.occupancy_county = params["occupancy_county"]
+          @signature.state            = "signed"
+          @signature.signing_date     = today_date
+          @error = "Couldn't save signature" unless @signature.save
+
+          session["authenticated_firstnames"]       = @signature.firstnames
+          session["authenticated_lastname"]         = @signature.lastname
+          session["authenticated_occupancy_county"] = @signature.occupancy_county
+
+          # show only proposals that haven't yet been signed by current_citizen
+          signatures = Arel::Table.new(:signatures)
+          already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
+          ideas = Arel::Table.new(:ideas)
+          proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
+          @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
+        else
+          @error = "Aiemmin allekirjoitettu"
+        end
+      else
+        @error = "Invalid parameters"
+      end
+    else
+      @error = "Trying to alter other citizen or signature with other than authenticated state"
+    end
+  end
+
+  def signing_failure
+  end
+
+  require 'uri'
+  def service_provider_params_as_string(params)
+    parameters_as_string = [:first_names, :last_name, :occupancy_county].map {|key| h={}; h[key]=params[key]; h.to_param}.join("&")
+    u = URI(request.fullpath)
+    request.protocol + request.host_with_port + u.path + "?" + parameters_as_string
+  end
+
+  def validate_service_provider!
+    param_string = service_provider_params_as_string(params) + "&requestor_secret=#{ENV['requestor_secret']}"
+    p param_string
+    p params
+    p mac(param_string)
+    raise Exception.new unless params[:service_provider_identifying_mac] == mac(param_string)
+  end
+
 
 end
