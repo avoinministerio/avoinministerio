@@ -4,6 +4,8 @@ require 'date'
 
 require 'signatures_controller_helpers'
 
+$TEMPORARILY_ALLOW_MULTIPLE_SIGNATURES = true
+
 class SignaturesController < ApplicationController
 
   include SignaturesControllerHelpers
@@ -37,43 +39,48 @@ class SignaturesController < ApplicationController
   def service_selection
 #    @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
     @idea = Idea.find(params[:id])
-    unless check_previously_signed(current_citizen, params[:id])
-      @signature = Signature.new()
-      @signature.idea                   = @idea
-      @signature.idea_title             = @idea.title
-      @signature.idea_date              = @idea.updated_at
-      @signature.citizen                = current_citizen
-      @signature.firstnames             = current_citizen.first_names
-      @signature.lastname               = current_citizen.last_name
-      @signature.state                  = "initial"
-      @signature.stamp                  = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
-      @signature.started                = Time.now
-      @signature.occupancy_county       = ""
-      @signature.service                = nil
-  #    # TODO: creation is now too late, so let's fake the data for development, needs to be cleared away
-  #    # FIXME: this is not even needed in signing so should not be passed
-      @signature.accept_general         = true
-      @signature.accept_non_eu_server   = true
-      @signature.accept_publicity       = "Normal"
-      @signature.accept_science         = true
-      p @signature.valid?
-      p @signature.errors.full_messages
-      begin
-        unless @signature.save
-          p @signature
-          raise "couldn't save" 
-        end
-      rescue Exception => e
-        p e
-        puts e.backtrace.join("\n")
-      end
 
-      services
-      @parameters_and_urls = {}
-      @services.each {|service| @parameters_and_urls[service[:name]] = signing_service_parameters_and_url(@signature, service)}
-    else
+    if not $TEMPORARILY_ALLOW_MULTIPLE_SIGNATURES and check_previously_signed(current_citizen, params[:id])
       @error = "Aiemmin allekirjoitettu"
+      return
     end
+
+    if check_previously_signed(current_citizen, params[:id])
+      @info = "Idea on jo aiemmin allekirjoitettu, mutta uudelleenallekirjoittaminen on sallittua nyt vielä testivaiheessa"
+    end
+    @signature = Signature.new()
+    @signature.idea                   = @idea
+    @signature.idea_title             = @idea.title
+    @signature.idea_date              = @idea.updated_at
+    @signature.citizen                = current_citizen
+    @signature.firstnames             = current_citizen.first_names
+    @signature.lastname               = current_citizen.last_name
+    @signature.state                  = "initial"
+    @signature.stamp                  = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
+    @signature.started                = Time.now
+    @signature.occupancy_county       = ""
+    @signature.service                = nil
+#    # TODO: creation is now too late, so let's fake the data for development, needs to be cleared away
+#    # FIXME: this is not even needed in signing so should not be passed
+    @signature.accept_general         = true
+    @signature.accept_non_eu_server   = true
+    @signature.accept_publicity       = "Normal"
+    @signature.accept_science         = true
+    p @signature.valid?
+    p @signature.errors.full_messages
+    begin
+      unless @signature.save
+        p @signature
+        raise "couldn't save" 
+      end
+    rescue Exception => e
+      p e
+      puts e.backtrace.join("\n")
+    end
+
+    services
+    @parameters_and_urls = {}
+    @services.each {|service| @parameters_and_urls[service[:name]] = signing_service_parameters_and_url(@signature, service)}
   end
 
   def requestor_secret
@@ -87,7 +94,7 @@ class SignaturesController < ApplicationController
        :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
       ].map {|key| [key, parameters[:message][key]]} +
       [:service, :signing_success, :signing_failure].map {|key| [key, parameters[:options][key]]} +
-      [:last_fill_first_names, :last_fill_last_names, :last_fill_birthdate, :last_fill_occupancy_county, 
+      [:last_fill_first_names, :last_fill_last_names, :last_fill_birth_date, :last_fill_occupancy_county, 
        :valid_shortcut_session_mac].map {|key| [key, parameters[key]]}
     param_string = mapped_params.map{|key, value|  key.to_s + "=" + value.to_s }.join("&")
     param_string += "&requestor_secret=#{ENV['requestor_secret']}"
@@ -117,9 +124,10 @@ class SignaturesController < ApplicationController
       },
       last_fill_first_names:        session["authenticated_firstnames"],
       last_fill_last_names:         session["authenticated_lastname"],
-      last_fill_birthdate:          session["authenticated_birthdate"],              # FIXME, not set at the moment
+      last_fill_birth_date:         session["authenticated_birth_date"],              # FIXME, not set at the moment
       last_fill_occupancy_county:   session["authenticated_occupancy_county"],
-      valid_shortcut_session_mac:   session[:shortcut_session_mac],
+      authentication_token:         session["authentication_token"],
+      authenticated_at:             session["authenticated_at"],
     }
     parameters[:requestor_identifying_mac] = requestor_identifying_mac(parameters)
     base_url = {
@@ -564,11 +572,12 @@ class SignaturesController < ApplicationController
       if justNameCharacters(params["first_names"]) and 
           justNameCharacters(params["last_name"])   and 
           municipalities.include? params["occupancy_county"]
-        unless check_previously_signed(current_citizen, @signature.idea_id)
+        if $TEMPORARILY_ALLOW_MULTIPLE_SIGNATURES or not check_previously_signed(current_citizen, params[:id])
           # TODO: these updates should be removed, and only be marked that user has signed the idea
           @signature.firstnames       = params["first_names"]
           @signature.lastname         = params["last_name"]
           @signature.occupancy_county = params["occupancy_county"]
+          @signature.birth_date       = params["birth_date"]
           @signature.state            = "signed"
           @signature.signing_date     = today_date
           @error = "Couldn't save signature" unless @signature.save
@@ -576,6 +585,9 @@ class SignaturesController < ApplicationController
           session["authenticated_firstnames"]       = @signature.firstnames
           session["authenticated_lastname"]         = @signature.lastname
           session["authenticated_occupancy_county"] = @signature.occupancy_county
+          session["authenticated_birth_date"]       = @signature.birth_date
+          session["authenticated_at"]               = params["authenticated_at"]
+          session["authentication_token"]           = params["authentication_token"]
 
           # show only proposals that haven't yet been signed by current_citizen
           signatures = Arel::Table.new(:signatures)
@@ -584,7 +596,7 @@ class SignaturesController < ApplicationController
           proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
           @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
         else
-          @error = "Aiemmin allekirjoitettu"
+          @error = "Aiemmin allekirjoitettu" if not $TEMPORARILY_ALLOW_MULTIPLE_SIGNATURES
         end
       else
         @error = "Invalid parameters"
@@ -599,7 +611,7 @@ class SignaturesController < ApplicationController
 
   require 'uri'
   def service_provider_params_as_string(params)
-    parameters_as_string = [:first_names, :last_name, :occupancy_county].map {|key| h={}; h[key]=params[key]; h.to_param}.join("&")
+    parameters_as_string = [:first_names, :last_name, :occupancy_county, :authenticated_at, :birth_date, :authentication_token].map {|key| h={}; h[key]=params[key]; h.to_param}.join("&")
     u = URI(request.fullpath)
     request.protocol + request.host_with_port + u.path + "?" + parameters_as_string
   end
