@@ -1,3 +1,4 @@
+// require_self
 @charset "utf-8";
 
 // SCSS Toolkit by David Rapson
@@ -10,8 +11,8 @@
 // ===============
 
 // Optional, if you are using Compass
-@import "compass/utilities", "compass/css3";
-
+@import "compass/utilities", "compass/css3", "compass/typography", "compass/reset";
+@import "susy";
 
 // Sass Features
 // =============

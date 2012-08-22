@@ -4,16 +4,67 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 */
 
-@import "compass/reset";
+@charset "utf-8";
+
+// SCSS Toolkit by David Rapson
+// A starter toolkit for SCSS projects
+//
+// The toolkit uses a combination of recommendations from Adaptive Web Design, http://easy-readers.net/
+// and Scalable and Modular Architecture for CSS (SMACSS) http://smacss.com/book
+
+//TODO Move to SUSY grid
 @import "960_24_col.css";
-@import "text.css";
+
+
+// Compass Plugins
+// ===============
+
+// Optional, if you are using Compass
+@import "compass/reset";
+@import "compass/utilities";
+@import "compass/css3";
+@import "susy";
+
+// Sass Features
+// =============
+
+@import "variables";
+@import "functions/all";
+@import "mixins/all";
+
+// The Styles
+// ==========
+// Styles are defined in the following order & groupings:
+// Base, Layout, Module, State
+
+// Base styles (reset + elements)
+@import "common/base";
+
+// Layout
+// ======
+// - Layout = major components, e.g., header, footer etc.
+// - Module = minor components, e.g., navigation bar, callout, widgets etc.
+// - State  = a state is something that augments + overrides all other styles, e.g., success or error state
+
+@import "components/layout";
+@import "components/module";
+@import "components/state";
+
+// Helpers should come last out of screen styles
+//@import "common/helpers";
+
+// Specific pages
+//= require_tree ./pages
 @import "pages/pages.css.scss";
-@import "scaffolds.css.scss";
-@import "typography.css.scss";
 @import "pages/ideas/ideas.css.scss";
 
-$turquoise: #29abe2;
-$violet: #473161;
+//TODO Figure out where it used
+@import "scaffolds.css.scss";
+@import "search.css.scss";
+
+// Print styles
+@import "print";
+
 
 body > header {
   height: 150px;
@@ -37,7 +88,7 @@ body > header, body > header.top-row-container > .container_24, .ideas_header.co
 }
 
 header .login_actions a, header .idea_actions a {
-  color: $turquoise;
+  color: $color-note;
   font-weight: bold;
   text-decoration: none;
 }
@@ -71,7 +122,7 @@ body > header > .bottom_row {
 }
 
 footer > a {
-  color: $turquoise;
+  color: $color-note;
 }
 
 footer > a:hover {
@@ -121,12 +172,12 @@ input[type=submit], a.button {
 }
 
 a.button {
-  color: $violet;
+  color: $color-primary;
   background-color: #fff;
 }
 
 .headline {
-  background-color: $violet;
+  background-color: $color-primary;
   margin-top: 0.2em;
   height: 200px;
 
@@ -152,7 +203,7 @@ a.button {
 }
 
 input[type=submit] {
-  background-color: $violet;
+  background-color: $color-primary;
   color: #fff;
   text-transform: uppercase;
   font-weight: bold;
@@ -197,7 +248,7 @@ input[type=submit] {
   margin-top: 10px;
   margin-right: 20px;
   float: right;
-  color: $turquoise;
+  color: $color-note;
 }
 
 .ideas_header {
@@ -232,7 +283,7 @@ input[type=submit] {
   }
 
   .author > .name {
-    color: $turquoise;
+    color: $color-note;
   }
 }
 
@@ -278,7 +329,7 @@ input[type=submit] {
         background-image:url('/assets/kommentit.png') no-repeat;
         background-position: -1px 1.5em;
         a {
-          color: $turquoise;
+          color: $color-note;
         }
         a:hover {
           text-decoration: underline;
@@ -306,7 +357,7 @@ input[type=submit] {
 }
 
 .expert_opinions a, .expert_opinions a:visited {
-  color: $turquoise;
+  color: $color-note;
   font-weight: bold;
   text-decoration: none;
 }
