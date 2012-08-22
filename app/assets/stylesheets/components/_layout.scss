@@ -1,15 +1,19 @@
 /*= @group Layout
 ---------------------------------------------------------------------- */
-// Example layout styles, delete me
 
   /*= @group Layout Helpers
   ---------------------------------------------------------------------- */
 
-  .l-constrained {
-    width: 90%;
-    max-width: 720px;
-    margin: 0 auto;
+  .page {
+    @include container;
+    position: relative;
+    
+    @include at-breakpoint($break) {
+      @include container;
+    }
   }
+
+  .elastic-960-container { @include container; }
 
   /*= @group Layout Helpers
   ---------------------------------------------------------------------- */
@@ -18,6 +22,8 @@
     color: $color-text;
     background-color: $color-background;
   }
+
+  .page { @include container; }
 
   /*= @group Banner
   ---------------------------------------------------------------------- */

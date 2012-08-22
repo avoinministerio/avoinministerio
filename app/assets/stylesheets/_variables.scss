@@ -1,5 +1,20 @@
 // Variables
 
+// Grid Settings
+// =============
+
+// A Fluid Grid based on 960gs
+$total-columns: 12;
+$column-width: 60px;
+$gutter-width: 20px;
+$grid-padding: 10px;
+
+$container-style: magic;
+$container-width: 60em;
+
+$break: 40em 10 lt-ie9;
+
+
 // Colour Scheme
 // =============
 // To avoid confusion with CSS properties,
@@ -9,11 +24,11 @@
 // These are just suggestions
 
 // Main colour palette
-$color-primary                : #2b306a;
-$color-secondary              : #06c0db;
+$color-primary                : #42145F;
+$color-secondary              : #7AB800;
 $color-highlight              : #ff9600;
 $color-muted                  : #eef;
-$color-note                   : #666;
+$color-note                   : #29abe2;
 
 // Common colours
 $color-text                   : #242424;
@@ -48,18 +63,18 @@ $color-notice                 : #66b;
 
 // Included shorthands as these may be used a lot.
 
-$base-font-size               : 16;
-$base-line-height             : 24;
-$base-fs                      : $base-font-size;
-$base-lh                      : $base-line-height;
+$base-font-size               : 16px;
+$base-line-height             : 24px;
+$base-fs                      : 16;
+$base-lh                      : 24;
 
 
 // Font Stacks
 // ===========
 
-$font-family-sans             : "PT Sans", sans-serif;
-$font-family-serif            : "PT Serif", Georgia, serif;
-$font-family-display          : "PT Sans Narrow", sans-serif;
+$font-family-sans             : "Segoe WP", sans-serif;
+$font-family-serif            : Georgia, serif;
+$font-family-display          : "Segoe WP", sans-serif;
 $font-family-caption          : "PT Sans Caption", Verdana, sans-serif;
 $font-family-monospace        : "Menlo", "Bitstream Vera Sans", Monaco, "Andale Mono", "Lucida Console", "Droid Mono", monospace;
 

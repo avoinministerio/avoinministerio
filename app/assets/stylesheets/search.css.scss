@@ -1,23 +1,19 @@
-
-$main-color: #473161;
-$turquoise: #29abe2;
-
 .search h2 {
   font-size: 19px;
   text-transform: uppercase;
-  color: $main-color; 
+  color: $color-primary; 
   margin: 30px 0px 10px;
 }
 
 .search h3 {
   font-size: 15px;
-  color: $turquoise; 
+  color: $color-note; 
   margin: 10px 0px 10px;
 }
 
 .search h4 {
   font-size: 15px;
-  color: $main-color; 
+  color: $color-primary; 
   margin: 5px 0px 5px;
 }
 
