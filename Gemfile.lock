@@ -79,8 +79,6 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
-    compass-960-plugin (0.10.4)
-      compass (>= 0.10.0)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     crack (0.3.1)
@@ -289,6 +287,9 @@ GEM
     steak (2.0.0)
       capybara (>= 1.0.0)
       rspec-rails (>= 2.5.0)
+    susy (1.0)
+      compass (>= 0.12.2)
+      sass (>= 3.2.0)
     terminal-table (1.4.5)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
@@ -330,7 +331,6 @@ DEPENDENCIES
   capybara-mechanize
   coffee-rails (~> 3.1.1)
   compass
-  compass-960-plugin
   compass-rails
   database_cleaner
   devise
@@ -370,6 +370,7 @@ DEPENDENCIES
   sqlite3
   state_machine
   steak
+  susy
   tanker!
   therubyracer
   timecop

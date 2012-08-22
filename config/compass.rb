@@ -1,1 +1,1 @@
-require 'ninesixty'
+require 'susy'
