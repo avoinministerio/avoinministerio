@@ -1,12 +1,9 @@
 //Css for the home page
 
-$main-color: #473161;
-$turquoise: #29abe2;
-
 .container h2 {
   font-size: 17px;
   text-transform: uppercase;
-  color: $main-color; 
+  color: $color-primary; 
 }
 
 .top_drafts, .top_ideas {
@@ -28,7 +25,7 @@ $turquoise: #29abe2;
 .top_drafts {
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom:  10px solid $main-color; 
+  border-bottom:  10px solid $color-primary; 
 }
 
 .news, .newsletter {
@@ -62,7 +59,7 @@ $turquoise: #29abe2;
 } 
 
 .news .content a {
-  color: $main-color;
+  color: $color-primary;
 }
 .news .content a:hover {
   text-decoration: underline;
@@ -76,7 +73,7 @@ $turquoise: #29abe2;
 
 
 .all-blogs a {
-  color: $turquoise;
+  color: $color-note;
   font-weight: bold;
   font-size: 14px;
 }
