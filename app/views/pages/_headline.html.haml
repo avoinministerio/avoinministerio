@@ -1,7 +1,7 @@
-.container_24.headline
-  %hgroup.grid_18
+.headline
+  %hgroup.headline-title
     %h1= @headline_1[rand(@headline_1.size)]
     %h2= @headline_2[rand(@headline_2.size)]
-  .actions.grid_6
-    = link_to "Listaa kaikki", ideas_path, class: "button"
-    %a.button{href: "/artikkelit/miten-palvelu-toimii"} Lisätietoa
+  .actions.idea-detail-actions.fl-right
+    = link_to "Listaa kaikki", ideas_path, class: "btn btn-big"
+    %a.btn.btn-big{href: "/artikkelit/miten-palvelu-toimii"} Lisätietoa

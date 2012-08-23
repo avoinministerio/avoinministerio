@@ -2,31 +2,6 @@ body {
   font-family: $font-family-sans;
 }
 
-header .bottom_row a {
-  font-size: 1.1em;
-}
-
-footer > a {
-  text-transform: uppercase;
-  font-family: $font-family-sans;
-  font-weight: bold;
-  font-size: 11px;
-}
-
-input[type=submit], a.button {
-  font-family: $font-family-sans;
-  text-transform: uppercase;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.input > input[type=email],
-.input > input[type=text],
-.input > input[type=password],
-.input > input[type=url] {
-  font-size: 1.6em;
-}
-
 .headline > hgroup > h1, .headline > hgroup > h2 {
   font-family: $font-family-serif;
 }
