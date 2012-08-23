@@ -1,9 +1,6 @@
 
 // reusable BUTTONS
 
-// Default button color
-$base-color: white;
-
 @mixin multi-line-button($base-color) {
   @include background-clip("padding-box");
   border-width: 1px;
@@ -67,5 +64,25 @@ $base-color: white;
     @include background-image(linear-gradient(color-stops(desaturate(lighten($dark-color, 5%), 10%), desaturate($base-color, 10%))));
     @include box-shadow(none);
     border-color: $border-color;
+  }
+}
+
+.btn {
+  @include multi-line-button(white);
+  &.btn-big {
+    font-size: 16px;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    padding: 7px 26px;
+    margin-bottom: 7px;
+  }
+  &.btn-medium {
+    font-size: 14px;
+  }
+  &.btn-small {
+    font-size: 12px;
+  }
+  &.btn-success {
+    @include multi-line-button($color-primary);
   }
 }

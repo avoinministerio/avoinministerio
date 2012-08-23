@@ -33,41 +33,42 @@
       #{KM.js}
 
   %body{id: "#{params[:controller].parameterize}_page"}
-    %header.container_24.top-row-container
-      .container_24.top_row
-    %header.container_24
-      = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
-      = render partial: 'shared/login_actions'
-      = render partial: 'shared/facebook_js'
-      .idea_actions.bottom_row
-        .grid_6
-          &nbsp;
-        .grid_3
-          = link_to "Listaa kaikki", ideas_path
-        .grid_3
-          = link_to "Anna idea", new_idea_path
-    .container.container_24
-      %section
+    %div.page
+      %header.border-double-dotted{ :role => "banner" }
+        = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
+        .top-row.border-double-dotted
+          .actions.fl-right
+            = render partial: 'shared/login_actions'
+        = render partial: 'shared/facebook_js'
+        .actions.fl-right
+          %ul.idea-actions
+            %li.actions-item
+              = link_to "Listaa kaikki", ideas_path
+            %li.actions-item
+              = link_to "Anna idea", new_idea_path
+      %section{ :class => "clearfix", :role => "main" }
+
         = yield
-    #footer_container
-      %footer.container_24
-        %a.grid_6{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
-        %a.grid_6{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
-        %a.grid_6{ href: "/artikkelit/medialle" } Medialle
-        %a.grid_6{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
-        %br
 
-        %a.grid_6{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
-        %a.grid_6{ href: asset_path('henkilorekisteriseloste.pdf') } Rekisteriseloste (pdf)
+      #footer_container
+        %footer.container_24
+          %a.grid_6{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
+          %a.grid_6{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
+          %a.grid_6{ href: "/artikkelit/medialle" } Medialle
+          %a.grid_6{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
+          %br
 
-        .grid_6
-          %div{:class => "addthis_toolbox addthis_default_style"}
-            %a{:class => "addthis_button_preferred_1"}
-            %a{:class => "addthis_button_preferred_2"}
-            %a{:class => "addthis_button_preferred_3"}
-            %a{:class => "addthis_button_preferred_4"}
-            %a{:class => "addthis_button_compact"}
-            %a{:class => "addthis_counter addthis_bubble_style"}
+          %a.grid_6{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
+          %a.grid_6{ href: asset_path('henkilorekisteriseloste.pdf') } Rekisteriseloste (pdf)
+
+          .grid_6
+            %div{:class => "addthis_toolbox addthis_default_style"}
+              %a{:class => "addthis_button_preferred_1"}
+              %a{:class => "addthis_button_preferred_2"}
+              %a{:class => "addthis_button_preferred_3"}
+              %a{:class => "addthis_button_preferred_4"}
+              %a{:class => "addthis_button_compact"}
+              %a{:class => "addthis_counter addthis_bubble_style"}
 
     %script{:type => "text/javascript", :src => "//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f201d4978456053"}
 
