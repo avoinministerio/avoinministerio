@@ -29,7 +29,7 @@
     ---------------------------------------------------------------------- */
 
     h1, h2, h3, h4, h5, h6  { font-style: normal; }
-    h1, h2, h3              { font-weight: $font-weight-semibold; }
+    h1, h2, h3              { font-weight: $font-weight-normal; } /* rewrited from semibold */
     h4, h5, h6              { font-weight: $font-weight-normal; }
 
     h1 { font-size: rs(32); margin: 0 0 rs(21,32) 0; }
@@ -45,7 +45,7 @@
 
     a {
       text-decoration: none;
-      border-bottom: 1px dotted $color-link-default;
+      /*border-bottom: 1px dotted $color-link-default;*/
       word-wrap: break-word;
     }
 

@@ -66,52 +66,202 @@
 @import "print";
 
 
-body > header {
+.fl-left {
+  @include float-left;
+}
+.fl-right {
+  @include float-right;
+}
+
+.clearfix {
+  @include legacy-pie-clearfix;
+}
+
+.actions {
+  @include inline-block;
+  @include box-sizing(border-box);
+}
+
+header {
   height: 150px;
 }
 
-body > header.top-row-container {
-  height: 0;
-  z-index: -1;
-  border: 0 none;
+.top-row {
+  height: 45px;
 }
 
-body > header, body > header.top-row-container > .container_24, .ideas_header.container_24 {
-  border-width: 6px;
-  -moz-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  -webkit-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  -o-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  border-top: 0 none;
-  border-left: 0 none;
-  border-right: 0 none;
+.border-double-dotted {
+  background: {
+    image: url("/assets/border-double-dotted.png");
+    position: center bottom;
+    repeat: repeat-x;
+  }
 }
 
-header .login_actions a, header .idea_actions a {
-  color: $color-note;
-  font-weight: bold;
-  text-decoration: none;
+.login-actions, .idea-actions {
+  @include clearfix;
+  margin: 0;
+  .actions-item {
+    @include float-left;
+    list-style: none;
+    a {
+      font-weight: $font-weight-bold;
+      color: $color-note;
+    }
+  }
 }
-header > .login_actions > div {
-  float: right;
-  line-height: 25px;
-  text-align: right;
+.login-actions {
+  font-size: $small-font-size;
+  line-height: 45px;
 }
-
-body > header > .top_row {
-  height: 35px;
-  margin-top: 15px;
-}
-
-body > header > .top_row > a {
-  margin-top: 20px;
-}
-
-body > header > .bottom_row {
-  height: 60px;
+.idea-actions {
+  font-size: $medium-font-size;
   margin-top: 40px;
 }
 
+//TODO Do not sure this is the best solution
+.btn-facebook {
+  @include inline-block;
+  background: {
+    image: url("/assets/btn-facebook.png");
+    repeat: no-repeat;
+    position: left center;
+  }
+  .btn-facebook-inner {
+    @include inline-block;
+    margin-left: 20px;
+    background: {
+      image: url("/assets/btn-facebook.png");
+      position: right center;
+      repeat: no-repeat;
+    }
+    a {
+      color: white;
+      padding: 0 10px;
+    }
+  }
+}
+
+.headline {
+  background-color: $color-primary;
+  margin-top: 0.2em;
+  height: 200px;
+  padding-top: 80px;
+  @include box-sizing(border-box);
+
+  .headline-title {
+    @include span-columns(8, 12);
+    padding-left: 27px;
+    h1, h2 {
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.idea-detail-actions {
+  margin-right: 27px;
+}
+
+.top-drafts {
+  @include legacy-pie-clearfix;
+  border-bottom: 10px solid $color-primary;
+  padding: 10px 0;
+  .top-drafts-title {
+    color: $color-primary;
+    text-transform: uppercase;
+    margin: 0;
+    padding-bottom: 4px;
+    font: {
+      size: 18px;
+      weight: $font-weight-normal;
+    }
+  }
+  .popular {
+    @include span-columns(4, 12);
+    margin: 10px 7px 0 0;
+    height: 160px;
+    background: {
+      image: url("/assets/border-dotted-vertical.png");
+      position: right center;
+      repeat: repeat-y;
+    }
+    &.last {
+      @include omega;
+    }
+    .popular-title {
+      height: 120px;
+      margin: 0;
+      font: {
+        family: $font-family-serif;
+        size: $large-font-size;
+      }
+    }
+  }
+}
+
+.top_ideas, .news {
+  margin-top: 20px;
+}
+
+//TODO last commit, This should be reworked
+.top_ideas {
+  @include span-columns(8,12);
+  margin-right: 0; //TODO seems it's dirty hack
+  .top-ideas-title {
+    margin: 0;
+    color: $color-primary;
+    text-transform: uppercase;
+    margin: 0;
+    padding-bottom: 4px;
+    font: {
+      size: 18px;
+      weight: $font-weight-normal;
+    }
+  }
+}
+
+.news {
+  @include span-columns(4 omega,12);
+}
+
+.top_ideas > a.list_ideas {
+  margin-top: 10px;
+  margin-right: 20px;
+  float: right;
+  color: $color-note;
+}
+
+.ideas_header {
+  height: 100px;
+  position: relative;
+
+  h1 {
+    bottom: 0;
+    position: absolute;
+    margin: 0;
+
+  }
+}
+
+.ideas > .idea {
+  height: 180px;
+}
+
+.ideas > .idea > .info, .ideas > .idea > .content {
+  height: 160px;
+  overflow: hidden;
+}
+
+.top_ideas > .idea {
+  height: 180px;
+}
+
+.idea {
+  h1 {
+    margin-top: 20px;
+  }
 #footer_container {
   width: 100%;
   background-color: #eff3f3;
@@ -166,42 +316,6 @@ footer > a:visited {
   float: right;
 }
 
-input[type=submit], a.button {
-  border: none;
-  padding: 0.8em 2em;
-}
-
-a.button {
-  color: $color-primary;
-  background-color: #fff;
-}
-
-.headline {
-  background-color: $color-primary;
-  margin-top: 0.2em;
-  height: 200px;
-
-  hgroup, .actions {
-    margin: 80px 0 0;
-  }
-  
-  hgroup {
-    h1, h2 {
-      color: #fff;
-      margin: 0 0 0 20px;
-      padding: 0;
-    }
-  }
-  
-  .actions > a.button {
-    float: right;
-    width: 120px;
-    text-align: center;
-    margin: 0 20px 20px 0;
-    display: block;
-  }
-}
-
 input[type=submit] {
   background-color: $color-primary;
   color: #fff;
@@ -209,78 +323,7 @@ input[type=submit] {
   font-weight: bold;
 }
 
-.top_drafts h2 {
-  margin-bottom: 0;
-}
 
-.top_drafts .popular {
-  margin: 10px 7px 0 0;
-  height: 160px;
-  border-width: 3px;
-  -moz-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  -webkit-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  -o-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  border-top: 0 none;
-  border-left: 0 none;
-  border-bottom: 0 none;
-  padding-right: 7px;
-}
-
-.top_drafts .omega > div.popular {
-  border: none;
-  padding-right: 0;
-}
-
-.top_drafts div.popular > h3 {
-  height: 120px;
-}
-
-.top_drafts div.popular > h3 > a {
-  color: #000;
-}
-
-.top_ideas, .news {
-  margin-top:40px;
-}
-
-.top_ideas > a.list_ideas {
-  margin-top: 10px;
-  margin-right: 20px;
-  float: right;
-  color: $color-note;
-}
-
-.ideas_header {
-  height: 100px;
-  position: relative;
-
-  h1 {
-    bottom: 0;
-    position: absolute;
-    margin: 0;
-
-  }
-}
-
-.ideas > .idea {
-  height: 180px;
-  margin-top: 20px;
-}
-
-.ideas > .idea > .info, .ideas > .idea > .content {
-  height: 160px;
-  overflow: hidden;
-}
-
-.top_ideas > .idea {
-  height: 180px;
-}
-
-.idea {
-  h1 {
-    margin-top: 20px;
-  }
 
   .author > .name {
     color: $color-note;
@@ -363,13 +406,13 @@ input[type=submit] {
 }
 
 .clearfix:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-	}
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
