@@ -90,13 +90,22 @@ class SignaturesController < ApplicationController
   def requestor_identifying_mac(parameters)
     mapped_params = 
       [:idea_id, :idea_title, :idea_date, :idea_mac, 
-       :current_citizen_id, 
+       :citizen_id, 
        :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
-      ].map {|key| [key, parameters[:message][key]]} +
-      [:service, :signing_success, :signing_failure].map {|key| [key, parameters[:options][key]]} +
+      ].map do |key| 
+        raise "unknown param #{key}" unless parameters[:message].has_key? key
+        [key, parameters[:message][key]]
+      end +
+      [:service, :success_url, :failure_url].map do |key| 
+        raise "unknown param #{key}" unless parameters[:options].has_key? key
+        [key, parameters[:options][key]]
+      end +
       [:last_fill_first_names, :last_fill_last_names, :last_fill_birth_date, :last_fill_occupancy_county, 
-       :valid_shortcut_session_mac].map {|key| [key, parameters[key]]}
-    param_string = mapped_params.map{|key, value|  key.to_s + "=" + value.to_s }.join("&")
+       :authentication_token, :authenticated_at].map do |key| 
+        raise "unknown param #{key}" unless parameters.has_key? key
+        [key, parameters[key]]
+      end
+    param_string = mapped_params.map{|key, value| h={}; h[key] = value; h.to_param }.join("&")
     param_string += "&requestor_secret=#{ENV['requestor_secret']}"
     mac(param_string)
   end
