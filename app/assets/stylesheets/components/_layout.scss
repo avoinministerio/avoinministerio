@@ -4,14 +4,6 @@
   /*= @group Layout Helpers
   ---------------------------------------------------------------------- */
 
-  .page {
-    @include container;
-    position: relative;
-    
-    @include at-breakpoint($break) {
-      @include container;
-    }
-  }
 
   .elastic-960-container { @include container; }
 
@@ -23,7 +15,21 @@
     background-color: $color-background;
   }
 
-  .page { @include container; }
+  .page {
+    @include container;
+    position: relative;
+
+    @include at-breakpoint($breakpoint-narrow) {
+      @include container;
+    }
+  }
+
+  [role="main"] {
+    @include trailer(1);
+    @include at-breakpoint($breakpoint-narrow) {
+      @include trailer(2);
+    }
+  }
 
   /*= @group Banner
   ---------------------------------------------------------------------- */

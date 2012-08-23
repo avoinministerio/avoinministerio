@@ -1,6 +1,6 @@
 // Variables
 
-// Grid Settings
+// Susy Grid Settings
 // =============
 
 // A Fluid Grid based on 960gs
@@ -12,9 +12,6 @@ $grid-padding: 10px;
 $container-style: magic;
 $container-width: 60em;
 
-$break: 40em 10 lt-ie9;
-
-
 // Colour Scheme
 // =============
 // To avoid confusion with CSS properties,
@@ -24,21 +21,21 @@ $break: 40em 10 lt-ie9;
 // These are just suggestions
 
 // Main colour palette
-$color-primary                : #42145F;
+$color-primary                : #473161;
 $color-secondary              : #7AB800;
 $color-highlight              : #ff9600;
 $color-muted                  : #eef;
 $color-note                   : #29abe2;
 
 // Common colours
-$color-text                   : #242424;
+$color-text                   : #1A1A1A;
 $color-background             : #fefefe;
 $color-border                 : #ddd;
 
 // Links
-$color-link-default           : #242424;
+$color-link-default           : $color-text;
 $color-link-visited           : #444;
-$color-link-hover             : pink;
+$color-link-hover             : $color-text;
 $color-link-active            : yellow;
 
 // Code
@@ -63,10 +60,18 @@ $color-notice                 : #66b;
 
 // Included shorthands as these may be used a lot.
 
+// Susy used $base-font-size for at-breakpoint mixin
 $base-font-size               : 16px;
 $base-line-height             : 24px;
-$base-fs                      : 16;
-$base-lh                      : 24;
+$large-font-size              : 20px;
+$medium-font-size             : 14px;
+$small-font-size              : 13px;
+
+//TODO Susy and relative-size should be unified variable
+$base-fs-rs                    : 16;
+$base-lh-rs                    : 24;
+$base-fs                       : $base-fs-rs;
+$base-lh                       : $base-lh-rs;
 
 
 // Font Stacks
