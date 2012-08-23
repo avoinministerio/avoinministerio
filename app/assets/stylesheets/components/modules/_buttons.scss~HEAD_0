@@ -1,18 +1,15 @@
 
 // reusable BUTTONS
 
-// Default button color
-$base-color: white;
-
 @mixin multi-line-button($base-color) {
   @include background-clip("padding-box");
   border-width: 1px;
-  @include border-radius(6px);
+  //@include border-radius(6px);
   border-style: solid;
   color: white;
   display: block;
   margin: 0.2em auto;
-  padding: 12px 15px;
+  //padding: 12px 15px;
   text-align: center;
   text-decoration: none;
   .title {
@@ -34,9 +31,6 @@ $base-color: white;
     .subtitle {
       @include opacity(0.8);
     }
-  }
-  &:active {
-    padding: 13px 15px 11px;
   }
   @if $base-color != none {
     @include color-multi-line-button($base-color);
@@ -67,5 +61,37 @@ $base-color: white;
     @include background-image(linear-gradient(color-stops(desaturate(lighten($dark-color, 5%), 10%), desaturate($base-color, 10%))));
     @include box-shadow(none);
     border-color: $border-color;
+  }
+  &.disabled {
+    @include background-image(linear-gradient(color-stops(desaturate(lighten($dark-color, 5%), 10%), desaturate($base-color, 10%))));
+    @include box-shadow(none);
+    @include opacity(.5);
+    border-color: $border-color;
+  }
+}
+
+.btn {
+  @include multi-line-button(white);
+  &.btn-primary {
+    @include multi-line-button($color-primary);
+  }
+  &.btn-danger {
+    @include multi-line-button($color-highlight);
+  }
+  &.btn-success {
+    @include multi-line-button($color-secondary);
+  }
+  &.btn-big {
+    font-size: 16px;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    padding: 7px 26px;
+    margin-bottom: 7px;
+  }
+  &.btn-medium {
+    font-size: 14px;
+  }
+  &.btn-small {
+    padding: 3px 30px;
   }
 }
