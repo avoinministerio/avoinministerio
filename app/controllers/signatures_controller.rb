@@ -4,7 +4,7 @@ require 'date'
 
 require 'signatures_controller_helpers'
 
-$TEMPORARILY_ALLOW_MULTIPLE_SIGNATURES = true
+$ALLOW_SIGNING_MULTIPLE_TIMES = ENV['ALLOW_SIGNING_MULTIPLE_TIMES']
 
 class SignaturesController < ApplicationController
 
@@ -40,7 +40,7 @@ class SignaturesController < ApplicationController
 #    @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
     @idea = Idea.find(params[:id])
 
-    if not $TEMPORARILY_ALLOW_MULTIPLE_SIGNATURES and check_previously_signed(current_citizen, params[:id])
+    if not $ALLOW_SIGNING_MULTIPLE_TIMES and check_previously_signed(current_citizen, params[:id])
       @error = "Aiemmin allekirjoitettu"
       return
     end
@@ -92,11 +92,12 @@ class SignaturesController < ApplicationController
       [:idea_id, :idea_title, :idea_date, :idea_mac, 
        :citizen_id, 
        :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
+       :service, 
       ].map do |key| 
         raise "unknown param #{key}" unless parameters[:message].has_key? key
         [key, parameters[:message][key]]
       end +
-      [:service, :success_url, :failure_url].map do |key| 
+      [:success_url, :failure_url].map do |key| 
         raise "unknown param #{key}" unless parameters[:options].has_key? key
         [key, parameters[:options][key]]
       end +
@@ -123,10 +124,9 @@ class SignaturesController < ApplicationController
         accept_non_eu_server:         signature.accept_non_eu_server,
         accept_publicity:             signature.accept_publicity,
         accept_science:               signature.accept_science,
-        },
-      options: {
-#        service:                      service[:name],
         service:                      service,
+      },
+      options: {
         success_url:                  server + signature_idea_signing_success_path(signature),
         failure_url:                  server + signature_idea_signing_failure_path(signature),
       },
@@ -465,7 +465,7 @@ class SignaturesController < ApplicationController
 
 
   def shortcut_fillin
-    if check_shortcut_session_validity 
+    if shortcut_session_valid?
       if not check_previously_signed(current_citizen, params[:id])
         @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
 
@@ -495,7 +495,7 @@ class SignaturesController < ApplicationController
   end
 
   def shortcut_finalize_signing
-    if check_shortcut_session_validity 
+    if shortcut_session_valid?
       if not check_previously_signed(current_citizen, params[:id])
         @signature = finalize_signing_by_checking
         fill_in_acceptances(@signature)
@@ -512,7 +512,7 @@ class SignaturesController < ApplicationController
   end
 
   def check_previously_signed(citizen, idea_id)
-    if ENV["Allow_Signing_Multiple_Times"]
+    if ENV["ALLOW_SIGNING_MULTIPLE_TIMES"]
       false
     else
       completed_signature = Signature.where(state: "signed", citizen_id: citizen.id, idea_id: idea_id).first
@@ -546,7 +546,7 @@ class SignaturesController < ApplicationController
       if justNameCharacters(params["first_names"]) and 
           justNameCharacters(params["last_name"])   and 
           municipalities.include? params["occupancy_county"]
-        if $TEMPORARILY_ALLOW_MULTIPLE_SIGNATURES or not check_previously_signed(current_citizen, params[:id])
+        if $ALLOW_SIGNING_MULTIPLE_TIMES or not check_previously_signed(current_citizen, params[:id])
           # TODO: these updates should be removed, and only be marked that user has signed the idea
           @signature.firstnames       = params["first_names"]
           @signature.lastname         = params["last_name"]
@@ -570,7 +570,7 @@ class SignaturesController < ApplicationController
           proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
           @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
         else
-          @error = "Aiemmin allekirjoitettu" if not $TEMPORARILY_ALLOW_MULTIPLE_SIGNATURES
+          @error = "Aiemmin allekirjoitettu" if not $ALLOW_SIGNING_MULTIPLE_TIMES
         end
       else
         @error = "Invalid parameters"
@@ -581,6 +581,12 @@ class SignaturesController < ApplicationController
   end
 
   def signing_failure
+    @signature = Signature.where(state: 'initial').find(params[:id])
+    if @signature and @signature.citizen == current_citizen and @signature.state == "initial" 
+      @error = "Tunnistaminen tai allekirjoittaminen epäonnistui"
+    else
+      @error = "Allekirjoitusta ei ole, se ei ole nykyisen käyttäjän tai se on jo hoidettu pidemmälle"
+    end
   end
 
   require 'uri'

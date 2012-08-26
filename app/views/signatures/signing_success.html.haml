@@ -11,7 +11,7 @@
         1.
       .instructions
         .title Allekirjoita muita aloitteita
-        - if check_shortcut_session_validity
+        - if shortcut_session_valid?
           .text 
             Tunnistautumisesi on nyt voimassa 
             = sprintf("%.0f", shortcut_session_remaining_mins)

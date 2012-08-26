@@ -21,6 +21,10 @@
       , jota kehotamme lukemaan epäselvissä tilanteissa. Lähetä toki myös meille kysymyksesi, pyrimme vastaamaan siihen: 
       %a{href:"mailto:kysymykset@avoinministerio.fi"}kysymykset@avoinministerio.fi.
 
+    %p
+    - if shortcut_session_valid?
+      %h1 Edellinen tunnistuksesi on voimassa vielä #{(shortcut_session_remaining_mins).to_i} minuuttia
+
     .grid_12
       .signature_form
         %h1 Ilmaiset tunnistuspalvelut
