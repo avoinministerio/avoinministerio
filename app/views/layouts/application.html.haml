@@ -50,25 +50,24 @@
 
         = yield
 
-      #footer_container
-        %footer.container_24
-          %a.grid_6{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
-          %a.grid_6{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
-          %a.grid_6{ href: "/artikkelit/medialle" } Medialle
-          %a.grid_6{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
-          %br
+    .footer-wrapper
+      %footer{ :role => "contentinfo" }
+        %a.footer-item{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
+        %a.footer-item{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
+        %a.footer-item{ href: "/artikkelit/medialle" } Medialle
+        %a.footer-item{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
 
-          %a.grid_6{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
-          %a.grid_6{ href: asset_path('henkilorekisteriseloste.pdf') } Rekisteriseloste (pdf)
+        %a.footer-item{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
+        %a.footer-item{ href: asset_path('henkilorekisteriseloste.pdf') } Rekisteriseloste (pdf)
 
-          .grid_6
-            %div{:class => "addthis_toolbox addthis_default_style"}
-              %a{:class => "addthis_button_preferred_1"}
-              %a{:class => "addthis_button_preferred_2"}
-              %a{:class => "addthis_button_preferred_3"}
-              %a{:class => "addthis_button_preferred_4"}
-              %a{:class => "addthis_button_compact"}
-              %a{:class => "addthis_counter addthis_bubble_style"}
+        .footer-item
+          %div{:class => "addthis_toolbox addthis_default_style"}
+            %a{:class => "addthis_button_preferred_1"}
+            %a{:class => "addthis_button_preferred_2"}
+            %a{:class => "addthis_button_preferred_3"}
+            %a{:class => "addthis_button_preferred_4"}
+            %a{:class => "addthis_button_compact"}
+            %a{:class => "addthis_counter addthis_bubble_style"}
 
     %script{:type => "text/javascript", :src => "//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f201d4978456053"}
 

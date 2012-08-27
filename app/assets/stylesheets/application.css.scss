@@ -98,6 +98,14 @@ header {
   }
 }
 
+.border-single-dotted {
+  background: {
+    image: url("/assets/border-dotted-horizontal.png");
+    position: center bottom;
+    repeat: repeat-x;
+  }
+}
+
 .login-actions, .idea-actions {
   @include clearfix;
   margin: 0;
@@ -164,20 +172,21 @@ header {
   margin-right: 27px;
 }
 
+.title {
+  color: $color-primary;
+  text-transform: uppercase;
+  margin: 0;
+  padding-bottom: 4px;
+  font: {
+    size: 18px;
+    weight: $font-weight-normal;
+  }
+}
+
 .top-drafts {
   @include legacy-pie-clearfix;
   border-bottom: 10px solid $color-primary;
   padding: 10px 0;
-  .top-drafts-title {
-    color: $color-primary;
-    text-transform: uppercase;
-    margin: 0;
-    padding-bottom: 4px;
-    font: {
-      size: 18px;
-      weight: $font-weight-normal;
-    }
-  }
   .popular {
     @include span-columns(4, 12);
     margin: 10px 7px 0 0;
@@ -189,6 +198,7 @@ header {
     }
     &.last {
       @include omega;
+      background: none;
     }
     .popular-title {
       height: 120px;
@@ -201,52 +211,28 @@ header {
   }
 }
 
-.top_ideas, .news {
-  margin-top: 20px;
+.top-ideas, .news {
+  margin-top: 55px;
 }
 
-//TODO last commit, This should be reworked
-.top_ideas {
+.top-ideas {
   @include span-columns(8,12);
-  margin-right: 0; //TODO seems it's dirty hack
-  .top-ideas-title {
-    margin: 0;
-    color: $color-primary;
-    text-transform: uppercase;
-    margin: 0;
-    padding-bottom: 4px;
-    font: {
-      size: 18px;
-      weight: $font-weight-normal;
-    }
+  margin-right: 0; //TODO seems it's ugly hack
+  .list-ideas {
+    margin-top: 10px;
+    margin-right: 20px;
+    color: $color-note;
   }
 }
 
-.news {
-  @include span-columns(4 omega,12);
-}
-
-.top_ideas > a.list_ideas {
-  margin-top: 10px;
-  margin-right: 20px;
-  float: right;
-  color: $color-note;
-}
-
-.ideas_header {
+.ideas-header {
   height: 100px;
   position: relative;
-
   h1 {
     bottom: 0;
     position: absolute;
     margin: 0;
-
   }
-}
-
-.ideas > .idea {
-  height: 180px;
 }
 
 .ideas > .idea > .info, .ideas > .idea > .content {
@@ -254,7 +240,7 @@ header {
   overflow: hidden;
 }
 
-.top_ideas > .idea {
+.top-ideas > .idea {
   height: 180px;
 }
 
@@ -262,7 +248,9 @@ header {
   h1 {
     margin-top: 20px;
   }
-#footer_container {
+}
+
+.footer-wrapper {
   width: 100%;
   background-color: #eff3f3;
   height: 45px;
@@ -271,76 +259,28 @@ header {
   margin-top: 25px;
 }
 
-footer > a {
-  color: $color-note;
-}
-
-footer > a:hover {
-  text-decoration: underline;
-}
-footer > a:link {
-  text-decoration: none;
-}
-footer > a:visited {
-  text-decoration: none;
-}
-
-
-.inputs > .input > input {
-  width: 100%;
-}
-
-.input {
-  margin-bottom: 1em;
-}
-
-.input > label, .input > input {
-  display: block;
-}
-
-.input.checkbox > label,
-.input.checkbox > input,
-.input.boolean > label,
-.input.boolean > input {
-  display: inline;
-}
-
-.input > input[type=email],
-.input > input[type=text],
-.input > input[type=password],
-.input > input[type=url] {
-  border: 2px #e6e6e6 solid;
-}
-
-.actions > input[type=submit] {
-  float: right;
-}
-
-input[type=submit] {
-  background-color: $color-primary;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-
-
-  .author > .name {
+a {
+  &.footer-item {
+    @include span-columns(3, 12);
     color: $color-note;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+    font-size: $small-font-size;
+    &:nth-child(4n) {
+      @include omega;
+    }
   }
 }
 
-.ideas, .top_ideas {
-  .idea {
-    border-width: 2px;
-    -moz-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    -webkit-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    -o-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    border-top: 0 none;
-    border-left: 0 none;
-    border-right: 0 none;
 
+
+
+.author > .name {
+  color: $color-note;
+}
+
+.ideas, .top-ideas {
+  .idea {
     .info {
       .type, .date {
         color: #b3b3b3;
@@ -351,7 +291,6 @@ input[type=submit] {
         }
       }
     }
-
     .statistics {
       .total {
         color: #404040;
