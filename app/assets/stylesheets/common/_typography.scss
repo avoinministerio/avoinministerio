@@ -15,7 +15,7 @@ body {
   text-transform: uppercase;
 }
 
-.top_drafts div.popular > h3 {
+.top-drafts div.popular > h3 {
   font-size: 20px;
   font-weight: normal;
   font-family: $font-family-serif;
@@ -25,19 +25,19 @@ body {
   }
 }
 
-.top_ideas {
-  a.list_ideas {
+.top-ideas {
+  .list-ideas {
     text-transform: uppercase;
     text-decoration: none;
     font-weight: bold;
   }
 
-  a.list_ideas:hover {
+  .list-ideas:hover {
     text-decoration: underline;
   }
 }
 
-.ideas_header h1 {
+.ideas-header h1 {
   font-family: $font-family-serif;
 }
 

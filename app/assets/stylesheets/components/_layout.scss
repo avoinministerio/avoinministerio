@@ -24,12 +24,6 @@
     }
   }
 
-  [role="main"] {
-    @include trailer(1);
-    @include at-breakpoint($breakpoint-narrow) {
-      @include trailer(2);
-    }
-  }
 
   /*= @group Banner
   ---------------------------------------------------------------------- */
@@ -57,13 +51,17 @@
   ---------------------------------------------------------------------- */
 
   [role="main"] {
-
+    @include trailer(1);
+    @include at-breakpoint($breakpoint-narrow) {
+      @include trailer(2);
+    }
   }
 
   /*= @group Contentinfo
   ---------------------------------------------------------------------- */
 
   [role="contentinfo"] {
-    font-size: rs(14,$base-fs);
-    margin-top: rs($base-lh);
+    @include container;
+    //font-size: rs(14,$base-fs);
+    //margin-top: rs($base-lh);
   }
