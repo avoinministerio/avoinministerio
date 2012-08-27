@@ -1,5 +1,5 @@
 .top-drafts
-  %h2.top-drafts-title.border-double-dotted= title
+  %h2.title.border-double-dotted= title
   - [["popular"], ["popular"], ["popular", "last"]][0, [3, items.size].min].each_with_index do |klasses, i|
     - if recent_draft = items[i]
       %div{:class => klasses}
