@@ -1,7 +1,7 @@
-.top_ideas
-  %h2.top-ideas-title Ajankohtaiset ideat
+.top-ideas
+  %h2.title.border-double-dotted Ajankohtaiset ideat
   - @ideas.each_with_index do |idea, i|
-    .idea
+    .idea.border-single-dotted
       .info
         %span.type
           Idea/ 
@@ -16,4 +16,4 @@
         %span.against #{against}
         %span.front-page-comment-count= link_to "#{comments}", idea_path(idea, anchor: "comments")
 
-  =link_to "Listaa kaikki»", ideas_path, class: "list_ideas"
+  =link_to "Listaa kaikki»", ideas_path, class: "list-ideas fl-right"

@@ -9,7 +9,7 @@
   color: white;
   display: block;
   margin: 0.2em auto;
-  padding: 12px 15px;
+  //padding: 12px 15px;
   text-align: center;
   text-decoration: none;
   .title {
@@ -31,9 +31,6 @@
     .subtitle {
       @include opacity(0.8);
     }
-  }
-  &:active {
-    padding: 13px 15px 11px;
   }
   @if $base-color != none {
     @include color-multi-line-button($base-color);
@@ -69,6 +66,9 @@
 
 .btn {
   @include multi-line-button(white);
+  &.btn-primary {
+    @include multi-line-button($color-primary);
+  }
   &.btn-big {
     font-size: 16px;
     font-weight: $font-weight-bold;
@@ -81,8 +81,6 @@
   }
   &.btn-small {
     font-size: 12px;
-  }
-  &.btn-success {
-    @include multi-line-button($color-primary);
+    padding: 8px 25px;
   }
 }

@@ -6,29 +6,14 @@
   color: $color-primary; 
 }
 
-.top_drafts, .top_ideas {
-  h2 {
-    //Refactor border to application.css 
-    -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    -o-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-    border-width: 6px;
-    border-top: 0px none;
-    border-left: 0px none;
-    border-right: 0px none;
-    margin-bottom: 0;
-  }
-}
-
-
-.top_drafts {
+.top-drafts {
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom:  10px solid $color-primary; 
 }
 
 .news, .newsletter {
+  @include span-columns(4 omega, 12);
   padding: 5px;
   background: #eeeeee;
   border-top: 3px solid #000000;
