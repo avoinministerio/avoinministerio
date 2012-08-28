@@ -69,6 +69,12 @@
   &.btn-primary {
     @include multi-line-button($color-primary);
   }
+  &.btn-danger {
+    @include multi-line-button($color-highlight);
+  }
+  &.btn-success {
+    @include multi-line-button($color-secondary);
+  }
   &.btn-big {
     font-size: 16px;
     font-weight: $font-weight-bold;
@@ -80,7 +86,6 @@
     font-size: 14px;
   }
   &.btn-small {
-    font-size: 12px;
     padding: 8px 25px;
   }
 }
