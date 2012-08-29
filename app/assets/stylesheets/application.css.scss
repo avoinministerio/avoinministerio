@@ -57,6 +57,7 @@
 //= require_tree ./pages
 @import "pages/pages.css.scss";
 @import "pages/ideas/ideas.css.scss";
+@import "pages/citizens.css.scss";
 
 //TODO Figure out where it used
 @import "scaffolds.css.scss";
@@ -84,6 +85,9 @@
 
 header {
   height: 150px;
+  #logo {
+    @include span-columns(7,12);
+  }
 }
 
 .top-row {
@@ -272,9 +276,6 @@ a {
   }
 }
 
-
-
-
 .author > .name {
   color: $color-note;
 }
@@ -343,15 +344,3 @@ a {
   font-weight: bold;
   text-decoration: none;
 }
-
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
-  }
-* html .clearfix             { zoom: 1; } /* IE6 */
-*:first-child+html .clearfix { zoom: 1; } /* IE7 */
-

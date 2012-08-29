@@ -1,7 +1,7 @@
-<h2>Kirjaudu sisään</h2>
+<h2 class="title">Kirjaudu sisään</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => "grid_16"}) do |f| %>
-    <div class="inputs grid_12">
+    <div class="inputs">
       <div class="input">
         <%= f.label :email %>
         <%= f.email_field :email %>
@@ -18,5 +18,5 @@
           </div>
       <% end -%>
     </div>
-    <div class="actions grid_16"><%= f.submit "Kirjaudu" %></div>
+    <div class="actions"><%= f.submit "Kirjaudu" %></div>
 <% end %>
