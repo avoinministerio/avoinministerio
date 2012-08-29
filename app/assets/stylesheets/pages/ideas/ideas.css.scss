@@ -71,6 +71,7 @@
     background: $color-background;
     border-top: 3px solid black;
     padding-bottom: 20px;
+    text-align: center;
     @include span-columns(3.5 omega, 12);
     h3 {
       margin: 20px auto 5px;
@@ -108,9 +109,6 @@
   .expert-opinions {
     .expert-actions {
       @include post(1);
-      a {
-        clear: both;
-      }
     }
     .expert {
       img {
@@ -125,6 +123,10 @@
         }
       }
     }
+  }
+
+  .text-field {
+    @include span-columns(8,12);
   }
 
   .front-page-comment-count {
@@ -149,6 +151,9 @@
     .comments {
       margin-bottom: 10px;
       @include post(4);
+      .comment {
+        @include legacy-pie-clearfix;
+      }
       .info {
         .name {
           font-weight: bold;

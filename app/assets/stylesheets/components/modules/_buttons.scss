@@ -62,6 +62,12 @@
     @include box-shadow(none);
     border-color: $border-color;
   }
+  &.disabled {
+    @include background-image(linear-gradient(color-stops(desaturate(lighten($dark-color, 5%), 10%), desaturate($base-color, 10%))));
+    @include box-shadow(none);
+    @include opacity(.5);
+    border-color: $border-color;
+  }
 }
 
 .btn {
@@ -86,6 +92,6 @@
     font-size: 14px;
   }
   &.btn-small {
-    padding: 8px 25px;
+    padding: 3px 30px;
   }
 }
