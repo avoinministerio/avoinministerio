@@ -58,7 +58,7 @@
     -if @idea.published?
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
-      %span.date.sans_serif= finnishDate(@idea.created_at)
+      %span.date= finnishDate(@idea.created_at)
   .idea-content
     - if @idea.published?
       %h1= @idea.title
@@ -169,7 +169,7 @@
 
 
 -if @idea.published?
-  .expert-opinions
+  .expert-opinions.clearfix
     %h2.title.border-double-dotted Asiantuntijalausunnot
     - if @idea.articles.published.any?
       = render partial: 'article', collection: @idea.articles.published
@@ -180,6 +180,7 @@
       .fl-left Ei vielä lausuntoja
       .actions.expert-actions.fl-right
         %a{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+        %br
         =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea)
 
   .idea-comments#comments

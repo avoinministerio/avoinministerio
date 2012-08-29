@@ -50,6 +50,7 @@
   ---------------------------------------------------------------------- */
 
   [role="main"] {
+    @include legacy-pie-clearfix;
     @include trailer(1);
     @include at-breakpoint($breakpoint-narrow) {
       @include trailer(2);
@@ -64,3 +65,9 @@
     //font-size: rs(14,$base-fs);
     //margin-top: rs($base-lh);
   }
+
+  /*= @group sticky footer
+  ----------------------------------------------------------------------- */
+  @import "compass/layout/sticky-footer";
+ 
+  @include sticky-footer( 45px, ".page", ".page-footer", ".footer-wrapper");
