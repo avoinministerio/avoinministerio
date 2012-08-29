@@ -4,7 +4,7 @@
 @mixin multi-line-button($base-color) {
   @include background-clip("padding-box");
   border-width: 1px;
-  @include border-radius(6px);
+  //@include border-radius(6px);
   border-style: solid;
   color: white;
   display: block;

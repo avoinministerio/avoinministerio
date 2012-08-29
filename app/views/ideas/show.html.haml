@@ -125,8 +125,9 @@
         - else
           %h3 Kannatatko lakiluonnosta? 
         %h4 Ilmoitamme kaikille tukeneille, kun aloite on virallisesti käynnistynyt ja voit täyttää virallisen kannatusilmoituksen.
-        = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-        = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+        .actions
+          = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn btn-small btn-success"
+          = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn btn-small btn-danger"
         .votes
           #votepie
 
