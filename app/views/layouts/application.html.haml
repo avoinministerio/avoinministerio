@@ -35,7 +35,7 @@
   %body{id: "#{params[:controller].parameterize}_page"}
     %div.page
       %header.border-double-dotted{ :role => "banner" }
-        = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
+        = link_to image_tag("logo.png"), root_path, id: "logo"
         .top-row.border-double-dotted
           .actions.fl-right
             = render partial: 'shared/login_actions'
@@ -46,11 +46,12 @@
               = link_to "Listaa kaikki", ideas_path
             %li.actions-item
               = link_to "Anna idea", new_idea_path
-      %section{ :class => "clearfix", :role => "main" }
+      %section{ :class => "", :role => "main" }
 
         = yield
+      %div.page-footer
 
-    .footer-wrapper
+    %div.footer-wrapper
       %footer{ :role => "contentinfo" }
         %a.footer-item{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
         %a.footer-item{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
