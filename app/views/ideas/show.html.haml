@@ -144,8 +144,9 @@
             %h3 Kannatatko lakiehdotusta? 
           %h4 Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Pyrimme valmistelemaan sen mahdollisimman pian. Tarkista aloitteen lopusta kuinka voit allekirjoittaa paperisen kannatusilmoituksen.
           %h4 Sillä välin voit ilmoittaa epämuodollisen tukesi lakiehdotukselle. Ilmoitamme kaikille tukeneille kun myös sähköiset kannatusilmoitukset ovat mahdollisia.
-          = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-          = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+          .actions
+            = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn btn-small btn-success"
+            = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn btn-small btn-danger"
           .votes
             #votepie
         - else

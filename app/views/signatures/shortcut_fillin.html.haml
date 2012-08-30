@@ -3,7 +3,7 @@
     %h1 Vaihe 4/4 - Hyväksy ehdot, julkisuusasetukset ja täytä kannatusilmoitus
 
     .accepting.box
-      =simple_form_for @signature, url: "/signatures/#{@signature.id}/shortcut_finalize_signing", :class => "grid_16" do |f|
+      =simple_form_for @signature, url: "/signatures/#{@signature.id}/shortcut_finalize_signing", :class => "form-horizontal" do |f|
         .instructions
           .title Ehdot
           .text 
