@@ -2,22 +2,20 @@
   %title= "Avoin Ministeriö ideat"
 .ideas-header.border-double-dotted
   .filtering
-    .grid_2
-      .h1 Valittu:
-    .grid_21
-      .h1 
-        -@filters.each do |filt|
-          - code, filter_name, wrap = filt
+    %h5 Valittu:
+    %ul
+      -@filters.each do |filt|
+        - code, filter_name, wrap = filt
+        %li.filter-item
           - if code != @current_filter.to_sym
             = link_to filter_name, filter: code
           - else
             %span.selected= filter_name
           - unless filt == @filters.last
             |
-  .grid_24.ordering
-    .grid_2
-      Järjestys:
-    .grid_21
+  .ordering
+    %h5 Järjestys:
+    %ul
       / This was the original, ie. leftmost is most important sorter
       /-@sorting_order.each do |sorting_order|
       /  - field, order = sorting_order
@@ -32,30 +30,29 @@
       / New version with static order
       -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
         - order = @sorting_order.find{|so| so.first == field}[1]
-        - if field == @sorting_order.first.first
-          %span.selected= link_to @field_names[field][order.first], reorder: field 
-        - else
-          =link_to @field_names[field][order.first], reorder: field 
-        - unless field == :tilt
-          |
+        %li.filter-item
+          - if field == @sorting_order.first.first
+            %span.selected= link_to @field_names[field][order.first], reorder: field 
+          - else
+            =link_to @field_names[field][order.first], reorder: field 
+          - unless field == :tilt
+            |
   - if ENV['Feature_Searchbox']
-    .grid_24.search
-      .search
-        Haku:
-        = form_tag "/ideat/haku", :method => "get"
-        = text_field_tag 'searchterm'
-        (esim. 
-        %i tasa*
-        tai 
-        %i koira ja vero
-        )
-  .grid_24
-    .filtered_title
-      = @filter_name
-.clear
+    .search
+      Haku:
+      = form_tag "/ideat/haku", :method => "get"
+      = text_field_tag 'searchterm'
+      (esim. 
+      %i tasa*
+      tai 
+      %i koira ja vero
+      )
+  .filtered-title
+    = @filter_name
+
 .ideas
   - @ideas.each do |idea|
-    .idea.border-single-dotted.clearfix
+    .idea.border-single-dotted
       .info
         %span.type
           =state_localised(idea.state)
@@ -68,7 +65,6 @@
           %h2.notitle= link_to "Ei otsikkoa", idea
       .content
         = link_to shortened_summary(idea.summary, 215, 185, "»"), idea
-        .clear
         .stats
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
