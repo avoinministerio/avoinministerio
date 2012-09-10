@@ -24,28 +24,61 @@
     %p
     - if shortcut_session_valid?
       %h1 Edellinen tunnistuksesi on voimassa vielä #{(shortcut_session_remaining_mins).to_i} minuuttia
+      %p Sinun ei tarvitse tunnistautua uudelleen. Ja erityisesti jos käytät maksullista tunnistautumispalvelua voit välttää uuden maksun
 
-    .grid_12
-      .signature_form
-        %h1 Ilmaiset tunnistuspalvelut
-        - @services.find_all{|s| not s[:min_fee]}.each do |service|
+      .grid_16
+        %a{:href => signature_idea_shortcutting_to_signing_path(@signature, service: "shortcut")}
+          Kannatusilmoituksen jättö ilman uutta tunnistautumista
+
+
+    -else
+      .grid_12
+        .signature_form
+          %h1 Ilmaiset tunnistuspalvelut
+          - @tupas_services.find_all{|s| not s[:min_fee]}.each do |service|
+            .grid_16
+              %a{:href => signature_idea_selected_free_service_path(@signature, service: service[:name])}
+                =service[:name]
+            /          - parameters, base_url = @parameters_and_urls[service[:name]]
+            /          %form{:action => base_url[Rails.env], :method => "post"}
+            /            - parameters.each do |parameter_name, parameter_value|
+            /              %input{:type => 'hidden', :name => parameter_name, :value => parameter_value}
+            /            %input{:type => 'submit', :value => service[:name]}
+
+
+      .grid_12
+        .signature_form
+          - saldo = current_citizen.saldo
+          %h1 Maksulliset tunnistuspalvelut
           .grid_16
-            %a{:href => signature_idea_selected_free_service_path(@signature, service: service[:name])}
-              =service[:name]
-          /          - parameters, base_url = @parameters_and_urls[service[:name]]
-          /          %form{:action => base_url[Rails.env], :method => "post"}
-          /            - parameters.each do |parameter_name, parameter_value|
-          /              %input{:type => 'hidden', :name => parameter_name, :value => parameter_value}
-          /            %input{:type => 'submit', :value => service[:name]}
-
-
-    .grid_12
-      .signature_form
-        %h1 Maksulliset tunnistuspalvelut
-        - @services.find_all{|s| s[:min_fee]}.each do |service|
+            Olet siirtänyt tähän mennessä käyttämätöntä rahaa #{saldo} €.
+            - transaction_count = 4
+            Viimeiset #{transaction_count} tapahtumaa ovat:
+            /- self.money_transactions.order("created_at desc").limit(transaction_count).each do |mtx|
+            - MoneyTransactions.where("citizen_id = ?", current_citizen.id).order("created_at desc").limit(transaction_count).each do |mtx|
+              .transaction
+                #{mtx.amount}€ #{mtx.description} #{mtx.created_at}
           .grid_16
-            %form{:action => service[:url], :method => "post"}
-              %input{:type => 'submit', :value => service[:name]}
+            - requires_transfer = @payment_services.find_all {|service| service[:fee] and saldo < BigDecimal.new(service[:fee])}
+            - if not requires_transfer.empty?
+              %h2
+              Tilisiirto ennen tunnistautumista:
+              - requires_transfer.each do |service|
+                .grid_16
+                  %form{:action => service[:url], :method => "post"}
+                    - (service.keys - [:name, :url, :fee]).each do |key|
+                      %input{:type => 'hidden', :name => key.to_s, :value => service[key]}
+                    %input{:type => 'submit', :value => "#{service[:name]} (#{service[:fee]}€)"}
+            - ready = @payment_services.find_all {|service| service[:fee] and saldo >= BigDecimal.new(service[:fee])}
+            - if not ready.empty?
+              %h2
+              Tunnistautuminen jo siirretyllä rahalla:
+              - ready.each do |service|
+                .grid_16
+                  %form{:action => service[:url], :method => "post"}
+                    - (service.keys - [:name, :url, :fee]).each do |key|
+                      %input{:type => 'hidden', :name => key.to_s, :value => service[key]}
+                    %input{:type => 'submit', :value => "#{service[:name]} (#{service[:fee]}€)"}
 
   - else
     .error

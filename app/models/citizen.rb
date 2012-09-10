@@ -16,6 +16,7 @@ class Citizen < ActiveRecord::Base
   has_many :ideas, foreign_key: "author_id"
   has_many :comments, foreign_key: "author_id"
   has_many :idea_comments, through: :ideas
+  has_many :money_transactions
   
   accepts_nested_attributes_for :profile
   
@@ -94,6 +95,17 @@ class Citizen < ActiveRecord::Base
                                           extra: auth_hash[:extra]
     c.save!
     c
+  end
+
+  def depositMoney(amount, description)
+    mt = ::MoneyTransactions.new amount: amount, description: description
+    mt.citizen = self
+    raise "Can't save money transaction citizen_id=#{self.id} amount=#{amount} description=#{description}" unless mt.save
+  end
+
+  def saldo
+#    self.money_transactions.sum(:amount)
+    ::MoneyTransactions.where("citizen_id = ?", self.id).sum(:amount)
   end
 
   private

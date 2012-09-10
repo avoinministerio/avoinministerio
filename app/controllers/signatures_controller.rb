@@ -12,6 +12,11 @@ class SignaturesController < ApplicationController
 
   before_filter :authenticate_citizen!
   before_filter :check_if_idea_can_be_signed, :except => [:selected_free_service,
+                                                          :paid_returning,
+                                                          :paid_canceling,
+                                                          :paid_rejecting,
+                                                          :shortcutting_to_signing,
+
                                                           :returning,
                                                           :cancelling,
                                                           :rejecting,
@@ -32,7 +37,7 @@ class SignaturesController < ApplicationController
   def fill_in_acceptances(signature)
     signature.accept_general       = params[:accept_general]
     signature.accept_non_eu_server = params[:accept_non_eu_server]
-    signature.accept_publicity     = params[:accept_publicity]
+    signature.accept_publicity     = params[:publicity]
     signature.accept_science       = params[:accept_science]
   end
 
@@ -78,9 +83,36 @@ class SignaturesController < ApplicationController
       puts e.backtrace.join("\n")
     end
 
-    services
+    tupas_services
     @parameters_and_urls = {}
-    @services.each {|service| @parameters_and_urls[service[:name]] = signing_service_parameters_and_url(@signature, service)}
+    @tupas_services.each {|service| @parameters_and_urls[service[:name]] = signing_service_parameters_and_url(@signature, service)}
+
+    setup_payment_services(@signature)
+  end
+
+  def paid_returning
+    validate_payment_service_provider(params)
+    # add payment to user account
+    payment_services("", -1)  # parameters don't matter, but we want to get fees
+
+    # FIXME, we should make a MAC and validate it to ensure tamper-free id in params 
+    # as some banks don't calc MAC over urls
+    signature = Signature.find(params[:id])   
+
+    payment_service = @payment_services.find {|ps| ps[:name] == params[:servicename]}
+    fee = payment_service[:fee]
+    current_citizen.depositMoney(BigDecimal.new(fee), "paid signature #{signature.id}")
+
+    # forward to signing service
+
+    p generate_signing_service_url(signature, params[:servicename])
+    redirect_to generate_signing_service_url(signature, params[:servicename])
+  end
+  def paid_canceling
+    raise "at paid canceling"
+  end
+  def paid_rejecting
+    raise "at paid rejecting"
   end
 
   def requestor_secret
@@ -92,7 +124,7 @@ class SignaturesController < ApplicationController
       [:idea_id, :idea_title, :idea_date, :idea_mac, 
        :citizen_id, 
        :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
-       :service, 
+       :service, :success_auth_url
       ].map do |key| 
         raise "unknown param #{key}" unless parameters[:message].has_key? key
         [key, parameters[:message][key]]
@@ -118,13 +150,14 @@ class SignaturesController < ApplicationController
         idea_id:                      signature.idea.id,
         idea_title:                   signature.idea.title,
         idea_date:                    signature.idea.updated_at,
-        idea_mac:                     signature.idea_mac,
+        idea_mac:                     idea_mac(signature.idea),
         citizen_id:                   current_citizen.id,
         accept_general:               signature.accept_general,
         accept_non_eu_server:         signature.accept_non_eu_server,
         accept_publicity:             signature.accept_publicity,
         accept_science:               signature.accept_science,
         service:                      service,
+        success_auth_url:             server + signature_idea_successful_authentication_path(signature),
       },
       options: {
         success_url:                  server + signature_idea_signing_success_path(signature),
@@ -158,8 +191,8 @@ class SignaturesController < ApplicationController
     puts "selected_free_service"
     p @signature
     if @signature
-      services
-      service = @services.find{|s| s[:name] == params[:service] } 
+      tupas_services
+      service = @tupas_services.find{|s| s[:name] == params[:service] } 
       if service and (not service[:min_fee])
         # user chose free service
         @signature.service = params[:service]
@@ -174,8 +207,21 @@ class SignaturesController < ApplicationController
     end
   end
 
-  def services
-    @services = [
+  def shortcutting_to_signing
+    @signature = Signature.find_for(current_citizen, params[:id])
+
+    if shortcut_session_valid?
+      @signature.service = "shortcut"
+      @signature.save!
+      p generate_signing_service_url(@signature, params[:service])
+      redirect_to generate_signing_service_url(@signature, params[:service])
+    else
+      redirect_to :back
+    end
+  end
+
+  def tupas_services
+    @tupas_services = [
       { vers:       "0001",
         rcvid:      "Elisa testi",
         idtype:     "12",
@@ -196,14 +242,14 @@ class SignaturesController < ApplicationController
         idtype:     "02",
         name:       "Alandsbanken testi",
         url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
-        min_fee:    0.50,
+        min_fee:    0.28,
       },
       { vers:       "0002",
         rcvid:      "ELEKAMINNID",
         idtype:     "02",
         name:       "Alandsbanken",
         url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
-        min_fee:    0.22,
+        min_fee:    0.28,
       },
       { vers:       "0002",
         rcvid:      "KANNATUSTUPAS12",
@@ -225,14 +271,14 @@ class SignaturesController < ApplicationController
         idtype:     "02",
         name:       "Sampo",
         url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp",
-        min_fee:    nil,
+        min_fee:    0.37,
       },
     ]
   end
 
-  def setup_services(stamp)
-    @services = services
-    @services.each do |service|
+  def setup_tupas_services(stamp)
+    @tupas_services = tupas_services
+    @tupas_services.each do |service|
       set_defaults(service, stamp)
       set_mac(service)
       set_authenticated_urls(service, @signature.id)
@@ -260,25 +306,25 @@ class SignaturesController < ApplicationController
   end
 
   def set_mac(service)
-    secret = service_secret(service[:name])
+    secret = service_secret(service[:name], "tupas")
     keys = [:action_id, :vers, :rcvid, :langcode, :stamp, :idtype, :retlink, :canlink, :rejlink, :keyvers, :alg]
     vals = keys.map{|k| service[k] }
     string = vals.join("&") + "&" + secret + "&"
     service[:mac] = mac(string)
   end
 
-  def service_secret(service)
-    secret_key = "SECRET_" + service.gsub(/\s/, "")
+  def service_secret(service, system)
+    secret_key = "SECRET_#{system}_" + service.gsub(/\s/, "")
 
     Rails.logger.info "Using key #{secret_key}"
     secret = ENV[secret_key] || ""
 
     # TODO: precalc the secret into environment variable, and remove this
     # special handling
-    if service == "Alandsbanken" or service == "Tapiola"
-      secret = secret_to_mac_string(secret)
-      Rails.logger.info "Converting secret to #{secret}"
-    end
+#    if service == "Alandsbanken" or service == "Tapiola"
+#      secret = secret_to_mac_string(secret)
+#      Rails.logger.info "Converting secret to #{secret}"
+#    end
 
     if secret == ""
       Rails.logger.error "No SECRET found for #{secret_key}"
@@ -293,6 +339,150 @@ class SignaturesController < ApplicationController
     str
   end
 
+  def setup_payment_services(signature)
+    payment_services(signature.stamp, signature.id)
+    @payment_services.each do |payment_service| 
+      set_payment_mac(payment_service)
+    end
+  end
+
+  def payment_services(stamp, signature_id)
+    server = "http" + (Rails.env == "development" ? "" : "s" ) + "://#{request.host_with_port}"
+
+    @payment_services = [
+      { name:               "Alandsbanken",
+#        url:                "https://online.alandsbanken.fi/service/paybutton",
+        url:                "https://online.alandsbanken.fi/aab/ebank/auth/initLogin.do?BV_UseBVCookie=no",
+        fee:                "0.28",
+        AAB_VERSION:        "0002",
+        AAB_STAMP:          stamp[0,15],
+        AAB_RCV_ID:         "EBETAMIN",
+#        AAB_RCV_ACCOUNT:    "660100-1870443",
+        AAB_RCV_ACCOUNT:    "660100-01116755",
+#        AAB_RCV_NAME:       "Avoin ministeriö rekisteröity yhdistys ry",
+        AAB_RCV_NAME:       "Avoin minist.ry",
+        AAB_LANGUAGE:       "1",
+        AAB_AMOUNT:         "0,28",
+        AAB_REF:            ref_calculation(123456),
+        AAB_DATE:           "EXPRESS",
+        AAB_MSG:            "Avoin ministeriö - Sähköisen kannatusilmoituksen tunnistusmaksu",
+        AAB_RETURN:         "#{server}/signatures/#{signature_id}/paid_returning/Alandsbanken",
+        AAB_CANCEL:         "#{server}/signatures/#{signature_id}/paid_canceling/Alandsbanken",
+        AAB_REJECT:         "#{server}/signatures/#{signature_id}/paid_rejecting/Alandsbanken",
+        AAB_CONFIRM:        "YES",
+        AAB_KEYVERS:        "0001",
+        AAB_CUR:            "EUR",
+        BV_UseBVCookie:     "no",
+      },
+      { name:               "Sampo",
+        url:                "https://verkkopankki.sampopankki.fi/SP/vemaha/VemahaApp",
+        fee:                "0.37",
+        SUMMA:              "0,37",
+        VIITE:              ref_calculation(123456),  # FIXME stamp into here
+        KNRO:               "024744039801",
+        VALUUTTA:           "EUR",
+        VERSIO:             "3",
+        OKURL:              "#{server}/signatures/#{signature_id}/paid_returning/Sampo",
+        VIRHEURL:           "#{server}/signatures/#{signature_id}/paid_rejecting/Sampo",
+        lng:                1,
+      },
+      { name:               "Nordea",
+        url:                "https://solo3.nordea.fi/cgi-bin/SOLOPM01",
+        fee:                "1.00",
+        SOLOPMT_VERSION:    "0003",
+        SOLOPMT_STAMP:      stamp,
+        SOLOPMT_RCV_ID:     "1028275M",
+#        SOLOPMT_RCV_ACCOUNT:"FI2812283000021780",
+#        SOLOPMT_RCV_NAME:   "",
+        SOLOPMT_LANGUAGE:   "1",
+        SOLOPMT_AMOUNT:     "1,00",
+        SOLOPMT_REF:        ref_calculation(123456),
+        SOLOPMT_DATE:       "EXPRESS",
+        SOLOPMT_MSG:        "Avoin ministeriö - Sähköisen kannatusilmoituksen tunnistusmaksu",
+        SOLOPMT_RETURN:     "#{server}/signatures/#{signature_id}/paid_returning/Nordea",
+        SOLOPMT_CANCEL:     "#{server}/signatures/#{signature_id}/paid_canceling/Nordea",
+        SOLOPMT_REJECT:     "#{server}/signatures/#{signature_id}/paid_rejecting/Nordea",
+        SOLOPMT_CONFIRM:    "YES",
+        SOLOPMT_KEYVERS:    "0001",
+        SOLOPMT_CUR:        "EUR",
+      },
+      { name:               "Osuuspankki",
+        url:                "https://kultaraha.op.fi/cgi-bin/krcgi",
+        fee:                "0.62",
+        action_id:          "701",
+        VERSIO:             "1",
+        MAKSUTUNNUS:        stamp,
+        MYYJA:              "AVOINMINISTERIO",
+        SUMMA:              "0,62",
+        VIITE:              ref_calculation(123456),
+        VIEST1:             "Sähköinen kannatusilmoitus",
+        "TARKISTE-VERSIO"=> "1",
+        "PALUU-LINKKI"=>    "#{server}/signatures/#{signature_id}/paid_returning/Osuuspankki",
+        PERUUTUSLINKKI:     "#{server}/signatures/#{signature_id}/paid_rejecting/Osuuspankki",
+        VAHVISTUS:          "K",
+        VALUUTTALAJI:       "EUR",
+      },
+    ]
+  end
+
+  def set_payment_mac(payment_service)
+    fields = {
+      "Alandsbanken" => {
+        mac_over:   [:AAB_VERSION, :AAB_STAMP, :AAB_RCV_ID, :AAB_AMOUNT, :AAB_REF, :AAB_DATE, :AAB_CUR, :secret__],
+        mac_field:  :AAB_MAC,
+        separator:  "&",
+      },
+      "Sampo" => {
+        mac_over:   [:secret__, :SUMMA, :VIITE, :KNRO, :VERSIO, :VALUUTTA, :OKURL, :VIRHEURL],
+        mac_field:  :TARKISTE,
+        separator:  "",
+      },
+      "Nordea" => {
+        mac_over:   [:SOLOPMT_VERSION, :SOLOPMT_STAMP, :SOLOPMT_RCV_ID, :SOLOPMT_AMOUNT, :SOLOPMT_REF, :SOLOPMT_DATE, :SOLOPMT_CUR, :secret__],
+        mac_field:  :SOLOPMT_MAC,
+        separator:  "&",
+      },
+      "Osuuspankki" => {
+        mac_over:   [:VERSIO, :MAKSUTUNNUS, :MYYJA, :SUMMA, :VIITE, :VIEST1, :VIEST2, :VALUUTTALAJI, "TARKISTE-VERSIO", :secret__],
+        mac_field:  :TARKISTE,
+        separator:  "",
+      },
+    }
+    payment_provider_fields = fields[payment_service[:name]]
+    mac_over  = payment_provider_fields[:mac_over ]
+    mac_field = payment_provider_fields[:mac_field]
+    separator = payment_provider_fields[:separator]
+
+    # place the secret temporarily into the hash
+    payment_service[:secret__] = service_secret(payment_service[:name], "payment")
+
+    values =  mac_over.map do |key| 
+      value = payment_service[key]
+      value = value.to_s.gsub(/\s+$/,"") if payment_service[:name] == "Osuuspankki"  # spec requires removing end blanks
+      value
+    end
+    payment_service.delete :secret__   # remove temporary key
+
+    string_for_mac = values.join(separator) + separator
+    puts "String for mac: #{string_for_mac}"
+    mac = Digest::MD5.new.update(string_for_mac).hexdigest.upcase
+    puts "MAC:            #{mac}"
+    payment_service[mac_field] = mac
+  end
+
+  def ref_calculation(reference)
+    number = reference
+    checksum = 0
+    digit_index = 0
+    while number > 0
+      last_digit, number = (number % 10), number / 10
+      checksum += last_digit * [7, 3, 1][digit_index%3]
+      digit_index += 1
+    end
+    reference * 10 + (-checksum % 10)
+  end
+
+
 
 
   def sign
@@ -301,7 +491,7 @@ class SignaturesController < ApplicationController
     # ie. cover case when user does not type in the url (when Sign button is not shown)
     @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
 
-    setup_services(@signature.stamp)
+    setup_tupas_services(@signature.stamp)
 
     # ERROR: check that there are enough acceptances
     fill_in_acceptances(@signature)
@@ -318,7 +508,7 @@ class SignaturesController < ApplicationController
 
   def valid_returning?(signature, service_name)
     values = %w(VERS TIMESTMP IDNBR STAMP CUSTNAME KEYVERS ALG CUSTID CUSTTYPE).map {|key| params["B02K_" + key]}
-    string = values[0,9].join("&") + "&" + service_secret(service_name) + "&"
+    string = values[0,9].join("&") + "&" + service_secret(service_name, "tupas") + "&"
     params["B02K_MAC"] == mac(string)
   end
 
@@ -525,7 +715,7 @@ class SignaturesController < ApplicationController
   end
 
   def idea_mac(idea)
-    mac(idea.title + idea.body + idea.updated_at.to_s)
+    mac(idea.title + idea.summary + idea.body + idea.updated_at.to_s)
   end
   
   def check_if_idea_can_be_signed
@@ -542,6 +732,9 @@ class SignaturesController < ApplicationController
     #    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
     @signature = Signature.where(state: 'initial').find(params[:id])
     if @signature and @signature.citizen == current_citizen and @signature.state == "initial"   # TODO: and duration since last authentication less that threshold
+
+      # FIXME: find if intermediate call to successful_authentication has been done, if make the transaction now
+
       # validate input before storing
       if justNameCharacters(params["first_names"]) and 
           justNameCharacters(params["last_name"])   and 
@@ -604,5 +797,63 @@ class SignaturesController < ApplicationController
     raise Exception.new unless params[:service_provider_identifying_mac] == mac(param_string)
   end
 
+  def validate_payment_service_provider(params)
+    fields = {
+      "Alandsbanken" => {
+        return_mac_over: ["AAB-RETURN-VERSION", "AAB-RETURN-STAMP", "AAB-RETURN-REF", "AAB-RETURN-PAID", :secret__],
+        return_mac:       "AAB-RETURN-MAC",
+        separator:        "&",
+      },
+      "Sampo" => {
+        return_mac_over: [:secret__, "VIITE", "SUMMA", "STATUS", "KNRO", "VERSIO", "VALUUTTA"],
+        return_mac:       "TARKISTE",
+        separator:        "",
+      },
+      "Nordea" => {
+        return_mac_over: ["SOLOPMT_RETURN_VERSION", "SOLOPMT_RETURN_STAMP", "SOLOPMT_RETURN_REF", "SOLOPMT_RETURN_PAID", :secret__],
+        return_mac:       "SOLOPMT_RETURN_MAC",
+        separator:        "&",
+      },
+      "Osuuspankki" => {
+        return_mac_over: ["VERSIO", "MAKSUTUNNUS", "VIITE", "ARKISTOINTITUNNUS", "TARKISTE-VERSIO", :secret__],
+        return_mac:       "TARKISTE",
+        separator:        "",
+      },
+    }
+
+    payment_provider_fields = fields[params[:servicename]]
+    mac_over  = payment_provider_fields[:return_mac_over]
+    mac_field = payment_provider_fields[:return_mac]
+    separator = payment_provider_fields[:separator]
+
+    # place the secret temporarily into the hash
+    params[:secret__] = service_secret(params[:servicename], "payment")
+    values = mac_over.map do |key|
+      value = params[key]
+      value = value.to_s.gsub(/\s+$/,"") if params[:servicename] == "Osuuspankki"  # spec requires removing end blanks
+      value
+    end
+    params.delete :secret__   # remove temporary key
+
+
+    bank_specific_checks = true  # by default
+    if params[:servicename] == "Nordea"
+      bank_specific_checks = params["SOLOPMT_RETURN_PAID"] != ""
+    end
+    bank_specific_checks or raise "Invalid bank_specific_checks"
+
+    string_for_mac = values.join(separator) + separator
+    puts "String for mac: #{string_for_mac}"
+    mac = Digest::MD5.new.update(string_for_mac).hexdigest.upcase
+    puts "MAC:            #{mac}"
+    params[mac_field] == mac or raise "Invalid return mac"
+  end
+
+
+  def successful_authentication
+    Rails.logger.error "Here we are at successful_authentication without any implementation"
+    raise "Successfully authenticated, thus we should perhaps deduct the cost"
+    render ""
+  end
 
 end

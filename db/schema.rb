@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806062640) do
+ActiveRecord::Schema.define(:version => 20120908131725) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -160,6 +160,14 @@ ActiveRecord::Schema.define(:version => 20120806062640) do
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
   add_index "ideas", ["publish_state"], :name => "index_ideas_on_publish_state"
   add_index "ideas", ["slug"], :name => "index_ideas_on_slug", :unique => true
+
+  create_table "money_transactions", :force => true do |t|
+    t.integer  "citizen_id"
+    t.decimal  "amount",      :precision => 8, :scale => 2
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "profiles", :force => true do |t|
     t.integer  "citizen_id"

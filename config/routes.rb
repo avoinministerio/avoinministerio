@@ -11,8 +11,10 @@ AvoinMinisterio::Application.routes.draw do
   match "/ideas/:id/signature"                        => "signatures#sign",                   via: :post, as: :signature_idea
 
   match "/signatures/:id/selected_free_service"       => "signatures#selected_free_service",  via: :get,  as: :signature_idea_selected_free_service
+  match "/signatures/:id/successful_authentication"   => "signatures#successful_authentication", via: :get,  as: :signature_idea_successful_authentication
   match "/signatures/:id/signing_success"             => "signatures#signing_success",        via: :get,  as: :signature_idea_signing_success
   match "/signatures/:id/signing_failure"             => "signatures#signing_failure",        via: :get,  as: :signature_idea_signing_failure
+  match "/signatures/:id/shortcutting_to_signing"     => "signatures#shortcutting_to_signing",via: :get,  as: :signature_idea_shortcutting_to_signing
 
 
   match "/signatures/:id/finalize_signing"            => "signatures#finalize_signing",       via: :put
@@ -22,6 +24,11 @@ AvoinMinisterio::Application.routes.draw do
 
   match "/ideas/:id/shortcutfillin"                   => "signatures#shortcut_fillin",            via: :get, as: :signature_idea_shortcut_fillin
   match "/signatures/:id/shortcut_finalize_signing"   => "signatures#shortcut_finalize_signing",  via: :put, as: :signature_shortcut_finalize_signing
+
+  match "/signatures/:id/paid_returning/:servicename"   => "signatures#paid_returning",              via: :get
+  match "/signatures/:id/paid_canceling/:servicename"   => "signatures#paid_canceling",              via: :get
+  match "/signatures/:id/paid_rejecting/:servicename"   => "signatures#paid_rejecting",              via: :get
+
 
   match "/ideat/haku" => "ideas#search"
   get "ideas/vote_flow"
