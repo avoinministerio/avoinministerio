@@ -67,12 +67,8 @@
 // Print styles
 @import "print";
 
-
-.fl-left {
-  @include float-left;
-}
 .fl-right {
-  @include float-right;
+  @include omega;
 }
 
 .clearfix {
@@ -88,11 +84,19 @@ header {
   height: 150px;
   #logo {
     @include span-columns(6.5,12);
+    margin-right: 0;
   }
 }
 
 .top-row {
   height: 45px;
+  .actions {
+    @include span-columns(5.5, 12);
+    @include omega;
+    .login-actions {
+      @include omega;
+    }
+  }
 }
 
 .border-double-dotted {
@@ -158,13 +162,13 @@ header {
 .headline {
   background-color: $color-primary;
   margin-top: 0.2em;
-  height: 200px;
+  min-height: 200px;
   padding-top: 80px;
   @include box-sizing(border-box);
 
   .headline-title {
     @include span-columns(8, 12);
-    padding-left: 27px;
+    padding-left: 1%;
     h1, h2 {
       color: white;
       margin: 0;
@@ -174,7 +178,7 @@ header {
 }
 
 .idea-detail-actions {
-  margin-right: 27px;
+  margin-right: 1%;
 }
 
 .title {
@@ -213,6 +217,10 @@ header {
         size: $large-font-size;
       }
     }
+    .bar {
+      width: 95%;
+      overflow: hidden;
+    }
   }
 }
 
@@ -232,7 +240,7 @@ header {
   }
 
 .ideas-header {
-  height: 110px;
+  min-height: 110px;
   position: relative;
   h1 {
     bottom: 0;

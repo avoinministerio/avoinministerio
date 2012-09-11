@@ -235,6 +235,9 @@
   //TODO do not sure it's the best solution
   .filtering, .ordering {
     @include legacy-pie-clearfix;
+    ul {
+      margin: 0;
+    }
     h5 {
       color: $color-text;
       @include float-left;
@@ -243,7 +246,7 @@
   }
 
   .filtered-title {
-    @include float-left;
+    @include inline-block;
     padding-top: 20px;
     font-size: 24px;
   }
