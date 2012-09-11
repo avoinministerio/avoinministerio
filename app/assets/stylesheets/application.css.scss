@@ -162,8 +162,8 @@ header {
 .headline {
   background-color: $color-primary;
   margin-top: 0.2em;
-  min-height: 200px;
   padding-top: 80px;
+  @include clearfix;
   @include box-sizing(border-box);
 
   .headline-title {
