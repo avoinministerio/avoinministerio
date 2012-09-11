@@ -2,59 +2,269 @@
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
- *= require_self
- *= require_directory . 
 */
-$turquoise: #29abe2;
-$violet: #473161;
 
-body > header {
+@charset "utf-8";
+
+// SCSS Toolkit by David Rapson
+// A starter toolkit for SCSS projects
+//
+// The toolkit uses a combination of recommendations from Adaptive Web Design, http://easy-readers.net/
+// and Scalable and Modular Architecture for CSS (SMACSS) http://smacss.com/book
+
+//TODO Move to SUSY grid
+//@import "960_24_col.css";
+
+
+// Compass Plugins
+// ===============
+
+// Optional, if you are using Compass
+@import "compass/reset";
+@import "compass/utilities";
+@import "compass/css3";
+@import "susy";
+
+// Sass Features
+// =============
+
+@import "variables";
+@import "functions/all";
+@import "mixins/all";
+
+// The Styles
+// ==========
+// Styles are defined in the following order & groupings:
+// Base, Layout, Module, State
+
+// Base styles (reset + elements)
+@import "common/base";
+
+// Layout
+// ======
+// - Layout = major components, e.g., header, footer etc.
+// - Module = minor components, e.g., navigation bar, callout, widgets etc.
+// - State  = a state is something that augments + overrides all other styles, e.g., success or error state
+
+@import "components/layout";
+@import "components/module";
+@import "components/state";
+
+// Helpers should come last out of screen styles
+//@import "common/helpers";
+
+// Specific pages
+//= require_tree ./pages
+@import "pages/pages.css.scss";
+@import "pages/ideas/ideas.css.scss";
+@import "pages/citizens.css.scss";
+@import "pages/articles.css.scss";
+
+//TODO Figure out where it used
+@import "scaffolds.css.scss";
+@import "search.css.scss";
+
+// Print styles
+@import "print";
+
+.fl-right {
+  @include omega;
+}
+
+.clearfix {
+  @include legacy-pie-clearfix;
+}
+
+.actions {
+  @include inline-block;
+  @include box-sizing(border-box);
+}
+
+header {
   height: 150px;
+  #logo {
+    @include span-columns(6.5,12);
+    margin-right: 0;
+  }
 }
 
-body > header.top_row_container {
-  height: 0;
-  z-index: -1;
-  border: 0 none;
+.top-row {
+  height: 45px;
+  .actions {
+    @include span-columns(5.5, 12);
+    @include omega;
+    .login-actions {
+      @include omega;
+    }
+  }
 }
 
-body > header, body > header.top_row_container > .container_24, .ideas_header.container_24 {
-  border-width: 6px;
-  -moz-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  -webkit-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  -o-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  border-top: 0 none;
-  border-left: 0 none;
-  border-right: 0 none;
+.border-double-dotted {
+  background: {
+    image: url("/assets/border-double-dotted.png");
+    position: center bottom;
+    repeat: repeat-x;
+  }
 }
 
-header .login_actions a, header .idea_actions a {
-  color: $turquoise;
-  font-weight: bold;
-  text-decoration: none;
-}
-header > .login_actions > div {
-  float: right;
-  line-height: 25px;
-  text-align: right;
+.border-single-dotted {
+  background: {
+    image: url("/assets/border-dotted-horizontal.png");
+    position: center bottom;
+    repeat: repeat-x;
+  }
 }
 
-body > header > .top_row {
-  height: 35px;
-  margin-top: 15px;
+.login-actions, .idea-actions {
+  @include clearfix;
+  margin: 0;
+  .actions-item {
+    @include float-left;
+    list-style: none;
+    a {
+      font-weight: $font-weight-bold;
+      color: $color-note;
+    }
+  }
 }
-
-body > header > .top_row > a {
-  margin-top: 20px;
+.login-actions {
+  font-size: $small-font-size;
+  line-height: 45px;
 }
-
-body > header > .bottom_row {
-  height: 60px;
+.idea-actions {
+  font-size: $medium-font-size;
   margin-top: 40px;
 }
 
-#footer_container {
+//TODO Do not sure this is the best solution
+.btn-facebook {
+  @include inline-block;
+  background: {
+    image: url("/assets/btn-facebook.png");
+    repeat: no-repeat;
+    position: left center;
+  }
+  .btn-facebook-inner {
+    @include inline-block;
+    margin-left: 20px;
+    background: {
+      image: url("/assets/btn-facebook.png");
+      position: right center;
+      repeat: no-repeat;
+    }
+    a {
+      color: white;
+      padding: 0 10px;
+    }
+  }
+}
+
+.headline {
+  background-color: $color-primary;
+  margin-top: 0.2em;
+  padding-top: 80px;
+  @include clearfix;
+  @include box-sizing(border-box);
+
+  .headline-title {
+    @include span-columns(8, 12);
+    padding-left: 1%;
+    h1, h2 {
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.idea-detail-actions {
+  margin-right: 1%;
+}
+
+.title {
+  color: $color-primary;
+  text-transform: uppercase;
+  margin: 0;
+  padding-bottom: 4px;
+  font: {
+    size: 18px;
+    weight: $font-weight-normal;
+  }
+}
+
+.top-drafts {
+  @include legacy-pie-clearfix;
+  border-bottom: 10px solid $color-primary;
+  padding: 10px 0;
+  .popular {
+    @include span-columns(4, 12);
+    margin: 10px 7px 0 0;
+    height: 160px;
+    background: {
+      image: url("/assets/border-dotted-vertical.png");
+      position: right center;
+      repeat: repeat-y;
+    }
+    &.last {
+      @include omega;
+      background: none;
+    }
+    .popular-title {
+      height: 120px;
+      margin: 0;
+      font: {
+        family: $font-family-serif;
+        size: $large-font-size;
+      }
+    }
+    .bar {
+      width: 95%;
+      overflow: hidden;
+    }
+  }
+}
+
+.top-ideas, .news {
+  margin-top: 55px;
+}
+
+.top-ideas, .idea-content {
+  @include span-columns(8, 12);
+  margin-right: 0; //TODO seems it's ugly hack
+}
+
+.top-ideas .list-ideas {
+    margin-top: 10px;
+    margin-right: 20px;
+    color: $color-note;
+  }
+
+.ideas-header {
+  min-height: 110px;
+  position: relative;
+  h1 {
+    bottom: 0;
+    position: absolute;
+    margin: 0;
+  }
+}
+
+.ideas > .idea > .info, .ideas > .idea > .content {
+  height: 160px;
+  overflow: hidden;
+}
+
+.top-ideas > .idea {
+  height: 180px;
+}
+
+.idea {
+  h1 {
+    margin-top: 20px;
+  }
+}
+
+.footer-wrapper {
   width: 100%;
   background-color: #eff3f3;
   height: 45px;
@@ -63,183 +273,25 @@ body > header > .bottom_row {
   margin-top: 25px;
 }
 
-footer > a {
-  color: $turquoise;
-}
-
-footer > a:hover {
-  text-decoration: underline;
-}
-footer > a:link {
-  text-decoration: none;
-}
-footer > a:visited {
-  text-decoration: none;
-}
-
-
-.inputs > .input > input {
-  width: 100%;
-}
-
-.input {
-  margin-bottom: 1em;
-}
-
-.input > label, .input > input {
-  display: block;
-}
-
-.input.checkbox > label,
-.input.checkbox > input,
-.input.boolean > label,
-.input.boolean > input {
-  display: inline;
-}
-
-.input > input[type=email],
-.input > input[type=text],
-.input > input[type=password],
-.input > input[type=url] {
-  border: 2px #e6e6e6 solid;
-}
-
-.actions > input[type=submit] {
-  float: right;
-}
-
-input[type=submit], a.button {
-  border: none;
-  padding: 0.8em 2em;
-}
-
-a.button {
-  color: $violet;
-  background-color: #fff;
-}
-
-.headline {
-  background-color: $violet;
-  margin-top: 0.2em;
-  height: 200px;
-
-  hgroup, .actions {
-    margin: 80px 0 0;
-  }
-  
-  hgroup {
-    h1, h2 {
-      color: #fff;
-      margin: 0 0 0 20px;
-      padding: 0;
+a {
+  &.footer-item {
+    @include span-columns(3, 12);
+    color: $color-note;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+    font-size: $small-font-size;
+    &:nth-child(4n) {
+      @include omega;
     }
   }
-  
-  .actions > a.button {
-    float: right;
-    width: 120px;
-    text-align: center;
-    margin: 0 20px 20px 0;
-    display: block;
-  }
 }
 
-input[type=submit] {
-  background-color: $violet;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: bold;
+.author > .name {
+  color: $color-note;
 }
 
-.top_drafts h2 {
-  margin-bottom: 0;
-}
-
-.top_drafts .popular {
-  margin: 10px 7px 0 0;
-  height: 160px;
-  border-width: 3px;
-  -moz-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  -webkit-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  -o-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  border-top: 0 none;
-  border-left: 0 none;
-  border-bottom: 0 none;
-  padding-right: 7px;
-}
-
-.top_drafts .omega > div.popular {
-  border: none;
-  padding-right: 0;
-}
-
-.top_drafts div.popular > h3 {
-  height: 120px;
-}
-
-.top_drafts div.popular > h3 > a {
-  color: #000;
-}
-
-.top_ideas, .news {
-  margin-top:40px;
-}
-
-.top_ideas > a.list_ideas {
-  margin-top: 10px;
-  margin-right: 20px;
-  float: right;
-  color: $turquoise;
-}
-
-.ideas_header {
-  height: 100px;
-  position: relative;
-
-  h1 {
-    bottom: 0;
-    position: absolute;
-    margin: 0;
-
-  }
-}
-
-.ideas > .idea {
-  height: 180px;
-  margin-top: 20px;
-}
-
-.ideas > .idea > .info, .ideas > .idea > .content {
-  height: 160px;
-  overflow: hidden;
-}
-
-.top_ideas > .idea {
-  height: 180px;
-}
-
-.idea {
-  h1 {
-    margin-top: 20px;
-  }
-
-  .author > .name {
-    color: $turquoise;
-  }
-}
-
-.ideas, .top_ideas {
+.ideas, .top-ideas {
   .idea {
-    border-width: 2px;
-    -moz-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    -webkit-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    -o-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
-    border-top: 0 none;
-    border-left: 0 none;
-    border-right: 0 none;
-
     .info {
       .type, .date {
         color: #b3b3b3;
@@ -250,7 +302,6 @@ input[type=submit] {
         }
       }
     }
-
     .statistics {
       .total {
         color: #404040;
@@ -269,9 +320,9 @@ input[type=submit] {
         min-height: 28px;
         padding-left: 20px;
         background-image:url('/assets/kommentit.png') no-repeat;
-        background-position: -1 1.5em;
+        background-position: -1px 1.5em;
         a {
-          color: $turquoise;
+          color: $color-note;
         }
         a:hover {
           text-decoration: underline;
@@ -298,20 +349,8 @@ input[type=submit] {
   background-color: #eee;
 }
 
-.expert_opinions a, .expert_opinions a:visited {
-  color: $turquoise;
+.expert-opinions a, .expert-opinions a:visited {
+  color: $color-note;
   font-weight: bold;
   text-decoration: none;
 }
-
-.clearfix:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-	}
-* html .clearfix             { zoom: 1; } /* IE6 */
-*:first-child+html .clearfix { zoom: 1; } /* IE7 */
-

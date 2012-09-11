@@ -1,0 +1,302 @@
+// Place all the styles related to the Ideas controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#ideas_page {
+  #new-idea .input label {
+    display: block;
+  }
+
+  #new-idea label[for=idea_title] {
+    font-size: 2em;
+  }
+
+  #new-idea label[for=idea_summary],
+  #new-idea label[for=idea_body] {
+    font-size: 1.5em;
+  }
+
+  #new-idea input {
+    font-size: 1.5em;
+    padding: 6px;
+  }
+
+  #new-idea textarea {
+    font-size: 1.25em;
+    padding: 6px;
+  }
+
+  #new-idea input[type=submit] {
+    float: right;
+  }
+
+  .state {
+    background: $color-primary;
+    color: white;
+    padding: 6px 10px;
+    margin: 16px auto;
+    span {
+      font-weight: bold;
+      span {
+        font: {
+          family: "Georgia";
+          weight: normal;
+          size: 1.5em;
+          margin: auto 0.5em;
+        }
+      }
+    }
+  }
+
+  h1 {
+    font-weight: normal;
+  }
+
+  .share {
+    padding-bottom: 20px;
+    @include span-columns(3.5 omega, 12);
+  }
+
+  .voting {
+    background: $color-background;
+    border-top: 3px solid black;
+    padding-bottom: 20px;
+    text-align: center;
+    @include span-columns(3.5 omega, 12);
+    h3 {
+      margin: 20px auto 5px;
+      font-size: 1.35em;
+      text-align: center;
+    }
+    h4 {
+      margin: 7px auto 12px;
+      font-size: 1em;
+      text-align: center;
+    }
+  }
+
+  .signature-statistics {
+    margin: 20px 10px 10px 10px;
+    .stat-divider {
+      margin: 10px 0 0 0;
+    }
+  }
+
+  .accepting {
+    .accept-btn, .accept-btn-disabled {
+      text-decoration: none;
+    }
+    .accept-btn {
+      background: $color-primary;
+      color: white;
+    }
+    .accept-btn-disabled {
+      background: $color-primary-muted;
+      color: #999;
+    }
+  }
+
+  .expert-opinions {
+    .expert-actions {
+      @include post(1);
+    }
+    .expert {
+      img {
+        border: 3px solid black;
+      }
+      span {
+        display: block;
+        &.name {
+          font-weight: bold;
+          color: $color-note;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  .text-field {
+    @include span-columns(8,12);
+  }
+
+  .front-page-comment-count {
+    display: inline-block;
+    width: 42px;
+    padding: 2px 6px 0 0;
+    height: 32px;
+    margin: 0 10px 0 20px;
+    background: transparent url("/assets/comment-bg.png") top left no-repeat;
+    text-align: right;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+    a {
+      color: rgb(10, 50, 70);
+      text-decoration: none;
+    }
+  }
+
+  .idea-comments {
+    .comments {
+      margin-bottom: 10px;
+      @include post(4);
+      .comment {
+        @include legacy-pie-clearfix;
+      }
+      .info {
+        .name {
+          font-weight: bold;
+          color: $color-note;
+          text-transform: uppercase;
+          padding-right: 5px;
+        }
+        .separator {
+          color: gray;
+        }
+
+        .datetime {
+          padding-left: 10px;
+        }
+      }
+      .body {
+        min-height: inherit;
+        blockquote {
+          margin-left: 20px;
+          font-size: 12px;
+          background-color: $color-background;
+        }
+      }
+    }
+  }
+
+  ul.horizontal {
+    list-style: none;
+    li {
+      float: left;
+    }
+  }
+
+  .help-cont {
+    margin-top: 15px;
+    display: none;
+  }
+
+  #title_help, #summary_help, #body_help {
+    padding-top: 60px;
+    background-image:url("/assets/ohje_nuoli.png");
+    background-repeat: no-repeat; 
+    position: absolute;
+    left: 640px; 
+  }
+
+  .idea {
+    margin-top: 32px;
+    @include legacy-pie-clearfix;
+    .info {
+      @include span-columns(6, 12);
+      h2 {
+        margin-right: 35px;
+        &.notitle a {
+          color: #bbb;
+        }
+      }
+    }
+    .content {
+      padding-top: 22px;
+      @include span-columns(6 omega, 12);
+      a {
+        text-decoration: none;
+        color: black;
+        &:hover {
+          text-decoration: underline;
+        }
+        &:link, &:visited {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .filter-item {
+    @include float-left;
+    margin: 0;
+    list-style: none;
+    a, span {
+      margin: 0 .5em;
+      color: #888888;
+      &.selected, &.selected a {
+        color: $color-primary;
+        font-weight: bold;
+      }
+    }
+  }
+
+  //TODO do not sure it's the best solution
+  .filtering, .ordering {
+    @include legacy-pie-clearfix;
+    ul {
+      margin: 0;
+    }
+    h5 {
+      color: $color-text;
+      @include float-left;
+      margin: 0;
+    }
+  }
+
+  .filtered-title {
+    @include inline-block;
+    padding-top: 20px;
+    font-size: 24px;
+  }
+
+  .stats {
+    margin-top: 20px;
+    .votes {
+      color: $color-text;
+    }
+    span {
+      &.comment-count {
+        display: inline-block;
+        width: 42px;
+        padding: 2px 6px 0 0;
+        height: 32px;
+        margin: 0 5px 0 20px;
+        background: transparent url('/assets/comment-bg.png') top left no-repeat;
+        text-align: right;
+        color: white;
+      }
+      &.for {
+        color: $color-secondary;
+      }
+      &.against {
+        color: $color-highlight;
+      }
+      &.article-count {
+        display: inline-block;
+        width: 32px;
+        padding: 2px 6px 0 0;
+        height: 26px;
+        margin: 0 5px;
+        background: transparent url('/assets/asiantuntijalausunnot.png') top left no-repeat;
+        text-align: right;
+        color: white;
+      }
+    }
+  }
+
+  .prevnext .right {
+    text-align: right;
+  }
+
+  .prevnext a {
+    color: $color-note;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .share .addthis_32x32_style {
+    height: 32px;
+  }
+}

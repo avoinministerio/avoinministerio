@@ -1,37 +1,9 @@
-$sans_serif: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
-$serif: "Georgia";
-
 body {
-  font-family: $sans_serif;
-}
-
-header .bottom_row a {
-  font-size: 1.1em;
-}
-
-footer > a {
-  text-transform: uppercase;
-  font-family: $sans_serif;
-  font-weight: bold;
-  font-size: 11px;
-}
-
-input[type=submit], a.button {
-  font-family: $sans_serif;
-  text-transform: uppercase;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.input > input[type=email],
-.input > input[type=text],
-.input > input[type=password],
-.input > input[type=url] {
-  font-size: 1.6em;
+  font-family: $font-family-sans;
 }
 
 .headline > hgroup > h1, .headline > hgroup > h2 {
-  font-family: $serif;
+  font-family: $font-family-serif;
 }
 
 .headline > hgroup > h1 {
@@ -43,34 +15,34 @@ input[type=submit], a.button {
   text-transform: uppercase;
 }
 
-.top_drafts div.popular > h3 {
+.top-drafts div.popular > h3 {
   font-size: 20px;
   font-weight: normal;
-  font-family: $serif;
+  font-family: $font-family-serif;
 
   a {
     text-decoration: none;
   }
 }
 
-.top_ideas {
-  a.list_ideas {
+.top-ideas {
+  .list-ideas {
     text-transform: uppercase;
     text-decoration: none;
     font-weight: bold;
   }
 
-  a.list_ideas:hover {
+  .list-ideas:hover {
     text-decoration: underline;
   }
 }
 
-.ideas_header h1 {
-  font-family: $serif;
+.ideas-header h1 {
+  font-family: $font-family-serif;
 }
 
 .idea {
-  font-family: $serif;
+  font-family: $font-family-serif;
   font-weight: normal;
   text-transform: none;
 
@@ -79,12 +51,12 @@ input[type=submit], a.button {
   }
 
   .author > .name {
-    font-family: $sans_serif;
+    font-family: $font-family-sans;
     font-size: 16px;
   }
 
   .author > .date {
-    font-family: $sans_serif;
+    font-family: $font-family-sans;
     font-size: 13px;
     padding-left: 10px;
   }
@@ -108,7 +80,7 @@ input[type=submit], a.button {
 
   .info {
     .type, .date {
-      font-family: $sans_serif;
+      font-family: $font-family-sans;
       text-transform: uppercase;
     }
 
@@ -117,7 +89,7 @@ input[type=submit], a.button {
     }
 
     h3, h2 {
-      font-family: $serif;
+      font-family: $font-family-serif;
       font-weight: normal;
       text-transform: none;
 
@@ -141,7 +113,7 @@ input[type=submit], a.button {
   }
 
   .statistics {
-    font-family: $sans_serif;
+    font-family: $font-family-sans;
     text-transform: uppercase;
 
     .total, .for, .against {
@@ -150,38 +122,38 @@ input[type=submit], a.button {
   }
 
   aside {
-    font-family: $sans_serif;
+    font-family: $font-family-sans;
   }
 }
 
 .ideas > .idea > .content {
   font-size: 16px;
-  font-family: $serif;
+  font-family: $font-family-serif;
 }
 
 .ideas > .idea > .content > .stats {
   font-size: 13px;
   font-weight: bold;
-  font-family: $sans_serif;
+  font-family: $font-family-sans;
 }
 
 .news .news-item .datetime {
-  font-family: $sans_serif;
+  font-family: $font-family-sans;
   text-transform: uppercase;
 }
 
 .blogs .blog .info h2 a {
   font-size: 24px;
-  font-family: $serif;
+  font-family: $font-family-serif;
 }
 
 .blogs > .blog > .content {
   font-size: 16px;
-  font-family: $serif;
+  font-family: $font-family-serif;
 }
 
 .sharing-suggestion {
-  font-family: $sans_serif;
+  font-family: $font-family-sans;
   margin-top: 10px;
 }
 

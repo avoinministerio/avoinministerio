@@ -1,73 +1,76 @@
 !!! 5
-/[if lt IE 9] <html class="ie">
-/[if gte IE 9] <html>
-%head
-  %meta{ :charset => "utf-8" }/
-  %meta{ :content => "width=device-width, initial-scale=1", :name => "viewport" }/
-  %link{ href: asset_path('favicon.ico'), rel: 'shortcut icon', type: 'image/x-icon' }
-  - if @idea
-    = yield :facebook_metadata_for_idea
-  - else
-    = render 'shared/facebook_meta_tags'
-  - if content_for? :head
-    = yield :head
-  - else
-    %title Avoin Ministeriö
+/[if lt IE 7] <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en">
+/[if IE 7] <html class="no-js lt-ie9 lt-ie8" lang="en">
+/[if IE 8] <html class="no-js lt-ie9" lang="en">
+/ [if gt IE 8]><!
+%html.no-js{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{ :charset => "utf-8" }/
+    %meta{ :content => "width=device-width, initial-scale=1", :name => "viewport" }/
+    %link{ href: asset_path('favicon.ico'), rel: 'shortcut icon', type: 'image/x-icon' }
+    - if @idea
+      = yield :facebook_metadata_for_idea
+    - else
+      = render 'shared/facebook_meta_tags'
+    - if content_for? :head
+      = yield :head
+    - else
+      %title Avoin Ministeriö
 
-  = stylesheet_link_tag "application.css"
-  = javascript_include_tag "application"
-  /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
-  :javascript
-    if (window.location.hash == '#_=_') {
-      if (console && 'function' == typeof console.warn) console.warn("Remove this ugly Facebook auth hax when https://developers.facebook.com/bugs/196125357123225 is fixed.");
-      window.location.href = window.location.toString().split("#")[0];
-    }
-  /[if lt IE 9]
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    = stylesheet_link_tag "application.css"
+    = javascript_include_tag "application"
+    /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
+    :javascript
+      if (window.location.hash == '#_=_') {
+        if (console && 'function' == typeof console.warn) console.warn("Remove this ugly Facebook auth hax when https://developers.facebook.com/bugs/196125357123225 is fixed.");
+        window.location.href = window.location.toString().split("#")[0];
+      }
+    /[if lt IE 9]
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
-  :javascript
-    #{KM.js}
+    :javascript
+      #{KM.js}
 
-%body
-  %header.container_24.top_row_container
-    .container_24.top_row
-  %header.container_24
-    = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
-    = render partial: 'shared/login_actions'
-    = render partial: 'shared/facebook_js'
-    .idea_actions.bottom_row
-      .grid_6
-        &nbsp;
-      .grid_3
-        = link_to "Listaa kaikki", ideas_path
-      .grid_3
-        = link_to "Anna idea", new_idea_path
-  .container.container_24
-    %section
-      = yield
-  #footer_container
-    %footer.container_24
-      %a.grid_6{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
-      %a.grid_6{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
-      %a.grid_6{ href: "/artikkelit/medialle" } Medialle
+  %body{id: "#{params[:controller].parameterize}_page"}
+    %div.page
+      %header.border-double-dotted{ :role => "banner" }
+        = link_to image_tag("logo.png"), root_path, id: "logo"
+        .top-row.border-double-dotted
+          .actions
+            = render partial: 'shared/login_actions'
+        = render partial: 'shared/facebook_js'
+        .actions.fl-right
+          %ul.idea-actions
+            %li.actions-item
+              = link_to "Listaa kaikki", ideas_path
+            %li.actions-item
+              = link_to "Anna idea", new_idea_path
+      %section{ :class => "", :role => "main" }
 
-      .grid_6
-        %div{:class => "addthis_toolbox addthis_default_style"}
-          %a{:class => "addthis_button_preferred_1"}
-          %a{:class => "addthis_button_preferred_2"}
-          %a{:class => "addthis_button_preferred_3"}
-          %a{:class => "addthis_button_preferred_4"}
-          %a{:class => "addthis_button_compact"}
-          %a{:class => "addthis_counter addthis_bubble_style"}
+        = yield
+      %div.page-footer
 
-      %br
+    %div.footer-wrapper
+      %footer{ :role => "contentinfo" }
+        %a.footer-item{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
+        %a.footer-item{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
+        %a.footer-item{ href: "/artikkelit/medialle" } Medialle
+        %a.footer-item{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
 
-      %a.grid_6{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
-      %a.grid_6{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
-      %a.grid_6{ href: "https://dl.dropbox.com/u/15918701/henkilorekisteriseloste%203.9.2012.pdf" } Rekisteriseloste (pdf)
-      %a.grid_g{ href: "/artikkelit?article_type=blog" } Blogikirjoitukset
+        %a.footer-item{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
+        %a.footer-item{ href: asset_path('henkilorekisteriseloste.pdf') } Rekisteriseloste (pdf)
 
-  %script{:type => "text/javascript", :src => "//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f201d4978456053"}
+        .footer-item
+          %div{:class => "addthis_toolbox addthis_default_style"}
+            %a{:class => "addthis_button_preferred_1"}
+            %a{:class => "addthis_button_preferred_2"}
+            %a{:class => "addthis_button_preferred_3"}
+            %a{:class => "addthis_button_preferred_4"}
+            %a{:class => "addthis_button_compact"}
+            %a{:class => "addthis_counter addthis_bubble_style"}
 
-  = render :partial => 'shared/ga' if ENV["GA_TRACKING_ID"]
-  = render :partial => 'shared/metrify' if Rails.env == 'production'
+    %script{:type => "text/javascript", :src => "//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f201d4978456053"}
+
+    = render :partial => 'shared/ga' if ENV["GA_TRACKING_ID"]
+    = render :partial => 'shared/metrify' if Rails.env == 'production'

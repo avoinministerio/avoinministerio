@@ -1,0 +1,108 @@
+// Variables
+
+// Susy Grid Settings
+// =============
+
+// A Fluid Grid based on 960gs
+$total-columns: 12;
+$column-width: 60px;
+$gutter-width: 20px;
+$grid-padding: 10px;
+
+$container-style: magic;
+$container-width: 60em;
+$breakpoint-narrow: 30em;
+
+// Colour Scheme
+// =============
+// To avoid confusion with CSS properties,
+// colour scheme variable names use american english _color_
+
+
+// These are just suggestions
+
+// Main colour palette
+$color-primary                : #473161;
+$color-secondary              : #7AB800;
+$color-highlight              : #A70240;
+$color-primary-muted          : #271141;
+$color-secondary-muted        : #4c761f;
+$color-note                   : #29abe2;
+
+// Common colours
+$color-text                   : #1A1A1A;
+$color-background             : #eff3f3;
+$color-border                 : #ddd;
+
+// Links
+$color-link-default           : $color-text;
+$color-link-visited           : #444;
+$color-link-hover             : $color-text;
+$color-link-active            : yellow;
+
+// Code
+$color-code                   : #333;
+$color-code-background        : #f3f3f3;
+$color-pre                    : #d4d4d4;
+$color-pre-background         : #333;
+
+// Selections
+$color-selection              : #b3d4fc;
+
+// Messages
+$color-message                : #f4ecbb;
+$color-success                : #2cde2c;
+$color-warning                : #cf8600;
+$color-important              : #d00;
+$color-notice                 : #66b;
+
+
+// Base Sizes
+// ==========
+
+// Included shorthands as these may be used a lot.
+
+// Susy used $base-font-size for at-breakpoint mixin
+$base-font-size               : 16px;
+$base-line-height             : 24px;
+$large-font-size              : 20px;
+$medium-font-size             : 14px;
+$small-font-size              : 13px;
+
+//TODO Susy and relative-size should be unified variable
+$base-fs-rs                    : 16;
+$base-lh-rs                    : 24;
+$base-fs                       : $base-fs-rs;
+$base-lh                       : $base-lh-rs;
+
+
+// Font Stacks
+// ===========
+
+$font-family-sans             : "Segoe WP", sans-serif;
+$font-family-serif            : Georgia, serif;
+$font-family-display          : "Segoe WP", sans-serif;
+$font-family-caption          : "PT Sans Caption", Verdana, sans-serif;
+$font-family-monospace        : "Menlo", "Bitstream Vera Sans", Monaco, "Andale Mono", "Lucida Console", "Droid Mono", monospace;
+
+$font-family-default          : $font-family-serif;
+
+
+// Font Weights
+// ============
+
+$font-weight-light             : 300;
+$font-weight-normal            : 400;
+$font-weight-semibold          : 700;
+$font-weight-bold              : 900;
+
+
+// Breakpoints
+// ===========
+// There are no common breakpoints so these are just a suggestion
+// You'll need to define your own breakpoints to suit your design
+
+$breakpoint-narrow: 30em;
+$breakpoint-mid: 48em;
+$breakpoint-wide: 60em;
+$breakpoint-huge: 100em;

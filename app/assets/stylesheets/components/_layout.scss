@@ -1,0 +1,73 @@
+/*= @group Layout
+---------------------------------------------------------------------- */
+
+  /*= @group Layout Helpers
+  ---------------------------------------------------------------------- */
+
+
+  .elastic-960-container { @include container; }
+
+  /*= @group Layout Helpers
+  ---------------------------------------------------------------------- */
+
+  body {
+    color: $color-text;
+  }
+
+  .page {
+    @include container;
+    position: relative;
+
+    @include at-breakpoint($breakpoint-narrow 12) {
+      @include container;
+    }
+  }
+
+
+  /*= @group Banner
+  ---------------------------------------------------------------------- */
+
+  [role="banner"] {
+  }
+
+    /*= @group Branding
+    ---------------------------------------------------------------------- */
+
+    .branding {
+      @extend .l-constrained;
+      margin-top: rs($base-lh);
+
+      .branding-logo {
+        margin: 0;
+      }
+      .branding-tagline {
+        color: $color-note;
+        font-size: rs(21);
+      }
+    }
+
+  /*= @group Main
+  ---------------------------------------------------------------------- */
+
+  [role="main"] {
+    @include legacy-pie-clearfix;
+    @include trailer(1);
+    @include at-breakpoint($breakpoint-narrow 12) {
+      @include trailer(2);
+    }
+  }
+
+  /*= @group Contentinfo
+  ---------------------------------------------------------------------- */
+
+  [role="contentinfo"] {
+    @include container;
+    //font-size: rs(14,$base-fs);
+    //margin-top: rs($base-lh);
+  }
+
+  /*= @group sticky footer
+  ----------------------------------------------------------------------- */
+  @import "compass/layout/sticky-footer";
+ 
+  @include sticky-footer( 45px, ".page", ".page-footer", ".footer-wrapper");

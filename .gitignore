@@ -26,3 +26,6 @@
 # Ignore development databases
 avoin_ministerio_development
 avoin_ministerio_test
+
+# Ignore .DS_Store
+.DS_Store
