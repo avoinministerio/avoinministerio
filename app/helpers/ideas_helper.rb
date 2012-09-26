@@ -14,6 +14,17 @@ module IdeasHelper
     image_tag(filename, width: 954, height: 62)
   end
 
+  def signing_state_image(state)
+    filename = {
+      introduction:     "signing_state_1_introuduction.png",
+      approvals:        "signing_state_2_approvals.png",
+      authentication:   "signing_state_3_authentication.png",
+      details:          "signing_state_4_details.png",
+    }[state]
+    
+    image_tag(filename, width: 954, height: 62)
+  end
+
   def state_localised(state)
     states = { 
       "idea" => "idea", 

@@ -368,20 +368,35 @@ module SignaturesControllerHelpers
   end
 
   def shortcut_session_valid_time
-    valid_mins = 3.0
-    (valid_mins / 60.0) * (1.0/24)
+    minutes(authentication_valid_mins)
   end
 
-  def check_shortcut_session_validity
-    current_citizen and session["authenticated_at"] and shortcut_session_remaining_mins > 0.0
+  def shortcut_session_valid?
+    current_citizen and session["authenticated_at"] =~ /\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d[+\-]\d\d:\d\d/ and shortcut_session_remaining_mins > 0.0
   end
 
   def shortcut_session_remaining_mins
     if current_citizen and session["authenticated_at"]
-     remaining = (shortcut_session_valid_time - (DateTime.now - session["authenticated_at"])) * 24.0*60.0
+      age = authentication_age(session["authenticated_at"])
+      remaining = (shortcut_session_valid_time - age) / minutes(1)
     else
       0.0
     end
+  end
+
+private
+
+  def authentication_age(authenticated_at)
+    (DateTime.now - DateTime.parse(authenticated_at))
+  end
+
+  def minutes(mins)
+    mins_of_day = 1.0/24/60
+    mins * mins_of_day
+  end
+
+  def authentication_valid_mins
+    (ENV['AUTHENTICATION_VALID_MINUTES'] and ENV['AUTHENTICATION_VALID_MINUTES'].to_i) || 3
   end
 
 end

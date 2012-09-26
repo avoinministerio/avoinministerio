@@ -11,20 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806062640) do
+ActiveRecord::Schema.define(:version => 20120908131725) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "failed_attempts",                       :default => 0
+    t.integer  "failed_attempts",        :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "password"
@@ -80,11 +80,11 @@ ActiveRecord::Schema.define(:version => 20120806062640) do
 
   create_table "citizens", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -154,13 +154,20 @@ ActiveRecord::Schema.define(:version => 20120806062640) do
     t.integer  "target_count"
     t.boolean  "collecting_in_service"
     t.string   "additional_collecting_service_urls"
-    t.boolean  "anonymized"
     t.datetime "updated_content_at"
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
   add_index "ideas", ["publish_state"], :name => "index_ideas_on_publish_state"
   add_index "ideas", ["slug"], :name => "index_ideas_on_slug", :unique => true
+
+  create_table "money_transactions", :force => true do |t|
+    t.integer  "citizen_id"
+    t.decimal  "amount",      :precision => 8, :scale => 2
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "profiles", :force => true do |t|
     t.integer  "citizen_id"
@@ -210,6 +217,7 @@ ActiveRecord::Schema.define(:version => 20120806062640) do
     t.string   "accept_publicity"
     t.boolean  "accept_science"
     t.string   "idea_mac"
+    t.string   "service"
   end
 
   create_table "votes", :force => true do |t|

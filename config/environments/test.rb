@@ -39,4 +39,7 @@ AvoinMinisterio::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Signature application secret
+  config.signature_secret = ENV['SIGNATURE_SECRET'] || "abc123"
 end
