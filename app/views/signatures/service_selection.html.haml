@@ -1,25 +1,16 @@
 .container_24
   - if not @error
     %h2=@info
-    %h1 Tunnistuspalvelu sähköiseen kannatusilmoitukseen
+    %h1 Sähköinen tunnistautuminen
     .text
-      Olet siirtymässä antamaan sähköisen allekirjoituksen
+      Olet tunnistautumassa, jotta voisit jättää sähköisen kannatusilmoituksen aloitteelle
       .ideatitle= @signature.idea.title
     .text
-      Kannatusilmoituksen allekirjoitus etenee kun valitset sinulle sopivimman tunnistuspalvelun:
-      %ol
-        %li 
-          Avoin ministeriö voi saanut sovittua joidenkin tunnistuspalveluiden käytön ilmaiseksi.
-        %li
-          Jos valitset jonkin oikean laidan palveluista sinun tulee ensin lahjoittaa Avoimelle ministeriölle tunnistautumisen kustannukset. 
+      Voit käyttää pankkitunnuksia tai kännykkää. Pankkitunnukset ovat samat, joilla kirjaudut verkkopankkiisi.
     .text
-      Olemme koonneet 
-      %a{href:"/article/999"}vastauksia yleisimpiin kysymyksiin.
-    .text 
-      Kansalaisaloitteesta on säädetty 
-      %a{href:"http://www.finlex.fi/fi/laki/alkup/2012/20120012"}Kansalaisaloitelaissa
-      , jota kehotamme lukemaan epäselvissä tilanteissa. Lähetä toki myös meille kysymyksesi, pyrimme vastaamaan siihen: 
-      %a{href:"mailto:kysymykset@avoinministerio.fi"}kysymykset@avoinministerio.fi.
+      Kännykällä tunnistautumisesta voit sopia operaattorisi kanssa, jolloin saat mobiilivarmennukseen sopivan SIM-kortin. Mobiilivarmennus toimii tällä hetkellä Elisan, Saunalahden, Soneran ja DNA:n liittymillä.
+    .text
+      Osa pankeista antaa tunnistamisen Avoimen ministeriön käyttöön ilmaiseksi yhteiskuntavastuun nimissä, mutta osa veloittaa tunnistautumisesta palvelumaksun.
 
     %p
     - if shortcut_session_valid?
@@ -62,7 +53,7 @@
             - requires_transfer = @payment_services.find_all {|service| service[:fee] and saldo < BigDecimal.new(service[:fee])}
             - if not requires_transfer.empty?
               %h2
-              Tilisiirto ennen tunnistautumista:
+              Jos käytät jotain seuraavista palveluista sinun tulee tehdä mainitun suuruinen tilisiirto ennen tunnistautumista:
               - requires_transfer.each do |service|
                 .grid_16
                   %form{:action => service[:url], :method => "post"}
@@ -72,13 +63,24 @@
             - ready = @payment_services.find_all {|service| service[:fee] and saldo >= BigDecimal.new(service[:fee])}
             - if not ready.empty?
               %h2
-              Tunnistautuminen jo siirretyllä rahalla:
+              Olet jo siirtänyt rahaa, jolla voit tunnistautua seuraavissa palveluissa:
               - ready.each do |service|
                 .grid_16
                   %form{:action => service[:url], :method => "post"}
                     - (service.keys - [:name, :url, :fee]).each do |key|
                       %input{:type => 'hidden', :name => key.to_s, :value => service[key]}
                     %input{:type => 'submit', :value => "#{service[:name]} (#{service[:fee]}€)"}
+
+    .grid_24
+      .extra-info
+        .text
+          Olemme koonneet 
+          %a{href:"/article/999"}vastauksia yleisimpiin kysymyksiin.
+        .text 
+          Kansalaisaloitteesta on säädetty 
+          %a{href:"http://www.finlex.fi/fi/laki/alkup/2012/20120012"}Kansalaisaloitelaissa
+          , jota kehotamme lukemaan epäselvissä tilanteissa. Lähetä toki myös meille kysymyksesi, pyrimme vastaamaan siihen: 
+          %a{href:"mailto:kysymykset@avoinministerio.fi"}kysymykset@avoinministerio.fi.
 
   - else
     .error

@@ -1,16 +1,38 @@
 .returning
   - if not @error
-    %h1 Vaihe 1/4 - Tutustu ohjeisiin
+    =signing_state_image(:introduction)
+    %h1 Ohjeet ja aloitus
 
     .box
       .instructions
-        .title Ohjeita
-        .text Jatkossa ehkä video
+        .title Olet jättämässä sähköisen kannatusilmoituksen aloitteelle ”Lakialoitteen nimi”.
+        .text 
+          Näin se tapahtuu:
+          %ol
+            %li Hyväksy palvelun ehdot ja valitse, haluatko tunnistautua pankkitunnuksilla tai kännykällä.
+            %li Valinnan jälkeen siirryt hetkeksi pankin tai puhelinyhtiön sivulle.
+            %li Tunnistaudu ohjeiden mukaisesti pankkitunnuksillasi. Kännykällä tunnistautumista varten tarvitset mobiilivarmenteen, jonka saat käyttöösi ilmaiseksi puhelinyhtiösi lähimmästä toimipisteestä.
+            %li Tarkista ja täytä kannatusilmoituksen tiedot.
 
-      =form_tag(url_for(action: "approval", controller: "signatures"), :class => "grid_16") do |f|
-        .big-button
-          .actions
-            =submit_tag "Siirry hyväksymään ehdot"
+        %h4 Saat jättää vain yhden kannatusilmoituksen
+        .text 
+          Useamman kannatusilmoituksen jättäminen samalle aloitteelle on laissa määritelty rangaistavaksi teoksi. Jos olet jo jättänyt paperisen kannatusilmoituksen, älä jätä sähköistä.
+
+
+        %h4
+        %h4 Auta kehittämään avointa demokratiaa.
+        =form_tag(url_for(action: "approval", controller: "signatures")) do |f|
+          .radiobox
+            = radio_button_tag :accept_science, "true", checked: true
+            = label_tag :accept_science_yes, "Kyllä, tietojani saa käyttää tieteellisen tutkimuksen hyväksi."
+            %br
+            = radio_button_tag :accept_science, "false"
+            = label_tag :accept_science_no, "Ei, tietojani ei saa käyttää."
+            .big-button
+              .actions
+                =submit_tag "Eteenpäin"
+
+
 
     .sidebox
       .text
