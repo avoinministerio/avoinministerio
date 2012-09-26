@@ -10,12 +10,13 @@ class SignaturesController < ApplicationController
 
   include SignaturesControllerHelpers
 
-  before_filter :authenticate_citizen!
+  before_filter :authenticate_citizen!,       :except => [:successful_authentication]
   before_filter :check_if_idea_can_be_signed, :except => [:selected_free_service,
                                                           :paid_returning,
                                                           :paid_canceling,
                                                           :paid_rejecting,
                                                           :shortcutting_to_signing,
+                                                          :successful_authentication,
 
                                                           :returning,
                                                           :cancelling,
@@ -144,7 +145,6 @@ class SignaturesController < ApplicationController
   end
 
   def signing_service_parameters_and_url(signature, service)
-    server = "http" + (Rails.env == "development" ? "" : "s" ) + "://#{request.host_with_port}"
     parameters = { 
       message: {
         idea_id:                      signature.idea.id,
@@ -157,11 +157,11 @@ class SignaturesController < ApplicationController
         accept_publicity:             signature.accept_publicity,
         accept_science:               signature.accept_science,
         service:                      service,
-        success_auth_url:             server + signature_idea_successful_authentication_path(signature),
+        success_auth_url:             generate_success_auth_url(@signature),
       },
       options: {
-        success_url:                  server + signature_idea_signing_success_path(signature),
-        failure_url:                  server + signature_idea_signing_failure_path(signature),
+        success_url:                  server_as_url + signature_idea_signing_success_path(signature),
+        failure_url:                  server_as_url + signature_idea_signing_failure_path(signature),
       },
       last_fill_first_names:        session["authenticated_firstnames"],
       last_fill_last_names:         session["authenticated_lastname"],
@@ -177,6 +177,18 @@ class SignaturesController < ApplicationController
       'development' => "http://localhost:3003/signatures", 
     }
     return parameters, base_url
+  end
+
+  def server_as_url
+    server = "http" + (Rails.env == "development" ? "" : "s" ) + "://#{request.host_with_port}"
+  end
+
+  def generate_success_auth_url(signature)
+    security_token = mac(service_provider_params_as_string({id: @signature.id}, [:id])) 
+    server_as_url + signature_idea_successful_authentication_path(signature) + "?" + {security_token: security_token}.to_query
+  end
+
+  def generate_failure_url(signature)
   end
 
   def generate_signing_service_url(signature, service)
@@ -782,19 +794,25 @@ class SignaturesController < ApplicationController
     end
   end
 
-  require 'uri'
-  def service_provider_params_as_string(params)
-    parameters_as_string = [:first_names, :last_name, :occupancy_county, :authenticated_at, :birth_date, :authentication_token].map {|key| h={}; h[key]=params[key]; h.to_param}.join("&")
-    u = URI(request.fullpath)
-    request.protocol + request.host_with_port + u.path + "?" + parameters_as_string
+  def service_provider_params_as_string(params, fields)
+    parameters_as_string = fields.map {|key| h={}; h[key]=params[key]; h.to_param}.join("&")
   end
 
-  def validate_service_provider!
-    param_string = service_provider_params_as_string(params) + "&requestor_secret=#{ENV['requestor_secret']}"
+  def validate_security_token!(params, fields, security_token)
+    param_string = service_provider_params_as_string(params, fields) + "&requestor_secret=#{ENV['requestor_secret']}"
+    
+    require 'uri'
+    u = URI(request.fullpath)
+    param_string = request.protocol + request.host_with_port + u.path + "?" + param_string
+    
     p param_string
     p params
     p mac(param_string)
-    raise Exception.new unless params[:service_provider_identifying_mac] == mac(param_string)
+    raise Exception.new unless params[security_token] == mac(param_string)
+  end
+
+  def validate_service_provider!
+    validate_security_token!(params, [:first_names, :last_name, :occupancy_county, :authenticated_at, :birth_date, :authentication_token], :service_provider_identifying_mac)
   end
 
   def validate_payment_service_provider(params)
@@ -849,11 +867,15 @@ class SignaturesController < ApplicationController
     params[mac_field] == mac or raise "Invalid return mac"
   end
 
+  def validate_successful_authentication!
+    mac(service_provider_params_as_string({id: params[:id]}, [:id])) == params[:security_token]
+  end
+
 
   def successful_authentication
-    Rails.logger.error "Here we are at successful_authentication without any implementation"
-    raise "Successfully authenticated, thus we should perhaps deduct the cost"
-    render ""
+    # let's check we are here with right params, ie. signature id matches the secret
+    validate_successful_authentication!
+    render nothing: true
   end
 
 end
