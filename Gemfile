@@ -47,7 +47,7 @@ group :development do
 end
 
 group :production do
-  gem "newrelic_rpm"
+  gem "newrelic_rpm", "3.4.2.1"
   gem "pg"
 end
 
