@@ -156,7 +156,7 @@ GEM
     multipart-post (1.1.5)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.7)
-    newrelic_rpm (3.4.2)
+    newrelic_rpm (3.4.2.1)
     nokogiri (1.5.5)
     ntlm-http (0.1.1)
     oauth2 (0.8.0)
@@ -335,7 +335,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   libnotify
-  newrelic_rpm
+  newrelic_rpm (= 3.4.2.1)
   nokogiri
   omniauth-facebook
   pg
