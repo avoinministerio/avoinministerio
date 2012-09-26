@@ -1,0 +1,7 @@
+.returning
+  .error
+    %h1 Epäonnistunut kannatusilmoituksen jättö
+    Virhe:
+    = @error
+    .help
+      =link_to "Takaisin aloitteeseen", @signature.idea
