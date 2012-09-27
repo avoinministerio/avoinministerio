@@ -121,12 +121,22 @@ class SignaturesController < ApplicationController
   end
 
   def requestor_identifying_mac(parameters)
-    mapped_params = 
-      [:idea_id, :idea_title, :idea_date, :idea_mac, 
+    signing_api_parameters_options = {
+      "1.0" => [:idea_id, :idea_title, :idea_date, :idea_mac, 
+       :citizen_id, 
+       :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
+       :service
+      ],
+      "2.0" => [:idea_id, :idea_title, :idea_date, :idea_mac, 
        :citizen_id, 
        :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science,
        :service, :success_auth_url
-      ].map do |key| 
+      ]
+    }
+    signing_api_parameters = signing_api_parameters_options[ENV['SIGNING_API_VERSION']]
+
+    mapped_params = 
+      signing_api_parameters.map do |key| 
         raise "unknown param #{key}" unless parameters[:message].has_key? key
         [key, parameters[:message][key]]
       end +
@@ -140,7 +150,7 @@ class SignaturesController < ApplicationController
         [key, parameters[key]]
       end
     param_string = mapped_params.map{|key, value| h={}; h[key] = value; h.to_param }.join("&")
-    param_string += "&requestor_secret=#{ENV['requestor_secret']}"
+    param_string += "&requestor_secret=#{ENV['requestor_secret']}"  # FIXME: use requestor_secret() instead
     mac(param_string)
   end
 
