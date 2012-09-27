@@ -240,3 +240,10 @@ Run the tests using the following command(s):
 [Git repository](https://github.com/avoinministerio/avoinministerio)
 
 Everything is currently in the master branch. When building bigger features, use feature branches. When the feature is ready, delete the feature branch.
+
+# Community
+
+We will be expanding the developer community as it goes. At the moment the core devs are using a special product (thanks to Flowdock!), and hang out 
+also at #Avoinministerio in Freenode IRC. Besides competely Finnish #Avoinministerio there's also friendly English channel #TheOpenMinistry. 
+Feel free to pop in with any questions or suggestions!
+
