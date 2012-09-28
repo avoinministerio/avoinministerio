@@ -3,12 +3,114 @@
 *= require surveyor/jquery-ui.custom
 *= require surveyor/jquery-ui-timepicker-addon
 *= require surveyor/ui.slider.extras
-*= require surveyor
 */
 
-#surveyor{
-  ol{
-    list-style:none;
+/* TODO refector styles to another file */
+
+#surveyor {
+  .surveyor_flash {
+    margin: 0 auto;
+    padding: 5px;
+    text-align: center; }
+  .survey_title {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 5px 0; }
+  .surveyor_menu {
+    float: right;
+    ul {
+      list-style: none;
+      li {
+        &.active {
+          input[type="submit"] {
+          } } } } }
+  .next_section {
+    float: right; }
+  .survey_section span.title {
+    display: block;
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  fieldset {
+    legend{
+      span{
+        font-size: 1.3em;
+      }
+    }
+    &.q_default{
+      margin-bottom: 50px;
+    }
+    &.g_inline fieldset {
+      display: inline; }
+    &.g_grid {
+      table {
+        border-collapse: collapse; }
+      li {
+        &.surveyor_radio label, &.surveyor_check_boxes label {
+          visibility: hidden; }
+        &.surveyor_radio label input, &.surveyor_check_boxes label input {
+          visibility: visible; } } }
+    &.g_repeater {
+      ol fieldset {
+        list-style: none;
+        display: inline; }
+      input[type="submit"].add_row {
+        font-size: 0.7em; } } }
+  .survey_section > fieldset > ol {
+    padding-left: 1em; }
+  fieldset {
+    padding-top: 5px;
+    margin-bottom: 10px;
+    ol {
+      list-style:none;
+      fieldset {
+        vertical-align: top; }
+      li {
+        margin-left: 0px;
+        padding: 0px 0;
+        label, input {
+          vertical-align: top; }
+        p.inline-hints {
+          margin: 0;
+          padding: 0;
+          display: inline; }
+        &.inline {
+          display: inline; }
+        &.datetime, &.time {
+          input {
+            display: inline; }
+          fieldset {
+            display: inline;
+            ol li {
+              display: inline; } } } } }
+    &.q_inline ol li, &.q_inline_inline ol li {
+      display: inline; }
+    input, textarea, select {
+      margin: 0 3px; }
+    input[type="text"], textarea {
+      font-size: 0.8em; }
+    &.q_hidden, &.g_hidden, &.g_grid tr.q_hidden {
+      display: none !important; }
+    &.q_dependent, &.g_dependent {
+       }
+    &.q_dependent legend, &.g_dependent legend {
+      padding: 3px 3px 3px 0; }
+    &.q_dropdown label, &.q_inline_dropdown label, &.q_default_dropdown label, &.q_slider label, &.q_repeater_dropdown label {
+      display: none; }
+    &.q_slider {
+      margin-bottom: 3em;
+      li.select {
+       width: 100%;
+        font-size: 0.8em; }
+      .ui-slider span.ui-slider-label-show {
+        position: relative;
+        display: inline; } } }
+  input[type="submit"] {
+    font-size: 1em;
+    border: 1px;
+    padding: 5px;
+    cursor: pointer;
   }
 }
 
