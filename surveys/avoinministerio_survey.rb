@@ -1,7 +1,7 @@
 # encoding: UTF-8
-survey "Avion Survey" do
+survey "Avoin Ministeriö" do
 
-  section "Basic" do
+  section "Questionnaire" do
 
     #1
     q "Kuinka kiinnostunut olette politiikasta", :pick => :one
