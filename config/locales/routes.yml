@@ -1,8 +1,10 @@
 en:
   routes:
+    home: home
 
 fi:
   routes:
+    home: Etusivulle
     articles: artikkelit
     citizens: kansalaiset
     comments: kommentit
