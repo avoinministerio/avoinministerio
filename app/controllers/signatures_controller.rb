@@ -151,6 +151,11 @@ class SignaturesController < ApplicationController
       end
     param_string = mapped_params.map{|key, value| h={}; h[key] = value; h.to_param }.join("&")
     param_string += "&requestor_secret=#{ENV['requestor_secret']}"  # FIXME: use requestor_secret() instead
+    if ENV['DEBUG_MACS']
+      Rails.logger.info "DEBUG_MACS"
+      Rails.logger.info param_string
+      Rails.logger.info mac(param_string) 
+    end
     mac(param_string)
   end
 
