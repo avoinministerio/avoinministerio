@@ -4,7 +4,7 @@
 fi:
   surveyor:
     take_these_surveys: "Voit ottaa nämä selvitykset"
-    take_the_survey: "Voit ottaa kyselyyn"
+    take_the_survey: "Osallistu tieteelliseen tutkimukseen -- täytä kysely"
     take_it: "Take it"
     completed_survey: "Valmis tutkimus"
     unable_to_find_your_responses: "Ei voi löytää vastauksia kyselyyn"

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 survey "Avoin Ministeriö" do
 
-  section "Questionnaire" do
+  section "Kansalaisaloite ja asenteet politiikkaa kohtaan" do
 
     #1
     q "Kuinka kiinnostunut olette politiikasta", :pick => :one
@@ -81,18 +81,22 @@ survey "Avoin Ministeriö" do
     a "Käyttää väkivaltaa poliittisten päämäärien saavuttamiseksi"
 
 
-    #9
+    #10
     q "Syntymävuotenne"
     a :date
 
 
-    #10
+    #11
     q "Sukupuoli", :pick => :one
     a "Mies"
     a "Nainen"
 
+    #12
+    q "Kotikunta"
+    a :string
 
-    #11
+
+    #13
     q "Mikä on peruskoulutuksenne?", :pick => :one
     a "Peruskoulun luokat 1-6, kansakoulu"
     a "Peruskoulun luokat 7-9, 10, keskikoulu"
