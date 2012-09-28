@@ -49,9 +49,9 @@ survey "Avoin Ministeriö" do
 
     #6
     q "Auttaako mahdollisuus kansalaisaloitteen tekemiseen mielestänne kehittämään suomalaista demokratiaa?  ", :pick => :one, :display_type => :slider
-    a "Ei auta lainkaan"
+    a "EI AUTA LAINKAAN"
     (2..8).to_a.each{|num| a num.to_s}
-    a "Auttaa erittäin paljon"
+    a "AUTTAA ERITTÄIN PALJON"
 
     #7
     q "Voiko mielestänne ihmisiin luottaa, vai onko niin, ettei ihmisten suhteen voi olla liian varovainen. Kertokaa mielipiteenne asteikolla nollasta kymmeneen, jossa nolla tarkoittaa, ettei ihmisten kanssa voi olla liian varovainen ja 10, että useimpiin ihmisiin voi luottaa?", :pick => :one, :display_type => :slider

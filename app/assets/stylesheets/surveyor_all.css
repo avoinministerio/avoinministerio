@@ -106,7 +106,10 @@
         font-size: 0.8em; }
       .ui-slider span.ui-slider-label-show {
         position: relative;
-        display: inline; } } }
+        width: 150px;
+      } 
+    } 
+  }
   input[type="submit"] {
     font-size: 1em;
     border: 1px;
