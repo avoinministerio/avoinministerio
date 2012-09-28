@@ -107,6 +107,7 @@
       .ui-slider span.ui-slider-label-show {
         position: relative;
         width: 150px;
+        text-align: center;
       } 
     } 
   }

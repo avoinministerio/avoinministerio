@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def survey_button
-    button_to(I18n.t("surveyor.take_the_survey"), take_survey_path(:survey_code => 'avoin-ministeri'))
+    button_to(t("surveyor.take_the_survey"), take_survey_path(:survey_code => 'avoin-ministeri'))
   end
 
 end
