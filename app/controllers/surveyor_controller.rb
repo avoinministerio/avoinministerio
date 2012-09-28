@@ -27,11 +27,13 @@ module SurveyorControllerCustomMethods
   # Paths
   def surveyor_index
     # most of the above actions redirect to this method
-    super # available_surveys_path
+    #super # available_surveys_path
+    root_url
   end
   def surveyor_finish
     # the update action redirects to this method if given params[:finish]
-    super # available_surveys_path
+    #super # available_surveys_path
+    "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
   end
 end
 class SurveyorController < ApplicationController
