@@ -16,7 +16,7 @@ feature "Citizen Signup" do
     fill_in "Sukunimi", :with => "Citizen"
     click_button "Rekisteröidy"
 
-    should_be_on homepage
+    should_be_on after_sign_up
     should_have_the_following 'Kirjaudu ulos'
   end
 

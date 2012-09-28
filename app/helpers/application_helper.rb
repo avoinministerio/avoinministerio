@@ -23,7 +23,7 @@ module ApplicationHelper
 
   def survey_button
     if current_citizen.profile.accept_science
-      button_to(t("surveyor.take_the_survey"), take_survey_path(:survey_code => 'avoin-ministeri'), :disabled=> true)
+      button_to(t("surveyor.take_the_survey"), take_survey_path(:survey_code => 'avoin-ministeri'))
     end
   end
 
