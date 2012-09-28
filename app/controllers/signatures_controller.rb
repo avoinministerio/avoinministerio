@@ -117,7 +117,8 @@ class SignaturesController < ApplicationController
   end
 
   def requestor_secret
-    config.signature_secret
+#    config.signature_secret || "abc"   # FIXME: this didn't work even staging either
+    ENV['SIGNATURE_SECRET'] || "abc"
   end
 
   def requestor_identifying_mac(parameters)
@@ -150,9 +151,11 @@ class SignaturesController < ApplicationController
         [key, parameters[key]]
       end
     param_string = mapped_params.map{|key, value| h={}; h[key] = value; h.to_param }.join("&")
-    param_string += "&requestor_secret=#{ENV['requestor_secret']}"  # FIXME: use requestor_secret() instead
+    param_string += "&requestor_secret=#{requestor_secret()}"
     if ENV['DEBUG_MACS']
       Rails.logger.info "DEBUG_MACS"
+      Rails.logger.info requestor_secret
+      Rails.logger.info config.signature_secret
       Rails.logger.info param_string
       Rails.logger.info mac(param_string) 
     end
@@ -814,7 +817,7 @@ class SignaturesController < ApplicationController
   end
 
   def validate_security_token!(params, fields, security_token)
-    param_string = service_provider_params_as_string(params, fields) + "&requestor_secret=#{ENV['requestor_secret']}"
+    param_string = service_provider_params_as_string(params, fields) + "&requestor_secret=#{requestor_secret()}"
     
     require 'uri'
     u = URI(request.fullpath)
