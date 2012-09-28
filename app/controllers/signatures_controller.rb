@@ -118,7 +118,7 @@ class SignaturesController < ApplicationController
 
   def requestor_secret
 #    config.signature_secret || "abc"   # FIXME: this didn't work even staging either
-    ENV['SIGNATURE_SECRET'] || "abc"
+    ENV['SIGNATURE_SECRET'] || "abc"
   end
 
   def requestor_identifying_mac(parameters)
