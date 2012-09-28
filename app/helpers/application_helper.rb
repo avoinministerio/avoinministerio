@@ -21,6 +21,10 @@ module ApplicationHelper
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
 
+  def survey_button
+    button_to(I18n.t("surveyor.take_the_survey"), take_survey_path(:survey_code => 'avoin-ministeri'))
+  end
+
 end
 
 def current_timezone

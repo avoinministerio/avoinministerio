@@ -21,6 +21,7 @@
     ul {
       list-style: none;
       li {
+        margin-left: 0px;
         &.active {
           input[type="submit"] {
           } } } } }

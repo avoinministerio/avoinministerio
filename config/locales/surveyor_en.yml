@@ -4,6 +4,7 @@
 en:
   surveyor:
     take_these_surveys: "You may take these surveys"
+    take_the_survey: "You may take the survey"
     take_it: "Take it"
     completed_survey: "Completed survey"
     unable_to_find_your_responses: "Unable to find your responses to the survey"
