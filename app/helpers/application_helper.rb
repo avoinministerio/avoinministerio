@@ -21,8 +21,10 @@ module ApplicationHelper
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
 
-  def survey_button
-    if current_citizen && current_citizen.profile.accept_science && current_citizen.response_sets == []
+  def survey_button(multiple_survey = false)
+    if( current_citizen && 
+        current_citizen.profile.accept_science &&
+        (multiple_survey || current_citizen.response_sets == []) )
       button_to(t("surveyor.take_the_survey"), take_survey_path(:survey_code => 'avoin-ministeri'))
     end
   end
