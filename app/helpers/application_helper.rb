@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def survey_button
-    if current_citizen.profile.accept_science
+    if current_citizen && current_citizen.profile.accept_science && current_citizen.response_sets == []
       button_to(t("surveyor.take_the_survey"), take_survey_path(:survey_code => 'avoin-ministeri'))
     end
   end

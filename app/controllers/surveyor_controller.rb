@@ -40,6 +40,11 @@ class SurveyorController < ApplicationController
   include Surveyor::SurveyorControllerMethods
   include SurveyorControllerCustomMethods
 
+  def get_current_user
+    @current_user = self.respond_to?(:current_citizen) ? self.current_citizen : nil
+  end
+
+
   before_filter :set_locale
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale

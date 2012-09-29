@@ -35,6 +35,10 @@
           Mene takaisin 
           =link_to "aloitteen", @signature.idea
           \-sivulle, ja jaa se sähköpostitse tai sosiaalisen median kautta ystävillesi, jotta aloite saa mahdollisimman paljon kannatusta.
+    - if @signature.accept_science
+      .box
+        =survey_button
+
     .sidebox
       .text
         Siirry takaisin palvelun 
