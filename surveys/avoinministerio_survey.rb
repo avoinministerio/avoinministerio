@@ -66,7 +66,7 @@ survey "Avoin Ministeriö" do
     a "OIKEISTO"
 
     #9
-    q "Jotkut ihmiset jättävät nykyään syystä tai toisesta äänestämättä. Äänestittekö Te viime eduskuntavaaleissa 2011?"
+    q "Jotkut ihmiset jättävät nykyään syystä tai toisesta äänestämättä. Äänestittekö Te viime eduskuntavaaleissa 2011?", :pick => :one
     a "Kyllä"
     a "En"
     a "Ei äänioikeutettu"
