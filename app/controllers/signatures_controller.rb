@@ -36,10 +36,10 @@ class SignaturesController < ApplicationController
   end
 
   def fill_in_acceptances(signature)
-    signature.accept_general       = params[:accept_general]
-    signature.accept_non_eu_server = params[:accept_non_eu_server]
-    signature.accept_publicity     = params[:publicity]
-    signature.accept_science       = params[:accept_science]
+    signature.accept_general       = params[:accept_general]        || session["authenticated_accept_general"]
+    signature.accept_non_eu_server = params[:accept_non_eu_server]  || session["authenticated_accept_non_eu_server"]
+    signature.accept_publicity     = params[:publicity]             || session["authenticated_accept_publicity"]
+    signature.accept_science       = params[:accept_science]        || session["authenticated_accept_science"]
   end
 
   def service_selection
@@ -59,12 +59,12 @@ class SignaturesController < ApplicationController
     @signature.idea_title             = @idea.title
     @signature.idea_date              = @idea.updated_at
     @signature.citizen                = current_citizen
-    @signature.firstnames             = current_citizen.first_names
-    @signature.lastname               = current_citizen.last_name
+    @signature.firstnames             = session["authenticated_firstnames"] || current_citizen.first_names
+    @signature.lastname               = session["authenticated_lastname"] || current_citizen.last_name
     @signature.state                  = "initial"
     @signature.stamp                  = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
     @signature.started                = Time.now
-    @signature.occupancy_county       = ""
+    @signature.occupancy_county       = session["authenticated_occupancy_county"] || ""
     @signature.service                = nil
 
     # ERROR: check that there are enough acceptances
@@ -785,6 +785,10 @@ class SignaturesController < ApplicationController
           session["authenticated_birth_date"]       = @signature.birth_date
           session["authenticated_at"]               = params["authenticated_at"]
           session["authentication_token"]           = params["authentication_token"]
+          session["authenticated_accept_general"]   = @signature.accept_general
+          session["authenticated_accept_non_eu_server"] = @signature.accept_non_eu_server
+          session["authenticated_accept_publicity"] = @signature.accept_publicity
+          session["authenticated_accept_science"]   = @signature.accept_science
 
           # show only proposals that haven't yet been signed by current_citizen
           signatures = Arel::Table.new(:signatures)
