@@ -73,7 +73,7 @@ survey "Avoin Ministeriö" do
 
 
     #10
-    q "On olemassa erilaisia keinoja parantaa Suomen asioita tai estää asioiden kehittymistä huonoon suuntaan. Oletteko viimeisten 12 kuukauden aikana tehnyt mitään seuraavista Kirjoittaa yleisönosastoon", :pick => :one
+    q "On olemassa erilaisia keinoja parantaa Suomen asioita tai estää asioiden kehittymistä huonoon suuntaan. Oletteko viimeisten 12 kuukauden aikana tehnyt mitään seuraavista Kirjoittaa yleisönosastoon", :pick => :any
     a "Ottaa yhteyttä poliittisiin päätöksentekijöihin jossakin tärkeässä asiassa"
     a "Kirjoittaa nimenne vetoomuksiin tai nimenkeräyksiin"
     a "Osallistua poliittisen puolueen toimintaan"
