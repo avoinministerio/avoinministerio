@@ -42,6 +42,10 @@
         = link_to "Listaa kaikki", ideas_path
       .grid_3
         = link_to "Anna idea", new_idea_path
+      .grid_2
+        &nbsp;
+      .grid_7
+        = survey_button(true)
   .container.container_24
     %section
       = yield
