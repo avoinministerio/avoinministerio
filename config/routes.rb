@@ -5,7 +5,7 @@ AvoinMinisterio::Application.routes.draw do
 
   match "/ideas/:id/vote/:vote"                       => "vote#vote",                     as: :vote_idea
 
-  match "/ideas/:id/service_selection"                => "signatures#service_selection",      via: :get,  as: :signature_idea_service_selection
+  match "/ideas/:id/service_selection"                => "signatures#service_selection",      as: :signature_idea_service_selection
   match "/ideas/:id/introduction"                     => "signatures#introduction",           via: :get,  as: :signature_idea_introduction
   match "/ideas/:id/approval"                         => "signatures#approval",               via: :post, as: :signature_idea_approval
   match "/ideas/:id/signature"                        => "signatures#sign",                   via: :post, as: :signature_idea

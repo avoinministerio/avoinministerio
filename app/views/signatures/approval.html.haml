@@ -4,7 +4,7 @@
     %h1 Palvelun ehdot ja yksityisyydensuoja
 
     .accepting.box
-      =form_tag(url_for(action: "sign", controller: "signatures"), :class => "grid_16") do |f|
+      =form_tag(url_for(action: "service_selection", controller: "signatures"), :class => "grid_16") do |f|
         .instructions
           .title Hyväksy palvelun ehdot ennen kannatusilmoituksen jättämistä
           .text 
@@ -13,7 +13,7 @@
             /= label_tag :accept_general, "Hyväksyn palvelun yleiset ehdot"
             = label_tag :accept_general do
               Hyväksyn 
-              %a{:href => "http://localhost:3000/artikkelit/kayttoehdot"} palvelun yleiset ehdot
+              %a{:href => "/artikkelit/kayttoehdot"} palvelun yleiset ehdot
           .checkbox
             = check_box_tag :accept_science
             = label_tag :accept_science, "Voin osallistua tieteelliseen tutkimukseen. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."

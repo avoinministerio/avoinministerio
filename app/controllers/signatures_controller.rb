@@ -47,12 +47,12 @@ class SignaturesController < ApplicationController
     @idea = Idea.find(params[:id])
 
     if not $ALLOW_SIGNING_MULTIPLE_TIMES and check_previously_signed(current_citizen, params[:id])
-      @error = "Aiemmin allekirjoitettu"
+      @error = "Kannatusilmoitus idealle on jätetty jo aiemmin"
       return
     end
 
     if check_previously_signed(current_citizen, params[:id])
-      @info = "Idea on jo aiemmin allekirjoitettu, mutta uudelleenallekirjoittaminen on sallittua nyt vielä testivaiheessa"
+      @info = "Idealle on jätetty kannatusilmoitus jo aiemmin, mutta uudelleenjättäminen on sallittua nyt vielä"
     end
     @signature = Signature.new()
     @signature.idea                   = @idea
@@ -66,12 +66,10 @@ class SignaturesController < ApplicationController
     @signature.started                = Time.now
     @signature.occupancy_county       = ""
     @signature.service                = nil
-#    # TODO: creation is now too late, so let's fake the data for development, needs to be cleared away
-#    # FIXME: this is not even needed in signing so should not be passed
-    @signature.accept_general         = true
-    @signature.accept_non_eu_server   = true
-    @signature.accept_publicity       = "Normal"
-    @signature.accept_science         = true
+
+    # ERROR: check that there are enough acceptances
+    fill_in_acceptances(@signature)
+    puts "Is signature.valid?"
     p @signature.valid?
     p @signature.errors.full_messages
     begin
@@ -175,7 +173,6 @@ class SignaturesController < ApplicationController
         accept_publicity:             signature.accept_publicity,
         accept_science:               signature.accept_science,
         service:                      service,
-        success_auth_url:             generate_success_auth_url(@signature),
       },
       options: {
         success_url:                  server_as_url + signature_idea_signing_success_path(signature),
@@ -188,6 +185,9 @@ class SignaturesController < ApplicationController
       authentication_token:         session["authentication_token"],
       authenticated_at:             session["authenticated_at"],
     }
+    if ENV['SIGNING_API_VERSION'] == "2.0"
+      parameters[:message][:success_auth_url] = generate_success_auth_url(@signature)
+    end
     parameters[:requestor_identifying_mac] = requestor_identifying_mac(parameters)
     base_url = {
       'production'  => "https://allekirjoitus.avoinministerio.fi/signatures", 
