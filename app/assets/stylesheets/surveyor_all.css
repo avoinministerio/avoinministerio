@@ -15,8 +15,9 @@
   .survey_title {
     font-size: 2em;
     font-weight: bold;
-    padding: 5px 0; }
+    padding: 10px 0; }
   .surveyor_menu {
+    visibility: hidden;
     float: right;
     ul {
       list-style: none;
@@ -29,7 +30,8 @@
     float: right; }
   .survey_section span.title {
     display: block;
-    padding: 5px 0;
+    padding-top: 10px;
+    padding-bottom: 30px;
     font-weight: bold;
     font-size: 1.5em;
   }

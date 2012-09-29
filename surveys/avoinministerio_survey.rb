@@ -15,9 +15,9 @@ survey "Avoin Ministeriö" do
     q "Kuinka usein Teistä tuntuu siltä, että politiikka on niin monimutkaista, että ette oikein ymmärrä, mistä on kyse?", :pick => :one
     a "Ei koskaan"
     a "Harvoin"
-    a "Joskus" 	
+    a "Joskus"
     a "Toisinaan"
-    a "Usein" 	
+    a "Usein"
 
 
     #3
@@ -43,30 +43,36 @@ survey "Avoin Ministeriö" do
     #5
     q "Kuinka tyytyväinen olette siihen, kuinka demokratia toimii Suomessa?", :pick => :one, :display_type => :slider
     a "ÄÄRIMMÄISEN TYYTYMÄTÖN"
-    (2..8).to_a.each{|num| a num.to_s}
+    (2..9).to_a.each{|num| a num.to_s}
     a "ÄRIMMÄISEN TYYTYVÄINEN"
 
 
     #6
     q "Auttaako mahdollisuus kansalaisaloitteen tekemiseen mielestänne kehittämään suomalaista demokratiaa?  ", :pick => :one, :display_type => :slider
     a "EI AUTA LAINKAAN"
-    (2..8).to_a.each{|num| a num.to_s}
+    (2..9).to_a.each{|num| a num.to_s}
     a "AUTTAA ERITTÄIN PALJON"
 
     #7
     q "Voiko mielestänne ihmisiin luottaa, vai onko niin, ettei ihmisten suhteen voi olla liian varovainen. Kertokaa mielipiteenne asteikolla nollasta kymmeneen, jossa nolla tarkoittaa, ettei ihmisten kanssa voi olla liian varovainen ja 10, että useimpiin ihmisiin voi luottaa?", :pick => :one, :display_type => :slider
     a "EI VOI OLLA LIIAN VAROVAINEN"
-    (2..8).to_a.each{|num| a num.to_s}
+    (2..9).to_a.each{|num| a num.to_s}
     a "USEIMPIIN IHMISIIN VOI LUOTTAA"
 
     #8
     q "Politiikassa puhutaan joskus vasemmistosta ja oikeistosta. Mihin kohtaan sijoittaisitte itsenne asteikolla nollasta kymmeneen, kun nolla tarkoittaa vasemmistoa ja kymmenen oikeistoa?", :pick => :one, :display_type => :slider
     a "VASEMMISTO"
-    (2..8).to_a.each{|num| a num.to_s}
+    (2..9).to_a.each{|num| a num.to_s}
     a "OIKEISTO"
 
-
     #9
+    q "Jotkut ihmiset jättävät nykyään syystä tai toisesta äänestämättä. Äänestittekö Te viime eduskuntavaaleissa 2011?"
+    a "Kyllä"
+    a "En"
+    a "Ei äänioikeutettu"
+
+
+    #10
     q "On olemassa erilaisia keinoja parantaa Suomen asioita tai estää asioiden kehittymistä huonoon suuntaan. Oletteko viimeisten 12 kuukauden aikana tehnyt mitään seuraavista Kirjoittaa yleisönosastoon", :pick => :one
     a "Ottaa yhteyttä poliittisiin päätöksentekijöihin jossakin tärkeässä asiassa"
     a "Kirjoittaa nimenne vetoomuksiin tai nimenkeräyksiin"
