@@ -307,6 +307,7 @@ class SignaturesController < ApplicationController
         url:        "https://online.alandsbanken.fi/ebank/auth/initLogin.do",
         min_fee:    0.28,
       },
+
       { vers:       "0002",
         rcvid:      "KANNATUSTUPAS12",
         idtype:     "02",
@@ -328,6 +329,46 @@ class SignaturesController < ApplicationController
         name:       "Sampo",
         url:        "https://verkkopankki.sampopankki.fi/SP/tupaha/TupahaApp",
         min_fee:    0.37,
+      },
+
+      { vers:       "0002",
+        rcvid:      "AVOIN MINISTERIÖ REK YHD RY",
+        idtype:     "02",
+        name:       "S-Pankki",
+        url:        "https://online.s-pankki.fi/service/identify",
+        min_fee:    nil,
+      },
+
+      { vers:       "0002",
+        rcvid:      "0024744039",
+        idtype:     "02",
+        name:       "Handelsbanken",
+        url:        "https://tunnistepalvelu.samlink.fi/TupasTunnistus/SHBtupas.html",
+        min_fee:    nil,
+      },
+
+      { vers:       "0002",
+        rcvid:      "0024744039",
+        idtype:     "02",
+        name:       "Aktia",
+        url:        "https://tunnistepalvelu.samlink.fi/TupasTunnistus/TupasServlet",
+        min_fee:    0.32,
+      },
+
+      { vers:       "0002",
+        rcvid:      "1028275M",
+        idtype:     "02",
+        name:       "Nordea",
+        url:        "https://solo3.nordea.fi/cgi-bin/SOLO3011",
+        min_fee:    1.00,
+      },
+
+      { vers:       "0003",
+        rcvid:      "TUAVOINMINISTER",
+        idtype:     "02",
+        name:       "Osuuspankki",
+        url:        "https://kultaraha.op.fi/cgi-bin/krcgi",
+        min_fee:    0.62,
       },
     ]
   end
@@ -355,7 +396,7 @@ class SignaturesController < ApplicationController
     server = "https://#{request.host_with_port}"
     Rails.logger.info "Server is #{server}"
 
-    service_name = service[:name].gsub(/\s+/, "")
+    service_name = service[:name].gsub(/[\s\-]+/, "")
     service[:retlink]   = "#{server}/signatures/#{signature_id}/returning/#{service_name}"
     service[:canlink]   = "#{server}/signatures/#{signature_id}/cancelling/#{service_name}"
     service[:rejlink]   = "#{server}/signatures/#{signature_id}/rejecting/#{service_name}"
@@ -370,7 +411,7 @@ class SignaturesController < ApplicationController
   end
 
   def service_secret(service, system)
-    secret_key = "SECRET_#{system}_" + service.gsub(/\s/, "")
+    secret_key = "SECRET_#{system}_" + service.gsub(/[\s\-]/, "")
 
     Rails.logger.info "Using key #{secret_key}"
     secret = ENV[secret_key] || ""
@@ -421,7 +462,7 @@ class SignaturesController < ApplicationController
         AAB_AMOUNT:         "0,28",
         AAB_REF:            ref_calculation(123456),
         AAB_DATE:           "EXPRESS",
-        AAB_MSG:            "Avoin ministeriö - Sähköisen kannatusilmoituksen tunnistusmaksu",
+        AAB_MSG:            "Sahkoinen kannatusilmoitus",
         AAB_RETURN:         "#{server}/signatures/#{signature_id}/paid_returning/Alandsbanken",
         AAB_CANCEL:         "#{server}/signatures/#{signature_id}/paid_canceling/Alandsbanken",
         AAB_REJECT:         "#{server}/signatures/#{signature_id}/paid_rejecting/Alandsbanken",
@@ -454,7 +495,7 @@ class SignaturesController < ApplicationController
         SOLOPMT_AMOUNT:     "1,00",
         SOLOPMT_REF:        ref_calculation(123456),
         SOLOPMT_DATE:       "EXPRESS",
-        SOLOPMT_MSG:        "Avoin ministeriö - Sähköisen kannatusilmoituksen tunnistusmaksu",
+        SOLOPMT_MSG:        "Sahkoinen kannatusilmoitus",
         SOLOPMT_RETURN:     "#{server}/signatures/#{signature_id}/paid_returning/Nordea",
         SOLOPMT_CANCEL:     "#{server}/signatures/#{signature_id}/paid_canceling/Nordea",
         SOLOPMT_REJECT:     "#{server}/signatures/#{signature_id}/paid_rejecting/Nordea",
@@ -471,12 +512,28 @@ class SignaturesController < ApplicationController
         MYYJA:              "AVOINMINISTERIO",
         SUMMA:              "0,62",
         VIITE:              ref_calculation(123456),
-        VIEST1:             "Sähköinen kannatusilmoitus",
+        VIEST1:             "Sahkoinen kannatusilmoitus",
         "TARKISTE-VERSIO"=> "1",
         "PALUU-LINKKI"=>    "#{server}/signatures/#{signature_id}/paid_returning/Osuuspankki",
         PERUUTUSLINKKI:     "#{server}/signatures/#{signature_id}/paid_rejecting/Osuuspankki",
         VAHVISTUS:          "K",
         VALUUTTALAJI:       "EUR",
+      },
+      { name:               "Aktia",
+        url:                "https://verkkomaksu.inetpankki.samlink.fi/vm/login.html",
+        fee:                "0.32",
+        NET_VERSION:        "002",
+        NET_STAMP:          stamp,
+        NET_SELLER_ID:      "0024744039000",
+        NET_AMOUNT:         "0,32",
+        NET_REF:            ref_calculation(123456),
+        NET_DATE:           "EXPRESS",
+        NET_MSG:            "Sahkoinen kannatusilmoitus",
+        NET_RETURN:         "#{server}/signatures/#{signature_id}/paid_returning/Aktia",
+        NET_CANCEL:         "#{server}/signatures/#{signature_id}/paid_canceling/Aktia",
+        NET_REJECT:         "#{server}/signatures/#{signature_id}/paid_rejecting/Aktia",
+        NET_CONFIRM:        "YES",
+        NET_CUR:            "EUR",
       },
     ]
   end
@@ -502,6 +559,11 @@ class SignaturesController < ApplicationController
         mac_over:   [:VERSIO, :MAKSUTUNNUS, :MYYJA, :SUMMA, :VIITE, :VIEST1, :VIEST2, :VALUUTTALAJI, "TARKISTE-VERSIO", :secret__],
         mac_field:  :TARKISTE,
         separator:  "",
+      },
+      "Aktia" => {
+        mac_over:   [:NET_VERSION, :NET_STAMP, :NET_SELLER_ID, :NET_AMOUNT, :NET_REF, :NET_DATE, :NET_CUR, :NET_RETURN, :NET_CANCEL, :NET_REJECT, :secret__],
+        mac_field:  :NET_MAC,
+        separator:  "&",
       },
     }
     payment_provider_fields = fields[payment_service[:name]]
@@ -906,6 +968,11 @@ class SignaturesController < ApplicationController
         return_mac_over: ["VERSIO", "MAKSUTUNNUS", "VIITE", "ARKISTOINTITUNNUS", "TARKISTE-VERSIO", :secret__],
         return_mac:       "TARKISTE",
         separator:        "",
+      },
+      "Aktia" => {
+        return_mac_over: ["NET_RETURN_VERSION", "NET_RETURN_STAMP", "NET_RETURN_REF", "NET_RETURN_PAID", :secret__],
+        return_mac:       "NET_RETURN_MAC",
+        separator:        "&",
       },
     }
 
