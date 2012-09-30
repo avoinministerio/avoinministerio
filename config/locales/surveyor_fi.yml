@@ -16,6 +16,7 @@ fi:
     next_section: "Seuraava kappale &raquo;"
     select_one: "Valitse yksi ..."
     sections: "pääluokat"
+    thank_you: "Kiitos, vastauksesi ovat tallennettu. Palaa palvelun"
 
   survey_description:
     <p>Kysymykset koskevat osallistumistasi politiikkaan, ja kuinka tämän sivuston
