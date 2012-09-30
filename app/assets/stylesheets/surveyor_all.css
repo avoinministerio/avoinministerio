@@ -145,5 +145,16 @@
         right: 0px;
       }
   }
+
+  .finish-btn {
+    background: #473161;
+    color: #fff;
+    text-decoration: none;
+  }
+  .finish-btn-disabled {
+    background: #271141;
+    color: #999;
+    text-decoration: none;
+  }
 }
 
