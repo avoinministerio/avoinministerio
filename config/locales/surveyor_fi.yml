@@ -11,7 +11,7 @@ fi:
     unable_to_update_survey: "Ei voi päivittää kyselyn"
     unable_to_find_that_survey: "Ei löydy, että tutkimus"
     survey_started_success: "Survey alkoi onnistuneesti"
-    click_here_to_finish: "Klikkaa tästä loppuun"
+    click_here_to_finish: "Lähetä vastaukset"
     previous_section: "&laquo; Edellinen jakso "
     next_section: "Seuraava kappale &raquo;"
     select_one: "Valitse yksi ..."

@@ -1,12 +1,13 @@
 # encoding: UTF-8
 survey "Avoin Ministeriö" do
 
-  section "Kansalaisaloite ja asenteet politiikkaa kohtaan" do
-    label "Kysymykset koskevat osallistumistasi politiikkaan, ja kuinka tämän sivuston tarjoamat mahdollisuudet vaikuttavat siihen. Valitse vaihtoehdoista se joka kuvaa parhaiten tunteitasi tällä hetkellä. Pyydämme ystävällisesti vastaamaan kysymyksiin niin tarkasti kuin mahdollista. Vastaukset tallennetaan anonyymeinä Yhteiskuntatieteelliseen tietoarkistoon muiden tutkijoiden käytettäväksi. Tietoja käsitellään täysin luottamuksellisesti eikä henkilötietojasi luovuteta kolmansille osapuolille."
+  section "Tutkimus: Kansalaisaloite ja asenteet politiikkaa kohtaan" do
+    label "Kysymykset koskevat kiinnostustasi politiikkaa kohtaan ja sitä, kuinka Avoimen ministeriön palvelu vaikuttaa siihen. Valitse vaihtoehdoista se, joka kuvaa parhaiten tunteitasi tällä hetkellä. Pyydämme ystävällisesti vastaamaan kysymyksiin niin tarkasti kuin mahdollista. Vastaukset tallennetaan anonyymeinä Yhteiskuntatieteelliseen tietoarkistoon muiden tutkijoiden käytettäväksi. Tietoja käsitellään täysin luottamuksellisesti eikä henkilötietojasi luovuteta kolmansille osapuolille."
+
     label "Apuasi arvostetaan kovasti."
 
     #1
-    q "Kuinka kiinnostunut olette politiikasta", :pick => :one
+    q "Kuinka kiinnostunut olette politiikasta?", :pick => :one
     a "Hyvin kiinnostunut"
     a "Jonkin verran kiinnostunut"
     a "Vain vähän kiinnostunut"
@@ -32,11 +33,11 @@ survey "Avoin Ministeriö" do
 
 
     #4
-    grid "Kertokaa asteikolla nollasta kymmeneen, kuinka paljon henkilökohtaisesti luotatte seuraavaksi luettelemiini tahoihin. Nolla tarkoittaa sitä, että ette luota ollenkaan kyseiseen tahoon ja 10 sitä, että luotatte erittäin vahvasti kyseiseen tahoon:" do
+    grid "Kertokaa asteikolla nollasta kymmeneen, kuinka paljon henkilökohtaisesti luotatte seuraavaksi luettelemiini tahoihin. Nolla tarkoittaa sitä, että ette luota ollenkaan kyseiseen tahoon ja 10 sitä, että luotatte erittäin vahvasti kyseiseen tahoon:<br>Kuinka paljon luotatte seuraaviin tahoihin? (0 = ei ollenkaan, 10 = erittäin vahvasti)" do
       (0..10).to_a.each{|num| a num.to_s}
-      q "Eduskunta?", :pick => :one, :display_type => :slider
-      q "Poliitikot?", :pick => :one, :display_type => :slider
-      q "Poliittiset puolueet?", :pick => :one, :display_type => :slider
+      q "Eduskunta", :pick => :one, :display_type => :slider
+      q "Poliitikot", :pick => :one, :display_type => :slider
+      q "Poliittiset puolueet", :pick => :one, :display_type => :slider
       q "Tasavallan presidentti", :pick => :one, :display_type => :slider
       q "Suomen hallitus (valtioneuvosto)", :pick => :one, :display_type => :slider
     end

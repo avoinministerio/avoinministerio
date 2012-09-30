@@ -9,15 +9,17 @@
 
 #surveyor {
   .surveyor_flash {
+    display: none;
     margin: 0 auto;
     padding: 5px;
     text-align: center; }
   .survey_title {
+    display: none;
     font-size: 2em;
     font-weight: bold;
     padding: 10px 0; }
   .surveyor_menu {
-    visibility: hidden;
+    display: none;
     float: right;
     ul {
       list-style: none;
@@ -29,7 +31,7 @@
   .next_section {
     float: right; }
   .survey_section span.title {
-    display: block;
+    display:block;
     padding-top: 10px;
     padding-bottom: 30px;
     font-weight: bold;
@@ -48,7 +50,16 @@
       display: inline; }
     &.g_grid {
       table {
-        border-collapse: collapse; }
+        border-collapse: collapse;
+        th, td{
+          text-align: center;
+        }
+        tr.q_grid{
+          th{
+            text-align:left;
+          }
+        }
+      }
       li {
         &.surveyor_radio label, &.surveyor_check_boxes label {
           visibility: hidden; }
