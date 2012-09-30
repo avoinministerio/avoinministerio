@@ -18,8 +18,11 @@ fi:
     sections: "pääluokat"
 
   survey_description:
-    <h2>paras vastaanottaja</h2>
-    <p>Tämä kyselylomake on osa tutkimuksen tutkijat Åbo Akademin kanssa rahoitusta Suomen Akatemialta.Tarkoituksena on tutkia, miten kansalaisten aloite ja uusia alustoja kansalaisten osallistumisen kuten Avoin Ministerio voi parantaa demokratian toiminnalle Suomessa.</p>
-    <p>Kysymykset koskevat osallistumista politiikkaan ja miten tämä vaikuttaa tarjoamat mahdollisuudet tällä sivustolla. Millä vastaa parhaiten kuvaavat tunteita tällä hetkellä. Pyydämme sinua täyttämään kysymyksiin mahdollisimman huolellisesti.</p>
-    <p>Nimetön versio tiedot säilytetään suomalainen Yhteiskuntatieteellinen tietoarkisto eduksi muiden tutkijoiden.Tiedot käsitellään täysin luottamuksellisina ja henkilökohtaisia ​​tietoja ei luovuteta kolmansille osapuolille.</p>
-    <p>Apuasi on erittäin tervetullutta.</p>
+    <p>Kysymykset koskevat osallistumistasi politiikkaan, ja kuinka tämän sivuston
+    tarjoamat mahdollisuudet vaikuttavat siihen. Valitse vaihtoehdoista se joka
+    kuvaa parhaiten tunteitasi tällä hetkellä. Pyydämme ystävällisesti vastaamaan
+    kysymyksiin niin tarkasti kuin mahdollista. Vastaukset tallennetaan anonyymeinä
+    Yhteiskuntatieteelliseen tietoarkistoon muiden tutkijoiden käytettäväksi.
+    Tietoja käsitellään täysin luottamuksellisesti eikä henkilötietojasi luovuteta
+    kolmansille osapuolille.</p>
+    <p>Mikäli haluat osallistua tutkimukseen, klikkaa alla olevaan nappia.</p>

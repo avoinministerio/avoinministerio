@@ -2,13 +2,15 @@
 survey "Avoin Ministeriö" do
 
   section "Kansalaisaloite ja asenteet politiikkaa kohtaan" do
+    label "Kysymykset koskevat osallistumistasi politiikkaan, ja kuinka tämän sivuston tarjoamat mahdollisuudet vaikuttavat siihen. Valitse vaihtoehdoista se joka kuvaa parhaiten tunteitasi tällä hetkellä. Pyydämme ystävällisesti vastaamaan kysymyksiin niin tarkasti kuin mahdollista. Vastaukset tallennetaan anonyymeinä Yhteiskuntatieteelliseen tietoarkistoon muiden tutkijoiden käytettäväksi. Tietoja käsitellään täysin luottamuksellisesti eikä henkilötietojasi luovuteta kolmansille osapuolille."
+    label "Apuasi arvostetaan kovasti."
 
     #1
     q "Kuinka kiinnostunut olette politiikasta", :pick => :one
-    a "Erittäin kiinnostunut"
-    a "Melko kiinnostunut"
-    a "Ette kovin kiinnostunut"
-    a "Ette lainkaan kiinnostunut?"
+    a "Hyvin kiinnostunut"
+    a "Jonkin verran kiinnostunut"
+    a "Vain vähän kiinnostunut"
+    a "En lainkaan kiinnostunut"
 
 
     #2
@@ -16,7 +18,7 @@ survey "Avoin Ministeriö" do
     a "Ei koskaan"
     a "Harvoin"
     a "Joskus"
-    a "Toisinaan"
+    a "Aina"
     a "Usein"
 
 
@@ -31,7 +33,7 @@ survey "Avoin Ministeriö" do
 
     #4
     grid "Kertokaa asteikolla nollasta kymmeneen, kuinka paljon henkilökohtaisesti luotatte seuraavaksi luettelemiini tahoihin. Nolla tarkoittaa sitä, että ette luota ollenkaan kyseiseen tahoon ja 10 sitä, että luotatte erittäin vahvasti kyseiseen tahoon:" do
-      (1..10).to_a.each{|num| a num.to_s}
+      (0..10).to_a.each{|num| a num.to_s}
       q "Eduskunta?", :pick => :one, :display_type => :slider
       q "Poliitikot?", :pick => :one, :display_type => :slider
       q "Poliittiset puolueet?", :pick => :one, :display_type => :slider
@@ -43,30 +45,30 @@ survey "Avoin Ministeriö" do
     #5
     q "Kuinka tyytyväinen olette siihen, kuinka demokratia toimii Suomessa?", :pick => :one, :display_type => :slider
     a "ÄÄRIMMÄISEN TYYTYMÄTÖN"
-    (2..9).to_a.each{|num| a num.to_s}
-    a "ÄRIMMÄISEN TYYTYVÄINEN"
+    (1..9).to_a.each{|num| a num.to_s}
+    a "ÄÄRIMMÄISEN TYYTYVÄINEN"
 
 
     #6
     q "Auttaako mahdollisuus kansalaisaloitteen tekemiseen mielestänne kehittämään suomalaista demokratiaa?  ", :pick => :one, :display_type => :slider
     a "EI AUTA LAINKAAN"
-    (2..9).to_a.each{|num| a num.to_s}
+    (1..9).to_a.each{|num| a num.to_s}
     a "AUTTAA ERITTÄIN PALJON"
 
     #7
     q "Voiko mielestänne ihmisiin luottaa, vai onko niin, ettei ihmisten suhteen voi olla liian varovainen. Kertokaa mielipiteenne asteikolla nollasta kymmeneen, jossa nolla tarkoittaa, ettei ihmisten kanssa voi olla liian varovainen ja 10, että useimpiin ihmisiin voi luottaa?", :pick => :one, :display_type => :slider
     a "EI VOI OLLA LIIAN VAROVAINEN"
-    (2..9).to_a.each{|num| a num.to_s}
+    (1..9).to_a.each{|num| a num.to_s}
     a "USEIMPIIN IHMISIIN VOI LUOTTAA"
 
     #8
     q "Politiikassa puhutaan joskus vasemmistosta ja oikeistosta. Mihin kohtaan sijoittaisitte itsenne asteikolla nollasta kymmeneen, kun nolla tarkoittaa vasemmistoa ja kymmenen oikeistoa?", :pick => :one, :display_type => :slider
     a "VASEMMISTO"
-    (2..9).to_a.each{|num| a num.to_s}
+    (1..9).to_a.each{|num| a num.to_s}
     a "OIKEISTO"
 
     #9
-    q "Jotkut ihmiset jättävät nykyään syystä tai toisesta äänestämättä. Äänestittekö Te viime eduskuntavaaleissa 2011?", :pick => :one
+    q "Jotkut ihmiset jättävät syystä tai toisesta äänestämättä. Äänestittekö Te viime eduskuntavaaleissa 2011?", :pick => :one
     a "Kyllä"
     a "En"
     a "Ei äänioikeutettu"
@@ -87,49 +89,102 @@ survey "Avoin Ministeriö" do
     a "Käyttää väkivaltaa poliittisten päämäärien saavuttamiseksi"
 
 
-    #10
-    q "Syntymävuotenne"
-    a :date
-
-
     #11
+    q "Syntymävuotenne", :pick => :one, :display_type => :dropdown
+    (1990..1996).to_a.each{|year| a year.to_s}
+
+
+    #12
     q "Sukupuoli", :pick => :one
     a "Mies"
     a "Nainen"
 
-    #12
-    q "Kotikunta"
-    a :string
-
 
     #13
-    q "Mikä on peruskoulutuksenne?", :pick => :one
-    a "Peruskoulun luokat 1-6, kansakoulu"
-    a "Peruskoulun luokat 7-9, 10, keskikoulu"
-    a "Vielä koulussa (peruskoulu, lukio)"
-    a "Ylioppilas, lukio"	
-    a "Ei muodollista peruskoulutusta"
+    q "Kotikunta", :pick => :one, :display_type => :dropdown
+    [ "Alajärvi", "Alavieska", "Alavus", "Asikkala", "Askola", "Aura", "Akaa",
+      "Brändö", "Eckerö", "Enonkoski", "Enontekiö", "Espoo", "Eura",
+      "Eurajoki", "Evijärvi", "Finström", "Forssa", "Föglö", "Geta",
+      "Haapajärvi", "Haapavesi", "Hailuoto", "Halsua", "Hamina", "Hammarland",
+      "Hankasalmi", "Hanko", "Harjavalta", "Hartola", "Hattula", "Haukipudas",
+      "Hausjärvi", "Heinävesi", "Helsinki", "Vantaa", "Hirvensalmi", "Hollola",
+      "Honkajoki", "Huittinen", "Humppila", "Hyrynsalmi", "Hyvinkää",
+      "Hämeenkyrö", "Hämeenlinna", "Heinola", "Ii", "Iisalmi", "Iitti",
+      "Ikaalinen", "Ilmajoki", "Ilomantsi", "Inari", "Inkoo", "Isojoki",
+      "Isokyrö", "Imatra", "Jalasjärvi", "Janakkala", "Joensuu", "Jokioinen",
+      "Jomala", "Joroinen", "Joutsa", "Juankoski", "Juuka", "Juupajoki",
+      "Juva", "Jyväskylä", "Jämijärvi", "Jämsä", "Järvenpää", "Kaarina",
+      "Kaavi", "Kajaani", "Kalajoki", "Kangasala", "Kangasniemi", "Kankaanpää",
+      "Kannonkoski", "Kannus", "Karijoki", "Karjalohja", "Karkkila",
+      "Karstula", "Karvia", "Kaskinen", "Kauhajoki", "Kauhava", "Kauniainen",
+      "Kaustinen", "Keitele", "Kemi", "Keminmaa", "Kempele", "Kerava",
+      "Kerimäki", "Kesälahti", "Keuruu", "Kihniö", "Kiikoinen", "Kiiminki",
+      "Kinnula", "Kirkkonummi", "Kitee", "Kittilä", "Kiuruvesi", "Kivijärvi",
+      "Kokemäki", "Kokkola", "Kolari", "Konnevesi", "Kontiolahti", "Korsnäs",
+      "Hämeenkoski", "Koski Tl", "Kotka", "Kouvola", "Kristiinankaupunki",
+      "Kruunupyy", "Kuhmo", "Kuhmoinen", "Kumlinge", "Kuopio", "Kuortane",
+      "Kurikka", "Kustavi", "Kuusamo", "Outokumpu", "Kyyjärvi", "Kärkölä",
+      "Kärsämäki", "Kökar", "Köyliö", "Kemijärvi", "Kemiönsaari", "Lahti",
+      "Laihia", "Laitila", "Lapinlahti", "Lappajärvi", "Lappeenranta",
+      "Lapinjärvi", "Lapua", "Laukaa", "Lavia", "Lemi", "Lemland", "Lempäälä",
+      "Leppävirta", "Lestijärvi", "Lieksa", "Lieto", "Liminka", "Liperi",
+      "Loimaa", "Loppi", "Loviisa", "Luhanka", "Lumijoki", "Lumparland",
+      "Luoto", "Luumäki", "Luvia", "Lohja", "Länsi-Turunmaa", "Maalahti",
+      "Maaninka", "Maarianhamina", "Marttila", "Masku", "Merijärvi",
+      "Merikarvia", "Miehikkälä", "Mikkeli", "Muhos", "Multia", "Muonio",
+      "Mustasaari", "Muurame", "Mynämäki", "Myrskylä", "Mäntsälä",
+      "Mäntyharju", "Mänttä-Vilppula", "Naantali", "Nakkila", "Nastola",
+      "Nilsiä", "Nivala", "Nokia", "Nousiainen", "Nummi-Pusula", "Nurmes",
+      "Nurmijärvi", "Närpiö", "Orimattila", "Oripää", "Orivesi", "Oulainen",
+      "Oulu", "Oulunsalo", "Padasjoki", "Paimio", "Paltamo", "Parikkala",
+      "Parkano", "Pelkosenniemi", "Perho", "Pertunmaa", "Petäjävesi",
+      "Pieksämäki", "Pielavesi", "Pietarsaari", "Pedersören kunta",
+      "Pihtipudas", "Pirkkala", "Polvijärvi", "Pomarkku", "Pori", "Pornainen",
+      "Posio", "Pudasjärvi", "Pukkila", "Punkaharju", "Punkalaidun",
+      "Puolanka", "Puumala", "Pyhtää", "Pyhäjoki", "Pyhäjärvi", "Pyhäntä",
+      "Pyhäranta", "Pälkäne", "Pöytyä", "Porvoo", "Raahe", "Raisio",
+      "Rantasalmi", "Ranua", "Rauma", "Rautalampi", "Rautavaara", "Rautjärvi",
+      "Reisjärvi", "Riihimäki", "Ristiina", "Ristijärvi", "Rovaniemi",
+      "Ruokolahti", "Ruovesi", "Rusko", "Rääkkylä", "Raasepori", "Saarijärvi",
+      "Salla", "Salo", "Saltvik", "Sauvo", "Savitaipale", "Savonlinna",
+      "Savukoski", "Seinäjoki", "Sievi", "Siikainen", "Siikajoki",
+      "Siilinjärvi", "Simo", "Sipoo", "Siuntio", "Sodankylä", "Soini",
+      "Somero", "Sonkajärvi", "Sotkamo", "Sottunga", "Sulkava", "Sund",
+      "Suomenniemi", "Suomussalmi", "Suonenjoki", "Sysmä", "Säkylä", "Vaala",
+      "Sastamala", "Siikalatva", "Taipalsaari", "Taivalkoski", "Taivassalo",
+      "Tammela", "Tampere", "Tarvasjoki", "Tervo", "Tervola", "Teuva",
+      "Tohmajärvi", "Toholampi", "Toivakka", "Tornio", "Turku", "Pello",
+      "Tuusniemi", "Tuusula", "Tyrnävä", "Töysä", "Ulvila", "Urjala",
+      "Utajärvi", "Utsjoki", "Uurainen", "Uusikaarlepyy", "Uusikaupunki",
+      "Vaasa", "Valkeakoski", "Valtimo", "Varkaus", "Vehmaa", "Vesanto",
+      "Vesilahti", "Veteli", "Vieremä", "Vihanti", "Vihti", "Viitasaari",
+      "Vimpeli", "Virolahti", "Virrat", "Vårdö", "Vähäkyrö", "Vöyri", "Yli-Ii",
+      "Ylitornio", "Ylivieska", "Ylöjärvi", "Ypäjä", "Ähtäri", "Äänekoski",
+      "Ulkomaat" ].each{ |county| a county}
 
-
-
-    #12
-    q "Mikä on ammatillinen koulutuksenne?", :pick => :one
-    a "Vielä koulussa (ammattikoulu-, -kurssi)"
-    a "Lyhyt ammatillinen koulutus (ammattikoulu, -kurssi)"
-    a "Opistoasteen ammatillinen tutkinto"	
-    a "Jonkin verran ammattikorkeakoulu- tai yliopisto-opintoja"
-    a "Ammattikorkeakoulututkinto"	
-    a "Yliopistotutkinto"	
-    a "Ei muodollista ammatillista koulutusta"
-
-
-    #13
-    q "Kuinka suuret ovat keskimäärin kotitaloutenne yhteenlasketut vuositulot veroja vähentämättä ( = bruttotulot) mukaan laskien veronalaiset sosiaalietuudet?"
-    a "|euroa vuodessa", :float
 
 
     #14
-    q "Mihin yhteiskuntaluokkaan katsotte lähinnä kuuluvanne?", :pick => :one
+    q "Mikä on koulutuksenne? Valitkaa korkein koulutusaste, jonka olette suorittanut."
+    a "Vähemmän kuin peruskoulun ala-aste tai vähemmän kuin kansakoulu"
+    a "Peruskoulun ala-aste (1-6 luokat), kansakoulu"
+    a "Peruskoulun yläaste (7-9/10 luokat), keskikoulu"
+    a "Lukio, ylioppilas- tai ammatillinen tutkinto"
+    a "Opisto- tai korkeakoulututkinto"
+    a "Lisensiaatin tai tohtorin tutkinto"
+
+
+
+    #15
+    q "Kuinka suuret ovat keskimäärin kotitaloutenne yhteenlasketut vuositulot veroja vähentämättä ( = bruttotulot) mukaan laskien veronalaiset sosiaalietuudet?"
+    a "|euroa vuodessa", :integer
+    validation :rule => "A and B"
+    condition_A ">=", :integer_value => 0
+    condition_B "<=", :integer_value => 9999999
+
+
+    #16
+    q "Mihin yhteiskuntaluokkaan katsotte kuuluvanne?", :pick => :one
     a "Työväenluokka"
     a "Alempi keskiluokka"
     a "Keskiluokka"
@@ -138,7 +193,7 @@ survey "Avoin Ministeriö" do
     a "En mihinkään luokkaan"
 
 
-    #15
+    #17
     q "Siviilisäätynne", :pick => :one
     a "Naimaton"
     a "Avioliitossa tai muussa rekisteröidyssä parisuhteessa"
@@ -148,14 +203,14 @@ survey "Avoin Ministeriö" do
     a "Muu"
 
 
-    #16
+    #18
     q "Äidinkieli", :pick => :one
     a "Suomi"
     a "Ruotsi"
     a "Jokin muu kieli, mikä?", :string
 
 
-    #17
+    #19
     q "Asutteko", :pick => :one
     a "Kaupungin keskustassa"
     a "Esikaupunkialueella tai kaupunkilähiössä"
