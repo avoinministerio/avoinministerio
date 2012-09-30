@@ -42,7 +42,7 @@
           - saldo = current_citizen.saldo
           %h1 Maksulliset tunnistuspalvelut
           .grid_16
-            Olet siirtänyt tähän mennessä käyttämätöntä rahaa #{saldo} €.
+            Olet siirtänyt tähän mennessä käyttämätöntä rahaa #{sprintf("%.2f",saldo)} €.
             - transaction_count = 4
             Viimeiset #{transaction_count} tapahtumaa ovat:
             /- self.money_transactions.order("created_at desc").limit(transaction_count).each do |mtx|
@@ -66,10 +66,8 @@
               Olet jo siirtänyt rahaa, jolla voit tunnistautua seuraavissa palveluissa:
               - ready.each do |service|
                 .grid_16
-                  %form{:action => service[:url], :method => "post"}
-                    - (service.keys - [:name, :url, :fee]).each do |key|
-                      %input{:type => 'hidden', :name => key.to_s, :value => service[key]}
-                    %input{:type => 'submit', :value => "#{service[:name]} (#{service[:fee]}€)"}
+                  %a{:href => signature_idea_selected_costly_service_path(@signature, service: service[:name])}
+                    =service[:name]
 
     .grid_24
       .extra-info
