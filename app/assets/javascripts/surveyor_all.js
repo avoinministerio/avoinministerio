@@ -46,7 +46,7 @@ $(document).ready(function(){
     if (i >= 9 && i <= 12){
       //Disabling Sliders
       $(mandatory_questions[i]).attr('changed','false');
-      $("#handle_r_"+i+"_answer_id").mouseover(function(){
+      $("#handle_r_"+i+"_answer_id").focusin(function(){
         var id =$(this).attr('id');
         var v = id[9];
         var v2 = ""
