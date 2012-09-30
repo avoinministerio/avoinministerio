@@ -9,15 +9,11 @@ $(document).ready(function(){
 
   function unanswered_question(questions){
     for (var i in questions){
-      var option = ""
-      if ($(questions[i]).is('input')){
-        option = ":checked"
-        if ($(questions[i] + option).val() == undefined){
-          return questions[i];
-        }
-      }
-      else{
-
+      if (($(questions[i]).is('input') && $(questions[i] + ":checked").val() == undefined ) ||
+          $(questions[i]).attr('changed') == 'false'
+         )
+      {
+        return questions[i];
       }
     }
     return null;
@@ -38,8 +34,23 @@ $(document).ready(function(){
   for (var i in question_numbers){
     mandatory_questions[i] = "[name='r[" + question_numbers[i] + "][answer_id]']";
     $(mandatory_questions[i]).change(toggleButton);
+    if (i >= 9 && i <= 12){
+      //Disabling Sliders
+      $(mandatory_questions[i]).attr('changed','false');
+      $("#handle_r_"+i+"_answer_id").mouseover(function(){
+        var id =$(this).attr('id');
+        var v = id[9];
+        var v2 = ""
+        if (id[10] != '_'){
+          v2 = id[10]
+        }
+        console.log(v + v2);
+        $(mandatory_questions[v+v2]).attr('changed','true');
+        toggleButton();
+      });
+    }
   }
-  $("input[name='finish']").attr({"disabled": true, "class": "finish-btn-disabled"});
+  toggleButton();
 
   //var scrollToUnansweredQuestion = function(){
     //var unanswered_mandatory_question = unanswered_question(mandatory_questions);
