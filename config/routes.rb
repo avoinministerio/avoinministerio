@@ -11,6 +11,7 @@ AvoinMinisterio::Application.routes.draw do
   match "/ideas/:id/signature"                        => "signatures#sign",                   via: :post, as: :signature_idea
 
   match "/signatures/:id/selected_free_service"       => "signatures#selected_free_service",  via: :get,  as: :signature_idea_selected_free_service
+  match "/signatures/:id/selected_costly_service"     => "signatures#selected_costly_service",via: :get,  as: :signature_idea_selected_costly_service
   match "/signatures/:id/successful_authentication"   => "signatures#successful_authentication", via: :get,  as: :signature_idea_successful_authentication
   match "/signatures/:id/signing_success"             => "signatures#signing_success",        via: :get,  as: :signature_idea_signing_success
   match "/signatures/:id/signing_failure"             => "signatures#signing_failure",        via: :get,  as: :signature_idea_signing_failure

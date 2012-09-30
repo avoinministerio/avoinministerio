@@ -12,6 +12,7 @@ class SignaturesController < ApplicationController
 
   before_filter :authenticate_citizen!,       :except => [:successful_authentication]
   before_filter :check_if_idea_can_be_signed, :except => [:selected_free_service,
+                                                          :selected_costly_service,
                                                           :paid_returning,
                                                           :paid_canceling,
                                                           :paid_rejecting,
@@ -100,7 +101,11 @@ class SignaturesController < ApplicationController
 
     payment_service = @payment_services.find {|ps| ps[:name] == params[:servicename]}
     fee = payment_service[:fee]
-    current_citizen.depositMoney(BigDecimal.new(fee), "paid signature #{signature.id}")
+    current_citizen.deposit_money(BigDecimal.new(fee), "paid signature #{signature.id}")
+
+    # save here so that the transaction gets saved anyway
+    signature.service = params[:servicename]
+    raise "Can't assign service" unless signature.save
 
     # forward to signing service
 
@@ -235,6 +240,27 @@ class SignaturesController < ApplicationController
     else
       @error = "No signature found for current_citizen with #{params[:id]}"
     end
+  end
+
+  def selected_costly_service
+    @signature = Signature.find_for(current_citizen, params[:id])
+    puts "selected_free_service"
+    p @signature
+    if @signature
+      tupas_services
+      service = @tupas_services.find{|s| s[:name] == params[:service] } 
+      if service and service[:min_fee] and current_citizen.saldo >= service[:min_fee].to_f
+        @signature.service = params[:service]
+        @signature.save!
+        p generate_signing_service_url(@signature, params[:service])
+        redirect_to generate_signing_service_url(@signature, params[:service])
+      else
+        @error = "User chose costly service without enough saldo (or free service)"
+      end
+    else
+      @error = "No signature found for current_citizen with #{params[:id]}"
+    end
+
   end
 
   def shortcutting_to_signing
@@ -756,54 +782,76 @@ class SignaturesController < ApplicationController
     end
   end
 
+  def pay_service_fee(signature)
+    payment_services("", -1)  # parameters don't matter, but we want to get fees
+    payment_service = @payment_services.find {|ps| ps[:name] == signature.service}
+    Rails.logger.info "### In pay_service_fee"
+    Rails.logger.info payment_service.inspect
+    if payment_service
+      fee = payment_service[:fee]
+      Rails.logger.info fee
+      if fee and fee.to_f > 0.0
+        Rails.logger.info current_citizen.saldo
+        current_citizen.deposit_money(-BigDecimal.new(fee), "used at signature succeeded #{signature.id}")
+        Rails.logger.info current_citizen.saldo
+      end
+    end
+  end
+
   def signing_success
     validate_service_provider!
 
     #    @signature = current_citizen.signatures.where(state: 'authenticated').find(params[:id])
     @signature = Signature.where(state: 'initial').find(params[:id])
-    if @signature and @signature.citizen == current_citizen and @signature.state == "initial"   # TODO: and duration since last authentication less that threshold
+    if @signature
+      pay_service_fee(@signature)
 
-      # FIXME: find if intermediate call to successful_authentication has been done, if make the transaction now
+      if @signature.citizen == current_citizen and @signature.state == "initial"   # TODO: and duration since last authentication less that threshold
 
-      # validate input before storing
-      if justNameCharacters(params["first_names"]) and 
-          justNameCharacters(params["last_name"])   and 
-          municipalities.include? params["occupancy_county"]
-        if $ALLOW_SIGNING_MULTIPLE_TIMES or not check_previously_signed(current_citizen, params[:id])
-          # TODO: these updates should be removed, and only be marked that user has signed the idea
-          @signature.firstnames       = params["first_names"]
-          @signature.lastname         = params["last_name"]
-          @signature.occupancy_county = params["occupancy_county"]
-          @signature.birth_date       = params["birth_date"]
-          @signature.state            = "signed"
-          @signature.signing_date     = today_date
-          @error = "Couldn't save signature" unless @signature.save
+        # FIXME: find if intermediate call to successful_authentication has been done, if make the transaction now
 
-          session["authenticated_firstnames"]       = @signature.firstnames
-          session["authenticated_lastname"]         = @signature.lastname
-          session["authenticated_occupancy_county"] = @signature.occupancy_county
-          session["authenticated_birth_date"]       = @signature.birth_date
-          session["authenticated_at"]               = params["authenticated_at"]
-          session["authentication_token"]           = params["authentication_token"]
-          session["authenticated_accept_general"]   = @signature.accept_general
-          session["authenticated_accept_non_eu_server"] = @signature.accept_non_eu_server
-          session["authenticated_accept_publicity"] = @signature.accept_publicity
-          session["authenticated_accept_science"]   = @signature.accept_science
+        # validate input before storing
+        if justNameCharacters(params["first_names"]) and 
+            justNameCharacters(params["last_name"])   and 
+            municipalities.include? params["occupancy_county"]
+          if $ALLOW_SIGNING_MULTIPLE_TIMES or not check_previously_signed(current_citizen, params[:id])
+            # TODO: these updates should be removed, and only be marked that user has signed the idea
+            @signature.firstnames       = params["first_names"]
+            @signature.lastname         = params["last_name"]
+            @signature.occupancy_county = params["occupancy_county"]
+            @signature.birth_date       = params["birth_date"]
+            @signature.state            = "signed"
+            @signature.signing_date     = today_date
+            @error = "Couldn't save signature" unless @signature.save
 
-          # show only proposals that haven't yet been signed by current_citizen
-          signatures = Arel::Table.new(:signatures)
-          already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
-          ideas = Arel::Table.new(:ideas)
-          proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
-          @initiatives = Idea.where(proposals_not_in_already_signed).order("vote_for_count DESC").limit(5).all
+            session["authenticated_firstnames"]       = @signature.firstnames
+            session["authenticated_lastname"]         = @signature.lastname
+            session["authenticated_occupancy_county"] = @signature.occupancy_county
+            session["authenticated_birth_date"]       = @signature.birth_date
+            session["authenticated_at"]               = params["authenticated_at"]
+            session["authentication_token"]           = params["authentication_token"]
+            session["authenticated_accept_general"]   = @signature.accept_general
+            session["authenticated_accept_non_eu_server"] = @signature.accept_non_eu_server
+            session["authenticated_accept_publicity"] = @signature.accept_publicity
+            session["authenticated_accept_science"]   = @signature.accept_science
+
+            # show only proposals that haven't yet been signed by current_citizen
+            signatures = Arel::Table.new(:signatures)
+            already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
+            ideas = Arel::Table.new(:ideas)
+            proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
+            proposals_collectible = (ideas[:collecting_in_service].eq(true)).and(ideas[:collecting_started].eq(true)).and(ideas[:collecting_ended].eq(false))
+            unsigned_collectible_proposals = proposals_not_in_already_signed.and(proposals_collectible)
+            @initiatives = Idea.where(unsigned_collectible_proposals).order("vote_for_count DESC").limit(5).all
+          else
+            @error = "Aiemmin allekirjoitettu" if not $ALLOW_SIGNING_MULTIPLE_TIMES
+          end
         else
-          @error = "Aiemmin allekirjoitettu" if not $ALLOW_SIGNING_MULTIPLE_TIMES
+          @error = "Invalid parameters"
         end
       else
-        @error = "Invalid parameters"
+        @error = "Trying to alter other citizen or signature with other than authenticated state"
       end
-    else
-      @error = "Trying to alter other citizen or signature with other than authenticated state"
     end
   end
 
