@@ -33,7 +33,7 @@ survey "Avoin Ministeriö" do
 
 
     #4
-    grid "Kertokaa asteikolla nollasta kymmeneen, kuinka paljon henkilökohtaisesti luotatte seuraavaksi luettelemiini tahoihin. Nolla tarkoittaa sitä, että ette luota ollenkaan kyseiseen tahoon ja 10 sitä, että luotatte erittäin vahvasti kyseiseen tahoon:<br>Kuinka paljon luotatte seuraaviin tahoihin? (0 = ei ollenkaan, 10 = erittäin vahvasti)" do
+    grid "Kuinka paljon luotatte seuraaviin tahoihin? (0 = ei ollenkaan, 10 = erittäin vahvasti)" do
       (0..10).to_a.each{|num| a num.to_s}
       q "Eduskunta", :pick => :one, :display_type => :slider
       q "Poliitikot", :pick => :one, :display_type => :slider
