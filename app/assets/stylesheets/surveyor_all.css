@@ -145,6 +145,9 @@
         right: 0px;
       }
   }
+  .unanswered-link{
+    color: red;
+  }
 
   .finish-btn {
     background: #473161;

@@ -24,8 +24,17 @@ $(document).ready(function(){
     console.log(unanswered_mandatory_question);
     if( unanswered_mandatory_question == null ) {
       $("input[name='finish']").attr({"disabled": false, "class": "finish-btn"});
+      $(".unanswered-link").remove();
     } else {
       $("input[name='finish']").attr({"disabled": true, "class": "finish-btn-disabled"});
+      if($(".unanswered-link").length == 0){
+        $("input[name='finish']").parent().parent().append('<button class="unanswered-link">You haven not answered all mandatory question.</button>');
+      }
+      var scrollToUnansweredQuestion = function(){
+        $(unanswered_mandatory_question)[0].scrollIntoView();
+        return false;
+      };
+      $(".unanswered-link").click(scrollToUnansweredQuestion);
     }
   };
 
@@ -44,7 +53,6 @@ $(document).ready(function(){
         if (id[10] != '_'){
           v2 = id[10]
         }
-        console.log(v + v2);
         $(mandatory_questions[v+v2]).attr('changed','true');
         toggleButton();
       });
@@ -52,11 +60,4 @@ $(document).ready(function(){
   }
   toggleButton();
 
-  //var scrollToUnansweredQuestion = function(){
-    //var unanswered_mandatory_question = unanswered_question(mandatory_questions);
-    //console.log("Clicked")
-    //console.log(unanswered_mandatory_question)
-    //$(unanswered_mandatory_question).scrollTop();
-  //};
-  //$("input[name='finish']").click(scrollToUnansweredQuestion);
 });
