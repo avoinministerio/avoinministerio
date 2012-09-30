@@ -102,12 +102,12 @@
     &.q_dropdown label, &.q_inline_dropdown label, &.q_default_dropdown label, &.q_slider label, &.q_repeater_dropdown label {
       display: none; }
     &.q_slider {
-      margin-bottom: 5em;
+      margin-bottom: 6em;
       li.select {
-       width: 90%;
+       width: 97%;
         font-size: 0.8em; }
       .ui-slider span.ui-slider-label-show {
-        width: 80px;
+        width: 100px;
         text-align: center;
       }
       .ui-slider li span.ui-slider-label{
