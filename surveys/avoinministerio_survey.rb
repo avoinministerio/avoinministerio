@@ -91,7 +91,7 @@ survey "Avoin Ministeriö" do
 
     #11
     q "Syntymävuotenne", :pick => :one, :display_type => :dropdown
-    (1990..1996).to_a.each{|year| a year.to_s}
+    (1900..1996).to_a.each{|year| a year.to_s}
 
 
     #12
@@ -165,7 +165,7 @@ survey "Avoin Ministeriö" do
 
 
     #14
-    q "Mikä on koulutuksenne? Valitkaa korkein koulutusaste, jonka olette suorittanut."
+    q "Mikä on koulutuksenne? Valitkaa korkein koulutusaste, jonka olette suorittanut.", :pick => :one
     a "Vähemmän kuin peruskoulun ala-aste tai vähemmän kuin kansakoulu"
     a "Peruskoulun ala-aste (1-6 luokat), kansakoulu"
     a "Peruskoulun yläaste (7-9/10 luokat), keskikoulu"
