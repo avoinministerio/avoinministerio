@@ -171,7 +171,7 @@ class SignaturesController < ApplicationController
       message: {
         idea_id:                      signature.idea.id,
         idea_title:                   signature.idea.title,
-        idea_date:                    signature.idea.updated_at,
+        idea_date:                    signature.idea.collecting_start_date,
         idea_mac:                     idea_mac(signature.idea),
         citizen_id:                   current_citizen.id,
         accept_general:               signature.accept_general,
