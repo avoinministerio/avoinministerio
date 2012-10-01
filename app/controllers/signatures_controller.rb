@@ -40,7 +40,8 @@ class SignaturesController < ApplicationController
     signature.accept_general       = params[:accept_general]        || session["authenticated_accept_general"]
     signature.accept_non_eu_server = params[:accept_non_eu_server]  || session["authenticated_accept_non_eu_server"]
     signature.accept_publicity     = params[:publicity]             || session["authenticated_accept_publicity"]
-    signature.accept_science       = params[:accept_science]        || session["authenticated_accept_science"]        || false
+    signature.accept_science       = params[:accept_science]        || session["authenticated_accept_science"]
+    signature.accept_science = false if signature.accept_science == ''
   end
 
   def service_selection
@@ -170,7 +171,7 @@ class SignaturesController < ApplicationController
       message: {
         idea_id:                      signature.idea.id,
         idea_title:                   signature.idea.title,
-        idea_date:                    signature.idea.updated_at,
+        idea_date:                    signature.idea.collecting_start_date,
         idea_mac:                     idea_mac(signature.idea),
         citizen_id:                   current_citizen.id,
         accept_general:               signature.accept_general,
