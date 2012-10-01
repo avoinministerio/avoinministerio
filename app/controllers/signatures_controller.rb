@@ -371,6 +371,12 @@ class SignaturesController < ApplicationController
         min_fee:    0.62,
       },
     ]
+    ENV['DISABLE_TUPAS_SERVICES'].split(/,/).each do |disable_tupas_service|
+      @tupas_services.delete_if do |tupas_service| 
+        tupas_service[:name].gsub(/ /, "_") == disable_tupas_service
+      end
+    end
+    @tupas_services
   end
 
   def setup_tupas_services(stamp)
@@ -536,6 +542,13 @@ class SignaturesController < ApplicationController
         NET_CUR:            "EUR",
       },
     ]
+
+    ENV['DISABLE_PAYMENT_SERVICES'].split(/,/).each do |disable_payment_service|
+      @payment_services.delete_if do |payment_service| 
+        payment_service[:name].gsub(/ /, "_") == disable_payment_service
+      end
+    end
+    @payment_services
   end
 
   def set_payment_mac(payment_service)
