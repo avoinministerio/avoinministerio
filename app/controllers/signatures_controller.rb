@@ -374,7 +374,7 @@ class SignaturesController < ApplicationController
     ]
     ENV['DISABLE_TUPAS_SERVICES'].split(/,/).each do |disable_tupas_service|
       @tupas_services.delete_if do |tupas_service| 
-        tupas_service[:name].gsub(/ /, "_") == disable_tupas_service
+        tupas_service[:name].gsub(/ \-/, "_") == disable_tupas_service
       end
     end
     @tupas_services
@@ -546,7 +546,7 @@ class SignaturesController < ApplicationController
 
     ENV['DISABLE_PAYMENT_SERVICES'].split(/,/).each do |disable_payment_service|
       @payment_services.delete_if do |payment_service| 
-        payment_service[:name].gsub(/ /, "_") == disable_payment_service
+        payment_service[:name].gsub(/ \-/, "_") == disable_payment_service
       end
     end
     @payment_services
