@@ -34,6 +34,17 @@
           .actions
             = submit_tag "Eteenpäin", disabled: true, id: "accept", class: "accept-btn-disabled"
 
+      .clear
+      .text
+        %p.info &nbsp;
+        %p.info &nbsp;
+        %p.info Kannattaa olla huolissaan ja tarkkailla sitä mihin annat internetissä tietojasi ! Ole silti huoleti, Avoin ministeriö ei jaa antamiasi tietoja harkitsemattomasti.
+        %p.info Sähköisen kannatusilmoituksen tiedot talletetaan erityiselle Viestintäviraston tarkastamalle palvelimelle. Lisäksi tutkimuksen kannalta merkittävät tietosi talletetaan Yhdysvalloissa sijaitsevalle Avoimen ministeriön palvelimelle.
+        %p.info 
+          Tiedoistasi poistetaan nimesi tai muu sinut yksilöivä tieto ennen kuin niitä yhdistellään ja luovutetaan tutkijoille tai muulle tutkimusyhteisölle. Ennen minkään tietojesi julkistusta käytetty muoto ja mahdolliset tietoturvariskit keskustellaan avoimesti 
+          %a{href: "http://www.facebook.com/groups/fi.okfn/"}Avoimen datan kehittäjäyhteisöissä.
+          Sen avulla varmistetaan myös sinun tietojesi turvallinen käsittely!
+
       :javascript
         var toggleButton = function() {
           if( $("#accept_general").attr("checked") && $("#accept_non_eu_server").attr("checked") && 
@@ -49,9 +60,7 @@
 
     .sidebox
       .text
-        (Tänne voi tulla help-osio)
-        =link_to "etusivulle", "/"
-
+        Avoin ministeriö tukee avointa tutkimusta. Nyt meneillään oleva tutkimus seuraa kansalaisten näkökulmaa vaikuttamiseen ja politiikkaan pitkäkestoisesti ja on Åbo akademi tutkijan Henrik Christensen tekemä. Jos sinulla on aikaa pieni hetki, osallistu tutkimukseen -- autat demokratian tutkimusta merkittävästi!
 
   - else
     .error
