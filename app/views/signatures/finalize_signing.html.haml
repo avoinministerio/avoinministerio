@@ -7,10 +7,8 @@
     .text
       Seuraavaksi voit halutessasi
     .box
-      .bullet
-        1.
       .instructions
-        .title Allekirjoita muita aloitteita
+        .title 1. Allekirjoita muita aloitteita
         - if shortcut_session_valid?
           .text 
             Tunnistautumisesi on nyt voimassa 
@@ -27,14 +25,21 @@
               =link_to initiative.title, initiative
         =link_to "Listaa kaikki", ideas_path
     .box
-      .bullet
-        2.
       .instructions
-        .title Hanki aloitteelle lisää näkyvyyttä, kutsu ystäväsi allekirjoittamaan
+        .title 2. Hanki aloitteelle lisää näkyvyyttä, kutsu ystäväsi allekirjoittamaan
         .text
           Mene takaisin 
           =link_to "aloitteen", @signature.idea
           \-sivulle, ja jaa se sähköpostitse tai sosiaalisen median kautta ystävillesi, jotta aloite saa mahdollisimman paljon kannatusta.
+
+    .box
+      .instructions
+        .title 3. Tue tai vastusta mahdollisimman montaa ideaa ja luonnosta
+        .text
+          Autat siivilöimään hyvät ideat tukemalla tai vastustamalla mahdollisimman monia. Tutustu niihin ja kommentteihin rauhassa ennen kuin ilmoitat tukesi.
+        =link_to "Listaa kaikki ideat", ideas_path
+
+
     .sidebox
       .text
         Siirry takaisin palvelun 

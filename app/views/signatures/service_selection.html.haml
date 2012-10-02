@@ -1,5 +1,6 @@
 .container_24
   - if not @error
+    =signing_state_image(:authentication)
     %h2=@info
     %h1 Sähköinen tunnistautuminen
     .text
@@ -18,7 +19,7 @@
       %p Sinun ei tarvitse tunnistautua uudelleen. Ja erityisesti jos käytät maksullista tunnistautumispalvelua voit välttää uuden maksun
 
       .grid_16
-        %a{:href => signature_idea_shortcutting_to_signing_path(@signature, service: "shortcut")}
+        %a.btn-service{:href => signature_idea_shortcutting_to_signing_path(@signature, service: "shortcut")}
           Kannatusilmoituksen jättö ilman uutta tunnistautumista
 
 
@@ -26,54 +27,51 @@
       .grid_12
         .signature_form
           %h1 Ilmaiset tunnistuspalvelut
-          - @tupas_services.find_all{|s| not s[:min_fee]}.each do |service|
-            .grid_16
-              %a{:href => signature_idea_selected_free_service_path(@signature, service: service[:name])}
-                =service[:name]
-            /          - parameters, base_url = @parameters_and_urls[service[:name]]
-            /          %form{:action => base_url[Rails.env], :method => "post"}
-            /            - parameters.each do |parameter_name, parameter_value|
-            /              %input{:type => 'hidden', :name => parameter_name, :value => parameter_value}
-            /            %input{:type => 'submit', :value => service[:name]}
+          .grid_16
+            Voit tunnistautua näissä palveluissa ilmaiseksi:
+            - @tupas_services.find_all{|s| not s[:min_fee]}.each do |service|
+              .grid_16
+                %a.btn-service{:href => signature_idea_selected_free_service_path(@signature, service: service[:name])}
+                  =service[:name]+ ' (0.00€)'
 
 
+      - saldo = current_citizen.saldo
       .grid_12
         .signature_form
-          - saldo = current_citizen.saldo
           %h1 Maksulliset tunnistuspalvelut
-          .grid_16
-            Olet siirtänyt tähän mennessä käyttämätöntä rahaa #{sprintf("%.2f",saldo)} €.
-            - transaction_count = 4
-            Viimeiset #{transaction_count} tapahtumaa ovat:
-            /- self.money_transactions.order("created_at desc").limit(transaction_count).each do |mtx|
-            - MoneyTransactions.where("citizen_id = ?", current_citizen.id).order("created_at desc").limit(transaction_count).each do |mtx|
-              .transaction
-                #{mtx.amount}€ #{mtx.description} #{mtx.created_at}
           .grid_16
             - requires_transfer = @payment_services.find_all {|service| service[:fee] and saldo < BigDecimal.new(service[:fee])}
             - if not requires_transfer.empty?
-              %h2
               Jos käytät jotain seuraavista palveluista sinun tulee tehdä mainitun suuruinen tilisiirto ennen tunnistautumista:
               - requires_transfer.each do |service|
                 .grid_16
                   %form{:action => service[:url], :method => "post"}
                     - (service.keys - [:name, :url, :fee]).each do |key|
                       %input{:type => 'hidden', :name => key.to_s, :value => service[key]}
-                    %input{:type => 'submit', :value => "#{service[:name]} (#{service[:fee]}€)"}
+                    %input{:type => 'submit', :class => 'btn-payment', :value => "#{service[:name]} (#{service[:fee]}€)"}
             - ready = @payment_services.find_all {|service| service[:fee] and saldo >= BigDecimal.new(service[:fee])}
             - if not ready.empty?
-              %h2
               Olet jo siirtänyt rahaa, jolla voit tunnistautua seuraavissa palveluissa:
               - ready.each do |service|
                 .grid_16
-                  %a{:href => signature_idea_selected_costly_service_path(@signature, service: service[:name])}
-                    =service[:name]
+                  %a.btn-service{:href => signature_idea_selected_costly_service_path(@signature, service: service[:name])}
+                    ="#{service[:name]} (-#{service[:fee]}€)"
+
+          .grid_16
+            %h2
+            %p Käytettävissäsi Avoimessa ministeriössä on #{sprintf("%.2f",saldo)} €.
+            - transaction_count = 4
+            Viimeiset #{transaction_count} tapahtumaa ovat:
+            /- self.money_transactions.order("created_at desc").limit(transaction_count).each do |mtx|
+            - MoneyTransactions.where("citizen_id = ?", current_citizen.id).order("created_at desc").limit(transaction_count).each do |mtx|
+              .transaction
+                #{mtx.amount}€ #{mtx.description} #{mtx.created_at}
 
     .grid_24
       .extra-info
         .text
           Olemme koonneet 
-          %a{href:"/article/999"}vastauksia yleisimpiin kysymyksiin.
+          %a{href:"/artikkelit/20-usein-kysyttyja-kysymyksia"}vastauksia yleisimpiin kysymyksiin.
         .text 
           Kansalaisaloitteesta on säädetty 
           %a{href:"http://www.finlex.fi/fi/laki/alkup/2012/20120012"}Kansalaisaloitelaissa

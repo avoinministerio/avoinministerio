@@ -19,26 +19,16 @@
           Useamman kannatusilmoituksen jättäminen samalle aloitteelle on laissa määritelty rangaistavaksi teoksi. Jos olet jo jättänyt paperisen kannatusilmoituksen, älä jätä sähköistä.
 
 
-        %h4
-        %h4 Auta kehittämään avointa demokratiaa.
-        =form_tag(url_for(action: "approval", controller: "signatures")) do |f|
-          .radiobox
-            = radio_button_tag :accept_science, "true", checked: true
-            = label_tag :accept_science_yes, "Kyllä, tietojani saa käyttää tieteellisen tutkimuksen hyväksi."
-            %br
-            = radio_button_tag :accept_science, "false"
-            = label_tag :accept_science_no, "Ei, tietojani ei saa käyttää."
-            .big-button
-              .actions
-                =submit_tag "Eteenpäin"
+      =form_tag(url_for(action: "approval", controller: "signatures")) do |f|
+        .big-button
+          .actions
+            =submit_tag "Eteenpäin"
 
 
 
     .sidebox
       .text
-        (Tänne voi tulla help-osio)
-        =link_to "etusivulle", "/"
-
+        Jos sinulle tulee ongelmia voit lähettää sähköpostia osoitteeseen palaute@avoinministerio.fi
 
   - else
     .error
