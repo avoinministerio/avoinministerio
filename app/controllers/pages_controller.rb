@@ -84,9 +84,9 @@ class PagesController < ApplicationController
       @ideas = []
       while @ideas.size < idea_count
         pick_at_time = (idea_count - @ideas.size)/(probability_good**2.0) # 2.0 just makes it even more rare to require two loads
-        picks = picking_ids.drop(pick_at_time)
+        picks = picking_ids.slice(0, pick_at_time)
         # originally this didn't work: @ideas = Idea.published.where(state: 'idea').random_by_id_shuffle(idea_count)'
-        published_ideas = Idea.find(picks).find_all {|i| i.published? and i.state== 'idea'} 
+        published_ideas = Idea.find_all_by_id(picks).find_all {|i| i.published? and i.state== 'idea'} 
         @ideas.concat published_ideas[0,[idea_count - @ideas.size, published_ideas.size].min]
       end
 
