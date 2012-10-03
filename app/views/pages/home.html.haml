@@ -10,6 +10,10 @@
 	= render partial: 'drafts', 
 		locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, item_counter: 3,  section: "draft" }
 
-= render partial: 'ideas'
+- if @newest_ideas
+	= render partial: 'ideas'
+- else
+	= render partial: 'random_ideas'
+
 = render partial: 'news'
 = render partial: 'newsletter'
