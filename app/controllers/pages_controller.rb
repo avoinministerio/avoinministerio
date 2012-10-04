@@ -79,7 +79,7 @@ class PagesController < ApplicationController
       # this solution builds on few facts: most ideas are published and in state idea, and
       # there's not too many to pick from (memory requirement) and very few to be picked (<< pool)
       max_id = Idea.maximum(:id)
-      probability_good = 0.95
+      probability_good = 0.90
       picking_ids = (1..max_id).to_a.shuffle
       @ideas = []
       while @ideas.size < idea_count
