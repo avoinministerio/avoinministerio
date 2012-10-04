@@ -87,7 +87,12 @@ class PagesController < ApplicationController
         picks_at_time = 1 if picks_at_time < 1
         picks = picking_ids.slice!(0, picks_at_time)
         # originally this didn't work: @ideas = Idea.published.where(state: 'idea').random_by_id_shuffle(idea_count)'
-        published_ideas = Idea.find_all_by_id(picks).find_all {|i| i.published? and i.state== 'idea'} 
+        published_ideas = Idea.find_all_by_id(picks).find_all do |i| 
+          vote_count = i.vote_count || 1
+          vote_count = 1 if vote_count == 0
+          keep_as_too_few_votes_to_skip = (Math.log(vote_count)/Math.log(30)/2.0) < rand()
+          i.published? and i.state == 'idea' and keep_as_too_few_votes_to_skip
+        end
         @ideas.concat published_ideas[0,[idea_count - @ideas.size, published_ideas.size].min]
       end
 
