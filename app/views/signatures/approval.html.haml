@@ -7,6 +7,8 @@
       =form_tag(url_for(action: "service_selection", controller: "signatures"), :class => "grid_16") do |f|
         .instructions
           .title Hyväksy palvelun ehdot ennen kannatusilmoituksen jättämistä
+          .text
+            Sinun tulee ainakin hyväksyä ehdot ja tietojen talletus EU:n ulkopuoliselle palvelimelle sekä valita jompi kumpi kannatusilmoituksesi julkisuuden aste.
           .text 
           .checkbox
             = check_box_tag :accept_general
