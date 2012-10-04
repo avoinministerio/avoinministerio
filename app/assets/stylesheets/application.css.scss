@@ -490,3 +490,25 @@ input[type=submit] {
   font-size: 12px;
   line-height: 20px;
 }
+
+.transaction {
+  .amount {
+    float: left;
+    width: 65px;
+    text-align: right;
+    margin-right: 15px;
+  }
+  .description {
+    float: left;
+    width: 200px;
+    margin-right: 15px;
+  }
+  .date {
+    float: left;
+    width: 225px;
+    margin-right: 15px;
+  }
+  .break {
+    clear: both;
+  }
+}
