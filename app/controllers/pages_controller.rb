@@ -83,8 +83,9 @@ class PagesController < ApplicationController
       picking_ids = (1..max_id).to_a.shuffle
       @ideas = []
       while @ideas.size < idea_count
-        pick_at_time = (idea_count - @ideas.size)/(probability_good**2.0) # 2.0 just makes it even more rare to require two loads
-        picks = picking_ids.slice(0, pick_at_time)
+        picks_at_time = ((idea_count - @ideas.size)/(probability_good**2.0)).to_i + 1 # 2.0 just makes it even more rare to require two loads
+        picks_at_time = 1 if picks_at_time < 1
+        picks = picking_ids.slice!(0, picks_at_time)
         # originally this didn't work: @ideas = Idea.published.where(state: 'idea').random_by_id_shuffle(idea_count)'
         published_ideas = Idea.find_all_by_id(picks).find_all {|i| i.published? and i.state== 'idea'} 
         @ideas.concat published_ideas[0,[idea_count - @ideas.size, published_ideas.size].min]
@@ -111,6 +112,9 @@ class PagesController < ApplicationController
       "Sitovat kansanäänestykset?",
       "Tasa-arvoisempi avioliittolaki?",
       "Lisää kansalaisaloitteita",
+      "Kaikki on hyvin?",
+      "Mitään ei tarvitse muuttaa?",
+      "Lapsillemme parempi maailma!"
     ]
     @headline_2 = [
       "Tee siitä laki",
