@@ -57,15 +57,22 @@
                   %a.btn-service{:href => signature_idea_selected_costly_service_path(@signature, service: service[:name])}
                     ="#{service[:name]} (-#{service[:fee]}€)"
 
-          .grid_16
-            %h2
-            %p Käytettävissäsi Avoimessa ministeriössä on #{sprintf("%.2f",saldo)} €.
-            - transaction_count = 4
-            Viimeiset #{transaction_count} tapahtumaa ovat:
-            /- self.money_transactions.order("created_at desc").limit(transaction_count).each do |mtx|
-            - MoneyTransactions.where("citizen_id = ?", current_citizen.id).order("created_at desc").limit(transaction_count).each do |mtx|
-              .transaction
-                #{mtx.amount}€ #{mtx.description} #{mtx.created_at}
+    .grid_24
+      .grid_9 &nbsp;
+      .grid_14
+        %h2
+        %p 
+          Käytettävissäsi Avoimessa ministeriössä on 
+          %b #{sprintf("%.2f",saldo)} €.
+        - transaction_count = 4
+        Viimeiset #{transaction_count} tapahtumaa ovat:
+        /- self.money_transactions.order("created_at desc").limit(transaction_count).each do |mtx|
+        - MoneyTransactions.where("citizen_id = ?", current_citizen.id).order("created_at desc").limit(transaction_count).each do |mtx|
+          .transaction
+            %span.amount #{mtx.amount}€ 
+            %span.description #{mtx.description}
+            %span.date #{mtx.created_at.to_s.gsub(/ \+\d+$/, "")}
+            .break
 
     .grid_24
       .extra-info

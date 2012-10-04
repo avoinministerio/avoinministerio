@@ -102,7 +102,7 @@ class SignaturesController < ApplicationController
 
     payment_service = @payment_services.find {|ps| ps[:name] == params[:servicename]}
     fee = payment_service[:fee]
-    current_citizen.deposit_money(BigDecimal.new(fee), "paid signature #{signature.id}")
+    current_citizen.deposit_money(BigDecimal.new(fee), "siirretty AM:ään #{signature.id}")
 
     # save here so that the transaction gets saved anyway
     signature.service = params[:servicename]
@@ -868,7 +868,7 @@ class SignaturesController < ApplicationController
       Rails.logger.info fee
       if fee and fee.to_f > 0.0
         Rails.logger.info current_citizen.saldo
-        current_citizen.deposit_money(-BigDecimal.new(fee), "used at signature succeeded #{signature.id}")
+        current_citizen.deposit_money(-BigDecimal.new(fee), "käytetty tunnistukseen #{signature.id}")
         Rails.logger.info current_citizen.saldo
       end
     end
