@@ -4,7 +4,7 @@
   - @ideas.each_slice(2) do |idea, idea2|
     .grid_7.alpha
       .idea
-        .info
+        .info.statistics
           .infotext
             %h3=link_to shorten(idea.title, 100, 20, "»"), idea_path(idea), id: "ab_ideas_#{i+=1}"
             %p=link_to shorten(idea.summary, 100, 20, "»"), idea_path(idea), id: "ab_ideas_#{i}"
@@ -19,7 +19,7 @@
       &nbsp;
     .grid_7.omega
       .idea
-        .info
+        .info.statistics
           .infotext
             %h3=link_to shorten(idea2.title, 100, 20, "»"), idea_path(idea2), id: "ab_ideas_#{i+=1}"
             %p=link_to shorten(idea2.summary, 100, 20, "»"), idea_path(idea2), id: "ab_ideas_#{i}"
