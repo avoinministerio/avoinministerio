@@ -1,12 +1,11 @@
-# -*- encoding: utf-8 -*-
+#encoding: utf-8
+
 require "acceptance/acceptance_helper"
 
-feature "Citizen Signup" do
+Capybara.javascript_driver = :webkit
+feature "Survey" do
 
-  let(:password) { '123456789' }
-  let(:citizen) { Factory(:citizen, :password => '123456789', :password_confirmation => '123456789') }
-
-  scenario "Signup" do
+  scenario "User should be to go to survey after sign_up" do
     visit signup_page
     fill_in "Sähköposti", :with => "citizen-kane@example.com"
     fill_in "Salasana", :with => "salainensana12345"
@@ -17,7 +16,9 @@ feature "Citizen Signup" do
     click_button "Rekisteröidy"
 
     should_be_on after_sign_up
-    should_have_the_following 'Kirjaudu ulos'
+    click_on "Osallistu tieteelliseen tutkimukseen -- täytä kysely"
+    page.should have_content('#surveyor')
+    should_be_on take_survey_path(:survey_code => 'avoin-ministeri')
   end
 
 end
