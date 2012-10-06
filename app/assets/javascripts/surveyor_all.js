@@ -28,7 +28,7 @@ $(document).ready(function(){
     } else {
       $("input[name='finish']").attr({"disabled": true, "class": "finish-btn-disabled"});
       if($(".unanswered-link").length == 0){
-        $("input[name='finish']").parent().parent().append('<button class="unanswered-link">You haven not answered all mandatory question.</button>');
+        $("input[name='finish']").parent().parent().append('<button class="unanswered-link">Et ole vielä vastannut kaikkiin vaadittuihin kysymyksiin.</button>');
       }
       var scrollToUnansweredQuestion = function(){
         $(unanswered_mandatory_question)[0].scrollIntoView();
