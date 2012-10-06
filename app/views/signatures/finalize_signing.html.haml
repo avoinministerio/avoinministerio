@@ -39,6 +39,9 @@
           Autat siivilöimään hyvät ideat tukemalla tai vastustamalla mahdollisimman monia. Tutustu niihin ja kommentteihin rauhassa ennen kuin ilmoitat tukesi.
         =link_to "Listaa kaikki ideat", ideas_path
 
+    - if @signature.accept_science
+      .box
+        =survey_button(true)
 
     .sidebox
       .text

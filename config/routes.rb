@@ -41,7 +41,8 @@ AvoinMinisterio::Application.routes.draw do
     registrations: "citizens/registrations",
     sessions: "citizens/sessions",
   }
-  
+  match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
+
   resources :ideas do
     resources :comments
     resources :expert_suggestions, only: [:new, :create]

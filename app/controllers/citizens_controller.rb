@@ -4,6 +4,9 @@ class CitizensController < ApplicationController
   
   def edit
   end
+
+  def after_sign_up
+  end
   
   # based on https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-edit-their-password
   def update

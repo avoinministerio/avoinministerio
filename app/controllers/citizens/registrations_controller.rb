@@ -21,4 +21,9 @@ class Citizens::RegistrationsController < Devise::RegistrationsController
     KM.push("record", "Signed down")
     Rails.logger.info "########### Signed down"
   end
+
+protected
+    def after_sign_up_path_for(resource)
+      citizens_after_sign_up_fi_path
+    end
 end
