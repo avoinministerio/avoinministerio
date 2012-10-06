@@ -21,6 +21,10 @@ module NavigationHelpers
     signature_idea_introduction_fi_path(idea_id)
   end
 
+  def after_sign_up
+     citizens_after_sign_up_fi_path
+  end
+
 end
 
 RSpec.configuration.include NavigationHelpers, :type => :acceptance

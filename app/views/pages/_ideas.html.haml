@@ -6,7 +6,7 @@
         %span.type
           Idea/ 
         %span.date
-          = finnishDate(idea.updated_content_at)
+          = finnishDate(idea.updated_content_at || idea.created_at)
         %h3=link_to shorten(idea.title + ": " + idea.summary, 200, 20, "»"), idea_path(idea), id: "ab_ideas_#{i}"
       .grid_16.statistics
         - for_, against, comments, total = @idea_counts[idea.id]
