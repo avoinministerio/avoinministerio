@@ -102,7 +102,8 @@ class SignaturesController < ApplicationController
 
     payment_service = @payment_services.find {|ps| ps[:name] == params[:servicename]}
     fee = payment_service[:fee]
-    current_citizen.deposit_money(BigDecimal.new(fee), "siirretty AM:ään #{signature.id}")
+    unique_identifier = Digest::SHA256.hexdigest(create_payment_service_mac_source(params)[0]).upcase
+    current_citizen.deposit_money(BigDecimal.new(fee), "siirretty AM:ään #{signature.id}", unique_identifier)
 
     # save here so that the transaction gets saved anyway
     signature.service = params[:servicename]
@@ -962,6 +963,14 @@ class SignaturesController < ApplicationController
   end
 
   def validate_payment_service_provider(params)
+    string_for_mac, mac_field = create_payment_service_mac_source(params)
+    puts "String for mac: #{string_for_mac}"
+    mac = Digest::MD5.new.update(string_for_mac).hexdigest.upcase
+    puts "MAC:            #{mac}"
+    params[mac_field] == mac or raise "Invalid return mac"
+  end
+
+  def create_payment_service_mac_source(params)
     fields = {
       "Alandsbanken" => {
         return_mac_over: ["AAB-RETURN-VERSION", "AAB-RETURN-STAMP", "AAB-RETURN-REF", "AAB-RETURN-PAID", :secret__],
@@ -1011,11 +1020,7 @@ class SignaturesController < ApplicationController
     end
     bank_specific_checks or raise "Invalid bank_specific_checks"
 
-    string_for_mac = values.join(separator) + separator
-    puts "String for mac: #{string_for_mac}"
-    mac = Digest::MD5.new.update(string_for_mac).hexdigest.upcase
-    puts "MAC:            #{mac}"
-    params[mac_field] == mac or raise "Invalid return mac"
+    return values.join(separator) + separator, mac_field
   end
 
   def validate_successful_authentication!

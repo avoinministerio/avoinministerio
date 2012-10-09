@@ -99,9 +99,9 @@ class Citizen < ActiveRecord::Base
     c
   end
 
-  def deposit_money(amount, description)
-    mt = money_transactions.build(amount: amount, description: description)
-    raise "Can't save money transaction citizen_id=#{self.id} amount=#{amount} description=#{description}" unless mt.save
+  def deposit_money(amount, description, unique_identifier)
+    mt = money_transactions.build(amount: amount, description: description, unique_identifier: unique_identifier)
+    raise "Can't save money transaction citizen_id=#{self.id} amount=#{amount} description=#{description}. Errors: #{mt.errors}" unless mt.save
   end
 
   def saldo
