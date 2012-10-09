@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926213780) do
+ActiveRecord::Schema.define(:version => 20121009172141) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -213,10 +213,11 @@ ActiveRecord::Schema.define(:version => 20120926213780) do
 
   create_table "money_transactions", :force => true do |t|
     t.integer  "citizen_id"
-    t.decimal  "amount",      :precision => 8, :scale => 2
+    t.decimal  "amount",            :precision => 8, :scale => 2
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "unique_identifier"
   end
 
   create_table "profiles", :force => true do |t|
