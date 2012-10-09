@@ -16,7 +16,7 @@ class Citizen < ActiveRecord::Base
   has_many :ideas, foreign_key: "author_id"
   has_many :comments, foreign_key: "author_id"
   has_many :idea_comments, through: :ideas
-  has_many :money_transactions, :class_name => 'MoneyTransactions'
+  has_many :money_transactions
   has_many :response_sets, foreign_key: "user_id"
 
   accepts_nested_attributes_for :profile
