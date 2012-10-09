@@ -21,11 +21,15 @@ module ApplicationHelper
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
 
-  def survey_button(multiple_survey = false, survey_code = 'avoin-ministeri')
+  def survey_button(multiple_survey = false, swedish = false)
     if( current_citizen && 
         current_citizen.profile.accept_science &&
         (multiple_survey || current_citizen.response_sets == []) )
-      button_to(t("surveyor.take_the_survey"), take_survey_path(:survey_code => survey_code))
+      if swedish
+        button_to("Swedish", take_survey_path(:survey_code => 'avoin-ministeri-swedish'))
+      else
+        button_to(t("surveyor.take_the_survey"), take_survey_path(:survey_code => 'avoin-ministeri'))
+      end
     end
   end
 
