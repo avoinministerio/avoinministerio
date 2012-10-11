@@ -100,8 +100,6 @@ class PagesController < ApplicationController
       @ideas.each do |idea|
         formatted_idea_counts(idea, @idea_counts)
       end
-      
-      p @ideas
     end
 
     @blog_articles = Article.published.where(article_type: 'blog').order("created_at DESC").limit(3).all
