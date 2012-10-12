@@ -4,7 +4,7 @@ namespace :surveyor do
 
     require 'fileutils.rb'
     survey_version = ENV["SURVEY_VERSION"] 
-    access_code = ENV["SURVEY_ACCESS_CODE"] || "avoin-ministeri"
+    access_code = ENV["SURVEY_ACCESS_CODE"] || SURVEY_ACCESS_CODE[:fi]
     
     raise "USAGE: rake surveyor:dump SURVEY_ACCESS_CODE=<access_code> [OUTPUT_DIR=<dir>] [SURVEY_VERSION=<survey_version>]" unless access_code
     params_string = "code #{access_code}"
@@ -19,7 +19,8 @@ namespace :surveyor do
     raise "No Survey found with #{params_string}" unless survey
 
     questions = []
-    column_names=['email','first_names','acess_code','started_at','completed_at']
+    column_names=['email', 'first_name', 'last_name', 'user_state' ,'access_code', 'language' ,'started_at','completed_at']
+    language = (survey.access_code[-2] + survey.access_code[-1]).upcase
     survey.sections_with_questions.first.questions.each do |q|
       unless q.display_type == "label"
         questions << q.id
@@ -29,11 +30,7 @@ namespace :surveyor do
         elsif question_number > 8
           question_number -= 4
         end
-        column_names <<
-          "Q " +
-          question_number.to_s +
-          ") " +
-          q.data_export_identifier
+        column_names << question_number.to_s + "_" + q.data_export_identifier
       end
     end
     report = CSV.generate("") do |csv|
@@ -42,13 +39,16 @@ namespace :surveyor do
         row = []
         c = Citizen.find(rs.user_id)
         row << c.email
-        row << c.profile.first_names
+        row << c.first_name
+        row << c.last_name
+        row << rs.user_state
         row << rs.access_code
+        row << language
         row << rs.started_at
         row << rs.completed_at
         questions.each do |qid|
-          response = rs.responses.where('question_id = ?', qid).first
-          if response
+          responses = rs.responses.where('question_id = ?', qid).first
+          if responses.empty?
             row << response.answer.text
           else
             row << nil

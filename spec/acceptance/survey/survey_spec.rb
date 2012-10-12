@@ -18,7 +18,7 @@ feature "Survey" do
     should_be_on after_sign_up
     click_on "Osallistu tieteelliseen tutkimukseen -- täytä kysely"
     page.should have_content('#surveyor')
-    should_be_on take_survey_path(:survey_code => 'avoin-ministeri')
+    should_be_on take_survey_path(:survey_code => SURVEY_ACCESS_CODE[:fi])
   end
 
 end
