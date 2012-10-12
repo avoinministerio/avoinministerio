@@ -1,5 +1,5 @@
 # encoding: UTF-8
-survey "Avoin Ministeriö Swedish" do
+survey "Avoin Ministerio Attitudes 1 se" do
 
   section "Medborgarinitiativet och politiska förhållningssätt" do
     label "Frågorna berör ditt politiska engagemang och hur denna webbportal inverkar på det.  Anteckna vänligen så noggrant som möjligt de alternativ som bäst beskriver din  uppfattning just nu.  En anonym version av datamaterialet kommer att förvaras vid Finlands samhällsvetenskapliga dataarkiv (http://www.fsd.uta.fi/sv/) således att andra forskare  kan få glädja av materialet. All information behandlas absolut konfidentiellt och dina  personliga upplysningar ges inte vidare till tredje part."

@@ -1,4 +1,4 @@
-=survey_button(true, true)
+=survey_button(@response_set.user_state, true, true)
 #surveyor
   - unless (types = flash.keys.select{|k| [:notice, :error, :warning].include?(k)}).blank?
     .surveyor_flash
