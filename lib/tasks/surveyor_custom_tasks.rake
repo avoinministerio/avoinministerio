@@ -47,7 +47,7 @@ namespace :surveyor do
         row << rs.started_at
         row << rs.completed_at
         questions.each do |qid|
-          responses = rs.responses.where('question_id = ?', qid).first
+          response = rs.responses.where('question_id = ?', qid).first
           if response
             row << response.answer.text
           else
