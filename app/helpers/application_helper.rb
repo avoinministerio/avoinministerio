@@ -21,10 +21,12 @@ module ApplicationHelper
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
 
-  def survey_button(user_state, multiple_survey = false, current_language = nil)
+  def survey_button(user_state = nil, multiple_survey = false, current_language = nil)
     if( current_citizen &&
         current_citizen.profile.accept_science &&
         (multiple_survey || current_citizen.response_sets == []) )
+      latest_rs = current_citizen.response_sets.last
+      user_state ||= latest_rs.nil? ? "signed_up" : latest_rs.user_state
       if current_language
         result = ""
         SURVEY_ACCESS_CODE.select{|k, v| k != current_language.to_sym}.each do |l, s|
