@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926213780) do
+ActiveRecord::Schema.define(:version => 20121012013412) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -287,6 +287,7 @@ ActiveRecord::Schema.define(:version => 20120926213780) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "api_id"
+    t.string   "user_state"
   end
 
   add_index "response_sets", ["access_code"], :name => "response_sets_ac_idx", :unique => true

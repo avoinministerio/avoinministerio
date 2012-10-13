@@ -1,5 +1,5 @@
 # encoding: UTF-8
-survey "Avoin Ministeriö" do
+survey "Avoin Ministerio Attitudes 1 fi" do
 
   section "Tutkimus: Kansalaisaloite ja asenteet politiikkaa kohtaan" do
     label "Kysymykset koskevat kiinnostustasi politiikkaa kohtaan ja sitä, kuinka Avoimen ministeriön palvelu vaikuttaa siihen. Valitse vaihtoehdoista se, joka kuvaa parhaiten tunteitasi tällä hetkellä. Pyydämme ystävällisesti vastaamaan kysymyksiin niin tarkasti kuin mahdollista. Vastaukset tallennetaan anonyymeinä Yhteiskuntatieteelliseen tietoarkistoon muiden tutkijoiden käytettäväksi. Tietoja käsitellään täysin luottamuksellisesti eikä henkilötietojasi luovuteta kolmansille osapuolille."
