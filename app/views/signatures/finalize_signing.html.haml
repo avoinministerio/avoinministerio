@@ -41,7 +41,7 @@
 
     - if @signature.accept_science
       .box
-        =survey_button("completed #{@signature.id} signing", true)
+        =survey_button("completed #{Signature.where(citizen_id: current_citizen.id).count} signature", true)
 
     .sidebox
       .text
