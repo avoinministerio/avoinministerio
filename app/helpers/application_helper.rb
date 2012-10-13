@@ -3,7 +3,7 @@ require 'digest/sha2'
 
 module ApplicationHelper
   def markdown(text)
-    renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true)
+    renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, with_toc_data: true)
     Redcarpet::Markdown.new(renderer, { autolink: true, tables: true }).render(text).html_safe
   end
   def shorten(text, max_length, cut_characters, ending_sign)
