@@ -11,6 +11,7 @@ module SurveyorControllerCustomMethods
     super
     # @title = "You can take these surveys"
   end
+
   def create
     surveys = Survey.where(:access_code => params[:survey_code]).order("survey_version DESC")
     if params[:survey_version].blank?
