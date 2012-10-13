@@ -29,6 +29,8 @@ $(document).ready(function(){
       $("input[name='finish']").attr({"disabled": true, "class": "finish-btn-disabled"});
       if($(".unanswered-link").length == 0){
         $("input[name='finish']").parent().parent().append('<button class="unanswered-link">Et ole vielä vastannut kaikkiin vaadittuihin kysymyksiin.</button>');
+        //Du har fortfarande inte besvarat alla obligatoriska frågor.
+
       }
       var scrollToUnansweredQuestion = function(){
         $(unanswered_mandatory_question)[0].scrollIntoView();
@@ -38,7 +40,7 @@ $(document).ready(function(){
     }
   };
 
-  var question_numbers = [1,2,3,4,5,6,7,8, 9,10,11,12, 13];
+  var question_numbers = [1,2,3,4,5,6,7,8,13];
   var mandatory_questions = new Array(question_numbers.length);
   for (var i in question_numbers){
     mandatory_questions[i] = "[name='r[" + question_numbers[i] + "][answer_id]']";
