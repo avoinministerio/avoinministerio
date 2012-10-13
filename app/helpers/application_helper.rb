@@ -21,14 +21,24 @@ module ApplicationHelper
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
 
-  def survey_button(user_state, multiple_survey = false, swedish = false)
+  def survey_button(user_state, multiple_survey = false, current_language = nil)
     if( current_citizen &&
         current_citizen.profile.accept_science &&
         (multiple_survey || current_citizen.response_sets == []) )
-      if swedish
-        button_to("Swedish", take_survey_path(:survey_code => SURVEY_ACCESS_CODE[:se], :user_state => user_state))
+      if current_language
+        result = ""
+        SURVEY_ACCESS_CODE.select{|k, v| k != current_language.to_sym}.each do |l, s|
+          result += button_to(t("language", locale: l),
+                              take_survey_path(:survey_code => s,
+                                               :user_state => user_state,
+                                               :locale => current_language) )
+        end
+        return result
       else
-        button_to(t("surveyor.take_the_survey"), take_survey_path(:survey_code => SURVEY_ACCESS_CODE[:fi], :user_state => user_state))
+        button_to(t("surveyor.take_the_survey"),
+                  take_survey_path(:survey_code => SURVEY_ACCESS_CODE[:fi],
+                                   :user_state => user_state,
+                                   :locale => :fi))
       end
     end
   end
