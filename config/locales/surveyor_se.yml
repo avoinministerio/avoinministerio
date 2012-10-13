@@ -18,6 +18,7 @@ se:
     sections: "pääluokat"
     thank_you: "Kiitos, vastauksesi ovat tallennettu. Palaa palvelun"
     choose_language: "Välj önskat språk för undersökningen"
+    remaining_days: "Undersökning kommer att finnas tillgänglig efter dagar"
 
   survey_description:
     <p>Kysymykset koskevat osallistumistasi politiikkaan, ja kuinka tämän sivuston

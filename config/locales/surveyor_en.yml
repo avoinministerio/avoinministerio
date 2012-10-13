@@ -18,6 +18,7 @@ en:
     sections: "Sections"
     thank_you: "Kiitos, vastauksesi ovat tallennettu. Palaa palvelun"
     choose_language: "Please choose your preferred language for the survey"
+    remaining_days: "Survey will be available after days"
 
   survey_description:
     <p>A study is being conducted to examine how the citizen initiative and new platforms for citizen engagement such as Avoin Ministeriö can help improve the functioning of democracy in Finland. The researcher behind the study is from Åbo Akademi University and the study is funded by the Academy of Finland.</p>
