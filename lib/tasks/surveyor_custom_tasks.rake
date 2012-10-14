@@ -19,7 +19,8 @@ namespace :surveyor do
     raise "No Survey found with #{params_string}" unless survey
 
     questions = []
-    column_names=['email', 'first_name', 'last_name', 'user_state' ,'access_code', 'language' ,'started_at','completed_at']
+    column_names=['citizen_id' , 'email', 'first_name', 'last_name', 'user_state' ,'access_code', 'language' ,'started_at','completed_at']
+    column_names += ['authenticated_firstnames', 'authenticated_lastname', 'authenticated_birth_date', 'authenticated_occupancy_county']
     language = (survey.access_code[-2] + survey.access_code[-1]).upcase
     survey.sections_with_questions.first.questions.each do |q|
       unless q.display_type == "label"
@@ -38,6 +39,7 @@ namespace :surveyor do
       ResponseSet.where("user_id is not null").each do |rs|
         row = []
         c = Citizen.find(rs.user_id)
+        row << c.id
         row << c.email
         row << c.first_name
         row << c.last_name
@@ -46,6 +48,10 @@ namespace :surveyor do
         row << language
         row << rs.started_at
         row << rs.completed_at
+        row << c.profile.authenticated_firstnames
+        row << c.profile.authenticated_lastname
+        row << c.profile.authenticated_birth_date
+        row << c.profile.authenticated_occupancy_county
         questions.each do |qid|
           response = rs.responses.where('question_id = ?', qid).first
           if response

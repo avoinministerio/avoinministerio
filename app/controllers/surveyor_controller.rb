@@ -19,10 +19,19 @@ module SurveyorControllerCustomMethods
     else
       @survey = surveys.where(:survey_version => params[:survey_version]).first
     end
-    @response_set = ResponseSet.
-      create(:survey => @survey, :user_id => (@current_user.nil? ? @current_user : @current_user.id))
-    @response_set.update_attribute(:user_state, params[:user_state])
+    last_rs = (@current_user.response_sets.where(:survey_id => @survey)).last
+    if last_rs && (Time.now - last_rs.started_at) < 14.days
+      if last_rs.completed_at.nil?
+        @response_set = last_rs
+      else
+        @response_set = nil
+      end
+    else
+      @response_set = ResponseSet.
+        create(:survey => @survey, :user_id => (@current_user.nil? ? @current_user : @current_user.id))
+    end
     if (@survey && @response_set)
+      @response_set.update_attribute(:user_state, params[:user_state])
       flash[:notice] = t('surveyor.survey_started_success')
       redirect_to(edit_my_survey_path(
         :survey_code => @survey.access_code, :response_set_code  => @response_set.access_code))
