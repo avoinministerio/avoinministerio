@@ -919,6 +919,14 @@ class SignaturesController < ApplicationController
             proposals_collectible = (ideas[:collecting_in_service].eq(true)).and(ideas[:collecting_started].eq(true)).and(ideas[:collecting_ended].eq(false))
             unsigned_collectible_proposals = proposals_not_in_already_signed.and(proposals_collectible)
             @initiatives = Idea.where(unsigned_collectible_proposals).order("vote_for_count DESC").limit(5).all
+
+            # Storing authenticated fileds inside profile for survey reporting
+            profile = current_citizen.profile
+            profile.authenticated_firstnames       = @signature.firstnames
+            profile.authenticated_lastname         = @signature.lastname
+            profile.authenticated_occupancy_county = @signature.occupancy_county
+            profile.authenticated_birth_date       = @signature.birth_date
+            profile.save
           else
             @error = "Aiemmin allekirjoitettu" if not $ALLOW_SIGNING_MULTIPLE_TIMES
           end

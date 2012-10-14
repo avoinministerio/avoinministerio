@@ -18,6 +18,7 @@ fi:
     sections: "pääluokat"
     thank_you: "Kiitos, vastauksesi ovat tallennettu. Palaa palvelun"
     choose_language: "Valitse kyselylle haluamasi kieli"
+    remaining_days: "Kyselyn tulokset ovat saatavilla kuluttua päivää"
 
   survey_description:
     <p>Kysymykset koskevat osallistumistasi politiikkaan, ja kuinka tämän sivuston
