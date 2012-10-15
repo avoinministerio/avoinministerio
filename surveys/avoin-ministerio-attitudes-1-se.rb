@@ -56,11 +56,13 @@ survey "Avoin Ministerio Attitudes 1 se" do
     (1..9).to_a.each{|num| a num.to_s}
     a "Medverkar mycket"
 
+
     #7
     q "Skulle Ni säga att man i allmänhet kan lita på de flesta människor eller att man inte kan vara nog försiktig när man har att göra med andra människor. Svara på en skala från 0 till 10, där 0 betyder att man inte kan vara nog försiktig och där 10 betyder att man kan lita på de flesta människor?", :pick => :one, :display_type => :slider
     a "Man kan inte vara försiktig nog"
     (1..9).to_a.each{|num| a num.to_s}
     a "Man kan lita på de flesta människor"
+
 
     #8
     q "I politiska sammanhang brukar man ibland tala om 'vänster' och 'höger'. Var skulle Ni placera Er på skalan där noll står för vänstern och tio för högern?", :pick => :one, :display_type => :slider
@@ -68,7 +70,48 @@ survey "Avoin Ministerio Attitudes 1 se" do
     (1..9).to_a.each{|num| a num.to_s}
     a "Högern"
 
+
     #9
+    group "Vad anser Ni om följande påståenden? Är Ni helt av samma åsikt, delvis av samma åsikt, delvis av annan åsikt eller helt av annan åsikt?" do
+      q "Demokratin kan ha sina problem, men den är bättre än andra styrelseskick", :pick => :one
+      a "Helt av samma åsikt"
+      a "Delvis av samma åsikt"
+      a "Delvis av annan åsikt"
+      a "Helt av annan åsikt"
+
+      q "Viktiga samhälleliga frågor borde allt oftare avgöras genom folkomröstningar", :pick => :one
+      a "Helt av samma åsikt"
+      a "Delvis av samma åsikt"
+      a "Delvis av annan åsikt"
+      a "Helt av annan åsikt"
+
+      q "Jag diskuterar helst politik och samhälleliga frågor med personer som är av samma åsikt som jag", :pick => :one
+      a "Helt av samma åsikt"
+      a "Delvis av samma åsikt"
+      a "Delvis av annan åsikt"
+      a "Helt av annan åsikt"
+
+      q "Politiska diskussioner för vanliga medborgare borde ordnas som stöd för den representativa demokratin", :pick => :one
+      a "Helt av samma åsikt"
+      a "Delvis av samma åsikt"
+      a "Delvis av annan åsikt"
+      a "Helt av annan åsikt"
+
+      q "Jag skulle själv vilja delta    i dylika medborgardiskussioner", :pick => :one
+      a "Helt av samma åsikt"
+      a "Delvis av samma åsikt"
+      a "Delvis av annan åsikt"
+      a "Helt av annan åsikt"
+
+      q "Jag undviker sådana människors sammaällskap, vars värderingar, attityder eller åsikter avviker från mina egna", :pick => :one
+      a "Helt av samma åsikt"
+      a "Delvis av samma åsikt"
+      a "Delvis av annan åsikt"
+      a "Helt av annan åsikt"
+    end
+
+
+    #10
     q "En del människor röstar inte nuförtiden, av en eller annan anledning. Röstade Ni i det senaste riksdagsvalet i 2011?", :pick => :one
     a "Ja"
     a "Nej"
