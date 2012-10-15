@@ -69,11 +69,49 @@ survey "Avoin Ministerio Attitudes 1 fi" do
     a "OIKEISTO"
 
     #9
+    group "Mitä mieltä olette seuraavista väittämistä? Oletteko täysin samaa mieltä, jokseenkin samaa mieltä, jokseenkin eri mieltä vai täysin eri mieltä väittämien kanssa?" do
+      q "Demokratialla voi olla ongelmansa, mutta se on parempi kuin muut hallitusmuodot", :pick => :one
+      a "Täysin samaa mieltä"
+      a "Jokseenkin samaa mieltä"
+      a "Jokseenkin eri mieltä"
+      a "Täysin eri mieltä"
+
+      q "Tärkeät yhteiskunnalliset kysymykset pitäisi entistä useammin päättää kansanäänestyksellä", :pick => :one
+      a "Täysin samaa mieltä"
+      a "Jokseenkin samaa mieltä"
+      a "Jokseenkin eri mieltä"
+      a "Täysin eri mieltä"
+
+      q "Keskustelen politiikasta ja yhteiskunnallisista kysymyksistä mieluiten samaa mieltä olevien henkilöiden kanssa", :pick => :one
+      a "Täysin samaa mieltä"
+      a "Jokseenkin samaa mieltä"
+      a "Jokseenkin eri mieltä"
+      a "Täysin eri mieltä"
+
+      q "Edustuksellisen demokratian tukena tulisi järjestää tavallisille kansalaisille tarkoitettuja poliittisia keskustelutilaisuuksia", :pick => :one
+      a "Täysin samaa mieltä"
+      a "Jokseenkin samaa mieltä"
+      a "Jokseenkin eri mieltä"
+      a "Täysin eri mieltä"
+
+      q "Haluaisin itse osallistua kansalaisille tarkoitettuihin poliittisiin keskustelutilaisuuksiaeskustelutilaisuuksiin", :pick => :one
+      a "Täysin samaa mieltä"
+      a "Jokseenkin samaa mieltä"
+      a "Jokseenkin eri mieltä"
+      a "Täysin eri mieltä"
+
+      q "Vältän sellaisten ihmisten seuraa, joiden arvot, asenteetenteet tai mielipiteet poikkeavat omistani", :pick => :one
+      a "Täysin samaa mieltä"
+      a "Jokseenkin samaa mieltä"
+      a "Jokseenkin eri mieltä"
+      a "Täysin eri mieltä"
+    end
+
+    #10
     q "Jotkut ihmiset jättävät syystä tai toisesta äänestämättä. Äänestittekö Te viime eduskuntavaaleissa 2011?", :pick => :one
     a "Kyllä"
     a "En"
     a "Ei äänioikeutettu"
-
 
     #10
     q "On olemassa erilaisia keinoja parantaa Suomen asioita tai estää asioiden kehittymistä huonoon suuntaan. Oletteko viimeisten 12 kuukauden aikana tehnyt mitään seuraavista", :pick => :any
