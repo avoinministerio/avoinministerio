@@ -31,6 +31,11 @@ namespace :surveyor do
         elsif question_number > 8
           question_number -= 4
         end
+        if question_number >= 9 && question_number <= 15
+          question_number = 9
+        elsif question_number > 15
+          question_number -= 6
+        end
         column_names << question_number.to_s + "_" + q.data_export_identifier
       end
     end
