@@ -1,10 +1,6 @@
-## Avoin Ministeriö
+## Avoin Ministeriö Surveys
 
-Avoin Ministeriö -verkkopalvelu.
-
-<https://www.avoinministerio.fi/>
-
-Surveyor is the surey libery we use
+Surveyor is the base survey library we use
 
 <https://github.com/NUBIC/surveyor>
 
