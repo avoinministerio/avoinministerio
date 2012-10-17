@@ -51,7 +51,7 @@
 
     - if @signature.accept_science
       .box
-        =survey_button("completed #{Signature.where(citizen_id: current_citizen.id).count} signature", true)
+        =survey_button("completed #{Signature.where(citizen_id: current_citizen.id).count} signature, #{@signature.idea} is the idea of latest signature"", true)
 
 
 

@@ -25,44 +25,28 @@ namespace :surveyor do
     survey.sections_with_questions.first.questions.each do |q|
       unless q.display_type == "label"
         questions << q.id
-        question_number = q.display_order.to_i - 1
-        if question_number >= 4 && question_number <= 8
-          question_number = 4
-        elsif question_number > 8
-          question_number -= 4
-        end
-        if question_number >= 9 && question_number <= 15
-          question_number = 9
-        elsif question_number > 15
-          question_number -= 6
-        end
-        column_names << question_number.to_s + "_" + q.data_export_identifier
+        column_names << q.get_question_number.to_s + "_" + q.data_export_identifier
       end
     end
     report = CSV.generate("") do |csv|
       csv << column_names
       ResponseSet.where("user_id is not null").each do |rs|
-        row = []
         c = Citizen.find(rs.user_id)
-        row << c.id
-        row << c.email
-        row << c.first_name
-        row << c.last_name
-        row << rs.user_state
-        row << rs.access_code
-        row << language
-        row << rs.started_at
-        row << rs.completed_at
-        row << c.profile.authenticated_firstnames
-        row << c.profile.authenticated_lastname
-        row << c.profile.authenticated_birth_date
-        row << c.profile.authenticated_occupancy_county
+        row = [c.id, c.email, c.first_name, c.last_name,
+                rs.user_state, rs.access_code,
+                language, rs.started_at,rs.completed_at,
+                c.profile.authenticated_firstnames,
+                c.profile.authenticated_lastname,
+                c.profile.authenticated_birth_date,
+                c.profile.authenticated_occupancy_county]
         questions.each do |qid|
-          response = rs.responses.where('question_id = ?', qid).first
-          if response
-            row << response.answer.text
+          response_ansewrs = rs.responses.where('question_id = ?', qid)
+          if response_ansewrs.length <= 1
+            row << response_ansewrs.first.to_s
           else
-            row << nil
+            h={}
+            response_ansewrs.each {|r| h[r.answer.display_order] = r.to_s}
+            row <<  h.to_s
           end
         end
         csv << row
