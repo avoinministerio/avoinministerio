@@ -64,7 +64,7 @@ class SignaturesController < ApplicationController
     @signature.firstnames             = session["authenticated_firstnames"] || current_citizen.first_names
     @signature.lastname               = session["authenticated_lastname"] || current_citizen.last_name
     @signature.state                  = "initial"
-    @signature.stamp                  = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
+    @signature.stamp                  = Signature.ensure_stamp_length(DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s, 20)
     @signature.started                = Time.now
     @signature.occupancy_county       = session["authenticated_occupancy_county"] || ""
     @signature.service                = nil
