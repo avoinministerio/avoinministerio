@@ -26,7 +26,7 @@ class Signature < ActiveRecord::Base
         s.idea_title        = idea.title
         s.idea_date         = idea.updated_at
         s.state             = "initial"
-        s.stamp             = DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s
+        s.stamp             = ensure_stamp_length(DateTime.now.strftime("%Y%m%d%H%M%S") + rand(100000).to_s, 20)
         s.started           = Time.now
         s.occupancy_county  = ""
         s.service           = nil
@@ -46,4 +46,15 @@ class Signature < ActiveRecord::Base
       nil
     end
   end
+
+  private
+
+  def self.ensure_stamp_length(stamp, digits = 20)
+    stamp = stamp.dup
+    while stamp.length < digits
+      stamp.concat(rand(10).to_s)
+    end
+    stamp
+  end
+
 end
