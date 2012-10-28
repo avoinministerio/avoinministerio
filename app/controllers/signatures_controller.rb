@@ -10,6 +10,12 @@ class SignaturesController < ApplicationController
 
   include SignaturesControllerHelpers
 
+  # For Sampo case
+  skip_before_filter :verify_authenticity_token, only: [:paid_returning,
+                                                        :paid_canceling,
+                                                        :paid_rejecting,
+                                                       ]
+
   before_filter :authenticate_citizen!,       :except => [:successful_authentication]
   before_filter :check_if_idea_can_be_signed, :except => [:selected_free_service,
                                                           :selected_costly_service,
