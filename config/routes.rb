@@ -26,9 +26,10 @@ AvoinMinisterio::Application.routes.draw do
   match "/ideas/:id/shortcutfillin"                   => "signatures#shortcut_fillin",            via: :get, as: :signature_idea_shortcut_fillin
   match "/signatures/:id/shortcut_finalize_signing"   => "signatures#shortcut_finalize_signing",  via: :put, as: :signature_shortcut_finalize_signing
 
-  match "/signatures/:id/paid_returning/:servicename"   => "signatures#paid_returning",              via: :get
-  match "/signatures/:id/paid_canceling/:servicename"   => "signatures#paid_canceling",              via: :get
-  match "/signatures/:id/paid_rejecting/:servicename"   => "signatures#paid_rejecting",              via: :get
+  # Was via: :get but Sampo requires also post
+  match "/signatures/:id/paid_returning/:servicename"   => "signatures#paid_returning"
+  match "/signatures/:id/paid_canceling/:servicename"   => "signatures#paid_canceling"
+  match "/signatures/:id/paid_rejecting/:servicename"   => "signatures#paid_rejecting"
 
 
   match "/ideat/haku" => "ideas#search"
