@@ -97,7 +97,7 @@ survey "Avoin Ministerio Attitudes 1 se" do
       a "Delvis av annan åsikt"
       a "Helt av annan åsikt"
 
-      q "Jag skulle själv vilja delta    i dylika medborgardiskussioner", :pick => :one
+      q "Jag skulle själv vilja delta i dylika medborgardiskussioner", :pick => :one
       a "Helt av samma åsikt"
       a "Delvis av samma åsikt"
       a "Delvis av annan åsikt"
