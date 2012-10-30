@@ -68,7 +68,7 @@
         - transaction_count = 4
         Viimeiset #{transaction_count} tapahtumaa ovat:
         /- self.money_transactions.order("created_at desc").limit(transaction_count).each do |mtx|
-        - MoneyTransactions.where("citizen_id = ?", current_citizen.id).order("created_at desc").limit(transaction_count).each do |mtx|
+        - MoneyTransaction.where("citizen_id = ?", current_citizen.id).order("created_at desc").limit(transaction_count).each do |mtx|
           .transaction
             %span.amount #{mtx.amount}€ 
             %span.description #{mtx.description}

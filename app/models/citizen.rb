@@ -16,7 +16,7 @@ class Citizen < ActiveRecord::Base
   has_many :ideas, foreign_key: "author_id"
   has_many :comments, foreign_key: "author_id"
   has_many :idea_comments, through: :ideas
-  has_many :money_transactions, :class_name => 'MoneyTransactions'
+  has_many :money_transactions
   has_many :response_sets, foreign_key: "user_id"
 
   accepts_nested_attributes_for :profile
@@ -99,9 +99,9 @@ class Citizen < ActiveRecord::Base
     c
   end
 
-  def deposit_money(amount, description)
-    mt = money_transactions.build(amount: amount, description: description)
-    raise "Can't save money transaction citizen_id=#{self.id} amount=#{amount} description=#{description}" unless mt.save
+  def deposit_money(amount, description, unique_identifier)
+    mt = money_transactions.build(amount: amount, description: description, unique_identifier: unique_identifier)
+    raise "Can't save money transaction citizen_id=#{self.id} amount=#{amount} description=#{description}. Errors: #{mt.errors}" unless mt.save
   end
 
   def saldo

@@ -213,10 +213,11 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
 
   create_table "money_transactions", :force => true do |t|
     t.integer  "citizen_id"
-    t.decimal  "amount",      :precision => 8, :scale => 2
+    t.decimal  "amount",            :precision => 8, :scale => 2
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "unique_identifier"
   end
 
   create_table "profiles", :force => true do |t|
