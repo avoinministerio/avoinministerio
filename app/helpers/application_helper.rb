@@ -21,6 +21,17 @@ module ApplicationHelper
     sprintf("%d.%d.%d", time.mday, time.month, time.year)
   end
 
+  def self.get_survey_link(survey_code, user_email, user_state = nil)
+    user = Citizen.find_by_email(user_email)
+    latest_rs = user.response_sets.last
+    user_state ||= latest_rs.nil? ? "signed_up" : latest_rs.user_state
+    survey = Survey.where(access_code:  survey_code).order("survey_version DESC").first
+    response_set = ResponseSet.create(survey: survey, user_id: user)
+    response_set.update_attribute(:user_state, user_state)
+    Rails.application.routes.url_helpers.
+      edit_my_survey_path( survey_code: survey.access_code, response_set_code: response_set.access_code)
+  end
+
   def survey_button(user_state = nil, multiple_survey = false, current_language = nil)
     if( current_citizen &&
         current_citizen.profile.accept_science &&
