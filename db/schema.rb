@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009172141) do
+ActiveRecord::Schema.define(:version => 20121013234109) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -227,12 +227,16 @@ ActiveRecord::Schema.define(:version => 20121009172141) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
-    t.boolean  "receive_newsletter",          :default => true
-    t.boolean  "receive_other_announcements", :default => true
-    t.boolean  "receive_weekletter",          :default => true
+    t.boolean  "receive_newsletter",             :default => true
+    t.boolean  "receive_other_announcements",    :default => true
+    t.boolean  "receive_weekletter",             :default => true
     t.string   "first_names"
-    t.boolean  "accept_science",              :default => true
-    t.boolean  "accept_terms_of_use",         :default => true
+    t.boolean  "accept_science",                 :default => true
+    t.boolean  "accept_terms_of_use",            :default => true
+    t.string   "authenticated_firstnames"
+    t.string   "authenticated_lastname"
+    t.string   "authenticated_birth_date"
+    t.string   "authenticated_occupancy_county"
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
@@ -288,6 +292,7 @@ ActiveRecord::Schema.define(:version => 20121009172141) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "api_id"
+    t.string   "user_state"
   end
 
   add_index "response_sets", ["access_code"], :name => "response_sets_ac_idx", :unique => true
