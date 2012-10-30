@@ -37,6 +37,7 @@ class SignaturesController < ApplicationController
   respond_to :html
 
   def introduction
+    @idea = Idea.find(params[:id])
   end
 
   def approval
