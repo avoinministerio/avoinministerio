@@ -94,7 +94,7 @@ survey "Avoin Ministerio Attitudes 1 fi" do
       a "Jokseenkin eri mieltä"
       a "Täysin eri mieltä"
 
-      q "Haluaisin itse osallistua kansalaisille tarkoitettuihin poliittisiin keskustelutilaisuuksiaeskustelutilaisuuksiin", :pick => :one
+      q "Haluaisin itse osallistua kansalaisille tarkoitettuihin poliittisiin keskustelutilaisuuksiin", :pick => :one
       a "Täysin samaa mieltä"
       a "Jokseenkin samaa mieltä"
       a "Jokseenkin eri mieltä"
