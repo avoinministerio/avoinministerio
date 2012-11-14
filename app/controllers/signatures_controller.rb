@@ -876,7 +876,7 @@ class SignaturesController < ApplicationController
       Rails.logger.info fee
       if fee and fee.to_f > 0.0
         Rails.logger.info current_citizen.saldo
-        current_citizen.deposit_money(-BigDecimal.new(fee), "käytetty tunnistukseen #{signature.id}")
+        current_citizen.deposit_money(-BigDecimal.new(fee), "käytetty tunnistukseen #{signature.id}", params["service_provider_identifying_mac"])
         Rails.logger.info current_citizen.saldo
       end
     end
