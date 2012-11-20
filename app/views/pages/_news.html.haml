@@ -1,0 +1,15 @@
+.grid_8.news.omega
+  %div.fb-like{ 'data-href' => 'http://www.facebook.com/Avoinministerio', 'data-send' => 'true', 'data-width' => '280', 'data-show-faces' => 'true', 'data-font' => 'lucida grande'}
+  %h2 Ministeriössä tapahtuu
+  %iframe{width: "310", height: "192", src: "https://www.youtube.com/embed/bjocIpxch6g", style: "border: none;", allowfullscreen: ""}
+  - if @blog_articles.any?
+    - @blog_articles.each do |article|
+      .news-item
+        - author_name = (article.author && article.author.profile.name) || "Tuntematon"
+        %span.author= link_to author_name, article_path(article)
+        %span.datetime= finnishTime(article.updated_at)
+      .clear
+      .content=link_to shorten(article.title, 100, 20, "»"), article_path(article)
+    .all-blogs=link_to "Kaikki blogit", articles_path(article_type: "blog")
+  - else
+    %p Ei kirjoituksia tällä hetkellä

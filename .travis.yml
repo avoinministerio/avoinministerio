@@ -1,0 +1,19 @@
+language: ruby
+
+bundler_args: "--without production development mac_test"
+
+rvm:
+  - 1.9.2
+  - 1.9.3
+
+env:
+  - DB=postgres
+
+before_script:
+  - "cp config/database.travis.$DB.yml config/database.yml"
+  - "psql -c 'create database avoin_ministerio_test;' -U postgres"
+
+script: "RAILS_ENV=test bundle exec rake db:migrate spec"
+
+notifications:
+  email: travis-notifications@avoinministerio.fi

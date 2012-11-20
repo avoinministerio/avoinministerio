@@ -1,0 +1,64 @@
+- content_for :head do
+  %title= "Avoin Ministeriö ideat"
+.grid_24.search-results
+  %h1 
+    Tulokset haulle
+    %i= params['searchterm']
+.grid_24.search
+  .search
+    Haku:
+    = form_tag "/ideat/haku", :method => "get"
+    = text_field_tag 'searchterm', params['searchterm']
+    (esim. 
+    %i tasa*
+    tai 
+    %i koira ja vero
+    )
+  - unless @ideas.empty?
+    %h2 Ideat
+    - @ideas.each_with_index do |idea,i|
+      .search-result{:id => "idea_#{i+1}"}
+        %a{:href => idea_path(idea)}
+          != shorten_and_highlight(idea.title, params['searchterm'], 100, "«", "»")
+  - unless @comments.empty?
+    %h2 Kommentit
+    - @comments.each_with_index do |comment,i|
+      .search-result{:id => "comment_#{i+1}"}
+        - case comment.commentable_type
+        - when "Idea"
+          %a{:href => idea_path(comment.commentable_id, :anchor => "comment_#{comment.id}")}
+            != shorten_and_highlight(comment.body, params['searchterm'], 100, "«", "»")
+        - else
+          Tuntematon kommenttityyppi
+          =comment.commentable_type
+  -unless @articles.empty?
+    %h2 Artikkelit
+    - @articles.each_with_index do |article,i|
+      .search-result{:id => "article_#{i+1}"}
+        %a{:href => article_path(article)}
+          != shorten_and_highlight(article.title, params['searchterm'], 100, "«", "»")
+  -unless @citizens.empty?
+    %h2 Kansalaiset
+    - @citizens.each_with_index do |citizen,i|
+      .search-result-citizen{:id => "citizen_#{i+1}"}
+        %h3!= shorten_and_highlight(citizen.name, params['searchterm'], 100, "«", "»")
+        - unless citizen.ideas.empty?
+          %h4 Ideat:
+          - citizen.ideas.each do |idea|
+            %a{:href => idea_path(idea)}
+              != shorten_and_highlight(idea.title, params['searchterm'], 100, "«", "»")
+        - unless citizen.comments.empty?
+          %h4 Kommentit:
+          - citizen.comments.each do |comment|
+            - case comment.commentable_type
+            - when "Idea"
+              %a{:href => idea_path(comment.commentable_id, :anchor => "comment_#{comment.id}")}
+                != shorten_and_highlight(comment.body, params['searchterm'], 100, "«", "»")
+
+.result-count
+  - if @result_count == 1
+    1 tulos
+  - else
+    = @result_count
+    tulosta
+  = will_paginate @results

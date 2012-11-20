@@ -1,0 +1,3 @@
+:plain
+  $(".comments").prepend("#{escape_javascript(render("comments/comment", comment: @comment))}");
+  $(".comment_form #comment_body").val("");

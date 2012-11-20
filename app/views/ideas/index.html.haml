@@ -1,0 +1,84 @@
+- content_for :head do
+  %title= "Avoin Ministeriö ideat"
+.grid_24
+  .ideas_header.container_24
+    .grid_24.filtering
+      .grid_2
+        .h1 Valittu:
+      .grid_21
+        .h1 
+          -@filters.each do |filt|
+            - code, filter_name, wrap = filt
+            - if code != @current_filter.to_sym
+              = link_to filter_name, filter: code
+            - else
+              %span.selected= filter_name
+            - unless filt == @filters.last
+              |
+    .grid_24.ordering
+      .grid_2
+        Järjestys:
+      .grid_21
+        / This was the original, ie. leftmost is most important sorter
+        /-@sorting_order.each do |sorting_order|
+        /  - field, order = sorting_order
+        /  - field, order = sorting_order
+        /  - if sorting_order == @sorting_order.first
+        /    %span.selected= link_to @field_names[field][order.first], reorder: field 
+        /  - else
+        /    =link_to @field_names[field][order.first], reorder: field 
+        /  - unless sorting_order == @sorting_order.last
+        /    |
+
+        / New version with static order
+        -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
+          - order = @sorting_order.find{|so| so.first == field}[1]
+          - if field == @sorting_order.first.first
+            %span.selected= link_to @field_names[field][order.first], reorder: field 
+          - else
+            =link_to @field_names[field][order.first], reorder: field 
+          - unless field == :tilt
+            |
+    - if ENV['Feature_Searchbox']
+      .grid_24.search
+        .search
+          Haku:
+          = form_tag "/ideat/haku", :method => "get"
+          = text_field_tag 'searchterm'
+          (esim. 
+          %i tasa*
+          tai 
+          %i koira ja vero
+          )
+    .grid_24
+      .filtered_title
+        = @filter_name
+.clear
+.ideas.container_24
+  - @ideas.each do |idea|
+    .idea.container_24.clearfix
+      .info.grid_12
+        %span.type
+          =state_localised(idea.state)
+          \/
+        %span.date
+          = finnishDate(idea.created_at)
+        - if idea.title.size > 0
+          %h2= link_to idea.title, idea_path(idea, so: @sorting_order_code)
+        - else
+          %h2.notitle= link_to "Ei otsikkoa", idea
+      .content.grid_12
+        = link_to shortened_summary(idea.summary, 215, 185, "»"), idea
+        .clear
+        .stats
+          %span.votes
+            = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
+            = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")
+          - for_ = (idea.vote_proportion || 0.0).to_f
+          %span.for= sprintf("%.0f%%", for_*100.0)
+          |
+          %span.against= sprintf("%.0f%%", (1.0-for_)*100.0)
+          %span.comment-count= (idea.comment_count || 0)
+          -if idea.articles.count > 0
+            %span.article-count= idea.articles.count
+= will_paginate @ideas

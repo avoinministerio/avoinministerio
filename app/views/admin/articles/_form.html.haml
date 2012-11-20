@@ -1,0 +1,46 @@
+= form_tag [:admin, @article] do
+  - if @article.persisted?
+    = hidden_field_tag(:_method, "put")
+  %p
+    %label{:for => "article_article_type"}
+      = I18n.t("simple_form.labels.article_type")
+    = select(:article, :article_type, Article::VALID_ARTICLE_TYPES)
+
+  %p
+    %label{:for => "article_title"}
+      = I18n.t("simple_form.labels.title")
+    = text_field(:article, :title)
+
+  %p
+    %label{:for => "article_ingress"}
+      = I18n.t("simple_form.labels.ingress")
+    = text_area(:article, :ingress)
+
+  %p
+    %label{:for => "article_body"}
+      = I18n.t("simple_form.labels.body")
+    = text_area(:article, :body)
+
+  %p
+    %label{:for => "author"}
+      = I18n.t("simple_form.labels.author")
+    - if @article.author
+      - name = @article.author.profile.first_name + " " + @article.author.profile.last_name
+    - else
+      - name = ""
+
+    / Even though one can enter the name in reversed order with a comma
+    / (such as "Esimerkki, Erkki"), suggesting a certain form
+    / reduces confusion and makes filling the form faster.
+    = text_field_tag(:author, name, :placeholder => "Erkki Esimerkki")
+
+  %p
+    %label{:for => "article_idea_id"}
+      = I18n.t("simple_form.labels.idea")
+    = collection_select(:article, :idea_id, Idea.all, :id, :title, :include_blank => true)
+
+  %p
+    - if @article.persisted?
+      = submit_tag(I18n.t("buttons.update") + " " + I18n.t("activerecord.models.article"))
+    - else
+      = submit_tag(I18n.t("buttons.create") + " " + I18n.t("activerecord.models.article"))

@@ -1,0 +1,415 @@
+// Place all the styles related to the Ideas controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$turquoise: #29abe2;
+$violet: #473161;
+$violet-muted: #271141;
+$grey: #888888;
+$green: #8cc63f;
+$red: #a9003f;
+
+#new_idea .input label {
+  display: block;
+}
+
+#new_idea label[for=idea_title] {
+  font-size: 2em;
+}
+
+#new_idea label[for=idea_summary],
+#new_idea label[for=idea_body] {
+  font-size: 1.5em;
+}
+
+#new_idea input {
+  font-size: 1.5em;
+  padding: 6px;
+}
+
+#new_idea textarea {
+  font-size: 1.25em;
+  padding: 6px;
+}
+
+#new_idea input[type=submit] {
+  float: right;
+}
+
+.state {
+  background: #473161;
+  color: #fff;
+  padding: 6px 10px;
+  margin: 16px auto;
+}
+
+.state span {
+  font-weight: bold;
+}
+
+.state span span {
+  font-family: "Georgia";
+  font-weight: normal;
+  font-size: 1.5em;
+  margin: auto 0.5em;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+.idea {
+  margin-top: 32px;
+}
+
+.mainbody {
+  margin-bottom: 150px;
+}
+
+.share {
+  padding-bottom: 20px;
+}
+
+.voting {
+  background: #eff3f3;
+  border-top: 3px solid #000;
+  padding-bottom: 20px;
+}
+
+.voting h3 {
+  margin: 20px auto 5px;
+  font-size: 1.35em;
+  text-align: center;
+}
+
+.voting h4 {
+  margin: 7px auto 12px;
+  font-size: 1.00em;
+  text-align: center;
+}
+
+.voting .btn {
+  margin: 0 auto 10px;
+  width: 150px;
+  padding: 10px;
+  display: block;
+  background: #999;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.voting .jaa-btn {
+  background: #8cc63f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.voting .ei-btn {
+  background: #a9003f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.signature .btn {
+  margin: 0 auto 10px;
+  width: 150px;
+  padding: 10px;
+  display: block;
+  background: #999;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.signature .jaa-btn {
+  background: #8cc63f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.signature .jaa-btn-disabled {
+  background: #4c761f;
+  color: #ddd;
+  text-decoration: none;
+}
+
+.signature .stat {
+  font-size: 12px;
+}
+
+.signature .stat-header {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.signature-statistics {
+  margin: 20px 10px 10px 10px;
+}
+
+.signature-statistics .stat-divider {
+  margin: 10px 0 0 0;
+}
+
+.accepting .accept-btn {
+  background: $violet;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.accepting .accept-btn-disabled {
+  background: $violet-muted;
+  color: #999;
+  text-decoration: none;
+}
+
+
+
+
+.expert_opinions h2,
+.idea_comments h2 {
+  padding-bottom: 6px;
+  border-width: 6px;
+  -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  -o-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  border-top: none;
+  border-left: 0 none;
+  border-right: 0 none;
+}
+
+h2 {
+  font-weight: normal;
+}
+
+.expert_opinions .expert img {
+  border: 3px solid #000;
+}
+
+.expert_opinions .expert span {
+  display: block;
+}
+
+.expert_opinions .expert span.name {
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
+}
+
+.expert_opinions .expert .grid_6 {
+  margin-left: -10px;
+}
+
+.expert_opinions .expert span.name {
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
+}
+
+.front-page-comment-count {
+  display: inline-block;
+  width: 42px;
+  padding: 2px 6px 0 0;
+  height: 32px;
+  margin: 0 10px 0 20px;
+  background: transparent url("/assets/comment-bg.png") top left no-repeat;
+  text-align: right;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+  a {
+    color: rgb(10, 50, 70);
+    text-decoration: none;
+  }
+}
+
+.idea_comments {
+  .comment {
+    margin-bottom: 10px;
+    .info {
+      .name{
+        font-weight: bold;
+        color: #29abe2;
+        text-transform: uppercase;
+        padding-right: 5px;
+      }
+
+      .separator {
+        color: #ccc;
+      }
+
+      .datetime {
+        padding-left: 10px;
+      }
+    }
+    .body {
+      min-height: inherit;
+      blockquote {
+        margin-left: 20px;
+        font-size: 12px;
+        background-color: #f2f2f2;
+      }
+    }
+  }
+}
+
+ul.horizontal {
+  list-style: none;
+}
+
+ul.horizontal li {
+  float: left;
+}
+
+#idea_form {
+  position:relative;
+}
+
+.help_cont {
+  margin-top: 15px;
+  display: none; 
+}
+
+#title_help, #summary_help, #body_help {
+  padding-top: 60px;
+  background-image:url("/assets/ohje_nuoli.png");
+  background-repeat: no-repeat; 
+  position: absolute;
+  left: 640px; 
+}
+
+.ideas .idea .info h2.notitle a {
+  color: #bbb;
+}
+
+.ideas .idea .info h2 {
+  margin-right: 35px;
+}
+
+.ideas .idea .content {
+  padding-top: 22px;  
+}
+
+.ideas .idea .content a {
+  text-decoration: none;
+  color: #000;
+}
+.ideas .idea .content a:hover {
+  text-decoration: underline;
+}
+.ideas .idea .content a:link {
+  text-decoration: none;
+}
+.ideas .idea .content a:visited {
+  text-decoration: none;
+}
+
+.ideas_header .h1 {
+  font-size: 14px;
+}
+
+.ideas_header .h1 span.selected {
+  color: $violet;
+  font-weight: bold;
+}
+
+.ideas_header .filtering .h1 {
+  color: $grey;
+}
+.ideas_header .filtering .h1 a:hover {
+  color: $grey;
+  text-decoration: underline;
+}
+.ideas_header .filtering .h1 a:link {
+  color: $grey;
+  text-decoration: none;
+}
+.ideas_header .filtering .h1 a:visited {
+  color: $grey;
+  text-decoration: none;
+}
+
+.ideas_header .ordering {
+  color: $grey;
+}
+.ideas_header .ordering span.selected {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .ordering span.selected a:link {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .ordering span.selected a:visited {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .ordering a:hover {
+  color: $grey;
+  text-decoration: underline;
+}
+.ideas_header .ordering a:link {
+  color: $grey;
+  text-decoration: none;
+}
+.ideas_header .ordering a:visited {
+  color: $grey;
+  text-decoration: none;
+}
+
+.ideas_header .filtered_title {
+  padding-top:20px;
+  font-size: 24px;
+}
+
+.stats {
+  margin-top: 20px;
+}
+
+.stats span.comment-count {
+  display: inline-block;
+  width: 42px;
+  padding: 2px 6px 0 0;
+  height: 32px;
+  margin: 0 5px 0 20px;
+  background: transparent url("/assets/comment-bg.png") top left no-repeat;
+  text-align: right;
+  color: #fff;
+}
+
+.stats .votes{
+  color: $grey;
+}
+
+.stats span.for {
+  color: $green;
+}
+
+.stats span.against {
+  color: $red;
+}
+
+.stats span.article-count {
+  display: inline-block;
+  width: 32px;
+  padding: 2px 6px 0 0;
+  height: 26px;
+  margin: 0 5px 0 5px;
+  background: transparent url("/assets/asiantuntijalausunnot.png") top left no-repeat;
+  text-align: right;
+  color: #fff;
+}
+
+.prevnext .right {
+  text-align: right;
+}
+
+.prevnext a {
+  color: $turquoise;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.share .addthis_32x32_style {
+  height: 32px;
+}

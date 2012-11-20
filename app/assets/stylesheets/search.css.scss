@@ -1,0 +1,39 @@
+
+$main-color: #473161;
+$turquoise: #29abe2;
+
+.search h2 {
+  font-size: 19px;
+  text-transform: uppercase;
+  color: $main-color; 
+  margin: 30px 0px 10px;
+}
+
+.search h3 {
+  font-size: 15px;
+  color: $turquoise; 
+  margin: 10px 0px 10px;
+}
+
+.search h4 {
+  font-size: 15px;
+  color: $main-color; 
+  margin: 5px 0px 5px;
+}
+
+.search-result-citizen {
+  margin: 5px 0px 35px;
+}
+
+.search-result a {
+  color: #000;
+
+  .match {
+    font-weight: bold;
+  }
+}
+
+.result-count {
+  clear: both;
+  padding-top: 10px;
+}

@@ -1,0 +1,57 @@
+// Place all the styles related to the Articles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.blogs .blog .info .author {
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
+}
+
+.blogs .blog .info .date {
+  margin-left: 15px;
+}
+
+.blogs .blog .info h2 a {
+	color: black;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.author a{
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
+}
+.author a:hover {
+  text-decoration: underline;
+}
+.author a:link {
+  text-decoration: none;
+}
+.author a:visited {
+  text-decoration: none;
+}
+
+.blogs > .blog > .content a{
+  color: black;
+}
+.blogs > .blog > .content a:hover {
+  text-decoration: underline;
+}
+.blogs > .blog > .content a:link {
+  text-decoration: none;
+}
+.blogs > .blog > .content a:visited {
+  text-decoration: none;
+}
+
+.blog {
+	margin-bottom: 50px;
+}
+
+.idea_body blockquote {
+  margin-left: 20px;
+  font-size: 12px;
+  background-color: #f2f2f2;
+}

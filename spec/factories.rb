@@ -1,0 +1,88 @@
+# encoding: UTF-8
+
+FactoryGirl.define do
+  sequence :email do |n|
+    "citizen_#{n}@example.com"
+  end
+
+  factory :profile do |p|
+    first_names 'Erkki Kalevi'
+    first_name 'Erkki'
+    last_name 'Esimerkki'
+  end
+
+  factory :citizen do
+    email
+    password    "salainensana"
+    association :profile
+  end
+
+  factory :administrator do
+    email
+    password "ylläpitäjä"
+  end
+
+  factory :erkki, :parent => :citizen do |e|
+    email 'erkki@esimerkki.fi'
+    first_name 'Erkki'
+    last_name 'Esimerkki'
+    password 'sekretPa$$word'
+    association :profile, factory: :profile
+  end
+
+  factory :authentication do |a|
+    provider 'facebook'
+    uid '1234567'
+  end
+
+  factory :facebookin_erkki, parent: :erkki do |e|
+    after_create do |erkki|
+      Factory.create(:authentication, citizen: erkki)
+    end
+  end
+  
+  factory :idea do
+    title     "Idea uudesta laista"
+    body      "Hankitaan kaikille kansalaisille ..."
+    summary   "Hyvä idea"
+    state     "idea"
+    association :author, factory: :citizen
+    updated_content_at DateTime.now
+  end
+
+  factory :vote do
+    option 1
+    association :idea, factory: :idea
+    association :citizen, factory: :citizen
+  end
+
+  factory :comment do
+    body      "Tongue pancetta ball tip, t-bone short loin shankle short ribs ribeye. Salami turducken pork, venison jowl fatback pork loin pancetta hamburger."
+    association :author, factory: :citizen
+    association :commentable, factory: :idea
+  end
+
+  sequence :title do |n|
+    "Title #{n}"
+  end
+
+  factory :article do
+    article_type  'statement'
+    title         'Article title'
+    ingress       'Article ingress'
+    body          'Article body'
+    association :idea, factory: :idea
+    association :author, factory: :citizen
+    publish_state 'published'
+  end
+
+  factory :signature do
+    association :citizen, factory: :citizen
+    association :idea, factory: :idea
+    state 'signed'
+    accept_general 1
+    accept_science 1
+    accept_non_eu_server 1
+    accept_publicity "Normal"
+  end
+end

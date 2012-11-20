@@ -1,0 +1,36 @@
+.returning
+  - if not @error
+    =signing_state_image(:introduction)
+    %h1 Ohjeet ja aloitus
+
+    .box
+      .instructions
+        .title Olet jättämässä sähköisen kannatusilmoituksen aloitteelle ”#{@idea.title}”.
+        .text 
+          Näin se tapahtuu:
+          %ol
+            %li Hyväksy palvelun ehdot ja valitse, haluatko tunnistautua pankkitunnuksilla tai kännykällä.
+            %li Valinnan jälkeen siirryt hetkeksi pankin tai puhelinyhtiön sivulle.
+            %li Tunnistaudu ohjeiden mukaisesti pankkitunnuksillasi. Kännykällä tunnistautumista varten tarvitset mobiilivarmenteen, jonka saat käyttöösi ilmaiseksi puhelinyhtiösi lähimmästä toimipisteestä.
+            %li Tarkista ja täytä kannatusilmoituksen tiedot.
+
+        %h4 Saat jättää vain yhden kannatusilmoituksen
+        .text 
+          Useamman kannatusilmoituksen jättäminen samalle aloitteelle on laissa määritelty rangaistavaksi teoksi. Jos olet jo jättänyt paperisen kannatusilmoituksen, älä jätä sähköistä.
+
+
+      =form_tag(url_for(action: "approval", controller: "signatures")) do |f|
+        .big-button
+          .actions
+            =submit_tag "Eteenpäin"
+
+
+
+    .sidebox
+      .text
+        Jos sinulle tulee ongelmia voit lähettää sähköpostia osoitteeseen palaute@avoinministerio.fi
+
+  - else
+    .error
+      %h1 Virhetilanne
+      = @error

@@ -1,0 +1,28 @@
+%h2 Asetukset
+= simple_form_for @profile do |f|
+  = f.input :first_names
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :image, :as => :url
+  = f.input :receive_newsletter
+  = f.input :receive_other_announcements
+  = f.input :receive_weekletter
+  = f.input :accept_science
+  = f.input :accept_terms_of_use, :disabled => true
+  = f.submit "Tallenna asetukset", :id => "save-settings"
+
+= link_to "Vaihda sähköpostiosoite tai salasana", edit_citizen_path
+
+:javascript
+  $("#profile_accept_terms_of_use").change(function() {
+    if ($("#profile_accept_terms_of_use").attr("checked")) {
+      $("#save-settings").attr({"disabled": false})
+      $("#save-settings").removeClass("disabled")
+    }
+    else {
+      $("#save-settings").attr({"disabled": true})
+      $("#save-settings").addClass("disabled")
+    }})
+  $("#profile_accept_terms_of_use").attr({"disabled": false})
+  $("#profile_accept_terms_of_use").removeClass("disabled")
+  $("#profile_accept_terms_of_use").parent().removeClass("disabled")

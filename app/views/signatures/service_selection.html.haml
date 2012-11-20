@@ -1,0 +1,94 @@
+.container_24
+  - if not @error
+    =signing_state_image(:authentication)
+    %h2=@info
+    %h1 Sähköinen tunnistautuminen
+    .text
+      Olet tunnistautumassa, jotta voisit jättää sähköisen kannatusilmoituksen aloitteelle
+      .ideatitle= @signature.idea.title
+    .text
+      Voit käyttää pankkitunnuksia tai kännykkää. Pankkitunnukset ovat samat, joilla kirjaudut verkkopankkiisi.
+    .text
+      Kännykällä tunnistautumisesta voit sopia operaattorisi kanssa, jolloin saat mobiilivarmennukseen sopivan SIM-kortin. Mobiilivarmennus toimii tällä hetkellä Elisan, Saunalahden, Soneran ja DNA:n liittymillä.
+    .text
+      Osa pankeista antaa tunnistamisen Avoimen ministeriön käyttöön ilmaiseksi yhteiskuntavastuun nimissä, mutta osa veloittaa tunnistautumisesta palvelumaksun.
+
+    %p
+    - if shortcut_session_valid?
+      %h1 Edellinen tunnistuksesi on voimassa vielä #{(shortcut_session_remaining_mins).to_i} minuuttia
+      %p Sinun ei tarvitse tunnistautua uudelleen. Ja erityisesti jos käytät maksullista tunnistautumispalvelua voit välttää uuden maksun
+
+      .grid_16
+        %a.btn-service{:href => signature_idea_shortcutting_to_signing_path(@signature, service: "shortcut")}
+          Kannatusilmoituksen jättö ilman uutta tunnistautumista
+
+
+    -else
+      .grid_12
+        .signature_form
+          %h1 Ilmaiset tunnistuspalvelut
+          .grid_16
+            Voit tunnistautua näissä palveluissa ilmaiseksi:
+            - @tupas_services.find_all{|s| not s[:min_fee]}.each do |service|
+              .grid_16
+                %a.btn-service{:href => signature_idea_selected_free_service_path(@signature, service: service[:name])}
+                  =service[:name]+ ' (0.00€)'
+
+
+      - saldo = current_citizen.saldo
+      .grid_12
+        .signature_form
+          %h1 Maksulliset tunnistuspalvelut
+          .grid_16
+            - requires_transfer = @payment_services.find_all {|service| service[:fee] and saldo < BigDecimal.new(service[:fee])}
+            - if not requires_transfer.empty?
+              Jos käytät jotain seuraavista palveluista sinun tulee tehdä mainitun suuruinen tilisiirto ennen tunnistautumista:
+              - requires_transfer.each do |service|
+                .grid_16
+                  %form{:action => service[:url], :method => "post"}
+                    - (service.keys - [:name, :url, :fee]).each do |key|
+                      %input{:type => 'hidden', :name => key.to_s, :value => service[key]}
+                    %input{:type => 'submit', :class => 'btn-payment', :value => "#{service[:name]} (#{service[:fee]}€)"}
+            - ready = @payment_services.find_all {|service| service[:fee] and saldo >= BigDecimal.new(service[:fee])}
+            - if not ready.empty?
+              Olet jo siirtänyt rahaa, jolla voit tunnistautua seuraavissa palveluissa:
+              - ready.each do |service|
+                .grid_16
+                  %a.btn-service{:href => signature_idea_selected_costly_service_path(@signature, service: service[:name])}
+                    ="#{service[:name]} (-#{service[:fee]}€)"
+
+    .grid_24
+      .grid_9 &nbsp;
+      .grid_14
+        - saldo = current_citizen.saldo
+        %h2
+        %p 
+          Käytettävissäsi Avoimessa ministeriössä on 
+          %b #{sprintf("%.2f",saldo)} €.
+        - transaction_count = 4
+        Viimeiset #{transaction_count} tapahtumaa ovat:
+        /- self.money_transactions.order("created_at desc").limit(transaction_count).each do |mtx|
+        - MoneyTransaction.where("citizen_id = ?", current_citizen.id).order("created_at desc").limit(transaction_count).each do |mtx|
+          .transaction
+            %span.amount #{mtx.amount}€ 
+            %span.description #{mtx.description}
+            %span.date #{mtx.created_at.to_s.gsub(/ \+\d+$/, "")}
+            .break
+
+    .grid_24
+      .extra-info
+        .text
+          Olemme koonneet 
+          %a{href:"/artikkelit/20-usein-kysyttyja-kysymyksia"}vastauksia yleisimpiin kysymyksiin.
+        .text 
+          Kansalaisaloitteesta on säädetty 
+          %a{href:"http://www.finlex.fi/fi/laki/alkup/2012/20120012"}Kansalaisaloitelaissa
+          , jota kehotamme lukemaan epäselvissä tilanteissa. Lähetä toki myös meille kysymyksesi, pyrimme vastaamaan siihen: 
+          %a{href:"mailto:palaute@avoinministerio.fi"}palaute@avoinministerio.fi.
+
+  - else
+    .error
+      %h1 Virhe
+      Virhe
+      = @error
+      =link_to "takaisin aloitteeseen", @idea

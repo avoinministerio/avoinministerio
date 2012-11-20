@@ -1,0 +1,56 @@
+.row-fluid
+  .span12
+    %h3 IDEA
+    %h1= @idea.title
+
+    .row-fluid
+      .btn-group{ style: "float: left" }
+        = link_to "Uusi artikkeli", [:new, :admin, @idea, :article], class: "btn btn-info"
+      .btn-group{ style: "float: left" }
+        - if !@idea.published?
+          = link_to "Julkaise", [:publish, :admin, @idea], class: "btn btn-success"
+          - if !@idea.in_moderation?
+            = link_to "Moderoi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+        - if @idea.published?
+          = link_to "Piilota", [:unpublish, :admin, @idea], class: "btn btn-danger"
+          = link_to "Moderoi", [:moderate, :admin, @idea], class: "btn btn-inverse"
+        =link_to "Muokkaa", [:edit, :admin, @idea], class: "btn btn-danger"
+
+.row-fluid
+  .span6  
+    %table.table.idea_stats
+      %thead
+        %tr
+          %th Äänet
+          %th Kommentit
+          %th Artikkelit
+      %tbody
+        %tr
+          %td
+            %strong.total_votes= @idea.votes.count
+            (
+            %span.votes_for= @idea.votes.in_favor.count
+            \-
+            %span.votes_against= @idea.votes.against.count
+            )
+          %td
+            = link_to [:admin, @idea, :comments] do
+              = @idea.comments.count
+              kommenttia
+          %td
+            = link_to [:admin, @idea, :articles] do
+              = @idea.articles.count
+              artikkelia
+
+%h4
+  = @idea.author.profile.first_name
+  = @idea.author.profile.last_name
+  = @idea.author.email
+  
+.row-fluid
+  .span12
+    .summary
+      = markdown(@idea.summary)
+  
+    .body
+      = markdown(@idea.body)

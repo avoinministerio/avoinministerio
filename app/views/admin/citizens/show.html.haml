@@ -1,0 +1,31 @@
+.row-fluid
+  .span12
+    %h3
+      KÄYTTÄJÄ
+    .row-fluid
+      .span1
+        = image_tag(@citizen.image)
+      %h1.name
+        = @citizen.name
+      %div
+        = @citizen.email
+
+    .btn-group
+      = link_to "Lukitse", [:lock, :admin, @citizen], class: "btn btn-danger" unless @citizen.locked?
+      = link_to "Vapauta", [:unlock, :admin, @citizen], class: "btn btn-inverse" if @citizen.locked?
+    
+    .citizen-ideas
+      %h2 Ideat
+      %ul.ideas
+        = list_of @citizen.ideas do |idea|
+          = link_to idea.title, [:admin, idea]
+    
+    .citizen-comments
+      %h2 Kommentit
+      %ul.comments
+        = list_of @citizen.comments do |comment|
+          = link_to [:admin, comment] do
+            %h5= truncate(comment.body, length: 200)
+            %p
+              IDEA:
+              = comment.commentable.title

@@ -1,0 +1,206 @@
+$sans_serif: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+$serif: "Georgia";
+
+body {
+  font-family: $sans_serif;
+}
+
+header .bottom_row a {
+  font-size: 1.1em;
+}
+
+footer > a {
+  text-transform: uppercase;
+  font-family: $sans_serif;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+input[type=submit], a.button {
+  font-family: $sans_serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.input > input[type=email],
+.input > input[type=text],
+.input > input[type=password],
+.input > input[type=url] {
+  font-size: 1.6em;
+}
+
+.headline > hgroup > h1, .headline > hgroup > h2 {
+  font-family: $serif;
+}
+
+.headline > hgroup > h1 {
+  font-size: 20px;
+}
+
+.headline > hgroup > h2 {
+  font-size: 52px;
+  text-transform: uppercase;
+}
+
+.top_drafts div.popular > h3 {
+  font-size: 20px;
+  font-weight: normal;
+  font-family: $serif;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.top_ideas {
+  a.list_ideas {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a.list_ideas:hover {
+    text-decoration: underline;
+  }
+}
+
+.ideas_header h1 {
+  font-family: $serif;
+}
+
+.idea {
+  font-family: $serif;
+  font-weight: normal;
+  text-transform: none;
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .author > .name {
+    font-family: $sans_serif;
+    font-size: 16px;
+  }
+
+  .author > .date {
+    font-family: $sans_serif;
+    font-size: 13px;
+    padding-left: 10px;
+  }
+
+  .summary {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+
+  .body > p {
+    font-size: 16px;
+  }
+
+  .body > p:first-child:first-letter {
+    font-size: 3em;
+  }
+
+  .body > p:first-child:first-line {
+    line-height: 1em;
+  }
+
+  .info {
+    .type, .date {
+      font-family: $sans_serif;
+      text-transform: uppercase;
+    }
+
+    .type {
+      font-weight: bold;
+    }
+
+    h3, h2 {
+      font-family: $serif;
+      font-weight: normal;
+      text-transform: none;
+
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-family: $serif;
+      font-weight: normal;
+      text-transform: none;
+
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  .statistics {
+    font-family: $sans_serif;
+    text-transform: uppercase;
+
+    .total, .for, .against {
+      font-weight: bold;
+    }
+  }
+
+  aside {
+    font-family: $sans_serif;
+  }
+}
+
+.ideas > .idea > .content {
+  font-size: 16px;
+  font-family: $serif;
+}
+
+.ideas > .idea > .content > .stats {
+  font-size: 13px;
+  font-weight: bold;
+  font-family: $sans_serif;
+}
+
+.news .news-item .datetime {
+  font-family: $sans_serif;
+  text-transform: uppercase;
+}
+
+.blogs .blog .info h2 a {
+  font-size: 24px;
+  font-family: $serif;
+}
+
+.blogs > .blog > .content {
+  font-size: 16px;
+  font-family: $serif;
+}
+
+.sharing-suggestion {
+  font-family: $sans_serif;
+  margin-top: 10px;
+}
+
+
+

@@ -1,0 +1,30 @@
+.row-fluid
+  .span12
+    %h3 ARTIKKELI
+    - if @article.idea
+      = link_to ":: #{@article.idea.title}", [:admin, @article.idea]
+
+    .btn-group
+      - if !@article.published?
+        = link_to "Julkaise", [:publish, :admin, @article], class: "btn btn-success"
+      - if @article.published?
+        = link_to "Piilota", [:unpublish, :admin, @article], class: "btn btn-danger"
+      = link_to "Muokkaa", [:edit, :admin, @article], class: "btn btn-inverse"
+      - if !@article.in_moderation?
+        = link_to "Moderoi", [:moderate, :admin, @article], class: "btn btn-inverse"
+      = link_to "Näytä", @article, class: "btn btn-inverse"
+    
+    .author.row-fluid
+      .span1
+        = image_tag(@article.author.try(:image))
+      .span3
+        = @article.author.try(:name)
+
+    .title
+      = @article.title
+    
+    .ingress
+      = markdown(@article.ingress)
+      
+    .body
+      = markdown(@article.body)

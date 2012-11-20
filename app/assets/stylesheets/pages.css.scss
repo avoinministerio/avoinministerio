@@ -1,0 +1,96 @@
+//Css for the home page
+
+$main-color: #473161;
+$turquoise: #29abe2;
+
+.container h2 {
+  font-size: 17px;
+  text-transform: uppercase;
+  color: $main-color; 
+}
+
+.top_drafts, .top_ideas {
+  h2 {
+    //Refactor border to application.css 
+    -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    -o-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    border-width: 6px;
+    border-top: 0px none;
+    border-left: 0px none;
+    border-right: 0px none;
+    margin-bottom: 0;
+  }
+}
+
+
+.top_drafts {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom:  10px solid $main-color; 
+}
+
+.news, .newsletter {
+  padding: 5px;
+  background: #eeeeee;
+  border-top: 3px solid #000000;
+}
+
+.author a{
+  font-weight: bold;
+  color: #29abe2;
+  text-transform: uppercase;
+}
+
+.author a:hover {
+  text-decoration: underline;
+}
+.author a:link {
+  text-decoration: none;
+}
+.author a:visited {
+  text-decoration: none;
+}
+
+.news-item .datetime {
+  margin-left: 15px;
+}
+
+.news .content {
+  margin-bottom: 15px;
+} 
+
+.news .content a {
+  color: $main-color;
+}
+.news .content a:hover {
+  text-decoration: underline;
+}
+.news .content a:link {
+  text-decoration: none;
+}
+.news .content a:visited {
+  text-decoration: none;
+}
+
+
+.all-blogs a {
+  color: $turquoise;
+  font-weight: bold;
+  font-size: 14px;
+}
+.all-blogs a:hover {
+  text-decoration: underline;
+}
+.all-blogs a:link {
+  text-decoration: none;
+}
+.all-blogs a:visited {
+  text-decoration: none;
+}
+
+
+input#mce-EMAIL {
+  margin: 10px 0px;
+}

@@ -1,0 +1,24 @@
+.row-fluid
+  .span12
+    %h1 Käyttäjät
+    %table.table.table-striped.citizens
+      %thead
+        %tr
+          %th 
+          %th Nimi
+          %th Sähköpostiosoite
+          %th
+      %tbody
+        - @citizens.each do |citizen|
+          %tr[citizen]
+            %td.citizen_image
+              = image_tag(citizen.image, width: 32, height: 32)
+            %td
+              %h3.name= link_to citizen.name, [:admin, citizen]
+            %td
+              %h3.email= citizen.email
+            %td
+              .btn-group{ style: "float: right"}
+                = link_to "Lukitse", [:lock, :admin, citizen], class: "btn btn-success" unless citizen.locked?
+                = link_to "Vapauta", [:unlock, :admin, citizen], class: "btn btn-inverse" if citizen.locked?
+= will_paginate @citizens

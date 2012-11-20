@@ -1,0 +1,41 @@
+%tr.changelog
+  %td.changer
+    - unless changelog.changer
+      %span.name Tuntematon, luultavasti Rails-konsolista
+    - else
+      - if changelog.changer.class == Citizen
+        = image_tag changelog.changer.image, width: 18, height: 18
+      %span.name
+        - if changelog.changer.class == Administrator
+          = changelog.changer.email
+          %span.admin (admin)
+        - else
+          = changelog.changer.name
+  %td.change_type
+    = I18n.t "changelog.#{changelog.change_type}"
+  %td.changed_at
+    %span.date{title: finnishTime(changelog.created_at).split(' ').reverse.join(' ')}
+      = finnishTime(changelog.created_at).split(' ').last
+  %td.changelogged
+    - if changelog.changelogged
+      = changelogged_link_for(changelog)
+    - else
+      = "#{I18n.t('activerecord.models.'+changelog.changelogged_type.downcase)} ##{changelog.changelogged_id}<br/> ( poistettu )".html_safe
+  %td.changes
+    %table
+      %tr
+        %td Kenttä
+        %td Muutos
+        %td Vanha arvo
+        %td Uusi arvo
+      - changelog.attribute_changes.each_pair do |changed_field, change|
+        - next if ["created_at", "updated_at", "id"].include?(changed_field)
+        %tr
+          %td.field
+            = changed_field
+          %td.span4.diff
+            = short_diff(change)
+          %td.span3.old
+            = change.first
+          %td.span3.new
+            = change.last

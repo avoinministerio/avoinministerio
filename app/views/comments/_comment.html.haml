@@ -1,0 +1,12 @@
+.comment.clearfix
+  .avatar.grid_2
+    %img{ src: comment.author.image, width: 50, height: 50 }
+  .grid_14{:id => "comment_#{comment.id}"}
+    .info
+      .grid_6
+        %span.index
+        %span.name= comment.author.name
+      .grid_7
+        %span.separator= "|"
+        %span.datetime= finnishTime(comment.created_at)
+    .body.grid_14= markdown(comment.body)

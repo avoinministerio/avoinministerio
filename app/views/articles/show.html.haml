@@ -1,0 +1,22 @@
+.grid_24
+  .idea_author
+    - if @article.author
+      %img{ src: @article.author.image, width: 48, height: 48 }
+      %span= @article.author.name
+    - else
+      %span= No author
+.idea.grid_24
+  .grid_16.alpha
+    %span.sans_serif= finnishTime(@article.created_at)
+
+    %h1= @article.title
+    .idea_summary
+      = markdown(@article.ingress) if @article.ingress
+    .idea_body
+      = markdown(@article.body) if @article.body
+
+    - if @article.author == current_citizen
+      - if @article.idea.present?
+        = link_to I18n.t("article.links.edit_article"), edit_admin_idea_article_path(@article.idea, @article)
+      - else
+        = link_to I18n.t("article.links.edit_article"), edit_admin_article_path(@article)

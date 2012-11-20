@@ -1,0 +1,49 @@
+#idea_form
+  = simple_form_for @idea do |f|
+    .grid_16
+      = f.input :title, label: I18n.t("idea.new.title")
+    .grid_8.help_cont
+      #title_help
+        %p Anna ideallesi muutaman sanan otsikko. Otsikosta tulisi käydä ilmi yleinen aihealue.
+    .grid_16
+      = f.input :summary, as: :text
+    .grid_8.help_cont
+      #summary_help
+        %p
+          Anna idealle tiivistelmä. Siitä tulisi käydä ilmi ideasi perusajatus muutamalla lauseella.
+          Voit muokata sitä myöhemmin.
+    .grid_16
+      = f.input :body, as: :text
+    .grid_8.help_cont
+      #body_help
+        %p
+          Anna halutessasi idealle tarkempi kuvaus. Se voi sisältää linkkejä muihin lähteisiin, 
+          listauksia puolesta ja vastaan argumenteista ja kysymyksiä joihin toivot kommentoijilta ja 
+          asiantuntijoilta palautetta. Aluksi sinun ei tarvite täyttää tätä kohtaa, pääset muokkaamaan tietoja myöhemmin.
+  
+    .grid_16
+      = f.submit @idea.new_record? ? I18n.t("buttons.create") : I18n.t("buttons.update")
+
+:javascript
+  $(document).ready(function($) {
+    
+    connect_help = function(elem_name, help_name) {
+      $(elem_name)
+        .focus(function(){ $(help_name).parent().show() })
+        .focusout(function(){ $(help_name).parent().hide() })
+    }
+    
+    connect_help("#idea_title", "#title_help")
+    connect_help("#idea_summary", "#summary_help")
+    connect_help("#idea_body", "#body_help")
+    
+  //  $("#idea_title")
+  //    .focus(function(){ $("#title_help").show() })
+  //    .focusout(function(){ $("#title_help").hide() })
+  
+    //$("#title_help").hide()
+    //$("#summary_help").hide()
+    //$("#body_help").hide()
+  
+  })
+  

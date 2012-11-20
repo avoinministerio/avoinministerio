@@ -1,0 +1,19 @@
+.login_actions.top_row
+  - if citizen_signed_in?
+    .grid_8
+      = link_to "Profiili", profile_path
+      |
+      = link_to "Asetukset", edit_profile_path
+      |
+      = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
+    .grid_4
+      %img.avatar{ src: current_citizen.image, width: 25, height: 25, alt: "avatar" }
+      #{current_citizen.name}
+  - else
+    .grid_3
+      = link_to "Rekisteröidy", new_citizen_registration_path
+    .grid_3
+      = link_to "Kirjaudu", new_citizen_session_path
+  .grid_6
+    - if !citizen_signed_in?
+      = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)

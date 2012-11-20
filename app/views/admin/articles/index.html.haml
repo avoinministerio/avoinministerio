@@ -1,0 +1,23 @@
+.row-fluid
+  .span12
+    %h3
+      IDEA
+      = link_to ":: #{@parent.title}", [:admin, @parent] if @parent
+    %h1 Artikkelit
+    = link_to "Uusi artikkeli", [:new, :admin, :article], class: "btn btn-info"
+
+    %h2 Lausunnot
+    %ul.articles
+      = list_of @statements do |article|
+        = link_to article.title, [:admin, @parent, article]
+
+    %h2 Blogit
+    %ul.articles
+      = list_of @blogs do |article|
+        = link_to article.title, [:admin, @parent, article]
+
+    %h2 Footerit
+    %ul.articles
+      = list_of @footers do |article|
+        = link_to article.title, [:admin, @parent, article]
+

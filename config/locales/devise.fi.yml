@@ -1,0 +1,58 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+# These picked Jari Jokinen's gist: https://gist.github.com/1711301
+
+fi:
+  errors:
+    messages:
+      expired: "on vanhentunut, ole hyvä ja pyydä uusi"
+      not_found: "ei löytynyt"
+      already_confirmed: "on jo vahvistettu, yritä kirjautua sisään uudelleen"
+      not_locked: "ei ollut lukittu"
+      not_saved:
+        one: "1 virhe esti resurssin '%{resource}' tallentamisen:"
+        other: "%{count} virhettä esti resurssin '%{resource}' tallentamisen:"
+
+  devise:
+    failure:
+      already_authenticated: 'Olet jo kirjautunut sisään.'
+      unauthenticated: 'Sinun tulee kirjautua sisään tai rekisteröityä voidaksesi jatkaa.'
+      unconfirmed: 'Sinun tulee vahvistaa käyttäjätilisi ennen kuin voit jatkaa.'
+      locked: 'Käyttäjätilisi on lukittu.'
+      invalid: 'Virheellinen sähköpostiosoite tai salasana.'
+      invalid_token: 'Virheellinen valtuutusavain.'
+      timeout: 'Istuntosi on vanhentunut, kirjaudu uudelleen sisään jatkaaksesi.'
+      inactive: 'Käyttäjätiliäsi ei ole vielä aktivoitu.'
+    sessions:
+      signed_in: 'Sisäänkirjautuminen onnistui.'
+      signed_out: 'Sinut on kirjattu ulos palvelusta onnistuneesti.'
+    passwords:
+      send_instructions: 'Saat hetken kuluttua sähköpostiisi ohjeet, joiden avulla voit vaihtaa salasanasi.'
+      updated: 'Salasanasi on vaihdettu, ja sinut on kirjattu sisään.'
+      updated_not_active: 'Salasanasi on vaihdettu.'
+      send_paranoid_instructions: "Olemme lähettäneet sähköpostiisi ohjeet salasanan vaihtamiseksi, mikäli antamasi sähköpostiosoite löytyy tietokannastamme."
+    confirmations:
+      send_instructions: 'Saat hetken kuluttua sähköpostiisi ohjeet, joiden avulla voit vahvistaa käyttäjätilisi.'
+      send_paranoid_instructions: 'Olemme lähettäneet sähköpostiisi ohjeet käyttäjätilisi aktivoimiseksi, mikäli antamasi sähköpostiosoite löytyy tietokannastamme.'
+      confirmed: 'Käyttäjätilisi on nyt vahvistettu, ja sinut on kirjattu sisään.'
+    registrations:
+      signed_up: 'Tervetuloa! Olet rekisteröitynyt onnistuneesti.'
+      signed_up_but_unconfirmed: 'Olemme lähettäneet sähköpostiisi ohjeet, joiden avulla voit vahvistaa käyttäjätilisi. Ole hyvä ja vahvista käyttäjätilisi saamiesi ohjeiden mukaisesti.'
+      signed_up_but_inactive: 'Olet rekisteröitynyt onnistuneesti. Voit aloittaa palvelun käytön, kunhan käyttäjätilisi on aktivoitu.'
+      signed_up_but_locked: 'Olet rekisteröitynyt onnistuneesti. Voit aloittaa palvelun käytön, kunhan käyttäjätilisi lukitus on poistettu.'
+      updated: 'Käyttäjätietosi on päivitetty.'
+      update_needs_confirmation: "Käyttäjätietosi on päivitetty onnistuneesti, mutta uusi sähköpostiosoitteesi pitää vielä vahvistaa. Olemme lähettäneet sähköpostiisi ohjeet, joiden avulla voit vahvistaa uuden osoitteesi."
+      destroyed: 'Käyttäjätilisi on poistettu. Toivottavasti näemme uudelleen pian!'
+    unlocks:
+      send_instructions: 'Saat hetken kuluttua sähköpostiisi ohjeet, joiden avulla voit poistaa lukituksen käyttäjätililtäsi.'
+      unlocked: 'Käyttäjätilisi lukitus on poistettu onnistuneesti. Kirjaudu sisään jatkaaksesi.'
+      send_paranoid_instructions: 'Olemme lähettäneet sähköpostiisi ohjeet käyttäjätilisi lukituksen poistamiseksi, mikäli antamasi sähköpostiosoite löytyy tietokannastamme.'
+    omniauth_callbacks:
+      success: 'Tunnistus %{kind} -tililtä suoritettu onnistuneesti.'
+      failure: 'Tunnistus %{kind} -tililtä epäonnistui. Syy: "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Käyttäjätilin vahvistus'
+      reset_password_instructions:
+        subject: 'Salasanan vaihto'
+      unlock_instructions:
+        subject: 'Käyttäjätilin lukituksen poisto'

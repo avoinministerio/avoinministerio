@@ -1,0 +1,18 @@
+// Place all the styles related to the admin/articles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.title {
+  font-weight: bold;
+  font-size: 26px;
+  padding-bottom: 20px;
+}
+
+form.article {
+	width:600px;
+}
+
+form.article input, textarea {
+	width:100%;
+}
+
