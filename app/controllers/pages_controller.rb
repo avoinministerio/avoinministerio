@@ -41,7 +41,7 @@ class PagesController < ApplicationController
 
   def home
     # AB-test: is it better to have proposals in their separate section or merge with drafts
-    session[:ab_section_count] = rand(2)+1 unless session[:ab_section_count]
+    session[:ab_section_count] = 2 unless session[:ab_section_count]
     KM.set({"section_count" => "#{session[:ab_section_count]}"})
     ["proposal_and_draft", "draft", "proposal"].each do |section|
       3.times do |i| 
@@ -52,8 +52,12 @@ class PagesController < ApplicationController
     end
 
     # B: two rows of examples:
-    @proposals, @proposals_counts  = load("proposal", 3)
-    @drafts, @draft_counts        = load("draft",    3)
+    ideas_count = Idea.count
+    @proposals, @proposals_counts = load("proposal", ideas_count)
+    @drafts, @draft_counts = load("draft", ideas_count)
+
+    # Randomize the proposals array
+    @proposals = @proposals.randomize!
 
     # A: just one row, both proposals and drafts in it
     @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}

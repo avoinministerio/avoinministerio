@@ -94,3 +94,46 @@ $turquoise: #29abe2;
 input#mce-EMAIL {
   margin: 10px 0px;
 }
+
+//For home page slider
+.proposal-section .carousel-previous {
+  background: url("/assets//previous.png") no-repeat scroll 0 0 transparent;
+  position: absolute;
+  margin-left: 3px;
+  margin-top: 70px;
+}
+
+.proposal-section .carousel-next {
+  background: url("/assets//next.png") no-repeat scroll 0 0 transparent;
+  position: absolute;
+  margin-left: -35px;
+  margin-top: 70px;
+}
+
+.proposal-section .carousel-control {
+  overflow:hidden;
+  display:inline-block;
+  vertical-align:middle;
+  width:30px;
+  height:32px;
+  cursor:pointer;
+  line-height:999px;
+  zoom:1;
+  border:0;
+  text-indent:-9999px;
+}
+
+.proposal-section .carousel-control:hover {
+  -moz-opacity:.7;
+  opacity:0.70;
+  filter:alpha(opacity=70);
+}
+
+.proposal-section .carousel-wrap {
+  display: inline-block;
+  vertical-align: middle;
+  width: 99%;
+  border: 3px solid #473161;
+  border-radius: 5px;
+  height: 174px !important
+}
