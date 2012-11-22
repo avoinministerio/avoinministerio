@@ -3,7 +3,8 @@
 class PagesController < ApplicationController
 
   def load(state, count)
-    items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+    conditions = (state == 'proposal' ? { state: state, collecting_started: 1, collecting_ended: 0 } : { state: state })
+    items = Idea.published.where(conditions).order("updated_at DESC").limit(count).includes(:votes).all
     item_counts = {}
 
     items.each do |idea|
@@ -52,9 +53,8 @@ class PagesController < ApplicationController
     end
 
     # B: two rows of examples:
-    ideas_count = Idea.count
-    @proposals, @proposals_counts = load("proposal", ideas_count)
-    @drafts, @draft_counts = load("draft", ideas_count)
+    @proposals, @proposals_counts = load("proposal", Idea.count)
+    @drafts, @draft_counts = load("draft", 3)
 
     # Randomize the proposals array
     @proposals = @proposals.randomize!
