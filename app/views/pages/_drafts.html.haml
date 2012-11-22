@@ -13,7 +13,7 @@
         - klass_arr = [["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]][0, [3, items.size].min]
 
       - klass_arr.each_with_index do |klasses, i|
-        %li{style: (section == 'proposal' ? "margin-left:15px" : "margin-left:10px")}
+        %li{style: "margin-left:10px"}
           %div{:class => klasses}
             - if recent_draft = items[i]
               .popular
