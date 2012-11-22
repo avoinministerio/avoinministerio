@@ -14,8 +14,16 @@ class PagesController < ApplicationController
       total           = for_count + against_count
       for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
       against_portion = (against_count > 0 ? against_count / total.to_f  : 0.0)
-      for_            = sprintf("%2.0f%%", for_portion * 100.0)
-      against_        = sprintf("%2.0f%%", against_portion * 100.0)
+      if idea.state == "proposal"
+        vote_completed = idea.vote_count
+        vote_for = 50000 - vote_completed
+        for_portion = vote_completed
+        for_            = idea.vote_count
+        against_        = vote_for
+      else
+        for_            = sprintf("%2.0f%%", for_portion * 100.0)
+        against_        = sprintf("%2.0f%%", against_portion * 100.0)
+      end
       item_counts[idea.id] = [for_portion, for_, against_portion, against_]
     end
 
