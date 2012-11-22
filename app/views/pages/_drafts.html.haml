@@ -28,6 +28,6 @@
                   r.text( 18,11, "#{for_}").attr({fill: "#fff", "font-size": 12});
                   r.text(261,11, "#{against_}").attr({fill: "#fff", "font-size": 12});
 
-- if section == "proposal"
+- if section == "proposal" && item_size > 6
   :javascript
-    $(function() { $("div.proposal-section").carousel( { loop: true, dispItems: 3 } ); });
+    $(function() { $("div.proposal-section").carousel( { dispItems: 3 } ); });
