@@ -15,7 +15,7 @@
     %title Avoin Ministeriö
 
   = stylesheet_link_tag "application.css"
-  = javascript_include_tag "application", "jquery.carousel-min"
+  = javascript_include_tag "application", "javascripts/jquery.carousel.min.js"
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
     if (window.location.hash == '#_=_') {
