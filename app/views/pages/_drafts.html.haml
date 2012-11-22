@@ -3,11 +3,11 @@
   %div{class: "#{section}-section"}
     %ul{style: "list-style:none;height:174px;"}
       - item_size = items.size
-      - main_arr = ["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]
+      - main_arr = [["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]]
       - dup_arr = []
       - klass_arr = []
       - if section == 'proposal'
-        - (item_size/3).times { |i| dup_arr += main_arr }
+        - ((item_size/3) + 1).times { |i| dup_arr += main_arr }
         - klass_arr = dup_arr[0, item_size]
       - else
         - klass_arr = [["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]][0, [3, items.size].min]
