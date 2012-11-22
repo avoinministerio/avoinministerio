@@ -101,6 +101,7 @@ input#mce-EMAIL {
   position: absolute;
   margin-left: 3px;
   margin-top: 70px;
+  z-index: 1000;
 }
 
 .proposal-section .carousel-next {
@@ -136,4 +137,8 @@ input#mce-EMAIL {
   border: 3px solid #473161;
   border-radius: 5px;
   height: 174px !important
+}
+
+:focus {
+    outline: none;
 }
