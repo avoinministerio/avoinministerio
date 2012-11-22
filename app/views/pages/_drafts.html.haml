@@ -1,7 +1,7 @@
 .container_24.top_drafts
   %h2= title
   %div{class: "#{section}-section"}
-    %ul{style: "list-style:none;height:174px;"}
+    %ul{style: "list-style:none;"}
       - item_size = items.size
       - main_arr = [["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]]
       - dup_arr = []
@@ -30,4 +30,4 @@
 
 - if section == "proposal" && item_size > 6
   :javascript
-    $(function() { $("div.proposal-section").carousel( { dispItems: 3 } ); });
+    $(function() { $("div.proposal-section").carousel( { loop: true, dispItems: 3 } ); });

@@ -3,7 +3,7 @@
 class PagesController < ApplicationController
 
   def load(state, count)
-    conditions = (state == 'proposal' ? { state: state, collecting_started: 1, collecting_ended: 0 } : { state: state })
+    conditions = (state == 'proposal' ? { state: state, collecting_started: 'true', collecting_ended: 'false' } : { state: state })
     items = Idea.published.where(conditions).order("updated_at DESC").limit(count).includes(:votes).all
     item_counts = {}
 
