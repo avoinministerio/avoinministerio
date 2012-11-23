@@ -44,7 +44,7 @@ class PagesController < ApplicationController
     session[:ab_section_count] = rand(2)+1 unless session[:ab_section_count]
     KM.set({"section_count" => "#{session[:ab_section_count]}"})
     ["proposal_and_draft", "draft", "proposal"].each do |section|
-      3.times do |i| 
+      3.times do |i|
         section_index_link = "ab_section_#{section}_#{i}_link"
         KM.track(section_index_link, section_index_link)            # track both, which section and which item
         KM.track(section_index_link, "ab_section_#{section}_link")  # track only which section got the click
@@ -52,8 +52,8 @@ class PagesController < ApplicationController
     end
 
     # B: two rows of examples:
-    @proposals, @proposals_counts  = load("proposal", 3)
-    @drafts, @draft_counts        = load("draft",    3)
+    @proposals, @proposals_counts  = load("proposal", 6)
+    @drafts, @draft_counts = load("draft", 3)
 
     # A: just one row, both proposals and drafts in it
     @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
