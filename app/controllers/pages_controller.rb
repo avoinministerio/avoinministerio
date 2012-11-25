@@ -2,8 +2,13 @@
 
 class PagesController < ApplicationController
 
-  def load(state, count)
-    items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+  def load(state, count, picked_count=100)
+    if state == 'proposal'
+      items = Idea.published.where("state =:state AND collecting_ended is NULL or collecting_ended = 0", {:state => state}).order("updated_at DESC").limit(picked_count).includes(:votes).all
+    else
+      items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+    end
+    items = items.shuffle.slice(0, count)
     item_counts = {}
 
     items.each do |idea|
