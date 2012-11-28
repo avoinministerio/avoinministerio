@@ -113,7 +113,8 @@ class Idea < ActiveRecord::Base
   end
 
   def vote_counts
-    votes.group(:option).count
+    # votes.group(:option).count   # => returns counts like:  {0=>37, 1=>45}
+    {0 => vote_against_count, 1 => vote_for_count}
   end
   
   def signatures_per_day

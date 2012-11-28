@@ -7,8 +7,9 @@
       var r = Raphael("votepie");
       var pie = r.piechart(135, 92, 57, [
           // piechart requires non-zero sizes to draw properly, so let's guard these values
-          #{@idea_vote_for_count      == 0 ? 0.00001 : @idea_vote_for_count},
-          #{@idea_vote_against_count  == 0 ? 0.00001 : @idea_vote_against_count}
+          // This hack works first to 0:1 situation, then until ~2300 with 0.0001, then till ~2347347 with 0.01
+          #{@idea_vote_for_count      == 0 ? (@idea_vote_count > 2000 ? 0.1 : 0.0001) : @idea_vote_for_count},
+          #{@idea_vote_against_count  == 0 ? (@idea_vote_count > 2000 ? 0.1 : 0.0001) : @idea_vote_against_count}
         ],
         {
           legend: [
