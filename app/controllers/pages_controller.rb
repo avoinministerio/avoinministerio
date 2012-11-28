@@ -3,7 +3,11 @@
 class PagesController < ApplicationController
 
   def load(state, count)
-    items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+    if state == "proposal"
+      items = Idea.published.find(:all, :include => :votes, :conditions => "state = 'proposal' AND collecting_ended IS NULL", :limit => count, :order => "RANDOM()").sort_by(&:updated_at).reverse
+    else 
+      items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+    end
     item_counts = {}
 
     items.each do |idea|
