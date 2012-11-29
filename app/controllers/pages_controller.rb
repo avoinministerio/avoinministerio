@@ -22,8 +22,8 @@ class PagesController < ApplicationController
         vote_for = (vote_for/50000)*280
         vote_completed = (vote_completed/50000)*280
       else
-        for_            = (((for_count.to_f/total)*100).to_i).to_s+"%"#sprintf("%2.0f%%", for_portion * 100.0)
-        against_        = (((against_count.to_f/total)*100).to_i).to_s+"%"#sprintf("%2.0f%%", against_portion * 100.0)
+        for_            = (((for_count/total.to_f)*100).truncate).to_s+"%"#sprintf("%2.0f%%", for_portion * 100.0)
+        against_        = (((against_count.to_f/total.to_f)*100).truncate).to_s+"%"#sprintf("%2.0f%%", against_portion * 100.0)
       end
       item_counts[idea.id] = [for_portion, for_, against_portion, against_]
     end
