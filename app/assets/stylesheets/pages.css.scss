@@ -104,13 +104,6 @@ input#mce-EMAIL {
   z-index: 1000;
 }
 
-.proposal-section .carousel-next {
-  background: url("/assets//next.png") no-repeat scroll 0 0 transparent;
-  position: absolute;
-  margin-left: -35px;
-  margin-top: 70px;
-}
-
 .proposal-section .carousel-control {
   overflow:hidden;
   display:inline-block;
@@ -134,7 +127,6 @@ input#mce-EMAIL {
   display: inline-block;
   vertical-align: middle;
   width: 99%;
-  border: 3px solid #473161;
   border-radius: 5px;
   height: 174px !important
 }
@@ -142,3 +134,17 @@ input#mce-EMAIL {
 :focus {
   outline: none;
 }
+
+.proposal-section .carousel-next {
+  background: url("/assets//next.png") no-repeat scroll 0 0 transparent;
+  position: absolute;
+  margin-left: 910px;
+  margin-top: 71px;
+}
+
+//.proposal-section .carousel-next {
+//  background: url("/assets//next.png") no-repeat scroll 0 0 transparent;
+//  position: absolute;
+//  margin-left: -35px;
+//  margin-top: 70px;
+//}

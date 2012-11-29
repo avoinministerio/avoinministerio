@@ -6,23 +6,24 @@ class PagesController < ApplicationController
     conditions = (state == 'proposal' ? { state: state, collecting_started: 'true', collecting_ended: 'false' } : { state: state })
     items = Idea.published.where(conditions).order("updated_at DESC").limit(count).includes(:votes).all
     item_counts = {}
-
     items.each do |idea|
       for_count       = idea.vote_counts[1] || 0
       against_count   = idea.vote_counts[0] || 0
       comment_count   = idea.comments.count()
       total           = for_count + against_count
-      for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
-      against_portion = (against_count > 0 ? against_count / total.to_f  : 0.0)
+      for_portion     = (for_count.to_f/total)*280#(for_count > 0 ?     for_count / total.to_f  : 0.0)
+      against_portion = (for_count.to_f/total)*280#(against_count > 0 ? against_count / total.to_f  : 0.0)
       if idea.state == "proposal"
         vote_completed = idea.vote_count
         vote_for = 50000 - vote_completed
-        for_portion = vote_completed
+        for_portion = ((vote_completed.to_f/50000)*280).to_i
         for_            = idea.vote_count
         against_        = vote_for
+        vote_for = (vote_for/50000)*280
+        vote_completed = (vote_completed/50000)*280
       else
-        for_            = sprintf("%2.0f%%", for_portion * 100.0)
-        against_        = sprintf("%2.0f%%", against_portion * 100.0)
+        for_            = (((for_count.to_f/total)*100).to_i).to_s+"%"#sprintf("%2.0f%%", for_portion * 100.0)
+        against_        = (((against_count.to_f/total)*100).to_i).to_s+"%"#sprintf("%2.0f%%", against_portion * 100.0)
       end
       item_counts[idea.id] = [for_portion, for_, against_portion, against_]
     end
