@@ -6,7 +6,7 @@
 				 items: @proposals_and_drafts, items_counts: @proposal_and_drafts_counts, item_counter: 0 }
 - else # session[:ab_section_count] == 2
 	= render partial: 'drafts', 
-		locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 0, section: "proposal" }
+		locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 6, section: "proposal" }
 	= render partial: 'drafts', 
 		locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, item_counter: 3,  section: "draft" }
 
