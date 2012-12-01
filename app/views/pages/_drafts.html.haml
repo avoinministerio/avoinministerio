@@ -1,6 +1,6 @@
 .container_24.top_drafts
   %h2= title
-  - [["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]][0, [3, items.size].min].each_with_index do |klasses, i|
+  - ([["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]]*2)[0, [6, items.size].min].each_with_index do |klasses, i|
     %div{:class => klasses}
       - if recent_draft = items[i]
         .popular
