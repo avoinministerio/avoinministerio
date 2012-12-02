@@ -41,6 +41,33 @@
           }
       });
   });
+
+- if !citizen_signed_in? || current_citizen.idea_tour_ended
+  :javascript
+    $(document).ready(function() {
+      var idea_tour = new Tour({
+        name:"idea_tour",
+        afterSetState: function(key, value) {
+          if (key == "end" && value == "yes") {
+            jQuery.post("/citizens/tour", {name: "idea_tour"});
+          }
+        }
+      });
+      idea_tour.addStep({
+        element: ".author",
+        placement: "right",
+        title: "Welcome to Avoin Ministeriö",
+        content: "Here is the idea's author."
+      });
+      idea_tour.addStep({
+        element: ".voting",
+        placement: "left",
+        title: "Welcome to Avoin Ministeriö",
+        content: "Here is the voting board."
+      });
+      idea_tour.start();
+    });
+
 .prevnext
   .grid_24
     / This is a layout BUG: grid_12 + grid_12 does not fit in .grid_24 due some margins set somewhere

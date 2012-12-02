@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013234109) do
+ActiveRecord::Schema.define(:version => 20121202093036) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
 
   create_table "citizens", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -120,6 +120,8 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "locked_at"
+    t.boolean  "home_tour_ended",        :default => false
+    t.boolean  "idea_tour_ender",        :default => false
   end
 
   add_index "citizens", ["email"], :name => "index_citizens_on_email", :unique => true
