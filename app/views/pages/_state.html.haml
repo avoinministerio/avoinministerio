@@ -1,0 +1,19 @@
+%h2= title
+.image_carousel
+  #foo
+    - row = (@active_proposals.count / Float(6)).ceil
+    - rowIndex = 0
+    - row.times do
+      - inside = (@active_proposals[rowIndex,6].count / Float(3)).ceil
+      %div.row
+        - inside.times do
+          .innerrow.top_drafts
+            = render partial: 'proposal', :collection => @active_proposals[rowIndex,3] 
+          - rowIndex = rowIndex + 3   
+    
+  #clearfix
+  %a#foo2_prev.prev{ href: "#" } prev
+    
+  %a#foo2_next.next{ href: "#" } next
+
+

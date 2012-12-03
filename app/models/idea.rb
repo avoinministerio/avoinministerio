@@ -35,6 +35,8 @@ class Idea < ActiveRecord::Base
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
   validates :state, inclusion: { in: VALID_STATES }
 
+  scope :active_proposal, where(:state => "proposal").where(self.arel_table[:collecting_end_date].not_eq(nil))
+
   tankit index_name do
     conditions do
       published?

@@ -11,6 +11,69 @@ $violet: #473161;
 body > header {
   height: 150px;
 }
+/* carousal css*/
+
+.bar_temp{
+  height: 75px !important;
+}
+
+.image_carousel {
+	position: relative;
+}
+
+.innerrow{
+ height:160px; 
+}
+
+a.prev, a.next {
+	background: url("/assets/miscellaneous_sprite.png") no-repeat transparent;
+	width: 45px;
+	height: 50px;
+	display: block;
+	position: absolute;
+	top: 175px;
+}
+
+a.prev {
+  left: -35px;
+	background-position: 0 0; 
+}
+
+a.prev:hover {
+  background-position: 0 -50px; 
+}
+
+a.prev.disabled {	
+  background-position: 0 -100px !important;  
+}
+
+a.next {			
+  right: -50px;
+	background-position: -50px 0; 
+}
+
+a.next:hover {		
+  background-position: -50px -50px; 
+}
+
+a.next.disabled {	
+  background-position: -50px -100px !important;  
+}
+
+a.prev.disabled, a.next.disabled {
+	cursor: default;
+}
+
+a.prev span, a.next span {
+	display: none;
+}
+
+.clearfix {
+	float: none;
+	clear: both;
+}
+
+/* carousal css */
 
 body > header.top_row_container {
   height: 0;
@@ -276,7 +339,14 @@ input[type=submit] {
         a:hover {
           text-decoration: underline;
         }
-        a:link {
+        a:link {border-width: 2px;
+    -moz-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
+    -webkit-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
+    -o-border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
+    border-image:url("/assets/border-dotted-horizontal.png") 0 0 2 0 repeat;
+    border-top: 0 none;
+    border-left: 0 none;
+    border-right: 0 none;
           text-decoration: none;
         }
         a:visited {
