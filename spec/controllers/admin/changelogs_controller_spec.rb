@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Admin::ChangelogsController do
 
   before :each do
-    @administrator = Factory(:administrator)
+    @administrator = FactoryGirl.create :administrator
     sign_in :administrator, @administrator
   end
 
@@ -16,7 +16,7 @@ describe Admin::ChangelogsController do
     end
 
     it "shows changelogs" do
-      idea = Factory(:idea, :body => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
+      idea = FactoryGirl.create :idea, :body => "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       idea.title = "Lorem ipsum dolor sit amet, ..."
       idea.save
 
@@ -26,7 +26,7 @@ describe Admin::ChangelogsController do
     end
 
     it "shows short diffs" do
-      idea = Factory :idea, :body => <<-EOS
+      idea = FactoryGirl.create :idea, :body => <<-EOS
 Lorem ipsum dolor sit amet, consectetur adipisicing elit,
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris

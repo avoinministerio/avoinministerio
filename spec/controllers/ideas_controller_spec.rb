@@ -9,7 +9,7 @@ describe IdeasController do
 
   describe "#show" do
     before :each do
-      @idea = Factory :idea
+      @idea = FactoryGirl.create :idea
     end
 
     it "should show an idea" do
@@ -26,7 +26,7 @@ describe IdeasController do
 
     describe "logged in user" do
       before :each do
-        @citizen = Factory.create :citizen
+        @citizen = FactoryGirl.create :citizen
         sign_in @citizen
       end
 
