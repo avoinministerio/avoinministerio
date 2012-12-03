@@ -46,6 +46,7 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
+  gem "debugger", ">= 1.2.2"
 end
 
 group :production do
