@@ -36,8 +36,8 @@ FactoryGirl.define do
   end
 
   factory :facebookin_erkki, parent: :erkki do |e|
-    after_create do |erkki|
-      Factory.create(:authentication, citizen: erkki)
+    after(:create) do |erkki|
+      FactoryGirl.create(:authentication, citizen: erkki)
     end
   end
   

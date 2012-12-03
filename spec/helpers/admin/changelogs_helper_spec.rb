@@ -48,27 +48,27 @@ EOS
 
   describe "#changelogged_link_for" do
     it "should build a link for an Idea" do
-      idea = Factory :idea
+      idea = FactoryGirl.create :idea
       link = helper.changelogged_link_for(idea.changelogs.last)
       link.should include("<a href=\"/ideat/#{idea.to_param}\">Idea ##{idea.id}</a>")
     end
 
     it "should build a link for an Idea comment" do
-      idea = Factory :idea
-      comment = Factory :comment, commentable: idea
+      idea = FactoryGirl.create :idea
+      comment = FactoryGirl.create :comment, commentable: idea
       link = helper.changelogged_link_for(comment.changelogs.last)
       link.should include("<a href=\"/ideat/#{idea.to_param}#comments\">Kommentti ##{comment.id}</a>")
     end
 
     it "should build a link for an Article" do
-      article = Factory :article
+      article = FactoryGirl.create :article
       link = helper.changelogged_link_for(article.changelogs.last)
       link.should include("<a href=\"/artikkelit/#{article.to_param}\">Artikkeli ##{article.id}</a>")
     end
 
     it "should build a link for an Article comment" do
-      article = Factory :article
-      comment = Factory :comment, commentable: article
+      article = FactoryGirl.create :article
+      comment = FactoryGirl.create :comment, commentable: article
       link = helper.changelogged_link_for(comment.changelogs.last)
       link.should include("<a href=\"/artikkelit/#{article.to_param}#comments\">Kommentti ##{comment.id}</a>")
     end

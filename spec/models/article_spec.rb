@@ -4,7 +4,7 @@ describe Article do
   it { should belong_to :author }
   it { should ensure_length_of(:title).is_at_least(5).with_short_message(/on liian lyhyt/) }
 
-  let(:article) { Factory(:article) }
+  let(:article) { FactoryGirl.create(:article) }
 
   it "should be valid" do
     article.should be_valid
