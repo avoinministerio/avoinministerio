@@ -9,4 +9,16 @@
 //= require raphael-min
 //= require g.raphael-min
 //= require g.pie-min
-//= require_directory .
+//= require articles
+//= require citizens
+//= require comments
+//= require expert_suggestions
+//= require ideas
+//= require pages
+//= require profiles
+//= require bootstrap-carousel
+//= require bootstrap-transition
+// FIX BUG in surveyor/jquery.tools.min stops carousel
+//= require surveyor_all
+//= require vote
+//=* require_directory . // don't work with carousel

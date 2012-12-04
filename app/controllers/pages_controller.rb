@@ -3,15 +3,15 @@
 class PagesController < ApplicationController
 
   before_filter :kiss_metrics
-  before_filter :test_two_rows
+ #before_filter :test_two_rows
 
   def home
     # B: two rows of examples:
-    @proposals = find_ideas("proposal", 3)
+    @proposals = Idea.featured
     @drafts = find_ideas("draft", 3)
 
     # A: just one row, both proposals and drafts in it
-    @proposals_and_drafts = (@proposals + @drafts).sort { |x, y| x.updated_at <=> y.updated_at }
+    @proposals_and_drafts = (@proposals + @drafts).sort { |x, y| x.updated_at <=> y.updated_at }.sample(3)
 
 
     # Ideas either newest or random sampling

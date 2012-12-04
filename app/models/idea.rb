@@ -10,6 +10,8 @@ class Idea < ActiveRecord::Base
   MAX_FB_TITLE_LENGTH = 100
   MAX_FB_DESCRIPTION_LENGTH = 500
 
+  FEATURED_LIMIT = 12
+
   friendly_id :title, use: :slugged
 
   attr_accessible :title, :body, :summary, :state,
@@ -60,6 +62,10 @@ class Idea < ActiveRecord::Base
   end
   after_save Concerns::IndexingWrapper.new
   after_destroy Concerns::IndexingWrapper.new
+
+  def self.featured
+    where(['state = ? AND collecting_ended = ?', 'proposal', false]).limit(30).sample(FEATURED_LIMIT)
+  end
 
   def indexable?
     self.title.present?
@@ -145,6 +151,12 @@ class Idea < ActiveRecord::Base
       for_ = sprintf("%2.0f%%", for_portion * 100.0)
       against_ = sprintf("%2.0f%%", against_portion * 100.0)
       [for_portion, for_, against_portion, against_]
+    end
+  end
+
+  VALID_STATES.each do |name|
+    define_method(name+'?') do
+      self.state.include?(name)
     end
   end
 end
