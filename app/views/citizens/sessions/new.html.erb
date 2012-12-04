@@ -22,12 +22,12 @@
       </div>
 
       <% if devise_mapping.rememberable? -%>
-          <div class="input checkbox" style="float: left;">
-            <%= f.check_box :remember_me, :style => 'float: left;width:20px;' %>
+          <div class="input checkbox pull-left">
+            <%= f.check_box :remember_me, :id => 'remember-me' %>
             <%= f.label :remember_me, "Muista minut" %>
           </div>
       <% end -%>
-	<div style="position: absolute; float: left; margin-left: 0.5%;">
+	<div class='forget-password'>
 		<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
 		<%= link_to "Unohditko salasanasi?", new_password_path(resource_name) %>
 		<% end -%>
