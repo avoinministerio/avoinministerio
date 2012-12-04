@@ -526,6 +526,27 @@ input[type=submit] {
 }
 
 #sign-in-citizen {
-  margin-left: -75%;
+  margin-left: -80%;
   position: relative;
+}
+
+#remember-me {
+  float: left;
+  width:20px;
+}
+
+#signed_in_links {
+  float:left;
+  margin-left: -70px;
+  width: 385px;
+}
+
+.pull-left {
+  float: left;
+}
+
+.forget-password {
+  position: absolute;
+  float: left;
+  margin-left: 0.5%;
 }
