@@ -512,3 +512,41 @@ input[type=submit] {
     clear: both;
   }
 }
+
+.se-dates {
+  margin-top: -60px;
+  height: 60px;
+}
+
+#flash-message{
+  width: 450px;
+  border: 2px solid #473161;
+  padding-bottom: 0;
+  background-color: #f0f0f0;
+}
+
+#sign-in-citizen {
+  margin-left: -80%;
+  position: relative;
+}
+
+#remember-me {
+  float: left;
+  width:20px;
+}
+
+#signed_in_links {
+  float:left;
+  margin-left: -70px;
+  width: 385px;
+}
+
+.pull-left {
+  float: left;
+}
+
+.forget-password {
+  position: absolute;
+  float: left;
+  margin-left: 0.5%;
+}
