@@ -17,3 +17,47 @@
 
 = render partial: 'news'
 = render partial: 'newsletter'
+
+- if !citizen_signed_in? || current_citizen.idea_tour_ended
+	:javascript
+		$(document).ready(function(){
+		var home_tour = new Tour({
+			name: "home_tour",
+			afterSetState: function(key, value) {
+			if (key == "end" && value == "yes") {
+				jQuery.post("/citizens/tour", {name: "home_tour"});
+			}
+		}
+		});
+		home_tour.addStep({
+			element: ".for_tour_reg",
+			placement: "bottom",
+			title: "Welcome to Avoin Ministeriö",
+			content: "Click here you can registier new account."
+		});
+		home_tour.addStep({
+			element: ".for_tour_reg_new",
+			placement: "bottom",
+			title: "Welcome to Avoin Ministeriö",
+			content: "Click here you can registier a new email account."
+		});
+		home_tour.addStep({
+			element: ".for_tour_facebook",
+			placement: "bottom",
+			title: "Welcome to Avoin Ministeriö",
+			content: "You can login with facebook account."
+		});
+		home_tour.addStep({
+			element: ".for_tour_anna_idea",
+			placement: "bottom",
+			title: "Welcome to Avoin Ministeriö",
+			content: "Anna Idea"
+		});
+		home_tour.addStep({
+			element: ".for_tour_listaa",
+			placement: "bottom",
+			title: "Welcome to Avoin Ministeriö",
+			content: "Click here you can find all the ideas"
+		});
+		home_tour.start();
+		});

@@ -16,11 +16,25 @@ class CitizensController < ApplicationController
     end
     render "edit"
   end
+
+  def tour
+    @citizen = current_citizen
+    if params[:name] == "home_tour"
+      @citizen.home_tour_ended = 1
+    else
+      if params[:name] == "idea_tour"
+        @citizen.idea_tour_ended = 1
+      end
+    end
+    @citizen.save
+  end
+
   
   private
   
   def fetch_citizen
     @citizen = current_citizen
   end
+
 
 end
