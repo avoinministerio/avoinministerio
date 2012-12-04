@@ -31,7 +31,7 @@ gem "hominid"
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
-gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
+gem "surveyor", "~> 1.1.0"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
@@ -45,7 +45,6 @@ group :development do
   gem "brakeman", "~> 1.6.2"
   gem "pry-rails"
   gem "launchy"
-  gem "letters"
 end
 
 group :production do
