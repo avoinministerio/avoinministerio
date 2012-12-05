@@ -216,6 +216,44 @@ The site can be protected with Basic Authentication by adding variables `AM_AUTH
 
 
 
+## Setting up mailer-configuration in development environment
+
+For sending emails best method is Simple Mail Transfer Protocol(SMTP), gmail provides it easily.
+
+Copy setup_mail.rb file
+        
+        cp config/initializers/setup_mail.rb.example config/initializers/setup_mail.rb
+
+Enable emailing in development environment. In your development.rb, change action_mailer.perform_deliveries to true
+
+        config.action_mailer.perform_deliveries = true
+
+Go to config/initializers/setup_mail.rb file and just replace:
+
+1. <USERNAME> with username provided by the mailing.
+ 
+2. <PASSWORD> with the password to the account whose username has been provided.
+
+To keep track of the email sent you'll find the emails in the sent folder of the user provided in the configuration.
+        
+        if Rails.env == 'development'
+                ActionMailer::Base.smtp_settings = {
+                        :address              => "smtp.gmail.com",
+                        :port                 => "587",
+                        :domain               => 'localhost:3000',
+                        :user_name            => '<USERNAME>',
+                        :password             => '<PASSWORD>',
+                        :authentication       => 'plain',
+                        :enable_starttls_auto => true
+                }
+        end
+    
+
+You can test the mail setup by clicking on link 'forget password'. It will send you instruction email when you will submit your email. Check your spam folder, if you are not getting emails.
+
+####NOTE:
+Configure config.action_mailer.perform_deliveries = false in development.rb, if you want to STOP email deliveries in development mode.
+
 
 ## Dependencies
 
