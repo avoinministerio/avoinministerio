@@ -3,7 +3,7 @@
 class PagesController < ApplicationController
 
   before_filter :kiss_metrics
- #before_filter :test_two_rows
+ before_filter :test_two_rows
 
   def home
     # B: two rows of examples:
