@@ -16,6 +16,13 @@ class CitizensController < ApplicationController
     end
     render "edit"
   end
+
+  def tour
+    @citizen.tour_setting[params[:tour_name]] = false if params[:tour_name].present?
+    if @citizen.save
+      format.js {render :json => {ok: '1'}}
+    end
+  end
   
   private
   

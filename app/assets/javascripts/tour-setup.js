@@ -8,6 +8,7 @@ $(document).ready(function () {
             afterGetState:function (key, value) {
             },
             afterSetState:function (key, value) {
+                $.post('/citizens/tour', {tour_name: 'homeTour'})
             },
             onShow:function (tour) {
             },
@@ -45,6 +46,7 @@ $(document).ready(function () {
             afterGetState:function (key, value) {
             },
             afterSetState:function (key, value) {
+                $.post('/citizens/tour', {tour_name: 'homeTour'});
             },
             onShow:function (tour) {
             },
