@@ -18,8 +18,3 @@
 = render partial: 'news'
 = render partial: 'newsletter'
 
-:javascript
-	$(document).ready(function(){
-	#{"window.homeTour.start();" unless current_citizen }
-	#{"window.homeTour.start(#{current_citizen.tour_setting['homeTour']});" if current_citizen   }
-	})

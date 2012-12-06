@@ -12,6 +12,7 @@
 //= require bootstrap-tour/jquery.cookie
 //= require bootstrap-tour/bootstrap-tooltip
 //= require bootstrap-tour/bootstrap-popover
+//= require bootstrap-tour/bootstrap-alert
 //= require bootstrap-tour/bootstrap-tour
 //= require tour-setup
 
