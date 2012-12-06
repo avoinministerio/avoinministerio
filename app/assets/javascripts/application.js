@@ -9,4 +9,9 @@
 //= require raphael-min
 //= require g.raphael-min
 //= require g.pie-min
-//= require_directory .
+//= require bootstrap-a-tooltip
+//= require bootstrap-b-popover
+//= require bootstrap-c-alert
+//= require bootstrap-d-jquery.cookies
+//= require bootstrap-e-tour
+

@@ -56,7 +56,7 @@
       - else
         .noprevnext
 .clear
-.grid_24
+#header_image_id.grid_24
   = idea_state_image(@idea)
 .idea.grid_24
   .author
@@ -64,7 +64,7 @@
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
-  .grid_16.alpha.mainbody
+  #content_id.grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.title
       .summary
@@ -82,7 +82,7 @@
       = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
 
   -if @idea.published?
-    .grid_7.prefix_1.omega
+    #yt_id.grid_7.prefix_1.omega
       %iframe{width: "270", height: "152", src: "https://www.youtube.com/embed/jSmhaKseDbo", style: "border: none;", allowfullscreen: ""}
       .share
         %div{:class => "addthis_toolbox addthis_default_style addthis_32x32_style"}

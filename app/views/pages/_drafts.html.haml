@@ -1,5 +1,5 @@
 .container_24.top_drafts
-  %h2= title
+  %h2#header_id= title
   - [["grid_8", "alpha"], ["grid_8"], ["grid_8", "omega"]][0, [3, items.size].min].each_with_index do |klasses, i|
     %div{:class => klasses}
       - if recent_draft = items[i]
