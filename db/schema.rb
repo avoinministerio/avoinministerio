@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013234109) do
+ActiveRecord::Schema.define(:version => 20121205145703) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "locked_at"
+    t.text     "tour_setting"
   end
 
   add_index "citizens", ["email"], :name => "index_citizens_on_email", :unique => true

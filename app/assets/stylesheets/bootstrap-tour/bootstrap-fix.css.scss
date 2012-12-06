@@ -1,0 +1,12 @@
+ @import "bootstrap-tour/bootstrap.css.scss";
+
+ // OVERWRITE
+.popover { p, dl, hr, h1, h2, h3, h4, h5, h6, ol, ul, pre, table, address, fieldset, figure {margin-bottom:0px;}
+h3 {font-size:14px;}
+ }
+// COLORS UPDATE
+.popover-content img { float: left;padding-right: 11px;}
+.popover-content {background-color:#FFFFE8;}
+.popover-title {background-color: #F9F4FF; border-bottom: 1px solid #DAD5DF;}
+.popover.bottom .arrow {border-bottom: 5px solid #6E4D97;}
+.popover-inner {background: none repeat scroll 0 0 #6E4D97;}

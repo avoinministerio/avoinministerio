@@ -14,8 +14,11 @@
   - else
     %title Avoin Ministeriö
 
+  = stylesheet_link_tag "bootstrap-tour/bootstrap-fix"
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
+  = csrf_meta_tags
+  = javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
     if (window.location.hash == '#_=_') {
@@ -28,7 +31,7 @@
   :javascript
     #{KM.js}
 
-%body
+%body{ :id => "#{self.controller_name}-#{self.action_name}"}
   %header.container_24.top_row_container
     .container_24.top_row
   %header.container_24

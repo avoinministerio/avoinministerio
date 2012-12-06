@@ -202,3 +202,9 @@
       = render "comments/form", model: @idea
     .comments.suffix_8
       = render partial: 'comments/comment', collection: @idea.comments.published
+
+:javascript
+  $(document).ready(function(){
+    #{"window.ideaTour.start();" unless current_citizen }
+   	#{"window.ideaTour.start(#{current_citizen.tour_setting['ideaTour']});" if current_citizen   }
+  })

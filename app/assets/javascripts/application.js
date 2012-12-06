@@ -9,4 +9,13 @@
 //= require raphael-min
 //= require g.raphael-min
 //= require g.pie-min
+//= require bootstrap-tour/jquery.cookie
+//= require bootstrap-tour/bootstrap-tooltip
+//= require bootstrap-tour/bootstrap-popover
+//= require bootstrap-tour/bootstrap-alert
+//= require bootstrap-tour/bootstrap-tour
+//= require tour-setup
+
 //= require_directory .
+
+jQuery.fn.exists = function(){return this.length>0;}
