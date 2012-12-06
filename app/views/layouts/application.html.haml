@@ -17,6 +17,9 @@
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
+
+  = javascript_include_tag "app-tour" if params[:controller] == "pages" && params[:action] == "home"
+  = javascript_include_tag "app-tour-idea" if params[:controller] == "ideas" && params[:action] == "show"
   :javascript
     if (window.location.hash == '#_=_') {
       if (console && 'function' == typeof console.warn) console.warn("Remove this ugly Facebook auth hax when https://developers.facebook.com/bugs/196125357123225 is fixed.");
@@ -38,9 +41,9 @@
     .idea_actions.bottom_row
       .grid_6
         &nbsp;
-      .grid_3
+      #id_list_all.grid_3
         = link_to "Listaa kaikki", ideas_path
-      .grid_3
+      #enter_idea_id.grid_3
         = link_to "Anna idea", new_idea_path
       .grid_2
         &nbsp;
