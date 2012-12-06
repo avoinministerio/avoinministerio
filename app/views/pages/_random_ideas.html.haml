@@ -17,20 +17,21 @@
 
     .grid_1
       &nbsp;
-    .grid_7.omega
-      .idea
-        .info.statistics
-          .infotext
-            %h3=link_to shorten(idea2.title, 100, 20, "»"), idea_path(idea2), id: "ab_ideas_#{i+=1}"
-            %p=link_to shorten(idea2.summary, 100, 20, "»"), idea_path(idea2), id: "ab_ideas_#{i}"
-          - for_, against, comments, total = @idea_counts[idea2.id]
-          %span.total #{total} ääntä:&nbsp;
-          %span.for #{for_}
-          |
-          %span.against #{against}
-          %span.front-page-comment-count= link_to "#{comments}", idea_path(idea2, anchor: "comments")
-    .grid_1
-      &nbsp;
+    - if idea2 # even odd checking
+      .grid_7.omega
+        .idea
+          .info.statistics
+            .infotext
+              %h3=link_to shorten(idea2.title, 100, 20, "»"), idea_path(idea2), id: "ab_ideas_#{i+=1}"
+              %p=link_to shorten(idea2.summary, 100, 20, "»"), idea_path(idea2), id: "ab_ideas_#{i}"
+              - for_, against, comments, total = @idea_counts[idea2.id]
+              %span.total #{total} ääntä:&nbsp;
+              %span.for #{for_}
+              |
+              %span.against #{against}
+              %span.front-page-comment-count= link_to "#{comments}", idea_path(idea2, anchor: "comments")
+      .grid_1
+        &nbsp;
     .clear
 
   =link_to "Listaa kaikki»", ideas_path, class: "list_ideas"
