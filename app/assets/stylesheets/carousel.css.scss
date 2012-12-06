@@ -1,0 +1,66 @@
+$carousel_column_width: 310px;
+$carousel_element_width: 303px;
+$element_height: 160px;
+
+.carousel {
+  padding: 15px 0 15px 40px;
+  position: relative;
+  left: -40px;
+}
+
+#proposals_carousel {
+  position: relative;
+  li {
+    display: block;
+    float: left;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+    width: $carousel_column_width;
+  }
+  li.middle {
+    padding: 0px 10px;
+  }
+  li .popular {
+    display: block;
+    float: left;
+    width: $carousel_element_width;
+    margin: 30px 0px;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+a.prev, a.next {
+  background: url("miscellaneous_sprite.png") no-repeat transparent;
+  width: 45px;
+  height: 50px;
+  display: block;
+  position: absolute;
+  top: 230px;
+}
+a.prev { left: -52px;
+  background-position: 0 0;
+}
+a.prev:hover {
+  background-position: 0 -50px;
+}
+a.prev.disabled {
+  background-position: 0 -100px !important;
+}
+a.next {
+  right: -112px;
+  background-position: -50px 0;
+}
+a.next:hover {
+  background-position: -50px -50px;
+}
+a.next.disabled {
+  background-position: -50px -100px !important;
+}
+a.prev.disabled, a.next.disabled {
+  cursor: default;
+}
+
+a.prev span, a.next span {
+  display: none;
+}

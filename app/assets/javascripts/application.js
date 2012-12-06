@@ -6,7 +6,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require surveyor_all
+//= require jquery.carouFredSel-6.1.0-packed
 //= require raphael-min
 //= require g.raphael-min
 //= require g.pie-min
-//= require_directory .
+//= require carousel
+//= require_tree .

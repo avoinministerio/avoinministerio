@@ -1,7 +1,7 @@
 .container_24.headline
   %hgroup.grid_18
-    %h1= @headline_1[rand(@headline_1.size)]
-    %h2= @headline_2[rand(@headline_2.size)]
+    %h1= PagesController.headlines1[rand(PagesController.headlines1.size)]
+    %h2= PagesController.headlines2[rand(PagesController.headlines2.size)]
   .actions.grid_6
     = link_to "Listaa kaikki", ideas_path, class: "button"
     %a.button{href: "/artikkelit/20-usein-kysyttyja-kysymyksia"} Usein kysyttyä

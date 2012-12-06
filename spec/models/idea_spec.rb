@@ -184,5 +184,17 @@ describe Idea do
         ideas.map(&:in_moderation?).should be_true
       end
     end
+
+    describe ".ongoing" do
+
+      it "returns ideas with collecting not finished yet" do
+        WebMock.stub_request(:any, /4na.api.searchify.com/)
+        valid_ongoing_idea = FactoryGirl.create :idea, collecting_started: Time.now, collecting_ended: nil
+        invalid_ended_idea = FactoryGirl.create :idea, collecting_started: Time.now, collecting_ended: true
+        Idea.ongoing.should == [valid_ongoing_idea]
+      end
+
+    end
+
   end
 end
