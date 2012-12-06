@@ -4,11 +4,13 @@ $(document).ready(function () {
     if ($('body#pages-home').exists()) {
         window.homeTour = new Tour({
             name:"homeTour",
-            show_now: true,
+
             afterGetState:function (key, value) {
             },
             afterSetState:function (key, value) {
-                $.post('/citizens/tour', {tour_name: 'homeTour'})
+                if (key == "end" && value == "yes") {
+                    $.post('/citizens/tour', {tour_name:'homeTour', authenticity_token:AUTH_TOKEN});
+                }
             },
             onShow:function (tour) {
             },
@@ -46,7 +48,9 @@ $(document).ready(function () {
             afterGetState:function (key, value) {
             },
             afterSetState:function (key, value) {
-                $.post('/citizens/tour', {tour_name: 'homeTour'});
+                if (key == "end" && value == "yes") {
+                    $.post('/citizens/tour', {tour_name:'ideaTour', authenticity_token:AUTH_TOKEN});
+                }
             },
             onShow:function (tour) {
             },

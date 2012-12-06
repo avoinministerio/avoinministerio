@@ -205,5 +205,6 @@
 
 :javascript
   $(document).ready(function(){
-  #{'window.ideaTour.start();' if true }
+    #{"window.ideaTour.start();" unless current_citizen }
+   	#{"window.ideaTour.start(#{current_citizen.tour_setting['ideaTour']});" if current_citizen   }
   })

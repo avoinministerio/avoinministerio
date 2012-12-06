@@ -18,6 +18,7 @@
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
   = csrf_meta_tags
+  = javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
     if (window.location.hash == '#_=_') {
