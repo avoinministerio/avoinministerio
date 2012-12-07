@@ -14,15 +14,15 @@ class Idea < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
-  attr_accessible :title, :body, :summary, :state,
-                  :comment_count, :vote_count, :vote_for_count, :vote_against_count,
-                  :vote_proportion, :vote_proportion_away_mid,
-                  :collecting_in_service,
-                  :collecting_started, :collecting_ended,
-                  :collecting_start_date, :collecting_end_date,
-                  :additional_signatures_count, :additional_signatures_count_date,
-                  :additional_collecting_service_urls, # using !!! as a separator between multiple urls
-                  :target_count, :updated_content_at
+  attr_accessible   :title, :body, :summary, :state,
+                    :comment_count, :vote_count, :vote_for_count, :vote_against_count,
+                    :vote_proportion, :vote_proportion_away_mid,
+                    :collecting_in_service,
+                    :collecting_started, :collecting_ended,
+                    :collecting_start_date, :collecting_end_date,
+                    :additional_signatures_count, :additional_signatures_count_date,
+                    :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
+                    :target_count, :updated_content_at
 
   has_many :comments, as: :commentable
   has_many :votes
@@ -33,9 +33,9 @@ class Idea < ActiveRecord::Base
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
   validates :author_id, presence: true
-  validates :title, length: {minimum: 5, message: "Otsikko on liian lyhyt."}
-  validates :body, length: {minimum: 5, message: "Kuvaa ideasi hieman tarkemmin."}
-  validates :state, inclusion: {in: VALID_STATES}
+  validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
+  validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
+  validates :state, inclusion: { in: VALID_STATES }
 
   tankit index_name do
     conditions do
@@ -48,9 +48,7 @@ class Idea < ActiveRecord::Base
     indexes :author do
       self.author.first_name + " " + self.author.last_name
     end
-    indexes :type do
-      "idea"
-    end
+    indexes :type do "idea" end
 
     category :type do
       "idea"
@@ -133,10 +131,10 @@ class Idea < ActiveRecord::Base
   end
 
   def can_be_signed?
-    started = collecting_started ||
-        (collecting_start_date && collecting_start_date <= today_date)
-    ended = collecting_ended ||
-        (collecting_end_date && collecting_end_date < today_date)
+    started   = collecting_started ||
+      (collecting_start_date && collecting_start_date <= today_date)
+    ended     = collecting_ended   ||
+      (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
   end
 
