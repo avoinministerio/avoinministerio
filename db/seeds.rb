@@ -240,6 +240,40 @@ EOS
 
 20.times do |i|
   idea = Idea.create(
+    { title: "Draft #{i}", 
+      summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
+      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
+      created_at: Time.now - (60*60*24),
+      updated_at: Time.now - (60*60*24),
+      })
+  idea.vote_for_count = rand(10000)
+  idea.vote_against_count = rand(10000)
+  idea.vote_count = idea.vote_for_count + idea.vote_against_count
+  idea.state = "draft"
+  idea.author = random_citizen
+  idea.save!
+end
+
+20.times do |i|
+  idea = Idea.create(
+    { title: "Proposal #{i}", 
+      summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
+      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
+      created_at: Time.now - (60*60*24),
+      updated_at: Time.now - (60*60*24),
+      })
+  idea.vote_for_count = rand(10000)
+  idea.vote_against_count = rand(10000)
+  idea.vote_count = idea.vote_for_count + idea.vote_against_count
+  idea.state = "proposal"
+  idea.collecting_start_date = Time.now - rand(10000)
+  idea.collecting_end_date = idea.collecting_start_date.next_month
+  idea.author = random_citizen
+  idea.save!
+end
+
+20.times do |i|
+  idea = Idea.create(
     { title: "Esimerkki-idea #{i}", 
       summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
       body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
