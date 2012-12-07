@@ -1,0 +1,27 @@
+.container_24.top_proposals
+  %h2= title
+  .low_limit_proposals_carousel
+    %ul#low_limit_proposals_list
+      - items.each do |item|
+        %li 
+          .proposal
+            %h3.title=link_to shorten(item.title, 100, 20, "»"), idea_path(item)
+            .collecting
+              Collecting start date: 
+              = item.collecting_start_date
+              %br  
+              Collecting end date: 
+              = item.collecting_end_date 
+            %div{id: "proposal_bar#{item.id}", class: "bar"}
+            - favour_vote_per = [40, (300 * (Float(item.vote_count) / 50000)).ceil].max
+            - require_vote_per = [40, (300 * (Float(50000 - item.vote_count) / 50000)).ceil].max
+            :javascript
+              var t  = Raphael("proposal_bar#{item.id}", 260, 20);
+              t.rect(0, 0, #{[favour_vote_per,(300-40)].min}, 20).attr({fill: "#f0f0f0", stroke: "#fff", strokewidth: 5});
+              t.rect(#{[favour_vote_per,(300-40)].min}, 0, #{require_vote_per}, 20).attr({fill: "#f0f0f0", stroke: "#fff", strokewidth: 5});
+              var r  = Raphael("proposal_bar#{item.id}", 260, 20);
+              r.rect(0, 0, #{[favour_vote_per,(300-40)].min}, 20).attr({fill: "#52BD00", stroke: "#fff", strokewidth: 5});
+              r.rect(#{[favour_vote_per,(300-40)].min}, 0, #{require_vote_per}, 20).attr({fill: "#AEFC72", stroke: "#fff", strokewidth: 5});
+              t.text(20,11, "#{item.vote_count}").attr({"font-size": 12});
+              t.text(125,11, "out of").attr({"font-size": 12});
+              t.text(235,11, "#{50000}").attr({"font-size": 12});

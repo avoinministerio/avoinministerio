@@ -2,8 +2,12 @@
 
 class PagesController < ApplicationController
 
-  def load(state, count)
-    items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+  def load(state)
+    if state == "proposal"
+      items = Idea.published.where(:state => "proposal", :collecting_ended => nil).order("RANDOM()")
+    else
+      items = Idea.published.where(state: state).order("RANDOM()").includes(:votes).all
+    end
     item_counts = {}
 
     items.each do |idea|
@@ -40,25 +44,9 @@ class PagesController < ApplicationController
   end
 
   def home
-    # AB-test: is it better to have proposals in their separate section or merge with drafts
-    session[:ab_section_count] = rand(2)+1 unless session[:ab_section_count]
-    KM.set({"section_count" => "#{session[:ab_section_count]}"})
-    ["proposal_and_draft", "draft", "proposal"].each do |section|
-      3.times do |i| 
-        section_index_link = "ab_section_#{section}_#{i}_link"
-        KM.track(section_index_link, section_index_link)            # track both, which section and which item
-        KM.track(section_index_link, "ab_section_#{section}_link")  # track only which section got the click
-      end
-    end
-
-    # B: two rows of examples:
-    @proposals, @proposals_counts  = load("proposal", 3)
-    @drafts, @draft_counts        = load("draft",    3)
-
-    # A: just one row, both proposals and drafts in it
-    @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
-    @proposal_and_drafts_counts = @proposals_counts.merge @draft_counts
-
+    # Two rows (proposals and drafts)
+    @proposals, @proposals_counts  = load("proposal")
+    @drafts, @draft_counts = load("draft")
 
     # Ideas either newest or random sampling
     if @newest_ideas = (rand() < 0.1)
@@ -68,12 +56,6 @@ class PagesController < ApplicationController
       @ideas.each do |idea|
         formatted_idea_counts(idea, @idea_counts)
       end
-
-      idea_count.times do |i|
-        KM.track("ab_ideas_#{i}", "ab_ideas_#{i}")    # track both, which section and which item
-        KM.track("ab_ideas_#{i}", "ab_ideas")         # track just idea section got the click
-      end
-    
     else
       idea_count = 6
       # this solution builds on few facts: most ideas are published and in state idea, and
@@ -131,9 +113,5 @@ class PagesController < ApplicationController
       "Jaa tietoa",
       "Levitä aloitetta",
     ]
-
-
-    KM.identify(current_citizen)
-    KM.push("record", "front page viewed")
   end
 end
