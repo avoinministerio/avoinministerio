@@ -3,7 +3,7 @@
 class PagesController < ApplicationController
 
   before_filter :kiss_metrics
- before_filter :test_two_rows
+  before_filter :test_two_rows
 
   def home
     # B: two rows of examples:
@@ -24,8 +24,8 @@ class PagesController < ApplicationController
       end
 
       idea_count.times do |i|
-        KM.track("ab_ideas_#{i}", "ab_ideas_#{i}") # track both, which section and which item
-        KM.track("ab_ideas_#{i}", "ab_ideas") # track just idea section got the click
+        KM.track("ab_ideas_#{i}", "ab_ideas_#{i}")    # track both, which section and which item
+        KM.track("ab_ideas_#{i}", "ab_ideas")         # track just idea section got the click
       end
 
     else
@@ -42,14 +42,14 @@ class PagesController < ApplicationController
         picks = picking_ids.slice!(0, picks_at_time)
 
         break if picks.empty?
-       # originally this didn't work: @ideas = Idea.published.where(state: 'idea').random_by_id_shuffle(idea_count)'
+        # originally this didn't work: @ideas = Idea.published.where(state: 'idea').random_by_id_shuffle(idea_count)'
         published_ideas = Idea.find_all_by_id(picks).find_all do |i|
           vote_count = i.vote_count || 1
           vote_count = 1 if vote_count == 0
           keep_as_too_few_votes_to_skip = (Math.log(vote_count)/Math.log(30)/2.0) < rand()
           i.published? and i.state == 'idea' and keep_as_too_few_votes_to_skip
         end
-        @ideas.concat published_ideas[0, [idea_count - @ideas.size, published_ideas.size].min]
+        @ideas.concat published_ideas[0,[idea_count - @ideas.size, published_ideas.size].min]
       end
 
       @idea_counts = {}
@@ -61,31 +61,31 @@ class PagesController < ApplicationController
     @blog_articles = Article.published.where(article_type: 'blog').order("created_at DESC").limit(3).all
 
     @headline_1 = [
-        "Tuulivoimalat pelastavat maailman?",
-        "Turkistarhaus on kiellettävä?",
-        "Turkistarhausta kehitettävä?",
-        "Perustulo kaikille?",
-        "Nykyistä tukijärjestelmää on kehitettävä?",
-        "Koiravero vanhentunut?",
-        "Koiravero koko maahan?",
-        "Sitovat kansanäänestykset?",
-        "Tasa-arvoisempi avioliittolaki?",
-        "Lisää kansalaisaloitteita",
-        "Kaikki on hyvin?",
-        "Mitään ei tarvitse muuttaa?",
-        "Lapsillemme parempi maailma!"
+      "Tuulivoimalat pelastavat maailman?",
+      "Turkistarhaus on kiellettävä?",
+      "Turkistarhausta kehitettävä?",
+      "Perustulo kaikille?",
+      "Nykyistä tukijärjestelmää on kehitettävä?",
+      "Koiravero vanhentunut?",
+      "Koiravero koko maahan?",
+      "Sitovat kansanäänestykset?",
+      "Tasa-arvoisempi avioliittolaki?",
+      "Lisää kansalaisaloitteita",
+      "Kaikki on hyvin?",
+      "Mitään ei tarvitse muuttaa?",
+      "Lapsillemme parempi maailma!"
     ]
     @headline_2 = [
-        "Tee siitä laki",
-        "Tee omat lakisi",
-        "Laista itse",
-        "Anna oma ehdotuksesi",
-        "Kommentoi",
-        "Ota kantaa",
-        "Anna tukesi",
-        "Tee vastaehdotus",
-        "Jaa tietoa",
-        "Levitä aloitetta",
+      "Tee siitä laki",
+      "Tee omat lakisi",
+      "Laista itse",
+      "Anna oma ehdotuksesi",
+      "Kommentoi",
+      "Ota kantaa",
+      "Anna tukesi",
+      "Tee vastaehdotus",
+      "Jaa tietoa",
+      "Levitä aloitetta",
     ]
 
 

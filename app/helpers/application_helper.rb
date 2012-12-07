@@ -4,19 +4,15 @@ require 'digest/sha2'
 module ApplicationHelper
 
   def l_if(object, options={})
-    attr = options
-    if object.presence
-      t = I18n.localize(object, options)
-      #time_ago_in_words(Time.now.to_s) #if attr.include?(:in_words) && attr[:in_words]
-    end
+    I18n.localize(object, options) if object.presence
   end
 
   def markdown(text)
     renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, with_toc_data: true)
-    Redcarpet::Markdown.new(renderer, {autolink: true, tables: true}).render(text).html_safe
+    Redcarpet::Markdown.new(renderer, { autolink: true, tables: true }).render(text).html_safe
   end
   def shorten(text, max_length, cut_characters, ending_sign)
-    (text.length < (max_length-cut_characters) ? text : text[0, max_length].gsub(/[\s,.\-!?]+\S+\z/, "")) + " " + ending_sign
+    (text.length < (max_length-cut_characters) ? text : text[0,max_length].gsub(/[\s,.\-!?]+\S+\z/, "")) + " " + ending_sign
   end
 
   def finnishTime(time)
@@ -34,26 +30,26 @@ module ApplicationHelper
     user = Citizen.find_by_email(user_email)
     latest_rs = user.response_sets.last
     user_state ||= latest_rs.nil? ? "signed_up" : latest_rs.user_state
-    survey = Survey.where(access_code: survey_code).order("survey_version DESC").first
+    survey = Survey.where(access_code:  survey_code).order("survey_version DESC").first
     response_set = ResponseSet.create(survey: survey, user_id: user)
     response_set.update_attribute(:user_state, user_state)
     Rails.application.routes.url_helpers.
-        edit_my_survey_path(survey_code: survey.access_code, response_set_code: response_set.access_code)
+      edit_my_survey_path( survey_code: survey.access_code, response_set_code: response_set.access_code)
   end
 
   def survey_button(user_state = nil, multiple_survey = false, current_language = nil)
-    if (current_citizen &&
+    if( current_citizen &&
         current_citizen.profile.accept_science &&
-        (multiple_survey || current_citizen.response_sets == []))
+        (multiple_survey || current_citizen.response_sets == []) )
       latest_rs = current_citizen.response_sets.last
       user_state ||= latest_rs.nil? ? "signed_up" : latest_rs.user_state
       if current_language
         result = ""
-        SURVEY_ACCESS_CODE.select { |k, v| k != current_language.to_sym }.each do |l, s|
+        SURVEY_ACCESS_CODE.select{|k, v| k != current_language.to_sym}.each do |l, s|
           result += button_to(t("language", locale: l),
                               take_survey_path(:survey_code => s,
                                                :user_state => user_state,
-                                               :locale => current_language))
+                                               :locale => current_language) )
         end
         return result
       else
@@ -68,7 +64,7 @@ module ApplicationHelper
 end
 
 def current_timezone
-  timezone = ENV['FinnishTimezone'] || 3.0/24 # TODO: needs to be changed into GMT+2 for winter time
+  timezone = ENV['FinnishTimezone'] || 3.0/24   # TODO: needs to be changed into GMT+2 for winter time
 end
 
 def today_date(timezone = current_timezone)
@@ -78,16 +74,16 @@ end
 
 
 class Numeric
-  def format(separator = ',', decimal_point = '.')
-    num_parts = self.to_s.split('.')
-    x = num_parts[0].reverse.scan(/.{1,3}/).join(separator).reverse
-    x << decimal_point + num_parts[1] if num_parts.length == 2
-    return x
-  end
+     def format(separator = ',', decimal_point = '.')
+         num_parts = self.to_s.split('.')
+         x = num_parts[0].reverse.scan(/.{1,3}/).join(separator).reverse
+         x << decimal_point + num_parts[1] if num_parts.length == 2
+         return x
+     end
 
-  def Numeric.format(number, *args)
-    number.format(*args)
-  end
+     def Numeric.format(number, *args)
+         number.format(*args)
+     end
 
 end
 
