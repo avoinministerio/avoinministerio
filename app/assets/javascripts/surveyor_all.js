@@ -21,7 +21,6 @@ $(document).ready(function(){
 
   var toggleButton = function() {
     var unanswered_mandatory_question = unanswered_question(mandatory_questions);
-    console.log(unanswered_mandatory_question);
     if( unanswered_mandatory_question == null ) {
       $("input[name='finish']").attr({"disabled": false, "class": "finish-btn"});
       $(".unanswered-link").remove();
