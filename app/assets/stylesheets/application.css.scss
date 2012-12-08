@@ -25,7 +25,7 @@ body > header {
  height:160px; 
 }
 
-a.prev, a.next {
+a.crprev, a.crnext {
 	background: url('/assets/miscellaneous_sprite.png') no-repeat transparent;
 	width: 45px;
 	height: 50px;
@@ -34,37 +34,37 @@ a.prev, a.next {
 	top: 162px;
 }
 
-a.prev {
+a.crprev {
   left: -50px;
 	background-position: 0 0; 
 }
 
-a.prev:hover {
+a.crprev:hover {
   background-position: 0 -50px; 
 }
 
-a.prev.disabled {	
+a.crprev.disabled {	
   background-position: 0 -100px !important;  
 }
 
-a.next {			
+a.crnext {			
   right: -50px;
 	background-position: -50px 0; 
 }
 
-a.next:hover {		
+a.crnext:hover {		
   background-position: -50px -50px; 
 }
 
-a.next.disabled {	
+a.crnext.disabled {	
   background-position: -50px -100px !important;  
 }
 
-a.prev.disabled, a.next.disabled {
+a.crprev.disabled, a.crnext.disabled {
 	cursor: default;
 }
 
-a.prev span, a.next span {
+a.crprev span, a.crnext span {
 	display: none;
 }
 
