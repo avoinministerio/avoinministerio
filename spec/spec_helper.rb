@@ -1,5 +1,6 @@
 require "rubygems"
 require "spork"
+require 'factory_girl'
 
 # --- Instructions ---
 # Sort the contents of this file into a Spork.prefork and a Spork.each_run
@@ -29,6 +30,15 @@ require "spork"
 #
 # These instructions should self-destruct in 10 seconds.  If they don't, feel
 # free to delete them.
+
+def min_ideas_for_homepage( multiply=1 )
+  # temporary used for pass homepage tests
+  # We will do different aproach after test_suite repair
+  ideas_count = Idea.count
+  if ideas_count < (6*multiply)
+    (6*multiply - ideas_count).times { FactoryGirl.create :idea }
+  end
+end
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,

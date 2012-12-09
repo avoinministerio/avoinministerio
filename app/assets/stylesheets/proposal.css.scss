@@ -1,0 +1,31 @@
+.popular {
+  position: relative;
+  p {
+    position: absolute;
+  }
+  .start_at {
+    top: 30px;
+  }
+  .end_at {
+    top: 60px;
+  }
+  .bar {
+    position: relative;
+    p {
+     position: absolute;
+     top: -20px;
+     width: 120px;
+   }
+   .days_left {
+     top: -40px;
+     width: 100%;
+   }
+   .for {
+     left: 0px;
+   }
+   .against {
+     right: 24px;
+     text-align: right;
+   }
+  }
+}

@@ -1,0 +1,19 @@
+- if new_proposals_column?(proposal_index)
+  <li #{proposal_column_class(proposal_index)}>
+.popular
+  %h3.title=link_to shorten(proposal.title, 100, 20, "»"), idea_path(proposal), id: "ab_section_#{section}_#{proposal_index}_link"
+  - for_portion, for_, against_portion, against_ = proposal_counts
+  - for_length = [35, (280-5-35)*for_portion].max
+  - for_color, against_color = idea_popularity_colors(proposal)
+  %div{id: "draft_bar#{proposal_index}", class: "bar"}
+    %p.days_left voting days left: #{proposal.voting_days_left}
+    %p{class: 'for', style: "color: #{for_color}"} #{proposal.vote_for_count}
+    %p{class: 'against', style: "color: #{against_color}"} #{proposal.vote_against_count}
+  :javascript
+    var r = Raphael("draft_bar#{proposal_index}", 280,20);
+    r.rect(0, 0, #{for_length}, 20).attr({fill: "#{for_color}", stroke: "#fff", strokewidth: 5});
+    r.rect(#{for_length+5}, 0, #{280-5-for_length}, 20).attr({fill: "#{against_color}", stroke: "#fff", strokewidth: 5});
+    r.text(18,11, "#{for_}").attr({fill: "#fff", "font-size": 12});
+    r.text(261,11, "#{against_}").attr({fill: "#fff", "font-size": 12});
+- if end_of_proposals_column?(proposal_index)
+  </li>
