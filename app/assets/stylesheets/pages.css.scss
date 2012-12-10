@@ -125,5 +125,30 @@ input#mce-EMAIL {
 }
 
 :focus {
-    outline: none;
+  outline: none;
+}
+
+.proposal-section .carousel-next {
+  background: url("/assets//next.png") no-repeat scroll 0 0 transparent;
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 65px;
+  height: 45px;
+  width: 23px;
+  opacity:0.4;
+  filter:alpha(opacity=40);
+  -moz-opacity: .4;
+}
+
+.proposal-section .carousel-previous {
+  background: url("/assets//prev.png") no-repeat scroll 0 0 transparent;
+  position: absolute;
+  margin-left: -10px;
+  margin-top: 65px;
+  height: 45px;
+  width: 23px;
+  z-index: 1000;
+  opacity:0.4;
+  filter:alpha(opacity=40);
+  -moz-opacity: .4;
 }
