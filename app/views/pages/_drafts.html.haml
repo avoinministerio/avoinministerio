@@ -42,4 +42,12 @@
 
 - if section == "proposal" && item_size > 6
   :javascript
-    $(function() { $("div.proposal-section").carousel( { loop: true, dispItems: 3 } ); });
+    $(function() {
+      $("div.proposal-section").carousel({
+        dispItems: 3,
+        autoSlide: true,
+        combinedClasses: true,
+        autoSlideInterval: 5000,
+        delayAutoSlide: 1000
+      });
+    });
