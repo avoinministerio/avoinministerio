@@ -96,13 +96,6 @@ input#mce-EMAIL {
 }
 
 //For home page slider
-.proposal-section .carousel-previous {
-  background: url("/assets//previous.png") no-repeat scroll 0 0 transparent;
-  position: absolute;
-  margin-left: 3px;
-  margin-top: 70px;
-  z-index: 1000;
-}
 
 .proposal-section .carousel-control {
   overflow:hidden;
@@ -138,6 +131,24 @@ input#mce-EMAIL {
 .proposal-section .carousel-next {
   background: url("/assets//next.png") no-repeat scroll 0 0 transparent;
   position: absolute;
-  margin-left: -35px;
-  margin-top: 71px;
+  margin-left: 5px;
+  margin-top: 65px;
+  height: 45px;
+  width: 23px;
+  opacity:0.4;
+  filter:alpha(opacity=40);
+  -moz-opacity: .4;
+}
+
+.proposal-section .carousel-previous {
+  background: url("/assets//prev.png") no-repeat scroll 0 0 transparent;
+  position: absolute;
+  margin-left: -10px;
+  margin-top: 55px;
+  height: 65px;
+  width: 23px;
+  z-index: 1000;
+  opacity:0.4;
+  filter:alpha(opacity=40);
+  -moz-opacity: .4;
 }
