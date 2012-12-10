@@ -3,12 +3,12 @@
 require 'spec_helper'
 
 describe IdeasHelper do
-  let(:idea) { Factory(:idea) }
+  let(:idea) { FactoryGirl.create(:idea) }
   
   describe "#idea_state_image" do
-    let(:draft)     { Factory(:idea, state: "draft") }
-    let(:proposal)  { Factory(:idea, state: "proposal") }
-    let(:law)       { Factory(:idea, state: "law") }
+    let(:draft)     { FactoryGirl.create(:idea, state: "draft") }
+    let(:proposal)  { FactoryGirl.create(:idea, state: "proposal") }
+    let(:law)       { FactoryGirl.create(:idea, state: "law") }
 
     it "returns image tag for given idea and its state" do
       helper.idea_state_image(idea).should      =~ /state_1_idea.png/
@@ -19,8 +19,8 @@ describe IdeasHelper do
   end
   
   describe "#vote_in_words" do
-    let(:citizen_0) { Factory(:citizen) }
-    let(:citizen_1) { Factory(:citizen) }
+    let(:citizen_0) { FactoryGirl.create(:citizen) }
+    let(:citizen_1) { FactoryGirl.create(:citizen) }
     
     before do
       idea.vote(citizen_0, 0)

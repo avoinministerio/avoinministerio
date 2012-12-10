@@ -70,6 +70,19 @@ class Idea < ActiveRecord::Base
     25
   end
 
+  def self.ongoing
+    where("ideas.collecting_started IS NOT NULL AND ideas.collecting_ended IS NULL or ideas.collecting_ended = ?", false)
+  end
+
+  def self.latest(number_of_ideas=4)
+    ideas_tracking number_of_ideas
+    published.where(state: 'idea').order("created_at DESC").limit(number_of_ideas).includes(:votes).all
+  end
+
+  def self.get_random_ideas(number_of_ideas)
+    published.where(state: "idea").order("updated_at DESC").limit(100).includes(:votes).all.shuffle![0..count]
+  end
+
   def to_param
     "#{self.id}-#{self.slug}"
   end
@@ -84,7 +97,15 @@ class Idea < ActiveRecord::Base
       votes.create(citizen: citizen, option: option)
     end
   end
-  
+
+  def voting_days_left
+    if collecting_end_date
+      (collecting_end_date - Date.today).to_i
+    else
+      ""
+    end
+  end
+
   def update_vote_counts(option, old_option)
     if old_option == nil
       self.vote_count += 1
@@ -131,4 +152,8 @@ class Idea < ActiveRecord::Base
       (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
   end
+
+  include FormattingMethods
+  include KissMetricsMethods
+
 end

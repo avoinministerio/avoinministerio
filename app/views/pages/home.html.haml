@@ -1,19 +1,17 @@
 = render partial: 'headline'
-
-- if session[:ab_section_count] == 1
-	= render partial: 'drafts', 
-		locals: {title: "Toimenpide- ja Lakiehdotukset sekä Luonnokset", section: "proposal_and_draft",
-				 items: @proposals_and_drafts, items_counts: @proposal_and_drafts_counts, item_counter: 0 }
-- else # session[:ab_section_count] == 2
-	= render partial: 'drafts', 
-		locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 0, section: "proposal" }
-	= render partial: 'drafts', 
-		locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, item_counter: 3,  section: "draft" }
-
+.container_24.top_drafts
+  %h2 Toimenpide- ja Lakiehdotukset
+  .carousel
+    %ul#proposals_carousel
+      - @proposals.each_with_index do |proposal, proposal_index|
+        = render partial: 'proposals_column', locals: {proposal: proposal, proposal_counts: @proposals_counts[proposal.id], item_counter: 0, proposal_index: proposal_index, section: "proposal" }
+    <a class="prev" id="proposals_carousel_prev" href="#"><span>prev</span></a>
+    <a class="next" id="proposals_carousel_next" href="#"><span>next</span></a>
+= render partial: 'drafts', locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, item_counter: @proposals.length,  row_index: 0, section: "draft" }
 - if @newest_ideas
-	= render partial: 'ideas'
+  = render partial: 'ideas'
 - else
-	= render partial: 'random_ideas'
+  = render partial: 'random_ideas'
 
 = render partial: 'news'
 = render partial: 'newsletter'

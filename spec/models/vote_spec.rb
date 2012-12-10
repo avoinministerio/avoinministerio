@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe Vote do
-  let(:idea)    { Factory(:idea) }
-  let(:citizen) { Factory(:citizen) }
+  let(:idea)    { FactoryGirl.create(:idea) }
+  let(:citizen) { FactoryGirl.create(:citizen) }
   
   describe ".by" do
     before do
       5.times { Vote.create(option: 1, idea: idea) }
-      Factory(:vote, option: 1, citizen: citizen, idea: idea)
-      Factory(:vote, option: 0, citizen: citizen, idea: nil)
+      FactoryGirl.create(:vote, option: 1, citizen: citizen, idea: idea)
+      FactoryGirl.create(:vote, option: 0, citizen: citizen, idea: nil)
     end
 
     subject { @scope.by(citizen) }
@@ -27,8 +27,8 @@ describe Vote do
   
   describe ".in_favor" do
     before do
-      5.times { Factory(:vote, option: 1, idea: idea) }
-      3.times { Factory(:vote, option: 0, idea: idea) }
+      5.times { FactoryGirl.create(:vote, option: 1, idea: idea) }
+      3.times { FactoryGirl.create(:vote, option: 0, idea: idea) }
     end
     
     subject { Vote.in_favor }
@@ -40,8 +40,8 @@ describe Vote do
   
   describe ".against" do
     before do
-      5.times { Factory(:vote, option: 1, idea: idea) }
-      3.times { Factory(:vote, option: 0, idea: idea) }
+      5.times { FactoryGirl.create(:vote, option: 1, idea: idea) }
+      3.times { FactoryGirl.create(:vote, option: 0, idea: idea) }
     end
     
     subject { Vote.against }
