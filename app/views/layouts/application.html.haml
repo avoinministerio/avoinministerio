@@ -27,6 +27,7 @@
 
   :javascript
     #{KM.js}
+  = yield :head_js
 
 %body
   %header.container_24.top_row_container
@@ -41,7 +42,7 @@
       .grid_3
         = link_to "Listaa kaikki", ideas_path
       .grid_3
-        = link_to "Anna idea", new_idea_path
+        = link_to "Anna idea", new_idea_path, id: 'new_idea'
       .grid_2
         &nbsp;
       .grid_7

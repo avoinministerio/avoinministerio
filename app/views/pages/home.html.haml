@@ -1,5 +1,6 @@
+- content_for :head_js do
+	= javascript_include_tag 'home_tour'
 = render partial: 'headline'
-
 - if session[:ab_section_count] == 1
 	= render partial: 'drafts', 
 		locals: {title: "Toimenpide- ja Lakiehdotukset sekä Luonnokset", section: "proposal_and_draft",
