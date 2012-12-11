@@ -2,6 +2,8 @@
   = render partial: 'facebook_meta_tags'
 - content_for :head do
   %title= "@Avoinministerio #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}"
+- content_for :head_js do
+  = javascript_include_tag "idea_tour"
 :javascript
   $(document).ready(function(){
       var r = Raphael("votepie");
@@ -64,7 +66,7 @@
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
-  .grid_16.alpha.mainbody
+  #idea_body.grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.title
       .summary
@@ -103,7 +105,7 @@
 
   -if @idea.published?
     %aside.grid_7.prefix_1.omega
-      .voting
+      #voting_part.voting
         - if @idea.voted_by?(current_citizen)
           %h3 Voit lisätä kantasi painoa jakamalla aloitetta aktiivisesti eteenpäin!
           %hr

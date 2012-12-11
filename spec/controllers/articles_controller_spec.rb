@@ -5,7 +5,7 @@ describe ArticlesController do
 
   describe "#show" do
     before :each do
-      @article = Factory :article
+      @article = FactoryGirl.create :article
     end
 
     it "should show an article" do
