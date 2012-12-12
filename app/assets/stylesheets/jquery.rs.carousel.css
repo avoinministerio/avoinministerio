@@ -1,0 +1,326 @@
+/*
+ * jquery.rs.carousel.css v0.8.5
+ *
+ * Copyright (c) 2011 Richard Scarrott
+ * http://www.richardscarrott.co.uk
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ * Depends:
+ *  a basic reset + items must have width & height
+ */
+	
+.rs-carousel .rs-carousel-mask {
+	overflow: hidden;
+}
+
+.rs-carousel .rs-carousel-runner {
+    position: relative;
+}
+		
+.rs-carousel.rs-carousel-horizontal .rs-carousel-item {
+        float: left;
+}
+
+/*
+ * jquery.rs.carousel-touch.css v0.8.5
+ *
+ * Copyright (c) 2011 Richard Scarrott
+ * http://www.richardscarrott.co.uk
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ * Depends:
+ *  jquery.rs.carousel.css v0.8.5+
+ */
+	
+.rs-carousel .rs-carousel-mask {
+	position: relative;
+}
+
+.rs-carousel .rs-carousel-runner.rs-carousel-runner-transition {
+        -moz-transition: -moz-transform .400s ease;
+        -webkit-transition: -webkit-transform .400s ease;
+        -o-transition: -o-transform .400s ease;
+        -ms-transition: -ms-transform .400s ease;
+        transition: transform .400s ease;
+}
+
+.rs-carousel .rs-carousel-runner {
+        -moz-transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+}
+
+
+/*
+ *   Demo.css
+ */
+ 
+/* layout */
+#container {
+        position: relative;
+        width: 80%;
+}
+
+/* rs carousel */
+#rs-carousel .rs-carousel-mask {
+    /*border: 6px solid #444;*/
+}
+
+#rs-carousel .rs-carousel-item {
+        width: 310px;
+        height: 430px;
+}
+
+#rs-carousel .rs-carousel-action-next,
+#rs-carousel .rs-carousel-action-prev {
+        cursor: pointer;
+        display: none;
+}
+
+#rs-carousel .rs-carousel-pagination-link {
+        display: inline;
+}
+
+#rs-carousel .rs-carousel-pagination-link a {
+        padding: 2px 6px;
+}
+
+        #rs-carousel .rs-carousel-pagination-link a:hover {
+                text-decoration: none;
+        }
+
+#rs-carousel .rs-carousel-pagination-link-active a {
+        background: #444;
+        color: #fff;
+}
+
+#rs-carousel.rs-carousel-disabled .rs-carousel-pagination-link a,
+#rs-carousel.rs-carousel-disabled .rs-carousel-action-next,
+#rs-carousel.rs-carousel-disabled .rs-carousel-action-prev,
+#rs-carousel .rs-carousel-action-disabled {
+color: gray;
+cursor: default;
+}
+
+/** horizontal **/
+#rs-carousel.rs-carousel-horizontal.rs-carousel-items-1 .rs-carousel-mask {
+width: 930px;
+}
+
+#rs-carousel.rs-carousel-horizontal.rs-carousel-items-2 .rs-carousel-mask {
+width: 930px;
+}
+
+#rs-carousel.rs-carousel-horizontal.rs-carousel-items-3 .rs-carousel-mask {
+width: 930px;
+}
+
+#rs-carousel.rs-carousel-horizontal.rs-carousel-items-4 .rs-carousel-mask {
+width: 1240px;
+}
+
+/** vertical **/
+#rs-carousel.rs-carousel-vertical .rs-carousel-mask {
+width: 150px;
+}
+
+#rs-carousel.rs-carousel-vertical.rs-carousel-items-1 .rs-carousel-mask {
+height: 150px;
+}
+
+#rs-carousel.rs-carousel-vertical.rs-carousel-items-2 .rs-carousel-mask {
+height: 300px;
+}
+
+#rs-carousel.rs-carousel-vertical.rs-carousel-items-3 .rs-carousel-mask {
+height: 450px;
+}
+
+#rs-carousel.rs-carousel-vertical.rs-carousel-items-4 .rs-carousel-mask {
+height: 600px;
+}
+
+/*******BASE CSS*********/
+
+
+/* reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: 0;
+        font-family: 100%;
+}
+
+/** block level **/
+ul,
+ol {
+        list-style: none;
+}
+/*
+table {
+        border-collapse: collapse;
+}
+
+        table th {
+                text-align: left;
+        }
+
+iframe {
+        border-width: 0;
+        background: #DDD;
+}
+
+* inline *
+a {
+        color: #1788D7;
+        text-decoration: none;
+}
+
+        a:hover {
+                text-decoration: underline;
+        }
+
+img {
+        vertical-align: bottom;
+}
+
+pre,
+kbd,
+code,
+samp,
+tt,
+var {
+        font-family: monospace;
+}
+
+pre {
+        white-space: pre-wrap;
+}
+
+ base 
+body {
+        background: #444;
+        font-family: arial, helvetica, sans-serif;
+        font-size: 81.25%; * 13px *
+        color: #444;
+        line-height: 1.4;
+}
+
+ layout 
+#container {
+        width: 666px;
+        margin: 0 auto;
+        background: #F5F5F5;
+        padding: 30px;
+}
+
+ headings 
+.h1,
+.h2,
+.h3,
+.h4 {
+        line-height: 1.2;
+        font-weight: normal;
+        margin: 0 0 0.3em;
+        font-family: trebuchet ms, lucida sans unicode, arial, sans-serif;
+        font-size: 1.538em;
+}
+
+ copy 
+.copy p,
+.copy pre,
+.copy blockquote,
+.copy dl,
+.copy ul,
+.copy ol,
+.copy address {
+        margin: 0 0 1.384em;
+}
+
+.copy ul,
+.copy ol {
+        padding: 0 0 0 20px;
+}
+
+.copy li {
+        margin: 0 0  0.461em;
+}
+
+.copy strong,
+.copy dt {
+        font-weight: bold;
+}
+
+.copy em {
+        font-style: italic;
+}
+
+.copy cite {
+        font-style: normal;
+}
+
+.copy acronym,
+.copy abbr {
+        border-bottom: 1px dotted #333;
+        cursor: help;
+}
+
+ module 
+.module {
+        margin: 0 0 1.384em;
+}
+
+ forms 
+.field,
+.actions {
+        margin: 20px;
+}
+
+.action-set .action {
+        display: inline;
+}
+
+ colours 
+.color-1 {
+        background: #007cd2;
+}
+
+.color-2 {
+        background: #1788D7;
+}
+
+.color-3 {
+        background: #3798db;
+}
+
+.color-4 {
+        background: #62acdf;
+}
+
+.color-5 {
+        background: #86bbe0;
+}
+
+.color-6 {
+        background: #a7c7de;
+}
+
+.color-7 {
+        background: #d5dbdf;
+}*/
