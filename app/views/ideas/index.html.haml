@@ -3,6 +3,7 @@
 .grid_24
   .ideas_header.container_24
     .grid_24.filtering
+      #filters
       .grid_2
         .h1 Valittu:
       .grid_21
@@ -55,6 +56,7 @@
         = @filter_name
 .clear
 .ideas.container_24
+  #ideas_list
   - @ideas.each do |idea|
     .idea.container_24.clearfix
       .info.grid_12

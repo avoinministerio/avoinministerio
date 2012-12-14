@@ -37,6 +37,9 @@ AvoinMinisterio::Application.routes.draw do
 
   get "pages/home"
 
+  post "citizens/touring"
+  post "citizens/reset_touring"
+  
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
     registrations: "citizens/registrations",

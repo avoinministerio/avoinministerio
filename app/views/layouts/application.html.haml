@@ -16,6 +16,7 @@
 
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
+  = csrf_meta_tag
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
     if (window.location.hash == '#_=_') {
@@ -27,6 +28,17 @@
 
   :javascript
     #{KM.js}
+  
+  = javascript_tag "var authenticity_token = #{form_authenticity_token.inspect};" if protect_against_forgery?
+
+  -if citizen_signed_in? and !current_citizen.tour_finished?("citizen_idea_tour") and !current_citizen.tour_finished?("citizen_home_tour")
+    = javascript_include_tag "citizen_touring"
+  -elsif citizen_signed_in? and current_citizen.tour_finished?("citizen_idea_tour") and !current_citizen.tour_finished?("citizen_home_tour")
+    = javascript_include_tag "old_citizen_home_tour"
+  -elsif citizen_signed_in? and !current_citizen.tour_finished?("citizen_idea_tour") and current_citizen.tour_finished?("citizen_home_tour")
+    = javascript_include_tag "old_citizen_idea_tour"
+  -else
+    = javascript_include_tag "guest_touring"
 
 %body
   %header.container_24.top_row_container
@@ -39,9 +51,11 @@
       .grid_6
         &nbsp;
       .grid_3
-        = link_to "Listaa kaikki", ideas_path
+        #show_ideas
+          = link_to "Listaa kaikki", ideas_path
       .grid_3
-        = link_to "Anna idea", new_idea_path
+        #add_idea
+          = link_to "Anna idea", new_idea_path
       .grid_2
         &nbsp;
       .grid_7

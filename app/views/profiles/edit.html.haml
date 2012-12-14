@@ -26,3 +26,6 @@
   $("#profile_accept_terms_of_use").attr({"disabled": false})
   $("#profile_accept_terms_of_use").removeClass("disabled")
   $("#profile_accept_terms_of_use").parent().removeClass("disabled")
+
+#turn_on_tourings
+  = button_to 'Rerun touring', citizens_reset_touring_path, remote: true
