@@ -12,7 +12,8 @@ class Citizen < ActiveRecord::Base
 
   has_one :authentication, dependent: :destroy
   has_one :profile, dependent: :destroy
-  
+  has_one :touring, dependent: :destroy
+
   has_many :ideas, foreign_key: "author_id"
   has_many :comments, foreign_key: "author_id"
   has_many :idea_comments, through: :ideas
@@ -106,6 +107,30 @@ class Citizen < ActiveRecord::Base
 
   def saldo
     money_transactions.sum(:amount)
+  end
+  
+  def finish_tour(name_of_tour)
+    Touring.create!(:tour_name => name_of_tour, :citizen_id => self.id, :state => "finished")
+  end
+  
+  def tour_finished?(name_of_tour)
+    @tour = Touring.where(:tour_name => name_of_tour, :citizen_id => self.id).first
+    if @tour != nil
+      if @tour.state == "finished"
+        true
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
+  def reset_tours
+    @tours = Touring.where(:citizen_id => self.id).all
+    @tours.each do |tour|
+      tour.destroy
+    end
   end
 
   private

@@ -57,7 +57,8 @@
         .noprevnext
 .clear
 .grid_24
-  = idea_state_image(@idea)
+  #idea_state
+    = idea_state_image(@idea)
 .idea.grid_24
   .author
     -if @idea.published?
@@ -103,7 +104,7 @@
 
   -if @idea.published?
     %aside.grid_7.prefix_1.omega
-      .voting
+      #voting
         - if @idea.voted_by?(current_citizen)
           %h3 Voit lisätä kantasi painoa jakamalla aloitetta aktiivisesti eteenpäin!
           %hr
@@ -199,6 +200,7 @@
   .idea_comments#comments
     %h2.grid_24 Kommentit
     .grid_24.comment_form
-      = render "comments/form", model: @idea
+      #add_comment
+        = render "comments/form", model: @idea
     .comments.suffix_8
       = render partial: 'comments/comment', collection: @idea.comments.published

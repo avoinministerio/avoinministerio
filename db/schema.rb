@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013234109) do
+ActiveRecord::Schema.define(:version => 20121214091736) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -388,6 +388,14 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
 
   add_index "surveys", ["access_code", "survey_version"], :name => "surveys_access_code_version_idx", :unique => true
   add_index "surveys", ["api_id"], :name => "uq_surveys_api_id", :unique => true
+
+  create_table "tourings", :force => true do |t|
+    t.string   "tour_name"
+    t.integer  "citizen_id"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "validation_conditions", :force => true do |t|
     t.integer  "validation_id"

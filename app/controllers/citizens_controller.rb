@@ -16,7 +16,27 @@ class CitizensController < ApplicationController
     end
     render "edit"
   end
+
+  def touring
+    current_citizen.finish_tour(params[:name_of_tour])
+    redirect_to root_path
+  end
   
+  def reset_touring
+    current_citizen.reset_tours
+    cookies.delete(:old_citizen_idea_tour_end)
+    cookies.delete(:old_citizen_idea_tour_current_step)
+    cookies.delete(:old_citizen_home_tour_current_step)
+    cookies.delete(:old_citizen_home_tour_current_end)
+    cookies.delete(:citizen_idea_tour_end)
+    cookies.delete(:citizen_idea_tour_step)
+    cookies.delete(:citizen_home_tour_end)
+    cookies.delete(:citizen_idea_tour_step)
+    respond_to do |format|
+      format.js   { render action: "reset_successful" }
+    end
+  end
+
   private
   
   def fetch_citizen
