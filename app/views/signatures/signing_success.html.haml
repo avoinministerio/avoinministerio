@@ -52,7 +52,7 @@
     - if @signature.accept_science
       .box
         =survey_button("completed #{Signature.where(citizen_id: current_citizen.id).count} signature, #{@signature.idea} is the idea of latest signature", true)
-
+        <fb:share-button type="button_count" href="#{@url}">Share</fb:share-button>
 
 
   - else
@@ -61,3 +61,5 @@
       Virhe
       = @error
       =link_to "takaisin aloitteeseen", @signature.idea
+
+<script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/all.js#xfbml=1"; // appId must be validfjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
