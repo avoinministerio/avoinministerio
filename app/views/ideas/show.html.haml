@@ -65,7 +65,7 @@
       %span.date.sans_serif= finnishDate(@idea.created_at)
   .grid_16.alpha.mainbody
     - if @idea.published?
-      %h1= @idea.title
+      %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@idea.title.to_s} (Ended)" : @idea.title.to_s
       .summary
         = markdown(@idea.summary) if @idea.summary
       .body
