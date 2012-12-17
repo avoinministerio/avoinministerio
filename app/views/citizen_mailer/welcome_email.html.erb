@@ -1,0 +1,31 @@
+<p>Hi, <%= @user.first_name %> <%= @user.last_name %></p>
+<br />
+<p>Thanks's for signup</p><br />
+Take a tour of the Avoin Ministerio.<br />
+
+You can also participate in the scientific questionnaire, <%= link_to "here", "#{root_url}/surveys/avoin-ministerio-attitudes-1-fi?locale=fi&user_state=signed_up" %>
+
+- these are the proposals seeking signatures at the moment.
+<br /><br />
+<% @proposals.each_with_index do |proposal, index| %>
+	<%= index+1 %>.<%= proposal.title %><br />
+	<%= proposal.summary %><br />
+	<hr />
+<% end %>
+<br />
+
+These are interesting ideas getting popular :-<br />
+<% @f_ideas.each_with_index do |famous, index| %>
+	<%= index+1 %> <%= famous.title %>(<%= famous.state %>)<br />
+	<%= famous.summary %><br />
+<% end %>
+<hr />
+<br />
+
+You can add your own new ideas and also comment on the existing ideas.<br /><br />
+You can change password after logging in <%= link_to 'here', "#{root_url}/citizen/edit" %>.
+<br />
+<br />
+--
+Thanks<br />
+<%= link_to 'Avoin Ministerio', root_url %>
