@@ -15,7 +15,11 @@ class ProfilesController < ApplicationController
     if @profile.update_attributes(params[:profile])
       flash[:notice] = I18n.t("settings.updated")
     end
-    render "edit"
+    if current_citizen.sign_in_count == 1
+      redirect_to citizens_after_sign_up_fi_path
+    else
+      render "edit"
+    end
   end
   
   private
@@ -27,7 +31,7 @@ class ProfilesController < ApplicationController
       if comment.commentable_type == "Idea"
         comment.commentable
       end
-    end.uniq
+      end.uniq
+    end
+    
   end
-
-end
