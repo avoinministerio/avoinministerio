@@ -66,8 +66,8 @@ class PagesController < ApplicationController
     @drafts, @draft_counts = load("draft", 3)
 
     # total proposals and drafts
-    @total_drafts = Idea.count(:all, :conditions => ['state="draft"'])
-    @total_proposals = Idea.count(:all, :conditions => ['state="proposal"'])
+    @total_drafts = Idea.count(:all, :conditions => ['state=?', "draft"])
+    @total_proposals = Idea.count(:all, :conditions => ['state=?', "proposal"])
 
     # Randomize the proposals array
     @proposals = @proposals.randomize!
