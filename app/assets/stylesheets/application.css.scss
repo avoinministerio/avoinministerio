@@ -137,7 +137,7 @@ a.button {
   
   .actions > a.button {
     float: right;
-    width: 120px;
+    width: 122px;
     text-align: center;
     margin: 0 20px 20px 0;
     display: block;
@@ -549,4 +549,9 @@ input[type=submit] {
   position: absolute;
   float: left;
   margin-left: 0.5%;
+}
+
+.idea-heading-link {
+  color: #473161;
+  text-decoration: none;
 }

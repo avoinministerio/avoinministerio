@@ -1,5 +1,6 @@
 .container_24.top_drafts
-  %h2= title
+  - filter = (section == 'proposal' ? 'law_proposals' : 'drafts')
+  %h2=link_to "#{title} (#{count})", ideas_path(:filter => filter), :class => 'idea-heading-link'
   %div{class: "#{section}-section"}
     %ul{style: "list-style:none;"}
       - item_size = items.size
