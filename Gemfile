@@ -1,6 +1,8 @@
-source "https://rubygems.org"
+source "http://rubygems.org"
 
 gem "rails", "3.1.6"
+
+gem 'rb-readline'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -46,6 +48,8 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
+  gem "pg"
+  gem "activerecord-postgresql-adapter"
 end
 
 group :production do
