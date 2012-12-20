@@ -54,6 +54,7 @@ Spork.prefork do
   require "database_cleaner"
   require "controller_test_helper"
   require "webmock/rspec"
+  require 'vcr'
   require "email_spec"
 
   # Capybara + Steak + Timecop for integration test
@@ -76,6 +77,8 @@ Spork.prefork do
     config.treat_symbols_as_metadata_keys_with_true_values = true
     # config.filter_run :focus => true
     config.run_all_when_everything_filtered = true
+
+    config.extend VCR::RSpec::Macros
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :transaction

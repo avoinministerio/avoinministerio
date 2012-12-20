@@ -32,6 +32,7 @@ gem "hominid"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
+gem 'whenever', :require => false
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
@@ -62,10 +63,12 @@ group :test do
   gem "simplecov", :require => false
   gem "turn", "~> 0.8.3", :require => false
   gem "webmock", :require => false
+  gem "vcr", :require => false
   gem "email_spec"
   gem "steak"
   gem "capybara-mechanize"
   gem "timecop"
+  gem "pry-rails"
 
   gem "sqlite3"
 

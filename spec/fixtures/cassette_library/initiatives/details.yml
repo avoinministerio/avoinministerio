@@ -1,0 +1,2039 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:12 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:12 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/1","modified":"2012-12-01T11:53:02+02:00","state":"REVIEW","stateDate":"2012-12-01T11:53:02+02:00","acceptanceIdentifier":null,"supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"(Esimerkkialoite)
+        Kansalaisaloite kansalaisaloitepäivästä ja sen viettämisestä yleisenä juhla-
+        ja vapaapäivänä","sv":null},"startDate":"2012-12-01","endDate":"2013-06-01","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":true,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Esimerkkialoite\r\n\r\nEhdotus
+        uudeksi lakitekstiksi:\r\n\r\nLaki\r\n\r\nkansalaisaloitepäivästä ja sen viettämisestä
+        yleisenä juhla- ja vapaapäivänä\r\nEduskunnan päätöksen mukaisesti säädetään:\r\n\r\n1
+        §\r\n\r\nSuomen kansalaisaloitteen voimaantulon muistoksi on maaliskuun ensimmäistä
+        päivää, jota tässä laissa sanotaan kansalaisaloitepäiväksi, vuosittain vietettävä
+        yleisenä juhla- ja vapaapäivänä.\r\nKansalaisaloitepäiväksi lasketaan vuorokausi,
+        joka alkaa kello kahdestakymmenestäneljästä sanotun päivän vastaisena yönä.\r\n\r\n-
+        - - - - - - - - - - - - - - - - - -\r\n2 §\r\n\r\nKansalaisaloitepäivän sattuessa
+        arkipäiväksi on työntekijälle, jonka työ on senlaatuista, että hän sunnuntaisin
+        on vapaana työstä annettava arkipäiväksikin sattuva kansalaisaloitepäivä vapaapäiväksi\r\n\r\n3
+        §\r\nMilloin työntekijälle sunnuntaina suoritetusta työstä lain mukaan on
+        maksettava korotettu palkka, on samojen perusteiden mukainen palkka maksettava
+        hänelle myös arkipäiväksi sattuvana kansalaisaloitepäivänä tehdystä työstä.\r\n\r\n4
+        §\r\nTyönantaja, joka kieltäytyy antamasta työntekijälle kansalaisaloitepäivää
+        vapaapäiväksi, niinkuin tässä laissa säädetään, rangaistakoon sakolla.\r\n\r\n_______________\r\n\r\n\r\n\r\nTämä
+        laki tulee voimaan    päivänä       kuuta 20  .","sv":null},"rationale":{"fi":"Kansalaisaloite
+        on kansalaisyhteiskuntaa yhdistävä tekijä. Kansalaisaloitteen tarkoituksena
+        on edistää ja tukea vapaata kansalaistoimintaa sekä siten vahvistaa kansalaisyhteiskuntaa,
+        jossa eri väestöryhmät osallistuvat ja vaikuttavat aktiivisesti yhteiskunnan
+        kehittämiseen.  Kansalaisaloitteen voimaantulemisen päivää (1.3.2012) voitaisiinkin
+        alkaa viettää kansalaisaloitteenpäivänä. Kansalaisaloite päivä olisi eräänlainen
+        suoran demokratian juhlapäivä. Kansalaisaloitepäivän viettäminen juhlapäivänä
+        korostaisi kansalaisaloitteen tärkeyttä ja merkityksellisyyttä kansalaisten
+        vaikuttamisenvälineenä.\r\n\r\nKansalaisaloitepäivä olisi myös koko kansan
+        yhteinen juhlapäivä. Kansalaisaloite on jokaisen Suomen kansalaisen oikeus
+        ja koskettaisi näin jokaista.","sv":null},"initiators":[{"firstNames":"Tero
+        Tuomas","lastName":"Jokinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}}],"representatives":[{"firstNames":"Tero
+        Tuomas","lastName":"Jokinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"tuomas
+        jokinen  solita fi","phone":null,"address":null}}],"reserves":[{"firstNames":"Iiro
+        Aleksi","lastName":"Uusitalo","homeMunicipality":{"fi":"Sastamala","sv":"Sastamala"},"contactInfo":{"email":"iiro
+        uusitalo  solita fi","phone":null,"address":null}}],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:15 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:13 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:13 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/1","modified":"2012-12-01T11:53:02+02:00","state":"REVIEW","stateDate":"2012-12-01T11:53:02+02:00","acceptanceIdentifier":null,"supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"(Esimerkkialoite)
+        Kansalaisaloite kansalaisaloitepäivästä ja sen viettämisestä yleisenä juhla-
+        ja vapaapäivänä","sv":null},"startDate":"2012-12-01","endDate":"2013-06-01","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":true,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Esimerkkialoite\r\n\r\nEhdotus
+        uudeksi lakitekstiksi:\r\n\r\nLaki\r\n\r\nkansalaisaloitepäivästä ja sen viettämisestä
+        yleisenä juhla- ja vapaapäivänä\r\nEduskunnan päätöksen mukaisesti säädetään:\r\n\r\n1
+        §\r\n\r\nSuomen kansalaisaloitteen voimaantulon muistoksi on maaliskuun ensimmäistä
+        päivää, jota tässä laissa sanotaan kansalaisaloitepäiväksi, vuosittain vietettävä
+        yleisenä juhla- ja vapaapäivänä.\r\nKansalaisaloitepäiväksi lasketaan vuorokausi,
+        joka alkaa kello kahdestakymmenestäneljästä sanotun päivän vastaisena yönä.\r\n\r\n-
+        - - - - - - - - - - - - - - - - - -\r\n2 §\r\n\r\nKansalaisaloitepäivän sattuessa
+        arkipäiväksi on työntekijälle, jonka työ on senlaatuista, että hän sunnuntaisin
+        on vapaana työstä annettava arkipäiväksikin sattuva kansalaisaloitepäivä vapaapäiväksi\r\n\r\n3
+        §\r\nMilloin työntekijälle sunnuntaina suoritetusta työstä lain mukaan on
+        maksettava korotettu palkka, on samojen perusteiden mukainen palkka maksettava
+        hänelle myös arkipäiväksi sattuvana kansalaisaloitepäivänä tehdystä työstä.\r\n\r\n4
+        §\r\nTyönantaja, joka kieltäytyy antamasta työntekijälle kansalaisaloitepäivää
+        vapaapäiväksi, niinkuin tässä laissa säädetään, rangaistakoon sakolla.\r\n\r\n_______________\r\n\r\n\r\n\r\nTämä
+        laki tulee voimaan    päivänä       kuuta 20  .","sv":null},"rationale":{"fi":"Kansalaisaloite
+        on kansalaisyhteiskuntaa yhdistävä tekijä. Kansalaisaloitteen tarkoituksena
+        on edistää ja tukea vapaata kansalaistoimintaa sekä siten vahvistaa kansalaisyhteiskuntaa,
+        jossa eri väestöryhmät osallistuvat ja vaikuttavat aktiivisesti yhteiskunnan
+        kehittämiseen.  Kansalaisaloitteen voimaantulemisen päivää (1.3.2012) voitaisiinkin
+        alkaa viettää kansalaisaloitteenpäivänä. Kansalaisaloite päivä olisi eräänlainen
+        suoran demokratian juhlapäivä. Kansalaisaloitepäivän viettäminen juhlapäivänä
+        korostaisi kansalaisaloitteen tärkeyttä ja merkityksellisyyttä kansalaisten
+        vaikuttamisenvälineenä.\r\n\r\nKansalaisaloitepäivä olisi myös koko kansan
+        yhteinen juhlapäivä. Kansalaisaloite on jokaisen Suomen kansalaisen oikeus
+        ja koskettaisi näin jokaista.","sv":null},"initiators":[{"firstNames":"Tero
+        Tuomas","lastName":"Jokinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}}],"representatives":[{"firstNames":"Tero
+        Tuomas","lastName":"Jokinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"tuomas
+        jokinen  solita fi","phone":null,"address":null}}],"reserves":[{"firstNames":"Iiro
+        Aleksi","lastName":"Uusitalo","homeMunicipality":{"fi":"Sastamala","sv":"Sastamala"},"contactInfo":{"email":"iiro
+        uusitalo  solita fi","phone":null,"address":null}}],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:15 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:20 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:20 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/2","modified":"2012-12-10T21:04:57+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:55:25+02:00","acceptanceIdentifier":"OM
+        5/52/2012","supportCount":216,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Huostaanotettujen
+        oikeudet inhimilliseen elämään","sv":null},"startDate":"2012-12-01","endDate":"2013-06-01","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://huosta-aloite.blogspot.fi","label":"Aloitteen
+        kotisivu"},{"uri":"http://www.taloussanomat.fi/ihmiset/2012/06/16/lapsibisnesta-ei-valvo-kukaan/201231577/137","label":"Taloussanomien
+        artikkeli lastensuojelun bisneksestä"},{"uri":"http://www.helsinginuutiset.fi/artikkeli/114782-valtion-tukea-arvostellaan-kannustaa-huostaanottoihin","label":"Helsingin
+        uutiset: Valtion tukea arvostellaan: kannustaa huostaanottoihin"},{"uri":"http://suomenkuvalehti.fi/jutut/kotimaa/hukassa-huostassa","label":"Suomen
+        Kuvalehden artikkeli lastensuojelun epäkohdista"}],"proposal":{"fi":"Seuraavat
+        asiat pitäisi taata lailla:\r\n- Lastensuojelukertoimelle katto eli kunta
+        ei saa valtiolta huostaanotoista yhtään sen enempää takaisin rahaa kuin huostaanotto
+        maksaa.\r\n- Sosiaalityöntekijöiden tulospalkkaus huostaanottojen ja lastensuojeluilmoitusten
+        perusteella on lopetettava.\r\n- Sosiaalietuuksia joita huostaanotettu saa
+        ei saa periä huostaanoton kustannuksiin vaan ne on ohjattava nuoren itsenäistymisvaroihin
+        tai pankkitilille lyhentämättömänä.\r\n- Mahdollisuus nimettömien lastensuojeluilmoitusten
+        tekoon on poistettava (perheelle ei välttämättä anneta ilmoitusta tietoon,
+        mutta poliisille ilmoitetaan)\r\n- Perättömät lastensuojeluilmoitukset sakollisiksi
+        (esim. kiusaamistarkoituksessa tehdyt)\r\n- Perheille ehdoton mahdollisuus
+        kodinhoitajaan\r\n- Aluehallintovirastolle, eduskunnan oikeusasiamiehelle,
+        valtioneuvoston oikeuskanslerille sekä Valviralle mahdollisuus määrätä lakia
+        rikkonut lastensuojelulaitos, sosiaalitoimi tai sosiaaliviranomainen maksamaan
+        korvauksia asianosaiselle / asianosaisille.\r\n\r\nSäästyneillä varoilla valtio:\r\n-
+        Takaisi jokaiselle huostaanotetulle nuorelle 500 euroa kuussa lyhentämättömänä
+        sosiaalitoimen itsenäistymisvaroihin koko huostaanoton ajan (tämä tuki ei
+        vaikuttaisi muihin etuuksiin tai palkkaan).\r\n- Takaisi huostaanoton päätyttyä
+        10 vuoden ajan jokaiselle huostaanotetulle 500 euroa kuussa ylimääräisenä
+        sosiaalietuutena (tämä tuki ei vaikuttaisi muihin etuuksiin tai palkkaan).","sv":null},"rationale":{"fi":"Iso
+        osa nuorista, jotka jäävät työkyvyttömyyseläkkeelle ovat huostaanotettuja.\r\nLaitoksesta
+        laitokseen, osastolta osastolle ja lopulta työkyvyttömyyseläkkeelle.\r\nSen
+        sijaan, että nuori jäisi lopullisesti työkyvyttömyyseläkkeelle, hän voisi
+        keskittyä opiskeluun ja sijoittua yhteiskuntaan. \r\n\r\nKorkeimmat vuorokausimaksut
+        ovat satoja euroja vuorokaudessa.\r\nPörssiyhtiöt laajentavat toimintaansa
+        lastensuojeluun. Tämä on huolestuttavaa.\r\nSijoitusyhtiöt ovat kiinnostuneet
+        / ostavat yksityisiä lastensuojelulaitoksia.\r\nHuostaanotot menevät koko
+        ajan enemmän markkinoiden armoille ja veroparatiisiyhtiöt ovat kiinnostuneet
+        lastensuojelusta sekä sijoittavat siihen.\r\n\r\nLapsia ja nuoria otetaan
+        paljon perusteettomasti ja lainvastaisin menettelyvirhein huostaan esim. häiriökäyttäytymisen,
+        kouluvaikeuksien tai lapsen / nuoren diagnoosin vuoksi (esim. ADHD, Asperger
+        tai jopa leukemia). Huostaanottoja ennalta ehkäiseviin toimenpiteisiin on
+        panostettava.\r\nMonet lapsen tai nuoren ongelmat olisivat hoidettavissa avohuollon
+        toimenpiteillä esim. kodinhoitaja, terapiat tai psykologi.\r\n\r\nMonissa
+        lastensuojelulaitoksissa ei noudateta lain vaatimia muodollisuuksia esim.
+        muutoksenhakumenettely tavaroita takavarikoitaessa eli ei anneta valituskelpoisia
+        päätöksiä huostaanotetulle tiedoksi saati tehdä kyseisiä päätöksiä. Nämä lakitekniset
+        asiat ovat tietysti aika pitkälti muodollisuuksia, mutta kyllä niitä tulisi
+        jokaisen laitoksen noudattaa.\r\n\r\n\r\nItsenäiseen elämään, opiskeluun ja
+        työntekoon on tuettava\r\n\r\n\r\nMoni huostaanotettu, jonka pitäisi itsenäistyä
+        siirretään monesti mielenterveyskuntoutujien kuntoutuskotiin, koska ei ole
+        valmiuksia itsenäiseen elämään. Moni huostaanotettu ja mielenterveyspotilas
+        jää työkyvyttömyyseläkkeelle. Huostaanotetuille ei ole edes kertynyt ansioeläkettä
+        ennen työkyvyttömyyseläkkeelle jäämistä. Tämä tarkoittaa Kelan työkyvyttömyyseläkettä,
+        joka on aika pieni. Vaarana on myös, ettei ansioeläkettä kerry tarpeeksi tai
+        pahimmassa tapauksessa ei ollenkaan.\r\n\r\nLaitosnuoria täytyy tukea itsenäiseen
+        elämään, opiskeluun ja työntekoon. Sama koskee myös aikuisia. Yhteiskunnan
+        ulkopuolelle jääminen on kelle tahansa nuorelle ja monelle aikuisellekin hirveä
+        menetys. Yksityisten lastensuojelulaitosten keskeisimpänä ongelmana on voiton
+        maksimointi sen sijaan, että panostettaisiin täysillä nuorten hyvinvointiin
+        ja normaaliin elämään sijoittumiseen.\r\n\r\nKustannukset ovat suuria. Yksi
+        syrjäytynyt nuori maksaa yhteiskunnalle keskimäärin miljoona euroa. Työkyvyttömyyseläkkeelle
+        pelkästään mielenterveydenhäiriön perusteella jää viisi nuorta joka päivä.","sv":null},"initiators":[{"firstNames":"Henri
+        Sakari","lastName":"Autero","homeMunicipality":{"fi":"Vaasa","sv":"Vasa"}}],"representatives":[{"firstNames":"Henri
+        Sakari","lastName":"Autero","homeMunicipality":{"fi":"Vaasa","sv":"Vasa"},"contactInfo":{"email":"hsa  hotmail
+        fi","phone":"0453596027","address":"Pitkäkatu 62 A 2-3, 65100 Vaasa"}},{"firstNames":"Herkku
+        Mauri Tapio","lastName":"Hernesniemi","homeMunicipality":{"fi":"Nokia","sv":"Nokia"},"contactInfo":{"email":"herkku  herkku
+        com","phone":"0407045880","address":"Eetinkatu 4 A 27\r\n37100 Nokia"}},{"firstNames":"Carita
+        Terhi Tuulikki","lastName":"Kujanpää","homeMunicipality":{"fi":"Honkajoki","sv":"Honkajoki"},"contactInfo":{"email":"carita
+        kujanpaa  gmail com","phone":"0406722440","address":"Lääkärintie 9\r\n38950
+        Honkajoki"}},{"firstNames":"Minna Annikki","lastName":"Ekman","homeMunicipality":{"fi":"Inkoo","sv":"Ingå"},"contactInfo":{"email":"ekmanminna  yahoo
+        fi","phone":"0440660911","address":"Mäntytie 12 A 3, 10210 Inkoo"}}],"reserves":[{"firstNames":"Harri
+        Juhani","lastName":"Nieminen","homeMunicipality":{"fi":"Hämeenlinna","sv":"Tavastehus"},"contactInfo":{"email":"harrijuhaninieminen  gmail
+        com","phone":"040-7751510","address":"Harakkamäki 4 a 12\r\n13210 HÄMEENLINNA"}},{"firstNames":"Heidi
+        Irene","lastName":"Martikainen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"heidi
+        martikainen  webinfo fi","phone":null,"address":"Vilppulantie 26 F 77 \r\n00700
+        Helsinki"}},{"firstNames":"Hely Virve Irene","lastName":"Harvistola","homeMunicipality":{"fi":"Kerimäki","sv":"Kerimäki"},"contactInfo":{"email":"hely
+        h  suomi24 fi","phone":"0404801716","address":"kurkikallio 3 58430  kulennoinen"}}],"totalSupportCount":216}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:22 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:20 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:20 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/2","modified":"2012-12-10T21:04:57+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:55:25+02:00","acceptanceIdentifier":"OM
+        5/52/2012","supportCount":216,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Huostaanotettujen
+        oikeudet inhimilliseen elämään","sv":null},"startDate":"2012-12-01","endDate":"2013-06-01","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://huosta-aloite.blogspot.fi","label":"Aloitteen
+        kotisivu"},{"uri":"http://www.taloussanomat.fi/ihmiset/2012/06/16/lapsibisnesta-ei-valvo-kukaan/201231577/137","label":"Taloussanomien
+        artikkeli lastensuojelun bisneksestä"},{"uri":"http://www.helsinginuutiset.fi/artikkeli/114782-valtion-tukea-arvostellaan-kannustaa-huostaanottoihin","label":"Helsingin
+        uutiset: Valtion tukea arvostellaan: kannustaa huostaanottoihin"},{"uri":"http://suomenkuvalehti.fi/jutut/kotimaa/hukassa-huostassa","label":"Suomen
+        Kuvalehden artikkeli lastensuojelun epäkohdista"}],"proposal":{"fi":"Seuraavat
+        asiat pitäisi taata lailla:\r\n- Lastensuojelukertoimelle katto eli kunta
+        ei saa valtiolta huostaanotoista yhtään sen enempää takaisin rahaa kuin huostaanotto
+        maksaa.\r\n- Sosiaalityöntekijöiden tulospalkkaus huostaanottojen ja lastensuojeluilmoitusten
+        perusteella on lopetettava.\r\n- Sosiaalietuuksia joita huostaanotettu saa
+        ei saa periä huostaanoton kustannuksiin vaan ne on ohjattava nuoren itsenäistymisvaroihin
+        tai pankkitilille lyhentämättömänä.\r\n- Mahdollisuus nimettömien lastensuojeluilmoitusten
+        tekoon on poistettava (perheelle ei välttämättä anneta ilmoitusta tietoon,
+        mutta poliisille ilmoitetaan)\r\n- Perättömät lastensuojeluilmoitukset sakollisiksi
+        (esim. kiusaamistarkoituksessa tehdyt)\r\n- Perheille ehdoton mahdollisuus
+        kodinhoitajaan\r\n- Aluehallintovirastolle, eduskunnan oikeusasiamiehelle,
+        valtioneuvoston oikeuskanslerille sekä Valviralle mahdollisuus määrätä lakia
+        rikkonut lastensuojelulaitos, sosiaalitoimi tai sosiaaliviranomainen maksamaan
+        korvauksia asianosaiselle / asianosaisille.\r\n\r\nSäästyneillä varoilla valtio:\r\n-
+        Takaisi jokaiselle huostaanotetulle nuorelle 500 euroa kuussa lyhentämättömänä
+        sosiaalitoimen itsenäistymisvaroihin koko huostaanoton ajan (tämä tuki ei
+        vaikuttaisi muihin etuuksiin tai palkkaan).\r\n- Takaisi huostaanoton päätyttyä
+        10 vuoden ajan jokaiselle huostaanotetulle 500 euroa kuussa ylimääräisenä
+        sosiaalietuutena (tämä tuki ei vaikuttaisi muihin etuuksiin tai palkkaan).","sv":null},"rationale":{"fi":"Iso
+        osa nuorista, jotka jäävät työkyvyttömyyseläkkeelle ovat huostaanotettuja.\r\nLaitoksesta
+        laitokseen, osastolta osastolle ja lopulta työkyvyttömyyseläkkeelle.\r\nSen
+        sijaan, että nuori jäisi lopullisesti työkyvyttömyyseläkkeelle, hän voisi
+        keskittyä opiskeluun ja sijoittua yhteiskuntaan. \r\n\r\nKorkeimmat vuorokausimaksut
+        ovat satoja euroja vuorokaudessa.\r\nPörssiyhtiöt laajentavat toimintaansa
+        lastensuojeluun. Tämä on huolestuttavaa.\r\nSijoitusyhtiöt ovat kiinnostuneet
+        / ostavat yksityisiä lastensuojelulaitoksia.\r\nHuostaanotot menevät koko
+        ajan enemmän markkinoiden armoille ja veroparatiisiyhtiöt ovat kiinnostuneet
+        lastensuojelusta sekä sijoittavat siihen.\r\n\r\nLapsia ja nuoria otetaan
+        paljon perusteettomasti ja lainvastaisin menettelyvirhein huostaan esim. häiriökäyttäytymisen,
+        kouluvaikeuksien tai lapsen / nuoren diagnoosin vuoksi (esim. ADHD, Asperger
+        tai jopa leukemia). Huostaanottoja ennalta ehkäiseviin toimenpiteisiin on
+        panostettava.\r\nMonet lapsen tai nuoren ongelmat olisivat hoidettavissa avohuollon
+        toimenpiteillä esim. kodinhoitaja, terapiat tai psykologi.\r\n\r\nMonissa
+        lastensuojelulaitoksissa ei noudateta lain vaatimia muodollisuuksia esim.
+        muutoksenhakumenettely tavaroita takavarikoitaessa eli ei anneta valituskelpoisia
+        päätöksiä huostaanotetulle tiedoksi saati tehdä kyseisiä päätöksiä. Nämä lakitekniset
+        asiat ovat tietysti aika pitkälti muodollisuuksia, mutta kyllä niitä tulisi
+        jokaisen laitoksen noudattaa.\r\n\r\n\r\nItsenäiseen elämään, opiskeluun ja
+        työntekoon on tuettava\r\n\r\n\r\nMoni huostaanotettu, jonka pitäisi itsenäistyä
+        siirretään monesti mielenterveyskuntoutujien kuntoutuskotiin, koska ei ole
+        valmiuksia itsenäiseen elämään. Moni huostaanotettu ja mielenterveyspotilas
+        jää työkyvyttömyyseläkkeelle. Huostaanotetuille ei ole edes kertynyt ansioeläkettä
+        ennen työkyvyttömyyseläkkeelle jäämistä. Tämä tarkoittaa Kelan työkyvyttömyyseläkettä,
+        joka on aika pieni. Vaarana on myös, ettei ansioeläkettä kerry tarpeeksi tai
+        pahimmassa tapauksessa ei ollenkaan.\r\n\r\nLaitosnuoria täytyy tukea itsenäiseen
+        elämään, opiskeluun ja työntekoon. Sama koskee myös aikuisia. Yhteiskunnan
+        ulkopuolelle jääminen on kelle tahansa nuorelle ja monelle aikuisellekin hirveä
+        menetys. Yksityisten lastensuojelulaitosten keskeisimpänä ongelmana on voiton
+        maksimointi sen sijaan, että panostettaisiin täysillä nuorten hyvinvointiin
+        ja normaaliin elämään sijoittumiseen.\r\n\r\nKustannukset ovat suuria. Yksi
+        syrjäytynyt nuori maksaa yhteiskunnalle keskimäärin miljoona euroa. Työkyvyttömyyseläkkeelle
+        pelkästään mielenterveydenhäiriön perusteella jää viisi nuorta joka päivä.","sv":null},"initiators":[{"firstNames":"Henri
+        Sakari","lastName":"Autero","homeMunicipality":{"fi":"Vaasa","sv":"Vasa"}}],"representatives":[{"firstNames":"Henri
+        Sakari","lastName":"Autero","homeMunicipality":{"fi":"Vaasa","sv":"Vasa"},"contactInfo":{"email":"hsa  hotmail
+        fi","phone":"0453596027","address":"Pitkäkatu 62 A 2-3, 65100 Vaasa"}},{"firstNames":"Herkku
+        Mauri Tapio","lastName":"Hernesniemi","homeMunicipality":{"fi":"Nokia","sv":"Nokia"},"contactInfo":{"email":"herkku  herkku
+        com","phone":"0407045880","address":"Eetinkatu 4 A 27\r\n37100 Nokia"}},{"firstNames":"Carita
+        Terhi Tuulikki","lastName":"Kujanpää","homeMunicipality":{"fi":"Honkajoki","sv":"Honkajoki"},"contactInfo":{"email":"carita
+        kujanpaa  gmail com","phone":"0406722440","address":"Lääkärintie 9\r\n38950
+        Honkajoki"}},{"firstNames":"Minna Annikki","lastName":"Ekman","homeMunicipality":{"fi":"Inkoo","sv":"Ingå"},"contactInfo":{"email":"ekmanminna  yahoo
+        fi","phone":"0440660911","address":"Mäntytie 12 A 3, 10210 Inkoo"}}],"reserves":[{"firstNames":"Harri
+        Juhani","lastName":"Nieminen","homeMunicipality":{"fi":"Hämeenlinna","sv":"Tavastehus"},"contactInfo":{"email":"harrijuhaninieminen  gmail
+        com","phone":"040-7751510","address":"Harakkamäki 4 a 12\r\n13210 HÄMEENLINNA"}},{"firstNames":"Heidi
+        Irene","lastName":"Martikainen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"heidi
+        martikainen  webinfo fi","phone":null,"address":"Vilppulantie 26 F 77 \r\n00700
+        Helsinki"}},{"firstNames":"Hely Virve Irene","lastName":"Harvistola","homeMunicipality":{"fi":"Kerimäki","sv":"Kerimäki"},"contactInfo":{"email":"hely
+        h  suomi24 fi","phone":"0404801716","address":"kurkikallio 3 58430  kulennoinen"}}],"totalSupportCount":216}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:23 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:21 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:21 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/3","modified":"2012-12-03T18:34:49+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:53:28+02:00","acceptanceIdentifier":"OM
+        4/52/2012","supportCount":1524,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kesäajasta
+        luopuminen","sv":null},"startDate":"2012-12-03","endDate":"2013-06-03","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://www.finlex.fi/fi/laki/alkup/2001/20010753","label":"Valtioneuvoston
+        asetus kesäajasta"},{"uri":"http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32000L0084:FI:NOT","label":"Euroopan
+        parlamentin ja neuvoston direktiivi 2000/84/EY, annettu 19 päivänä tammikuuta
+        2001, kesäaikasäännöksistä"},{"uri":"http://www.ktl.fi/portal/suomi/pressihuone/lehdistotiedotteet?bid=2498","label":"Kansanterveyslaitoksen
+        tiedote unirytmin häiriöistä"},{"uri":"http://www.thl.fi/fi_FI/web/fi/uutinen?id=31378","label":"THL:n
+        tiedote unirytmistä"},{"uri":"http://www.nejm.org/doi/full/10.1056/NEJMc0807104","label":"Ruotsalainen
+        tutkimus sydänkohtausriskin kasvamisesta kesäaikaan siirryttäessä"},{"uri":"http://www.tiede.fi/artikkeli/845/onko_kesaajassa_jarkea_","label":"Tiede-lehden
+        artikkeli kesäajasta; sisältää Fingridin edustajan lausunnon energiankulutuksesta"}],"proposal":{"fi":"Eduskunta
+        kumotkoon valtioneuvoston asetuksen kesäajasta (753/2001) ja säätäköön lain,
+        joka kieltää vastaavien asetusten antamisen jatkossa.\r\n\r\nLisäksi eduskunta
+        sanoutukoon irti direktiivistä kesäaikasäännöksistä (2000/84/EY)","sv":null},"rationale":{"fi":"Kaksi
+        kertaa vuodessa toistuva kellojen siirto aiheuttaa useita selkeitä haittoja.
+        Ihmisen sisäinen kello voi mennä sekaisin jopa useiden viikkojen ajaksi kellojen
+        siirron jälkeen, mikä aiheuttaa unihäiriöitä ja väsymystiloja.\r\n\r\nKellojen
+        siirto altistaa myös aikatauluvirheille, kuten voidaan havaita esimerkiksi
+        usein toistuvista uutisista milloin minkin valmistajan kännyköiden sekoilevista
+        kelloista. Kellojen siirrosta johtuviin aikatauluongelmiin  varautumiseen
+        joudutaan käyttämään työaikaa, mikä aiheuttaa yrityksille turhia kustannuksia.\r\n\r\nKesäaikaan
+        siirtymisen hyödyt sen sijaan ovat minimaaliset. Usein kesäaikaa perustellaan
+        energiansäästösyillä, mutta tutkimustulokset eivät tue merkittävien säästöjen
+        saamista tällä keinolla.\r\n\r\nLisäksi Suomessa kesät ovat niin valoisia,
+        että mahdollisista hyödyistä voidaan nauttia vain vajaan kuukauden ajan keväällä
+        ja syksyllä. Kesällä on joka tapauksessa niin valoisaa, että kesä- ja normaaliajalla
+        ei ole merkittävää eroa.\r\n\r\nNäistä syistä johtuen kesäajasta aiheutuva
+        kellojen siirtäminen pitäisi lopettaa.\r\n\r\nTavoitteenamme on turhan ja
+        vahingollisen kellojen siirtelyn lopettaminen. Tässä aloitteessa siihen pyritään
+        kumoamalla kesäaika-asetus. Keskustelu \"pysyvästä kesäajasta\", eli siirtymisestä
+        toiseen aikavyöhykkeeseen, voidaan käydä sitten erikseen.","sv":null},"initiators":[{"firstNames":"Lasse
+        Markus","lastName":"Rasinen","homeMunicipality":{"fi":"Espoo","sv":"Esbo"}},{"firstNames":"Heli
+        Maria","lastName":"Pykälä","homeMunicipality":{"fi":"Espoo","sv":"Esbo"}}],"representatives":[{"firstNames":"Lasse
+        Markus","lastName":"Rasinen","homeMunicipality":{"fi":"Espoo","sv":"Esbo"},"contactInfo":{"email":"lrasinen  iki
+        fi","phone":"040-7217999","address":null}}],"reserves":[{"firstNames":"Heli
+        Maria","lastName":"Pykälä","homeMunicipality":{"fi":"Espoo","sv":"Esbo"},"contactInfo":{"email":"hpykala  iki
+        fi","phone":"050 5885898","address":null}}],"totalSupportCount":1524}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:23 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:21 GMT
+      Content-Language:
+      - fi
+      Content-Type:
+      - text/html;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! "\n<!DOCTYPE HTML>\n<html lang=\"fi\">\n<head>\n    <title>Sivua ei
+        l&ouml;ydy tai sinulla ei ole k&auml;ytt&ouml;oikeutta sivuun - Kansalaisaloitepalvelu</title>
+        \n    \n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n
+        \   \n    <link href=\"https://www.kansalaisaloite.fi/favicon.ico\" rel=\"shortcut
+        icon\" type=\"image/vnd.microsoft.icon\" />\n   \n    <link rel=\"stylesheet\"
+        type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/normalize.css\"
+        />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/aloitepalvelu.css\"
+        />\n</head>\n<body>\n<div id=\"wrapper\">\n\n    <div id=\"header-tools\">\n
+        \       <div id=\"header-tools-content\">\n            <div id=\"aloite-links\">\n
+        \               <a class=\"active\" href=\"https://www.kansalaisaloite.fi/fi\">Kansalaisaloite.fi</a><span
+        class=\"hide\"> | </span><a href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kuntalaisaloite_fi-palvelusta\">Kuntalaisaloite.fi</a>\n
+        \           </div>\n        </div>\n    </div>\n    \n    <div id=\"header\">\n
+        \       <div id=\"header-content\">\n            <a id=\"logo\" href=\"https://www.kansalaisaloite.fi/fi\"
+        accesskey=\"1\" title=\"Kansalaisaloitepalvelu\">\n                <span>Kansalaisaloitepalvelu</span>\n
+        \           </a>        \n        </div>\n    </div>\n\n    <div class=\"container\">\n
+        \       <div id=\"content\">\n\n    <h1>Sivua ei l&ouml;ydy tai sinulla ei
+        ole k&auml;ytt&ouml;oikeutta sivuun</h1>\n    <!-- Error: 404 - Not Found
+        -->\n    <p>Ole hyvä ja tarkista osoite tai siirry palvelun <a href=\"https://www.kansalaisaloite.fi/fi\">etusivulle</a>.</p>\n
+        \n        </div>\n    </div>\n    \n    <div id=\"footer\">\n        <div
+        class=\"container\">\n            <div class=\"block oikeusministerio\">\n
+        \               <p>\n                    Kansalaisaloite.fi on oikeusministeri&ouml;n
+        yll&auml;pit&auml;m&auml; ja tuottama verkkopalvelu.<br/>\n                    <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kansalaisaloite_fi-palvelusta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"block viestintavirasto\">\n                <p>\n                    Kansalaisaloite.fi
+        on Viestintäviraston hyväksymä palvelu.<br/>\n                    <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/viestintaviraston-hyvaksynta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"footer-links\">\n                <ul>\n                    <li><span
+        class=\"icon-small arrow-right-2\"></span> <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/ota-yhteytta\">Ota
+        yhteytt&auml;</a></li>\n                    <li><span class=\"icon-small arrow-right-2\"></span>
+        <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/henkilorekisteriselosteet\">Henkil&ouml;rekisteriselosteet</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/kehittajille\">Kehitt&auml;jille</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/briefly-in-english\">Briefly
+        in English</a></li>\n                </ul>\n            </div>\n            <br
+        class=\"clear\"/>\n        </div>\n        \n        <a href=\"#header-tools\"
+        accesskey=\"3\" id=\"back-to-top\">Sivun alkuun</a>\n    </div>\n\n</div>\n</body>\n</html>\n"
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:24 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:22 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:22 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/5","modified":"2012-12-19T15:08:13+02:00","state":"ACCEPTED","stateDate":"2012-12-05T15:16:25+02:00","acceptanceIdentifier":"OM
+        8/52/2012","supportCount":634,"sentSupportCount":0,"externalSupportCount":8548,"verifiedSupportCount":0,"verified":null,"name":{"fi":"ENERGIAJUOMAT
+        K16 - Kansalaisaloite energiajuomien myynnin kieltämisestä alle 16-vuotiaille","sv":"ENERGIDRYCKER
+        F-16 - Medborgarinitiativ för förbud mot försäljning av energidrycker till
+        personer under 16 år"},"startDate":"2012-09-03","endDate":"2013-03-03","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":true,"supportStatementsRemoved":null,"links":[{"uri":"http://www.energidryckerf16.fi","label":"energidryckerf16"},{"uri":"http://energiajuomat_k16.fi","label":"energiajuomat_f16"},{"uri":"http://www.hemochskola.fi","label":"Förbundet
+        Hem och Skola"},{"uri":"http://www.vanhempainliitto.fi","label":"Suomen vanhempainliitto"}],"proposal":{"fi":"Lakialoite
+        elintarvikelain muuttamisesta seuraavasti:\r\nLisätään elintarvikelakiin (23/2006)
+        uusi 10 a § ja 79 §:n 2 momenttiin uusi 8 kohta seuraavasti:\r\n\r\n10 a §
+        Vähittäismyyntikiellot\r\nLisättyä sokeria tai muuta makeutusainetta sisältävää
+        hiilihapotettua juomaa, joka sisältää kofeiinia enemmän kuin 130 mg litrassa,
+        ei saa myydä henkilölle, joka on kuuttatoista vuotta nuorempi.\r\n\r\n79 §
+        Rangaistussäännökset\r\n---\r\nJoka tahallaan tai huolimattomuudesta\r\n---\r\n8)
+        rikkoo 10 a §:ssä säädettyä myyntikieltoa on tuomittava, jollei teosta muualla
+        laissa säädetä ankarampaa rangaistusta, elintarvikerikkomuksesta sakkoon.","sv":"I
+        initiativet föreslås att livsmedelslagen (23/2006) ändras på följande sätt:
+        Till livsmedelslagen fogas en ny 10 a § och en ny punkt 8 i 79 § 2 momentet.\r\n\r\n10
+        a § Detaljhandelsförbud\r\nKolsyrad dryck som innehåller tillsatt socker eller
+        annat sötningsmedel och som innehåller mer koffein än 130 mg per liter får
+        inte säljas till en person som inte har fyllt 16 år.\r\n\r\n79 § Straffbestämmelser\r\n---\r\nDen
+        som uppsåtligen eller av oaktsamhet\r\n---\r\n8) bryter mot det förbud mot
+        försäljning som stadgas i 10 a § skall, om inte strängare straff för gärningen
+        föreskrivs någon annanstans i lag, för livsmedelsförseelse dömas till böter."},"rationale":{"fi":"Lapsille
+        energiajuomia ei suositella niiden kofeiinipitoisuuden vuoksi. Pienikin kofeiinimäärä
+        voi aiheuttaa lapselle haitallisia vaikutuksia. Suomessa energiajuomia kuitenkin
+        markkinoidaan voimallisesti lapsille ja nuorille.\r\n\r\nEnergiajuomat vaikuttavat
+        lapsen ja nuoren koko päivärytmiin heikentämällä unen laatua ja määrää. Energiajuomilla
+        on lisäksi vaikutusta terveelliseen ruokailuun. Siemailutyyppinen nauttiminen
+        aiheuttaa lisäksi hampaiden reikiintymistä ja eroosiota.\r\n\r\nSuomessa vanhempien
+        ja opettajien arkikokemukset tukevat energiajuomien myynnin rajoittamista.
+        Lisäksi monet vanhemmat ovat huolestuneita energiajuomien linkittämisestä
+        siidereihin ja lonkeroihin. Toiset energiajuomatölkit muistuttavat ulkonäöltäänkin
+        lonkero- ja siideritölkkejä.","sv":"Energidrycker är inte lämpliga för barn
+        på grund av deras koffeinhalt. En liten dos koffein kan förorsaka skadeverkningar
+        för barn. I Finland riktas marknadsföringen av dryckerna ändå tydligt till
+        barn och unga.\r\n\r\nSömnens mängd och kvalitet påverkas lätt hos ett barn
+        eller en ungdom så att hela dygnsrytmen ruckas. Då man tar sig en klunk energidryck
+        nu och då leder det också till karies och erosionsskador på tänderna.\r\n\r\nEnergidrycker
+        lämpar sig inte för barn och de hör inte hemma i en hälsosam kost.\r\nFöräldrars
+        och lärares erfarenheter i vardagen stöder tanken att begränsa försäljningen
+        av energidrycker. Många föräldrar är också oroade över att energidrycker kopplas
+        ihop med sider och long drinks. Energidrycker banar väg för alkoholanvändning
+        och alkoholreklam.\r\n\r\nI konsumentlagstiftningen är minderåriga i en särställning
+        då de är mera mottagliga för reklam. I reklamer utlovas unga nya krafter och
+        en uppiggande verkan. Undersökningar visar att var tredje elev i åk 7 och
+        9 är trött under minst fyra skolmorgnar i veckan. (Källa: Peruskoulun 5.,
+        7. ja 9. luokan oppilaiden koulukokemukset ja koettu terveys, 2008, Opetushallitus,
+        Terveyden edistämisen tutkimuskeskus)."},"initiators":[{"firstNames":"Tuomas
+        Paavo","lastName":"Kurttila","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}},{"firstNames":"Micaela
+        Charlotta","lastName":"Romantschuk-Pietilä","homeMunicipality":{"fi":"Sipoo","sv":"Sibbo"}}],"representatives":[{"firstNames":"Tuomas
+        Paavo","lastName":"Kurttila","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"Tuomas
+        kurttila  vanhempainliitto fi","phone":"050 544 3757","address":"Mariankatu
+        28 B 5, 00170 Helsinki"}}],"reserves":[{"firstNames":"Micaela Charlotta","lastName":"Romantschuk-Pietilä","homeMunicipality":{"fi":"Sipoo","sv":"Sibbo"},"contactInfo":{"email":"micaela  hemochskola
+        fi","phone":"050-3362016","address":"Förbundet Hem och Skola Nylandsgatan
+        17 D 00120 Helsingfors"}}],"totalSupportCount":9182}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:24 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/6
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:22 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:22 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/6","modified":"2012-12-18T13:57:41+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:58:43+02:00","acceptanceIdentifier":"OM
+        6/52/2012","supportCount":1272,"sentSupportCount":0,"externalSupportCount":4,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Vallan
+        uusjako - sitovat kansanäänestykset käyttöön","sv":null},"startDate":"2012-12-04","endDate":"2013-06-04","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://www.suorademokratia.fi","label":"Vallan
+        uusjako – sitovat kansanäänestykset käyttöön"}],"proposal":{"fi":"Perustuslain
+        2 § 1 momentti on nyt säädetty seuraavasti:\r\n\r\n”Valtiovalta Suomessa kuuluu
+        kansalle, jota edustaa valtiopäiville kokoontunut eduskunta.”\r\n\r\nPerustuslain
+        53 § 3 momentti kansalaisaloitteesta puolestaan kuuluu:\r\n\r\n”Vähintään
+        viidelläkymmenellätuhannella äänioikeutetulla Suomen kansalaisella on oikeus
+        tehdä eduskunnalle aloite lain säätämiseksi sen mukaan kuin lailla säädetään.”\r\n\r\nNämä
+        perustuslain kohdat tulee mahdollisimman pikaisesti muuttaa muotoon:\r\n\r\n2
+        § 1 mom ”Valtiovalta Suomessa kuuluu kansalle, joka käyttää valtaansa sitovien
+        kansanäänestysten kautta sekä valtiopäiville kokoontuneen eduskunnan edustuksella.”\r\n\r\n53
+        § 3 mom \"Vähintään viidelläkymmenellätuhannella äänioikeutetulla Suomen kansalaisella
+        on oikeus tehdä aloite lain säätämiseksi ja viedä se päättäjiä sitovaan kansanäänestykseen
+        tai eduskunnan käsiteltäväksi sen mukaan kuin lailla säädetään.\"","sv":null},"rationale":{"fi":"Kansalaisten
+        mahdollisuus tehdä lakialoitteita kansalaisaloitteen muodossa on oikeansuuntainen
+        uudistus, mutta demokratiaa se ei käytännössä lisää, sillä eduskunta ei todennäköisesti
+        tule hyväksymään sellaisia aloitteita, jotka se olisi voinut itsekin ottaa
+        käsittelyyn jo vuosia sitten, mutta ei ole halunnut.\r\n\r\nDemokratia ei
+        toteudu myöskään silloin, jos eduskunta hyväksyy jonkin aloitteen siksi, että
+        50000 kansalaista on sitä kannattanut. Tällöinhän äänioikeutettujen enemmistöltä
+        ei ole kysytty heidän kantaansa asiaan.\r\n\r\nSiksi kansalaisaloitteen vireillepanijalla
+        tulee olla oikeus määritellä aloitetta tehdessään, haluaako hän viedä sen
+        päättäjiä sitovaan kansanäänestykseen vai eduskunnan päätettäväksi.","sv":null},"initiators":[{"firstNames":"Heidi
+        Marjukka","lastName":"Kaakkola","homeMunicipality":{"fi":"Nummi-Pusula","sv":"Nummi-Pusula"}}],"representatives":[{"firstNames":"Heidi
+        Marjukka","lastName":"Kaakkola","homeMunicipality":{"fi":"Nummi-Pusula","sv":"Nummi-Pusula"},"contactInfo":{"email":"marjukka
+        kaakkola  gmail com","phone":"0405076728","address":null}}],"reserves":[{"firstNames":"Antti
+        Jaakko Jalmari","lastName":"Pesonen","homeMunicipality":{"fi":"Alajärvi","sv":"Alajärvi"},"contactInfo":{"email":"antti
+        pesonen  ipu fi","phone":"0400565366","address":null}}],"totalSupportCount":1276}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:24 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/7
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:22 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:22 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/7","modified":"2012-12-02T17:39:43+02:00","state":"PROPOSAL","stateDate":"2012-12-02T17:39:43+02:00","acceptanceIdentifier":null,"supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Luovutaan
+        kesäaikaan siirtymisestä","sv":null},"startDate":"2012-12-02","endDate":"2013-06-02","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Luovutaan
+        kesäaikaan siirtymisestä.","sv":null},"rationale":{"fi":"Kesä- ja normaaliaikaan
+        siirtymiset voivat aiheuttaa viikon tai jopa pidemmän ajan univajeen. Unihäiriöistä
+        kärsivillä kellonsiirroista aiheutuva rasitus pahentaa entisestään uniongelmia.\r\n\r\nVaikka
+        tunnin muutos aikataulussa saattaa tuntua pieneltä, fysiologiset rytmimme
+        sopeutuvat hitaasti äkillisiin aikataulumuutoksiin.\r\n\r\nKesäaika otettiin
+        käyttöön, jotta sähköenergiaa säästyisi. Vaikka kesäaika luotiin säästösyistä,
+        on tutkimus osoittanut, ettei kesäaika säästä energiaa, vaan päinvastoin se
+        saattaa jopa lisätä energiankulutusta. Kesäajan käyttö ei siis enää palvele
+        sitä tarkoitusta, johon se alun perin luotiin.\r\n\r\nYlilääkäri Timo Partosen
+        johtama ryhmä on tutkinut Terveyden ja hyvinvoinnin laitoksella kesäajan aiheuttamia
+        vuorokausirytmin häiriöitä vuodesta 2004 lähtien.\r\n– Koska valon ja pimeän
+        vaihtelu on tärkeä meitä tahdittava aikasignaali, äkillinen muutos ympäristön
+        valaistusolosuhteissa vaikuttaa esimerkiksi aineenvaihduntaan. Siitä seurauksena
+        on usein ruokahalun kasvu, makeannälkä ja painon nousu, Partonen toteaa. \r\n\r\nKoko
+        väestön vuorokausirytmi häiriintyy kahdesti vuodessa, kun keväällä otetaan
+        käyttöön kesäaika ja syksyllä siirrytään takaisin normaaliaikaan. Tämä on
+        hankalaa siksi, ettei ajan siirtoa vastaan voi suojautua toisin kuin aikaerolentoa
+        tai vuorotyötä varten.\r\n\r\n– Kesäaikaan ja normaaliaikaan siirtymisten
+        aiheuttamat oireet ovat hyvin yksilöllisiä: toiset meistä eivät oireile lainkaan,
+        toiset kärsivät muun muassa väsymyksestä ja univaikeuksista vielä viikkoja
+        siirtymän jälkeen, erikoistutkija Tuuli Lahti THL:stä kertoo.\r\n\r\nLähde:
+        THL","sv":null},"initiators":[{"firstNames":"Petri Ensio","lastName":"Lahtinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}}],"representatives":[{"firstNames":"Petri
+        Ensio","lastName":"Lahtinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"petri
+        lahtinen  welho com","phone":"0405153806","address":null}}],"reserves":[{"firstNames":"Sanne
+        Maria","lastName":"Lahtinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"Sanne
+        M Lahtinen  tieto com","phone":"0503877224","address":"Gustav Pauligin katu
+        15 A 4\r\n00990 HELSINKI"}}],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:25 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/7
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:23 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:23 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/7","modified":"2012-12-02T17:39:43+02:00","state":"PROPOSAL","stateDate":"2012-12-02T17:39:43+02:00","acceptanceIdentifier":null,"supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Luovutaan
+        kesäaikaan siirtymisestä","sv":null},"startDate":"2012-12-02","endDate":"2013-06-02","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Luovutaan
+        kesäaikaan siirtymisestä.","sv":null},"rationale":{"fi":"Kesä- ja normaaliaikaan
+        siirtymiset voivat aiheuttaa viikon tai jopa pidemmän ajan univajeen. Unihäiriöistä
+        kärsivillä kellonsiirroista aiheutuva rasitus pahentaa entisestään uniongelmia.\r\n\r\nVaikka
+        tunnin muutos aikataulussa saattaa tuntua pieneltä, fysiologiset rytmimme
+        sopeutuvat hitaasti äkillisiin aikataulumuutoksiin.\r\n\r\nKesäaika otettiin
+        käyttöön, jotta sähköenergiaa säästyisi. Vaikka kesäaika luotiin säästösyistä,
+        on tutkimus osoittanut, ettei kesäaika säästä energiaa, vaan päinvastoin se
+        saattaa jopa lisätä energiankulutusta. Kesäajan käyttö ei siis enää palvele
+        sitä tarkoitusta, johon se alun perin luotiin.\r\n\r\nYlilääkäri Timo Partosen
+        johtama ryhmä on tutkinut Terveyden ja hyvinvoinnin laitoksella kesäajan aiheuttamia
+        vuorokausirytmin häiriöitä vuodesta 2004 lähtien.\r\n– Koska valon ja pimeän
+        vaihtelu on tärkeä meitä tahdittava aikasignaali, äkillinen muutos ympäristön
+        valaistusolosuhteissa vaikuttaa esimerkiksi aineenvaihduntaan. Siitä seurauksena
+        on usein ruokahalun kasvu, makeannälkä ja painon nousu, Partonen toteaa. \r\n\r\nKoko
+        väestön vuorokausirytmi häiriintyy kahdesti vuodessa, kun keväällä otetaan
+        käyttöön kesäaika ja syksyllä siirrytään takaisin normaaliaikaan. Tämä on
+        hankalaa siksi, ettei ajan siirtoa vastaan voi suojautua toisin kuin aikaerolentoa
+        tai vuorotyötä varten.\r\n\r\n– Kesäaikaan ja normaaliaikaan siirtymisten
+        aiheuttamat oireet ovat hyvin yksilöllisiä: toiset meistä eivät oireile lainkaan,
+        toiset kärsivät muun muassa väsymyksestä ja univaikeuksista vielä viikkoja
+        siirtymän jälkeen, erikoistutkija Tuuli Lahti THL:stä kertoo.\r\n\r\nLähde:
+        THL","sv":null},"initiators":[{"firstNames":"Petri Ensio","lastName":"Lahtinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}}],"representatives":[{"firstNames":"Petri
+        Ensio","lastName":"Lahtinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"petri
+        lahtinen  welho com","phone":"0405153806","address":null}}],"reserves":[{"firstNames":"Sanne
+        Maria","lastName":"Lahtinen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"Sanne
+        M Lahtinen  tieto com","phone":"0503877224","address":"Gustav Pauligin katu
+        15 A 4\r\n00990 HELSINKI"}}],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:25 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/8
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:23 GMT
+      Content-Language:
+      - fi
+      Content-Type:
+      - text/html;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! "\n<!DOCTYPE HTML>\n<html lang=\"fi\">\n<head>\n    <title>Sivua ei
+        l&ouml;ydy tai sinulla ei ole k&auml;ytt&ouml;oikeutta sivuun - Kansalaisaloitepalvelu</title>
+        \n    \n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n
+        \   \n    <link href=\"https://www.kansalaisaloite.fi/favicon.ico\" rel=\"shortcut
+        icon\" type=\"image/vnd.microsoft.icon\" />\n   \n    <link rel=\"stylesheet\"
+        type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/normalize.css\"
+        />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/aloitepalvelu.css\"
+        />\n</head>\n<body>\n<div id=\"wrapper\">\n\n    <div id=\"header-tools\">\n
+        \       <div id=\"header-tools-content\">\n            <div id=\"aloite-links\">\n
+        \               <a class=\"active\" href=\"https://www.kansalaisaloite.fi/fi\">Kansalaisaloite.fi</a><span
+        class=\"hide\"> | </span><a href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kuntalaisaloite_fi-palvelusta\">Kuntalaisaloite.fi</a>\n
+        \           </div>\n        </div>\n    </div>\n    \n    <div id=\"header\">\n
+        \       <div id=\"header-content\">\n            <a id=\"logo\" href=\"https://www.kansalaisaloite.fi/fi\"
+        accesskey=\"1\" title=\"Kansalaisaloitepalvelu\">\n                <span>Kansalaisaloitepalvelu</span>\n
+        \           </a>        \n        </div>\n    </div>\n\n    <div class=\"container\">\n
+        \       <div id=\"content\">\n\n    <h1>Sivua ei l&ouml;ydy tai sinulla ei
+        ole k&auml;ytt&ouml;oikeutta sivuun</h1>\n    <!-- Error: 404 - Not Found
+        -->\n    <p>Ole hyvä ja tarkista osoite tai siirry palvelun <a href=\"https://www.kansalaisaloite.fi/fi\">etusivulle</a>.</p>\n
+        \n        </div>\n    </div>\n    \n    <div id=\"footer\">\n        <div
+        class=\"container\">\n            <div class=\"block oikeusministerio\">\n
+        \               <p>\n                    Kansalaisaloite.fi on oikeusministeri&ouml;n
+        yll&auml;pit&auml;m&auml; ja tuottama verkkopalvelu.<br/>\n                    <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kansalaisaloite_fi-palvelusta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"block viestintavirasto\">\n                <p>\n                    Kansalaisaloite.fi
+        on Viestintäviraston hyväksymä palvelu.<br/>\n                    <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/viestintaviraston-hyvaksynta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"footer-links\">\n                <ul>\n                    <li><span
+        class=\"icon-small arrow-right-2\"></span> <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/ota-yhteytta\">Ota
+        yhteytt&auml;</a></li>\n                    <li><span class=\"icon-small arrow-right-2\"></span>
+        <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/henkilorekisteriselosteet\">Henkil&ouml;rekisteriselosteet</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/kehittajille\">Kehitt&auml;jille</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/briefly-in-english\">Briefly
+        in English</a></li>\n                </ul>\n            </div>\n            <br
+        class=\"clear\"/>\n        </div>\n        \n        <a href=\"#header-tools\"
+        accesskey=\"3\" id=\"back-to-top\">Sivun alkuun</a>\n    </div>\n\n</div>\n</body>\n</html>\n"
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:25 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/9
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:23 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:23 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/9","modified":"2012-12-04T15:42:19+02:00","state":"ACCEPTED","stateDate":"2012-12-04T15:42:19+02:00","acceptanceIdentifier":"OM
+        7/52/2012","supportCount":5,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Suojatiellä
+        liikkumisen selkeyttäminen sekä väistämisvelvollisuuden siirtäminen kokonaan
+        autoille","sv":null},"startDate":"2012-12-02","endDate":"2013-06-02","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Suojatien
+        ylittämisen ja väistämisvelvollisuuden lait muuttuivat useita vuosia sitten,
+        eivätkä kansalaiset ole vieläkään ymmärtäneet, miten suojatie olisi ylitettävä
+        tai kuka milloinkin on väistämisvelvollinen.\r\n\r\nLaki on kieltämättä sekava,
+        enkä usko sen parantavan turvallisuutta liikenteessä millään tavalla. Päinvastoin,
+        uskon, että lain sekavuuden takia kevyen liikenteen turvallisuus suojateitä
+        ylitettäessä on huonontunut.\r\n\r\nMielestäni suojatiet olisi \"pyhitettävä\"
+        kevyelle liikenteelle totaalisesti siten, että suojatiellä liikkuva olisi
+        aina etuoikeutettu kulkemaan tien yli ja siten, että autoilijat olisivat aina
+        väistämisvelvollisia suojatien ylittäjiin tai sen ylittämistä aikoviin kevyen
+        liikenteen kulkijoihin nähden.\r\nTämä selkeyttäisi merkittävästi liikennettä
+        sekä toisi suojatielle takaisin sen kunnian, jonka kansalaiset muistavat ja
+        mieltävät oikeaksi.","sv":null},"rationale":{"fi":"Kansalaiset eivät pääsääntöisesti
+        ymmärrä voimassaolevaa lakia käytännössä. Lakimuutos selkeyttäisi suojatiekäytäntöä
+        ja vähentäisi epäselvyyttä risteyksissä ja muualla tiestössä.  Vähentynyt
+        epäselvyys vähentäisi merkittävästi autojen ja kevyen liikenteen välisiä onnettomuuksia
+        ja niiden aiheuttamia kuluja valtiolle, loukkaantumisista ja kuolemantapauksista
+        puhumattakaan.","sv":null},"initiators":[{"firstNames":"Rami Elias","lastName":"Eerola","homeMunicipality":{"fi":"Tuusula","sv":"Tusby"}}],"representatives":[{"firstNames":"Rami
+        Elias","lastName":"Eerola","homeMunicipality":{"fi":"Tuusula","sv":"Tusby"},"contactInfo":{"email":"rami
+        eerola  kolumbus fi","phone":null,"address":"Tuusula"}}],"reserves":[{"firstNames":"Pia
+        Iro Eliisa","lastName":"Manninen","homeMunicipality":{"fi":"Tuusula","sv":"Tusby"},"contactInfo":{"email":"iro
+        manninen  kolumbus fi","phone":null,"address":null}}],"totalSupportCount":5}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:26 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/9
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:24 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:24 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/9","modified":"2012-12-04T15:42:19+02:00","state":"ACCEPTED","stateDate":"2012-12-04T15:42:19+02:00","acceptanceIdentifier":"OM
+        7/52/2012","supportCount":5,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Suojatiellä
+        liikkumisen selkeyttäminen sekä väistämisvelvollisuuden siirtäminen kokonaan
+        autoille","sv":null},"startDate":"2012-12-02","endDate":"2013-06-02","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Suojatien
+        ylittämisen ja väistämisvelvollisuuden lait muuttuivat useita vuosia sitten,
+        eivätkä kansalaiset ole vieläkään ymmärtäneet, miten suojatie olisi ylitettävä
+        tai kuka milloinkin on väistämisvelvollinen.\r\n\r\nLaki on kieltämättä sekava,
+        enkä usko sen parantavan turvallisuutta liikenteessä millään tavalla. Päinvastoin,
+        uskon, että lain sekavuuden takia kevyen liikenteen turvallisuus suojateitä
+        ylitettäessä on huonontunut.\r\n\r\nMielestäni suojatiet olisi \"pyhitettävä\"
+        kevyelle liikenteelle totaalisesti siten, että suojatiellä liikkuva olisi
+        aina etuoikeutettu kulkemaan tien yli ja siten, että autoilijat olisivat aina
+        väistämisvelvollisia suojatien ylittäjiin tai sen ylittämistä aikoviin kevyen
+        liikenteen kulkijoihin nähden.\r\nTämä selkeyttäisi merkittävästi liikennettä
+        sekä toisi suojatielle takaisin sen kunnian, jonka kansalaiset muistavat ja
+        mieltävät oikeaksi.","sv":null},"rationale":{"fi":"Kansalaiset eivät pääsääntöisesti
+        ymmärrä voimassaolevaa lakia käytännössä. Lakimuutos selkeyttäisi suojatiekäytäntöä
+        ja vähentäisi epäselvyyttä risteyksissä ja muualla tiestössä.  Vähentynyt
+        epäselvyys vähentäisi merkittävästi autojen ja kevyen liikenteen välisiä onnettomuuksia
+        ja niiden aiheuttamia kuluja valtiolle, loukkaantumisista ja kuolemantapauksista
+        puhumattakaan.","sv":null},"initiators":[{"firstNames":"Rami Elias","lastName":"Eerola","homeMunicipality":{"fi":"Tuusula","sv":"Tusby"}}],"representatives":[{"firstNames":"Rami
+        Elias","lastName":"Eerola","homeMunicipality":{"fi":"Tuusula","sv":"Tusby"},"contactInfo":{"email":"rami
+        eerola  kolumbus fi","phone":null,"address":"Tuusula"}}],"reserves":[{"firstNames":"Pia
+        Iro Eliisa","lastName":"Manninen","homeMunicipality":{"fi":"Tuusula","sv":"Tusby"},"contactInfo":{"email":"iro
+        manninen  kolumbus fi","phone":null,"address":null}}],"totalSupportCount":5}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:26 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:24 GMT
+      Content-Language:
+      - fi
+      Content-Type:
+      - text/html;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! "\n<!DOCTYPE HTML>\n<html lang=\"fi\">\n<head>\n    <title>Sivua ei
+        l&ouml;ydy tai sinulla ei ole k&auml;ytt&ouml;oikeutta sivuun - Kansalaisaloitepalvelu</title>
+        \n    \n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n
+        \   \n    <link href=\"https://www.kansalaisaloite.fi/favicon.ico\" rel=\"shortcut
+        icon\" type=\"image/vnd.microsoft.icon\" />\n   \n    <link rel=\"stylesheet\"
+        type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/normalize.css\"
+        />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/aloitepalvelu.css\"
+        />\n</head>\n<body>\n<div id=\"wrapper\">\n\n    <div id=\"header-tools\">\n
+        \       <div id=\"header-tools-content\">\n            <div id=\"aloite-links\">\n
+        \               <a class=\"active\" href=\"https://www.kansalaisaloite.fi/fi\">Kansalaisaloite.fi</a><span
+        class=\"hide\"> | </span><a href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kuntalaisaloite_fi-palvelusta\">Kuntalaisaloite.fi</a>\n
+        \           </div>\n        </div>\n    </div>\n    \n    <div id=\"header\">\n
+        \       <div id=\"header-content\">\n            <a id=\"logo\" href=\"https://www.kansalaisaloite.fi/fi\"
+        accesskey=\"1\" title=\"Kansalaisaloitepalvelu\">\n                <span>Kansalaisaloitepalvelu</span>\n
+        \           </a>        \n        </div>\n    </div>\n\n    <div class=\"container\">\n
+        \       <div id=\"content\">\n\n    <h1>Sivua ei l&ouml;ydy tai sinulla ei
+        ole k&auml;ytt&ouml;oikeutta sivuun</h1>\n    <!-- Error: 404 - Not Found
+        -->\n    <p>Ole hyvä ja tarkista osoite tai siirry palvelun <a href=\"https://www.kansalaisaloite.fi/fi\">etusivulle</a>.</p>\n
+        \n        </div>\n    </div>\n    \n    <div id=\"footer\">\n        <div
+        class=\"container\">\n            <div class=\"block oikeusministerio\">\n
+        \               <p>\n                    Kansalaisaloite.fi on oikeusministeri&ouml;n
+        yll&auml;pit&auml;m&auml; ja tuottama verkkopalvelu.<br/>\n                    <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kansalaisaloite_fi-palvelusta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"block viestintavirasto\">\n                <p>\n                    Kansalaisaloite.fi
+        on Viestintäviraston hyväksymä palvelu.<br/>\n                    <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/viestintaviraston-hyvaksynta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"footer-links\">\n                <ul>\n                    <li><span
+        class=\"icon-small arrow-right-2\"></span> <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/ota-yhteytta\">Ota
+        yhteytt&auml;</a></li>\n                    <li><span class=\"icon-small arrow-right-2\"></span>
+        <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/henkilorekisteriselosteet\">Henkil&ouml;rekisteriselosteet</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/kehittajille\">Kehitt&auml;jille</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/briefly-in-english\">Briefly
+        in English</a></li>\n                </ul>\n            </div>\n            <br
+        class=\"clear\"/>\n        </div>\n        \n        <a href=\"#header-tools\"
+        accesskey=\"3\" id=\"back-to-top\">Sivun alkuun</a>\n    </div>\n\n</div>\n</body>\n</html>\n"
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:26 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/11
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:24 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:24 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/11","modified":"2012-12-14T11:35:54+02:00","state":"ACCEPTED","stateDate":"2012-12-14T11:35:54+02:00","acceptanceIdentifier":"OM
+        19/52/2012","supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kansanäänestys
+        Suomen eroamisesta Euroopan unionin jäsenyydestä","sv":null},"startDate":"2013-01-01","endDate":"2013-07-01","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Suomen
+        eroamisesta Euroopan unionin jäsenyydestä toimitetaan neuvoa-antava kansanäänestys.\r\n    \r\nKysymyksenasettelu
+        ja vastausvaihtoehdot \r\n\r\nKansanäänestyksessä esitetään äänestäjien vastattavaksi
+        seuraava kysymys: \"Tuleeko Suomen erota Euroopan unionin jäsenyydestä?\"
+        Äänestäjän tulee vastata kysymykseen joko \"KYLLÄ\" tai \"EI\".","sv":null},"rationale":{"fi":"Suomen
+        asema Euroopan unionin jäsenenä on aivan toinen kuin Suomen valtiojohdon taholta
+        luvattiin v. 1994 ennen neuvoa-antavaa kansanäänestystä Euroopan unioniin
+        liittymisestä. Suomi on mm. luopunut omasta rahastaan ilman, että kansalaiset
+        ovat voineet asiaan vaikuttaa kansanäänestyksessä. Lisäksi EU:sta on Lissabonin
+        sopimuksella tullut oikeushenkilö, joka voi solmia kansainvälisiä sopimuksia
+        jäsenvaltioiden puolesta.\r\n\r\nVuoden 1976 jälkeen syntyneet kansalaiset
+        eivät ole voineet kertoa kantaansa EU-jäsenyyteen minkäänlaisessa kansanäänestyksessä.
+        Heilläkin on kuitenkin oikeus vaikuttaa tulevaisuuteensa. Ns. edustuksellinen
+        demokratia ei riitä kansalaisten tahdon toteuttamiseen. Tästä kertoo mm. laskeva
+        äänestysaktiivisuus.  \r\n\r\nEuroopan unionin liittovaltiokehitys etenee
+        nopeasti. Kansalaisilla tulee olla mahdollisuus ottaa osaa keskusteluun maamme
+        tulevaisuudesta ja valtiollisesta asemasta. Kansanäänestyksen järjestäminen
+        mahdollistaa laajan kansalaiskeskustelun.\r\n\r\nSuomen perustuslain ydin
+        on maamme ”täysivaltaisuus”, siis valtiollinen itsenäisyys ja ”valtiovallan”,
+        siis ylimmän vallan kuuluminen maassamme Suomen kansalle. On vähintään kyseenalaista
+        toteutuuko perustuslain ydin Suomen ollessa Euroopan unionin jäsen.  Kansanäänestyksen
+        järjestäminen tarjoaa hyvän mahdollisuuden ottaa kantaa tähän laillisuuden
+        ja demokratian toteutumisen kannalta keskeiseen kysymyksenasetteluun\r\n\r\nMikäli
+        eduskunta ennen ehdotetun lain säätämistä hyväksyy lain, joka mahdollistaa
+        sitovan kansanäänestyksen järjestämisen, on sellainen järjestettävä myös Suomen
+        eroamisesta Euroopan unionin jäsenyydestä.\r\n\r\nKansanäänestys voidaan järjestää
+        tulevien eduskuntavaalien yhteydessä, kuitenkin viimeistään v. 2015.","sv":null},"initiators":[{"firstNames":"Antti
+        Jaakko Jalmari","lastName":"Pesonen","homeMunicipality":{"fi":"Alajärvi","sv":"Alajärvi"}}],"representatives":[{"firstNames":"Antti
+        Jaakko Jalmari","lastName":"Pesonen","homeMunicipality":{"fi":"Alajärvi","sv":"Alajärvi"},"contactInfo":{"email":"antti
+        pesonen  ipu fi","phone":"0400-565366","address":null}}],"reserves":[{"firstNames":"Jarmo-Erkki","lastName":"Nevalainen","homeMunicipality":{"fi":"Turku","sv":"Åbo"},"contactInfo":{"email":"jakeneva  yahoo
+        com","phone":"040 734 1919","address":"Riutojankatu 1 E 28\r\n20360  Turku"}},{"firstNames":"Lea
+        Marja Birgitta","lastName":"Launokari","homeMunicipality":{"fi":"Kirkkonummi","sv":"Kyrkslätt"},"contactInfo":{"email":"lea
+        launokari  nettilinja fi","phone":"09-298 1588","address":"Kaksosmäki 24,
+        02400 Kirkkonummi"}}],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:27 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/11
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:25 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:25 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/11","modified":"2012-12-14T11:35:54+02:00","state":"ACCEPTED","stateDate":"2012-12-14T11:35:54+02:00","acceptanceIdentifier":"OM
+        19/52/2012","supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kansanäänestys
+        Suomen eroamisesta Euroopan unionin jäsenyydestä","sv":null},"startDate":"2013-01-01","endDate":"2013-07-01","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Suomen
+        eroamisesta Euroopan unionin jäsenyydestä toimitetaan neuvoa-antava kansanäänestys.\r\n    \r\nKysymyksenasettelu
+        ja vastausvaihtoehdot \r\n\r\nKansanäänestyksessä esitetään äänestäjien vastattavaksi
+        seuraava kysymys: \"Tuleeko Suomen erota Euroopan unionin jäsenyydestä?\"
+        Äänestäjän tulee vastata kysymykseen joko \"KYLLÄ\" tai \"EI\".","sv":null},"rationale":{"fi":"Suomen
+        asema Euroopan unionin jäsenenä on aivan toinen kuin Suomen valtiojohdon taholta
+        luvattiin v. 1994 ennen neuvoa-antavaa kansanäänestystä Euroopan unioniin
+        liittymisestä. Suomi on mm. luopunut omasta rahastaan ilman, että kansalaiset
+        ovat voineet asiaan vaikuttaa kansanäänestyksessä. Lisäksi EU:sta on Lissabonin
+        sopimuksella tullut oikeushenkilö, joka voi solmia kansainvälisiä sopimuksia
+        jäsenvaltioiden puolesta.\r\n\r\nVuoden 1976 jälkeen syntyneet kansalaiset
+        eivät ole voineet kertoa kantaansa EU-jäsenyyteen minkäänlaisessa kansanäänestyksessä.
+        Heilläkin on kuitenkin oikeus vaikuttaa tulevaisuuteensa. Ns. edustuksellinen
+        demokratia ei riitä kansalaisten tahdon toteuttamiseen. Tästä kertoo mm. laskeva
+        äänestysaktiivisuus.  \r\n\r\nEuroopan unionin liittovaltiokehitys etenee
+        nopeasti. Kansalaisilla tulee olla mahdollisuus ottaa osaa keskusteluun maamme
+        tulevaisuudesta ja valtiollisesta asemasta. Kansanäänestyksen järjestäminen
+        mahdollistaa laajan kansalaiskeskustelun.\r\n\r\nSuomen perustuslain ydin
+        on maamme ”täysivaltaisuus”, siis valtiollinen itsenäisyys ja ”valtiovallan”,
+        siis ylimmän vallan kuuluminen maassamme Suomen kansalle. On vähintään kyseenalaista
+        toteutuuko perustuslain ydin Suomen ollessa Euroopan unionin jäsen.  Kansanäänestyksen
+        järjestäminen tarjoaa hyvän mahdollisuuden ottaa kantaa tähän laillisuuden
+        ja demokratian toteutumisen kannalta keskeiseen kysymyksenasetteluun\r\n\r\nMikäli
+        eduskunta ennen ehdotetun lain säätämistä hyväksyy lain, joka mahdollistaa
+        sitovan kansanäänestyksen järjestämisen, on sellainen järjestettävä myös Suomen
+        eroamisesta Euroopan unionin jäsenyydestä.\r\n\r\nKansanäänestys voidaan järjestää
+        tulevien eduskuntavaalien yhteydessä, kuitenkin viimeistään v. 2015.","sv":null},"initiators":[{"firstNames":"Antti
+        Jaakko Jalmari","lastName":"Pesonen","homeMunicipality":{"fi":"Alajärvi","sv":"Alajärvi"}}],"representatives":[{"firstNames":"Antti
+        Jaakko Jalmari","lastName":"Pesonen","homeMunicipality":{"fi":"Alajärvi","sv":"Alajärvi"},"contactInfo":{"email":"antti
+        pesonen  ipu fi","phone":"0400-565366","address":null}}],"reserves":[{"firstNames":"Jarmo-Erkki","lastName":"Nevalainen","homeMunicipality":{"fi":"Turku","sv":"Åbo"},"contactInfo":{"email":"jakeneva  yahoo
+        com","phone":"040 734 1919","address":"Riutojankatu 1 E 28\r\n20360  Turku"}},{"firstNames":"Lea
+        Marja Birgitta","lastName":"Launokari","homeMunicipality":{"fi":"Kirkkonummi","sv":"Kyrkslätt"},"contactInfo":{"email":"lea
+        launokari  nettilinja fi","phone":"09-298 1588","address":"Kaksosmäki 24,
+        02400 Kirkkonummi"}}],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:27 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/12
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:25 GMT
+      Content-Language:
+      - fi
+      Content-Type:
+      - text/html;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! "\n<!DOCTYPE HTML>\n<html lang=\"fi\">\n<head>\n    <title>Sivua ei
+        l&ouml;ydy tai sinulla ei ole k&auml;ytt&ouml;oikeutta sivuun - Kansalaisaloitepalvelu</title>
+        \n    \n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n
+        \   \n    <link href=\"https://www.kansalaisaloite.fi/favicon.ico\" rel=\"shortcut
+        icon\" type=\"image/vnd.microsoft.icon\" />\n   \n    <link rel=\"stylesheet\"
+        type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/normalize.css\"
+        />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/aloitepalvelu.css\"
+        />\n</head>\n<body>\n<div id=\"wrapper\">\n\n    <div id=\"header-tools\">\n
+        \       <div id=\"header-tools-content\">\n            <div id=\"aloite-links\">\n
+        \               <a class=\"active\" href=\"https://www.kansalaisaloite.fi/fi\">Kansalaisaloite.fi</a><span
+        class=\"hide\"> | </span><a href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kuntalaisaloite_fi-palvelusta\">Kuntalaisaloite.fi</a>\n
+        \           </div>\n        </div>\n    </div>\n    \n    <div id=\"header\">\n
+        \       <div id=\"header-content\">\n            <a id=\"logo\" href=\"https://www.kansalaisaloite.fi/fi\"
+        accesskey=\"1\" title=\"Kansalaisaloitepalvelu\">\n                <span>Kansalaisaloitepalvelu</span>\n
+        \           </a>        \n        </div>\n    </div>\n\n    <div class=\"container\">\n
+        \       <div id=\"content\">\n\n    <h1>Sivua ei l&ouml;ydy tai sinulla ei
+        ole k&auml;ytt&ouml;oikeutta sivuun</h1>\n    <!-- Error: 404 - Not Found
+        -->\n    <p>Ole hyvä ja tarkista osoite tai siirry palvelun <a href=\"https://www.kansalaisaloite.fi/fi\">etusivulle</a>.</p>\n
+        \n        </div>\n    </div>\n    \n    <div id=\"footer\">\n        <div
+        class=\"container\">\n            <div class=\"block oikeusministerio\">\n
+        \               <p>\n                    Kansalaisaloite.fi on oikeusministeri&ouml;n
+        yll&auml;pit&auml;m&auml; ja tuottama verkkopalvelu.<br/>\n                    <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kansalaisaloite_fi-palvelusta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"block viestintavirasto\">\n                <p>\n                    Kansalaisaloite.fi
+        on Viestintäviraston hyväksymä palvelu.<br/>\n                    <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/viestintaviraston-hyvaksynta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"footer-links\">\n                <ul>\n                    <li><span
+        class=\"icon-small arrow-right-2\"></span> <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/ota-yhteytta\">Ota
+        yhteytt&auml;</a></li>\n                    <li><span class=\"icon-small arrow-right-2\"></span>
+        <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/henkilorekisteriselosteet\">Henkil&ouml;rekisteriselosteet</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/kehittajille\">Kehitt&auml;jille</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/briefly-in-english\">Briefly
+        in English</a></li>\n                </ul>\n            </div>\n            <br
+        class=\"clear\"/>\n        </div>\n        \n        <a href=\"#header-tools\"
+        accesskey=\"3\" id=\"back-to-top\">Sivun alkuun</a>\n    </div>\n\n</div>\n</body>\n</html>\n"
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:27 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/13
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:25 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:25 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/13","modified":"2012-12-12T07:41:11+02:00","state":"ACCEPTED","stateDate":"2012-12-12T07:41:11+02:00","acceptanceIdentifier":"13/52/2012","supportCount":485,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Laki
+        autoverolain kumoamisesta","sv":null},"startDate":"2012-12-05","endDate":"2013-06-05","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://www.finlex.fi/fi/laki/ajantasa/1994/19941482","label":"Autoverolaki"},{"uri":"https://www.facebook.com/groups/206392759457805/","label":"Aloitteen
+        Facebook-ryhmä"}],"proposal":{"fi":"Laki autoverolain kumoamisesta\r\n\r\nEduskunnan
+        päätöksen mukaisesti säädetään:\r\n\r\n1 §\r\n\r\nTällä lailla kumotaan 29
+        päivänä joulukuuta\r\n1994 annettu autoverolaki (1482/1994) siihen myöhemmin
+        tehtyine muutoksineen.\r\n\r\n2 §\r\n\r\nTämä laki tulee voimaan __ päivänä
+        ____ kuuta 201_.","sv":null},"rationale":{"fi":"Autoverolaki otettiin käyttöön
+        vuonna 1958 väliaikaisena, kuitenkaan tämä väliaikaisuus ei ole päättynyt
+        54 vuoden aikana kertaakaan. On siis aika luopua tästä vanhanaikaisesta väliaikaisesta
+        verosta viimein ja siirtyä nykyaikaan.\r\n\r\nTämänkaltaiset lait, kuten autoverolaki,
+        hidastavat nykyaikaisen yhteiskunnan kehitystä sekä heikentävät kansallista
+        kilpailukykyä, kansalaiset tarvitsevat ajoneuvoja päästäkseen töihin ja kun
+        ajoneuvon hinnassa on jopa puolet veroa, syntyy näin ollen myös tarve palkankorotuksille,
+        sen takia ettei ole varaa hankkia autoja millä kulkea töissä. Jotkut onnekkaat
+        asuvat kaupunkien keskustoissa lähellä työpaikkaa tai suurimmissa kaupungeissa
+        missä julkinen liikenne toimii, mutta hyvin moni kansalainen joutuu käyttämään
+        omaa kulkuneuvoa päästäkseen töihin, usein itsestään riippumattomista syistä.
+        \r\n\r\nSuomen ajoneuvokanta on autoverosta johtuen Euroopan vanhimmasta päästä.
+        Suomi on maa jossa välimatkat ovat pitkiä, puolet vuodesta ajetaan pimeydessä,
+        jään ja lumen keskellä, haastavissa ja vaarallisissa olosuhteissa. Vanhojen
+        autojen turvarakenteet ja ajo-ominaisuudet eivät olleet uutenakaan sillä tasolla
+        mitä nykyisissä autoissa on käytettyinä, tällä hetkellä vanhat autot kulutetaan
+        ajamalla teknisesti loppuun, eivätkä ajo-ominaisuudet ja rakenteet ole enää
+        vanhemmissa autoissa kovinkaan hyvässä kunnossa katsastuksesta huolimatta.  \r\n\r\nJokainen
+        liikenteessä menetetty henki näkyy myös kansantaloudessa, sen lisäksi hyvin
+        moni loukkaantuu vakavasti, jopa menettää työkykynsä pysyvästi.\r\n\r\nUudet
+        ajoneuvot ovat myös energiataloudellisempia sekä ympäristöystävällisempiä
+        kehittyneemmän tekniikan myötä. \r\n\r\nViranomaisille veron poistamisesta
+        olisi hyötyä, esimerkiksi tullilla olisi enemmän käytettävissä aikaa muihin
+        toimiin autoveropäätösten tekemisen sijaan.\r\nPoliisien määrärahat riittäisivät
+        paremmin muuhun, kun hankittavista ajoneuvoista puuttuisi autoveron osuus,
+        autovero tällä hetkellä peritään myös poliisiautoista ja -moottoripyöristä,
+        säästetyllä rahamäärällä pystyttäisiin pitämään useampia poliisivirkoja nykyiseen
+        verrattuna, se puolestaan toisi lisää työpaikkoja sekä turvallisuutta.\r\nMyös
+        hallinto-oikeuksien työtaakka vähenee, kun autoverovalituksia ei enää tulisi
+        käsiteltäväksi.\r\n\r\nKaiken lisäksi myös autokaupan huono tilanne parantuisi
+        talouden taantuman aikana kun ajoneuvoista perittäisiin verottoman hinnan
+        lisäksi ainoastaan arvonlisävero, nykyisen arvonlisäveron sekä autoveron sijaan.\r\nTällähetkellä
+        kotimainen autokauppa on niin hiljaista autoverosta johtuen, ettei se juurikaan
+        tuota verotuloja, ilman autoveroa autokaupan tuottama arvonlisäveron määrä
+        olisi jo hyvä tulonlähde valtion budjettiin, varsin helposti suurempana määränä
+        mitä tällähetkellä autokauppa tuottaa valtiolle autoveron muodossa.\r\n\r\nNäistä
+        syistä johtuen autoverolaki pitää lakkauttaa. \r\n\r\nTavoitteenamme on kehitystä
+        hidastavan ja yksilöitä sekä yrityksiä ja yhteisöjä kohtaan vahingollisen
+        autoveron lakkauttaminen. \r\nTässä aloitteessa siihen pyritään kumoamalla
+        autoverolaki.","sv":null},"initiators":[{"firstNames":"Jarno Mikael","lastName":"Siivola","homeMunicipality":{"fi":"Rovaniemi","sv":"Rovaniemi"}}],"representatives":[{"firstNames":"Jarno
+        Mikael","lastName":"Siivola","homeMunicipality":{"fi":"Rovaniemi","sv":"Rovaniemi"},"contactInfo":{"email":"jarno
+        siivola  gmail com","phone":null,"address":null}}],"reserves":[{"firstNames":"Sini
+        Anisa Tellervo","lastName":"Haaksiluoto","homeMunicipality":{"fi":"Oulu","sv":"Uleåborg"},"contactInfo":{"email":"haaksiluoto  gmail
+        com","phone":null,"address":null}},{"firstNames":"Raine Einari","lastName":"Ollila","homeMunicipality":{"fi":"Tornio","sv":"Torneå"},"contactInfo":{"email":"raine
+        ollila  gmail com","phone":null,"address":null}}],"totalSupportCount":485}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:28 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/14
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:26 GMT
+      Content-Language:
+      - fi
+      Content-Type:
+      - text/html;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! "\n<!DOCTYPE HTML>\n<html lang=\"fi\">\n<head>\n    <title>Sivua ei
+        l&ouml;ydy tai sinulla ei ole k&auml;ytt&ouml;oikeutta sivuun - Kansalaisaloitepalvelu</title>
+        \n    \n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n
+        \   \n    <link href=\"https://www.kansalaisaloite.fi/favicon.ico\" rel=\"shortcut
+        icon\" type=\"image/vnd.microsoft.icon\" />\n   \n    <link rel=\"stylesheet\"
+        type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/normalize.css\"
+        />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/aloitepalvelu.css\"
+        />\n</head>\n<body>\n<div id=\"wrapper\">\n\n    <div id=\"header-tools\">\n
+        \       <div id=\"header-tools-content\">\n            <div id=\"aloite-links\">\n
+        \               <a class=\"active\" href=\"https://www.kansalaisaloite.fi/fi\">Kansalaisaloite.fi</a><span
+        class=\"hide\"> | </span><a href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kuntalaisaloite_fi-palvelusta\">Kuntalaisaloite.fi</a>\n
+        \           </div>\n        </div>\n    </div>\n    \n    <div id=\"header\">\n
+        \       <div id=\"header-content\">\n            <a id=\"logo\" href=\"https://www.kansalaisaloite.fi/fi\"
+        accesskey=\"1\" title=\"Kansalaisaloitepalvelu\">\n                <span>Kansalaisaloitepalvelu</span>\n
+        \           </a>        \n        </div>\n    </div>\n\n    <div class=\"container\">\n
+        \       <div id=\"content\">\n\n    <h1>Sivua ei l&ouml;ydy tai sinulla ei
+        ole k&auml;ytt&ouml;oikeutta sivuun</h1>\n    <!-- Error: 404 - Not Found
+        -->\n    <p>Ole hyvä ja tarkista osoite tai siirry palvelun <a href=\"https://www.kansalaisaloite.fi/fi\">etusivulle</a>.</p>\n
+        \n        </div>\n    </div>\n    \n    <div id=\"footer\">\n        <div
+        class=\"container\">\n            <div class=\"block oikeusministerio\">\n
+        \               <p>\n                    Kansalaisaloite.fi on oikeusministeri&ouml;n
+        yll&auml;pit&auml;m&auml; ja tuottama verkkopalvelu.<br/>\n                    <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kansalaisaloite_fi-palvelusta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"block viestintavirasto\">\n                <p>\n                    Kansalaisaloite.fi
+        on Viestintäviraston hyväksymä palvelu.<br/>\n                    <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/viestintaviraston-hyvaksynta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"footer-links\">\n                <ul>\n                    <li><span
+        class=\"icon-small arrow-right-2\"></span> <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/ota-yhteytta\">Ota
+        yhteytt&auml;</a></li>\n                    <li><span class=\"icon-small arrow-right-2\"></span>
+        <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/henkilorekisteriselosteet\">Henkil&ouml;rekisteriselosteet</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/kehittajille\">Kehitt&auml;jille</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/briefly-in-english\">Briefly
+        in English</a></li>\n                </ul>\n            </div>\n            <br
+        class=\"clear\"/>\n        </div>\n        \n        <a href=\"#header-tools\"
+        accesskey=\"3\" id=\"back-to-top\">Sivun alkuun</a>\n    </div>\n\n</div>\n</body>\n</html>\n"
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:28 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/15
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:26 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:26 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/15","modified":"2012-12-13T09:51:20+02:00","state":"PROPOSAL","stateDate":"2012-12-13T09:51:20+02:00","acceptanceIdentifier":null,"supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Rikollisuuden
+        ehkäisy lasten kasvatusta kehittämällä","sv":null},"startDate":"2012-12-06","endDate":"2013-06-06","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Ehdotetaan
+        lakia joka velvoittaa lasten kasvattajia kasvattamaan lapset niin että todennäköisyys
+        heidän tulevaisuudessa tekemilleen rikoksille pienenee merkittävästi.                                                                                                       Kasvattajilla
+        tarkoitetaan tässä esimerkiksi lasten vanhempia, lasten valvojia ja opettajia
+        päiväkodeissa sekä opettajia kouluissa.                                                                                             Jokaisella
+        lapsella on oltava kasvattaja.                                                                                                           Tämän
+        lain mukaan kasvattajille, muun muassa lasten vanhemmille, on annettava erityistä
+        koulutusta jonka tarkoituksena on opettaa heidät kasvattamaan lapset pienestä
+        pitäen niin että he eivät tunne halua rikollisiin tekoihin.                                                                                                               Kasvattajille
+        on myös annettava tätä koskevat kirjalliset ohjeet. Ohjeissa voidaan esimerkiksi
+        neuvoa puuttumaan toisten kiusaamiseen ja taipumuksiin jotka viittaavat väkivaltaan
+        tai epärehellisyyteen.                                                                                    Kasvattajien
+        on opetettava lapsille tärkeimmät lait ja rangaistukset jotka ovat seurauksena
+        jos niitä ei noudata.                                                                Heille
+        on näytettävä että lain rikkomisesta jää kiinni. Lapsille voidaan järjestää
+        kiertokäyntejä esimerkiksi vankiloihin.                                                         Lakeja
+        ja rangaistuksia sisältävä oppiaine on lisättävä koulujen opetusohjelmaan.                                                                            Kasvatuksessa
+        on oltava tinkimätön ja siinä on pidettävä yllä tarpeellista kuria.                                                                                                   Kasvattajien
+        on seurattava lasten kehitystä heidän varttuessaan ja puututtava siihen jos
+        ilmenee rikollisiin taipumuksiin viittaavia seikkoja.                                                                                                          On
+        myös säädettävä rangaistus mikä pannaan toimeen mikäli tätä lakia ei tietyn
+        ajanjakson kuluessa sovittujen kriteerien mukaisesti noudateta.","sv":null},"rationale":{"fi":"Kaikki
+        rikosten tekijät ovat joskus olleet pieniä lapsia.                                                                                                           Lapset
+        voidaan kuitenkin kasvattaa niin etteivät he koskaan tule tekemään rikoksia.                                                                                                      Kasvatus
+        vaikuttaa lasten koko tulevaan elämään ja sitä kautta koko yhteiskuntaan.                                                                                               Kun  ihminen
+        ajautuu rikollisuuteen on koko hänen elämänsä usein pilalla ja menetetty.                                                                                                       Kaikelta
+        tältä voidaan kuitenkin välttyä.                                                                                                                                                                                                                                       Rikollisiin
+        tekoihin on monia syitä mutta hyvin usein syynä on huumeiden käyttö.      Kaiken
+        lisäksi huumeiden käyttö ja sen seurauksena muukin rikollisuus lisääntyy voimakkaasti
+        koko ajan.                                                Kysymys on vakavasta
+        ongelmasta.                                                                                                         Sille
+        pitää ehdottomasti tehdä jotain.                                                                                                      Yhteiskunta
+        säästää suuria rahamääriä jos esimerkiksi omaisuusvahingot ja huumeista johtuvat
+        kuntoutuskulut vähenevät.                                                                                                           Lisäksi
+        vältytään raskailta henkisiltä ja ruumiillisilta kärsimyksiltä.                    Niiden
+        syynä on usein väkivalta.                                                                                                 \r\nRikollisuuden
+        vähetessä kansalaiset säilyvät terveempinä ja voivat antaa tärkeän panoksensa
+        työelämässä.                                           \t                     \r\n                                                                                                                           Pienet
+        lapset oppivat monet asiat parhaiten.                                                                                                    Lapset
+        oppivat pieninä esimerkiksi puhumaan.                                                                                                        He
+        ovat otollisinta maaperää kun ajatellaan rikollisuuden ehkäisyä.                                                                                                             Kun
+        lapset alkavat lähestyä aikuisikää on liian myöhäistä yrittää enää muuttaa
+        heidän tottumuksiaan.","sv":null},"initiators":[{"firstNames":"Aarne Heikki
+        Johannes","lastName":"Kauppinen","homeMunicipality":{"fi":"Vantaa","sv":"Vanda"}}],"representatives":[{"firstNames":"Aarne
+        Heikki Johannes","lastName":"Kauppinen","homeMunicipality":{"fi":"Vantaa","sv":"Vanda"},"contactInfo":{"email":"kauppinen
+        a heikki  luukku com","phone":"0505333380","address":"Punatulkuntie 8\r\n01450
+        Vantaa"}}],"reserves":[],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:28 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/15
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:26 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:26 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/15","modified":"2012-12-13T09:51:20+02:00","state":"PROPOSAL","stateDate":"2012-12-13T09:51:20+02:00","acceptanceIdentifier":null,"supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Rikollisuuden
+        ehkäisy lasten kasvatusta kehittämällä","sv":null},"startDate":"2012-12-06","endDate":"2013-06-06","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Ehdotetaan
+        lakia joka velvoittaa lasten kasvattajia kasvattamaan lapset niin että todennäköisyys
+        heidän tulevaisuudessa tekemilleen rikoksille pienenee merkittävästi.                                                                                                       Kasvattajilla
+        tarkoitetaan tässä esimerkiksi lasten vanhempia, lasten valvojia ja opettajia
+        päiväkodeissa sekä opettajia kouluissa.                                                                                             Jokaisella
+        lapsella on oltava kasvattaja.                                                                                                           Tämän
+        lain mukaan kasvattajille, muun muassa lasten vanhemmille, on annettava erityistä
+        koulutusta jonka tarkoituksena on opettaa heidät kasvattamaan lapset pienestä
+        pitäen niin että he eivät tunne halua rikollisiin tekoihin.                                                                                                               Kasvattajille
+        on myös annettava tätä koskevat kirjalliset ohjeet. Ohjeissa voidaan esimerkiksi
+        neuvoa puuttumaan toisten kiusaamiseen ja taipumuksiin jotka viittaavat väkivaltaan
+        tai epärehellisyyteen.                                                                                    Kasvattajien
+        on opetettava lapsille tärkeimmät lait ja rangaistukset jotka ovat seurauksena
+        jos niitä ei noudata.                                                                Heille
+        on näytettävä että lain rikkomisesta jää kiinni. Lapsille voidaan järjestää
+        kiertokäyntejä esimerkiksi vankiloihin.                                                         Lakeja
+        ja rangaistuksia sisältävä oppiaine on lisättävä koulujen opetusohjelmaan.                                                                            Kasvatuksessa
+        on oltava tinkimätön ja siinä on pidettävä yllä tarpeellista kuria.                                                                                                   Kasvattajien
+        on seurattava lasten kehitystä heidän varttuessaan ja puututtava siihen jos
+        ilmenee rikollisiin taipumuksiin viittaavia seikkoja.                                                                                                          On
+        myös säädettävä rangaistus mikä pannaan toimeen mikäli tätä lakia ei tietyn
+        ajanjakson kuluessa sovittujen kriteerien mukaisesti noudateta.","sv":null},"rationale":{"fi":"Kaikki
+        rikosten tekijät ovat joskus olleet pieniä lapsia.                                                                                                           Lapset
+        voidaan kuitenkin kasvattaa niin etteivät he koskaan tule tekemään rikoksia.                                                                                                      Kasvatus
+        vaikuttaa lasten koko tulevaan elämään ja sitä kautta koko yhteiskuntaan.                                                                                               Kun  ihminen
+        ajautuu rikollisuuteen on koko hänen elämänsä usein pilalla ja menetetty.                                                                                                       Kaikelta
+        tältä voidaan kuitenkin välttyä.                                                                                                                                                                                                                                       Rikollisiin
+        tekoihin on monia syitä mutta hyvin usein syynä on huumeiden käyttö.      Kaiken
+        lisäksi huumeiden käyttö ja sen seurauksena muukin rikollisuus lisääntyy voimakkaasti
+        koko ajan.                                                Kysymys on vakavasta
+        ongelmasta.                                                                                                         Sille
+        pitää ehdottomasti tehdä jotain.                                                                                                      Yhteiskunta
+        säästää suuria rahamääriä jos esimerkiksi omaisuusvahingot ja huumeista johtuvat
+        kuntoutuskulut vähenevät.                                                                                                           Lisäksi
+        vältytään raskailta henkisiltä ja ruumiillisilta kärsimyksiltä.                    Niiden
+        syynä on usein väkivalta.                                                                                                 \r\nRikollisuuden
+        vähetessä kansalaiset säilyvät terveempinä ja voivat antaa tärkeän panoksensa
+        työelämässä.                                           \t                     \r\n                                                                                                                           Pienet
+        lapset oppivat monet asiat parhaiten.                                                                                                    Lapset
+        oppivat pieninä esimerkiksi puhumaan.                                                                                                        He
+        ovat otollisinta maaperää kun ajatellaan rikollisuuden ehkäisyä.                                                                                                             Kun
+        lapset alkavat lähestyä aikuisikää on liian myöhäistä yrittää enää muuttaa
+        heidän tottumuksiaan.","sv":null},"initiators":[{"firstNames":"Aarne Heikki
+        Johannes","lastName":"Kauppinen","homeMunicipality":{"fi":"Vantaa","sv":"Vanda"}}],"representatives":[{"firstNames":"Aarne
+        Heikki Johannes","lastName":"Kauppinen","homeMunicipality":{"fi":"Vantaa","sv":"Vanda"},"contactInfo":{"email":"kauppinen
+        a heikki  luukku com","phone":"0505333380","address":"Punatulkuntie 8\r\n01450
+        Vantaa"}}],"reserves":[],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:29 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/16
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:27 GMT
+      Content-Language:
+      - fi
+      Content-Type:
+      - text/html;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! "\n<!DOCTYPE HTML>\n<html lang=\"fi\">\n<head>\n    <title>Sivua ei
+        l&ouml;ydy tai sinulla ei ole k&auml;ytt&ouml;oikeutta sivuun - Kansalaisaloitepalvelu</title>
+        \n    \n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n
+        \   \n    <link href=\"https://www.kansalaisaloite.fi/favicon.ico\" rel=\"shortcut
+        icon\" type=\"image/vnd.microsoft.icon\" />\n   \n    <link rel=\"stylesheet\"
+        type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/normalize.css\"
+        />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/aloitepalvelu.css\"
+        />\n</head>\n<body>\n<div id=\"wrapper\">\n\n    <div id=\"header-tools\">\n
+        \       <div id=\"header-tools-content\">\n            <div id=\"aloite-links\">\n
+        \               <a class=\"active\" href=\"https://www.kansalaisaloite.fi/fi\">Kansalaisaloite.fi</a><span
+        class=\"hide\"> | </span><a href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kuntalaisaloite_fi-palvelusta\">Kuntalaisaloite.fi</a>\n
+        \           </div>\n        </div>\n    </div>\n    \n    <div id=\"header\">\n
+        \       <div id=\"header-content\">\n            <a id=\"logo\" href=\"https://www.kansalaisaloite.fi/fi\"
+        accesskey=\"1\" title=\"Kansalaisaloitepalvelu\">\n                <span>Kansalaisaloitepalvelu</span>\n
+        \           </a>        \n        </div>\n    </div>\n\n    <div class=\"container\">\n
+        \       <div id=\"content\">\n\n    <h1>Sivua ei l&ouml;ydy tai sinulla ei
+        ole k&auml;ytt&ouml;oikeutta sivuun</h1>\n    <!-- Error: 404 - Not Found
+        -->\n    <p>Ole hyvä ja tarkista osoite tai siirry palvelun <a href=\"https://www.kansalaisaloite.fi/fi\">etusivulle</a>.</p>\n
+        \n        </div>\n    </div>\n    \n    <div id=\"footer\">\n        <div
+        class=\"container\">\n            <div class=\"block oikeusministerio\">\n
+        \               <p>\n                    Kansalaisaloite.fi on oikeusministeri&ouml;n
+        yll&auml;pit&auml;m&auml; ja tuottama verkkopalvelu.<br/>\n                    <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kansalaisaloite_fi-palvelusta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"block viestintavirasto\">\n                <p>\n                    Kansalaisaloite.fi
+        on Viestintäviraston hyväksymä palvelu.<br/>\n                    <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/viestintaviraston-hyvaksynta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"footer-links\">\n                <ul>\n                    <li><span
+        class=\"icon-small arrow-right-2\"></span> <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/ota-yhteytta\">Ota
+        yhteytt&auml;</a></li>\n                    <li><span class=\"icon-small arrow-right-2\"></span>
+        <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/henkilorekisteriselosteet\">Henkil&ouml;rekisteriselosteet</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/kehittajille\">Kehitt&auml;jille</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/briefly-in-english\">Briefly
+        in English</a></li>\n                </ul>\n            </div>\n            <br
+        class=\"clear\"/>\n        </div>\n        \n        <a href=\"#header-tools\"
+        accesskey=\"3\" id=\"back-to-top\">Sivun alkuun</a>\n    </div>\n\n</div>\n</body>\n</html>\n"
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:29 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/17
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:27 GMT
+      Content-Language:
+      - fi
+      Content-Type:
+      - text/html;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! "\n<!DOCTYPE HTML>\n<html lang=\"fi\">\n<head>\n    <title>Sivua ei
+        l&ouml;ydy tai sinulla ei ole k&auml;ytt&ouml;oikeutta sivuun - Kansalaisaloitepalvelu</title>
+        \n    \n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n
+        \   \n    <link href=\"https://www.kansalaisaloite.fi/favicon.ico\" rel=\"shortcut
+        icon\" type=\"image/vnd.microsoft.icon\" />\n   \n    <link rel=\"stylesheet\"
+        type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/normalize.css\"
+        />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://www.kansalaisaloite.fi/css/aloitepalvelu.css\"
+        />\n</head>\n<body>\n<div id=\"wrapper\">\n\n    <div id=\"header-tools\">\n
+        \       <div id=\"header-tools-content\">\n            <div id=\"aloite-links\">\n
+        \               <a class=\"active\" href=\"https://www.kansalaisaloite.fi/fi\">Kansalaisaloite.fi</a><span
+        class=\"hide\"> | </span><a href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kuntalaisaloite_fi-palvelusta\">Kuntalaisaloite.fi</a>\n
+        \           </div>\n        </div>\n    </div>\n    \n    <div id=\"header\">\n
+        \       <div id=\"header-content\">\n            <a id=\"logo\" href=\"https://www.kansalaisaloite.fi/fi\"
+        accesskey=\"1\" title=\"Kansalaisaloitepalvelu\">\n                <span>Kansalaisaloitepalvelu</span>\n
+        \           </a>        \n        </div>\n    </div>\n\n    <div class=\"container\">\n
+        \       <div id=\"content\">\n\n    <h1>Sivua ei l&ouml;ydy tai sinulla ei
+        ole k&auml;ytt&ouml;oikeutta sivuun</h1>\n    <!-- Error: 404 - Not Found
+        -->\n    <p>Ole hyvä ja tarkista osoite tai siirry palvelun <a href=\"https://www.kansalaisaloite.fi/fi\">etusivulle</a>.</p>\n
+        \n        </div>\n    </div>\n    \n    <div id=\"footer\">\n        <div
+        class=\"container\">\n            <div class=\"block oikeusministerio\">\n
+        \               <p>\n                    Kansalaisaloite.fi on oikeusministeri&ouml;n
+        yll&auml;pit&auml;m&auml; ja tuottama verkkopalvelu.<br/>\n                    <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/tietoa-kansalaisaloite_fi-palvelusta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"block viestintavirasto\">\n                <p>\n                    Kansalaisaloite.fi
+        on Viestintäviraston hyväksymä palvelu.<br/>\n                    <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/viestintaviraston-hyvaksynta\">Lue
+        lis&auml;&auml; &rarr;</a>\n                </p>\n            </div>\n            <div
+        class=\"footer-links\">\n                <ul>\n                    <li><span
+        class=\"icon-small arrow-right-2\"></span> <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/ota-yhteytta\">Ota
+        yhteytt&auml;</a></li>\n                    <li><span class=\"icon-small arrow-right-2\"></span>
+        <a href=\"https://www.kansalaisaloite.fi/fi/tietoa/henkilorekisteriselosteet\">Henkil&ouml;rekisteriselosteet</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/kehittajille\">Kehitt&auml;jille</a></li>\n
+        \                   <li><span class=\"icon-small arrow-right-2\"></span> <a
+        href=\"https://www.kansalaisaloite.fi/fi/tietoa/briefly-in-english\">Briefly
+        in English</a></li>\n                </ul>\n            </div>\n            <br
+        class=\"clear\"/>\n        </div>\n        \n        <a href=\"#header-tools\"
+        accesskey=\"3\" id=\"back-to-top\">Sivun alkuun</a>\n    </div>\n\n</div>\n</body>\n</html>\n"
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:29 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/18
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:27 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:27 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/18","modified":"2012-12-11T11:34:31+02:00","state":"ACCEPTED","stateDate":"2012-12-10T14:16:11+02:00","acceptanceIdentifier":"OM
+        10/52/2012","supportCount":123,"sentSupportCount":0,"externalSupportCount":53,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Lakiehdotus
+        arvonlisäverolain muuttamisesta.    Eduskunnan päätöksen mukaisesti säädetään,
+        että (30.12.1993/1501) annetun arvonlisäverolain ja   (29.12.2009/1780) muutetun
+        85 § 1 -momentin elintarvikkeiden verokantaa koskeva kohta muutetaan siten,
+        että lainkohdassa määriteltyä arvonlisäverokantaa alennetaan  laissa nyt olevasta
+        13 %:sta (vuodelle 2013 säädettävässä budjettilaissa 14%:sta) EU:n painotetun
+        keskiarvon mukaiselle tasolle, eli 7 prosenttiin.","sv":null},"startDate":"2012-09-15","endDate":"2013-03-15","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Muutoksen
+        jälkeen lain 85 § 1 -momentti kuuluisi kokonaisuudessaan seuraavasti:\r\n85
+        § (xx.xx.xxxx) \r\nSeuraavien palvelujen myynnistä sekä seuraavien tavaroiden
+        myynnistä, yhteisöhankinnasta, siirrosta varastointimenettelystä ja maahantuonnista
+        suoritettava vero on 7 prosenttia veron perusteesta:\r\n1) ruokatavara, juoma
+        ja muu sellaisenaan ihmisen nautittavaksi tarkoitettu aine sekä niiden raaka-aine
+        ja niitä valmistettaessa tai säilöttäessä käytettävä mauste, säilöntäaine,
+        väri- ja muu lisäaine (elintarvike);\r\n2) ravintola- ja ateriapalvelut, lukuun
+        ottamatta 2 momentin 3 kohdassa tarkoitettujen tava-roiden luovutuksia;\r\n3)
+        rehu ja rehuseos sekä niiden valmistuksessa käytettäväksi tarkoitettu raaka-
+        ja lisäaine, eläinten ruokana käytettävät teollisuuden jäteaineet sekä rehukala
+        (rehuaine).","sv":null},"rationale":{"fi":"Lain muutosesityksen perustelut\r\n1.\tSuomessa
+        elintarvikkeiden ALV kanta EU -maiden korkeimpia\r\nSuomessa elintarvikkeiden
+        hinta on EU -alueen korkeimpia. Tähän vaikuttaa osaltaan mer-kittävästi elintarvikkeiden
+        arvonlisäkanta. Suomessa nyt oleva 13 % ALV-kanta on n. 86 % korkeampi kuin
+        EU:n väestöpohjaan painotettu EU:n keskiarvo ja vuoden 2013 budjettilaki-en
+        jälkeen jo n. 100 % korkeampi kuin em. keskiarvo. Tämänkaltainen tilanne,
+        jossa me kaikki olemme ns. EU kansalaisia, ei ole EU-kansalaisia tasapuolisesti
+        kohteleva, eikä oi-keudenmukainen.\r\n2.\tElintarvikkeiden reaali- ja nimellishinnan
+        voimakas nousu\r\nTilastokeskuksen tilastojen mukaan Suomessa ruokakorin hinta
+        on euroaikana vuoden 2011 loppuun mennessä noussut reaalisesti n. 6 % ja vuoden
+        2013 budjettilakien johdosta jo noin 7% ja nimellisesti n. 48 %. Kun tähän
+        lisättään vielä nyt meneillään oleva yleinen elintar-vikkeiden nopea hinnannousu,
+        on tärkeimmän perushyödykkeen reaalihinta euroaikana nou-semassa n. 8-9 %.
+        Tämä hinnannousu kohdistuu raskaimmin heikoimmassa taloudellisessa asemassa
+        oleviin kansalaisiin. Ei ole yleisen poliittisen tilanteen ja poliitikkojen
+        luotta-musedun mukaista se, että korkeat poliittiset päättäjät ovat viemässä
+        kehitystä heikompia eniten rasittavaan suuntaan.\r\n3.\tElintarvikkeiden ALV
+        on regressiivinen vero\r\nElintarvikkeisiin kohdistuva arvonlisävero on sillä
+        tavoin ns. regressiivinen vero, että se ra-sittaa kansalaisia sitä raskaammin
+        mitä pienituloisemmasta kansalaisesta on kysymys. Tämä johtuu siitä, että
+        mitä pienemmät tulot sitä suurempi osuus tuloista menee kansalaisen joka-päiväisiin
+        pakollisiin elintarvikkeisiin ja samalla verorasitus suhteessa hyvätuloisiin
+        vero-kantaa korotettaessa pienituloisilla suhteellisesti kasvaa. Jos elintarvikkeiden
+        arvonlisäveroa alennettaisiin tai se poistettaisiin, alentaisi se merkittävästi
+        vaikeuksissa oleville henkilöille kuntien ja valtion maksamia sosiaali- ja
+        toimeentulotukikustannuksia.\r\n4.\tElintarvikkeiden ALV –kannan alentaminen
+        nostaa työllisyysastetta\r\nElintarvikkeiden arvonlisäverokannan alentaminen
+        7 %:n laskisi valtion elintarvikekaupasta saamia verotuloja n. 800 milj. €.
+        Tätä menetystä korvaisi asiaan liittyvät monet vaikuttavat tekijät. Kuten
+        mm.\r\n-\tOlettamalla, että kansalaiset käyttäisivät elintarvikkeista verokannan
+        alentumisesta sääs-tyvät 800 milj. €:n varat muuhun kulutuskysyntään ja maksaisivat
+        siinä 24 % verokannan mukaista ALV, saisi valtio verotuloja n. 155 milj. €.\r\n-\tOlettamalla,
+        että noiden muiden kuin elintarvikkeiden kulutuskysynnän tyydyttämiseen tarvitaan
+        tuotantopanoksia ja tuotteiden tekijöitä, niin voidaan laskea, että ALV -verojen
+        jälkeinen 645 milj. €:n kulutuskysyntä työllistäisi noin 8000-9000 henkilöä.
+        Nämä mak-saisivat tuloveroa noin 50-55 milj. €, ja arvonlisä- ja muita energia-
+        ja valmisteveroja noin 45-50 milj. €.\r\n-\tLaskelmaa jatkettaessa elintarvikkeiden
+        verokannan alentamisella, huomioimatta sosiaali- ja terveyspuolen kulujen
+        alentumista, päästään loppupeleissä tulokseen, että verokannan laskemisella
+        EU-maiden painotetun n. 7 %:n keskiarvon tasolle, valtio ja kunnat menettäisivät
+        verotuloja enimmillään noin 400 miljoonaa euroa. Tästä menetyksestä osa korvautuisi
+        sosiaali- ja terveyspuolen kulujen alentumisella.\r\n5.\tBudjetinvaje paikattavissa
+        ilman kansalaisten ostovoiman merkittävää alentumista\r\nElintarvikkeiden
+        arvonlisäverokannan alentumisesta johtuva valtion em. noin 400 miljoonan budjettivaje
+        voidaan ja tulee korvata siten, että osinkotuloista poistetaan ns. 30 %:n
+        verova-paa osuus. Toimenpiteellä valtion verotulot kasvaisivat vuositasolla
+        n. 600 - 700 milj. euroa taholta jolla ei olisi merkittävää vaikutusta työllistävään
+        kulutuskysyntään. Nyt pörssiosak-keiden todellinen veroaste on n. 19 % ja
+        kaikkien osinkotulojen n. 14 %.\r\n6.\tALV -kannan alentamisella terveysvaikutus\r\nElintarvikkeiden
+        arvonlisäverokannan alentaminen elintarvikkeiden hinnanalentumisen joh-dosta
+        mahdollistaisi monen kansalaisen ostokäyttäytymisen muuttumisen terveellisempiin
+        ruokatottumuksiin ja täten vaikuttaisi pitkällä aikavälillä positiivisesti
+        myös kansanterveyteen ja siitä johtuvaan terveys- ja sairaanhoitokulujen alentumiseen.
+        Sama em. terveysvaikutus on sillä, että taloudellisesti ahtaimmalla olevien
+        huoli huomisesta hieman kevenee.","sv":null},"initiators":[{"firstNames":"Heikki
+        Eemeli","lastName":"Häyrynen","homeMunicipality":{"fi":"Nivala","sv":"Nivala"}}],"representatives":[{"firstNames":"Heikki
+        Eemeli","lastName":"Häyrynen","homeMunicipality":{"fi":"Nivala","sv":"Nivala"},"contactInfo":{"email":"hente  kotinet
+        com","phone":"050-5622892","address":"Laitapuhto 4 85500 Nivala"}}],"reserves":[{"firstNames":"Pekka
+        Sakari","lastName":"Pääkkö","homeMunicipality":{"fi":"Nivala","sv":"Nivala"},"contactInfo":{"email":"pekka
+        paakko  nivala fi","phone":"050 439 2919","address":"Pekka Pääkkö\r\nPääköntie
+        120\r\n85630   Sarjanahde"}}],"totalSupportCount":176}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:30 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:28 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:28 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/19","modified":"2012-12-10T14:07:09+02:00","state":"PROPOSAL","stateDate":"2012-12-10T12:43:38+02:00","acceptanceIdentifier":null,"supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kansalaisaloite
+        ruotsinkielen opiskelun muuttamisesta vapaaehtoiseksi","sv":null},"startDate":"2012-12-05","endDate":"2013-06-05","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Lakiehdotus
+        ruotsinkielen opiskelun muuttamisesta pakollisesta vapaaehtoiseksi kaikilla
+        koulutusasteilla sekä muutos valtion virkamiehiltä vaadittavaan kielitaitoon.\r\n\r\nEsitetyt
+        muutokset:\r\n\r\n14.11.2002/955\r\nValtioneuvoston asetus lukiokoulutuksen
+        yleisistä valtakunnallisista tavoitteista ja tuntijaosta\r\n9 §\r\nAikuisille
+        annettavan opetuksen tuntijako\r\nOpiskelijan tulee opiskella vähintään yhtä
+        kieltä A-oppimäärän tavoitteiden mukaisesti. *Joko A-kielen tai B1-kielen
+        tulee olla suomenkielisillä englanti ja ruotsinkielisillä suomi*\r\n\r\nOpiskelijalle
+        tulee varata mahdollisuus opiskella valinnaisena aineena yhtä tai useampaa
+        kieltä.\r\n\r\n*muutettu\r\n12.10.1984/718\r\nPeruskouluasetus\r\n \r\n33
+        §\r\nPeruskoulun ala-asteen opetussuunnitelmaan tulee kuulua äidinkieltä,
+        ympäristöoppia, kansalaistaitoa, uskontoa, historiaa, matematiikkaa, biologiaa,
+        maantietoa, musiikkia, kuvaamataitoa, käsityötä ja liikuntaa. Tämän lisäksi
+        opetetaan yhteisenä aineena sen mukaan kuin opetussuunnitelmassa määrätään,
+        joko englannin kieltä, suomen kieltä tai valinnaista kieltä taikka osalle
+        oppilaista valinnaista kieltä ja osalle englannin tai suomen kieltä. Suomenkielisten
+        toisen kielen on oltava englanti ja ruotsinkielisten toisen kielen on oltava
+        suomi. Opetussuunnitelmaan tulee kuulua myös oppilaanohjaukseen varattuja
+        tunteja. (25.1.1991/176)\r\n\r\nKunnassa, jossa on vähintään 30 000 samankielistä
+        asukasta, tulee yhteisenä aineena opetettavana kielenä tarjota toista kotimaista
+        kieltä ja peruskoululain 27 §:n 3 momentissa mainittuja ‹kieli›ä. Opetus tulee
+        järjestää, mikäli kielen ensisijaisesti valinneita on vähintään 12. (27.11.1992/1174)\r\n\r\n*Muutettu
+        englanti pakolliseksi suomenkielisille ja toisen kotimaisen kielen tilalle
+        vapaavalintainen kieli\r\n\r\n\r\n35 § (12.7.1993/688)\r\nPeruskoulun yläasteen
+        opetussuunnitelmaan tulee kuulua kaikille oppilaille yhteisenä aineena äidinkieltä,
+        valinnaista kieltä, englantia tai suomea, uskontoa, historiaa, yhteiskuntaoppia,
+        matematiikkaa, fysiikkaa, kemiaa, biologiaa, maantietoa, musiikkia, kuvaamataitoa,
+        kotitaloutta, käsitöitä, teknistä työtä ja tekstiilityötä sekä liikuntaa.
+        Valinnaisen kielen, suomen kielen ja englannin kielen opetus järjestetään
+        peruskoulussa ala-asteelta ja yläasteelta alkavien erilaajuisten oppimäärien
+        mukaan.\r\n\r\n**Vieras ‹kieli› on englannin ‹kieli› tai sen sijasta ala-asteella
+        opetettu muu vieras ‹kieli›.** Yläasteen opetussuunnitelmaan tulee kuulua
+        myös oppilaanohjaukseen varattuja tunteja. Oppituntien lisäksi oppilaanohjauksessa
+        oppilaalle annetaan muuta ohjausta.\r\n\r\nPeruskoulun yläasteella voidaan
+        opettaa valinnaisena aineena 1 momentissa säädettyjen oppiaineiden syventäviä
+        tai soveltavia oppimääriä, useasta oppiaineesta muodostettuja kokonaisuuksia,
+        vieraita ‹kieli›ä sekä tietotekniikkaan liittyviä aineita. Valinnaisaineiden
+        nimet määritellään opetussuunnitelmassa. Koulussa, jossa on saamelaisten kotiseutualueella
+        asuvia oppilaita, tulee valinnaisaineena olla saamen ‹kieli›.\r\n\r\n*Muutettu
+        englanninkieli pakolliseksi ja toisen kotimaisen kielen tilalle vapaavalintainen
+        kieli\r\n\r\n** Poistettu osa tekstistä\r\n\r\n\r\n6.6.2003/424 Laki julkisyhteisöjen
+        henkilöstöltä vaadittavasta kielitaidosta\r\n6 §\r\nValtion henkilöstön suomen
+        ja ruotsin kielen taitoa koskevat kelpoisuusvaatimukset\r\n\r\nValtion henkilöstöltä,
+        jolta edellytetään säädettynä kelpoisuusvaatimuksena korkeakoulututkintoa,
+        vaaditaan kaksikielisessä viranomaisessa viranomaisen virka-alueen väestön
+        enemmistön kielen erinomaista suullista ja kirjallista taitoa.\r\n\r\nLisäksi
+        vaaditaan, että kaksikielisissä viranomaisissa on tarpeeksi toisen kielen
+        taitoista henkilöstöä tehtävien hoitamiseksi kielilaissa (423/2003) ja muussa
+        lainsäädännössä asetettujen vaatimusten mukaisesti.*\r\n\r\n*Merkitty teksti
+        lisätty, poistettu vaatimus että koko kaksikielisisen viranomaisen henkilöstön
+        pitäisi osata molempia kieliä.\r\n\r\n\r\n1.6.1922/149\r\nLaki valtion virkamiehiltä
+        vaadittavasta kielitaidosta (kumottu)\r\n1 § (7.6.1935/222)\r\nPääsemistä
+        varten sellaiseen valtion virkaan, johon vaaditaan yliopistossa tai korkeakoulussa
+        suoritettu loppututkinto, vaaditaan, 2 ja 3 §:ssä mainituin poikkeuksin, että
+        se, joka virkaan ilmoittautuu, on osoittanut täydellisesti hallitsevansa virka-alueen
+        asujainten enemmistön kieltä. Sen lisäksi tuomarinvirkaan nimitettävältä vaaditaan
+        myös toisen kielen välttävää suullista taitoa.* Ylioikeuksissa ja sellaisissa
+        virastoissa, joiden virka-alue joltakin osalta on kaksikielinen, on eri kielten
+        käyttämistä edellyttävät virkatehtävät, mikäli mahdollista, jaettava perusteiden
+        mukaan, jotka valtioneuvosto asianomaisen ylioikeuden tai viraston esityksestä
+        vahvistaa, eri henkilöiden suoritettaviksi, ja vaadittakoon silloin virkamieheltä,
+        jonka virkatehtävät edellyttävät ainoastaan toisen kielen käyttämistä, sama
+        kielitaito kuin virkamieheltä senkielisellä yksikielisellä virka-alueella.\r\n\r\nPääsemistä
+        varten muuhun kuin edellisessä momentissa mainittuun valtion virkaan vaaditaan
+        viran edellyttämä, riittävä kielitaito. Tarkemmat määräykset tästä annetaan
+        asetuksella.\r\n\r\n*Poistettu osa tekstistä","sv":null},"rationale":{"fi":"Suomen
+        kielipolitiikassa ollaan päädytty tilanteeseen, jossa pienen ryhmän etu (n.5%)
+        vaatii kohtuuttoman tuntuisia uhrauksia lopulta osaa väestöä. Silti voidaan
+        jopa kyseenalaistaa, että kuinka paljon edes ruotsinkieliset itse hyötyvät
+        pakollisesta ruotsinopiskelusta. Väkisin ruotsia opiskelleista ja minimisuorituksella
+        opinnoista selvinneistä suomenkielisistä on tuskin ruotsinkieliseksi juttuseuraksi.\r\n\r\n   Tämän
+        hetkisessä tilanteessa yhteisiä resursseja tuhlataan suuressa mittakaavassa.
+        Vapaaehtoinen ruotsinkielen opiskelu kohdentaisi resurssit käyttöön tehokkaammin;
+        ne jotka uskoisivat tarvitsevansa ruotsinkieltä, opiskelisivat sitä jatkossakin.
+        Sitävastoin tämän hetken häiriköivät takarivin opiskelijat voisivat loistaa
+        vaikkapa espanjankielen tai venäjänkielen tunneilla, kun motivaatio vain olisi
+        kohdallaan. Kuusamossa tai Joensuussa asuva ja työskentelevä tuskin hyötyy
+        millään tavalla ruotsinkielen opinnoista, länsirannikon asukille taas ruotsinkielentaito
+        voisi olla kova kilpailuvaltti esimerkiksi työnhaussa. Ruotsinkielen opiskelun
+        vapaaehtoistaminen ei tarkoittaisi kuitenkaan ruotsinkielisten syrjimistä.
+        Jokaisella olisi edelleenkin oikeus saada viranomaisilta palvelua omalla kielellään
+        ja ruotsinkielisillä alueilla ruotsinkielentaito olisi tietenkin edellytys
+        viran saamiselle.\r\n \r\nKiteytettynä ruotsinkielen vapaaehtoistaminen tarkoittaisi:\r\n  -
+        Enemmän vapautta kansalaisille, kun jokainen voisi puhua ja opiskella mitä
+        haluaa.\r\n - Tehokkaampaa resurssien kohdentumista, sillä jokainen keskittyisi
+        hankkimaan niitä kielitaitoja, joita haluaa ja joista uskoo olevan hyötyä\r\n  -
+        Ruotsinkielentaitoisten määrä tuskin romahtaisi alueilla jossa sitä puhutaan,
+        kannustimet oppia ruotsia olisivat edelleen samat kuin aeimminkin.\r\n   -
+        Nuorten valmistuminen kouluista nopeutuisi. Tämän hetkisessä tilanteessa pakkoruotsi
+        saattaa viivästyttää valmistumista usealla vuodella. Usein ensin lukiosta
+        valmistuminen saattaa pitkittyä vuodella ruotsin reputtamisen johdosta ja
+        sen jälkeen sama piina on edessä vielä korkeakoulussa. Neljää tai viittä kieltä
+        sujuvasti puhuvat ja kansainvälisiin tehtäviin suuntautuneet opiskelijat saattavat
+        joutua lykkäämään työelämään lähtöä, koska pakollista ruotsia ei saada suoritetuksi.","sv":null},"initiators":[{"firstNames":"Joona","lastName":"Mikkola","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}}],"representatives":[{"firstNames":"Joona","lastName":"Mikkola","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"joonamikkol  hotmail
+        com","phone":"0417503927","address":"Inkoonkatu 2 a 8\r\n00510 Helsinki"}}],"reserves":[{"firstNames":"Anna
+        Lea","lastName":"Mikkola","homeMunicipality":{"fi":"Espoo","sv":"Esbo"},"contactInfo":{"email":"anmikkol  gmail
+        com","phone":"040 740 8404","address":"Stenbackantie 7a 02780 Espoo"}},{"firstNames":"Joona
+        Nikolai","lastName":"Saulamaa","homeMunicipality":{"fi":"Espoo","sv":"Esbo"},"contactInfo":{"email":"joona
+        saulamaa  helsinki fi","phone":null,"address":null}}],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:30 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:28 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:28 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/19","modified":"2012-12-10T14:07:09+02:00","state":"PROPOSAL","stateDate":"2012-12-10T12:43:38+02:00","acceptanceIdentifier":null,"supportCount":0,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kansalaisaloite
+        ruotsinkielen opiskelun muuttamisesta vapaaehtoiseksi","sv":null},"startDate":"2012-12-05","endDate":"2013-06-05","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Lakiehdotus
+        ruotsinkielen opiskelun muuttamisesta pakollisesta vapaaehtoiseksi kaikilla
+        koulutusasteilla sekä muutos valtion virkamiehiltä vaadittavaan kielitaitoon.\r\n\r\nEsitetyt
+        muutokset:\r\n\r\n14.11.2002/955\r\nValtioneuvoston asetus lukiokoulutuksen
+        yleisistä valtakunnallisista tavoitteista ja tuntijaosta\r\n9 §\r\nAikuisille
+        annettavan opetuksen tuntijako\r\nOpiskelijan tulee opiskella vähintään yhtä
+        kieltä A-oppimäärän tavoitteiden mukaisesti. *Joko A-kielen tai B1-kielen
+        tulee olla suomenkielisillä englanti ja ruotsinkielisillä suomi*\r\n\r\nOpiskelijalle
+        tulee varata mahdollisuus opiskella valinnaisena aineena yhtä tai useampaa
+        kieltä.\r\n\r\n*muutettu\r\n12.10.1984/718\r\nPeruskouluasetus\r\n \r\n33
+        §\r\nPeruskoulun ala-asteen opetussuunnitelmaan tulee kuulua äidinkieltä,
+        ympäristöoppia, kansalaistaitoa, uskontoa, historiaa, matematiikkaa, biologiaa,
+        maantietoa, musiikkia, kuvaamataitoa, käsityötä ja liikuntaa. Tämän lisäksi
+        opetetaan yhteisenä aineena sen mukaan kuin opetussuunnitelmassa määrätään,
+        joko englannin kieltä, suomen kieltä tai valinnaista kieltä taikka osalle
+        oppilaista valinnaista kieltä ja osalle englannin tai suomen kieltä. Suomenkielisten
+        toisen kielen on oltava englanti ja ruotsinkielisten toisen kielen on oltava
+        suomi. Opetussuunnitelmaan tulee kuulua myös oppilaanohjaukseen varattuja
+        tunteja. (25.1.1991/176)\r\n\r\nKunnassa, jossa on vähintään 30 000 samankielistä
+        asukasta, tulee yhteisenä aineena opetettavana kielenä tarjota toista kotimaista
+        kieltä ja peruskoululain 27 §:n 3 momentissa mainittuja ‹kieli›ä. Opetus tulee
+        järjestää, mikäli kielen ensisijaisesti valinneita on vähintään 12. (27.11.1992/1174)\r\n\r\n*Muutettu
+        englanti pakolliseksi suomenkielisille ja toisen kotimaisen kielen tilalle
+        vapaavalintainen kieli\r\n\r\n\r\n35 § (12.7.1993/688)\r\nPeruskoulun yläasteen
+        opetussuunnitelmaan tulee kuulua kaikille oppilaille yhteisenä aineena äidinkieltä,
+        valinnaista kieltä, englantia tai suomea, uskontoa, historiaa, yhteiskuntaoppia,
+        matematiikkaa, fysiikkaa, kemiaa, biologiaa, maantietoa, musiikkia, kuvaamataitoa,
+        kotitaloutta, käsitöitä, teknistä työtä ja tekstiilityötä sekä liikuntaa.
+        Valinnaisen kielen, suomen kielen ja englannin kielen opetus järjestetään
+        peruskoulussa ala-asteelta ja yläasteelta alkavien erilaajuisten oppimäärien
+        mukaan.\r\n\r\n**Vieras ‹kieli› on englannin ‹kieli› tai sen sijasta ala-asteella
+        opetettu muu vieras ‹kieli›.** Yläasteen opetussuunnitelmaan tulee kuulua
+        myös oppilaanohjaukseen varattuja tunteja. Oppituntien lisäksi oppilaanohjauksessa
+        oppilaalle annetaan muuta ohjausta.\r\n\r\nPeruskoulun yläasteella voidaan
+        opettaa valinnaisena aineena 1 momentissa säädettyjen oppiaineiden syventäviä
+        tai soveltavia oppimääriä, useasta oppiaineesta muodostettuja kokonaisuuksia,
+        vieraita ‹kieli›ä sekä tietotekniikkaan liittyviä aineita. Valinnaisaineiden
+        nimet määritellään opetussuunnitelmassa. Koulussa, jossa on saamelaisten kotiseutualueella
+        asuvia oppilaita, tulee valinnaisaineena olla saamen ‹kieli›.\r\n\r\n*Muutettu
+        englanninkieli pakolliseksi ja toisen kotimaisen kielen tilalle vapaavalintainen
+        kieli\r\n\r\n** Poistettu osa tekstistä\r\n\r\n\r\n6.6.2003/424 Laki julkisyhteisöjen
+        henkilöstöltä vaadittavasta kielitaidosta\r\n6 §\r\nValtion henkilöstön suomen
+        ja ruotsin kielen taitoa koskevat kelpoisuusvaatimukset\r\n\r\nValtion henkilöstöltä,
+        jolta edellytetään säädettynä kelpoisuusvaatimuksena korkeakoulututkintoa,
+        vaaditaan kaksikielisessä viranomaisessa viranomaisen virka-alueen väestön
+        enemmistön kielen erinomaista suullista ja kirjallista taitoa.\r\n\r\nLisäksi
+        vaaditaan, että kaksikielisissä viranomaisissa on tarpeeksi toisen kielen
+        taitoista henkilöstöä tehtävien hoitamiseksi kielilaissa (423/2003) ja muussa
+        lainsäädännössä asetettujen vaatimusten mukaisesti.*\r\n\r\n*Merkitty teksti
+        lisätty, poistettu vaatimus että koko kaksikielisisen viranomaisen henkilöstön
+        pitäisi osata molempia kieliä.\r\n\r\n\r\n1.6.1922/149\r\nLaki valtion virkamiehiltä
+        vaadittavasta kielitaidosta (kumottu)\r\n1 § (7.6.1935/222)\r\nPääsemistä
+        varten sellaiseen valtion virkaan, johon vaaditaan yliopistossa tai korkeakoulussa
+        suoritettu loppututkinto, vaaditaan, 2 ja 3 §:ssä mainituin poikkeuksin, että
+        se, joka virkaan ilmoittautuu, on osoittanut täydellisesti hallitsevansa virka-alueen
+        asujainten enemmistön kieltä. Sen lisäksi tuomarinvirkaan nimitettävältä vaaditaan
+        myös toisen kielen välttävää suullista taitoa.* Ylioikeuksissa ja sellaisissa
+        virastoissa, joiden virka-alue joltakin osalta on kaksikielinen, on eri kielten
+        käyttämistä edellyttävät virkatehtävät, mikäli mahdollista, jaettava perusteiden
+        mukaan, jotka valtioneuvosto asianomaisen ylioikeuden tai viraston esityksestä
+        vahvistaa, eri henkilöiden suoritettaviksi, ja vaadittakoon silloin virkamieheltä,
+        jonka virkatehtävät edellyttävät ainoastaan toisen kielen käyttämistä, sama
+        kielitaito kuin virkamieheltä senkielisellä yksikielisellä virka-alueella.\r\n\r\nPääsemistä
+        varten muuhun kuin edellisessä momentissa mainittuun valtion virkaan vaaditaan
+        viran edellyttämä, riittävä kielitaito. Tarkemmat määräykset tästä annetaan
+        asetuksella.\r\n\r\n*Poistettu osa tekstistä","sv":null},"rationale":{"fi":"Suomen
+        kielipolitiikassa ollaan päädytty tilanteeseen, jossa pienen ryhmän etu (n.5%)
+        vaatii kohtuuttoman tuntuisia uhrauksia lopulta osaa väestöä. Silti voidaan
+        jopa kyseenalaistaa, että kuinka paljon edes ruotsinkieliset itse hyötyvät
+        pakollisesta ruotsinopiskelusta. Väkisin ruotsia opiskelleista ja minimisuorituksella
+        opinnoista selvinneistä suomenkielisistä on tuskin ruotsinkieliseksi juttuseuraksi.\r\n\r\n   Tämän
+        hetkisessä tilanteessa yhteisiä resursseja tuhlataan suuressa mittakaavassa.
+        Vapaaehtoinen ruotsinkielen opiskelu kohdentaisi resurssit käyttöön tehokkaammin;
+        ne jotka uskoisivat tarvitsevansa ruotsinkieltä, opiskelisivat sitä jatkossakin.
+        Sitävastoin tämän hetken häiriköivät takarivin opiskelijat voisivat loistaa
+        vaikkapa espanjankielen tai venäjänkielen tunneilla, kun motivaatio vain olisi
+        kohdallaan. Kuusamossa tai Joensuussa asuva ja työskentelevä tuskin hyötyy
+        millään tavalla ruotsinkielen opinnoista, länsirannikon asukille taas ruotsinkielentaito
+        voisi olla kova kilpailuvaltti esimerkiksi työnhaussa. Ruotsinkielen opiskelun
+        vapaaehtoistaminen ei tarkoittaisi kuitenkaan ruotsinkielisten syrjimistä.
+        Jokaisella olisi edelleenkin oikeus saada viranomaisilta palvelua omalla kielellään
+        ja ruotsinkielisillä alueilla ruotsinkielentaito olisi tietenkin edellytys
+        viran saamiselle.\r\n \r\nKiteytettynä ruotsinkielen vapaaehtoistaminen tarkoittaisi:\r\n  -
+        Enemmän vapautta kansalaisille, kun jokainen voisi puhua ja opiskella mitä
+        haluaa.\r\n - Tehokkaampaa resurssien kohdentumista, sillä jokainen keskittyisi
+        hankkimaan niitä kielitaitoja, joita haluaa ja joista uskoo olevan hyötyä\r\n  -
+        Ruotsinkielentaitoisten määrä tuskin romahtaisi alueilla jossa sitä puhutaan,
+        kannustimet oppia ruotsia olisivat edelleen samat kuin aeimminkin.\r\n   -
+        Nuorten valmistuminen kouluista nopeutuisi. Tämän hetkisessä tilanteessa pakkoruotsi
+        saattaa viivästyttää valmistumista usealla vuodella. Usein ensin lukiosta
+        valmistuminen saattaa pitkittyä vuodella ruotsin reputtamisen johdosta ja
+        sen jälkeen sama piina on edessä vielä korkeakoulussa. Neljää tai viittä kieltä
+        sujuvasti puhuvat ja kansainvälisiin tehtäviin suuntautuneet opiskelijat saattavat
+        joutua lykkäämään työelämään lähtöä, koska pakollista ruotsia ei saada suoritetuksi.","sv":null},"initiators":[{"firstNames":"Joona","lastName":"Mikkola","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}}],"representatives":[{"firstNames":"Joona","lastName":"Mikkola","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"joonamikkol  hotmail
+        com","phone":"0417503927","address":"Inkoonkatu 2 a 8\r\n00510 Helsinki"}}],"reserves":[{"firstNames":"Anna
+        Lea","lastName":"Mikkola","homeMunicipality":{"fi":"Espoo","sv":"Esbo"},"contactInfo":{"email":"anmikkol  gmail
+        com","phone":"040 740 8404","address":"Stenbackantie 7a 02780 Espoo"}},{"firstNames":"Joona
+        Nikolai","lastName":"Saulamaa","homeMunicipality":{"fi":"Espoo","sv":"Esbo"},"contactInfo":{"email":"joona
+        saulamaa  helsinki fi","phone":null,"address":null}}],"totalSupportCount":0}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:30 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/20
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 17:30:29 GMT
+      Expires:
+      - Wed, 19 Dec 2012 17:35:29 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/20","modified":"2012-12-10T13:31:01+02:00","state":"ACCEPTED","stateDate":"2012-12-10T13:31:01+02:00","acceptanceIdentifier":"OM
+        9/52/2012","supportCount":162,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Neuvoa-antava
+        kansanäänestys Suomen kuulumisesta Euroopan unioniin","sv":null},"startDate":"2012-12-06","endDate":"2013-06-06","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Laki
+        neuvoa-antavasta kansanäänestyksestä Suomen kuulumisesta Euroopan unioniin
+        \r\n\r\nEduskunnan päätöksen mukaisesti säädetään: \r\n\r\n1 § \r\nKansanäänestyksen
+        toimittamisaika ja -menettely \r\nSuomen jäsenyydestä Euroopan unionissa toimitetaan
+        neuvoa-antava kansanäänestys ­­__ päivänä __ kuuta 201_. \r\nKansanäänestyksessä
+        noudatetaan menettelystä neuvoa-antavissa kansanäänestyksissä annettua lakia
+        (571/87), jollei jäljempänä toisin säädetä. \r\n\r\n2 § \r\nEnnakkoäänestys
+        \r\nEnnakkoäänestys aloitetaan 11. päivänä ennen äänestyspäivää sekä lopetetaan
+        ulkomailla 8. päivänä ja kotimaassa 5. päivänä ennen äänestyspäivää. Postin
+        tilapäisissä ennakkoäänestyspaikoissa ja Suomen edustustoissa ennakkoäänestys
+        voi, sen mukaan kuin asetuksella säädetään, kestää lyhemmänkin ajan. \r\nKotiäänestys
+        tulee toimittaa aikaisintaan 11. päivänä ja viimeistään 5. päivänä ennen äänestyspäivää.
+        Kotiäänestykseen on ilmoittauduttava viimeistään 12. päivänä ennen äänestyspäivää.
+        \r\n\r\n3 § \r\nKysymyksenasettelu ja vastausvaihtoehdot \r\nKansanäänestyksessä
+        esitetään äänestäjien vastattavaksi seuraava kysymys: \"Tuleeko Suomen kuulua
+        Euroopan unioniin?\" Äänestäjän tulee vastata kysymykseen joko \"KYLLÄ\" tai
+        \"EI\". \r\n\r\n4 § \r\nÄänestyslippu \r\nKansanäänestyksessä käytetään yhtä
+        äänestyslippua. Se painetaan valkealle paperille, sen on oltava vakiokokoa
+        148 x 210 mm, siitä on selvästi käytävä ilmi, miten se taitetaan kokoon, ja
+        sen on turvattava äänestyssalaisuuden säilyminen. \r\nAänestyslipun sisäpuolelle
+        painetaan otsikko, jossa mainitaan, että äänestyslippua käytetään .. 201_
+        toimitettavassa neuvoa-antavassa kansanäänestyksessä Suomen liittymisestä
+        Euroopan unionin jäseneksi. Äänestyslipun taitekohdan oikealle puolelle painetaan
+        3 §:ssä mainittu kysymys ja sanat \"KYLLÄ\" ja \"EI\" sekä kumpaakin vastausvaihtoehtoa
+        varten ruutu siten sijoitettuna, että ruudun sijoituksesta selvästi käy ilmi,
+        kumpaa vastausvaihtoehtoa se tarkoittaa. Äänestyslippuun painetaan vielä ohje
+        äänestysmerkinnän tekemisestä. \r\nÄänestyslipussa käytetään suomen ja ruotsin
+        kieltä. \r\n\r\n5 § \r\nÄänestäminen \r\nÄänestäminen tapahtuu merkitsemällä
+        rasti (X) jompaankumpaan äänestyslipussa olevista ruuduista. \r\nÄänestyksessä
+        ei sovelleta, mitä menettelystä neuvoa-antavissa kansanäänestyksissä annetun
+        lain 5 §:n 1 momentissa säädetään äänestäjän mahdollisuudesta ilmaista, ettei
+        hän kannata mitään esitetyistä vaihtoehdoista. \r\n\r\n6 § \r\nÄänestyslipun
+        mitättömyys \r\nSen lisäksi, mitä kansanedustajain vaaleista annetun lain
+        (391/69) 83 §:n 1 momentin 1–4 ja 6 kohdassa säädetään, on äänestyslippu mitätön,
+        jos äänestysmerkintä on tehty kumpaankin äänestyslipussa olevaan ruutuun tai
+        jos sitä ei ole tehty lainkaan taikka jos se on niin epäselvä, ettei siitä
+        käy ilmi, kumpaa vaihtoehtoa äänestäjä on kannattanut. \r\nÄänestyslippuun
+        rastin lisäksi tai sen sijasta tehtyä merkintää, joka ainoastaan selventää,
+        kumpaa vaihtoehtoa äänestäjä on kannattanut, ei ole pidettävä asiattomana
+        eikä äänestyslippua tällaisen merkinnän johdosta mitättömänä. \r\n\r\n7 §
+        \r\nÄänestyksen tuloksen vahvistaminen \r\nVaalipiirin keskuslautakunta vahvistaa
+        äänestyksen tuloksen vaalipiirissä 3. päivänä äänestyksen jälkeen pidettävässä
+        kello 18 alkavassa kokouksessa ja ilmoittaa tuloksen heti Helsingin kaupungin
+        vaalipiirin keskuslautakunnalle. Saatuaan kaikkien vaalipiirien keskuslautakunnilta
+        tiedon äänestyksen tuloksesta vaalipiirissä Helsingin kaupungin vaalipiirin
+        keskuslautakunta vahvistaa äänestyksen tuloksen koko maassa 4. päivänä äänestyksen
+        jälkeen pidettävässä kello 12 alkavassa kokouksessa. \r\n\r\n8 § \r\nTiedottaminen
+        ja sen tukeminen \r\nValtioneuvosto hyväksyy oikeusministeriön esittelystä
+        yleisistunnossaan tiedotteen, jossa selostetaan, mistä kansanäänestyksessä
+        on kysymys. Tiedote toimitetaan niille, joille lähetetään ilmoitus äänestysoikeudesta,
+        sekä saatetaan muullakin tavoin kansalaisten tiedoksi ja saataville. Tiedote
+        voidaan toimittaa ilmoituskortin ja -kirjeen yhteydessä. \r\nValtion vuoden
+        201_ lisätalousarviossa tarkoitukseen varattu määräraha on jaettava harkinnanvaraisina
+        avustuksina tasapuolisesti eri vaihtoehtoja sekä kummankin vaihtoehdon vaikutuksia
+        koskevan tiedottamisen tukemiseen. \r\nAvustukset myöntää valtioneuvoston
+        kanslia. \r\n\r\n9 § \r\nTarkemmat määräykset ja ohjeet \r\nOikeusministeriö
+        antaa tarvittaessa tarkempia määräyksiä ja ohjeita tämän lain soveltamisesta.
+        \r\nValtioneuvoston kanslia antaa tarkemmat määräykset ja ohjeet 8 §:n 2 momentissa
+        tarkoitettujen avustusten tarkemmista jakoperusteista sekä niiden hakemisesta,
+        myöntämisestä, maksamisesta ja valvonnasta. \r\n\r\n10 § \r\nVoimaantulo \r\nTämä
+        laki tulee voimaan __ päivänä _kuuta 201_. \r\nEnnen lain voimaantuloa voidaan
+        ryhtyä sen täytäntöönpanon edellyttämiin toimiin.","sv":null},"rationale":{"fi":"Euroopan
+        unioni on olennaisesti muuttunut Suomen 1995 unioniin liittymisen jälkeen.
+        Jo pelkästään eduskunnan legitimiteetin vuoksi on välttämätöntä järjestää
+        neuvoa-antava kansanäänestys siitä, tuleeko Suomen kuulua Euroopan unioniin.
+        \r\n\r\nMikäli enemmistö suomalaisista ei haluaisi enää kuulua nykyisen kaltaiseen
+        Euroopan unioniin, olisi äänestystulos selvä signaali eduskunnalle ryhtyä
+        valmistelemaan Suomen eroa Euroopan unionista. Jos äänestystulos puolestaan
+        tukisi jäsenyyden jatkumista, antaisi se eduskunnalle poliittisen luottamuksen
+        neuvotella maiden välisistä velkatakuista ja muista integraatiota syventävistä
+        toimenpiteistä.","sv":null},"initiators":[{"firstNames":"Jonne Mikael","lastName":"Posti","homeMunicipality":{"fi":"Joensuu","sv":"Joensuu"}}],"representatives":[{"firstNames":"Jonne
+        Mikael","lastName":"Posti","homeMunicipality":{"fi":"Joensuu","sv":"Joensuu"},"contactInfo":{"email":"jonneposti  hotmail
+        com","phone":"0414388658","address":"Pesolantie 3 A 6\r\n80140 Joensuu"}}],"reserves":[{"firstNames":"Anne
+        Maria","lastName":"Posti","homeMunicipality":{"fi":"Joensuu","sv":"Joensuu"},"contactInfo":{"email":"anneposti  hotmail
+        com","phone":null,"address":null}}],"totalSupportCount":162}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 17:30:31 GMT
+recorded_with: VCR 2.3.0

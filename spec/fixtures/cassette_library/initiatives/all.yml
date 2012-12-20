@@ -1,0 +1,1198 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives?limit=5&offset=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:25:24 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:30:24 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '[{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/33","modified":"2012-12-12T12:41:01+02:00","state":"ACCEPTED","stateDate":"2012-12-12T12:41:01+02:00","acceptanceIdentifier":"OM
+        17/52/2012","supportCount":1285,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kotihoidontukea
+        korotettava","sv":null},"startDate":"2012-12-12","endDate":"2013-06-12","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":1285},{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/32","modified":"2012-12-14T11:29:54+02:00","state":"ACCEPTED","stateDate":"2012-12-14T11:29:54+02:00","acceptanceIdentifier":"OM
+        18/52/2012","supportCount":70,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Lastensuojelukerroin
+        on lakkautettava","sv":null},"startDate":"2012-12-13","endDate":"2013-06-13","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":70},{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/26","modified":"2012-12-10T17:16:58+02:00","state":"ACCEPTED","stateDate":"2012-12-10T17:16:58+02:00","acceptanceIdentifier":"OM
+        12/52/2012","supportCount":192,"sentSupportCount":0,"externalSupportCount":205,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kansanäänestys
+        mietojen alkoholijuomien myynnin vapauttamisesta","sv":null},"startDate":"2012-10-15","endDate":"2013-04-15","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":true,"supportStatementsRemoved":null,"totalSupportCount":397},{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/23","modified":"2012-12-10T16:08:26+02:00","state":"ACCEPTED","stateDate":"2012-12-10T16:08:26+02:00","acceptanceIdentifier":"OM
+        11/52/2012","supportCount":490,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Esitys
+        Autoverolain 29.12.1994/1482 kumoamisesta","sv":null},"startDate":"2012-12-06","endDate":"2013-06-06","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":490},{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/20","modified":"2012-12-10T13:31:01+02:00","state":"ACCEPTED","stateDate":"2012-12-10T13:31:01+02:00","acceptanceIdentifier":"OM
+        9/52/2012","supportCount":161,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Neuvoa-antava
+        kansanäänestys Suomen kuulumisesta Euroopan unioniin","sv":null},"startDate":"2012-12-06","endDate":"2013-06-06","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":161}]'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:25:25 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/33
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:25:25 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:30:25 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/33","modified":"2012-12-12T12:41:01+02:00","state":"ACCEPTED","stateDate":"2012-12-12T12:41:01+02:00","acceptanceIdentifier":"OM
+        17/52/2012","supportCount":1285,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kotihoidontukea
+        korotettava","sv":null},"startDate":"2012-12-12","endDate":"2013-06-12","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://www.facebook.com/kotihoidontukeakorotettava","label":"Facebook:"},{"uri":"http://www.adressit.com/kotihoidontuki","label":"Adressit:"}],"proposal":{"fi":"Kotihoidontuki
+        on tällä hetkellä 327,46€/kk, alle 3-vuotiaista sisaruksista kustakin 98,04€/kk
+        ja yli 3-vuotiaista, alle kouluikäisistä sisaruksista 63€/kk kustakin. Hoitolisä
+        (pienituloisille) on enintään 175,24€/kk.\r\n\r\nPeruspäiväraha on 675€/kk
+        (21,5pvää x 31,36€), lapsikorotukset työttömille ovat yhdestä lapsesta 108,79€/kk,
+        kahdesta lapsesta 159,74€/kk ja kolmesta tai sitä useammasta lapsesta 205,97€/kk.
+        Työttömällä otetaan huomioon alle 18-vuotiaat lapset.\r\n\r\nEro näiden tukien
+        välissä on 346,54€/kk (korotuksia ei ole huomioitu)\r\n\r\nKelan minimit (kotihoidontuki,
+        äitiyspäiväraha, peruspäiväraha) tulisivat yhtenäistää, minimit näissä tuissa
+        tulisivat olla saman suuruiset.","sv":null},"rationale":{"fi":"Meidän pitäisi
+        nykysuomessa suoda kaikille samat edut. Tässä tapauksessa se ei toteudu.\r\n\r\nTyöttömällä
+        on paremmat tuet, heillä on oikeus viedä lapset hoitoon ja heillä otetaan
+        huomioon kaikki alle 18-vuotiaat lapset.\r\nOtettava huomioon:\r\n- Kotihoidontuen
+        perusosa korotetaan rahallisesti saman suuruiseksi kuin peruspäiväraha.\r\n-
+        Työttömien määrä vähenee huomattavasti, koska alle 3-vuotiaan vanhempi saa
+        saman rahan myös kotihoidontuella\r\n- Suuret säästöt päivärahoissa valtiolle
+        ja liitoille\r\n- Toimeentulotuen hakijat vähenevät\r\n- Subjektiivinen hoito-oikeus
+        poistetaan, etusijalle nostetaan työssäkäyvien lasten hoito, ja annetaan osa-aikaisia
+        virikepaikkoja niille lapsille joiden vanhemmista toinen (tai molemmat) on
+        kotona\r\n- Päivähoitojonot poistuvat\r\n- Suuret säästöt päivähoidosta, nämä
+        rahat siirretään kotihoidontuen korottamiseen\r\n- Kuntalisistä luovutaan
+        kokonaan, valtakunnallista tasa-arvoa perheiden kesken koko suomeen\r\n- Työnantajien
+        sairaslomakulut pienevät huomattavasti kun pienet lapset saavat olla rauhassa
+        kotona, eivätkä päiväkodissa sairauskierteessä\r\n- Työttömille sijaisuuksia
+        kun vanhemmat jäävät kotiin 1-2vuodeksi\r\n- Kotihoidontuella olevilta otetaan
+        myös huomioon alle 18-vuotiaat lapset, kuten työttömilläkin.\r\n\r\nAloitteen
+        korotusvaatimus rahallisesti:\r\nPerusosan: 327,46€/kk saa kaikki kotihoidontuella
+        olevat. Korotusosan 346,54€€/kk saavat ne kotihoidontuen saajat, joilla ei
+        ole itsellään palkkatuloa tuki aikana (puolison tuloja ei lasketa). Hoitolisä
+        max. 175,24€/kk tulee vielä pienituloisille perheille.","sv":null},"initiators":[{"firstNames":"Eva-Marina
+        Susann","lastName":"Hämeenniemi","homeMunicipality":{"fi":"Keuruu","sv":"Keuruu"}}],"representatives":[{"firstNames":"Eva-Marina
+        Susann","lastName":"Hämeenniemi","homeMunicipality":{"fi":"Keuruu","sv":"Keuruu"},"contactInfo":{"email":"eva
+        hameenniemi  gmail com","phone":"0404136454","address":"Kiveläntie 1 D 15,\r\n42700
+        KEURUU"}}],"reserves":[{"firstNames":"Taija Maarit Johanna","lastName":"Vehmasaho","homeMunicipality":{"fi":"Keuruu","sv":"Keuruu"},"contactInfo":{"email":"taija
+        vehmasaho  gmail com","phone":null,"address":null}}],"totalSupportCount":1285}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:25:26 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/32
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:05 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:05 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/32","modified":"2012-12-14T11:29:54+02:00","state":"ACCEPTED","stateDate":"2012-12-14T11:29:54+02:00","acceptanceIdentifier":"OM
+        18/52/2012","supportCount":70,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Lastensuojelukerroin
+        on lakkautettava","sv":null},"startDate":"2012-12-13","endDate":"2013-06-13","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://www.finlex.fi/fi/laki/alkup/2009/20091704","label":"Laki
+        kunnan peruspalvelujen valtionosuudesta"},{"uri":"http://www.sosiaaliportti.fi/fi-fi/lastensuojelunkasikirja/tuke/lastensuojeluntilastoa","label":"Sosiaaliportti
+        - Lastensuojelun tilastotietoa (THL)"},{"uri":"http://www.helsinginuutiset.fi/artikkeli/114782-valtion-tukea-arvostellaan-kannustaa-huostaanottoihin","label":"Helsingin
+        uutiset: Valtion tukea arvostellaan: kannustaa huostaanottoihin"},{"uri":"http://www.taloussanomat.fi/ihmiset/2012/06/16/lapsibisnesta-ei-valvo-kukaan/201231577/137","label":"Taloussanomien
+        artikkeli lastensuojelun bisneksestä"},{"uri":"http://suomenkuvalehti.fi/jutut/kotimaa/hukassa-huostassa","label":"Suomen
+        Kuvalehden artikkeli lastensuojelun epäkohdista"}],"proposal":{"fi":"Laista
+        kunnan peruspalvelujen valtionosuudesta poistetaan lainkohta 18 § (4. luku,
+        lastensuojelukerroin).\r\n\r\nKyseinen lainkohta kuuluu näin:\r\n\r\nLaki
+        kunnan peruspalvelujen valtionosuudesta 4. luku 18 § \r\nLastensuojelukerroin\r\n\r\nLastensuojelukerroin
+        lasketaan jakamalla kunnassa tehtyjen lastensuojelulain mukaisten lasten huostaanottojen
+        määrä kunnan asukasmäärällä ja jakamalla saatu osamäärä koko maan vastaavalla
+        osamäärällä. Kerrointa laskettaessa kunnan huostaanottojen määränä on kaksi,
+        jos huostaanottoja on ollut enintään neljä.\r\n\r\nKerrointa määriteltäessä
+        käytetään Terveyden ja hyvinvoinnin laitoksen varainhoitovuotta edeltävää
+        vuotta edeltäneen vuoden huostaanottotietoja.","sv":null},"rationale":{"fi":"Lastensuojelukerroin
+        on lakkautettava.\r\n\r\nJotkut kunnat saavat valtiolta jopa 2-3 kertaisina
+        takaisin sen rahamäärän mitä ne sijoittavat huostaanottoihin. Tämä on moraalisesti
+        todella väärin. Lastensuojelukerroin edistää aiheettomia ja laittomia huostaanottoja,
+        sillä mitä enemmän huostaanottoja tehdään, niin sitä enemmän kunta saa valtiolta
+        rahaa.\r\n\r\nHuostaanotot ovat kasvaneet rajusti 1990-luvun jälkeen.\r\n\r\nVuonna
+        2011 huostassa olevien lasten määrä kasvoi lähes 3 prosenttia edellisestä
+        vuodesta, selviää Terveyden ja hyvinvoinnin laitoksen (THL) julkaisemasta
+        lastensuojelun tilastoraportista. Kiireellisesti sijoitettuja lapsia oli 13
+        prosenttia enemmän kuin vuonna 2010. Alle 18-vuotiaista 1,4 prosenttia oli
+        sijoitettu kodin ulkopuolelle vuoden 2011 aikana. Kaikkiaan kodin ulkopuolelle
+        oli vuoden aikana sijoitettuna 17 409 lasta ja nuorta.","sv":null},"initiators":[{"firstNames":"Henri
+        Sakari","lastName":"Autero","homeMunicipality":{"fi":"Vaasa","sv":"Vasa"}}],"representatives":[{"firstNames":"Carita
+        Terhi Tuulikki","lastName":"Laaksonen","homeMunicipality":{"fi":"Honkajoki","sv":"Honkajoki"},"contactInfo":{"email":"carita
+        kujanpaa  gmail com","phone":null,"address":null}},{"firstNames":"Ire-Rauni
+        Sisko Irene","lastName":"Leikonniemi","homeMunicipality":{"fi":"Turku","sv":"Åbo"},"contactInfo":{"email":"ire13  luukku
+        com","phone":"0449410380","address":null}},{"firstNames":"Henri Sakari","lastName":"Autero","homeMunicipality":{"fi":"Vaasa","sv":"Vasa"},"contactInfo":{"email":"hsa  hotmail
+        fi","phone":"0453596027","address":"Pitkäkatu 62 A 2-3, 65100 Vaasa"}}],"reserves":[{"firstNames":"Sunna
+        Sari Marjut","lastName":"Oksala","homeMunicipality":{"fi":"Oulainen","sv":"Oulainen"},"contactInfo":{"email":"sunnasari  gmail
+        com","phone":"0401675010","address":"Peltokatu 4\r\n86300 Oulainen"}},{"firstNames":"Tonia
+        Maaret Caramia","lastName":"Köngäs","homeMunicipality":{"fi":"Hollola","sv":"Hollola"},"contactInfo":{"email":"tonia
+        k  suomi24 fi","phone":"0415823095","address":"Keskuskuja 2 B 12\r\n15780
+        Hollola"}},{"firstNames":"Aki Markus","lastName":"Saarikoski","homeMunicipality":{"fi":"Ylöjärvi","sv":"Ylöjärvi"},"contactInfo":{"email":"jodlaaja35  gmail
+        com","phone":"0449134820","address":"Sepänharjuntie 1 B9\r\n33470  Ylöjärvi"}}],"totalSupportCount":70}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:06 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/26
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:05 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:05 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/26","modified":"2012-12-10T17:16:58+02:00","state":"ACCEPTED","stateDate":"2012-12-10T17:16:58+02:00","acceptanceIdentifier":"OM
+        12/52/2012","supportCount":192,"sentSupportCount":0,"externalSupportCount":205,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kansanäänestys
+        mietojen alkoholijuomien myynnin vapauttamisesta","sv":null},"startDate":"2012-10-15","endDate":"2013-04-15","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":true,"supportStatementsRemoved":null,"links":[{"uri":"http://www.avoinministerio.fi/ideat/244-kansalaisaloite-neuvoa-antavan-kansanaanestyksen-jarjestamiseksi-alkoholilainsaadannon-perusteiden-tarkistamiseksi","label":"Tutustu
+        aloitteen sivuun Avoin ministeriö -palvelussa"},{"uri":"http://www.facebook.com/pages/Kansan%C3%A4%C3%A4nestys-mietojen-juomien-myynnin-vapauttamisesta/392121074189893","label":"Tue
+        aloitetta Facebookissa"}],"proposal":{"fi":"Lakiehdotuksen muodossa oleva
+        kansalaisaloite eduskunnalle laiksi neuvoa-antavasta kansanäänestyksestä alkoholilainsäädännön
+        perusteiden tarkistamiseksi.\r\n\r\nESITYKSEN PÄÄASIALLINEN SISÄLTÖ\r\n\r\nEsityksessä
+        ehdotetaan säädettäväksi laki neuvoa-antavasta kansanäänestyksestä alkoholilain
+        perusteiden tarkistamiseksi. Kansanäänestyksessä ehdotetaan kysyttävän “Tuleeko
+        mietojen alkoholijuomien vähittäismyynti vapauttaa kilpailulle?” ja äänestäjille
+        tarjotaan kaksi vastausvaihtoehtoa; “kyllä” ja “ei”.\r\n\r\nKansanäänestys
+        ehdotetaan järjestettäväksi europarlamenttivaalien yhteydessä 8.6.2014. Ehdotettu
+        laki, jolla äänestyksesä säädetään, on tarkoitettu tulemaan voimaan 1 päivänä
+        lokakuuta 2013.\r\n\r\nYLEISPERUSTELUT\r\n\r\n1. Nykytilan arviointi\r\n\r\nSuomen
+        perustuslain (731/1999) 53 §:n 1 momentin mukaan neuvoa-antavan kansanäänestyksen
+        järjestämisestä päätetään lailla, jossa on säädettävä äänestyksen ajankohdasta
+        ja äänestäjille esitettävistä vaihtoehdoista. Toisen momentin mukaan kansanäänestyksissä
+        noudatettavasta menettelystä säädetään lailla. Laki menettelystä neuvoa-antavissa
+        kansanäänestyksissä (571/1987) sekä vaalilaki (714/1998) määrittelevät tarkemmin
+        menettelytavoista.\r\n\r\nPerustuslain 53.3 §:n ja kansalaisaloitelain (12/2012)
+        mukaisesti vähintään viidelläkymmenellätuhannella äänioikeutetulla Suomen
+        kansalaisella on oikeus tehdä eduskunnalle aloite lain säätämiseksi sen mukaan
+        kuin lailla säädetään. Edellä mainittujen lainkohtien nojalla tässä esityksessä
+        on kyse lakialoitteesta neuvoa-antavan kansanäänestyksen järjestämisestä alkoholilainsäädännön
+        perusteiden tarkistamiseksi.\r\n\r\nSuomessa on järjestetty kokonaisuudessaan
+        kaksi neuvoa-antavaa kansanäänestystä: jälkimmäinen koski liittymistä Euroopan
+        unioniin vuonna 1994 ja ensimmäinen kieltolain kumoamista vuonna 1931. Yleinen
+        kieltolakiin (158/22) kohdistunut kansanäänestys järjestettiin 29 ja 30 päivänä
+        joulukuuta 1931. Tämä kansanäänestys perustui erityiseen lakiin neuvoa-antavan
+        kansanäänestyksen toimeenpanemisesta väkijuomalainsäädännön perusteiden selvittämiseksi
+        (340/31) sekä tämän lain täytäntöönpanosta annettuun asetukseen (341/31).\r\n\r\nVaikka
+        Suomen poliittinen järjestelmä perustuu edustuksellisuuden periaatteelle -
+        perustuslain mukaisesti “[v]altiovalta Suomessa kuuluu kansalle, jota edustaa
+        valtiopäiville kokoontunut eduskunta - kuuluu kansanvaltaan olennaisena osana
+        myös mahdollisuus suoraan vaikuttamiseen. Perustuslain 2 §:n 2 momenttiin
+        on kirjattu osana kansanvaltaisen valtiojärjestyksen perusperiaatteita yksilön
+        oikeus osallistua ja vaikuttaa yhteiskunnan ja elinympäristönsä kehittämiseen.
+        Lisäksi perustuslain 14 §:n 3 momentissa asetetaan julkisen vallan tehtäväksi
+        edistää yksilön mahdollisuuksia osallistua yhteiskunnalliseen toimintaan ja
+        vaikuttaa häntä koskevaan päätöksentekoon.\r\n\r\nMahdollisuus kansalaisaloitteen
+        tekemiseen kytkeytyykin kiinteästi perustuslain lähtökohtiin kansanvaltaisesta
+        valtiojärjestyksestä ja kansalaisten osallistumismahdollisuuksista. Kansalaisaloitelain
+        (12/2012) tavoite on hallituksen esityksen (HE 46/2011) mukaan edistää ja
+        tukea vapaata kansalaistoimintaa sekä siten vahvistaa kansalaisyhteiskuntaa,
+        jossa eri väestöryhmät osallistuvat ja vaikuttavat aktiivisesti yhteiskunnan
+        kehittämiseen. Samaa todetaan perustuslain muuttamista koskevassa hallituksen
+        esityksessä (HE 60/2010): kansalaisaloite on uusi kansalaisten vaikuttamismahdollisuus
+        valtiollisella tasolla, ja kyse on edustuksellista demokratiaa täydentävästä
+        vaikuttamiskeinosta, joka tarjoaa äänestäjille mahdollisuuden vaikuttaa suoraan
+        poliittisen päätöksenteon asialistaan ja saada aloitteensa eduskunnan käsiteltäväksi.\r\n\r\nEdellä
+        todetusti kaksi Suomessa aiemmin toimitettua kansanäänestystä ovat koskeneet
+        Euroopan unionin jäsenyyttä vuonna 1994 ja kieltolain kumoamista vuonna 1931.
+        Kansanäänestysten lyhyehkö historia huomioiden uuden alkoholilainsäädännön
+        perusteita koskevan kansanäänestyksen järjestäminen on perusteltua: esimerkiksi
+        vuonna 1994 Euroopan unionin jäsenyyttä koskevaa kansanäänestystä perusteltiin
+        (HE 109/1994) sillä, että edustuksellisuuden periaatetta on syytä ”tärkeässä
+        asiassa täydentää antamalla kansalaisille myös välitön mahdollisuus vaikuttaa
+        tähän jokaista koskevaan ratkaisuun” sekä sillä, että Suomessa vallitsi tuolloin
+        laaja yhteisymmärrys kansanäänestyksen tarpeellisuudesta. Ehdotuksessa edelleen
+        nimenomaisesti todettiin, että kyse ei ole järjestelmän viallisuudesta tai
+        muusta toimimattomuudesta, vaan ensi sijassa uudenlaisen vaikutusmahdollisuuden
+        tarjoamisesta kansalaisten käyttöön. Edellä mainittuja seikkoihin voi vedota
+        myös nyt käsillä olevan aloitteen tarkoituksenmukaisuutta perusteltaessa:
+        alkoholilainsäädännön perusteiden – siis yksinkertaistettuna myyntimonopolin
+        olemassaolon – kannatuksen selvittäminen on kysymys, jonka ratkaisu vaikuttaa
+        likimain jokaiseen kansalaiseen, ja kansanäänestyksen uusiminen kyseisestä
+        aiheesta kunnioittaa myös alkoholilainsäädännön historiaa.\r\n\r\nKieltolaista
+        äänestettäessä 74,8 % äänioikeuttaan käyttäneistä kansalaisista kannatti kieltolain
+        kumoamista ja alkoholijuomien myynnin ja valmistuksen vapauttamista säännöstelyn
+        ja verotuksen alaisesti. Eduskunta noudatti kansalaisten neuvoa, ja kieltolain
+        kumoamisen seurauksena vuodesta 1932 lähtien on Suomessa alkoholin myynti
+        ollut luvanvaraista: vuonna 1932 säädetyllä väkijuomalailla alkoholin myyntimonopoli
+        keskitettiin valtiolle ja edelleen valtion omistamalle alkoholiyhtiölle. Keskiolutkauppa
+        vapautettiin vasta vuonna 1969 – tämän jälkeen ei muita vapautuksia olekaan
+        myönnetty. Valmistus- ja tuontimonopoli purettiin Euroopan unioniin liittymisen
+        seurauksena.\r\n\r\nVoimassa olevan alkoholilain mukaan valtion alkoholiyhtiöllä
+        on yksinoikeus alkoholin vähittäismyyntiin, lukuunottamatta laissa säänneltyjä
+        luvanvaraisia poikkeustilanteita. Vähittäismyyntiluvan voi saada esimerkiksi
+        ruokakauppa enintään 4,7 tilavuusprosenttia alkoholia sisältävien käymisteitse
+        valmistettujen juomien kuten oluen vähittäismyyntiin. Lisäksi enintään 13
+        tilavuusprosenttia alkoholia sisältävien alkoholijuomien valmistajat voivat
+        saada vähittäismyyntiluvan. Sosiaali- ja terveysministeriön päätösten 851/1995
+        ja 852/1995 mukaisesti vähittäismyyntilupa on koskenut vain tilaviinejä. Esimerkiksi
+        pienpanimot eivät ole voineet myydä valmistamiaan alkoholijuomia suoraan asiakkaille,
+        mikä on asettanut viini- ja olutyrittäjät eriarvoiseen asemaan.\r\n\r\n2.
+        Esityksen tavoitteet\r\n\r\nEhdotetun neuvoa-antavan kansanäänestyksen ensisijaisena
+        tavoitteena on aikaan saada kattavaa yhteiskunnallista keskustelua Suomen
+        alkoholipolitiikasta ja kartoittaa kansalaisten mielipide, jotta eduskunta
+        voi ottaa sen huomioon alkoholilainsäädäntöä uusiessaan. Koska kyseessä on
+        neuvoa-antava kansanäänestys ei eduskunta ole sidottu äänestyksen lopputulokseen.\r\n\r\nEsityksen
+        toissijaisena tavoitteena on vahvistaa kansalaisaloitejärjestemää ja kansalaisten
+        osallisuuden tunnetta päätöksenteossa. Kansalaisaloitejärjestelmästä ei ole
+        esitystä annettaessa käytännön kokemusta.\r\n\r\nEnsimmäinen neuvoa-antava
+        kansanäänestys on mielekästä järjestää juuri alkoholilaista, sillä siitä on
+        ennenkin järjestetty kansanäänestys ja aihe on omiaan osallistamaan kansalaisia
+        keskusteluun ja yhteiseen päätöksentekoon. Kansanäänestyksen ja sitä edeltävän
+        julkinen kansalaiskeskustelun tavoitteena on parantaa kansalaisten vaikutusmahdollisuuksia
+        ja osallisuuden tunnetta.\r\n\r\n3. Esityksen vaikutukset\r\n\r\nEsityksellä
+        on merkittäviä yhteiskunnallisia vaikutuksia mutta vaikutukset viranomaisten
+        toimintaan, taloudelliset vaikutukset sekä ympäristövaikutukset ovat pieniä
+        tai olemattomia.\r\n\r\nMenettelystä neuvoa-antavissa kansanäänestyksissä
+        annetun lain 8 §:n 2 momentin mukaan suoritetaan vaaleista erillisen kansanäänestyksen
+        toimittamisesta aiheutuvat kustannukset kokonaisuudessaan valtion varoista.
+        Näin ollen myös kuntien keskusvaalilautakuntien, vaalilautakuntien ja vaalitoimikuntien
+        menot, jotka vaalien yhteydessä toimitettavissa kansanäänestyksissä jäisivät
+        kuntien vastuulle, korvataan kunnille. Oikeusministeriö antaa tarkemmat määräykset
+        perusteista, joiden mukaan nämä menot korvataan. Kansanäänestyksen järjestäminen
+        europarlamenttivaalien yhteydessä on omiaan pienentämään esityksen taloudellisia
+        vaikutuksia.\r\n\r\nNeuvoa-antavan kansanäänestyksen järjestämsellä europarlamenttivaalien
+        yhteydessä voi olla muitakin mahdollisia positiivisia sivuvaikutuksia. Edellisissä
+        vuoden 2009 europarlamenttivaaleissa äänestysprosentti oli vain 38,6. Aiemmissa
+        kansanäänestyksissä äänestysprosentit ovat olleet 44 vuonna 1931 ja 74 vuonna
+        1994. Yhdistämällä europarlamenttivaaleihin muita aiheita, joista kansalaiset
+        voivat olla kiinnostuneita antamaan mielipiteensä, voidaan lisätä kansalaisten
+        yleistä mielenkiintoa vaaleja kohtaan sekä kasvattaa äänestysprosenttia.\r\n\r\n4.
+        Asian valmistelu\r\n\r\nAsiaa on valmisteltu avoimesti ja osallistavasti Avoimen
+        ministeriön (www.avoinministerio.fi) nettisivustolla. Alustavaa ideaa on voinut
+        kommentoida 20.8.2012 - 4.10.2012 aikana ja lakiehdotuksen luonnosta 5.10.2012
+        - 15.10.2012. Aloitteen vireillepanija on ottanut huomioon aloitteen laatimisessa
+        keskustelussa nousseita kommentteja. Kannatusilmoitusten keräysaika tässä
+        esitetylly lakiehdotuksen muotoisella kansalaisaloitteella on 15.10.2012 -
+        15.4.2013.\r\n\r\nAloitteen vireillepanijoina toimivat Petri Viglione (040-5013676,
+        petri.viglione@winital.fi), Aleksi Rossi (040-7047009, aleksi.rossi@avoinministerio.fi)
+        ja Joonas Pekkanen (050-5846800, joonas.pekkanen@avoinministerio.fi). Aloitteen
+        edustajana toimii Joonas Pekkanen ja varaedustajana Aleksi Rossi.\r\n\r\n\r\nYKSITYISKOHTAISET
+        PERUSTELUT\r\n\r\n1 §. Kansanäänestyksen toimittamisaika ja -menettely.\r\nEhdotettu
+        kansanäänestyksen toimittamisaika olisi vuoden 2014 europarlamenttivaalien
+        yhteydessä.\r\n\r\nTarkoituksena on, että yhdistämällä kansanäänestys ja europarlamenttivaalit
+        kansalaisilta säästyisi vaivaa. Äänestysten yhdistäminen säästäisi myös kustannuksia.\r\n\r\n2
+        §. Ennakkoäänestys. Tarkoituksena on, että kansanäänestyksen ennakkoääniä
+        voisi antaa samassa yhteydessä kuin europarlamenttivaalien ennakkoääniä.\r\n\r\n3
+        §. Kysymyksenasettelu ja vastausvaihtoehdot. Kansanäänestyksen kysymyksenasettelu
+        eli se, millä tavoin äänestäjille esitettävä kysymys ja heidän vastattavakseen
+        esitettävät vaihtoehdot on muotoiltu, liittyy olennaisesti kansanäänestyksen
+        järjestämistä koskevaan päätöksentekoon. Tämän vuoksi tästä on säädettävä
+        kunkin kansanäänestyksen toimeenpanolaissa. Kysymyksenasettelu ei saa olla
+        epäselvä eikä johdatteleva eivätkä vastausvaihtoehdot saa antaa aihetta erilaisiin
+        tulkintoihin. Äänestäjien käsitys kansanäänestyksen kohteena olevan kysymyksen
+        ratkaisemisesta tulee voida selvittää mahdollisimman yksiselitteisesti.\r\n\r\nParhaiten
+        kansanäänestyksessä vastattavaksi sopii kysymys, joka koskee äänestäjien ennalta
+        tuntemaa asiaa taikka asiaa, jota heidän on helppoa saamansa tiedon pohjalta
+        arvioida. Lisäksi kysymys tulisi voida esittää lyhyesti ja turvautumatta äänestäjille
+        vieraisiin sanontoihin.\r\n\r\nKun kansanäänestyksessä vastattavaksi esitettävän
+        kysymyksen tulee olla mahdollisimman helppotajuinen ja yksinkertainen, ehdotetaan,
+        että äänestäjien vastattavaksi esitetään seuraava kysymys: \"Tuleeko mietojen
+        alkoholijuomien vähittäismyynti vapauttaa kilpailulle?\" Tähän kysymykseen
+        vastaamiseksi äänestäjille tulisi antaa vain kaksi vaihtoehtoa: \"KYLLÄ\",
+        jos he kannattavat valtion alkoholiyhtiön vähittäismyyntimonopolin purkamista
+        joko mietojen alkoholijuomien osalta taikka ''''EI'''', jos he eivät tätä
+        kannata.\r\n\r\n4 §. Äänestyslippu. Äänestyksessä on tarkoitus on käyttää
+        vaalilain (714/1998) 51 § mukaista vakiokokoista äänestyslippua. Äänestyslippu
+        on tarkoitus painaa vaaleansiniselle paperille, koska samanaikaisesti pidettävien
+        europarlamenttivaalien äänestyslippu on painettu valkealle paperille.\r\n\r\nÄänestyslipun
+        ohjeisiin on syytä liittää Alkoholilain (1143/1996) 3 § ensimmäisen momentin
+        2 kohdan mukainen määritelmä miedolle alkoholijuomalle. Miedolla alkoholijuomalla
+        alkoholijuomaa, joka sisältää enintään 22 tilavuusprosenttia etyylialkoholia.\r\n\r\n5
+        §. Äänestäminen. Tarkoitus on, että äänestäjä merkitsee äänestyslippuun “KYLLÄ”
+        tai “EI” kannattamansa vaihtoehdon mukaisesti. Lain menettelystä neuvoa-antavissa
+        kansanäänestyksissä (571/1987) 5 §:n 1 momentin mukaisesti äänestäjällä on
+        kuitenkin mahdollisuus ilmaista, ettei hän kannata kumpaakaan esitetyistä
+        vaihtoehdoista. Tämä tapahtuu jättämällä äänestyslipun ympyrä tyhjäksi.\r\n\r\n6
+        §. Äänestyslipun mitättömyys. Tarkoitus on pitää sellaiset äänestysliput mitättöminä,
+        jotka olisivat vaalilain (714/1998) 85 §:n 1 momentin kohtien perusteella
+        mitättömiä vaaleissa. Aänestyslippua on tarkoitus pitää mitättömänä, jos vaalikuoressa
+        on useampi tai muutakin kuin yksi lippu, vaalikuoreen tai äänestyslippuun
+        on tehty äänestäjää koskeva asiaton merkintä, äänestyslippuna on käytetty
+        muuta kuin oikeusministeriön painattamaa äänestyslippua tai, jos äänestyslippua
+        ei ole leimattu.\r\n\r\n7 §. Äänestyksen tuloksen vahvistaminen. Tarkoituksena
+        on, että äänestyksen tulokset vahvistetaan ja julkaistaan samaan aikaan kuin
+        europarlamentiivaalin tulokset. Äänien vahvistamisessa ja tuloksen julkaisemisessa
+        on tarkoitus noudattaa soveltuvin osin mitä vaalilain (714/1998) 178 §, 179
+        § ja 181 §:ssä säädetään europarlamenttivaalien äänten laskennasta ja tulosten
+        julkaisemisesta.\r\n\r\n8 §. Tarkemmat määräykset ja ohjeet. Lakiin halutaan
+        jättää mahdollisuus oikeusministeriölle antaa tarvittaessa tarkempia määräyksiä
+        ja ohjeita tässä ehdotetun lain soveltamisesta. Tarkoitus on varmistaa, että
+        äänestyksen käytännön toteutus on äänestäjien kannalta mahdollisimman yksinkertainen
+        ja yksiselitteinen.\r\n\r\n9 §. Voimaantulo. Tarkoituksena on, että laki tulisi
+        voimaan 15 päivänä lokakuuta 2013, vuosi sen jälkeen kuin lakiehdotuksen sisältävälle
+        kansalaisaloitteella aloitettiin keräämään kannatusilmoituksia.\r\n\r\nLain
+        voimaantulo 1 päivänä lokakuuta 2013 mahdollistaisi riittävänä ajan varaamisen
+        julkiselle keskustelulle ja eri vaihtoehtojen kampanjoimiselle muun muassa
+        kansalaisjärjestöjen toimesta ennen äänestyspäivää.","sv":null},"rationale":{"fi":"Edellä
+        esitetyn perusteella annetaan Eduskunnan hyväksyttäväksi seuraava lakiehdotus:\r\n\r\n\r\nLaki
+        neuvoa-antavasta kansanäänestyksestä\r\nalkoholilain (1143/1994) perusteiden
+        tarkistamiseksi\r\n\r\nEduskunnan päätöksen mukaisesti säädetään:\r\n\r\n1
+        §\r\nKansanäänestyksen toimittamisaika ja -menettely\r\n\r\nAlkoholilain (1143/1994)
+        muuttamisesta toimitetaan neuvoa-antava kansanäänestys 8 päivänä kesäkuuta
+        2014.\r\n\r\nKansanäänestyksessä noudatetaan menettelystä neuvoa-antavissa
+        kansanäänestyksissä annettua lakia (571/87), jollei jäljempänä toisin säädetä.\r\n\r\n2
+        §\r\nEnnakkoäänestys\r\n\r\nEnnakkoäänestys aloitetaan 11. päivänä ennen äänestyspäivää
+        sekä lopetetaan ulkomailla 8. päivänä ja kotimaassa 5. päivänä ennen äänestyspäivää.
+        Postin tilapäisissä ennakkoäänestyspaikoissa ja Suomen edustustoissa ennakkoäänestys
+        voi, sen mukaan kuin asetuksella säädetään, kestää lyhemmänkin ajan.\r\n\r\nKotiäänestys
+        tulee toimittaa aikaisintaan 11. päivänä ja viimeistään 5. päivänä ennen äänestyspäivää.
+        Kotiäänestykseen on ilmoittauduttava viimeistään 12. päivänä ennen äänestyspäivää.\r\n\r\n3
+        §\r\nKysymyksenasettelu ja vastausvaihtoehdot\r\n\r\nKansanäänestyksessä esitetään
+        äänestäjien valittavaksi seuraava kysymys: “Tuleeko mietojen alkoholijuomien
+        vähittäismyynti vapauttaa kilpailulle?”. Äänestäjän tulee vastata kysymykseen
+        joko ''''KYLLÄ'''' tai ''''EI''''.\r\n\r\n4 §\r\nÄänestyslippu\r\n\r\nKansanäänestyksessä
+        käytetään yhtä äänestyslippua. Se painetaan vaaleansiniselle paperille, sen
+        on oltava vakiokokoa 148 x 210 mm, siitä on selvästi käytävä ilmi, miten se
+        taitetaan kokoon, ja sen on turvattava äänestyssalaisuuden säilyminen.\r\n\r\nAänestyslipun
+        sisäpuolelle painetaan otsikko, jossa mainitaan, että äänestyslippua käytetään
+        8.6.2014 toimitettavassa neuvoa-antavassa kansanäänestyksessä alkoholilain
+        perusteiden tarkistamiseksi. Äänestyslipun taitekohdan oikealle puolelle painetaan
+        3 §:ssä mainittu kysymys ja sanat ''''KYLLÄ'''' ja ''''EI'''' sekä kumpaakin
+        vastausvaihtoehtoa varten ruutu siten sijoitettuna, että ruudun sijoituksesta
+        selvästi käy ilmi, kumpaa vastausvaihtoehtoa se tarkoittaa. Äänestyslippuun
+        painetaan vielä ohje äänestysmerkinnän tekemisestä sekä tieto, että miedolla
+        alkoholijuomalla tarkoitetaan alkoholijuomaa, joka sisältää enintään 22 tilavuusprosenttia
+        etyylialkoholia.\r\n\r\nÄänestyslipussa käytetään suomen ja ruotsin kieltä.\r\n\r\n5
+        §\r\nÄänestäminen\r\n\r\nÄänestäminen tapahtuu merkitsemällä rasti (X) jompaankumpaan
+        äänestyslipussa olevista ruuduista.\r\n\r\nÄänestäjä voi ilmaista, ettei hän
+        kannata kumpaakaan esitetyistä vaihtoehdoista jättämällä äänestyslipun tyhjäksi.\r\n\r\n6
+        §\r\nÄänestyslipun mitättömyys\r\n\r\nSen lisäksi, mitä vaalilain (714/1998)
+        85 §:n 1 momentin 1–4 ja 6 kohdassa säädetään, on äänestyslippu mitätön, jos
+        vaihtoehto on merkitty siten, ettei siitä selvästi ilmene, mitä vaihtoehtoa
+        äänestäjä on tarkoittanut.\r\n\r\nAsiattomana ei pidetä äänestyslippuun tehtyä
+        merkintää, joka ainoastaan selventää, mitä vaihtoehtoa äänestäjä on tarkoittanut
+        äänestää.\r\n\r\n7 §\r\nÄänestyksen tuloksen vahvistaminen\r\n\r\nVaalipiirilautakunta
+        vahvistaa 3. päivänä vaalipäivän jälkeen kello 18 aloitettavassa kokouksessaan
+        äänimäärät, jotka kukin vaihtoehto on saanut, sekä ilmoittaa viipymättä näin
+        vahvistetut äänimäärät ja vaaleissa annettujen äänten määrän oikeusministeriön
+        määräämällä tavalla Helsingin vaalipiirilautakunnalle.\r\n\r\nSaatuaan ilmoituksen
+        kaikilta vaalipiirilautakunnilta Helsingin vaalipiirilautakunta vahvistaa
+        viipymättä vaalien tuloksen.\r\n\r\nHelsingin vaalipiirilautakunnan on heti
+        ilmoitettava oikeusministeriölle vaalien tulos ja annettava tuloksesta kuulutus,
+        joka julkaistaan Suomen säädöskokoelmassa.\r\n\r\n8 §\r\nTarkemmat määräykset
+        ja ohjeet\r\n\r\nOikeusministeriö antaa tarvittaessa tarkempia määräyksiä
+        ja ohjeita tämän lain soveltamisesta.\r\n\r\n9 §\r\nVoimaantulo\r\n\r\nTämä
+        laki tulee voimaan päivänä kuuta .\r\n\r\nEnnen lain voimaantuloa voidaan
+        ryhtyä sen täytäntöönpanon edellyttämiin toimiin.","sv":null},"initiators":[{"firstNames":"Joonas
+        Taavetti","lastName":"Pekkanen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}},{"firstNames":"Petri
+        Raffaele","lastName":"Viglione","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}},{"firstNames":"Kauko
+        Aleksi","lastName":"Rossi","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}}],"representatives":[{"firstNames":"Joonas
+        Taavetti","lastName":"Pekkanen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"joonas
+        pekkanen  avoinministerio fi","phone":"0505846800","address":"Caloniuksenkatu
+        10 D 67,\r\n00100 Helsinki"}}],"reserves":[{"firstNames":"Kauko Aleksi","lastName":"Rossi","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"aleksi
+        rossi  avoinministerio fi","phone":"040-704 7009","address":null}}],"totalSupportCount":397}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:06 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/23
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:06 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:06 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/23","modified":"2012-12-10T16:08:26+02:00","state":"ACCEPTED","stateDate":"2012-12-10T16:08:26+02:00","acceptanceIdentifier":"OM
+        11/52/2012","supportCount":490,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Esitys
+        Autoverolain 29.12.1994/1482 kumoamisesta","sv":null},"startDate":"2012-12-06","endDate":"2013-06-06","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Esityksessä
+        ehdotaan kumottavaksi Autoverolaki 29.12.1994/1482 kokonaisuudessaan.","sv":null},"rationale":{"fi":"Autoveron
+        fiskaalinen merkitys verokertymän kannalta on taantuman ja päästöihin perustuvan
+        veron määräytymisen myötä oleellisesti vähentynyt. Lisäksi fiskaaliselta kannalta
+        verokertymän maksimit osuvat talouden huippuvuosille, ja minimit taantuma-aikoihin
+        jolloin päinvastaisesti valtion tarve verotuloille on korkeimmillaan.\r\n\r\nAutoverolaki
+        säädettiin alunperin tilapäisenä, ja lukuisten oikeudenkäyntien osoitettua
+        autoveron olevan hyvin vaikeasti sovitettavissa nykyisiin olosuhteisiin, on
+        siitä aika luopua. Lisäksi autoveron kantaminen aiheuttaa sekä poliisille
+        että tullille näiden pääsääntöisiin tehtäviin nähden ylimääräistä työtä mm.
+        veronkierron valvonnan sekä veron määräytymisen osalta.\r\n\r\nLisäksi autoveron
+        voidaan katsoa heikentävän liikenneturvallisuutta ajoneuvokannan uudistumista
+        hidastavan vaikutuksen kautta, sekä samalla myös hidastavan ajoneuvokannan
+        kokonaispäästöjen vähenemistä. Hiilidioksipäästöjen vähentäminen on kirjattu
+        myös autoverolain tavoitteisiin, tältä osin autovero vaikuttaa omien tavoitteidensakin
+        kannalta ristiriitaisesti.\r\n\r\nVerotettakoon liikennettä edelleen, mutta
+        nykymaailmaan soveltuvin keinoin. Ja jääköön tämän esityksen hyväksymisen
+        myötä erilaiset piilopakettiautot, matkailuautorakennelmat ja kuorma-autoilla
+        sekä naapurimaihin rekisteröidyillä autoilla jokapäiväinen ajaminen autoveron
+        kiertäminen mielessä historian tuntemiksi kuriositeeteiksi.","sv":null},"initiators":[{"firstNames":"Ville
+        Antero","lastName":"Likitalo","homeMunicipality":{"fi":"Inkoo","sv":"Ingå"}}],"representatives":[{"firstNames":"Ville
+        Antero","lastName":"Likitalo","homeMunicipality":{"fi":"Inkoo","sv":"Ingå"},"contactInfo":{"email":"ville
+        likitalo  iki fi","phone":"0503866269","address":"Metsäpuro 5 10210 Inkoo"}}],"reserves":[{"firstNames":"Joonas
+        Antero","lastName":"Aunola","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"joonas  aunola
+        fi","phone":null,"address":null}},{"firstNames":"Matti Heikki Antero","lastName":"Likitalo","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"matti
+        likitalo  gmail com","phone":null,"address":null}}],"totalSupportCount":490}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:07 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/20
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:06 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:06 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/20","modified":"2012-12-10T13:31:01+02:00","state":"ACCEPTED","stateDate":"2012-12-10T13:31:01+02:00","acceptanceIdentifier":"OM
+        9/52/2012","supportCount":161,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Neuvoa-antava
+        kansanäänestys Suomen kuulumisesta Euroopan unioniin","sv":null},"startDate":"2012-12-06","endDate":"2013-06-06","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Laki
+        neuvoa-antavasta kansanäänestyksestä Suomen kuulumisesta Euroopan unioniin
+        \r\n\r\nEduskunnan päätöksen mukaisesti säädetään: \r\n\r\n1 § \r\nKansanäänestyksen
+        toimittamisaika ja -menettely \r\nSuomen jäsenyydestä Euroopan unionissa toimitetaan
+        neuvoa-antava kansanäänestys ­­__ päivänä __ kuuta 201_. \r\nKansanäänestyksessä
+        noudatetaan menettelystä neuvoa-antavissa kansanäänestyksissä annettua lakia
+        (571/87), jollei jäljempänä toisin säädetä. \r\n\r\n2 § \r\nEnnakkoäänestys
+        \r\nEnnakkoäänestys aloitetaan 11. päivänä ennen äänestyspäivää sekä lopetetaan
+        ulkomailla 8. päivänä ja kotimaassa 5. päivänä ennen äänestyspäivää. Postin
+        tilapäisissä ennakkoäänestyspaikoissa ja Suomen edustustoissa ennakkoäänestys
+        voi, sen mukaan kuin asetuksella säädetään, kestää lyhemmänkin ajan. \r\nKotiäänestys
+        tulee toimittaa aikaisintaan 11. päivänä ja viimeistään 5. päivänä ennen äänestyspäivää.
+        Kotiäänestykseen on ilmoittauduttava viimeistään 12. päivänä ennen äänestyspäivää.
+        \r\n\r\n3 § \r\nKysymyksenasettelu ja vastausvaihtoehdot \r\nKansanäänestyksessä
+        esitetään äänestäjien vastattavaksi seuraava kysymys: \"Tuleeko Suomen kuulua
+        Euroopan unioniin?\" Äänestäjän tulee vastata kysymykseen joko \"KYLLÄ\" tai
+        \"EI\". \r\n\r\n4 § \r\nÄänestyslippu \r\nKansanäänestyksessä käytetään yhtä
+        äänestyslippua. Se painetaan valkealle paperille, sen on oltava vakiokokoa
+        148 x 210 mm, siitä on selvästi käytävä ilmi, miten se taitetaan kokoon, ja
+        sen on turvattava äänestyssalaisuuden säilyminen. \r\nAänestyslipun sisäpuolelle
+        painetaan otsikko, jossa mainitaan, että äänestyslippua käytetään .. 201_
+        toimitettavassa neuvoa-antavassa kansanäänestyksessä Suomen liittymisestä
+        Euroopan unionin jäseneksi. Äänestyslipun taitekohdan oikealle puolelle painetaan
+        3 §:ssä mainittu kysymys ja sanat \"KYLLÄ\" ja \"EI\" sekä kumpaakin vastausvaihtoehtoa
+        varten ruutu siten sijoitettuna, että ruudun sijoituksesta selvästi käy ilmi,
+        kumpaa vastausvaihtoehtoa se tarkoittaa. Äänestyslippuun painetaan vielä ohje
+        äänestysmerkinnän tekemisestä. \r\nÄänestyslipussa käytetään suomen ja ruotsin
+        kieltä. \r\n\r\n5 § \r\nÄänestäminen \r\nÄänestäminen tapahtuu merkitsemällä
+        rasti (X) jompaankumpaan äänestyslipussa olevista ruuduista. \r\nÄänestyksessä
+        ei sovelleta, mitä menettelystä neuvoa-antavissa kansanäänestyksissä annetun
+        lain 5 §:n 1 momentissa säädetään äänestäjän mahdollisuudesta ilmaista, ettei
+        hän kannata mitään esitetyistä vaihtoehdoista. \r\n\r\n6 § \r\nÄänestyslipun
+        mitättömyys \r\nSen lisäksi, mitä kansanedustajain vaaleista annetun lain
+        (391/69) 83 §:n 1 momentin 1–4 ja 6 kohdassa säädetään, on äänestyslippu mitätön,
+        jos äänestysmerkintä on tehty kumpaankin äänestyslipussa olevaan ruutuun tai
+        jos sitä ei ole tehty lainkaan taikka jos se on niin epäselvä, ettei siitä
+        käy ilmi, kumpaa vaihtoehtoa äänestäjä on kannattanut. \r\nÄänestyslippuun
+        rastin lisäksi tai sen sijasta tehtyä merkintää, joka ainoastaan selventää,
+        kumpaa vaihtoehtoa äänestäjä on kannattanut, ei ole pidettävä asiattomana
+        eikä äänestyslippua tällaisen merkinnän johdosta mitättömänä. \r\n\r\n7 §
+        \r\nÄänestyksen tuloksen vahvistaminen \r\nVaalipiirin keskuslautakunta vahvistaa
+        äänestyksen tuloksen vaalipiirissä 3. päivänä äänestyksen jälkeen pidettävässä
+        kello 18 alkavassa kokouksessa ja ilmoittaa tuloksen heti Helsingin kaupungin
+        vaalipiirin keskuslautakunnalle. Saatuaan kaikkien vaalipiirien keskuslautakunnilta
+        tiedon äänestyksen tuloksesta vaalipiirissä Helsingin kaupungin vaalipiirin
+        keskuslautakunta vahvistaa äänestyksen tuloksen koko maassa 4. päivänä äänestyksen
+        jälkeen pidettävässä kello 12 alkavassa kokouksessa. \r\n\r\n8 § \r\nTiedottaminen
+        ja sen tukeminen \r\nValtioneuvosto hyväksyy oikeusministeriön esittelystä
+        yleisistunnossaan tiedotteen, jossa selostetaan, mistä kansanäänestyksessä
+        on kysymys. Tiedote toimitetaan niille, joille lähetetään ilmoitus äänestysoikeudesta,
+        sekä saatetaan muullakin tavoin kansalaisten tiedoksi ja saataville. Tiedote
+        voidaan toimittaa ilmoituskortin ja -kirjeen yhteydessä. \r\nValtion vuoden
+        201_ lisätalousarviossa tarkoitukseen varattu määräraha on jaettava harkinnanvaraisina
+        avustuksina tasapuolisesti eri vaihtoehtoja sekä kummankin vaihtoehdon vaikutuksia
+        koskevan tiedottamisen tukemiseen. \r\nAvustukset myöntää valtioneuvoston
+        kanslia. \r\n\r\n9 § \r\nTarkemmat määräykset ja ohjeet \r\nOikeusministeriö
+        antaa tarvittaessa tarkempia määräyksiä ja ohjeita tämän lain soveltamisesta.
+        \r\nValtioneuvoston kanslia antaa tarkemmat määräykset ja ohjeet 8 §:n 2 momentissa
+        tarkoitettujen avustusten tarkemmista jakoperusteista sekä niiden hakemisesta,
+        myöntämisestä, maksamisesta ja valvonnasta. \r\n\r\n10 § \r\nVoimaantulo \r\nTämä
+        laki tulee voimaan __ päivänä _kuuta 201_. \r\nEnnen lain voimaantuloa voidaan
+        ryhtyä sen täytäntöönpanon edellyttämiin toimiin.","sv":null},"rationale":{"fi":"Euroopan
+        unioni on olennaisesti muuttunut Suomen 1995 unioniin liittymisen jälkeen.
+        Jo pelkästään eduskunnan legitimiteetin vuoksi on välttämätöntä järjestää
+        neuvoa-antava kansanäänestys siitä, tuleeko Suomen kuulua Euroopan unioniin.
+        \r\n\r\nMikäli enemmistö suomalaisista ei haluaisi enää kuulua nykyisen kaltaiseen
+        Euroopan unioniin, olisi äänestystulos selvä signaali eduskunnalle ryhtyä
+        valmistelemaan Suomen eroa Euroopan unionista. Jos äänestystulos puolestaan
+        tukisi jäsenyyden jatkumista, antaisi se eduskunnalle poliittisen luottamuksen
+        neuvotella maiden välisistä velkatakuista ja muista integraatiota syventävistä
+        toimenpiteistä.","sv":null},"initiators":[{"firstNames":"Jonne Mikael","lastName":"Posti","homeMunicipality":{"fi":"Joensuu","sv":"Joensuu"}}],"representatives":[{"firstNames":"Jonne
+        Mikael","lastName":"Posti","homeMunicipality":{"fi":"Joensuu","sv":"Joensuu"},"contactInfo":{"email":"jonneposti  hotmail
+        com","phone":"0414388658","address":"Pesolantie 3 A 6\r\n80140 Joensuu"}}],"reserves":[{"firstNames":"Anne
+        Maria","lastName":"Posti","homeMunicipality":{"fi":"Joensuu","sv":"Joensuu"},"contactInfo":{"email":"anneposti  hotmail
+        com","phone":null,"address":null}}],"totalSupportCount":161}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:07 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives?limit=5&offset=5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:07 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:07 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '[{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/18","modified":"2012-12-11T11:34:31+02:00","state":"ACCEPTED","stateDate":"2012-12-10T14:16:11+02:00","acceptanceIdentifier":"OM
+        10/52/2012","supportCount":123,"sentSupportCount":0,"externalSupportCount":53,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Lakiehdotus
+        arvonlisäverolain muuttamisesta.    Eduskunnan päätöksen mukaisesti säädetään,
+        että (30.12.1993/1501) annetun arvonlisäverolain ja   (29.12.2009/1780) muutetun
+        85 § 1 -momentin elintarvikkeiden verokantaa koskeva kohta muutetaan siten,
+        että lainkohdassa määriteltyä arvonlisäverokantaa alennetaan  laissa nyt olevasta
+        13 %:sta (vuodelle 2013 säädettävässä budjettilaissa 14%:sta) EU:n painotetun
+        keskiarvon mukaiselle tasolle, eli 7 prosenttiin.","sv":null},"startDate":"2012-09-15","endDate":"2013-03-15","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":176},{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/13","modified":"2012-12-12T07:41:11+02:00","state":"ACCEPTED","stateDate":"2012-12-12T07:41:11+02:00","acceptanceIdentifier":"13/52/2012","supportCount":483,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Laki
+        autoverolain kumoamisesta","sv":null},"startDate":"2012-12-05","endDate":"2013-06-05","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":483},{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/6","modified":"2012-12-18T13:57:41+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:58:43+02:00","acceptanceIdentifier":"OM
+        6/52/2012","supportCount":1269,"sentSupportCount":0,"externalSupportCount":4,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Vallan
+        uusjako - sitovat kansanäänestykset käyttöön","sv":null},"startDate":"2012-12-04","endDate":"2013-06-04","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":1273},{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/5","modified":"2012-12-17T13:26:14+02:00","state":"ACCEPTED","stateDate":"2012-12-05T15:16:25+02:00","acceptanceIdentifier":"OM
+        8/52/2012","supportCount":617,"sentSupportCount":0,"externalSupportCount":8297,"verifiedSupportCount":0,"verified":null,"name":{"fi":"ENERGIAJUOMAT
+        K16 - Kansalaisaloite energiajuomien myynnin kieltämisestä alle 16-vuotiaille","sv":"ENERGIDRYCKER
+        F-16 - Medborgarinitiativ för förbud mot försäljning av energidrycker till
+        personer under 16 år"},"startDate":"2012-09-03","endDate":"2013-03-03","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":true,"supportStatementsRemoved":null,"totalSupportCount":8914},{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/3","modified":"2012-12-03T18:34:49+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:53:28+02:00","acceptanceIdentifier":"OM
+        4/52/2012","supportCount":1519,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kesäajasta
+        luopuminen","sv":null},"startDate":"2012-12-03","endDate":"2013-06-03","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":1519}]'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:08 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/18
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:07 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:07 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/18","modified":"2012-12-11T11:34:31+02:00","state":"ACCEPTED","stateDate":"2012-12-10T14:16:11+02:00","acceptanceIdentifier":"OM
+        10/52/2012","supportCount":123,"sentSupportCount":0,"externalSupportCount":53,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Lakiehdotus
+        arvonlisäverolain muuttamisesta.    Eduskunnan päätöksen mukaisesti säädetään,
+        että (30.12.1993/1501) annetun arvonlisäverolain ja   (29.12.2009/1780) muutetun
+        85 § 1 -momentin elintarvikkeiden verokantaa koskeva kohta muutetaan siten,
+        että lainkohdassa määriteltyä arvonlisäverokantaa alennetaan  laissa nyt olevasta
+        13 %:sta (vuodelle 2013 säädettävässä budjettilaissa 14%:sta) EU:n painotetun
+        keskiarvon mukaiselle tasolle, eli 7 prosenttiin.","sv":null},"startDate":"2012-09-15","endDate":"2013-03-15","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[],"proposal":{"fi":"Muutoksen
+        jälkeen lain 85 § 1 -momentti kuuluisi kokonaisuudessaan seuraavasti:\r\n85
+        § (xx.xx.xxxx) \r\nSeuraavien palvelujen myynnistä sekä seuraavien tavaroiden
+        myynnistä, yhteisöhankinnasta, siirrosta varastointimenettelystä ja maahantuonnista
+        suoritettava vero on 7 prosenttia veron perusteesta:\r\n1) ruokatavara, juoma
+        ja muu sellaisenaan ihmisen nautittavaksi tarkoitettu aine sekä niiden raaka-aine
+        ja niitä valmistettaessa tai säilöttäessä käytettävä mauste, säilöntäaine,
+        väri- ja muu lisäaine (elintarvike);\r\n2) ravintola- ja ateriapalvelut, lukuun
+        ottamatta 2 momentin 3 kohdassa tarkoitettujen tava-roiden luovutuksia;\r\n3)
+        rehu ja rehuseos sekä niiden valmistuksessa käytettäväksi tarkoitettu raaka-
+        ja lisäaine, eläinten ruokana käytettävät teollisuuden jäteaineet sekä rehukala
+        (rehuaine).","sv":null},"rationale":{"fi":"Lain muutosesityksen perustelut\r\n1.\tSuomessa
+        elintarvikkeiden ALV kanta EU -maiden korkeimpia\r\nSuomessa elintarvikkeiden
+        hinta on EU -alueen korkeimpia. Tähän vaikuttaa osaltaan mer-kittävästi elintarvikkeiden
+        arvonlisäkanta. Suomessa nyt oleva 13 % ALV-kanta on n. 86 % korkeampi kuin
+        EU:n väestöpohjaan painotettu EU:n keskiarvo ja vuoden 2013 budjettilaki-en
+        jälkeen jo n. 100 % korkeampi kuin em. keskiarvo. Tämänkaltainen tilanne,
+        jossa me kaikki olemme ns. EU kansalaisia, ei ole EU-kansalaisia tasapuolisesti
+        kohteleva, eikä oi-keudenmukainen.\r\n2.\tElintarvikkeiden reaali- ja nimellishinnan
+        voimakas nousu\r\nTilastokeskuksen tilastojen mukaan Suomessa ruokakorin hinta
+        on euroaikana vuoden 2011 loppuun mennessä noussut reaalisesti n. 6 % ja vuoden
+        2013 budjettilakien johdosta jo noin 7% ja nimellisesti n. 48 %. Kun tähän
+        lisättään vielä nyt meneillään oleva yleinen elintar-vikkeiden nopea hinnannousu,
+        on tärkeimmän perushyödykkeen reaalihinta euroaikana nou-semassa n. 8-9 %.
+        Tämä hinnannousu kohdistuu raskaimmin heikoimmassa taloudellisessa asemassa
+        oleviin kansalaisiin. Ei ole yleisen poliittisen tilanteen ja poliitikkojen
+        luotta-musedun mukaista se, että korkeat poliittiset päättäjät ovat viemässä
+        kehitystä heikompia eniten rasittavaan suuntaan.\r\n3.\tElintarvikkeiden ALV
+        on regressiivinen vero\r\nElintarvikkeisiin kohdistuva arvonlisävero on sillä
+        tavoin ns. regressiivinen vero, että se ra-sittaa kansalaisia sitä raskaammin
+        mitä pienituloisemmasta kansalaisesta on kysymys. Tämä johtuu siitä, että
+        mitä pienemmät tulot sitä suurempi osuus tuloista menee kansalaisen joka-päiväisiin
+        pakollisiin elintarvikkeisiin ja samalla verorasitus suhteessa hyvätuloisiin
+        vero-kantaa korotettaessa pienituloisilla suhteellisesti kasvaa. Jos elintarvikkeiden
+        arvonlisäveroa alennettaisiin tai se poistettaisiin, alentaisi se merkittävästi
+        vaikeuksissa oleville henkilöille kuntien ja valtion maksamia sosiaali- ja
+        toimeentulotukikustannuksia.\r\n4.\tElintarvikkeiden ALV –kannan alentaminen
+        nostaa työllisyysastetta\r\nElintarvikkeiden arvonlisäverokannan alentaminen
+        7 %:n laskisi valtion elintarvikekaupasta saamia verotuloja n. 800 milj. €.
+        Tätä menetystä korvaisi asiaan liittyvät monet vaikuttavat tekijät. Kuten
+        mm.\r\n-\tOlettamalla, että kansalaiset käyttäisivät elintarvikkeista verokannan
+        alentumisesta sääs-tyvät 800 milj. €:n varat muuhun kulutuskysyntään ja maksaisivat
+        siinä 24 % verokannan mukaista ALV, saisi valtio verotuloja n. 155 milj. €.\r\n-\tOlettamalla,
+        että noiden muiden kuin elintarvikkeiden kulutuskysynnän tyydyttämiseen tarvitaan
+        tuotantopanoksia ja tuotteiden tekijöitä, niin voidaan laskea, että ALV -verojen
+        jälkeinen 645 milj. €:n kulutuskysyntä työllistäisi noin 8000-9000 henkilöä.
+        Nämä mak-saisivat tuloveroa noin 50-55 milj. €, ja arvonlisä- ja muita energia-
+        ja valmisteveroja noin 45-50 milj. €.\r\n-\tLaskelmaa jatkettaessa elintarvikkeiden
+        verokannan alentamisella, huomioimatta sosiaali- ja terveyspuolen kulujen
+        alentumista, päästään loppupeleissä tulokseen, että verokannan laskemisella
+        EU-maiden painotetun n. 7 %:n keskiarvon tasolle, valtio ja kunnat menettäisivät
+        verotuloja enimmillään noin 400 miljoonaa euroa. Tästä menetyksestä osa korvautuisi
+        sosiaali- ja terveyspuolen kulujen alentumisella.\r\n5.\tBudjetinvaje paikattavissa
+        ilman kansalaisten ostovoiman merkittävää alentumista\r\nElintarvikkeiden
+        arvonlisäverokannan alentumisesta johtuva valtion em. noin 400 miljoonan budjettivaje
+        voidaan ja tulee korvata siten, että osinkotuloista poistetaan ns. 30 %:n
+        verova-paa osuus. Toimenpiteellä valtion verotulot kasvaisivat vuositasolla
+        n. 600 - 700 milj. euroa taholta jolla ei olisi merkittävää vaikutusta työllistävään
+        kulutuskysyntään. Nyt pörssiosak-keiden todellinen veroaste on n. 19 % ja
+        kaikkien osinkotulojen n. 14 %.\r\n6.\tALV -kannan alentamisella terveysvaikutus\r\nElintarvikkeiden
+        arvonlisäverokannan alentaminen elintarvikkeiden hinnanalentumisen joh-dosta
+        mahdollistaisi monen kansalaisen ostokäyttäytymisen muuttumisen terveellisempiin
+        ruokatottumuksiin ja täten vaikuttaisi pitkällä aikavälillä positiivisesti
+        myös kansanterveyteen ja siitä johtuvaan terveys- ja sairaanhoitokulujen alentumiseen.
+        Sama em. terveysvaikutus on sillä, että taloudellisesti ahtaimmalla olevien
+        huoli huomisesta hieman kevenee.","sv":null},"initiators":[{"firstNames":"Heikki
+        Eemeli","lastName":"Häyrynen","homeMunicipality":{"fi":"Nivala","sv":"Nivala"}}],"representatives":[{"firstNames":"Heikki
+        Eemeli","lastName":"Häyrynen","homeMunicipality":{"fi":"Nivala","sv":"Nivala"},"contactInfo":{"email":"hente  kotinet
+        com","phone":"050-5622892","address":"Laitapuhto 4 85500 Nivala"}}],"reserves":[{"firstNames":"Pekka
+        Sakari","lastName":"Pääkkö","homeMunicipality":{"fi":"Nivala","sv":"Nivala"},"contactInfo":{"email":"pekka
+        paakko  nivala fi","phone":"050 439 2919","address":"Pekka Pääkkö\r\nPääköntie
+        120\r\n85630   Sarjanahde"}}],"totalSupportCount":176}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:08 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/13
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:07 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:07 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/13","modified":"2012-12-12T07:41:11+02:00","state":"ACCEPTED","stateDate":"2012-12-12T07:41:11+02:00","acceptanceIdentifier":"13/52/2012","supportCount":483,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Laki
+        autoverolain kumoamisesta","sv":null},"startDate":"2012-12-05","endDate":"2013-06-05","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://www.finlex.fi/fi/laki/ajantasa/1994/19941482","label":"Autoverolaki"},{"uri":"https://www.facebook.com/groups/206392759457805/","label":"Aloitteen
+        Facebook-ryhmä"}],"proposal":{"fi":"Laki autoverolain kumoamisesta\r\n\r\nEduskunnan
+        päätöksen mukaisesti säädetään:\r\n\r\n1 §\r\n\r\nTällä lailla kumotaan 29
+        päivänä joulukuuta\r\n1994 annettu autoverolaki (1482/1994) siihen myöhemmin
+        tehtyine muutoksineen.\r\n\r\n2 §\r\n\r\nTämä laki tulee voimaan __ päivänä
+        ____ kuuta 201_.","sv":null},"rationale":{"fi":"Autoverolaki otettiin käyttöön
+        vuonna 1958 väliaikaisena, kuitenkaan tämä väliaikaisuus ei ole päättynyt
+        54 vuoden aikana kertaakaan. On siis aika luopua tästä vanhanaikaisesta väliaikaisesta
+        verosta viimein ja siirtyä nykyaikaan.\r\n\r\nTämänkaltaiset lait, kuten autoverolaki,
+        hidastavat nykyaikaisen yhteiskunnan kehitystä sekä heikentävät kansallista
+        kilpailukykyä, kansalaiset tarvitsevat ajoneuvoja päästäkseen töihin ja kun
+        ajoneuvon hinnassa on jopa puolet veroa, syntyy näin ollen myös tarve palkankorotuksille,
+        sen takia ettei ole varaa hankkia autoja millä kulkea töissä. Jotkut onnekkaat
+        asuvat kaupunkien keskustoissa lähellä työpaikkaa tai suurimmissa kaupungeissa
+        missä julkinen liikenne toimii, mutta hyvin moni kansalainen joutuu käyttämään
+        omaa kulkuneuvoa päästäkseen töihin, usein itsestään riippumattomista syistä.
+        \r\n\r\nSuomen ajoneuvokanta on autoverosta johtuen Euroopan vanhimmasta päästä.
+        Suomi on maa jossa välimatkat ovat pitkiä, puolet vuodesta ajetaan pimeydessä,
+        jään ja lumen keskellä, haastavissa ja vaarallisissa olosuhteissa. Vanhojen
+        autojen turvarakenteet ja ajo-ominaisuudet eivät olleet uutenakaan sillä tasolla
+        mitä nykyisissä autoissa on käytettyinä, tällä hetkellä vanhat autot kulutetaan
+        ajamalla teknisesti loppuun, eivätkä ajo-ominaisuudet ja rakenteet ole enää
+        vanhemmissa autoissa kovinkaan hyvässä kunnossa katsastuksesta huolimatta.  \r\n\r\nJokainen
+        liikenteessä menetetty henki näkyy myös kansantaloudessa, sen lisäksi hyvin
+        moni loukkaantuu vakavasti, jopa menettää työkykynsä pysyvästi.\r\n\r\nUudet
+        ajoneuvot ovat myös energiataloudellisempia sekä ympäristöystävällisempiä
+        kehittyneemmän tekniikan myötä. \r\n\r\nViranomaisille veron poistamisesta
+        olisi hyötyä, esimerkiksi tullilla olisi enemmän käytettävissä aikaa muihin
+        toimiin autoveropäätösten tekemisen sijaan.\r\nPoliisien määrärahat riittäisivät
+        paremmin muuhun, kun hankittavista ajoneuvoista puuttuisi autoveron osuus,
+        autovero tällä hetkellä peritään myös poliisiautoista ja -moottoripyöristä,
+        säästetyllä rahamäärällä pystyttäisiin pitämään useampia poliisivirkoja nykyiseen
+        verrattuna, se puolestaan toisi lisää työpaikkoja sekä turvallisuutta.\r\nMyös
+        hallinto-oikeuksien työtaakka vähenee, kun autoverovalituksia ei enää tulisi
+        käsiteltäväksi.\r\n\r\nKaiken lisäksi myös autokaupan huono tilanne parantuisi
+        talouden taantuman aikana kun ajoneuvoista perittäisiin verottoman hinnan
+        lisäksi ainoastaan arvonlisävero, nykyisen arvonlisäveron sekä autoveron sijaan.\r\nTällähetkellä
+        kotimainen autokauppa on niin hiljaista autoverosta johtuen, ettei se juurikaan
+        tuota verotuloja, ilman autoveroa autokaupan tuottama arvonlisäveron määrä
+        olisi jo hyvä tulonlähde valtion budjettiin, varsin helposti suurempana määränä
+        mitä tällähetkellä autokauppa tuottaa valtiolle autoveron muodossa.\r\n\r\nNäistä
+        syistä johtuen autoverolaki pitää lakkauttaa. \r\n\r\nTavoitteenamme on kehitystä
+        hidastavan ja yksilöitä sekä yrityksiä ja yhteisöjä kohtaan vahingollisen
+        autoveron lakkauttaminen. \r\nTässä aloitteessa siihen pyritään kumoamalla
+        autoverolaki.","sv":null},"initiators":[{"firstNames":"Jarno Mikael","lastName":"Siivola","homeMunicipality":{"fi":"Rovaniemi","sv":"Rovaniemi"}}],"representatives":[{"firstNames":"Jarno
+        Mikael","lastName":"Siivola","homeMunicipality":{"fi":"Rovaniemi","sv":"Rovaniemi"},"contactInfo":{"email":"jarno
+        siivola  gmail com","phone":null,"address":null}}],"reserves":[{"firstNames":"Sini
+        Anisa Tellervo","lastName":"Haaksiluoto","homeMunicipality":{"fi":"Oulu","sv":"Uleåborg"},"contactInfo":{"email":"haaksiluoto  gmail
+        com","phone":null,"address":null}},{"firstNames":"Raine Einari","lastName":"Ollila","homeMunicipality":{"fi":"Tornio","sv":"Torneå"},"contactInfo":{"email":"raine
+        ollila  gmail com","phone":null,"address":null}}],"totalSupportCount":483}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:08 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/6
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:08 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:08 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/6","modified":"2012-12-18T13:57:41+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:58:43+02:00","acceptanceIdentifier":"OM
+        6/52/2012","supportCount":1269,"sentSupportCount":0,"externalSupportCount":4,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Vallan
+        uusjako - sitovat kansanäänestykset käyttöön","sv":null},"startDate":"2012-12-04","endDate":"2013-06-04","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://www.suorademokratia.fi","label":"Vallan
+        uusjako – sitovat kansanäänestykset käyttöön"}],"proposal":{"fi":"Perustuslain
+        2 § 1 momentti on nyt säädetty seuraavasti:\r\n\r\n”Valtiovalta Suomessa kuuluu
+        kansalle, jota edustaa valtiopäiville kokoontunut eduskunta.”\r\n\r\nPerustuslain
+        53 § 3 momentti kansalaisaloitteesta puolestaan kuuluu:\r\n\r\n”Vähintään
+        viidelläkymmenellätuhannella äänioikeutetulla Suomen kansalaisella on oikeus
+        tehdä eduskunnalle aloite lain säätämiseksi sen mukaan kuin lailla säädetään.”\r\n\r\nNämä
+        perustuslain kohdat tulee mahdollisimman pikaisesti muuttaa muotoon:\r\n\r\n2
+        § 1 mom ”Valtiovalta Suomessa kuuluu kansalle, joka käyttää valtaansa sitovien
+        kansanäänestysten kautta sekä valtiopäiville kokoontuneen eduskunnan edustuksella.”\r\n\r\n53
+        § 3 mom \"Vähintään viidelläkymmenellätuhannella äänioikeutetulla Suomen kansalaisella
+        on oikeus tehdä aloite lain säätämiseksi ja viedä se päättäjiä sitovaan kansanäänestykseen
+        tai eduskunnan käsiteltäväksi sen mukaan kuin lailla säädetään.\"","sv":null},"rationale":{"fi":"Kansalaisten
+        mahdollisuus tehdä lakialoitteita kansalaisaloitteen muodossa on oikeansuuntainen
+        uudistus, mutta demokratiaa se ei käytännössä lisää, sillä eduskunta ei todennäköisesti
+        tule hyväksymään sellaisia aloitteita, jotka se olisi voinut itsekin ottaa
+        käsittelyyn jo vuosia sitten, mutta ei ole halunnut.\r\n\r\nDemokratia ei
+        toteudu myöskään silloin, jos eduskunta hyväksyy jonkin aloitteen siksi, että
+        50000 kansalaista on sitä kannattanut. Tällöinhän äänioikeutettujen enemmistöltä
+        ei ole kysytty heidän kantaansa asiaan.\r\n\r\nSiksi kansalaisaloitteen vireillepanijalla
+        tulee olla oikeus määritellä aloitetta tehdessään, haluaako hän viedä sen
+        päättäjiä sitovaan kansanäänestykseen vai eduskunnan päätettäväksi.","sv":null},"initiators":[{"firstNames":"Heidi
+        Marjukka","lastName":"Kaakkola","homeMunicipality":{"fi":"Nummi-Pusula","sv":"Nummi-Pusula"}}],"representatives":[{"firstNames":"Heidi
+        Marjukka","lastName":"Kaakkola","homeMunicipality":{"fi":"Nummi-Pusula","sv":"Nummi-Pusula"},"contactInfo":{"email":"marjukka
+        kaakkola  gmail com","phone":"0405076728","address":null}}],"reserves":[{"firstNames":"Antti
+        Jaakko Jalmari","lastName":"Pesonen","homeMunicipality":{"fi":"Alajärvi","sv":"Alajärvi"},"contactInfo":{"email":"antti
+        pesonen  ipu fi","phone":"0400565366","address":null}}],"totalSupportCount":1273}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:09 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:08 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:08 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/5","modified":"2012-12-17T13:26:14+02:00","state":"ACCEPTED","stateDate":"2012-12-05T15:16:25+02:00","acceptanceIdentifier":"OM
+        8/52/2012","supportCount":617,"sentSupportCount":0,"externalSupportCount":8297,"verifiedSupportCount":0,"verified":null,"name":{"fi":"ENERGIAJUOMAT
+        K16 - Kansalaisaloite energiajuomien myynnin kieltämisestä alle 16-vuotiaille","sv":"ENERGIDRYCKER
+        F-16 - Medborgarinitiativ för förbud mot försäljning av energidrycker till
+        personer under 16 år"},"startDate":"2012-09-03","endDate":"2013-03-03","proposalType":"LAW","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":true,"supportStatementsRemoved":null,"links":[{"uri":"http://www.energidryckerf16.fi","label":"energidryckerf16"},{"uri":"http://energiajuomat_k16.fi","label":"energiajuomat_f16"},{"uri":"http://www.hemochskola.fi","label":"Förbundet
+        Hem och Skola"},{"uri":"http://www.vanhempainliitto.fi","label":"Suomen vanhempainliitto"}],"proposal":{"fi":"Lakialoite
+        elintarvikelain muuttamisesta seuraavasti:\r\nLisätään elintarvikelakiin (23/2006)
+        uusi 10 a § ja 79 §:n 2 momenttiin uusi 8 kohta seuraavasti:\r\n\r\n10 a §
+        Vähittäismyyntikiellot\r\nLisättyä sokeria tai muuta makeutusainetta sisältävää
+        hiilihapotettua juomaa, joka sisältää kofeiinia enemmän kuin 130 mg litrassa,
+        ei saa myydä henkilölle, joka on kuuttatoista vuotta nuorempi.\r\n\r\n79 §
+        Rangaistussäännökset\r\n---\r\nJoka tahallaan tai huolimattomuudesta\r\n---\r\n8)
+        rikkoo 10 a §:ssä säädettyä myyntikieltoa on tuomittava, jollei teosta muualla
+        laissa säädetä ankarampaa rangaistusta, elintarvikerikkomuksesta sakkoon.","sv":"I
+        initiativet föreslås att livsmedelslagen (23/2006) ändras på följande sätt:
+        Till livsmedelslagen fogas en ny 10 a § och en ny punkt 8 i 79 § 2 momentet.\r\n\r\n10
+        a § Detaljhandelsförbud\r\nKolsyrad dryck som innehåller tillsatt socker eller
+        annat sötningsmedel och som innehåller mer koffein än 130 mg per liter får
+        inte säljas till en person som inte har fyllt 16 år.\r\n\r\n79 § Straffbestämmelser\r\n---\r\nDen
+        som uppsåtligen eller av oaktsamhet\r\n---\r\n8) bryter mot det förbud mot
+        försäljning som stadgas i 10 a § skall, om inte strängare straff för gärningen
+        föreskrivs någon annanstans i lag, för livsmedelsförseelse dömas till böter."},"rationale":{"fi":"Lapsille
+        energiajuomia ei suositella niiden kofeiinipitoisuuden vuoksi. Pienikin kofeiinimäärä
+        voi aiheuttaa lapselle haitallisia vaikutuksia. Suomessa energiajuomia kuitenkin
+        markkinoidaan voimallisesti lapsille ja nuorille.\r\n\r\nEnergiajuomat vaikuttavat
+        lapsen ja nuoren koko päivärytmiin heikentämällä unen laatua ja määrää. Energiajuomilla
+        on lisäksi vaikutusta terveelliseen ruokailuun. Siemailutyyppinen nauttiminen
+        aiheuttaa lisäksi hampaiden reikiintymistä ja eroosiota.\r\n\r\nSuomessa vanhempien
+        ja opettajien arkikokemukset tukevat energiajuomien myynnin rajoittamista.
+        Lisäksi monet vanhemmat ovat huolestuneita energiajuomien linkittämisestä
+        siidereihin ja lonkeroihin. Toiset energiajuomatölkit muistuttavat ulkonäöltäänkin
+        lonkero- ja siideritölkkejä.","sv":"Energidrycker är inte lämpliga för barn
+        på grund av deras koffeinhalt. En liten dos koffein kan förorsaka skadeverkningar
+        för barn. I Finland riktas marknadsföringen av dryckerna ändå tydligt till
+        barn och unga.\r\n\r\nSömnens mängd och kvalitet påverkas lätt hos ett barn
+        eller en ungdom så att hela dygnsrytmen ruckas. Då man tar sig en klunk energidryck
+        nu och då leder det också till karies och erosionsskador på tänderna.\r\n\r\nEnergidrycker
+        lämpar sig inte för barn och de hör inte hemma i en hälsosam kost.\r\nFöräldrars
+        och lärares erfarenheter i vardagen stöder tanken att begränsa försäljningen
+        av energidrycker. Många föräldrar är också oroade över att energidrycker kopplas
+        ihop med sider och long drinks. Energidrycker banar väg för alkoholanvändning
+        och alkoholreklam.\r\n\r\nI konsumentlagstiftningen är minderåriga i en särställning
+        då de är mera mottagliga för reklam. I reklamer utlovas unga nya krafter och
+        en uppiggande verkan. Undersökningar visar att var tredje elev i åk 7 och
+        9 är trött under minst fyra skolmorgnar i veckan. (Källa: Peruskoulun 5.,
+        7. ja 9. luokan oppilaiden koulukokemukset ja koettu terveys, 2008, Opetushallitus,
+        Terveyden edistämisen tutkimuskeskus)."},"initiators":[{"firstNames":"Tuomas
+        Paavo","lastName":"Kurttila","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"}},{"firstNames":"Micaela
+        Charlotta","lastName":"Romantschuk-Pietilä","homeMunicipality":{"fi":"Sipoo","sv":"Sibbo"}}],"representatives":[{"firstNames":"Tuomas
+        Paavo","lastName":"Kurttila","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"Tuomas
+        kurttila  vanhempainliitto fi","phone":"050 544 3757","address":"Mariankatu
+        28 B 5, 00170 Helsinki"}}],"reserves":[{"firstNames":"Micaela Charlotta","lastName":"Romantschuk-Pietilä","homeMunicipality":{"fi":"Sipoo","sv":"Sibbo"},"contactInfo":{"email":"micaela  hemochskola
+        fi","phone":"050-3362016","address":"Förbundet Hem och Skola Nylandsgatan
+        17 D 00120 Helsingfors"}}],"totalSupportCount":8914}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:09 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:08 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:08 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/3","modified":"2012-12-03T18:34:49+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:53:28+02:00","acceptanceIdentifier":"OM
+        4/52/2012","supportCount":1519,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Kesäajasta
+        luopuminen","sv":null},"startDate":"2012-12-03","endDate":"2013-06-03","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":false,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://www.finlex.fi/fi/laki/alkup/2001/20010753","label":"Valtioneuvoston
+        asetus kesäajasta"},{"uri":"http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32000L0084:FI:NOT","label":"Euroopan
+        parlamentin ja neuvoston direktiivi 2000/84/EY, annettu 19 päivänä tammikuuta
+        2001, kesäaikasäännöksistä"},{"uri":"http://www.ktl.fi/portal/suomi/pressihuone/lehdistotiedotteet?bid=2498","label":"Kansanterveyslaitoksen
+        tiedote unirytmin häiriöistä"},{"uri":"http://www.thl.fi/fi_FI/web/fi/uutinen?id=31378","label":"THL:n
+        tiedote unirytmistä"},{"uri":"http://www.nejm.org/doi/full/10.1056/NEJMc0807104","label":"Ruotsalainen
+        tutkimus sydänkohtausriskin kasvamisesta kesäaikaan siirryttäessä"},{"uri":"http://www.tiede.fi/artikkeli/845/onko_kesaajassa_jarkea_","label":"Tiede-lehden
+        artikkeli kesäajasta; sisältää Fingridin edustajan lausunnon energiankulutuksesta"}],"proposal":{"fi":"Eduskunta
+        kumotkoon valtioneuvoston asetuksen kesäajasta (753/2001) ja säätäköön lain,
+        joka kieltää vastaavien asetusten antamisen jatkossa.\r\n\r\nLisäksi eduskunta
+        sanoutukoon irti direktiivistä kesäaikasäännöksistä (2000/84/EY)","sv":null},"rationale":{"fi":"Kaksi
+        kertaa vuodessa toistuva kellojen siirto aiheuttaa useita selkeitä haittoja.
+        Ihmisen sisäinen kello voi mennä sekaisin jopa useiden viikkojen ajaksi kellojen
+        siirron jälkeen, mikä aiheuttaa unihäiriöitä ja väsymystiloja.\r\n\r\nKellojen
+        siirto altistaa myös aikatauluvirheille, kuten voidaan havaita esimerkiksi
+        usein toistuvista uutisista milloin minkin valmistajan kännyköiden sekoilevista
+        kelloista. Kellojen siirrosta johtuviin aikatauluongelmiin  varautumiseen
+        joudutaan käyttämään työaikaa, mikä aiheuttaa yrityksille turhia kustannuksia.\r\n\r\nKesäaikaan
+        siirtymisen hyödyt sen sijaan ovat minimaaliset. Usein kesäaikaa perustellaan
+        energiansäästösyillä, mutta tutkimustulokset eivät tue merkittävien säästöjen
+        saamista tällä keinolla.\r\n\r\nLisäksi Suomessa kesät ovat niin valoisia,
+        että mahdollisista hyödyistä voidaan nauttia vain vajaan kuukauden ajan keväällä
+        ja syksyllä. Kesällä on joka tapauksessa niin valoisaa, että kesä- ja normaaliajalla
+        ei ole merkittävää eroa.\r\n\r\nNäistä syistä johtuen kesäajasta aiheutuva
+        kellojen siirtäminen pitäisi lopettaa.\r\n\r\nTavoitteenamme on turhan ja
+        vahingollisen kellojen siirtelyn lopettaminen. Tässä aloitteessa siihen pyritään
+        kumoamalla kesäaika-asetus. Keskustelu \"pysyvästä kesäajasta\", eli siirtymisestä
+        toiseen aikavyöhykkeeseen, voidaan käydä sitten erikseen.","sv":null},"initiators":[{"firstNames":"Lasse
+        Markus","lastName":"Rasinen","homeMunicipality":{"fi":"Espoo","sv":"Esbo"}},{"firstNames":"Heli
+        Maria","lastName":"Pykälä","homeMunicipality":{"fi":"Espoo","sv":"Esbo"}}],"representatives":[{"firstNames":"Lasse
+        Markus","lastName":"Rasinen","homeMunicipality":{"fi":"Espoo","sv":"Esbo"},"contactInfo":{"email":"lrasinen  iki
+        fi","phone":"040-7217999","address":null}}],"reserves":[{"firstNames":"Heli
+        Maria","lastName":"Pykälä","homeMunicipality":{"fi":"Espoo","sv":"Esbo"},"contactInfo":{"email":"hpykala  iki
+        fi","phone":"050 5885898","address":null}}],"totalSupportCount":1519}'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:09 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives?limit=5&offset=10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2012 12:29:09 GMT
+      Expires:
+      - Wed, 19 Dec 2012 12:34:09 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '[{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/2","modified":"2012-12-10T21:04:57+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:55:25+02:00","acceptanceIdentifier":"OM
+        5/52/2012","supportCount":216,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Huostaanotettujen
+        oikeudet inhimilliseen elämään","sv":null},"startDate":"2012-12-01","endDate":"2013-06-01","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"totalSupportCount":216}]'
+    http_version: !!null 
+  recorded_at: Wed, 19 Dec 2012 12:29:10 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 20 Dec 2012 13:42:51 GMT
+      Expires:
+      - Thu, 20 Dec 2012 13:47:51 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: ! '{"id":"https://www.kansalaisaloite.fi/api/v1/initiatives/2","modified":"2012-12-10T21:04:57+02:00","state":"ACCEPTED","stateDate":"2012-12-03T11:55:25+02:00","acceptanceIdentifier":"OM
+        5/52/2012","supportCount":218,"sentSupportCount":0,"externalSupportCount":0,"verifiedSupportCount":0,"verified":null,"name":{"fi":"Huostaanotettujen
+        oikeudet inhimilliseen elämään","sv":null},"startDate":"2012-12-01","endDate":"2013-06-01","proposalType":"PREPARATION","primaryLanguage":"fi","financialSupport":false,"financialSupportURL":null,"supportStatementsOnPaper":true,"supportStatementsInWeb":false,"supportStatementsRemoved":null,"links":[{"uri":"http://huosta-aloite.blogspot.fi","label":"Aloitteen
+        kotisivu"},{"uri":"http://www.taloussanomat.fi/ihmiset/2012/06/16/lapsibisnesta-ei-valvo-kukaan/201231577/137","label":"Taloussanomien
+        artikkeli lastensuojelun bisneksestä"},{"uri":"http://www.helsinginuutiset.fi/artikkeli/114782-valtion-tukea-arvostellaan-kannustaa-huostaanottoihin","label":"Helsingin
+        uutiset: Valtion tukea arvostellaan: kannustaa huostaanottoihin"},{"uri":"http://suomenkuvalehti.fi/jutut/kotimaa/hukassa-huostassa","label":"Suomen
+        Kuvalehden artikkeli lastensuojelun epäkohdista"}],"proposal":{"fi":"Seuraavat
+        asiat pitäisi taata lailla:\r\n- Lastensuojelukertoimelle katto eli kunta
+        ei saa valtiolta huostaanotoista yhtään sen enempää takaisin rahaa kuin huostaanotto
+        maksaa.\r\n- Sosiaalityöntekijöiden tulospalkkaus huostaanottojen ja lastensuojeluilmoitusten
+        perusteella on lopetettava.\r\n- Sosiaalietuuksia joita huostaanotettu saa
+        ei saa periä huostaanoton kustannuksiin vaan ne on ohjattava nuoren itsenäistymisvaroihin
+        tai pankkitilille lyhentämättömänä.\r\n- Mahdollisuus nimettömien lastensuojeluilmoitusten
+        tekoon on poistettava (perheelle ei välttämättä anneta ilmoitusta tietoon,
+        mutta poliisille ilmoitetaan)\r\n- Perättömät lastensuojeluilmoitukset sakollisiksi
+        (esim. kiusaamistarkoituksessa tehdyt)\r\n- Perheille ehdoton mahdollisuus
+        kodinhoitajaan\r\n- Aluehallintovirastolle, eduskunnan oikeusasiamiehelle,
+        valtioneuvoston oikeuskanslerille sekä Valviralle mahdollisuus määrätä lakia
+        rikkonut lastensuojelulaitos, sosiaalitoimi tai sosiaaliviranomainen maksamaan
+        korvauksia asianosaiselle / asianosaisille.\r\n\r\nSäästyneillä varoilla valtio:\r\n-
+        Takaisi jokaiselle huostaanotetulle nuorelle 500 euroa kuussa lyhentämättömänä
+        sosiaalitoimen itsenäistymisvaroihin koko huostaanoton ajan (tämä tuki ei
+        vaikuttaisi muihin etuuksiin tai palkkaan).\r\n- Takaisi huostaanoton päätyttyä
+        10 vuoden ajan jokaiselle huostaanotetulle 500 euroa kuussa ylimääräisenä
+        sosiaalietuutena (tämä tuki ei vaikuttaisi muihin etuuksiin tai palkkaan).","sv":null},"rationale":{"fi":"Iso
+        osa nuorista, jotka jäävät työkyvyttömyyseläkkeelle ovat huostaanotettuja.\r\nLaitoksesta
+        laitokseen, osastolta osastolle ja lopulta työkyvyttömyyseläkkeelle.\r\nSen
+        sijaan, että nuori jäisi lopullisesti työkyvyttömyyseläkkeelle, hän voisi
+        keskittyä opiskeluun ja sijoittua yhteiskuntaan. \r\n\r\nKorkeimmat vuorokausimaksut
+        ovat satoja euroja vuorokaudessa.\r\nPörssiyhtiöt laajentavat toimintaansa
+        lastensuojeluun. Tämä on huolestuttavaa.\r\nSijoitusyhtiöt ovat kiinnostuneet
+        / ostavat yksityisiä lastensuojelulaitoksia.\r\nHuostaanotot menevät koko
+        ajan enemmän markkinoiden armoille ja veroparatiisiyhtiöt ovat kiinnostuneet
+        lastensuojelusta sekä sijoittavat siihen.\r\n\r\nLapsia ja nuoria otetaan
+        paljon perusteettomasti ja lainvastaisin menettelyvirhein huostaan esim. häiriökäyttäytymisen,
+        kouluvaikeuksien tai lapsen / nuoren diagnoosin vuoksi (esim. ADHD, Asperger
+        tai jopa leukemia). Huostaanottoja ennalta ehkäiseviin toimenpiteisiin on
+        panostettava.\r\nMonet lapsen tai nuoren ongelmat olisivat hoidettavissa avohuollon
+        toimenpiteillä esim. kodinhoitaja, terapiat tai psykologi.\r\n\r\nMonissa
+        lastensuojelulaitoksissa ei noudateta lain vaatimia muodollisuuksia esim.
+        muutoksenhakumenettely tavaroita takavarikoitaessa eli ei anneta valituskelpoisia
+        päätöksiä huostaanotetulle tiedoksi saati tehdä kyseisiä päätöksiä. Nämä lakitekniset
+        asiat ovat tietysti aika pitkälti muodollisuuksia, mutta kyllä niitä tulisi
+        jokaisen laitoksen noudattaa.\r\n\r\n\r\nItsenäiseen elämään, opiskeluun ja
+        työntekoon on tuettava\r\n\r\n\r\nMoni huostaanotettu, jonka pitäisi itsenäistyä
+        siirretään monesti mielenterveyskuntoutujien kuntoutuskotiin, koska ei ole
+        valmiuksia itsenäiseen elämään. Moni huostaanotettu ja mielenterveyspotilas
+        jää työkyvyttömyyseläkkeelle. Huostaanotetuille ei ole edes kertynyt ansioeläkettä
+        ennen työkyvyttömyyseläkkeelle jäämistä. Tämä tarkoittaa Kelan työkyvyttömyyseläkettä,
+        joka on aika pieni. Vaarana on myös, ettei ansioeläkettä kerry tarpeeksi tai
+        pahimmassa tapauksessa ei ollenkaan.\r\n\r\nLaitosnuoria täytyy tukea itsenäiseen
+        elämään, opiskeluun ja työntekoon. Sama koskee myös aikuisia. Yhteiskunnan
+        ulkopuolelle jääminen on kelle tahansa nuorelle ja monelle aikuisellekin hirveä
+        menetys. Yksityisten lastensuojelulaitosten keskeisimpänä ongelmana on voiton
+        maksimointi sen sijaan, että panostettaisiin täysillä nuorten hyvinvointiin
+        ja normaaliin elämään sijoittumiseen.\r\n\r\nKustannukset ovat suuria. Yksi
+        syrjäytynyt nuori maksaa yhteiskunnalle keskimäärin miljoona euroa. Työkyvyttömyyseläkkeelle
+        pelkästään mielenterveydenhäiriön perusteella jää viisi nuorta joka päivä.","sv":null},"initiators":[{"firstNames":"Henri
+        Sakari","lastName":"Autero","homeMunicipality":{"fi":"Vaasa","sv":"Vasa"}}],"representatives":[{"firstNames":"Henri
+        Sakari","lastName":"Autero","homeMunicipality":{"fi":"Vaasa","sv":"Vasa"},"contactInfo":{"email":"hsa  hotmail
+        fi","phone":"0453596027","address":"Pitkäkatu 62 A 2-3, 65100 Vaasa"}},{"firstNames":"Herkku
+        Mauri Tapio","lastName":"Hernesniemi","homeMunicipality":{"fi":"Nokia","sv":"Nokia"},"contactInfo":{"email":"herkku  herkku
+        com","phone":"0407045880","address":"Eetinkatu 4 A 27\r\n37100 Nokia"}},{"firstNames":"Carita
+        Terhi Tuulikki","lastName":"Kujanpää","homeMunicipality":{"fi":"Honkajoki","sv":"Honkajoki"},"contactInfo":{"email":"carita
+        kujanpaa  gmail com","phone":"0406722440","address":"Lääkärintie 9\r\n38950
+        Honkajoki"}},{"firstNames":"Minna Annikki","lastName":"Ekman","homeMunicipality":{"fi":"Inkoo","sv":"Ingå"},"contactInfo":{"email":"ekmanminna  yahoo
+        fi","phone":"0440660911","address":"Mäntytie 12 A 3, 10210 Inkoo"}}],"reserves":[{"firstNames":"Harri
+        Juhani","lastName":"Nieminen","homeMunicipality":{"fi":"Hämeenlinna","sv":"Tavastehus"},"contactInfo":{"email":"harrijuhaninieminen  gmail
+        com","phone":"040-7751510","address":"Harakkamäki 4 a 12\r\n13210 HÄMEENLINNA"}},{"firstNames":"Heidi
+        Irene","lastName":"Martikainen","homeMunicipality":{"fi":"Helsinki","sv":"Helsingfors"},"contactInfo":{"email":"heidi
+        martikainen  webinfo fi","phone":null,"address":"Vilppulantie 26 F 77 \r\n00700
+        Helsinki"}},{"firstNames":"Hely Virve Irene","lastName":"Harvistola","homeMunicipality":{"fi":"Kerimäki","sv":"Kerimäki"},"contactInfo":{"email":"hely
+        h  suomi24 fi","phone":"0404801716","address":"kurkikallio 3 58430  kulennoinen"}}],"totalSupportCount":218}'
+    http_version: !!null 
+  recorded_at: Thu, 20 Dec 2012 13:42:46 GMT
+- request:
+    method: get
+    uri: https://www.kansalaisaloite.fi/api/v1/initiatives?limit=5&offset=15
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 20 Dec 2012 13:42:51 GMT
+      Expires:
+      - Thu, 20 Dec 2012 13:47:51 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: US-ASCII
+      string: ! '[]'
+    http_version: !!null 
+  recorded_at: Thu, 20 Dec 2012 13:42:47 GMT
+recorded_with: VCR 2.3.0

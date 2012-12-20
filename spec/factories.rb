@@ -30,6 +30,12 @@ FactoryGirl.define do
     association :profile, factory: :profile
   end
 
+  factory :author_kansalaisaloite, :parent => :citizen do
+     email 'external@kansalaisaloite.fi'
+     first_name 'External'
+     last_name 'Kansalaisaloite'
+  end
+
   factory :authentication do |a|
     provider 'facebook'
     uid '1234567'
