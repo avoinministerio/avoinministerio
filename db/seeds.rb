@@ -16,6 +16,10 @@ Administrator.find_or_create_by_email({
 })
 
 [
+  { email: "external@kansalaisaloite.fi",
+    password: "external1", password_confirmation: "external1", remember_me: true,
+    profile_attributes: {first_names: "Ex", first_name: "External", last_name: "Kansalaisaloite",
+    name: "External Kansalaisaloite"} },
   { email: "joonas@pekkanen.com",
     password: "joonas1", password_confirmation: "joonas1", remember_me: true,
     profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
@@ -85,7 +89,7 @@ Yleisperustelut
 1. Valmisteluvaiheet
     - Esitys valmistellaan Avoimessa ministeriössä yhteistyössä avoimesti ja osallistavasti kansalaisaloitteena. Luonnos julkaistaan avointa kommentointia varten 1.3.2011 Avoimen ministeriön nettisivuilla, jossa sen puolesta ja vastaan voivat kansalaiset jättää tuenilmaisunsa. Kansalaispalautteen ja lausuntojen perusteella tästä luonnoksesta muokataan lopullinen lakiehdotuksen muodossa oleva kansalaisaloite, jolle pyritään keräämään 50,000 virallista tuenilmaisua vuoden 2012 aikana.
 2. Lausunnot ja niiden huomioon ottaminen
-    - Koiraveron kumoamisesta pyydetään lausunnot Kennelliitolta ja Kuntaliitolta sekä toivotetaan lausunnot muilta tahoilta tervetulleiksi. (tähän yhteenvedot eri lausunnoista) 
+    - Koiraveron kumoamisesta pyydetään lausunnot Kennelliitolta ja Kuntaliitolta sekä toivotetaan lausunnot muilta tahoilta tervetulleiksi. (tähän yhteenvedot eri lausunnoista)
 
 Lakiehdotus
 ========
@@ -115,7 +119,7 @@ Yleisperustelut
 
 Opintotukikuukauden menettämisestä takaisinperinnän yhteydessä säädetään opintotukilain (65/1994) 7 b §:ssä (1099/2000). Lain 7 b §:n 3 momentin mukaan takaisinperintä ei palauta tukikuukautta uudelleen käytettäväksi, ellei takaisinperintä aiheudu virheellisestä maksatuksesta tai 6 §:ssä tarkoitetun etuuden takautuvasta maksatuksesta.
 
-Lukuvuonna 2010/2011 opintorahaa maksettiin 295 tuhannelle ja asumislisää 194 tuhannelle opiskelijalle yhteensä 772 miljoonaa euroa.  Vuoden 2011 keväällä tukia perittiin takaisin 29 294 opiskelijalta vuoden 2010 tulovalvontaan perustuen. Yhteensä tukia perittiin takaisin 36,1 miljoonan euron edestä, josta 31,4 miljoonaa oli tukia ja 15 prosenttia eli 4,7 miljoonaa euroa opiskelijoilta perittäviä rangaistusluonteisia korotusmaksuja. Keskimääräinen takaisinperintä vuonna 2012 on 1232 euroa eli 1071 euroa lisättynä 15 prosentin korotuksella. Keskimäärin takaisinperintä koskee siis kolmea tukikuukautta, kun opintotuki ja asumislisä lukuvuonna 2010/2011 olivat keskimäärin 360 euroa. 
+Lukuvuonna 2010/2011 opintorahaa maksettiin 295 tuhannelle ja asumislisää 194 tuhannelle opiskelijalle yhteensä 772 miljoonaa euroa.  Vuoden 2011 keväällä tukia perittiin takaisin 29 294 opiskelijalta vuoden 2010 tulovalvontaan perustuen. Yhteensä tukia perittiin takaisin 36,1 miljoonan euron edestä, josta 31,4 miljoonaa oli tukia ja 15 prosenttia eli 4,7 miljoonaa euroa opiskelijoilta perittäviä rangaistusluonteisia korotusmaksuja. Keskimääräinen takaisinperintä vuonna 2012 on 1232 euroa eli 1071 euroa lisättynä 15 prosentin korotuksella. Keskimäärin takaisinperintä koskee siis kolmea tukikuukautta, kun opintotuki ja asumislisä lukuvuonna 2010/2011 olivat keskimäärin 360 euroa.
 
 Valmistuvilla opiskeilijoilla jää keskimäärin kaksi opintotukikuukautta käyttämättä heidän valmistuessaan. Onkin oletettavaa, että takaisinperinnän yhteydessä palauttamatta jäävät tukikuukaudet haittaavat ennen kaikkea heikoimmassa asemassa olevia opiskelijoita, joilla ei opiskelujen loppuvaiheessa jää tukikuukausia käyttämättä. Tukikuukausien palauttamatta jättäminen rankaisee kohtuuttomasti myös niitä, jotka ovat huolimattomuudessaan laskeneet tulonsa väärin, ja menettävät pysyvästi tukikuukautensa ilman tarkoitusta väärinkäyttää järjestelmää.
 
@@ -125,7 +129,7 @@ Opintotuen takaisinperinnästä säädetään opintotukilain (65/1994) 27 §:ss�
 
 Nykytilaa on perusteltu 15 prosentin korotuksen ohjaavalla vaikutuksella. Tuen vapaaehtoista palauttamista on pidetty opiskelijalle edullisempana vaihtoehtona kuin tuen takaisinperintä, sillä takaisinperintä ei palauta tukikuukautta uudelleen käytettäväksi ja takaisinperittävään määrään lisätään 15 prosentin korotus. Korotuksen tarkoituksena on ollut osaltaan ohjata opiskelijaa palauttamaan liikaa saatu tuki vapaaehtoisesti määräaikaan mennessä. Korotus on ollut kertaluonteinen eikä takaisinperittävälle määrälle ole kertynyt muuta korkoa. Korotuksen kertaluonteisuuden on perusteltu myös joissain tilanteissa olevan opiskelijan eduksi, kun mahdollisen muutoksenhakuprosessin aikana ei kerry muita maksuja tai korkoja.
 
-Opintotuen takaisinperinnän korotusmaksua ehdotetaan muutettavaksi kiinteästä 15 prosentista normaaliksi viivästyskoroksi. Korkolain (340/2002) mukainen vuosittainen viivästyskorko on ehdotuksen laatimishetkellä 8 prosenttia. 
+Opintotuen takaisinperinnän korotusmaksua ehdotetaan muutettavaksi kiinteästä 15 prosentista normaaliksi viivästyskoroksi. Korkolain (340/2002) mukainen vuosittainen viivästyskorko on ehdotuksen laatimishetkellä 8 prosenttia.
 
 Valtio kerää rangaistusluonteisina korotusmaksuina 4,7 miljoonaa vuodessa takaisinperinnän yhteydessä. Korotusmaksun ohjaavuudesta verratuna normaalin viivästyskoron perimiseen ei ole erityistä näyttöä. Oletus on ollut, että rangaistusluonteisella 15 prosentin korotusmaksulla olisi ennaltaehkäisevä vaikutus opintotukea tahallaan liikaa nostavien opiskelijoiden epätoivottavaan käytökseen. On kuitenin mahdollista, että iso osa liikaa nostetuista tukikuukausista ei johdu tahallisista väärinkäytöksistä, jolloin korotuksen ennaltaehkäisevä rangaistusvaikutus on kyseenalainen tai jopa vahingollinen. Vuonna 2012 yli 5000 opiskelijalle takaisinperintää haetaan ulosoton kautta.
 
@@ -144,7 +148,7 @@ Yhteensä ehdotettujen muutosten  arvioidaan kasvattavan valtion menoja enintä�
 
 #### Vaikutukset opiskeluun ja opiskelijan asemaan
 
-Ehdotetut muutokset parantaisivat opiskelijoiden tilannetta. Ne opiskelijat, joiden tukikuukaudet ovat loppumassa, ovat haavoittuvimmassa asemassa. Ennen kaikkea näiden heikoimmassa tilanteessa olevien opiskelijoiden olevien asema paranisi, kun tukikuukaudet saisi takaisin käyttöön. Tukikuukausien palauttaminen voi osaltaan lyhentää valmistusmisaikoja, kun taloudellisiin vaikeuksiin joutuneita opiskelijoita ei rangaista lisää vaan he voivat suorittaa opintonsa loppuun opintotuen avulla. Takaisinperintään liittyvän kiinteän 15 prosentin koron muuttaminen normaaliksi viivästyskoroksi kohtelisi opiskelijoita tasavertaisesti muiden kansalaisten kanssa ja kannustaisi maksamaan takaisinperittävät tuet takaisin kohtuullisessa ajassa. 
+Ehdotetut muutokset parantaisivat opiskelijoiden tilannetta. Ne opiskelijat, joiden tukikuukaudet ovat loppumassa, ovat haavoittuvimmassa asemassa. Ennen kaikkea näiden heikoimmassa tilanteessa olevien opiskelijoiden olevien asema paranisi, kun tukikuukaudet saisi takaisin käyttöön. Tukikuukausien palauttaminen voi osaltaan lyhentää valmistusmisaikoja, kun taloudellisiin vaikeuksiin joutuneita opiskelijoita ei rangaista lisää vaan he voivat suorittaa opintonsa loppuun opintotuen avulla. Takaisinperintään liittyvän kiinteän 15 prosentin koron muuttaminen normaaliksi viivästyskoroksi kohtelisi opiskelijoita tasavertaisesti muiden kansalaisten kanssa ja kannustaisi maksamaan takaisinperittävät tuet takaisin kohtuullisessa ajassa.
 
 #### Vaikutukset viranomaisten toimintaan
 
@@ -173,7 +177,7 @@ __1. Laki opintotukilain muuttamisesta__
 
 __2. Voimaantulo__
 
-Laki ehdotetaan tulevaksi voimaan 1 päivänä _____kuuta 2012. 
+Laki ehdotetaan tulevaksi voimaan 1 päivänä _____kuuta 2012.
 
 Edellä esitetyn perusteella annetaan Eduskunnan hyväksyttäväksi seuraava lakiehdotus:
 
@@ -198,7 +202,7 @@ _Takaisinperintä_
 
 Opiskelijan omien tulojen perusteella takaisinperittäväksi määrätyn opintorahan ja asumislisän yhteissummalle lasketaan kulloinkin voimassaolevaa korkolain mukaista viivästyskorkoa.
 
-Tämä laki tulee voimaan päivänä kuuta 20__. 
+Tämä laki tulee voimaan päivänä kuuta 20__.
 
 Ennen lain voimaantuloa voidaan ryhtyä lain toimeenpanon edellyttämiin toimiin.
 EOS
@@ -207,14 +211,14 @@ EOS
   {
     title: "Koiraverolain kumoaminen",
     summary: "Koiraverolain kumoaminen",
-    body: koiravero_body,    
-    state: "draft", author: joonas 
+    body: koiravero_body,
+    state: "draft", author: joonas
   },
   {
     title: "Opintorahan takaisinperinnän muuttaminen",
     summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
-    body: opintotuki_body,    
-    state: "draft", author: joonas 
+    body: opintotuki_body,
+    state: "draft", author: joonas
   },
   { title: "Kansanedustajien palkankorotus pannaan",
     summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
@@ -240,9 +244,9 @@ EOS
 
 20.times do |i|
   idea = Idea.create(
-    { title: "Esimerkki-idea #{i}", 
-      summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
-      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
+    { title: "Esimerkki-idea #{i}",
+      summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.",
+      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",
       created_at: Time.now - (60*60*24),
       updated_at: Time.now - (60*60*24),
       })
@@ -267,7 +271,7 @@ voter_count = voters.size
 
 ideas = Idea.find(:all).to_a
 # first idea has 0 votes
-ideas.shift  
+ideas.shift
 # next ideas have only one for and against
 ideas.shift.vote(voters[rand(voter_count)], 0)
 ideas.shift.vote(voters[rand(voter_count)], 1)
@@ -299,7 +303,7 @@ ideas.each do |idea|
 
 	# pick random count of random voters
 	vs = []
-	(0..rand(voter_count)).each do 
+	(0..rand(voter_count)).each do
 		v = voters[rand(voter_count)]
 		while vs.include? v
 			v = voters[rand(voter_count)]
@@ -343,7 +347,7 @@ Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
       ingress:      field(f, "ingress") && read_till(f),
       body:         field(f, "body") && read_till(f),
     }
-    
+
     Article.find_or_create_by_created_at(article)
   end
 end

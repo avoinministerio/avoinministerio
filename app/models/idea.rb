@@ -5,12 +5,14 @@ class Idea < ActiveRecord::Base
   include Tanker
   extend FriendlyId
 
-  VALID_STATES = %w(idea draft proposal law)
+  VALID_STATES = %w(idea draft proposal law external)
 
   MAX_FB_TITLE_LENGTH = 100
   MAX_FB_DESCRIPTION_LENGTH = 500
 
   friendly_id :title, use: :slugged
+
+  serialize :additional_service_data, Hash
 
   attr_accessible   :title, :body, :summary, :state, 
                     :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
