@@ -29,3 +29,9 @@ avoin_ministerio_test
 
 # OS X
 .DS_Store
+
+/notes.txt
+/avoinministeriosublime-project
+/avoinministeriosublime-project.sublime-workspace
+/test1.rb
+

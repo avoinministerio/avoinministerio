@@ -3,7 +3,7 @@
 class PagesController < ApplicationController
 
   def load(state, count)
-    items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+    items = Idea.published.where(state: state).order("RANDOM()").limit(count).includes(:votes).all
     item_counts = {}
 
     items.each do |idea|
@@ -43,16 +43,11 @@ class PagesController < ApplicationController
     # AB-test: is it better to have proposals in their separate section or merge with drafts
     session[:ab_section_count] = rand(2)+1 unless session[:ab_section_count]
     KM.set({"section_count" => "#{session[:ab_section_count]}"})
-    ["proposal_and_draft", "draft", "proposal"].each do |section|
-      3.times do |i| 
-        section_index_link = "ab_section_#{section}_#{i}_link"
-        KM.track(section_index_link, section_index_link)            # track both, which section and which item
-        KM.track(section_index_link, "ab_section_#{section}_link")  # track only which section got the click
-      end
-    end
+    track_sections(["proposal_and_draft", "draft", "proposal"], 3)
+    track_sections(["draft_big"], 6)
 
     # B: two rows of examples:
-    @proposals, @proposals_counts  = load("proposal", 3)
+    @proposals, @proposals_counts  = load("proposal", 6)
     @drafts, @draft_counts        = load("draft",    3)
 
     # A: just one row, both proposals and drafts in it
@@ -136,4 +131,17 @@ class PagesController < ApplicationController
     KM.identify(current_citizen)
     KM.push("record", "front page viewed")
   end
+
+  private
+
+  def track_sections(sections, i)
+    sections.each do |section|
+      i.times do |i|
+        section_index_link = "ab_section_#{section}_#{i}_link"
+        KM.track(section_index_link, section_index_link)            # track both, which section and which item
+        KM.track(section_index_link, "ab_section_#{section}_link")  # track only which section got the click
+      end
+    end
+  end
+
 end
