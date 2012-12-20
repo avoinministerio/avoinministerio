@@ -52,7 +52,7 @@
           )
     .grid_24
       .filtered_title
-        = @filter_name
+        = "#{@filter_name} (#{@ideas.count})"
 .clear
 .ideas.container_24
   - @ideas.each do |idea|
