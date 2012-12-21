@@ -46,6 +46,8 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
+  gem "pg"
+  #gem 'ruby-debug19'
 end
 
 group :production do
@@ -67,7 +69,6 @@ group :test do
   gem "capybara-mechanize"
   gem "timecop"
 
-  gem "sqlite3"
   if ENV["DB"] == "postgres"
     gem "pg"
   end

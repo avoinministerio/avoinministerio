@@ -238,6 +238,7 @@ EOS
     state: "idea", author: random_citizen},
 ].each { |idea| i = Idea.create(idea); i.state = idea[:state]; i.author = idea[:author]; i.save! }
 
+puts "Seeds debug - Begin 20.times Idea.create idea"
 20.times do |i|
   idea = Idea.create(
     { title: "Esimerkki-idea #{i}", 
@@ -250,6 +251,30 @@ EOS
   idea.author = random_citizen
   idea.save!
 end
+puts "Seeds debug - Done 20.times Idea.create idea"
+
+puts "Seeds debug - Begin 20.times Idea.create proposal"
+20.times do |i|
+  idea = Idea.create(
+    { title:                                "Proposal-idea #{i}", 
+      summary:                              "summarysummarysummarysummarysummary.", 
+      body:                                 "bodybodybodybodybodybody.",  
+      created_at:                           Time.now - (60*60*24),
+      updated_at:                           Time.now - (60*60*24),
+      collecting_start_date:                Time.now - (90 - i).days,
+      collecting_end_date:                  Time.now - (30 - i).days,
+      collecting_in_service:                true,
+      collecting_started:                   true,
+      collecting_ended:                     false,
+      target_count:                         3 + i,
+      additional_signatures_count:          2 + i,
+      additional_signatures_count_date:     Time.now - (30 - i).days,
+      state:                                "proposal",
+    })
+  idea.author = random_citizen
+  idea.save!
+end
+puts "Seeds debug - Done 20.times Idea.create proposal"
 
 voters = (0..100).map do |i|
   Citizen.find_or_create_by_email(
@@ -292,6 +317,7 @@ class RandomGaussian
   end
 end
 
+puts "Seeds debug - Begin ideas.each RandomGaussian"
 # the rest should have all kinds of combinations
 secs_per_week = 60*60*24*7
 ideas.each do |idea|
@@ -310,6 +336,7 @@ ideas.each do |idea|
     idea.vote(v, rand(2))
 	end
 end
+puts "Seeds debug - Done ideas.each RandomGaussian"
 
 # let's create some articles
 
@@ -330,6 +357,7 @@ def field(f, name)
 	end
 end
 
+puts "Seeds debug - Begin Dir[ articles/*.md ]"
 Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
   next unless File.file?(name)
   File.open(name) do |f|
@@ -347,3 +375,4 @@ Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
     Article.find_or_create_by_created_at(article)
   end
 end
+puts "Seeds debug - Done Dir[ articles/*.md ]"
