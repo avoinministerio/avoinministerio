@@ -31,6 +31,7 @@ gem "unicorn"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
 gem "rspec-rails", :groups => [ :development, :test ]
 gem 'rb-readline'
+#gem 'libv8', '~> 3.11.8'
 
 group :development do
   gem "rails-erd"
@@ -50,7 +51,6 @@ end
 group :production do
   gem "newrelic_rpm", "3.4.2.1"
   gem "pg"
-  gem "therubyracer-heroku"
 end
 
 group :test do
@@ -80,3 +80,5 @@ group :linux_test do
   gem "therubyracer", :require => false
   gem "libnotify", :require => false
 end
+
+

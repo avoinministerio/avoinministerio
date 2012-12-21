@@ -271,7 +271,7 @@ puts "Seeds debug - Begin 20.times Idea.create proposal"
       additional_signatures_count_date:     Time.now - (30 - i).days,
       state:                                "proposal",
     })
-  idea.author = random_citizen
+  idea.author = random_citizen()
   idea.save!
 end
 puts "Seeds debug - Done 20.times Idea.create proposal"
