@@ -9,7 +9,7 @@ $turquoise: #29abe2;
   color: $main-color; 
 }
 
-.top_drafts, .top_ideas {
+.top_drafts, .top_ideas, .top_proposals {
   h2 {
     //Refactor border to application.css 
     -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
@@ -30,6 +30,13 @@ $turquoise: #29abe2;
   padding-bottom: 10px;
   border-bottom:  10px solid $main-color; 
 }
+
+.top_proposals {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom:  10px solid $main-color;
+}
+
 
 .news, .newsletter {
   padding: 5px;
