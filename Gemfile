@@ -31,7 +31,7 @@ gem "unicorn"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
 gem "rspec-rails", :groups => [ :development, :test ]
 gem 'rb-readline'
-#gem 'libv8', '~> 3.11.8'
+gem 'libv8', '~> 3.11.8'
 
 group :development do
   gem "rails-erd"
