@@ -1,9 +1,6 @@
 source "https://rubygems.org"
 
 gem "rails", "3.1.6"
-
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem "coffee-rails", "~> 3.1.1"
   gem "sass-rails",   "= 3.1.4"
@@ -53,6 +50,7 @@ end
 group :production do
   gem "newrelic_rpm", "3.4.2.1"
   gem "pg"
+  gem "therubyracer-heroku"
 end
 
 group :test do
