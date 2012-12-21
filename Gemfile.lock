@@ -170,7 +170,6 @@ GEM
       xml-simple
     libnotify (0.8.0)
       ffi (>= 1.0.11)
-    libv8 (3.11.8.4)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -265,6 +264,7 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     redcarpet (2.2.2)
+    ref (1.0.2)
     rspec-core (2.12.2)
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
@@ -323,6 +323,8 @@ GEM
       capybara (>= 1.0.0)
       rspec-rails (>= 2.5.0)
     terminal-table (1.4.5)
+    therubyracer (0.11.0)
+      ref
     thor (0.14.6)
     tilt (1.3.3)
     timecop (0.5.5)
@@ -380,7 +382,6 @@ DEPENDENCIES
   launchy
   letters
   libnotify
-  libv8 (= 3.11.8.4)
   newrelic_rpm (= 3.4.2.1)
   nokogiri
   omniauth-facebook
@@ -406,6 +407,7 @@ DEPENDENCIES
   steak
   surveyor!
   tanker!
+  therubyracer
   timecop
   turn (~> 0.8.3)
   uglifier (>= 1.0.3)
