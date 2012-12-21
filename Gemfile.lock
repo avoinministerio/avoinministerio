@@ -170,6 +170,7 @@ GEM
       xml-simple
     libnotify (0.8.0)
       ffi (>= 1.0.11)
+    libv8 (3.11.8.4)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -382,6 +383,7 @@ DEPENDENCIES
   launchy
   letters
   libnotify
+  libv8 (~> 3.11.8)
   newrelic_rpm (= 3.4.2.1)
   nokogiri
   omniauth-facebook
