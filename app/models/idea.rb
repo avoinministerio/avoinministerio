@@ -27,7 +27,8 @@ class Idea < ActiveRecord::Base
   has_many :articles
   has_many :expert_suggestions
   has_many :signatures
-
+  is_impressionable :counter_cache => true
+  
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
   validates :author_id, presence: true
