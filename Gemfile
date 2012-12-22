@@ -34,6 +34,7 @@ gem "unicorn"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
 
 gem "rspec-rails", :groups => [ :development, :test ]
+gem "impressionist"
 
 group :development do
   gem "rails-erd"
@@ -46,6 +47,7 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
+  gem "debugger"
 end
 
 group :production do

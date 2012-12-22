@@ -147,9 +147,13 @@ GEM
     hike (1.2.1)
     hominid (3.0.5)
     httpauth (0.1)
+    httpclient (2.3.0.1)
     i18n (0.6.1)
     i18n_routing (0.6.1)
       i18n (> 0.3.5)
+    impressionist (1.1.1)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.5)
     jquery-rails (2.1.2)
       railties (>= 3.1.0, < 5.0)
       thor (~> 0.14)
@@ -358,6 +362,7 @@ DEPENDENCIES
   capybara-mechanize
   coffee-rails (~> 3.1.1)
   database_cleaner
+  debugger
   devise
   differ
   email_spec
@@ -370,6 +375,7 @@ DEPENDENCIES
   haml-rails
   hominid
   i18n_routing
+  impressionist
   jquery-rails
   launchy
   letters
