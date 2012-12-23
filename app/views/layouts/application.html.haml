@@ -79,3 +79,4 @@
 
   = render :partial => 'shared/ga' if ENV["GA_TRACKING_ID"]
   = render :partial => 'shared/metrify' if Rails.env == 'production'
+  = javascript_include_tag 'bootstrap-tour/bootsrap-tour-built-tours.js'

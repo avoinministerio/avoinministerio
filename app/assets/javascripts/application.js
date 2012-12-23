@@ -10,4 +10,8 @@
 //= require g.raphael-min
 //= require g.pie-min
 
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+//= require bootstrap-tour
+
 //= require_directory .
