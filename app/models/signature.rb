@@ -2,7 +2,7 @@ class Signature < ActiveRecord::Base
   VALID_STATES = %w(init query returned cancelled rejected)  # TODO: these are invalid at the moment, it's just initial, authenticated, and the last will be saved or error
   VALID_PUBLICITY_OPTIONS = %w(Normal Immediately)
 
-  attr_accessible :firstnames, :lastname, :birth_date, :occupancy_county, :vow, :signing_date, :stamp, :started
+  attr_accessible :state, :firstnames, :lastname, :birth_date, :occupancy_county, :vow, :signing_date, :stamp, :started
   attr_accessible :service
   attr_accessible :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science
 

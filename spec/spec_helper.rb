@@ -40,6 +40,8 @@ Spork.prefork do
   end
 
   ENV["RAILS_ENV"] ||= "test"
+  ENV['DISABLE_TUPAS_SERVICES'] ||= "Nordea,Aktia,Osuuspankki,S-Pankki,Tapiola,Alandsbanken"
+
   require File.expand_path("../../config/environment", __FILE__)
 
   require "rspec/rails"
