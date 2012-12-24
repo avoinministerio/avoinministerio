@@ -202,3 +202,5 @@
       = render "comments/form", model: @idea
     .comments.suffix_8
       = render partial: 'comments/comment', collection: @idea.comments.published
+= javascript_include_tag "bootstrap/idea_detail_page_tour"
+  
