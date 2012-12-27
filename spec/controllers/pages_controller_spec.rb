@@ -22,8 +22,12 @@ describe PagesController do
 
       it "should calculate vote counts for a draft" do
         # 7 votes for and 4 votes against the idea
-        7.times { Factory(:vote, idea: @recent_draft, option: 1) }
-        4.times { Factory(:vote, idea: @recent_draft, option: 0) }
+        @citizens = []
+        @another_citizens = []
+        7.times { @citizens << Factory(:citizen) }
+        4.times { @another_citizens << Factory(:citizen) }
+        7.times { |i| @recent_draft.vote(@citizens[i], "1") }
+        4.times { |i| @recent_draft.vote(@another_citizens[i], "0") }
 
         # let's also create a draft without votes yet
         voteless_draft = Factory(:idea, state: 'draft')
@@ -49,8 +53,12 @@ describe PagesController do
 
       it "should calculate vote counts for an idea" do
         # 1 vote for and 7 votes against the idea
-        1.times { Factory(:vote, idea: @recent_idea, option: 1) }
-        7.times { Factory(:vote, idea: @recent_idea, option: 0) }
+        @citizens = []
+        @another_citizens = []
+        1.times { @citizens << Factory(:citizen) }
+        7.times { @another_citizens << Factory(:citizen) }
+        1.times { |i| @recent_idea.vote(@citizens[i], "1") }
+        7.times { |i| @recent_idea.vote(@another_citizens[i], "0") }
 
         # let's also create an idea without votes yet
         voteless_idea = Factory(:idea, state: 'idea')
@@ -81,8 +89,9 @@ describe PagesController do
       end
 
       it "should show a temporary text on home page when no there are no blog articles" do
+        @recent_draft = Factory(:idea, state: 'draft')
+        @recent_idea = Factory(:idea, state: 'idea')
         @article.update_attributes(article_type: 'statement')
-
         get :home
 
         response.body.should =~ /Ei kirjoituksia tällä hetkellä/
@@ -92,12 +101,15 @@ describe PagesController do
         not_blog = Factory(:article, article_type: 'footer')
 
         get :home
+        
 
         assigns(:blog_articles).should include(@article)
         assigns(:blog_articles).should_not include(not_blog)
       end
 
       it "should show only published blog articles" do
+        @recent_draft = Factory(:idea, state: 'draft')
+        @recent_idea = Factory(:idea, state: 'idea')
         unpublished = Factory(:article, publish_state: 'unpublished')
         moderated = Factory(:article, publish_state: 'in_moderation')
 
