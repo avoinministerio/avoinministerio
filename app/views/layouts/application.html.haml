@@ -17,6 +17,17 @@
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
+  
+  = javascript_include_tag "bootstrap/jquery"
+  = javascript_include_tag "bootstrap/bootstrap-tooltip"
+  = javascript_include_tag "bootstrap/bootstrap-popover"
+  = javascript_include_tag "bootstrap/bootstrap-alert"
+  = javascript_include_tag "bootstrap/jquery.cookie"
+  = javascript_include_tag "bootstrap/bootstrap-tour"
+  = stylesheet_link_tag "bootstrap/bootstrap.css"
+  
+  
+    
   :javascript
     if (window.location.hash == '#_=_') {
       if (console && 'function' == typeof console.warn) console.warn("Remove this ugly Facebook auth hax when https://developers.facebook.com/bugs/196125357123225 is fixed.");
