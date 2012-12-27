@@ -21,6 +21,28 @@ class PagesController < ApplicationController
     return items, item_counts
   end
 
+    def load_proposals(state)
+    max_id = Idea.published.where(state: state).maximum(:id)
+    picking_ids = (1..max_id).to_a.shuffle
+    @items = []
+    @items = Idea.published.where(state: state).includes(:votes).find_all_by_id(picking_ids)
+    item_counts = {}
+
+    @items.each do |idea|
+      for_count       = idea.vote_counts[1] || 0
+      against_count   = idea.vote_counts[0] || 0
+      comment_count   = idea.comments.count()
+      total           = for_count + against_count
+      for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
+      against_portion = (against_count > 0 ? against_count / total.to_f  : 0.0)
+      for_            = sprintf("%2.0f%%", for_portion * 100.0)
+      against_        = sprintf("%2.0f%%", against_portion * 100.0)
+      item_counts[idea.id] = [for_portion, for_, against_portion, against_]
+    end
+
+    return @items, item_counts
+  end
+
   def formatted_idea_counts(idea, idea_counts)
     for_count      = idea.vote_counts[1] || 0
     against_count  = idea.vote_counts[0] || 0
@@ -50,9 +72,8 @@ class PagesController < ApplicationController
         KM.track(section_index_link, "ab_section_#{section}_link")  # track only which section got the click
       end
     end
-
     # B: two rows of examples:
-    @proposals, @proposals_counts  = load("proposal", 3)
+    @proposals, @proposals_counts  = load_proposals("proposal")
     @drafts, @draft_counts        = load("draft",    3)
 
     # A: just one row, both proposals and drafts in it
