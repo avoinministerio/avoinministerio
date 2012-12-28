@@ -68,9 +68,9 @@
     - if @idea.published?
       %h1= @idea.title
       .summary
-        = markdown(@idea.summary) if @idea.summary
+        = markdownVideo(@idea.summary) if @idea.summary
       .body
-        = markdown(@idea.body) if @idea.body
+        = markdownVideo(@idea.body) if @idea.body
     - else
       %h1 Piilotettu
       .summary

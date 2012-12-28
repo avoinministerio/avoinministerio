@@ -1,11 +1,19 @@
 # TUPAS requests require SHA256 MAC calculations
 require 'digest/sha2'
+require 'redcarpet_video'
 
 module ApplicationHelper
   def markdown(text)
     renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, with_toc_data: true)
     Redcarpet::Markdown.new(renderer, { autolink: true, tables: true }).render(text).html_safe
   end
+
+  # to render video tag
+  def markdownVideo(text)
+    renderer = RedcarpetVideo::HtmlWithVideo.new(filter_html: true, hard_wrap: true, with_toc_data: true)
+    Redcarpet::Markdown.new(renderer, { autolink: true, tables: true }).render(text).html_safe
+  end
+  
   def shorten(text, max_length, cut_characters, ending_sign)
     (text.length < (max_length-cut_characters) ? text : text[0,max_length].gsub(/[\s,.\-!?]+\S+\z/, "")) + " " + ending_sign
   end
