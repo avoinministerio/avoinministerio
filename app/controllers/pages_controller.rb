@@ -59,6 +59,10 @@ class PagesController < ApplicationController
     @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
     @proposal_and_drafts_counts = @proposals_counts.merge @draft_counts
 
+    # Mukesh 2/12/2012 
+    # to show only active proposal  
+
+    @active_proposals = Idea.active_proposal.shuffle
 
     # Ideas either newest or random sampling
     if @newest_ideas = (rand() < 0.1)

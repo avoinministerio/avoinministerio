@@ -1,0 +1,22 @@
+%div{:class => "grid_8"}
+  .popular
+    %h3.title.bar_temp=link_to shorten(proposal.title, 100, 20, "»"), idea_path(proposal)
+    %span 
+      Start Date: 
+      =proposal.collecting_start_date
+    %br  
+    %span
+      End Date: 
+      =proposal.collecting_end_date 
+    %div{id: "draft_bar#{proposal.id}", class: "bar"}
+      - favour_vote_per = [40,(300 * (Float(proposal.vote_count) / 50000)).ceil].max
+      - require_vote_per = [40, (300 * (Float(50000 - proposal.vote_count) / 50000)).ceil].max
+      :javascript
+        if(window.stop_multiple){
+          r  = Raphael("draft_bar#{proposal.id}", 300, 20) ;
+          r.rect(  0, 0, #{[favour_vote_per,(300-40)].min}, 20).attr({fill: "#8cc63f", stroke: "#fff", strokewidth: 5});
+          r.rect(#{[favour_vote_per,(300-40)].min}, 0, #{require_vote_per}, 20).attr({fill: "#a9003f", stroke: "#fff", strokewidth: 5});
+          r.text( 18,11, "#{proposal.vote_count}").attr({fill: "#fff", "font-size": 12});
+          r.text(275,11, "#{50000 -proposal.vote_count}").attr({fill: "#fff", "font-size": 12});
+        }
+        
