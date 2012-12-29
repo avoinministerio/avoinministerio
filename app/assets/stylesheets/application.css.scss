@@ -21,6 +21,14 @@ body > header {
 	position: relative;
 }
 
+.image_carousel .row {
+    background-color: white;
+    padding: 9px;
+    margin: 7px;
+    display: block;
+    float: left;
+}
+
 .innerrow{
  height:160px; 
 }
@@ -31,11 +39,11 @@ a.crprev, a.crnext {
 	height: 50px;
 	display: block;
 	position: absolute;
-	top: 162px;
+	top: 175px;
 }
 
 a.crprev {
-  left: -50px;
+  left: -42px;
 	background-position: 0 0; 
 }
 
@@ -48,7 +56,7 @@ a.crprev.disabled {
 }
 
 a.crnext {			
-  right: -50px;
+  right: -64px;
 	background-position: -50px 0; 
 }
 
