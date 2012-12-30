@@ -4,7 +4,7 @@ require "acceptance/acceptance_helper"
 feature "Citizen Signup" do
 
   let(:password) { '123456789' }
-  let(:citizen) { Factory(:citizen, :password => '123456789', :password_confirmation => '123456789') }
+  let(:citizen) { FactoryGirl.create :citizen, :password => '123456789', :password_confirmation => '123456789' }
 
   scenario "Signup" do
     visit signup_page

@@ -3,7 +3,7 @@ require "acceptance/acceptance_helper"
 
 feature "Existing citizen logins in with Facebook" do
   background do
-    _citizen = Factory(:facebookin_erkki)
+    _citizen = FactoryGirl.create :facebookin_erkki
     mock_facebook_omniauth(_citizen.authentication.uid, email: _citizen.email)
   end
 
