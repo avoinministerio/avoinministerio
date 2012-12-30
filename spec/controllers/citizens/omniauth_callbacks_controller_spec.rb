@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '..', '..', 'spec_helper')
 describe Citizens::OmniauthCallbacksController do
   describe 'facebook' do
     it "should authenticate successfully" do
-      @citizen = Factory.create :facebookin_erkki
+      @citizen = FactoryGirl.create :facebookin_erkki
 
       request.env['omniauth.auth'] = auth_hash
       request.env["devise.mapping"] = Devise.mappings[:citizen]
@@ -14,7 +14,7 @@ describe Citizens::OmniauthCallbacksController do
     end
 
     it "should authenticate successfully and redirect to original page" do
-      @citizen = Factory.create :facebookin_erkki
+      @citizen = FactoryGirl.create :facebookin_erkki
 
       request.env['omniauth.auth'] = auth_hash
       request.env["devise.mapping"] = Devise.mappings[:citizen]

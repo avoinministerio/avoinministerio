@@ -4,7 +4,7 @@ require "acceptance/acceptance_helper"
 
 feature "Articles" do
   let (:idea) {
-    Factory :idea
+    FactoryGirl.create :idea
   }
   describe "PUT /articles" do
     before do

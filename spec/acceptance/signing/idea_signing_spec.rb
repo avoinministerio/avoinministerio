@@ -11,7 +11,7 @@ feature "Idea signing" do
   let(:citizen_password) { '123456789' }
   let(:citizen_email) { 'citizen-kane@example.com'}
   let(:idea) {
-    Factory :idea, state: "proposal", 
+    FactoryGirl.create :idea, state: "proposal", 
     collecting_in_service: true,
     collecting_started: true, collecting_ended: false, 
     collecting_start_date: today_date, collecting_end_date: today_date + 180, 
@@ -19,7 +19,7 @@ feature "Idea signing" do
     target_count: 51500
   }
   let(:another_idea) {
-    Factory :idea, state: "proposal", 
+    FactoryGirl.create :idea, state: "proposal", 
     collecting_in_service: true,
     collecting_started: true, collecting_ended: false, 
     collecting_start_date: today_date, collecting_end_date: today_date + 180, 
@@ -636,14 +636,14 @@ feature "Idea signing" do
     end
     
     scenario "the idea can't be signed and the citizen enters the URL manually" do
-      idea_that_cannot_be_signed = Factory :idea
+      idea_that_cannot_be_signed = FactoryGirl.create :idea
       visit signature_idea_introduction(idea_that_cannot_be_signed.id)
       page.should have_content "Can't be signed"
       page.should_not have_button "Siirry hyväksymään ehdot"
     end
     
     scenario "the idea can't be signed and the citizen attempts to enter the approval page directly" do
-      idea_that_cannot_be_signed = Factory :idea
+      idea_that_cannot_be_signed = FactoryGirl.create :idea
       page.driver.post(signature_idea_approval_path(
           idea_that_cannot_be_signed.id))
       page.should have_content "Can't be signed"

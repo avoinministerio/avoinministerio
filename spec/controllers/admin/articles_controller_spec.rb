@@ -13,10 +13,10 @@ end
 
 describe Admin::ArticlesController do
   let (:administrator) {
-    Factory(:administrator)
+    FactoryGirl.create :administrator
   }
   let (:unsaved_article) {
-    Factory.build(:article)
+    FactoryGirl.build :article
   }
   let (:article_hash) {{
       :article_type => unsaved_article.article_type,
@@ -26,7 +26,7 @@ describe Admin::ArticlesController do
       :idea_id => unsaved_article.idea.id
     }}
   let (:citizen) {
-    Factory(:citizen)
+    FactoryGirl.create :citizen
   }
 
   before :each do

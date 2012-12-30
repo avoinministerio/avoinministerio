@@ -10,8 +10,8 @@ describe PagesController do
 
     describe "drafts section" do
       before :each do
-        @recent_draft = Factory(:idea, state: 'draft')
-        @recent_idea = Factory(:idea, state: 'idea')
+        @recent_draft = FactoryGirl.create(:idea, state: 'draft')
+        @recent_idea = FactoryGirl.create(:idea, state: 'idea')
       end
 
       it "should include only drafts to drafts section" do
@@ -24,13 +24,13 @@ describe PagesController do
         # 7 votes for and 4 votes against the idea
         @citizens = []
         @another_citizens = []
-        7.times { @citizens << Factory(:citizen) }
-        4.times { @another_citizens << Factory(:citizen) }
+        7.times { @citizens << FactoryGirl.create(:citizen) }
+        4.times { @another_citizens << FactoryGirl.create(:citizen) }
         7.times { |i| @recent_draft.vote(@citizens[i], "1") }
         4.times { |i| @recent_draft.vote(@another_citizens[i], "0") }
 
         # let's also create a draft without votes yet
-        voteless_draft = Factory(:idea, state: 'draft')
+        voteless_draft = FactoryGirl.create(:idea, state: 'draft')
 
         get :home
 
@@ -41,8 +41,8 @@ describe PagesController do
 
     describe "ideas section" do
       before :each do
-        @recent_idea = Factory(:idea, state: 'idea')
-        @recent_draft = Factory(:idea, state: 'draft')
+        @recent_idea = FactoryGirl.create(:idea, state: 'idea')
+        @recent_draft = FactoryGirl.create(:idea, state: 'draft')
       end
 
       it "should include only ideas in state 'idea' to ideas section" do
@@ -55,13 +55,13 @@ describe PagesController do
         # 1 vote for and 7 votes against the idea
         @citizens = []
         @another_citizens = []
-        1.times { @citizens << Factory(:citizen) }
-        7.times { @another_citizens << Factory(:citizen) }
+        1.times { @citizens << FactoryGirl.create(:citizen) }
+        7.times { @another_citizens << FactoryGirl.create(:citizen) }
         1.times { |i| @recent_idea.vote(@citizens[i], "1") }
         7.times { |i| @recent_idea.vote(@another_citizens[i], "0") }
 
         # let's also create an idea without votes yet
-        voteless_idea = Factory(:idea, state: 'idea')
+        voteless_idea = FactoryGirl.create(:idea, state: 'idea')
 
         get :home
 
@@ -70,9 +70,9 @@ describe PagesController do
       end
 
       it "should include comments count" do
-        3.times { Factory(:comment, commentable: @recent_idea) }
-        another_idea = Factory(:idea, state: 'idea')
-        Factory(:comment, commentable: another_idea)
+        3.times { FactoryGirl.create(:comment, commentable: @recent_idea) }
+        another_idea = FactoryGirl.create(:idea, state: 'idea')
+        FactoryGirl.create(:comment, commentable: another_idea)
 
         get :home
 
@@ -85,12 +85,12 @@ describe PagesController do
       render_views
 
       before :each do
-        @article = Factory(:article, article_type: 'blog')
+        @article = FactoryGirl.create(:article, article_type: 'blog')
       end
 
       it "should show a temporary text on home page when no there are no blog articles" do
-        @recent_draft = Factory(:idea, state: 'draft')
-        @recent_idea = Factory(:idea, state: 'idea')
+        @recent_draft = FactoryGirl.create(:idea, state: 'draft')
+        @recent_idea = FactoryGirl.create(:idea, state: 'idea')
         @article.update_attributes(article_type: 'statement')
         get :home
 
@@ -98,7 +98,7 @@ describe PagesController do
       end
 
       it "should show articles with type = 'blog'" do
-        not_blog = Factory(:article, article_type: 'footer')
+        not_blog = FactoryGirl.create(:article, article_type: 'footer')
 
         get :home
         
@@ -108,10 +108,10 @@ describe PagesController do
       end
 
       it "should show only published blog articles" do
-        @recent_draft = Factory(:idea, state: 'draft')
-        @recent_idea = Factory(:idea, state: 'idea')
-        unpublished = Factory(:article, publish_state: 'unpublished')
-        moderated = Factory(:article, publish_state: 'in_moderation')
+        @recent_draft = FactoryGirl.create(:idea, state: 'draft')
+        @recent_idea = FactoryGirl.create(:idea, state: 'idea')
+        unpublished = FactoryGirl.create(:article, publish_state: 'unpublished')
+        moderated = FactoryGirl.create(:article, publish_state: 'in_moderation')
 
         get :home
 
