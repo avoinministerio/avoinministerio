@@ -8,6 +8,6 @@
 //= require jquery_ujs
 //= require raphael-min
 //= require g.raphael-min
-//= require jquery.carousel.min
 //= require g.pie-min
-//= require_directory .
+//= require jquery.jcarousel
+//= require_tree .

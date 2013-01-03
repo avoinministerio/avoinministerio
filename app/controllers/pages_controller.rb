@@ -3,21 +3,29 @@
 class PagesController < ApplicationController
 
   def load(state, count)
-    items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").limit(count).includes(:votes).all
-    item_counts = {}
+    #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").limit(count).includes(:votes).all
+    #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").includes(:votes).all
+    #item_counts = {}
     
     if state == "proposal"
+      #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").limit(3).includes(:votes).all
+      items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").includes(:votes).all
+      item_counts = {}
       items.each do |idea|
         for_count       = idea.signatures.count + ( idea.additional_signatures_count == nil ? 0 : idea.additional_signatures_count )
         against_count   = ( idea.target_count != nil && idea.target_count > for_count ? idea.target_count - for_count : 0 )
         total           = for_count + against_count
         for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
         for_            = sprintf("%2.0f", for_portion * total)
-	start_date_	= sprintf( idea.collecting_start_date != nil ? I18n.localize(idea.collecting_start_date) : '' )
-	end_date_   	= sprintf( idea.collecting_end_date != nil ? I18n.localize(idea.collecting_end_date) : '' )
+	      start_date_     = sprintf( idea.collecting_start_date != nil ? I18n.localize(idea.collecting_start_date) : '' )
+	      end_date_       = sprintf( idea.collecting_end_date != nil ? I18n.localize(idea.collecting_end_date) : '' )
+	      #start_date_     = sprintf( idea.collecting_start_date != nil ? I18n.localize(idea.collecting_start_date, :format => :short) : '' )
+	      #end_date_       = sprintf( idea.collecting_end_date != nil ? I18n.localize(idea.collecting_end_date, :format => :short) : '' )
         item_counts[idea.id] = [for_portion, for_, start_date_, end_date_]
       end
     else
+      items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").limit(count).includes(:votes).all
+      item_counts = {}
       items.each do |idea|
         for_count       = idea.vote_counts[1] || 0
         against_count   = idea.vote_counts[0] || 0
