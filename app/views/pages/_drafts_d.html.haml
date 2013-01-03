@@ -1,0 +1,21 @@
+%h2= title
+%ul{:class => "container_24 top_drafts"}
+
+  - items.size.times do |i|
+    - klass = "grid_8"
+    %li{:class => klass}
+      - if recent_draft = items[i]
+        - if recent_draft.state != 'proposal'
+          .popular
+            %h3.title=link_to shorten(recent_draft.title, 100, 20, "»"), idea_path(recent_draft), id: "ab_section_#{section}_#{i}_link"
+            %br
+            %br
+            %div{id: "draft_bar#{i+item_counter+1000}", class: "bar"}
+            - for_portion, for_, against_portion, against_ = items_counts[recent_draft.id]
+            - for_length = [35, (280-5-35)*for_portion].max
+            :javascript
+              var r = Raphael("draft_bar#{i+item_counter+1000}", 280, 20);
+              r.rect(  0, 0, #{for_length}, 20).attr({fill: "#8cc63f", stroke: "#fff", strokewidth: 5});
+              r.rect(#{for_length+5}, 0, #{280-5-for_length}, 20).attr({fill: "#a9003f", stroke: "#fff", strokewidth: 5});
+              r.text( 18,11, "#{for_}").attr({fill: "#fff", "font-size": 12});
+              r.text(261,11, "#{against_}").attr({fill: "#fff", "font-size": 12});
