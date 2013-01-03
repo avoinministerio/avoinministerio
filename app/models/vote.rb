@@ -2,6 +2,8 @@ class Vote < ActiveRecord::Base
   belongs_to :idea
   belongs_to :citizen
   
+  has_paper_trail :on => [:create]
+  
   def self.by(citizen)
     where(citizen_id: citizen && citizen.id || nil)
   end

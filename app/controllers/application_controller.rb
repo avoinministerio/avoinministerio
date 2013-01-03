@@ -62,4 +62,8 @@ class ApplicationController < ActionController::Base
     @idea_count = Idea.count
     Thread.current[:changer] = current_administrator || current_citizen
   end
+
+  def user_for_paper_trail
+    current_citizen ? current_citizen : 'Public user'
+  end
 end

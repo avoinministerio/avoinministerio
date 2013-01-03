@@ -6,11 +6,16 @@ class Idea < ActiveRecord::Base
   extend FriendlyId
 
   VALID_STATES = %w(idea draft proposal law)
+  is_impressionable :counter_cache => true
+
+  has_paper_trail :on =>  [:create, :update]
 
   MAX_FB_TITLE_LENGTH = 100
   MAX_FB_DESCRIPTION_LENGTH = 500
 
   friendly_id :title, use: :slugged
+  
+  attr_accessor     :version_created_at, :version_reference
 
   attr_accessible   :title, :body, :summary, :state, 
                     :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
@@ -20,14 +25,13 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count, :updated_content_at
+                    :target_count, :updated_content_at, :impressions_count
 
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
   has_many :expert_suggestions
   has_many :signatures
-  is_impressionable :counter_cache => true
   
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 

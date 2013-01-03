@@ -168,3 +168,46 @@ input#mce-EMAIL {
   margin-right: 30%;
   margin-top: 14px;
 }
+
+.ideas-container{
+
+}
+
+.idea-container {
+  border: #338BC6 2px solid;
+  margin-bottom: 5px;
+}
+
+.idea-heading{
+  padding: 5px;
+  background-color: #338BC6;
+  color: #FFFFFF;
+  font-size: 1.1em;
+}
+
+.whats-new-idea-title {
+  color: #FFFFFF;
+}
+
+.reason {
+  color: #7C7D8F;
+  font-weight: bold;
+}
+
+.idea-desc {
+  padding: 5px 5px 10px 5px;
+  color: #338BC6;
+  font-size: 1.04em;
+}
+
+.whats-new-title {
+  background-color: #473161;
+  color: #FFFFFF;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.version-timestamp{
+  color: #FFFFFF;
+  float: right;
+}

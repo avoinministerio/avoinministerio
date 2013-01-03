@@ -36,10 +36,12 @@
     = render partial: 'shared/login_actions'
     = render partial: 'shared/facebook_js'
     .idea_actions.bottom_row
-      .grid_5
+      .grid_2
         &nbsp;
       .grid_4
         = link_to "Listaa kaikki (#{@idea_count})", ideas_path, id: "all-ideas"
+      .grid_3
+        = link_to "Mitä uutta", "/pages/whats_new"
       .grid_3
         = link_to "Anna idea", new_idea_path, id: "new-idea"
       .grid_2

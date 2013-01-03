@@ -35,6 +35,7 @@ gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
 gem "therubyracer"
 gem "rspec-rails", :groups => [ :development, :test ]
 gem "impressionist"
+gem "paper_trail", "~> 2"
 
 group :development do
   gem "rails-erd"
