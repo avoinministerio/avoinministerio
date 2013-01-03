@@ -49,7 +49,7 @@ class PagesController < ApplicationController
       end
     end
 
-    ideas = states_arr.uniq + latest_created_ideas.uniq + comments_ideas_latest.uniq
+    ideas = states_arr + latest_created_ideas + comments_ideas_latest
     @ideas = ideas.sort_by(&:version_created_at).reverse
 
     if citizen_signed_in?
