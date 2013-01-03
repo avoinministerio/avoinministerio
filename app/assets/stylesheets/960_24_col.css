@@ -59,6 +59,11 @@ body {
   margin-right: 5px;
 }
 
+.grid_8 {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
 .push_1, .pull_1,
 .push_2, .pull_2,
 .push_3, .pull_3,
