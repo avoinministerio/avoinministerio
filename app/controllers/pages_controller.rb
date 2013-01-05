@@ -9,7 +9,8 @@ class PagesController < ApplicationController
     
     if state == "proposal"
       #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").limit(3).includes(:votes).all
-      items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").includes(:votes).all
+      #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").includes(:votes).all
+      items = Idea.published.where("state = state and (collecting_started or collecting_start_date <= :date) and not (collecting_ended IS NOT NULL or collecting_end_date < :date)", date: Date.today).order("RANDOM()").includes(:votes).all
       item_counts = {}
       items.each do |idea|
         for_count       = idea.signatures.count + ( idea.additional_signatures_count == nil ? 0 : idea.additional_signatures_count )
@@ -24,7 +25,7 @@ class PagesController < ApplicationController
         item_counts[idea.id] = [for_portion, for_, start_date_, end_date_]
       end
     else
-      items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").limit(count).includes(:votes).all
+      items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
       item_counts = {}
       items.each do |idea|
         for_count       = idea.vote_counts[1] || 0
