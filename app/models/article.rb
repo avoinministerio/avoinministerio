@@ -15,25 +15,12 @@ class Article < ActiveRecord::Base
   validates :article_type, inclusion: { in: VALID_ARTICLE_TYPES }
   validates :title, length: { minimum: 5 }
 
-  tankit index_name do
-    conditions do
-      published?
-    end
-    indexes :title
-    indexes :ingress
-    indexes :body
-    indexes :author do
-      self.author.first_name + " " + self.author.last_name
-    end
-    indexes :type do "article" end
-    
-    category :type do
-      "article"
-    end
+  if Rails.env == 'testjs'
+    include Concerns::IndexingWrapperTest
+  else
+    include TankerMethods
+    include Concerns::IndexingWrapper
   end
-  after_save Concerns::IndexingWrapper.new
-  after_destroy Concerns::IndexingWrapper.new
-
 
   def to_param
     "#{self.id}-#{self.slug}"

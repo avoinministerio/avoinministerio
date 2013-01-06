@@ -17,22 +17,12 @@ class Comment < ActiveRecord::Base
   validates :commentable_id,    presence: true
   validates :commentable_type,  presence: true
 
-  tankit index_name do
-    conditions do
-      published?
-    end
-    indexes :body
-    indexes :author do
-      self.author.first_name + " " + self.author.last_name
-    end
-    indexes :type do "comment" end
-    
-    category :type do
-      "comment"
-    end
+  if Rails.env == 'testjs'
+    include Concerns::IndexingWrapperTest
+  else
+    include TankerMethods
+    include Concerns::IndexingWrapper
   end
-  after_save Concerns::IndexingWrapper.new
-  after_destroy Concerns::IndexingWrapper.new
 
   def prepare_for_unpublishing
     if self.body.blank?

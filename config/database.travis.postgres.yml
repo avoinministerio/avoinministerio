@@ -1,6 +1,7 @@
-test:
+test: &test_ppgsql
   adapter: postgresql
   encoding: unicode
   database: avoin_ministerio_test
   username: postgres
   pool: 5
+testjs: *test_pqsql

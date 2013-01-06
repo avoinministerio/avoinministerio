@@ -35,29 +35,12 @@ class Idea < ActiveRecord::Base
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
   validates :state, inclusion: { in: VALID_STATES }
 
-  tankit index_name do
-    conditions do
-      published?
-    end
-    indexes :title
-    indexes :summary
-    indexes :body
-    indexes :state
-    indexes :author do
-      self.author.first_name + " " + self.author.last_name
-    end
-    indexes :type do "idea" end
-    
-    category :type do
-      "idea"
-    end
-    
-    category :state do
-      state
-    end
+  if Rails.env == "testjs"
+    include Concerns::IndexingWrapperTest
+  else
+    include TankerMethods
+    include Concerns::IndexingWrapper
   end
-  after_save Concerns::IndexingWrapper.new
-  after_destroy Concerns::IndexingWrapper.new
 
   def indexable?
     self.title.present?

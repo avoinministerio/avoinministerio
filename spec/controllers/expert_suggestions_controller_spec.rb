@@ -3,9 +3,9 @@ require 'spec_helper'
 describe ExpertSuggestionsController do
 
   before :each do
-    @citizen = Factory.create :citizen
+    @citizen = FactoryGirl.create :citizen
     sign_in @citizen
-    @idea = Factory :idea
+    @idea = FactoryGirl.create :idea
     @valid_attributes = {
         firstname: 'Erkki',
         lastname: 'Esimerkki',

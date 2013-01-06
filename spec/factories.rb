@@ -36,8 +36,8 @@ FactoryGirl.define do
   end
 
   factory :facebookin_erkki, parent: :erkki do |e|
-    after_create do |erkki|
-      Factory.create(:authentication, citizen: erkki)
+    after(:create) do |erkki|
+      FactoryGirl.create(:authentication, citizen: erkki)
     end
   end
   
@@ -80,9 +80,9 @@ FactoryGirl.define do
     association :citizen, factory: :citizen
     association :idea, factory: :idea
     state 'signed'
-    accept_general 1
-    accept_science 1
-    accept_non_eu_server 1
+    accept_general true
+    accept_science true
+    accept_non_eu_server true
     accept_publicity "Normal"
   end
 end

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe SignaturesController do
-  let (:citizen) { Factory :citizen }
-  let (:idea) { Factory :idea }
+  let (:citizen) { FactoryGirl.create :citizen }
+  let (:idea) { FactoryGirl.create :idea }
 
   before do
     sign_in citizen
@@ -17,8 +17,8 @@ describe SignaturesController do
 
   describe "POST sign" do
     before do
-      @vote = Factory :vote, :citizen => citizen
-      @comment = Factory :comment, :author => citizen
+      @vote = FactoryGirl.create :vote, :citizen => citizen
+      @comment = FactoryGirl.create :comment, :author => citizen
     end
 
     it "assigns the newly created Signature as @signature" do

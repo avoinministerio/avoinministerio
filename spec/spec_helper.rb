@@ -1,5 +1,6 @@
 require "rubygems"
 require "spork"
+require 'factory_girl'
 
 # --- Instructions ---
 # Sort the contents of this file into a Spork.prefork and a Spork.each_run
@@ -30,6 +31,15 @@ require "spork"
 # These instructions should self-destruct in 10 seconds.  If they don't, feel
 # free to delete them.
 
+def min_ideas_for_homepage( multiply=1 )
+  # temporary used for pass homepage tests
+  # We will do different aproach after test_suite repair
+  ideas_count = Idea.count
+  if ideas_count < (6*multiply)
+    (6*multiply - ideas_count).times { FactoryGirl.create :idea }
+  end
+end
+
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
@@ -53,7 +63,7 @@ Spork.prefork do
 
   require "database_cleaner"
   require "controller_test_helper"
-  require "webmock/rspec"
+  require "webmock/rspec" unless ENV["RAILS_ENV"] == 'testjs'
   require "email_spec"
 
   # Capybara + Steak + Timecop for integration test
@@ -82,12 +92,56 @@ Spork.prefork do
       DatabaseCleaner.clean_with(:truncation)
     end
 
+
+    require 'action_dispatch'
+    require 'capybara/rails'
+    require 'capybara/rspec'
+    require 'capybara/dsl'
+
+    module AcceptanceExampleGroup
+      extend ActiveSupport::Concern
+
+      include RSpec::Rails::RequestExampleGroup
+      include Rack::Test::Methods
+
+      included do
+        metadata[:type] = :acceptance
+      end
+    end
+
+    module AcceptancejsExampleGroup
+      extend ActiveSupport::Concern
+
+      include RSpec::Rails::RequestExampleGroup
+      include Rack::Test::Methods
+
+      included do
+        metadata[:type] = :acceptancejs
+      end
+    end
+
+    config.use_transactional_fixtures = false
+
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :deletion
+      DatabaseCleaner.clean_with :truncation
+    end
+
     config.before(:each) do
-      WebMock.stub_request(:any, /4na.api.searchify.com/)
-      WebMock.stub_request(:any, /online.alandsbanken.fi/)
+
+      if example.metadata[:js]
+        Capybara.current_driver = :selenium
+        DatabaseCleaner.strategy = :truncation
+      else
+        DatabaseCleaner.strategy = :transaction
+        DatabaseCleaner.start
+        WebMock.stub_request(:any, /4na.api.searchify.com/)
+        WebMock.stub_request(:any, /online.alandsbanken.fi/)
+      end
     end
 
     config.after(:each) do
+      Capybara.use_default_driver if example.metadata[:js]
       DatabaseCleaner.clean
       Warden.test_reset!
     end

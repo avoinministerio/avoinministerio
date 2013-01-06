@@ -2,6 +2,9 @@
 require 'spec_helper'
 
 describe PagesController do
+  before :each do
+    min_ideas_for_homepage
+  end
   describe "#home" do
     it "should be successful" do
       get :home
@@ -10,8 +13,8 @@ describe PagesController do
 
     describe "drafts section" do
       before :each do
-        @recent_draft = Factory(:idea, state: 'draft')
-        @recent_idea = Factory(:idea, state: 'idea')
+        @recent_draft = FactoryGirl.create(:idea, state: 'draft')
+        @recent_idea = FactoryGirl.create(:idea, state: 'idea')
       end
 
       it "should include only drafts to drafts section" do
@@ -22,11 +25,11 @@ describe PagesController do
 
       it "should calculate vote counts for a draft" do
         # 7 votes for and 4 votes against the idea
-        7.times { Factory(:vote, idea: @recent_draft, option: 1) }
-        4.times { Factory(:vote, idea: @recent_draft, option: 0) }
+        7.times { FactoryGirl.create(:vote, idea: @recent_draft, option: 1) }
+        4.times { FactoryGirl.create(:vote, idea: @recent_draft, option: 0) }
 
         # let's also create a draft without votes yet
-        voteless_draft = Factory(:idea, state: 'draft')
+        voteless_draft = FactoryGirl.create(:idea, state: 'draft')
 
         get :home
 
@@ -37,8 +40,8 @@ describe PagesController do
 
     describe "ideas section" do
       before :each do
-        @recent_idea = Factory(:idea, state: 'idea')
-        @recent_draft = Factory(:idea, state: 'draft')
+        @recent_idea = FactoryGirl.create(:idea, state: 'idea')
+        @recent_draft = FactoryGirl.create(:idea, state: 'draft')
       end
 
       it "should include only ideas in state 'idea' to ideas section" do
@@ -49,11 +52,11 @@ describe PagesController do
 
       it "should calculate vote counts for an idea" do
         # 1 vote for and 7 votes against the idea
-        1.times { Factory(:vote, idea: @recent_idea, option: 1) }
-        7.times { Factory(:vote, idea: @recent_idea, option: 0) }
+        1.times { FactoryGirl.create(:vote, idea: @recent_idea, option: 1) }
+        7.times { FactoryGirl.create(:vote, idea: @recent_idea, option: 0) }
 
         # let's also create an idea without votes yet
-        voteless_idea = Factory(:idea, state: 'idea')
+        voteless_idea = FactoryGirl.create(:idea, state: 'idea')
 
         get :home
 
@@ -62,9 +65,9 @@ describe PagesController do
       end
 
       it "should include comments count" do
-        3.times { Factory(:comment, commentable: @recent_idea) }
-        another_idea = Factory(:idea, state: 'idea')
-        Factory(:comment, commentable: another_idea)
+        3.times { FactoryGirl.create(:comment, commentable: @recent_idea) }
+        another_idea = FactoryGirl.create(:idea, state: 'idea')
+        FactoryGirl.create(:comment, commentable: another_idea)
 
         get :home
 
@@ -77,7 +80,7 @@ describe PagesController do
       render_views
 
       before :each do
-        @article = Factory(:article, article_type: 'blog')
+        @article = FactoryGirl.create(:article, article_type: 'blog')
       end
 
       it "should show a temporary text on home page when no there are no blog articles" do
@@ -89,7 +92,7 @@ describe PagesController do
       end
 
       it "should show articles with type = 'blog'" do
-        not_blog = Factory(:article, article_type: 'footer')
+        not_blog = FactoryGirl.create(:article, article_type: 'footer')
 
         get :home
 
@@ -98,8 +101,8 @@ describe PagesController do
       end
 
       it "should show only published blog articles" do
-        unpublished = Factory(:article, publish_state: 'unpublished')
-        moderated = Factory(:article, publish_state: 'in_moderation')
+        unpublished = FactoryGirl.create(:article, publish_state: 'unpublished')
+        moderated = FactoryGirl.create(:article, publish_state: 'in_moderation')
 
         get :home
 

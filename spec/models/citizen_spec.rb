@@ -4,8 +4,8 @@ describe Citizen do
   describe "#image" do
     context "with profile picture" do
       before do
-        profile = Factory(:profile, :image => "http://www.facebook.com/images/1234.png")
-        @citizen = Factory(:citizen, :profile => profile)
+        profile = FactoryGirl.create(:profile, :image => "http://www.facebook.com/images/1234.png")
+        @citizen = FactoryGirl.create(:citizen, :profile => profile)
       end
 
       it "should use user specified profile picture" do
@@ -15,7 +15,7 @@ describe Citizen do
 
     context "without profile picture" do
       before do
-        @citizen = Factory(:citizen, :email => "foo@example.com")
+        @citizen = FactoryGirl.create(:citizen, :email => "foo@example.com")
       end
 
       it "should use gravatar as a fallback" do
@@ -25,8 +25,8 @@ describe Citizen do
   end
   
   describe "#locked?" do
-    let(:locked_citizen)    { Factory(:citizen, locked_at: Time.now.in_time_zone) }
-    let(:unlocked_citizen)  { Factory(:citizen) }
+    let(:locked_citizen)    { FactoryGirl.create(:citizen, locked_at: Time.now.in_time_zone) }
+    let(:unlocked_citizen)  { FactoryGirl.create(:citizen) }
     
     it "tells if a Citizen account is locked" do
       locked_citizen.locked?.should be_true
@@ -35,7 +35,7 @@ describe Citizen do
   end
   
   describe "#lock!" do
-    let(:citizen)   { Factory(:citizen) }
+    let(:citizen)   { FactoryGirl.create(:citizen) }
     
     it "locks a citizen account" do
       citizen.locked?.should be_false
@@ -45,7 +45,7 @@ describe Citizen do
   end
   
   describe "#unlock!" do
-    let(:citizen)   { Factory(:citizen, locked_at: Time.now.in_time_zone) }
+    let(:citizen)   { FactoryGirl.create(:citizen, locked_at: Time.now.in_time_zone) }
     
     it "locks a citizen account" do
       citizen.locked?.should be_true
@@ -55,8 +55,8 @@ describe Citizen do
   end
   
   describe "#active_for_authentication?" do
-    let(:locked_citizen)    { Factory(:citizen, locked_at: Time.now.in_time_zone) }
-    let(:unlocked_citizen)  { Factory(:citizen) }
+    let(:locked_citizen)    { FactoryGirl.create(:citizen, locked_at: Time.now.in_time_zone) }
+    let(:unlocked_citizen)  { FactoryGirl.create(:citizen) }
     
     it "tells if a Citizen account can log in" do
       locked_citizen.active_for_authentication?.should be_false
