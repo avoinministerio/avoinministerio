@@ -36,6 +36,7 @@ gem "therubyracer"
 gem "rspec-rails", :groups => [ :development, :test ]
 gem "impressionist"
 gem "paper_trail", "~> 2"
+gem "dalli"
 
 group :development do
   gem "rails-erd"

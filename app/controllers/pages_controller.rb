@@ -1,72 +1,82 @@
 #encoding: UTF-8
 
 class PagesController < ApplicationController
+  cache_sweeper :idea_sweeper, :only => :whats_new
+
   def whats_new
-    version = Version.find(:all ,:order => "created_at DESC", :limit => 20, :offset => (params[:offset] || 0))
-    comments_latest, states_arr, latest_created_ideas, vote_count_century = [], [], [], []
-    @interesting_for_citizen, comments_ideas_latest = [], []
-    vote_count_century = []
-
-    version.each do |v|
-      if v.changeset.key?("vote_for_count")
-        if v.changeset["vote_for_count"][1]%100 == 0
-          idea = Idea.find(v.item_id)
-          idea.version_created_at = v.created_at
-          #version.reference = 0 means "idea's vote for count crossed 100 mark"
-          idea.version_reference = [0, v.changeset["vote_for_count"][0], v.changeset["vote_for_count"][1]]
-          vote_count_century << idea
-        end
-      end
-   
-      if v.changeset.key?("state") && v.item_type=="Idea" && v.event == "update"
-         idea = Idea.find(v.item_id)
-        if idea
-          idea.version_created_at = v.created_at
-            # version.reference = 1 means "idea state changed"
-            idea.version_reference = [1, v.changeset[:state][0],v.changeset[:state][1]]
-          states_arr << idea
-        end
-      end
-
-      if v.item_type == "Idea" && v.event == "create"
-         idea = Idea.find(v.item_id)
-        if idea
-          idea.version_created_at = v.created_at
-          # version.reference = 2 means "new idea created"
-          idea.version_reference = [2]
-            latest_created_ideas << idea
-        end
-      end
-
-      if v.item_type == "Comment" && v.event == "create"
-         idea = Idea.find(Comment.find(v.item_id).commentable_id)
-        if idea
-          idea.version_created_at = v.created_at
-          # version.reference = 3 means "new comment created on this idea"
-          idea.version_reference = [3]
-            comments_ideas_latest << idea
-        end
-      end
+    Rails.cache.fetch(:version, :expires_in => 5.minutes) do
+      version = Version.find(:all ,:order => "created_at DESC", :limit => 20, :offset => (params[:offset] || 0))
     end
 
-    ideas = states_arr + latest_created_ideas + comments_ideas_latest
-    @ideas = ideas.sort_by(&:version_created_at).reverse
+    version = Rails.cache.read(:version)
+    comments_latest, states_arr, latest_created_ideas, vote_count_century = [], [], [], []
+    @interesting_for_citizen, comments_ideas_latest, vote_count_century = [], [], []
+
+    Rails.cache.fetch(:ideas, :expires_in => 5.minutes) do
+      version.each do |v|
+        if v.changeset.key?("vote_for_count")
+          if v.changeset["vote_for_count"][1]%100 == 0
+              idea = Idea.find(v.item_id)
+              idea.version_created_at = v.created_at
+              #version.reference = 0 means "idea's vote for count crossed 100 mark"
+              idea.version_reference = [0, v.changeset["vote_for_count"][0], v.changeset["vote_for_count"][1]]
+              vote_count_century << idea
+          end
+        end
+
+        if v.changeset.key?("state") && v.item_type=="Idea" && v.event == "update"
+           idea = Idea.find(v.item_id)
+          if idea
+            idea.version_created_at = v.created_at
+              # version.reference = 1 means "idea state changed"
+              idea.version_reference = [1, v.changeset[:state][0],v.changeset[:state][1]]
+            states_arr << idea
+          end
+        end
+
+        if v.item_type == "Idea" && v.event == "create"
+           idea = Idea.find(v.item_id)
+          if idea
+            idea.version_created_at = v.created_at
+            # version.reference = 2 means "new idea created"
+            idea.version_reference = [2]
+              latest_created_ideas << idea
+          end
+        end
+
+        if v.item_type == "Comment" && v.event == "create"
+           idea = Idea.find(Comment.find(v.item_id).commentable_id)
+          if idea
+              idea.version_created_at = v.created_at
+              # version.reference = 3 means "new comment created on this idea"
+              idea.version_reference = [3]
+              comments_ideas_latest << idea
+          end
+        end
+      end
+
+      ideas = states_arr + latest_created_ideas + comments_ideas_latest
+      @ideas = ideas.sort_by(&:version_created_at).reverse
+    end
 
     if citizen_signed_in?
-      interesting_ideas = current_citizen.ideas.all
-      interesting_comments = current_citizen.comments.all
-      interesting_vote = Vote.find_all_by_citizen_id(current_citizen.id)
-      interesting_sign = Signature.find_all_by_citizen_id(current_citizen.id)
+      Rails.cache.fetch("#{current_citizen.email}".to_sym, :expires_in => 5.minutes) do
+        interesting_ideas = current_citizen.ideas.all
+        interesting_comments = current_citizen.comments.all
+        interesting_vote = Vote.find_all_by_citizen_id(current_citizen.id)
+        interesting_sign = Signature.find_all_by_citizen_id(current_citizen.id)
 
-      interesting_ideas.each { |int_idea| @interesting_for_citizen << int_idea.id } 
-      interesting_comments.each { |int_comment| @interesting_for_citizen << int_comment.commentable_id if int_comment.commentable_type == "Idea" }
-      interesting_vote.each { |int_vote| @interesting_for_citizen << int_vote.idea_id }
-      interesting_sign.each { |int_sign| @interesting_for_citizen << int_sign.idea_id }
+        interesting_ideas.each { |int_idea| @interesting_for_citizen << int_idea.id } 
+        interesting_comments.each { |int_comment| @interesting_for_citizen << int_comment.commentable_id if int_comment.commentable_type == "Idea" }
+        interesting_vote.each { |int_vote| @interesting_for_citizen << int_vote.idea_id }
+        interesting_sign.each { |int_sign| @interesting_for_citizen << int_sign.idea_id }
 
-      @interesting_for_citizen = @interesting_for_citizen.uniq
+        @interesting_for_citizen = @interesting_for_citizen.uniq
+      end
+      @interesting_for_citizen = Rails.cache.read("#{current_citizen.email}".to_sym)
     end
   end
-  
+
   def load(state, count)
     conditions = (state == 'proposal' ? { state: state, collecting_started: 'true', collecting_ended: 'false' } : { state: state })
     items = Idea.published.where(conditions).order("updated_at DESC").limit(count).includes(:votes).all

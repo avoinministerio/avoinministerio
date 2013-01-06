@@ -92,6 +92,7 @@ GEM
     colorize (0.5.8)
     columnize (0.3.6)
     crack (0.3.1)
+    dalli (2.6.0)
     database_cleaner (0.8.0)
     debugger (1.2.0)
       columnize (>= 0.3.1)
@@ -364,6 +365,7 @@ DEPENDENCIES
   capybara
   capybara-mechanize
   coffee-rails (~> 3.1.1)
+  dalli
   database_cleaner
   debugger
   devise
