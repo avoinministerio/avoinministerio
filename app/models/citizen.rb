@@ -31,22 +31,12 @@ class Citizen < ActiveRecord::Base
     :image
   ].each { |attribute| delegate attribute, to: :profile }
 
-  tankit index_name do
-    conditions do
-      published_something?
-    end
-    indexes :first_name
-    indexes :last_name
-    indexes :name
-    indexes :type do "citizen" end
-    
-    category :type do
-      "citizen"
-    end
+  if Rails.env == 'testjs'
+    include Concerns::IndexingWrapperTest
+  else
+    include TankerMethods
+    include Concerns::IndexingWrapper
   end
-  
-  after_save Concerns::IndexingWrapper.new
-  after_destroy Concerns::IndexingWrapper.new
 
   def published_something?
     ideas.count > 0 || comments.count > 0 
