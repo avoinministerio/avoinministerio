@@ -7,9 +7,8 @@
       var r = Raphael("votepie");
       var pie = r.piechart(135, 92, 57, [
           // piechart requires non-zero sizes to draw properly, so let's guard these values
-          // This hack works first to 0:1 situation, then until ~2300 with 0.0001, then till ~2347347 with 0.01
-          #{@idea_vote_for_count      == 0 ? (@idea_vote_count > 2000 ? 0.1 : 0.0001) : @idea_vote_for_count},
-          #{@idea_vote_against_count  == 0 ? (@idea_vote_count > 2000 ? 0.1 : 0.0001) : @idea_vote_against_count}
+          #{@idea_vote_for_count      == 0 ? 0.00001 : @idea_vote_for_count},
+          #{@idea_vote_against_count  == 0 ? 0.00001 : @idea_vote_against_count}
         ],
         {
           legend: [
@@ -64,9 +63,10 @@
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
+      %span.pull-right.impressions-count= "Tänään näyttökerrat: #{@idea.impressionist_count(:start_date => Date.today)}"
   .grid_16.alpha.mainbody
     - if @idea.published?
-      %h1= @idea.title
+      %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@idea.title.to_s} (Ended)" : @idea.title.to_s
       .summary
         = markdown(@idea.summary) if @idea.summary
       .body
@@ -202,3 +202,6 @@
       = render "comments/form", model: @idea
     .comments.suffix_8
       = render partial: 'comments/comment', collection: @idea.comments.published
+
+:javascript
+  ideaShowPageTour();

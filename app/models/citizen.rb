@@ -56,7 +56,8 @@ class Citizen < ActiveRecord::Base
   end
 
   def image
-    profile.image || Gravatar.new(email).image_url(ssl: true)
+    img = profile.image
+    img.present? ? img : Gravatar.new(email).image_url(ssl: true)
   end
   
   def active_for_authentication?

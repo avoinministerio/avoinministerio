@@ -6,6 +6,8 @@ class Signature < ActiveRecord::Base
   attr_accessible :service
   attr_accessible :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science
 
+  has_paper_trail :on => [:create]
+
   belongs_to  :citizen
   belongs_to  :idea
 

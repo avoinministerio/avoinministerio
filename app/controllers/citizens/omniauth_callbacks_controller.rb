@@ -4,13 +4,19 @@ class Citizens::OmniauthCallbacksController < Devise::OmniauthCallbacksControlle
 
     unless @citizen
       @citizen = Citizen.build_from_auth_hash(request.env["omniauth.auth"])
+      sign_up = true
     end
 
     if @citizen.persisted?
       KM.identify(@citizen)
       KM.push("record", "Facebook login")
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Facebook"
-      sign_in_and_redirect @citizen, event: :authentication
+      if sign_up
+        sign_in @citizen
+        redirect_to edit_profile_fi_path
+      else
+        sign_in_and_redirect @citizen, event: :authentication
+      end
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
       redirect_to new_citizen_registration_url

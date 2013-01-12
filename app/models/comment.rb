@@ -5,7 +5,9 @@ class Comment < ActiveRecord::Base
   include Tanker
 
   attr_accessible :body
-
+  
+  has_paper_trail :on => [:create]
+  
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
   belongs_to :commentable, polymorphic: true
 

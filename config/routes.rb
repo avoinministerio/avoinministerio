@@ -36,6 +36,7 @@ AvoinMinisterio::Application.routes.draw do
   get "ideas/vote_flow"
 
   get "pages/home"
+  get "pages/whats_new"
 
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
