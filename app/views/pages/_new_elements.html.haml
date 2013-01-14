@@ -1,0 +1,9 @@
+.idea-container
+  .idea-heading
+    = link_to idea.title, idea_path(idea), :class => 'idea-heading-link whats-new-idea-title'
+    %span.version-timestamp= idea.version_created_at.strftime("%b %d, %Y (%H:%M:%S)")
+    %span.interesting{:title => "You commented/created/voted/Signed this idea"}= " (Interesting)" if @interesting_for_citizen.include?(idea.id)
+  .idea-desc
+    .reason
+      = idea_reason(idea)
+    = truncate((idea.body.blank? ? idea.summary : idea.body), :length => 260)

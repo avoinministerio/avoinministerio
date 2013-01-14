@@ -1,0 +1,9 @@
+$('.ideas-container').append("<%= escape_javascript(render(:partial => 'new_elements', :collection => @ideas, :as => :idea))%>");
+
+<% if @versions.next_page %>
+	$('.pagination').replaceWith('<%= j will_paginate(@versions) %>');
+	$(window).scroll();
+<% else %>
+	$('.pagination').remove();
+	$('#loading-more-ideas').remove();
+<% end %>

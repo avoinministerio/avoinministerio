@@ -12,7 +12,7 @@ AvoinMinisterio::Application.configure do
   config.action_controller.perform_caching = true
 
   # Please uncomment the code below to enable caching in production mode.
-  # config.cache_store = :dalli_store
+  config.cache_store = :dalli_store
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
