@@ -16,4 +16,4 @@
         %span.against #{against}
         %span.front-page-comment-count= link_to "#{comments}", idea_path(idea, anchor: "comments")
 
-  =link_to "Listaa kaikki»", ideas_path, class: "list_ideas"
+  =link_to "Listaa kaikki (#{@idea_count}) »", ideas_path, class: "list_ideas"
