@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe CitizenMailer do
-
   describe 'welcome_email' do
     it "should send deliver an email" do
       citizen = Factory.build(:citizen)
