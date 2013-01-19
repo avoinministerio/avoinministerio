@@ -63,6 +63,7 @@
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
+      %span.pull-right.impressions-count= "Tänään näyttökerrat: #{@idea.impressionist_count(:start_date => Date.today)}"
   .grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.title
