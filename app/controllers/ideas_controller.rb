@@ -4,16 +4,17 @@ require 'will_paginate/array'
 
 class IdeasController < ApplicationController
   before_filter :authenticate_citizen!, except: [ :index, :show, :search ]
+  impressionist :actions => [:show]
   
   respond_to :html
-
+  
   # should be implemented instead with counter_caches and also vote_pro (and vote_even_abs_diff cache)
   def index
     setup_filtering_and_sorting_options
-
+    
     @sorting_order, ordering = update_sorting_order(params[:reorder])
     @current_filter, code, @filter_name, filterer = update_filter(params[:filter])
-
+    
     on_page = 20
     extras = 20
     page = (params[:page] && params[:page].to_i) || 1
@@ -22,7 +23,7 @@ class IdeasController < ApplicationController
     # @ideas_around receives all ideas on current page and also extras amount before and after
     @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
     @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}
-
+    
     session[:sorting_orders] ||= {}
     # always update the ids for certain sorting order (for every pagination and sorting)
     # ie. this also remembers just the last, which also means next page, back and open idea gives wrong
@@ -31,61 +32,64 @@ class IdeasController < ApplicationController
     #       give wrong prev-next links if you happen to have the same sorting order in session
     @sorting_order_code = @sorting_order.hash
     session[:sorting_orders][@sorting_order_code] = @ideas_around_ids
-#    p session[:sorting_orders]
-
+    #    p session[:sorting_orders]
+    
     # TODO: this hit to database might not be needed as @ideas_around basically contains these already
     @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
-
+    
     KM.identify(current_citizen)
     # TODO: track which sorting options are most commonly used
     KM.push("record", "idea list viewed", page: params[:page] || 1)
-
-#    @ideas.each do |idea|
-#      idea.comments_count = 0
-#      idea.articles.count = 0
-#    end
-
+    
+    #    @ideas.each do |idea|
+    #      idea.comments_count = 0
+    #      idea.articles.count = 0
+    #    end
+    
     respond_with @ideas
   end
-
+  
   def setup_filtering_and_sorting_options
     @filters = [
-      [:all,                "Kaikki",                proc {|f| f} ],
-      [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
-      [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
-      [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
-      [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
-      [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
+    [:all,                "Kaikki",                proc {|f| f} ],
+    [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
+    [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
+    [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
+    [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
+    [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
     ]
-
+    
     @orders = {
-      age:      {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
-      comments: {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
-      voted:    {most:    "vote_count DESC",              least:      "vote_count ASC"}, 
-      votes_for:{most:    "vote_for_count DESC",          least:      "vote_for_count ASC"},
-      support:  {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
-      tilt:     {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
+      age:        {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
+      comments:   {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
+      voted:      {most:    "vote_count DESC",              least:      "vote_count ASC"}, 
+      votes_for:  {most:    "vote_for_count DESC",          least:      "vote_for_count ASC"},
+      support:    {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
+      impressions:{most:    "impressions_count DESC",       least:      "impressions_count ASC"},
+      tilt:       {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
     }
     @field_names = {
-      age:      {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
-      comments: {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
-      voted:    {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
-      votes_for:{most:    "Eniten ääniä puolesta",        least:      "Vähiten ääniä puolesta"},
-      support:  {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
-      tilt:     {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
+      age:        {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
+      comments:   {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
+      voted:      {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
+      votes_for:  {most:    "Eniten ääniä puolesta",        least:      "Vähiten ääniä puolesta"},
+      support:    {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
+      impressions:{most:    "Eniten Luettu",                least:      "Vähiten Luettu"},
+      tilt:       {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
     }
   end
-
+  
   def update_sorting_order(reorder)
     sorting_order = session[:sorting_order] 
     sorting_order ||= [
-      [:age,      [:newest, :oldest]], 
-      [:comments, [:most,   :least]], 
-      [:voted,    [:most,   :least]], 
-      [:votes_for,[:most,   :least]],
-      [:support,  [:most,   :least]],
-      [:tilt,     [:even,   :polarized]],
-    ]
+    [:age,      [:newest, :oldest]], 
+    [:comments, [:most,   :least]], 
+    [:voted,    [:most,   :least]], 
+    [:votes_for,[:most,   :least]],
+    [:support,  [:most,   :least]],
+    [:impressions, [:most, :least]],
+    [:tilt,     [:even,   :polarized]],
+    ]  
     if reorder and @orders.keys.include? reorder.to_sym
       i = sorting_order.index{|so| so.first == reorder.to_sym }
       if i > 0
@@ -105,29 +109,29 @@ class IdeasController < ApplicationController
     ordering = sorting_order.map{|ord| field, order = ord; @orders[field][order.first]}.join(", ")
     return sorting_order, ordering
   end
-
+  
   def update_filter(params_filter)
     current_filter = params_filter || session[:filter] || :all
     session[:filter] = current_filter
     params.delete :filter
-
+    
     code, filter_name, filterer = @filters.find {|f| f.first == current_filter.to_sym}
     raise "unknown filter #{current_filter}" unless code
-
+    
     return current_filter, code, filter_name, filterer
   end
   
   def show
     @idea = Idea.includes(:votes).find(params[:id])
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
-
+    
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
     
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
-
+    
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
       ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
@@ -142,7 +146,7 @@ class IdeasController < ApplicationController
     
     KM.identify(current_citizen)
     KM.push("record", "idea viewed", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
-
+    
     respond_with @idea
   end
   
@@ -179,7 +183,7 @@ class IdeasController < ApplicationController
     end
     respond_with @idea
   end
-
+  
   def search
     @per_page = 20
     @page = (params[:page] && params[:page].to_i) || 1
@@ -188,22 +192,22 @@ class IdeasController < ApplicationController
     
     all_ideas = Idea.search_tank(params['searchterm'],
                                  :category_filters => params[:category_filters]).
-                                 select {|result| result.published?}
+    select {|result| result.published?}
     @idea_count = all_ideas.length
     @idea_categories = Idea.search_tank(params['searchterm'],
                                         :category_filters => params[:category_filters]).
-                                        categories
+    categories
     all_comments = Comment.search_tank(params['searchterm'],
                                        :category_filters => params[:category_filters]).
-                                       select {|result| result.published?}
+    select {|result| result.published?}
     @comment_count = all_comments.length
     all_articles = Article.search_tank(params['searchterm'],
                                        :category_filters => params[:category_filters]).
-                                       select {|result| result.published?}
+    select {|result| result.published?}
     @article_count = all_articles.length
     all_citizens = Citizen.search_tank(params['searchterm'],
                                        :category_filters => params[:category_filters]).
-                                       select {|result| result.published_something?}
+    select {|result| result.published_something?}
     @citizen_count = all_citizens.length
     all_results = all_ideas + all_comments + all_articles + all_citizens
     
@@ -228,11 +232,11 @@ class IdeasController < ApplicationController
         "search result #{type}_#{i} on page #{page} clicked")
     end
   end
-
+  
   def vote_flow
     # does not work well over SQLite or Postgres, but would be the easiest way around
     # @vote_counts = Vote.find(:all, :select => "idea_id, updated_at, count(option) AS option", :group => "idea_id, datepart(year, updated_at)")
-
+    
     # thus we need to go through all the ideas, pick votes and group them in memory
     @vote_counts = {}
     @idea_counts = {}
@@ -257,15 +261,15 @@ class IdeasController < ApplicationController
         [idea_id, vote_count]
       end
       {"d" => d, "i" => vcs.sort{|a,b| b[1] <=> a[1]}}
-    end.to_json
-
-    @authors = @idea_counts.to_json
-
-    KM.identify(current_citizen)
-    KM.push("record", "vote flow viewed")
-
-    render 
+      end.to_json
+      
+      @authors = @idea_counts.to_json
+      
+      KM.identify(current_citizen)
+      KM.push("record", "vote flow viewed")
+      
+      render 
+    end
+    
+    
   end
-
-
-end
