@@ -115,6 +115,7 @@ GEM
       mail (~> 2.2)
       rspec (~> 2.0)
     erubis (2.7.0)
+    excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (2.3.2)
@@ -145,6 +146,14 @@ GEM
       haml (~> 3.0)
       railties (~> 3.0)
     hashie (1.2.0)
+    heroku (2.33.5)
+      heroku-api (~> 0.3.7)
+      launchy (>= 0.3.2)
+      netrc (~> 0.7.7)
+      rest-client (~> 1.6.1)
+      rubyzip
+    heroku-api (0.3.7)
+      excon (~> 0.16.10)
     highline (1.6.14)
     hike (1.2.1)
     hominid (3.0.5)
@@ -191,6 +200,7 @@ GEM
     mustache (0.99.4)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.7)
+    netrc (0.7.7)
     newrelic_rpm (3.4.2.1)
     nokogiri (1.5.5)
     ntlm-http (0.1.1)
@@ -382,6 +392,7 @@ DEPENDENCIES
   guard-rspec (= 0.7.3)
   guard-spork (= 1.0.0)
   haml-rails
+  heroku
   hominid
   i18n_routing
   jquery-rails
@@ -404,6 +415,7 @@ DEPENDENCIES
   rspec-rails
   rspec-rails-controller
   sass-rails (= 3.1.4)
+  sequel
   shoulda-matchers
   simple_form
   simplecov

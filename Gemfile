@@ -4,8 +4,8 @@ gem "rails", "3.1.6"
 
 gem 'rb-readline'
 gem "taps"
-#gem "heroku"
-#gem "sequel"
+gem "heroku"
+gem "sequel"
 
 
 

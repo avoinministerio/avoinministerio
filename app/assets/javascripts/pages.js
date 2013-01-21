@@ -25,9 +25,9 @@ jQuery(document).ready(function() {
     jQuery("#mycarousel").jcarousel({
         wrap: 'circular',
         scroll: 3,
-        //start: 1,
+        start: 3,
         //auto: 1,
-        initCallback: mycarousel_initCallback,
+        initCallback: mycarousel_initCallback
         // This tells jCarousel NOT to autobuild prev/next buttons
         //buttonNextHTML: null,
         //buttonPrevHTML: null
@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
         wrap: 'circular',
         scroll: 3,
         //auto: 1,
-        //start: 1,
+        start: 3,
         initCallback: mycarousel_initCallback,
         // This tells jCarousel NOT to autobuild prev/next buttons
         buttonNextHTML: null,
