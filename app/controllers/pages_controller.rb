@@ -22,6 +22,7 @@ class PagesController < ApplicationController
 	      end_date_       = sprintf( idea.collecting_end_date != nil ? I18n.localize(idea.collecting_end_date) : '' )
 	      #start_date_     = sprintf( idea.collecting_start_date != nil ? I18n.localize(idea.collecting_start_date, :format => :short) : '' )
 	      #end_date_       = sprintf( idea.collecting_end_date != nil ? I18n.localize(idea.collecting_end_date, :format => :short) : '' )
+
         item_counts[idea.id] = [for_portion, for_, start_date_, end_date_]
       end
     else
@@ -75,19 +76,30 @@ class PagesController < ApplicationController
 
     # B: two rows of examples:
     @proposal_total = Idea.published.where(state: 'proposal').count
-    if  @proposal_total >= 4 && @proposal_total <=6
-      @proposal_display  =  3
-    else
-      @proposal_display  =  3
-    end
-    @proposals, @proposals_counts  = load("proposal", @proposal_display)
+
+    @proposals, @proposals_counts  = load("proposal",3)
     @drafts, @draft_counts        = load("draft",    3)
 
     # A: just one row, both proposals and drafts in it
     @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
     @proposal_and_drafts_counts = @proposals_counts.merge @draft_counts
-
-
+    @nocarousel_limit = 6
+    @split = 1
+    if session[:ab_section_count] == 1
+      if @proposals_and_drafts.size > @nocarousel_limit
+        @myc_id = "mycarousel"
+        @split = 2
+      else
+        @myc_id = "nocarousel"
+      end
+    else
+      if @proposals.size > @nocarousel_limit
+        @myc_id = "mycarousel"
+        @split = 2
+      else
+        @myc_id = "nocarousel"
+      end
+    end
     # Ideas either newest or random sampling
     if @newest_ideas = (rand() < 0.1)
       idea_count = 4

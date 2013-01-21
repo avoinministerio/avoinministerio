@@ -3,6 +3,11 @@ source "http://rubygems.org"
 gem "rails", "3.1.6"
 
 gem 'rb-readline'
+gem "taps"
+#gem "heroku"
+#gem "sequel"
+
+
 
 # Gems used only for assets and not required
 # in production environments by default.
