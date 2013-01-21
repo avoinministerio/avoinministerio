@@ -105,12 +105,11 @@ describe IdeasController do
 
     describe "logged in user" do
       before :each do
-        @citizen = FactoryGirl.create :citizen
-        sign_in @citizen
+        sign_in citizen
       end
 
       it "should show edit link if current_citizen is the author of the idea" do
-        @idea.author = @citizen
+        @idea.author = citizen
         @idea.save!
         get :show, id: @idea.id
         response.body.should include(link_to(I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)))
@@ -122,7 +121,7 @@ describe IdeasController do
       end
 
       it "should show an option to change opinion if already voted" do
-        @idea.vote(@citizen, 1)
+        @idea.vote(citizen, 1)
         get :show, id: @idea.id
         response.body.should include(@idea.title)
       end
