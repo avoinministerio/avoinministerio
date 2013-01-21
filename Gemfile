@@ -10,8 +10,8 @@ group :assets do
   gem "uglifier",     ">= 1.0.3"
 end
 
-gem "devise"
-gem "factory_girl_rails", "1.4.0", :require => false
+gem "devise", '2.1.2'
+gem "factory_girl_rails", "4.1.0", :require => false
 gem "friendly_id"
 gem "gravatar-ultimate"
 gem "haml-rails"
@@ -32,7 +32,6 @@ gem "hominid"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
-
 gem "rspec-rails", :groups => [ :development, :test ]
 
 group :development do
@@ -46,6 +45,7 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
+  gem "debugger", ">= 1.2.2"
 end
 
 group :production do

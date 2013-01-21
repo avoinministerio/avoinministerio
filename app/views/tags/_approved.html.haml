@@ -1,0 +1,20 @@
+%h2 Approved Tags:
+%ul.approved_tags
+  - @idea.tags.each do |tag|
+    - if tag.approved?(@idea.id) 
+      %li.approved_tags{:id => tag.id}
+        %p= link_to tag.name, tag
+        - if citizen_signed_in?
+          - if !tag.citizen_voted?(@idea.id, current_citizen.id) 
+            - unless tag.vote_limit?(@idea.id)
+              %span.vote_tags
+                = link_to image_tag("vote_for_small.jpeg", :border => 0), vote_for_tag_path(:idea_id => @idea.id, :tag_id => tag.id, :citizen_id => current_citizen.id), remote: true
+                = link_to image_tag("vote_against_small.jpeg", :border => 0), vote_against_tag_path(:idea_id => @idea.id, :tag_id => tag.id, :citizen_id => current_citizen.id), remote: true
+          - else
+            %span.score 
+              | Score of this idea: #{tag.score(@idea.id)}
+            - if tag.voted_for?(@idea.id, current_citizen.id)
+              = link_to image_tag("vote_against_small.jpeg", :border => 0), vote_against_tag_path(:idea_id => @idea.id, :tag_id => tag.id, :citizen_id => current_citizen.id), remote: true
+            - else
+              = link_to image_tag("vote_for_small.jpeg", :border => 0), vote_for_tag_path(:idea_id => @idea.id, :tag_id => tag.id, :citizen_id => current_citizen.id), remote: true
+%br

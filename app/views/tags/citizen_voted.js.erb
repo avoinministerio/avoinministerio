@@ -1,0 +1,5 @@
+$("#tag_cloud").html("<%= escape_javascript(render(:partial => 'tags', :locals => {:idea => @idea})).html_safe %>");
+$("li#<%= @tag.id %>.approved_tags span.score").show();
+$("li#<%= @tag.id %>.suggested_tags span.score").show();
+$("li#<%= @tag.id %>.approved_tags span.score").fadeOut(6000);
+$("li#<%= @tag.id %>.suggested_tags span.score").fadeOut(6000);

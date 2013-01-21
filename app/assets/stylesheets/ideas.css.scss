@@ -17,6 +17,13 @@ $red: #a9003f;
   font-size: 2em;
 }
 
+label[for=idea_tag_list] {
+  padding: 15px;
+  font-size: 17px;
+  text-transform: uppercase;
+  color: $violet;
+}
+
 #new_idea label[for=idea_summary],
 #new_idea label[for=idea_body] {
   font-size: 1.5em;
@@ -33,11 +40,11 @@ $red: #a9003f;
 }
 
 #new_idea input[type=submit] {
-  float: right;
+  float: left;
 }
 
 .state {
-  background: #473161;
+  background: $violet;
   color: #fff;
   padding: 6px 10px;
   margin: 16px auto;
@@ -270,7 +277,7 @@ ul.horizontal li {
   display: none; 
 }
 
-#title_help, #summary_help, #body_help {
+#title_help, #summary_help, #body_help, #tags_help {
   padding-top: 60px;
   background-image:url("/assets/ohje_nuoli.png");
   background-repeat: no-repeat; 
@@ -329,6 +336,34 @@ ul.horizontal li {
   text-decoration: none;
 }
 
+.ideas_header .tagging {
+  color: $grey;
+}
+.ideas_header .tagging span.selected {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .tagging span.selected a:link {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .tagging span.selected a:visited {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .tagging a:hover {
+  color: $grey;
+  text-decoration: underline;
+}
+.ideas_header .tagging a:link {
+  color: $grey;
+  text-decoration: none;
+}
+.ideas_header .tagging a:visited {
+  color: $grey;
+  text-decoration: none;
+}
+
 .ideas_header .ordering {
   color: $grey;
 }
@@ -358,7 +393,7 @@ ul.horizontal li {
 }
 
 .ideas_header .filtered_title {
-  padding-top:20px;
+  padding-top:50px;
   font-size: 24px;
 }
 
@@ -412,4 +447,180 @@ ul.horizontal li {
 
 .share .addthis_32x32_style {
   height: 32px;
+}
+
+input#idea_title {
+  width: 66%;
+}
+
+#lda_response {
+  padding-top: 38px;
+  float: right;
+  width: 45%;
+}
+
+.response {
+  float: auto;
+  padding: 15px;
+  border: 3px solid $violet;
+}
+
+#idea_form {
+  overflow: hidden;
+}
+
+.add_idea {
+  margin-top: 15px;
+}
+
+li.cloud {
+  overflow: hidden; 
+  height: auto !important; 
+  height: 15px;
+  margin: 3px;
+  padding: 1px 3px;
+  background-color: #eff2f7;
+  color: #000;
+  cursor: default;
+  border: 1px solid #ccd5e4;
+  font-size: 18px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  float: left;
+  white-space: nowrap;
+}
+
+li.cloud p {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+}
+
+ul.cloud {
+  overflow: hidden; 
+  height: auto !important; 
+  height: 1%;
+  cursor: text;
+  font-size: 12px;
+  font-family: Verdana;
+  min-height: 1px;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  list-style-type: none;
+  clear: left;
+}
+
+span.add_token a {
+  color: green;
+  margin-left: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul.approved_tags, ul.suggested_tags {
+  overflow: hidden; 
+  height: auto !important; 
+  height: 1%;
+  cursor: text;
+  font-size: 12px;
+  font-family: Verdana;
+  min-height: 1px;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  list-style-type: none;
+  clear: left;
+}
+
+li.approved_tags, li.suggested_tags {
+  overflow: hidden; 
+  height: auto !important; 
+  height: 15px;
+  margin: 3px;
+  padding: 1px 3px;
+  color: #000;
+  cursor: default;
+  font-size: 18px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  white-space: nowrap;
+}
+
+li.approved_tags p, li.suggested_tags p {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+}
+
+li.approved_tags p a, li.suggested_tags p a {
+  color: #a9003f;
+  text-decoration: none
+}
+
+span.vote_tags a {
+  color: green;
+  margin-left: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tag_input_box {
+  margin-top: 10px;
+  border: 3px solid $violet;
+}
+
+span.score {
+  display: none;
+}
+
+#suggested_tags_box {
+  float: auto;
+  display: none;
+}
+
+#suggested_tags_form {
+  margin-top: 15px;
+  float: left;
+}
+
+#suggestion_limit_notice {
+  margin-bottom: 15px;
+}
+
+#notification {
+  display: none;
+  margin-bottom: 15px;
+  color: red;
+  font-size: 1.25em;
+}
+
+a.idea_edit_link {
+  padding-top: 100px;
+  float: right;
+}
+
+#tags {
+  width: 50%;
+  float: left
+}
+
+#ideas_by_tags {
+  width: 50%;
+  float: right
+}
+
+#suggestions {
+  width: 100%;
+  float: left;
 }

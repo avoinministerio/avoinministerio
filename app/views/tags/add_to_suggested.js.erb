@@ -1,0 +1,12 @@
+$("#suggested_tags_box").show();
+$("input.suggest_tags_button").hide();
+$('input#idea_suggested_tags').tokenInput('add', {id: <%= @tag.id %>, name: "<%= @tag.name %>"});
+
+if (5 <= (tags.length + <%= @idea.count_suggested_tags(current_citizen) %>)) {
+	$("#notification").show();
+	$("#existing_tags_menu").hide();
+}
+
+$.each(tags, function(key, value) {
+  $('li#' + value + '.cloud').remove();
+});

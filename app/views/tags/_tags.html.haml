@@ -1,0 +1,41 @@
+#tag_cloud
+  #tags
+    = render "tags/approved", :locals => { :idea => @idea }
+    = render "tags/suggested", :locals => { :idea => @idea }
+  #ideas_by_tags
+    %h2 List of similar ideas:
+    - tag_ids = []
+    - @idea.tags.each do |tag|
+      - tag_ids << tag.id
+    - Idea.find_similar(tag_ids).each do |idea|
+      = link_to idea.title, idea
+      %br
+  #suggestions
+    - if citizen_signed_in? && !(@idea.count_suggested_tags(current_citizen) >= 5)
+      %h2 Want to suggest new tag?
+      #notification
+        Warning! Citizen can't suggest more than 5 tags for each idea!
+      #suggested_tags_box
+        #existing_tags_menu
+          Select from existing:
+          %ul.cloud
+            - @idea.possible_tags.sort_by(&:count).reverse.each do |tag|
+              %li.cloud{:id => "#{tag.id}"}
+                %p= tag.name
+                %span.add_token
+                  = link_to "\u2714", add_to_suggested_tag_path(:tag_id => tag), remote: true
+        #suggested_tags_form
+          Or create a new one:
+          = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|
+            = f.hidden_field :citizen_id, :value => current_citizen.id
+            = f.text_field :suggested_tags, as: :text, :class => "test"
+            %br
+            = f.submit "Suggest"
+      - if @idea.count_suggested_tags(current_citizen) > 0 && @idea.count_suggested_tags(current_citizen) < 5
+        #suggestion_limit_notice
+          You already suggested #{@idea.count_suggested_tags(current_citizen)} tag(s) for this idea.
+        = button_to "Suggest more!", list_of_suggested_tag_path, remote: true, :class => "suggest_tags_button"
+      - elsif @idea.count_suggested_tags(current_citizen) == 0
+        #suggestion_limit_notice
+          Don't forget that you allowed to add only 5 tags for this idea.
+        = button_to "Suggest", list_of_suggested_tag_path, remote: true, :class => "suggest_tags_button"
