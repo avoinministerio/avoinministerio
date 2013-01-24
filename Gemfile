@@ -1,9 +1,12 @@
 source "https://rubygems.org"
 
-gem "rails", "3.1.6"
+gem "rails", "3.2.11"
+
+# Gems used only for assets and not required
+# in production environments by default.
 group :assets do
-  gem "coffee-rails", "~> 3.1.1"
-  gem "sass-rails",   "= 3.1.4"
+  gem "coffee-rails", "~> 3.2.2"
+  gem "sass-rails",   "= 3.2.5"
   gem "uglifier",     ">= 1.0.3"
 end
 
@@ -25,13 +28,12 @@ gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
-#gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
 gem "rspec-rails", :groups => [ :development, :test ]
 gem 'rb-readline'
-gem 'libv8', '~> 3.11.8'
+gem 'libv8', '~> 3.3.10.4'
 
 group :development do
   gem "rails-erd"
@@ -45,7 +47,6 @@ group :development do
   gem "launchy"
   gem "letters"
   gem "pg"
-  #gem 'ruby-debug19'
 end
 
 group :production do
