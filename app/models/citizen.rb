@@ -22,7 +22,6 @@ class Citizen < ActiveRecord::Base
   accepts_nested_attributes_for :profile
   
   default_scope includes(:profile)
-  
   [
     :first_names,
     :first_name,
@@ -106,6 +105,14 @@ class Citizen < ActiveRecord::Base
 
   def saldo
     money_transactions.sum(:amount)
+  end
+
+  # check if an user just have registered very recently
+  def just_registered?
+    # if an user have registered less than 7 days ago
+    # they will be treated as a just registered user
+    time_gap_in_days = 60*60*24*7 # 7 days
+    Time.now - self.created_at <= time_gap_in_days
   end
 
   private

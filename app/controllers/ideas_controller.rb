@@ -4,7 +4,8 @@ require 'will_paginate/array'
 
 class IdeasController < ApplicationController
   before_filter :authenticate_citizen!, except: [ :index, :show, :search ]
-  
+  # before_filter :first_visit
+
   respond_to :html
 
   # should be implemented instead with counter_caches and also vote_pro (and vote_even_abs_diff cache)
@@ -267,5 +268,11 @@ class IdeasController < ApplicationController
     render 
   end
 
+  private
+
+  def first_visit?
+    @first_visit = cookie[:first_visit][:value]
+    cookie[:first_visit] = {value: 1, expires: 7.days.from_now} unless @first_visit
+  end
 
 end

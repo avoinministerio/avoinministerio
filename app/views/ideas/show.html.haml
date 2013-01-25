@@ -1,9 +1,10 @@
 - content_for :facebook_metadata_for_idea do
   = render partial: 'facebook_meta_tags'
 - content_for :head do
-  %title= "@Avoinministerio #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}"
+  %title= "@Avoinministerio #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}" 
 :javascript
   $(document).ready(function(){
+    try{
       var r = Raphael("votepie");
       var pie = r.piechart(135, 92, 57, [
           // piechart requires non-zero sizes to draw properly, so let's guard these values
@@ -40,6 +41,11 @@
               this.label[1].attr({ "font-weight": 400 });
           }
       });
+
+     }
+     catch(e){
+        console.log("an error occured => " + e);
+      }
   });
 .prevnext
   .grid_24
