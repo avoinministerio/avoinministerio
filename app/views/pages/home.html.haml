@@ -1,14 +1,17 @@
 = render partial: 'headline'
-
 - if session[:ab_section_count] == 1
 	= render partial: 'drafts', 
-		locals: {title: "Toimenpide- ja Lakiehdotukset sekä Luonnokset", section: "proposal_and_draft",
-				 items: @proposals_and_drafts, items_counts: @proposal_and_drafts_counts, item_counter: 0 }
+		locals: {title: "Toimenpide- ja Lakiehdotukset sekä Luonnokset", 
+				section: "proposal_and_draft", items: @proposals_and_drafts, 
+				items_counts: @proposal_and_drafts_counts, item_counter: 0 }
 - else # session[:ab_section_count] == 2
 	= render partial: 'drafts', 
-		locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 0, section: "proposal" }
+			locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 0, section: "proposal" }
+	- if @proposals.size > 3
+		= render partial: 'drafts', 
+				locals: {title: "", items: @proposals[3...6], items_counts: @proposals_counts, item_counter: 3, section: "proposal" }
 	= render partial: 'drafts', 
-		locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, item_counter: 3,  section: "draft" }
+		locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, item_counter: 6,  section: "draft" }
 
 - if @newest_ideas
 	= render partial: 'ideas'
@@ -17,3 +20,4 @@
 
 = render partial: 'news'
 = render partial: 'newsletter'
+= javascript_include_tag 'bootstrap-tour-built/pages_index'

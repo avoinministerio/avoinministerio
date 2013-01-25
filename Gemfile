@@ -28,12 +28,12 @@ gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
-#gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
-
 gem "rspec-rails", :groups => [ :development, :test ]
+gem 'rb-readline'
+gem 'libv8', '~> 3.3.10.4'
 
 group :development do
   gem "rails-erd"
@@ -46,6 +46,7 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
+  gem "pg"
 end
 
 group :production do
@@ -67,8 +68,6 @@ group :test do
   gem "capybara-mechanize"
   gem "timecop"
 
-  gem "sqlite3"
-
   if ENV["DB"] == "postgres"
     gem "pg"
   end
@@ -82,3 +81,5 @@ group :linux_test do
   gem "therubyracer", :require => false
   gem "libnotify", :require => false
 end
+
+
