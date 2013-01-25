@@ -43,10 +43,12 @@ group :development do
   gem "guard-rspec", "0.7.3"
   gem "guard-spork", "1.0.0"
   gem "brakeman", "~> 1.6.2"
-  gem "pry-rails"
   gem "launchy"
   gem "letters"
   gem "pg"
+  gem "pry-rails"
+  gem "pry"
+  gem "pry-nav"
 end
 
 group :production do

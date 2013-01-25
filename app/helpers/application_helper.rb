@@ -56,6 +56,11 @@ module ApplicationHelper
     end
   end
 
+  def javascript_include_bootstrap_tour
+    path1 = current_citizen ? "registered" : "anonymous"
+    path2 = "#{controller.controller_name}_#{controller.action_name}"
+    javascript_include_tag "bootstrap-tour-built/#{path1}/#{path2}"
+  end
 end
 
 def current_timezone
@@ -69,17 +74,16 @@ end
 
 
 class Numeric
-     def format(separator = ',', decimal_point = '.')
-         num_parts = self.to_s.split('.')
-         x = num_parts[0].reverse.scan(/.{1,3}/).join(separator).reverse
-         x << decimal_point + num_parts[1] if num_parts.length == 2
-         return x
-     end
+   def format(separator = ',', decimal_point = '.')
+       num_parts = self.to_s.split('.')
+       x = num_parts[0].reverse.scan(/.{1,3}/).join(separator).reverse
+       x << decimal_point + num_parts[1] if num_parts.length == 2
+       return x
+   end
 
-     def Numeric.format(number, *args)
-         number.format(*args)
-     end
-
+   def Numeric.format(number, *args)
+       number.format(*args)
+   end
 end
 
 
@@ -163,4 +167,3 @@ class KM
     end
   end
 end
-
