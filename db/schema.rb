@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013234109) do
+ActiveRecord::Schema.define(:version => 20130126065711) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -88,6 +88,16 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
 
   add_index "authentications", ["citizen_id"], :name => "index_authentications_on_citizen_id"
   add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid", :unique => true
+
+  create_table "bootstrap_tours", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "controller"
+    t.string   "action"
+    t.integer  "step"
+    t.boolean  "is_ended"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "changelogs", :force => true do |t|
     t.string   "changer_type"

@@ -1,16 +1,21 @@
 $(document).ready(function(){
-	var tour = new Tour({name: "ideas_show_tour"});
+	var tour = new Tour({
+		name: "ideas_show_tour",
+		storageType: "database",
+		sourceController: "ideas",
+		sourceAction: "show"
+	});
 	tour.addStep({ 
-		element: ".btn.jaa-btn-disabled", 
-		title: "Info title1 - loggen in user", 
-		content: "You should login to leave a notification support.", 
+		element: ".share", 
+		title: "Info title1 - logged in user", 
+		content: "Share it!", 
 		placement: "left", 
 		reflex: true
 	});
 
 	tour.addStep({ 
 		element: ".signature-statistics", 
-		title: "Info title2 - loggen in user", 
+		title: "Info title2 - logged in user", 
 		content: "Here is the statistics for the idea.",
 		placement: "left", 
 		reflex: true
@@ -18,7 +23,7 @@ $(document).ready(function(){
 
 	tour.addStep({ 
 		element: "#comment_body", 
-		title: "Info title3 - loggen in user", 
+		title: "Info title3 - logged in user", 
 		content: "You can leave a comment right here.",
 		placement: "top", 
 		reflex: true

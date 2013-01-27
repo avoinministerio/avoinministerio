@@ -1,5 +1,11 @@
 $(document).ready(function(){
-	var tour = new Tour({name: "ideas_show_tour"});
+	
+	var tour = new Tour({
+		name: "ideas_show_tour"
+		,storageType: "database"
+
+	});
+
 	tour.addStep({ 
 		element: ".btn.jaa-btn-disabled", 
 		title: "Info title1 - anonymous user", 

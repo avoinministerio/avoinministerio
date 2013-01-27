@@ -42,7 +42,10 @@ AvoinMinisterio::Application.routes.draw do
     registrations: "citizens/registrations",
     sessions: "citizens/sessions",
   }
+
   match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
+  match "/citizens/get_bootstrap_tour" => "citizens#get_bootstrap_tour", via: :get
+  match "/citizens/update_bootstrap_tour" => "citizens#update_bootstrap_tour", via: :post
 
   resources :ideas do
     resources :comments

@@ -1,5 +1,8 @@
 $(document).ready(function(){
-	var tour = new Tour({name: "pages_home_tour"});
+	var tour = new Tour({
+		name: "pages_home_tour"
+		,useLocalStorage: true
+	});
 	tour.addStep({ 
 		path: "/",
 		element: "#ab_section_proposal_0_link", 

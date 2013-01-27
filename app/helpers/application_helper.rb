@@ -59,7 +59,7 @@ module ApplicationHelper
   def javascript_include_bootstrap_tour
     path1 = current_citizen ? "registered" : "anonymous"
     path2 = "#{controller.controller_name}_#{controller.action_name}"
-    javascript_include_tag "bootstrap-tour-built/#{path1}/#{path2}"
+    javascript_include_tag("bootstrap-tour-built/#{path1}/#{path2}")
   end
 end
 
