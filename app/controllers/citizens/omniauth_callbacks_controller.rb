@@ -13,7 +13,7 @@ class Citizens::OmniauthCallbacksController < Devise::OmniauthCallbacksControlle
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Facebook"
       if sign_up
         sign_in @citizen
-        redirect_to citizens_after_sign_up_fi_path
+        redirect_to edit_profile_fi_path
       else
         sign_in_and_redirect @citizen, event: :authentication
       end
