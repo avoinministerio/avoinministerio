@@ -919,6 +919,8 @@ class SignaturesController < ApplicationController
             session["authenticated_accept_publicity"] = @signature.accept_publicity
             session["authenticated_accept_science"]   = @signature.accept_science
 
+          @url = "#{request.protocol}#{request.host_with_port}"+"/ideat/"+"#{@signature.idea_id}"
+
             # show only proposals that haven't yet been signed by current_citizen
             signatures = Arel::Table.new(:signatures)
             already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
@@ -926,7 +928,7 @@ class SignaturesController < ApplicationController
             proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
             proposals_collectible = (ideas[:collecting_in_service].eq(true)).and(ideas[:collecting_started].eq(true)).and(ideas[:collecting_ended].eq(false))
             unsigned_collectible_proposals = proposals_not_in_already_signed.and(proposals_collectible)
-            @initiatives = Idea.where(unsigned_collectible_proposals).order("vote_for_count DESC").limit(5).all
+          @initiatives = Idea.where(unsigned_collectible_proposals).order("vote_for_count DESC").limit(5).all
 
             # Storing authenticated fileds inside profile for survey reporting
             profile = current_citizen.profile
