@@ -247,3 +247,35 @@ We will be expanding the developer community as it goes. At the moment the core 
 also at #Avoinministerio in Freenode IRC. Besides competely Finnish #Avoinministerio there's also friendly English channel #TheOpenMinistry. 
 Feel free to pop in with any questions or suggestions!
 
+--------------------------------------
+
+
+to checkout and create a branch at the same time. This is the same thing as doing:
+git checkout -b new_branch
+git branch new_branch
+git checkout new_branch
+----------
+Removing one file is great and all, but what if you want to remove an entire folder? You can use the recursive option on git rm:
+
+git rm -r folder_of_cats
+
+This will recursively remove all folders and files from the given directory.
+-----------
+Removing one file is great and all, but what if you want to remove an entire folder? You can use the recursive option on git rm:
+
+git rm -r folder_of_cats
+
+This will recursively remove all folders and files from the given directory.
+-----------------
+The '-a' option
+
+If you happen to delete a file without using 'git rm' you'll find that you still have to 'git rm' the deleted files from the working tree. You can save this step by using the '-a' option on 'git commit', which auto removes deleted files with the commit.
+
+git commit -am "Delete stuff"
+--------------
+
+
+What if you have been working on a feature branch and you decide you really don't want this feature anymore? You might decide to delete the branch since you're scrapping the idea. You'll notice that git branch -d bad_feature doesn't work. This is because -d won't let you delete something that hasn't been merged.
+
+You can either add the --force (-f) option or use -D which combines -d -f together into one command.
+
