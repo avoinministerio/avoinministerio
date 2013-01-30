@@ -46,14 +46,14 @@
                   - position_y = 11
                   - if for_portion > 80
                     - for_percentage = "#{(((280-for_portion).to_f/280)*100).to_i}"
-                    - percentage_strings = "%age left : "+"#{for_percentage}"+"%"
+                    - percentage_strings = "(%age left : "+"#{for_percentage}"+"%)"
                     - position_x = 65
                     - position_y = 10
                 :javascript
                   var r = Raphael("draft_bar_#{section}_#{i+item_counter}", 280, 20);
                   r.rect(  0, 0, #{for_length}, 20).attr({fill: "#8cc63f", stroke: "#fff", strokewidth: 0});
-                  r.rect(#{for_length+5}, 0, #{280-5-for_length}, 20).attr({fill: "#a9003f", stroke: "#fff", strokewidth: 0});
-                  r.text( "#{position_x}","#{position_y}", "#{for_var_red} #{percentage_strings} #{for_var_green}").attr({fill: "#fff", "font-size": 12});
+                  r.rect(#{for_length+5}, 0, #{280-2-for_length}, 20).attr({fill: "#a9003f", stroke: "#fff", strokewidth: 0});
+                  r.text( "#{position_x+2}","#{position_y}", "#{for_var_red} #{for_var_green} #{percentage_strings}").attr({fill: "#fff", "font-size": 12});
                   r.text("#{red_bar_x}",11, "#{against_}").attr({fill: "#fff", "font-size": 12});
 
 - if section == "proposal" && item_size > 6
