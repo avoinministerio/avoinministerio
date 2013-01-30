@@ -23,7 +23,7 @@
         - else
           Olet jo jättänyt kannatusilmoituksen onnistuneesti. Et voi jättää sitä uudelleen.
       - else
-        = link_to "Sisäänkirjaudu jättääksesi kannatusilmoituksen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn-disabled", disabled: true
+        = link_to "Sisäänkirjaudu jättääksesi kannatusilmoituksen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn-disabled"
 
   - if ended
     Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta käyttäjien tukea silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit jättää sen uudelleen.
