@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	var tour = new Tour({
-		name: "pages_home_tour"
-		,useLocalStorage: true
+		name: "anon_pages_home_tour"
 	});
 	tour.addStep({ 
 		path: "/",

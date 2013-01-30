@@ -1,6 +1,7 @@
 class CitizensController < ApplicationController
   before_filter :authenticate_citizen!, except: :bootstrap_tour_value
   before_filter :fetch_citizen, except: :bootstrap_tour_value
+  protect_from_forgery :except => [:get_bootstrap_tour, :update_bootstrap_tour]
   
   def edit
   end
@@ -35,6 +36,7 @@ class CitizensController < ApplicationController
   end
 
   def update_bootstrap_tour
+    # binding.pry   # !!!! DEBUG !!!!
     if request.xhr? and request.post? and current_citizen
       begin
         find_params_hash = find_bootstrap_tour_hash()

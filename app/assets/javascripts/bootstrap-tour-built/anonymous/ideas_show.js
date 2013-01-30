@@ -1,9 +1,6 @@
 $(document).ready(function(){
-	
 	var tour = new Tour({
-		name: "ideas_show_tour"
-		,storageType: "database"
-
+		name: "anon_ideas_show_tour"
 	});
 
 	tour.addStep({ 

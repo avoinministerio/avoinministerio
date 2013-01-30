@@ -1,10 +1,13 @@
 $(document).ready(function(){
 	var tour = new Tour({
-		name: "ideas_show_tour",
-		storageType: "database",
-		sourceController: "ideas",
-		sourceAction: "show"
+		name: "reg_ideas_show_tour"
+		,useLocalStorage: true
+		//,storageType: "database"
+		// ,sourceController: "ideas"
+		// ,sourceAction: "show"
 	});
+
+
 	tour.addStep({ 
 		element: ".share", 
 		title: "Info title1 - logged in user", 
@@ -29,5 +32,7 @@ $(document).ready(function(){
 		reflex: true
 	});
 
-	tour.start(true);
+	tour.start(true, function(data, data2){ 
+		alert('data1 ' + data + " data2 -> " + data2); 
+	});
 });

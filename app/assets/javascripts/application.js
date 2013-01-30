@@ -12,5 +12,6 @@
 
 //= require bootstrap-tooltip
 //= require bootstrap-popover
+//= require bootstrap-tour/source
 
 //= require_directory .
