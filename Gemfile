@@ -1,12 +1,12 @@
-source 'http://rubygems.org'
+source "https://rubygems.org"
 
-gem "rails", "3.1.3"
+gem "rails", "3.2.11"
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem "coffee-rails", "~> 3.1.1"
-  gem "sass-rails",   "~> 3.1.5"
+  gem "coffee-rails", "~> 3.2.2"
+  gem "sass-rails",   "= 3.2.5"
   gem "uglifier",     ">= 1.0.3"
 end
 
@@ -27,28 +27,52 @@ gem "simple_form"
 gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
-
+gem "hominid"
+gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
+gem "unicorn"
+gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
 gem "rspec-rails", :groups => [ :development, :test ]
+gem 'rb-readline'
+gem 'libv8', '~> 3.3.10.4'
 
 group :development do
   gem "rails-erd"
   gem "sqlite3"
-  gem 'unicorn'
+  gem "unicorn"
+  gem "guard", "1.0.3"
+  gem "guard-rspec", "0.7.3"
+  gem "guard-spork", "1.0.0"
+  gem "brakeman", "~> 1.6.2"
+  gem "launchy"
+  gem "letters"
+  gem "pg"
+  gem "pry-rails"
+  gem "pry"
+  gem "pry-nav"
 end
 
 group :production do
-  gem "newrelic_rpm"
+  gem "newrelic_rpm", "3.4.2.1"
   gem "pg"
-  gem 'unicorn'
 end
 
 group :test do
+  gem "spork-rails"
   gem "capybara"
   gem "database_cleaner"
+  gem "rspec-rails-controller"
   gem "shoulda-matchers"
   gem "simplecov", :require => false
-  gem "sqlite3"
   gem "turn", "~> 0.8.3", :require => false
+  gem "webmock", :require => false
+  gem "email_spec"
+  gem "steak"
+  gem "capybara-mechanize"
+  gem "timecop"
+
+  if ENV["DB"] == "postgres"
+    gem "pg"
+  end
 end
 
 group :mac_test do
@@ -57,4 +81,7 @@ end
 
 group :linux_test do
   gem "therubyracer", :require => false
+  gem "libnotify", :require => false
 end
+
+

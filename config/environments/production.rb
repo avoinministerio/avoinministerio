@@ -2,7 +2,7 @@ AvoinMinisterio::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Rails secret token from environment variable
-  config.secret_token = ENV['RAILS_SECRET_TOKEN']
+  config.secret_token = File.read(File.join(Rails.root, "secret_token")) rescue ENV['RAILS_SECRET_TOKEN']
 
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -17,8 +17,9 @@ AvoinMinisterio::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  # Do fallback to assets pipeline if a precompiled asset is missed
+  # Surveyor requires this, hopefully nothing else gets slow
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -54,6 +55,16 @@ AvoinMinisterio::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
+  ActionMailer::Base.smtp_settings = {
+    :port           => 587,
+    :address        => 'smtp.mailgun.org',
+    :user_name      => 'postmaster@avoinministerio.mailgun.org',
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    :domain         => 'avoinministerio.mailgun.org',
+    :authentication => :plain,
+  }
+  ActionMailer::Base.delivery_method = :smtp
+
   # Enable threaded mode
   # config.threadsafe!
 
@@ -69,4 +80,7 @@ AvoinMinisterio::Application.configure do
   config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Avoin ministerio") do |u, p|
     [u, p] == [ENV['AM_AUTH_USERNAME'], ENV['AM_AUTH_PASSWORD']]
   end if ENV['AM_AUTH_PASSWORD']
+
+  # Signature application secret
+  config.signature_secret = ENV['SIGNATURE_SECRET']
 end

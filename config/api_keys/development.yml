@@ -1,0 +1,16 @@
+SECRET_ElisaMobiilivarmenne: placeholder_key
+SECRET_Tapiolatesti: placeholder_key
+KISSMETRICS_API_KEY: 690626c087893eef5f7307868202023d84f79acb
+MAILGUN_API_KEY: placeholder_key
+MAILGUN_SMTP_PASSWORD: placeholder_key
+SECRET_ElisaMobiilivarmennetesti: placeholder_key
+FACEBOOK_APP_ID: placeholder_key
+RAILS_SECRET_TOKEN: placeholder_key
+SECRET_Alandsbankentesti: placeholder_key
+FACEBOOK_APP_SECRET: placeholder_key
+NEW_RELIC_ID: placeholder_key
+NEW_RELIC_LICENSE_KEY: placeholder_key
+SECRET_Alandsbanken: placeholder_key
+Secret_Sampo: placeholder_key
+MAILGUN_SMTP_LOGIN: placeholder_key
+SECRET_Tapiola: placeholder_key

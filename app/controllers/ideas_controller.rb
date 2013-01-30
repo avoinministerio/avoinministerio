@@ -1,8 +1,11 @@
 #encoding: UTF-8
 
+require 'will_paginate/array'
+
 class IdeasController < ApplicationController
-  before_filter :authenticate_citizen!, except: [ :index, :show ]
-  
+  before_filter :authenticate_citizen!, except: [ :index, :show, :search ]
+  # before_filter :first_visit
+
   respond_to :html
 
   # should be implemented instead with counter_caches and also vote_pro (and vote_even_abs_diff cache)
@@ -60,6 +63,7 @@ class IdeasController < ApplicationController
       age:      {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
       comments: {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
       voted:    {most:    "vote_count DESC",              least:      "vote_count ASC"}, 
+      votes_for:{most:    "vote_for_count DESC",          least:      "vote_for_count ASC"},
       support:  {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
       tilt:     {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
     }
@@ -67,6 +71,7 @@ class IdeasController < ApplicationController
       age:      {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
       comments: {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
       voted:    {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
+      votes_for:{most:    "Eniten ääniä puolesta",        least:      "Vähiten ääniä puolesta"},
       support:  {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
       tilt:     {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
     }
@@ -78,6 +83,7 @@ class IdeasController < ApplicationController
       [:age,      [:newest, :oldest]], 
       [:comments, [:most,   :least]], 
       [:voted,    [:most,   :least]], 
+      [:votes_for,[:most,   :least]],
       [:support,  [:most,   :least]],
       [:tilt,     [:even,   :polarized]],
     ]
@@ -115,7 +121,7 @@ class IdeasController < ApplicationController
   def show
     @idea = Idea.includes(:votes).find(params[:id])
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
-    
+
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
@@ -126,10 +132,13 @@ class IdeasController < ApplicationController
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
       ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
-      ix = ideas_around.index{|i| p i; i == params[:id].to_i}
+      ix = ideas_around.index{|i| i == params[:id].to_i}
       # TODO: translate numerical Idea.id into friendlyed id-and-name format
-      @prev = ((ix-1) >= 0)                ? ideas_around[ix-1] : nil
-      @next = ((ix+1) < ideas_around.size) ? ideas_around[ix+1] : nil
+      @prev, @next = nil, nil
+      if ix
+        @prev = ((ix-1) >= 0)                ? ideas_around[ix-1] : nil
+        @next = ((ix+1) < ideas_around.size) ? ideas_around[ix+1] : nil
+      end
     end
     
     KM.identify(current_citizen)
@@ -147,6 +156,7 @@ class IdeasController < ApplicationController
     @idea = Idea.new(params[:idea])
     @idea.author = current_citizen
     @idea.state  = "idea"
+    @idea.updated_content_at = DateTime.now
     if @idea.save
       flash[:notice] = I18n.t("idea.created")
       KM.identify(current_citizen)
@@ -162,12 +172,62 @@ class IdeasController < ApplicationController
   
   def update
     @idea = Idea.find(params[:id])
+    @idea.updated_content_at = DateTime.now
     if @idea.update_attributes(params[:idea])
       flash[:notice] = I18n.t("idea.updated") 
       KM.identify(current_citizen)
       KM.push("record", "idea edited", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
     end
     respond_with @idea
+  end
+
+  def search
+    @per_page = 20
+    @page = (params[:page] && params[:page].to_i) || 1
+    
+    params[:category_filters] ||= {}
+    
+    all_ideas = Idea.search_tank(params['searchterm'],
+                                 :category_filters => params[:category_filters]).
+                                 select {|result| result.published?}
+    @idea_count = all_ideas.length
+    @idea_categories = Idea.search_tank(params['searchterm'],
+                                        :category_filters => params[:category_filters]).
+                                        categories
+    all_comments = Comment.search_tank(params['searchterm'],
+                                       :category_filters => params[:category_filters]).
+                                       select {|result| result.published?}
+    @comment_count = all_comments.length
+    all_articles = Article.search_tank(params['searchterm'],
+                                       :category_filters => params[:category_filters]).
+                                       select {|result| result.published?}
+    @article_count = all_articles.length
+    all_citizens = Citizen.search_tank(params['searchterm'],
+                                       :category_filters => params[:category_filters]).
+                                       select {|result| result.published_something?}
+    @citizen_count = all_citizens.length
+    all_results = all_ideas + all_comments + all_articles + all_citizens
+    
+    @results = all_results.paginate(page: @page, per_page: @per_page)
+    @result_count = all_results.length
+    
+    @ideas = all_ideas & @results
+    @comments = all_comments & @results
+    @articles = all_articles & @results
+    @citizens = all_citizens & @results
+    
+    KM.identify(current_citizen)
+    track_clicks("idea", @ideas.length, @page)
+    track_clicks("comment", @comments.length, @page)
+    track_clicks("article", @articles.length, @page)
+    track_clicks("citizen", @citizens.length, @page)
+  end
+  
+  def track_clicks(type, count, page)
+    1.upto(count) do |i|
+      KM.track(type + "_" + i.to_s,
+        "search result #{type}_#{i} on page #{page} clicked")
+    end
   end
 
   def vote_flow
@@ -208,5 +268,11 @@ class IdeasController < ApplicationController
     render 
   end
 
+  private
+
+  def first_visit?
+    @first_visit = cookie[:first_visit][:value]
+    cookie[:first_visit] = {value: 1, expires: 7.days.from_now} unless @first_visit
+  end
 
 end

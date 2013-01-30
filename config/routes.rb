@@ -1,17 +1,52 @@
 AvoinMinisterio::Application.routes.draw do
 
-  match "/ideas/:id/vote/:vote"     => "vote#vote", as: :vote_idea
+  resource :profile, :except => [:new, :create, :destroy]  
+  resource :citizen, :only => [:edit, :update]
+
+  match "/ideas/:id/vote/:vote"                       => "vote#vote",                     as: :vote_idea
+
+  match "/ideas/:id/service_selection"                => "signatures#service_selection",      as: :signature_idea_service_selection
+  match "/ideas/:id/introduction"                     => "signatures#introduction",           via: :get,  as: :signature_idea_introduction
+  match "/ideas/:id/approval"                         => "signatures#approval",               via: :post, as: :signature_idea_approval
+  match "/ideas/:id/signature"                        => "signatures#sign",                   via: :post, as: :signature_idea
+
+  match "/signatures/:id/selected_free_service"       => "signatures#selected_free_service",  via: :get,  as: :signature_idea_selected_free_service
+  match "/signatures/:id/selected_costly_service"     => "signatures#selected_costly_service",via: :get,  as: :signature_idea_selected_costly_service
+  match "/signatures/:id/successful_authentication"   => "signatures#successful_authentication", via: :get,  as: :signature_idea_successful_authentication
+  match "/signatures/:id/signing_success"             => "signatures#signing_success",        via: :get,  as: :signature_idea_signing_success
+  match "/signatures/:id/signing_failure"             => "signatures#signing_failure",        via: :get,  as: :signature_idea_signing_failure
+  match "/signatures/:id/shortcutting_to_signing"     => "signatures#shortcutting_to_signing",via: :get,  as: :signature_idea_shortcutting_to_signing
+
+
+  match "/signatures/:id/finalize_signing"            => "signatures#finalize_signing",       via: :put
+  match "/signatures/:id/returning/:servicename"      => "signatures#returning",              via: :get
+  match "/signatures/:id/cancelling/:servicename"     => "signatures#cancelling",             via: :get
+  match "/signatures/:id/rejecting/:servicename"      => "signatures#rejecting",              via: :get
+
+  match "/ideas/:id/shortcutfillin"                   => "signatures#shortcut_fillin",            via: :get, as: :signature_idea_shortcut_fillin
+  match "/signatures/:id/shortcut_finalize_signing"   => "signatures#shortcut_finalize_signing",  via: :put, as: :signature_shortcut_finalize_signing
+
+  # Was via: :get but Sampo requires also post
+  match "/signatures/:id/paid_returning/:servicename"   => "signatures#paid_returning"
+  match "/signatures/:id/paid_canceling/:servicename"   => "signatures#paid_canceling"
+  match "/signatures/:id/paid_rejecting/:servicename"   => "signatures#paid_rejecting"
+
+
+  match "/ideat/haku" => "ideas#search"
+  get "ideas/vote_flow"
 
   get "pages/home"
-
-  get "ideas/vote_flow"
 
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
     registrations: "citizens/registrations",
     sessions: "citizens/sessions",
   }
-  
+
+  match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
+  match "/citizens/get_bootstrap_tour" => "citizens#get_bootstrap_tour", via: :get
+  match "/citizens/update_bootstrap_tour" => "citizens#update_bootstrap_tour", via: :post
+
   resources :ideas do
     resources :comments
     resources :expert_suggestions, only: [:new, :create]
@@ -56,6 +91,7 @@ AvoinMinisterio::Application.routes.draw do
       get "unlock",     on: :member
     end
     resources :changelogs
+    resources :expert_suggestions
     root to: "admin/ideas#index"
   end
 

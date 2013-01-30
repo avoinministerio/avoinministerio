@@ -9,9 +9,10 @@ class Admin::CitizensController < Admin::AdminController
           @citizens = Citizen.paginate(page: params[:page])
         end
         wants.csv do
-          @citizens = Citizen.paginate(page: params[:page], per_page: 1200)
+          date = Date.parse(params[:date] || "2012-01-01")
+          @citizens = Citizen.where("created_at > ?", date).paginate(page: params[:page], per_page: 450)
           csv_string = CSV.generate do |csv|
-            csv << ["email", "firstname", "lastname", "idea_count", "comment_count", "comments_on_ideas", "votes_on_ideas", "earliest_idea_date", "idea_date_last_1", "idea_date_last_2", "idea_date_last_3", "idea_date_last_4", "idea_date_last_5"]
+            csv << ["id", "email", "firstname", "lastname", "idea_count", "comment_count", "comments_on_ideas", "votes_on_ideas", "earliest_idea_date", "idea_date_last_1", "idea_date_last_2", "idea_date_last_3", "idea_date_last_4", "idea_date_last_5"]
             @citizens.each do |citizen|
               idea_dates = citizen.ideas.order("created_at ASC").map {|idea| idea.created_at}
               ideas = idea_dates.reverse[0,5]
@@ -20,12 +21,12 @@ class Admin::CitizensController < Admin::AdminController
               comments_on_ideas = citizen.ideas.inject(0){|sum, idea| sum + idea.comments.count}
               votes_on_ideas = citizen.ideas.inject(0){|sum, idea| vc = idea.vote_counts; sum + (vc[0]||0) + (vc[1]||0)}
               comment_count = citizen.comments.count
-              csv << [citizen.email, citizen.first_name, citizen.last_name, idea_count, comment_count, comments_on_ideas, votes_on_ideas, earliest_idea_date, *ideas]
+              csv << [citizen.id, citizen.email, citizen.first_name, citizen.last_name, idea_count, comment_count, comments_on_ideas, votes_on_ideas, earliest_idea_date, *ideas]
             end
           end
           send_data csv_string, 
             type: 'text/csv; charset=ISO-8859-1; header=present',
-            disposition: "attachment; filename=citizens-#{Date.today.to_s}.csv"
+            disposition: "attachment; filename=citizens-#{today_date.to_s}.csv"
         end
     end
   end

@@ -1,19 +1,19 @@
 .grid_16.top_ideas.alpha
   %h2 Ajankohtaiset ideat
-  - @ideas.each do |idea|
+  - @ideas.each_with_index do |idea, i|
     .idea
       .grid_16.info
         %span.type
           Idea/ 
         %span.date
-          = finnishDate(idea.updated_at)
-        %h3=link_to shorten(idea.summary, 100, 20, "»"), idea_path(idea)
+          = finnishDate(idea.updated_content_at || idea.created_at)
+        %h3=link_to shorten(idea.title + ": " + idea.summary, 200, 20, "»"), idea_path(idea), id: "ab_ideas_#{i}"
       .grid_16.statistics
         - for_, against, comments, total = @idea_counts[idea.id]
         %span.total #{total} ääntä:&nbsp;
         %span.for #{for_}
         |
         %span.against #{against}
-        %span.comments= link_to "#{comments} kommenttia", idea_path(idea, anchor: "comments")
+        %span.front-page-comment-count= link_to "#{comments}", idea_path(idea, anchor: "comments")
 
   =link_to "Listaa kaikki»", ideas_path, class: "list_ideas"

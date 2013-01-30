@@ -1,0 +1,63 @@
+.returning
+  - if not @error
+    =signing_state_image(:completed)
+    %h1 Kiitos kannatusilmoituksen allekirjoittamisesta
+
+    .text
+      Olemme nyt kirjanneet virallisen kannatusilmoituksesi.
+
+    .sidebox
+      .text
+        Avoin ministeriö rekisteröity yhdistys on vapaaehtoisorganisaatio, joka pyrkii edistämään kansalaisdemokratiaa. Jos olet kiinnostunut osallistumaan toimintaamme omalla paikkakunnallasi, lähetä yhteystietosi sähköpostitse osoitteeseen 
+        %a{href:"mailto:palaute@avoinministerio.fi"}palaute@avoinministerio.fi.
+      .text
+        Siirry takaisin palvelun 
+        =link_to "etusivulle", "/"
+
+    .text
+      Seuraavaksi voit halutessasi
+    .box
+      .instructions
+        .title 1. Allekirjoita muita aloitteita
+        - if shortcut_session_valid?
+          .text 
+            Tunnistautumisesi on nyt voimassa 
+            = sprintf("%.0f", shortcut_session_remaining_mins)
+            minuuttia tai kunnes kirjaudut ulos, joten voit allekirjoittaa aloitteita ilman, että sinun tarvitsee tunnistautua uudelleen.
+        - else
+          .text 
+            Tunnistautumisesi ei ole enää voimassa, joten seuraavan kannatusilmoituksen allekirjoitukseen tunnistaudut uudelleen.
+
+      .other-initiatives
+        %ul
+          - @initiatives.each do |initiative|
+            %li
+              =link_to initiative.title, initiative
+        =link_to "Listaa kaikki", ideas_path, :class => "btn-listall"
+
+      .instructions
+        .title 2. Hanki aloitteelle lisää näkyvyyttä, kutsu ystäväsi allekirjoittamaan
+        .text
+          Mene takaisin 
+          =link_to "aloitteen", @signature.idea
+          \-sivulle, ja jaa se sähköpostitse tai sosiaalisen median kautta ystävillesi, jotta aloite saa mahdollisimman paljon kannatusta.
+
+      .instructions
+        .title 3. Tue tai vastusta mahdollisimman montaa ideaa ja luonnosta
+        .text
+          Autat siivilöimään hyvät ideat tukemalla tai vastustamalla mahdollisimman monia. Tutustu niihin ja kommentteihin rauhassa ennen kuin ilmoitat tukesi.
+        =link_to "Listaa kaikki ideat", ideas_path
+
+
+    - if @signature.accept_science
+      .box
+        =survey_button("completed #{Signature.where(citizen_id: current_citizen.id).count} signature, #{@signature.idea} is the idea of latest signature", true)
+
+
+
+  - else
+    .error
+      %h1 Tunnistaminen epäonnistui
+      Virhe
+      = @error
+      =link_to "takaisin aloitteeseen", @signature.idea

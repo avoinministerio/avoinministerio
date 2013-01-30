@@ -31,7 +31,7 @@
         /    |
 
         / New version with static order
-        -[:age, :comments, :voted, :support, :tilt].each do |field|
+        -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
           - order = @sorting_order.find{|so| so.first == field}[1]
           - if field == @sorting_order.first.first
             %span.selected= link_to @field_names[field][order.first], reorder: field 
@@ -39,6 +39,17 @@
             =link_to @field_names[field][order.first], reorder: field 
           - unless field == :tilt
             |
+    - if ENV['Feature_Searchbox']
+      .grid_24.search
+        .search
+          Haku:
+          = form_tag "/ideat/haku", :method => "get"
+          = text_field_tag 'searchterm'
+          (esim. 
+          %i tasa*
+          tai 
+          %i koira ja vero
+          )
     .grid_24
       .filtered_title
         = @filter_name
@@ -51,7 +62,7 @@
           =state_localised(idea.state)
           \/
         %span.date
-          = finnishDate(idea.updated_at)
+          = finnishDate(idea.created_at)
         - if idea.title.size > 0
           %h2= link_to idea.title, idea_path(idea, so: @sorting_order_code)
         - else
@@ -63,12 +74,11 @@
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
             = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")
-          %span.for= sprintf("%.0f%%", (idea.vote_proportion || 0.0)*100.0)
+          - for_ = (idea.vote_proportion || 0.0).to_f
+          %span.for= sprintf("%.0f%%", for_*100.0)
           |
-          %span.against= sprintf("%.0f%%", (1.0-(idea.vote_proportion || 0.0))*100.0)
+          %span.against= sprintf("%.0f%%", (1.0-for_)*100.0)
           %span.comment-count= (idea.comment_count || 0)
           -if idea.articles.count > 0
-            %span.articles
-              = idea.articles.count
-              = (idea.articles.count == 1 ? "lausunto" : "lausuntoa")
+            %span.article-count= idea.articles.count
 = will_paginate @ideas

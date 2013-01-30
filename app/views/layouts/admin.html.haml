@@ -20,8 +20,12 @@
         %ul.nav
           %li= link_to "Ideat", admin_ideas_path
           %li= link_to "Kommentit", admin_comments_path
+          %li= link_to "Artikkelit", admin_articles_path
           %li= link_to "Kansalaiset", admin_citizens_path
+          %li= link_to "Asiantuntijaehdotukset", admin_expert_suggestions_path
           %li= link_to "Muutosloki", admin_changelogs_path
           %li= link_to "Kirjaudu ulos", destroy_administrator_session_path, method: :delete
   .container-fluid{ style: "padding-top: 50px" }
+    - flash.each do |name, message|
+      %div{:id => ["flash", name]}= message
     = yield

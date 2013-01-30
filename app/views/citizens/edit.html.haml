@@ -1,0 +1,20 @@
+%h2 Vaihda sähköpostiosoite tai salasana
+= form_for @citizen do |f|
+  .input
+    = f.label :current_password
+    = f.password_field :current_password
+
+  .input
+    = f.label :email
+    = f.email_field :email
+  
+  .input
+    = f.label :password
+    = f.text_field :password, :autocomplete => "off"
+  
+  .input
+    = f.label :password_confirmation
+    = f.text_field :password_confirmation
+  
+  .action_container
+    = f.submit "Tallenna muutokset"

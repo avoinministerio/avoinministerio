@@ -1,0 +1,27 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  surveyor:
+    take_these_surveys: "You may take these surveys"
+    take_the_survey: "You may take the survey"
+    take_it: "Take it"
+    completed_survey: "Completed survey"
+    unable_to_find_your_responses: "Unable to find your responses to the survey"
+    unable_to_update_survey: "Unable to update survey"
+    unable_to_find_that_survey: "Unable to find that survey"
+    survey_started_success: "Survey started successfully"
+    click_here_to_finish: "Click here to finish"
+    previous_section: "&laquo; Previous section"
+    next_section: "Next section &raquo;"
+    select_one: "Select one ..."
+    sections: "Sections"
+    thank_you: "Kiitos, vastauksesi ovat tallennettu. Palaa palvelun"
+    choose_language: "Please choose your preferred language for the survey"
+    remaining_days: "Survey will be available after days"
+
+  survey_description:
+    <p>A study is being conducted to examine how the citizen initiative and new platforms for citizen engagement such as Avoin Ministeriö can help improve the functioning of democracy in Finland. The researcher behind the study is from Åbo Akademi University and the study is funded by the Academy of Finland.</p>
+    <p>If you would like to take part in the survey, please click below.</p>
+
+  language: "English"

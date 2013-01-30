@@ -1,0 +1,33 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+fi:
+  surveyor:
+    take_these_surveys: "Voit ottaa nämä selvitykset"
+    take_the_survey: "Osallistu tieteelliseen tutkimukseen -- täytä kysely"
+    take_it: "Take it"
+    completed_survey: "Valmis tutkimus"
+    unable_to_find_your_responses: "Ei voi löytää vastauksia kyselyyn"
+    unable_to_update_survey: "Ei voi päivittää kyselyn"
+    unable_to_find_that_survey: "Ei löydy, että tutkimus"
+    survey_started_success: "Survey alkoi onnistuneesti"
+    click_here_to_finish: "Lähetä vastaukset"
+    previous_section: "&laquo; Edellinen jakso "
+    next_section: "Seuraava kappale &raquo;"
+    select_one: "Valitse yksi ..."
+    sections: "pääluokat"
+    thank_you: "Kiitos, vastauksesi ovat tallennettu. Palaa palvelun"
+    choose_language: "Valitse kyselylle haluamasi kieli"
+    remaining_days: "Kyselyn tulokset ovat saatavilla kuluttua päivää"
+
+  survey_description:
+    <p>Kysymykset koskevat osallistumistasi politiikkaan, ja kuinka tämän sivuston
+    tarjoamat mahdollisuudet vaikuttavat siihen. Valitse vaihtoehdoista se joka
+    kuvaa parhaiten tunteitasi tällä hetkellä. Pyydämme ystävällisesti vastaamaan
+    kysymyksiin niin tarkasti kuin mahdollista. Vastaukset tallennetaan anonyymeinä
+    Yhteiskuntatieteelliseen tietoarkistoon muiden tutkijoiden käytettäväksi.
+    Tietoja käsitellään täysin luottamuksellisesti eikä henkilötietojasi luovuteta
+    kolmansille osapuolille.</p>
+    <p>Mikäli haluat osallistua tutkimukseen, klikkaa alla olevaan nappia.</p>
+
+  language: "Suomi"

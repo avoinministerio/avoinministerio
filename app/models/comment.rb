@@ -1,6 +1,8 @@
 class Comment < ActiveRecord::Base
   include PublishingStateMachine
   include Changelogger
+  include Concerns::Indexing
+  include Tanker
 
   attr_accessible :body
 
@@ -14,6 +16,31 @@ class Comment < ActiveRecord::Base
   validates :author_id,         presence: true
   validates :commentable_id,    presence: true
   validates :commentable_type,  presence: true
+
+  tankit index_name do
+    conditions do
+      published?
+    end
+    indexes :body
+    indexes :author do
+      self.author.first_name + " " + self.author.last_name
+    end
+    indexes :type do "comment" end
+    
+    category :type do
+      "comment"
+    end
+  end
+  after_save Concerns::IndexingWrapper.new
+  after_destroy Concerns::IndexingWrapper.new
+
+  def prepare_for_unpublishing
+    if self.body.blank?
+      self.body = "  "
+    elsif self.body.length == 1
+      self.body += " "
+    end
+  end
 
   after_create :increment_idea_comment_count
   def increment_idea_comment_count

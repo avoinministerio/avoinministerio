@@ -3,7 +3,6 @@
 /[if gte IE 9] <html>
 %head
   %meta{ :charset => "utf-8" }/
-  %meta{ :content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible" }/
   %meta{ :content => "width=device-width, initial-scale=1", :name => "viewport" }/
   %link{ href: asset_path('favicon.ico'), rel: 'shortcut icon', type: 'image/x-icon' }
   - if @idea
@@ -35,6 +34,7 @@
   %header.container_24
     = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
     = render partial: 'shared/login_actions'
+    = render partial: 'shared/facebook_js'
     .idea_actions.bottom_row
       .grid_6
         &nbsp;
@@ -42,18 +42,20 @@
         = link_to "Listaa kaikki", ideas_path
       .grid_3
         = link_to "Anna idea", new_idea_path
+      .grid_2
+        &nbsp;
+      .grid_7
+        = survey_button
   .container.container_24
     %section
       = yield
   #footer_container
     %footer.container_24
-      %a.grid_4{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
-      %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
-      %a.grid_4{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
-      %a.grid_4{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
-      %a.grid_4{ href: asset_path('henkilorekisteriseloste.pdf') } Rekisteriseloste (pdf)
+      %a.grid_6{ href: "/artikkelit/miten-palvelu-toimii" } Miten palvelu toimii?
+      %a.grid_6{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Asiantuntijoille
+      %a.grid_6{ href: "/artikkelit/medialle" } Medialle
 
-      %footer.grid_4
+      .grid_6
         %div{:class => "addthis_toolbox addthis_default_style"}
           %a{:class => "addthis_button_preferred_1"}
           %a{:class => "addthis_button_preferred_2"}
@@ -61,6 +63,17 @@
           %a{:class => "addthis_button_preferred_4"}
           %a{:class => "addthis_button_compact"}
           %a{:class => "addthis_counter addthis_bubble_style"}
+
+      %br
+
+      %a.grid_6{ href: "/artikkelit/20-usein-kysyttyja-kysymyksia" } Usein kysytyt kysymykset
+      %a.grid_6{ href: "/artikkelit?article_type=blog" } Blogikirjoitukset
+
+      %br
+
+      %a.grid_6{ href: "/artikkelit/yhteystiedot" } Yhteystiedot
+      %a.grid_6{ href: "/artikkelit/kayttoehdot" } Käyttöehdot
+      %a.grid_6{ href: "/artikkelit/rekisteriseloste" } Rekisteriseloste
 
   %script{:type => "text/javascript", :src => "//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f201d4978456053"}
 

@@ -1,12 +1,16 @@
 en:
+  routes:
+    home: home
 
 fi:
-  articles: artikkelit
-  citizens: kansalaiset
-  comments: kommentit
-  ideas: ideat
-  expert_suggestions: asiantuntijaehdotukset
-  new: uusi
-  sign_in: kirjaudu
-  sign_up: rekisteroidy
-  vote: aanesta
+  routes:
+    home: etusivulle
+    articles: artikkelit
+    citizens: kansalaiset
+    comments: kommentit
+    ideas: ideat
+    expert_suggestions: asiantuntijaehdotukset
+    new: uusi
+    sign_in: kirjaudu
+    sign_up: rekisteroidy
+    vote: aanesta

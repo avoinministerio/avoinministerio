@@ -1,19 +1,21 @@
 - content_for :facebook_metadata_for_idea do
   = render partial: 'facebook_meta_tags'
 - content_for :head do
-  %title= "AM #{@idea.state}: #{@idea.title}"
+  %title= "@Avoinministerio #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}" 
 :javascript
   $(document).ready(function(){
+    try{
       var r = Raphael("votepie");
       var pie = r.piechart(135, 92, 57, [
           // piechart requires non-zero sizes to draw properly, so let's guard these values
-          #{@idea_vote_for_count      == 0 ? 0.00001 : @idea_vote_for_count},
-          #{@idea_vote_against_count  == 0 ? 0.00001 : @idea_vote_against_count}
+          // This hack works first to 0:1 situation, then until ~2300 with 0.0001, then till ~2347347 with 0.01
+          #{@idea_vote_for_count      == 0 ? (@idea_vote_count > 2000 ? 0.1 : 0.0001) : @idea_vote_for_count},
+          #{@idea_vote_against_count  == 0 ? (@idea_vote_count > 2000 ? 0.1 : 0.0001) : @idea_vote_against_count}
         ],
         {
           legend: [
-              "#{@idea_vote_for_count} Kyllä #{@idea_vote_for_count == 1 ? "ääni" : "ääntä"} %%.%",
-              "#{@idea_vote_against_count} Ei #{@idea_vote_against_count == 1 ? "ääni" : "ääntä"} %%.%"
+              "#{@idea_vote_for_count} kyllä-#{@idea_vote_for_count == 1 ? "ääni" : "ääntä"} %%.%",
+              "#{@idea_vote_against_count} ei-#{@idea_vote_against_count == 1 ? "ääni" : "ääntä"} %%.%"
             ],
           legendpos: "south", 
           colors: #{@colors.inspect},
@@ -39,82 +41,172 @@
               this.label[1].attr({ "font-weight": 400 });
           }
       });
+
+     }
+     catch(e){
+        console.log("an error occured => " + e);
+      }
   });
-.grid_12
-  - if @prev
-    =link_to "Edellinen", idea_path(@prev, so: @sorting_order_code)
-  - else
-    .no-prev-next Edellinen
-.grid_12.right
-  - if @next
-    =link_to "Seuraava", idea_path(@next, so: @sorting_order_code)
-  - else
-    .no-prev-next Seuraava
+.prevnext
+  .grid_24
+    / This is a layout BUG: grid_12 + grid_12 does not fit in .grid_24 due some margins set somewhere
+    / Workaround with grid_11 + grid_12 < grid_24
+    .grid_11 
+      - if @prev
+        =link_to "Edellinen", idea_path(@prev, so: @sorting_order_code)
+      - else
+        .noprevnext &nbsp;
+    .grid_12.right
+      - if @next
+        =link_to "Seuraava", idea_path(@next, so: @sorting_order_code)
+      - else
+        .noprevnext
 .clear
 .grid_24
   = idea_state_image(@idea)
 .idea.grid_24
   .author
-    %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
-    %span.name= @idea.author.name
-    %span.date.sans_serif= finnishDate(@idea.created_at)
-  .grid_16.alpha
-    %h1= @idea.title
-    .summary
-      = markdown(@idea.summary) if @idea.summary
-    .body
-      = markdown(@idea.body) if @idea.body
-
+    -if @idea.published?
+      %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
+      %span.name= @idea.author.name
+      %span.date.sans_serif= finnishDate(@idea.created_at)
+  .grid_16.alpha.mainbody
+    - if @idea.published?
+      %h1= @idea.title
+      .summary
+        = markdown(@idea.summary) if @idea.summary
+      .body
+        = markdown(@idea.body) if @idea.body
+    - else
+      %h1 Piilotettu
+      .summary
+        Tämä idea on tällä hetkellä piilotettu. Voit kääntyä 
+        %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
+        puoleen mahdollisilla kysymyksilläsi.
+      .body
     - if @idea.author == current_citizen or administrator_signed_in?
       = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
 
-  .grid_7.prefix_1.omega
-    .share
-      %div{:class => "addthis_toolbox addthis_default_style"}
-        %a{:class => "addthis_button_preferred_1"}
-        %a{:class => "addthis_button_preferred_2"}
-        %a{:class => "addthis_button_preferred_3"}
-        %a{:class => "addthis_button_preferred_4"}
-        %a{:class => "addthis_button_compact"}
-        %a{:class => "addthis_counter addthis_bubble_style"}
+  -if @idea.published?
+    .grid_7.prefix_1.omega
+      %iframe{width: "270", height: "152", src: "https://www.youtube.com/embed/jSmhaKseDbo", style: "border: none;", allowfullscreen: ""}
+      .share
+        %div{:class => "addthis_toolbox addthis_default_style addthis_32x32_style"}
+          %a{:class => "addthis_button_facebook"}
+          %a{:class => "addthis_button_twitter"}
+          %a{:class => "addthis_button_gmail"}
+          %a{:class => "addthis_button_google_plusone_share"}
+          / This like does not seem to scale to 32x32 style
+          /%a{:class => "addthis_button_facebook_like", "fb:like:width" => "115"}
+        .sharing-suggestion
+          - if @idea.voted_by?(current_citizen)
+            - if @idea.votes.by(current_citizen).first.option == 0
+              Saat tukea ideaa vastaan huomattavasti enemmän, kun jaat sitä eteenpäin.
+            - else
+              Saat idealle huomattavasti enemmän tukea, kun jaat sitä eteenpäin.
+          - else
+            Jaa ideaa aktiivisesti eteenpäin! Lisäät sen painoarvoa, oletpa puolesta tai vastaan!
 
-  %aside.grid_7.prefix_1.omega
-    .voting
-      - if @idea.voted_by?(current_citizen)
-        %h3
-          Äänestit #{vote_in_words(@idea, current_citizen)},
-          %br
-          voit vaihtaa:
-      - else
-        %h3 Tehdäänkö tästä laki?
-      = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-      = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
-    .votes
-      #votepie
+  -if @idea.published?
+    %aside.grid_7.prefix_1.omega
+      .voting
+        - if @idea.voted_by?(current_citizen)
+          %h3 Voit lisätä kantasi painoa jakamalla aloitetta aktiivisesti eteenpäin!
+          %hr
 
-.expert_opinions
-  %h2.grid_24 Asiantuntijalausunnot
-  - if @idea.articles.any?
-    = render partial: 'article', collection: @idea.articles
-    .clear
-    .grid_17 &nbsp;
-    .grid_7
-      %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+        - case @idea.state
+        - when "idea"
+          - if @idea.voted_by?(current_citizen)
+            %h3
+              Annoit tukesi
+              %b #{vote_in_words(@idea, current_citizen)},
+            %h4 voit halutessasi vaihtaa kantaasi.
+          - else
+            %h3 Anna tukesi!
+          %h4 Ilmoitamme ideaa tukeneille, kun idea on kehittynyt lakiluonnokseksi.
+          = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+          = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+          .votes
+            #votepie
+
+        - when "draft"
+          - if @idea.voted_by?(current_citizen)
+            %h3
+              Annoit tukesi
+              %b #{vote_in_words(@idea, current_citizen)},
+            %h4 voit halutessasi vaihtaa kantaasi.
+          - else
+            %h3 Kannatatko lakiluonnosta? 
+          %h4 Ilmoitamme kaikille tukeneille, kun aloite on virallisesti käynnistynyt ja voit täyttää virallisen kannatusilmoituksen.
+          = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+          = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+          .votes
+            #votepie
+
+        - when "proposal"
+          / show voting for proposals if Signatures are not enabled, or if Signatures are enabled and this idea is not in given list
+          /#- if((not ENV['Feature_Signatures']) || (not (ENV['Feature_Signatures'].split(/\,?\s+/).map{|s| s.to_i}.include?(@idea.id))))
+          - if not @idea.collecting_started or @idea.collecting_ended
+            - if @idea.voted_by?(current_citizen)
+              %h3
+                Annoit tukesi
+                %b #{vote_in_words(@idea, current_citizen)},
+              %h4 voit halutessasi vaihtaa kantaasi.
+            - else
+              %h3 Kannatatko lakiehdotusta? 
+            %h4 Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Pyrimme valmistelemaan sen mahdollisimman pian. Tarkista aloitteen lopusta kuinka voit allekirjoittaa paperisen kannatusilmoituksen.
+            %h4 Sillä välin voit ilmoittaa epämuodollisen tukesi lakiehdotukselle. Ilmoitamme kaikille tukeneille kun myös sähköiset kannatusilmoitukset ovat mahdollisia.
+            = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+            = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+            .votes
+              #votepie
+          - else
+            - if @idea.voted_by?(current_citizen)
+              %h3
+                Annoit tukesi
+                %b #{vote_in_words(@idea, current_citizen)}
+              %h4 Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Tämä aloite on esillä virallista testausta varten. 
+              %h4 Huomaa että et ole tekemässä virallista kannatusilmoituksen allekirjoitusta.
+            -if @idea.votes.empty?
+              %h3 Idea ei ollut Avoimessa ministeriössa kehitettävänä tai se sille ei ole kannatusta
+            -else
+              %h4 Idea on ollut Avoimessa ministeriössa ja sille on aiempaa (epävirallista) kannatusta
+              .votes
+                #votepie
+            %br
+            %br
+            = render "signature_info", idea: @idea
+
+        - else # idea is already a law, no voting
+          Idea on jo laki
+
+
+-if @idea.published?
+  .expert_opinions
+    %h2.grid_24 Asiantuntijalausunnot
+    - if @idea.articles.published.any?
+      = render partial: 'article', collection: @idea.articles.published
       .clear
-      =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
-    .clear
-  - else
-    .grid_17
-      Ei vielä lausuntoja
-    .grid_7
-      %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+      .grid_17 &nbsp;
+      .grid_7
+        %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+        .clear
+        =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
       .clear
-      =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
-    .clear
+    - else
+      .grid_17
+        Ei vielä lausuntoja
+      .grid_7
+        %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+        .clear
+        =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
+      .clear
 
-.idea_comments#comments
-  %h2.grid_24 Kommentit
-  .grid_24.comment_form
-    = render "comments/form", model: @idea
-  .comments.suffix_8
-    = render partial: 'comments/comment', collection: @idea.comments.published
+  .idea_comments#comments
+    %h2.grid_24 Kommentit
+    .grid_24.comment_form
+      = render "comments/form", model: @idea
+    .comments.suffix_8
+      = render partial: 'comments/comment', collection: @idea.comments.published
+= javascript_include_bootstrap_tour
+/ = javascript_include_tag 'bootstrap-tour-built/bootstrap-tour-modified'

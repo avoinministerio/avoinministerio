@@ -4,6 +4,7 @@
 
 $turquoise: #29abe2;
 $violet: #473161;
+$violet-muted: #271141;
 $grey: #888888;
 $green: #8cc63f;
 $red: #a9003f;
@@ -61,6 +62,10 @@ h1 {
   margin-top: 32px;
 }
 
+.mainbody {
+  margin-bottom: 150px;
+}
+
 .share {
   padding-bottom: 20px;
 }
@@ -72,8 +77,14 @@ h1 {
 }
 
 .voting h3 {
-  margin: 20px auto 10px;
+  margin: 20px auto 5px;
   font-size: 1.35em;
+  text-align: center;
+}
+
+.voting h4 {
+  margin: 7px auto 12px;
+  font-size: 1.00em;
   text-align: center;
 }
 
@@ -99,12 +110,67 @@ h1 {
   text-decoration: none;
 }
 
+.signature .btn {
+  margin: 0 auto 10px;
+  width: 150px;
+  padding: 10px;
+  display: block;
+  background: #999;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.signature .jaa-btn {
+  background: #8cc63f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.signature .jaa-btn-disabled {
+  background: #4c761f;
+  color: #ddd;
+  text-decoration: none;
+}
+
+.signature .stat {
+  font-size: 12px;
+}
+
+.signature .stat-header {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.signature-statistics {
+  margin: 20px 10px 10px 10px;
+}
+
+.signature-statistics .stat-divider {
+  margin: 10px 0 0 0;
+}
+
+.accepting .accept-btn {
+  background: $violet;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.accepting .accept-btn-disabled {
+  background: $violet-muted;
+  color: #999;
+  text-decoration: none;
+}
+
+
+
+
 .expert_opinions h2,
 .idea_comments h2 {
   padding-bottom: 6px;
   border-width: 6px;
   -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+  -o-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   border-top: none;
   border-left: 0 none;
@@ -137,6 +203,24 @@ h2 {
   font-weight: bold;
   color: #29abe2;
   text-transform: uppercase;
+}
+
+.front-page-comment-count {
+  display: inline-block;
+  width: 42px;
+  padding: 2px 6px 0 0;
+  height: 32px;
+  margin: 0 10px 0 20px;
+  background: transparent url("/assets/comment-bg.png") top left no-repeat;
+  text-align: right;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "Segoe WP", "Lucida Grande", "Lucida Sans", sans-serif;
+  a {
+    color: rgb(10, 50, 70);
+    text-decoration: none;
+  }
 }
 
 .idea_comments {
@@ -287,7 +371,7 @@ ul.horizontal li {
   width: 42px;
   padding: 2px 6px 0 0;
   height: 32px;
-  margin: 0 10px 0 20px;
+  margin: 0 5px 0 20px;
   background: transparent url("/assets/comment-bg.png") top left no-repeat;
   text-align: right;
   color: #fff;
@@ -305,6 +389,27 @@ ul.horizontal li {
   color: $red;
 }
 
-.stats .articles{
-  color: $grey;
+.stats span.article-count {
+  display: inline-block;
+  width: 32px;
+  padding: 2px 6px 0 0;
+  height: 26px;
+  margin: 0 5px 0 5px;
+  background: transparent url("/assets/asiantuntijalausunnot.png") top left no-repeat;
+  text-align: right;
+  color: #fff;
+}
+
+.prevnext .right {
+  text-align: right;
+}
+
+.prevnext a {
+  color: $turquoise;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.share .addthis_32x32_style {
+  height: 32px;
 }

@@ -1,0 +1,70 @@
+.returning
+  - if not @error
+    =signing_state_image(:approvals)
+    %h1 Palvelun ehdot ja yksityisyydensuoja
+
+    .accepting.box
+      =form_tag(url_for(action: "service_selection", controller: "signatures"), :class => "grid_16") do |f|
+        .instructions
+          .title Hyväksy palvelun ehdot ennen kannatusilmoituksen jättämistä
+          .text
+            Sinun tulee ainakin hyväksyä ehdot ja tietojen talletus EU:n ulkopuoliselle palvelimelle sekä valita jompi kumpi kannatusilmoituksesi julkisuuden aste.
+          .text 
+          .checkbox
+            = check_box_tag :accept_general
+            /= label_tag :accept_general, "Hyväksyn palvelun yleiset ehdot"
+            = label_tag :accept_general do
+              Hyväksyn 
+              %a{:href => "/artikkelit/kayttoehdot"} palvelun yleiset ehdot
+          .checkbox
+            = check_box_tag :accept_science
+            = label_tag :accept_science, "Voin osallistua tieteelliseen tutkimukseen. Tietojasi voidaan käyttää tieteessä henkilötietolain mukaisesti joka tapauksessa."
+          .checkbox
+            = check_box_tag :accept_non_eu_server
+            = label_tag :accept_non_eu_server, "Tietoni voi tallettaa EU:n ulkopuolella sijaitsevalle palvelimelle. Palvelun tietoturvallisuus on Viestintäviraston testaama ja hyväksymä"
+          .radiobox
+            = radio_button_tag :publicity, "Immediately"
+            = label_tag :publicity_Immediately, "Haluan tukea aloitetta julkisesti, eli nimeni ja kotipaikkakuntani saa julkistaa aloitteen sivulla avoinministerio.fi-palvelussa."
+            %br
+            = radio_button_tag :publicity, "Normal"
+            = label_tag :publicity_Normal, "Haluan, että nimeni tulee julkiseksi kun aloite saavuttaa 50000 kannattajaa"
+
+            %br
+            Mikäli et halua julkistaa nimeäsi heti, kannatusilmoitusten allekirjoittajien tiedot (nimi, syntymäaika ja kotikunta) tulevat julkisiksi kansalaisaloitelain 12§:n mukaisesti, kun perustuslaissa säädetty kannatusilmoitusten vähimmäismäärä on täyttynyt. Väestörekisterikeskus tarkistaa kannatusilmoitukset.
+
+        .big-button
+          .actions
+            = submit_tag "Eteenpäin", disabled: true, id: "accept", class: "accept-btn-disabled"
+
+      .clear
+      .text
+        %p.info &nbsp;
+        %p.info &nbsp;
+        %p.info Kannattaa olla huolissaan ja tarkkailla sitä mihin annat internetissä tietojasi ! Ole silti huoleti, Avoin ministeriö ei jaa antamiasi tietoja harkitsemattomasti.
+        %p.info Sähköisen kannatusilmoituksen tiedot talletetaan erityiselle Viestintäviraston tarkastamalle palvelimelle. Lisäksi tutkimuksen kannalta merkittävät tietosi talletetaan Yhdysvalloissa sijaitsevalle Avoimen ministeriön palvelimelle.
+        %p.info 
+          Tiedoistasi poistetaan nimesi tai muu sinut yksilöivä tieto ennen kuin niitä yhdistellään ja luovutetaan tutkijoille tai muulle tutkimusyhteisölle. Ennen minkään tietojesi julkistusta käytetty muoto ja mahdolliset tietoturvariskit keskustellaan avoimesti 
+          %a{href: "http://www.facebook.com/groups/fi.okfn/"}Avoimen datan kehittäjäyhteisöissä.
+          Sen avulla varmistetaan myös sinun tietojesi turvallinen käsittely!
+
+      :javascript
+        var toggleButton = function() {
+          if( $("#accept_general").attr("checked") && $("#accept_non_eu_server").attr("checked") && 
+              ( $("input:radio[name=publicity]:checked").val() ) ) {
+            $("#accept").attr({"disabled": false, "class": "accept-btn"});
+          } else {
+            $("#accept").attr({"disabled": true, "class": "accept-btn-disabled"});
+          };
+        };
+        $("#accept_general").change(toggleButton);
+        $("#accept_non_eu_server").change(toggleButton);
+        $("input:radio[name=publicity]").change(toggleButton);
+
+    .sidebox
+      .text
+        Avoin ministeriö tukee avointa tutkimusta. Nyt meneillään oleva tutkimus seuraa kansalaisten näkökulmaa vaikuttamiseen ja politiikkaan pitkäkestoisesti ja on Åbo akademi tutkijan Henrik Christensen tekemä. Jos sinulla on aikaa pieni hetki, osallistu tutkimukseen -- autat demokratian tutkimusta merkittävästi!
+
+  - else
+    .error
+      %h1 Virhetilanne
+      = @error

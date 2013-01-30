@@ -1,0 +1,21 @@
+$turquoise: #29abe2;
+$violet: #473161;
+$violet-muted: #271141;
+$grey: #888888;
+$green: #8cc63f;
+$red: #a9003f;
+
+.signature .accept-btn {
+  background: $violet;
+  color: #fff;
+  text-decoration: none;
+}
+.signature .accept-btn-disabled {
+  background: $violet-muted;
+  color: #999;
+  text-decoration: none;
+}
+.box {
+  max-width: 80%;
+  float: left;
+}

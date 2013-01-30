@@ -35,11 +35,23 @@ If you want more information about the project, drop us an email to main@avoinmi
 
         cp config/database.yml.example config/database.yml
 
-6. Setup the database (create DB, load schema, load seed data)
+6. Create a pre-commit hook that runs automated tests before each commit and keeps you from committing if some tests fail. Create a file called `pre-commit` in the `.git/hooks` directory, and copy this content to it:
+
+        #!/usr/bin/env ruby
+        require File.expand_path('../../../config/application', __FILE__)
+        AvoinMinisterio::Application.load_tasks
+        Rake.application["spec"].reenable
+        Rake.application["spec"].invoke
+    
+    Also make the file executable:
+    
+        chmod +x .git/hooks/pre-commit
+    
+7. Setup the database (create DB, load schema, load seed data)
 
         bundle exec rake db:setup
 
-7. Start the app
+8. Start the app
 
         bundle exec rails s
 
@@ -50,17 +62,23 @@ Run tests with:
     bundle exec rake db:test:prepare
     bundle exec rake spec
 
+Run tests when RED-GREEN-REFACTOR:
+
+    bundle exec guard
+
 ## Development process
 
-1. Fork the repository in Github
+1. Optionally read [unofficial Ruby style guidelines](http://www.caliban.org/ruby/rubyguide.shtml#style) before starting to write code
 
-2. Clone your fork and setup the remote repository
+2. Fork the repository in Github
+
+3. Clone your fork and setup the remote repository
 
         git clone git@github.com:<username>/avoinministerio.git
         cd avoinministerio
         git remote add avoinministerio git@github.com:avoinministerio/avoinministerio.git
 
-3. Create a feature branch
+4. Create a feature branch
 
         # The first two commands are not needed if you just cloned, but they don't hurt you either
         git checkout master
@@ -72,31 +90,49 @@ Run tests with:
         git pull
         git rebase master
 
-4. Hack, commit and push your feature. Tests too :)
-
-        # Before adding and committing, it is a good practice to run tests
-        bundle exec rake spec
+5. Hack, commit and push your feature
 
         git add .
         git commit -m "Commit message"
         git push
+    
+    If the commit fails due to failing tests but you need to commit your changes nevertheless, use the `--no-verify` switch.
+    
+        git commit -m "Commit message" --no-verify
+        git push
 
-5. Pull and rebase the upstream repository
+6. Pull and rebase the upstream repository
 
         git checkout master
         git pull avoinministerio master
+        git push
         git checkout new-feature
         git rebase master
         # fix possible conflicts
         git push
+        
+  Sometimes git says this when you try to push the rebased branch:
 
-6. Run tests to confirm your tests work with rebased master
+  > "To prevent you from losing history, non-fast-forward updates were rejected
+  Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+  'Note about fast-forwards' section of 'git push --help' for details."
+
+  In that case, you need to run
+
+        git pull --rebase
+        git push
+        
+  If you're lazy, you can configure git so that it always uses the --rebase switch when you run git pull.
+
+        git config pull.rebase true
+
+7. Run tests to confirm your tests work with rebased master
 
         bundle install
         bundle exec rake db:migrate db:test:prepare
         bundle exec rake spec
 
-7. Create a pull request in Github
+8. Create a pull request in Github
 
         https://github.com/<username>/avoinministerio/pull/new/new-feature
 
@@ -110,7 +146,7 @@ Run tests with:
 
         git fetch kalleya
 
-3.  Check the branch if needed with 
+3.  Check the branch if needed with
 
         git branch -a   # lists all local and remote branches
         # pick one remote branch that you'll test for merging
@@ -134,7 +170,7 @@ Run tests with:
 5. If things fail, hack around, make needed commits, and push to avoinministerio/master
 
 6. Merge either way:
-6.1 If automerge is possible and no local commits were needed, Open github pull request, and click Merge pull request button, 
+6.1 If automerge is possible and no local commits were needed, Open github pull request, and click Merge pull request button,
 6.2 Manual merging:
 
         # merge to local master
@@ -197,10 +233,17 @@ The site can be protected with Basic Authentication by adding variables `AM_AUTH
 
 Run the tests using the following command(s):
 
-`rspec spec` or `bundle exec rspec spec`
+`rspec spec` or `bundle exec rspec spec` or `bundle exec guard`
 
 ## Code Repository
 
 [Git repository](https://github.com/avoinministerio/avoinministerio)
 
 Everything is currently in the master branch. When building bigger features, use feature branches. When the feature is ready, delete the feature branch.
+
+# Community
+
+We will be expanding the developer community as it goes. At the moment the core devs are using a special product (thanks to Flowdock!), and hang out 
+also at #Avoinministerio in Freenode IRC. Besides competely Finnish #Avoinministerio there's also friendly English channel #TheOpenMinistry. 
+Feel free to pop in with any questions or suggestions!
+

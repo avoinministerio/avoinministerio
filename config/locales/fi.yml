@@ -18,13 +18,21 @@ fi:
         email: "Sähköposti"
         password: "Salasana"
         password_confirmation: "Salasanan vahvistus"
+        current_password: "Nykyinen salasana"
       idea:
         title: "Otsikko"
         summary: "Tiivistelmä"
         body: "Kuvaus"
       profile:
-        first_name: "Etunimi"
+        first_names: "Etunimet"
+        first_name: "Kutsumanimi"
         last_name: "Sukunimi"
+        receive_newsletter: "Tilaan uutiskirjeen"
+        receive_other_announcements: "Minulle saa lähettää muita tiedotteita"
+        receive_weekletter: "Tilaan viikkokirjeen"
+        image: "Profiilikuvan URL-osoite"
+        accept_science: "Minuun saa ottaa yhteyttä tieteellisten tutkimusten puitteissa"
+        accept_terms_of_use: "Hyväksyn palvelun <a href='/artikkelit/4'>käyttöehdot</a>"
       expert_suggestion:
         firstname: "Etunimi"
         lastname: "Sukunimi"
@@ -43,6 +51,8 @@ fi:
           attributes:
             article_type:
               inclusion: "%{value} ei ole sallittu artikkelityyppi"
+        citizen:
+          not_found: "Henkilöä ei löytynyt"
   layout:
     your_profile: "Profiilisi"
     sign_out: "Kirjaudu ulos"
@@ -74,6 +84,10 @@ fi:
       edit_article: "Muokkaa artikkelia"
     edit:
       title: "Muokkaa artikkelia"
+  articles:
+    updated: "Artikkeli päivitetty"
+  settings:
+    updated: "Asetukset tallennettu"
   registrations:
     credentials:
       password_change_hint: "Jätä tämä tyhjäksi jos et halua vaihtaa salasanaasi"
@@ -82,12 +96,13 @@ fi:
     edit:
       update: "Päivitä profiilisi"
       change_password_or_email: "Vaihda salasanasi tai sähköpostiosoitteesi"
+      password_updated: "Salasana vaihdettu"
   expert_suggestion:
     links:
       new_expert_suggestion: "Uusi asiantuntijan ehdotus"
     new:
       title: "Asiantuntijan ehdotus"
   will_paginate:
-    previous_label: "&laquo; Edelliset ideat"
-    next_label: "Seuraavat ideat &raquo;"
+    previous_label: "&laquo; Edelliset"
+    next_label: "Seuraavat &raquo;"
     page_gap: "..."

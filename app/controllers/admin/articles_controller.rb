@@ -5,7 +5,9 @@ class Admin::ArticlesController < Admin::AdminController
   
   def index
     @parent = parent_resource
-    @articles = resource_scope.all
+    @blogs      = resource_scope.where(article_type: "blog").all
+    @statements = resource_scope.where(article_type: "statement").all
+    @footers    = resource_scope.where(article_type: "footer").all
   end
   
   def show
@@ -19,8 +21,14 @@ class Admin::ArticlesController < Admin::AdminController
   
   def create
     @article = build_article
-    @article.save
-    respond_with @article, location: article_return_location
+    begin
+      set_author
+      @article.save
+      respond_with @article, location: article_return_location
+    rescue
+      flash[:error] = I18n.t("activerecord.errors.models.citizen.not_found")
+      redirect_to :back
+    end
   end
 
   def edit
@@ -31,8 +39,14 @@ class Admin::ArticlesController < Admin::AdminController
 
   def update
     @article = Article.find(params[:id])
-    flash[:notice] = I18n.t("articles.updated") if @article.update_attributes(params[:article])
-    respond_with [:admin, @article]
+    begin
+      set_author
+      flash[:notice] = I18n.t("articles.updated") if @article.update_attributes(params[:article])
+      respond_with [:admin, @article]
+    rescue
+      flash[:error] = I18n.t("activerecord.errors.models.citizen.not_found")
+      redirect_to :back
+    end
   end
 
   private
@@ -68,6 +82,28 @@ class Admin::ArticlesController < Admin::AdminController
       parent_resource.articles
     else
       Article
+    end
+  end
+  
+  def find_citizen_by_name(name)
+    if name.include? ","
+      name_array = name.split(", ").reverse
+    else
+      name_array = name.split
+    end
+    if name_array.length != 2
+      raise "invalid name"
+    else
+      Profile.where(:first_name => name_array[0],
+        :last_name => name_array[1]).first.citizen
+    end
+  end
+  
+  def set_author
+    if params[:author].include? "@"
+      @article.author = Citizen.where(:email => params[:author]).first
+    else
+      @article.author = find_citizen_by_name(params[:author])
     end
   end
 end

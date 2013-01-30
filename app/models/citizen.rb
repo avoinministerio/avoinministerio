@@ -1,4 +1,7 @@
 class Citizen < ActiveRecord::Base
+  include Concerns::Indexing
+  include Tanker
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -13,17 +16,43 @@ class Citizen < ActiveRecord::Base
   has_many :ideas, foreign_key: "author_id"
   has_many :comments, foreign_key: "author_id"
   has_many :idea_comments, through: :ideas
-  
+  has_many :money_transactions
+  has_many :response_sets, foreign_key: "user_id"
+
   accepts_nested_attributes_for :profile
   
   default_scope includes(:profile)
-  
   [
+    :first_names,
     :first_name,
     :last_name,
     :name,
     :image
   ].each { |attribute| delegate attribute, to: :profile }
+
+  tankit index_name do
+    conditions do
+      published_something?
+    end
+    indexes :first_name
+    indexes :last_name
+    indexes :name
+    indexes :type do "citizen" end
+    
+    category :type do
+      "citizen"
+    end
+  end
+  
+  after_save Concerns::IndexingWrapper.new
+  after_destroy Concerns::IndexingWrapper.new
+
+  def published_something?
+    ideas.count > 0 || comments.count > 0 
+#    Idea.where("author_id = ?", author.id).count > 0 ||
+#      Article.where("author_id = ?", author.id).count > 0 ||
+#      Comment.where("author_id = ?", author.id).count > 0
+  end
 
   def image
     profile.image || Gravatar.new(email).image_url(ssl: true)
@@ -55,7 +84,8 @@ class Citizen < ActiveRecord::Base
     c = Citizen.where(email: info[:email]).first
     c ||= Citizen.new email: info[:email],
                       password: Devise.friendly_token[0,20],
-                      profile: Profile.new(first_name: info[:first_name], 
+                      profile: Profile.new(first_names: info[:first_name],
+                                           first_name: info[:first_name], 
                                            last_name: info[:last_name],
                                            image: auth_hash[:info][:image])
     c.authentication = Authentication.new provider: auth_hash[:provider],
@@ -66,6 +96,23 @@ class Citizen < ActiveRecord::Base
                                           extra: auth_hash[:extra]
     c.save!
     c
+  end
+
+  def deposit_money(amount, description, unique_identifier)
+    mt = money_transactions.build(amount: amount, description: description, unique_identifier: unique_identifier)
+    raise "Can't save money transaction citizen_id=#{self.id} amount=#{amount} description=#{description}. Errors: #{mt.errors}" unless mt.save
+  end
+
+  def saldo
+    money_transactions.sum(:amount)
+  end
+
+  # check if an user just have registered very recently
+  def just_registered?
+    # if an user have registered less than 7 days ago
+    # they will be treated as a just registered user
+    time_gap_in_days = 60*60*24*7 # 7 days
+    Time.now - self.created_at <= time_gap_in_days
   end
 
   private

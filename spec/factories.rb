@@ -6,6 +6,7 @@ FactoryGirl.define do
   end
 
   factory :profile do |p|
+    first_names 'Erkki Kalevi'
     first_name 'Erkki'
     last_name 'Esimerkki'
   end
@@ -46,6 +47,7 @@ FactoryGirl.define do
     summary   "Hyvä idea"
     state     "idea"
     association :author, factory: :citizen
+    updated_content_at DateTime.now
   end
 
   factory :vote do
@@ -72,5 +74,15 @@ FactoryGirl.define do
     association :idea, factory: :idea
     association :author, factory: :citizen
     publish_state 'published'
+  end
+
+  factory :signature do
+    association :citizen, factory: :citizen
+    association :idea, factory: :idea
+    state 'signed'
+    accept_general 1
+    accept_science 1
+    accept_non_eu_server 1
+    accept_publicity "Normal"
   end
 end

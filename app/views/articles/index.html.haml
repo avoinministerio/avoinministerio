@@ -1,0 +1,26 @@
+- content_for :head do
+  %title= "Avoin Ministeriö -- #{@article_type_heading}"
+.grid_24
+  .blogs_header.container_24
+    .grid_24
+      %h1= @article_type_heading
+.clear
+.blogs.container_24
+  - @blogs.each do |blog|
+    .blog.container_24.clearfix
+      .info.grid_12
+        %span.author
+          = blog.author.name
+        %span.date
+          = finnishDate(blog.updated_at)
+        - if blog.title.size > 0
+          %h2= link_to blog.title, blog
+        - else
+          %h2.notitle= link_to "Ei otsikkoa", blog
+      .content.grid_12
+        = link_to shortened_summary(blog.ingress, 307, 264, "»"), blog
+        .clear
+        .stats
+          /%span.comment-count= (blog.comment_count || 0)
+          %span.comment-count= 0
+= will_paginate @blogs
