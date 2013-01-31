@@ -1,0 +1,1 @@
+AvoinMinisterio::Application.config.secret_token = '0c32dd2c7df53e9c29bab493727a205d162760deaa7fb2519aee58a53e05e715db2a60482fc11f0dc6e8e84e1ffd1d34c1cdbf0b525d3d20292b75b417bbf4ba'
