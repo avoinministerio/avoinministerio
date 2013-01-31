@@ -3,19 +3,42 @@
 class PagesController < ApplicationController
 
   def load(state, count)
-    items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
-    item_counts = {}
+    #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").limit(count).includes(:votes).all
+    #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").includes(:votes).all
+    #item_counts = {}
+    
+    if state == "proposal"
+      #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").limit(3).includes(:votes).all
+      #items = Idea.published.where(state: state, collecting_ended: nil).order("RANDOM()").includes(:votes).all
+      items = Idea.published.where("state = state and (collecting_started or collecting_start_date <= :date) and not (collecting_ended IS NOT NULL or collecting_end_date < :date)", date: Date.today).order("RANDOM()").includes(:votes).all
+      item_counts = {}
+      items.each do |idea|
+        for_count       = idea.signatures.count + ( idea.additional_signatures_count == nil ? 0 : idea.additional_signatures_count )
+        against_count   = ( idea.target_count != nil && idea.target_count > for_count ? idea.target_count - for_count : 0 )
+        total           = for_count + against_count
+        for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
+        for_            = sprintf("%2.0f", for_portion * total)
+	      start_date_     = sprintf( idea.collecting_start_date != nil ? I18n.localize(idea.collecting_start_date) : '' )
+	      end_date_       = sprintf( idea.collecting_end_date != nil ? I18n.localize(idea.collecting_end_date) : '' )
+	      #start_date_     = sprintf( idea.collecting_start_date != nil ? I18n.localize(idea.collecting_start_date, :format => :short) : '' )
+	      #end_date_       = sprintf( idea.collecting_end_date != nil ? I18n.localize(idea.collecting_end_date, :format => :short) : '' )
 
-    items.each do |idea|
-      for_count       = idea.vote_counts[1] || 0
-      against_count   = idea.vote_counts[0] || 0
-      comment_count   = idea.comments.count()
-      total           = for_count + against_count
-      for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
-      against_portion = (against_count > 0 ? against_count / total.to_f  : 0.0)
-      for_            = sprintf("%2.0f%%", for_portion * 100.0)
-      against_        = sprintf("%2.0f%%", against_portion * 100.0)
-      item_counts[idea.id] = [for_portion, for_, against_portion, against_]
+        item_counts[idea.id] = [for_portion, for_, start_date_, end_date_]
+      end
+    else
+      items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+      item_counts = {}
+      items.each do |idea|
+        for_count       = idea.vote_counts[1] || 0
+        against_count   = idea.vote_counts[0] || 0
+        comment_count   = idea.comments.count()
+        total           = for_count + against_count
+        for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
+        against_portion = (against_count > 0 ? against_count / total.to_f  : 0.0)
+        for_            = sprintf("%2.0f%%", for_portion * 100.0)
+        against_        = sprintf("%2.0f%%", against_portion * 100.0)
+        item_counts[idea.id] = [for_portion, for_, against_portion, against_]
+      end
     end
 
     return items, item_counts
@@ -52,14 +75,31 @@ class PagesController < ApplicationController
     end
 
     # B: two rows of examples:
-    @proposals, @proposals_counts  = load("proposal", 3)
+    @proposal_total = Idea.published.where(state: 'proposal').count
+
+    @proposals, @proposals_counts  = load("proposal",3)
     @drafts, @draft_counts        = load("draft",    3)
 
     # A: just one row, both proposals and drafts in it
     @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
     @proposal_and_drafts_counts = @proposals_counts.merge @draft_counts
-
-
+    @nocarousel_limit = 6
+    @split = 1
+    if session[:ab_section_count] == 1
+      if @proposals_and_drafts.size > @nocarousel_limit
+        @myc_id = "mycarousel"
+        @split = 2
+      else
+        @myc_id = "nocarousel"
+      end
+    else
+      if @proposals.size > @nocarousel_limit
+        @myc_id = "mycarousel"
+        @split = 2
+      else
+        @myc_id = "nocarousel"
+      end
+    end
     # Ideas either newest or random sampling
     if @newest_ideas = (rand() < 0.1)
       idea_count = 4
