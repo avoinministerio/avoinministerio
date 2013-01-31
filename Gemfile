@@ -46,6 +46,7 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
+  gem "pg"
 end
 
 group :production do
