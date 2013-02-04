@@ -35,14 +35,15 @@
                 - position_y = 11
                 - red_bar_x = 261
                 - if section == "proposal"
-                  - for_length = 1 if for_portion < 30
+                  - if for_portion < 20
+                    - for_length = 25
+                    - position_x = for_length+15
                   - for_var_green = ""
                   - green_length = (280-5-for_length)
                   - red_bar_x = (for_length-20) if green_length<30
                   - for_var_green = for_ if for_portion>30
                   - for_var_red = for_ if for_portion<30
                   - for_percentage = ""
-                  - position_x = 18
                   - position_y = 11
                   - if for_portion > 80
                     - for_percentage = "#{(((280-for_portion).to_f/280)*100).to_i}"
