@@ -2,6 +2,182 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  vote_for: "for"
+  vote_against: "against"
+  vote: "vote"
+  votes: "votes"
+  votes_amount: "people have voted"
+  expert_suggestions:
+    new:
+      title: "Expert suggestion for idea: "
+  filter:
+    all: "All"
+    idea: "Idea"
+    drafts: "Drafts"
+    law_proposals: "Law proposals"
+    action_proposals: "Action proposals"
+    law: "Law"
+  order:
+    newest: "Newest ideas"
+    oldest: "Oldest ideas"
+    most_commented: "Most commented"
+    least_commented: "Least commented"
+    most_voted: "Most voted"
+    least_voted: "Least voted"
+    most_votes_for: "Most votes for"
+    least_votes_for: "Least votes for"
+    most_supported: "Most supported"
+    least_supported: "Least supported"
+    tilt_even: "Equality of votes"
+    tilt_polarized: "Outvote"
+  shared:
+    login_actions:
+      profile: "Profile"
+      settings: "Settings"
+      logout: "Logout"
+      login: "Login"
+      login_facebook: "Login via facebook"
+      registration: "Registration"
+  layouts:
+    application:
+      ideas: "List all"
+      new_idea: "Enter your idea"
+      title: "Open ministry"
+      how_does_it_work?: "How does it work?"
+      experts: "Experts"
+      media: "Media center"
+      FAQ: "FAQ"
+      blog_entries: "Blog entries"
+      contact: "Contact"
+      terms_of_use: "Terms of use"
+      privacy: "Privacy"
+  pages:
+    headline:
+      ideas: "List all"
+      FAQ: "FAQ"
+    proposals_and_drafts:
+      title: "Proposals and drafts"
+      idea: "Idea/"
+    drafts:
+      title: "Drafts"
+    proposals:
+      title: "Proposals"
+    ideas:
+      title: "Recent ideas"
+      votes: "Votes"
+      ideas: "List all"
+    random_ideas:
+      title: "Examples of ideas"
+      votes: "Votes"
+      ideas: "List all"
+    news:
+      title: "Open Ministry news"
+      no_posts: "No posts at the moment"
+      blogs: "All blogs"
+      unknown_author: "Stranger"
+    newsletter:
+      title: "Subscribe to newsletter"
+      description: "Stay up-to-date of Open the Ministry's activities by subscribing to our newsletter."
+      email: "Your email address"
+      submit: "Subscribe"
+  ideas:
+    index:
+      title: "Open ministry ideas"
+      filtering: "Filter: "
+      ordering: "Order: "
+      search: "Search: "
+      search_example: "(eg. law)"
+      no_title: "No title"
+      vote: "Vote"
+      votes: "Votes"
+    show:
+      title: "Open ministry"
+      previous: "Previous"
+      next: "Next"
+      hidden_title: "Hidden"
+      hidden_summary_part_1: "This idea is currently hidden. You can message us"
+      hidden_summary_part_2: "if you have additional questions."
+      unsupport_idea: "You can share this idea, for getting more votes against it!"
+      support_idea: "You can share this idea, for getting more votes for it!"
+      share_idea: "You can share this idea, for getting more votes for or against it!"
+      voted_idea: "You can add your position by dividing the weight of an initiative to actively forward!"
+      supported: "You voted: "
+      change_vote: "you may want to change your position"
+      notification_idea: "Announce who has supported the idea, the idea has developed draft laws."
+      notification_draft: "Let all who have supported the initiative is officially launched, and you can fill out official support for the declaration."
+      vote_yes: "Yes"
+      vote_no: "No"
+      do_you_believe: "Do you believe in draft law?"
+      support: "???"
+      billing: "???"
+      proposal_support_problem: "???"
+      non_official_support: "???"
+      official_support_not_yet_possible: "???"
+      support_notification: "???"
+      not_supported_idea: "???"
+      expert_opinions: "Expert opinions"
+      supported_idea: "???"
+      law_idea: "???"
+      are_you_expert: "Are you an expert?"
+      suggest_experts: "Suggest experts"
+      comments: "Comments"
+      no_statements: "No statements"
+    search:
+      title: "Open ministry ideas"
+      results: "Search results for"
+      search: "Search:"
+      search_example: "(eg. law)"
+      idea: "Ideas"
+      articles: "Articles"
+      citizens: "Citizens"
+      one_result: "1 result"
+      results: "results"
+      comments: "Comments"
+      unknown_comment: "Unknown type of comment"
+    form:
+      title_help: "Give your idea a few words about the title. The title should indicate the general area."
+      summary_help: "Enter the idea of ​​an abstract. It should be apparent from the basic idea of ​​your idea in a few sentences. You can edit it later."
+      body_help: "If desired, enter a more detailed description of the idea. It may also include links to other sources, listings for and against arguments and issues that you wish commentators and experts feedback. First off, you need not fill in this point, you can edit the information later."
+  profiles:
+    show:
+      voted_ideas: "Ideas, that you voted for"
+      no_votes: "You have not voted for any ideas"
+      commented_ideas: "Ideas, that you commented"
+      no_comments: "You have not commented on any ideas"
+    edit:
+      settings: "User settings"
+      submit_settings: "Submit settings"
+      edit_citizen: "Change email address or password"
+  citizens:
+    edit:
+      title: "Change email address or password"
+      save: "Save the settings"
+    sessions:
+      new:
+        login: "Login"
+        login_button: "Login"
+        remember_me: "Remember me"
+    registrations:
+      new:
+        title: "Registration"
+        agreement: "I agree to the"
+        terms_of_service: "Terms of Service"
+        register: "Register"
+        notification_part_1: "???"
+        notification_part_2: "???"
+        welcome_back: "Welcome back!"
+  comments:
+    form:
+      login_to_write: "Login to write comment"
+      add_comment: "Add comment"
+      sending: "Sending ..."
+  idea:
+    new:
+      title: "Title"
+    links:
+      edit_idea: "Edit idea"
+  buttons:
+    create: "Create"
   articles:
     edit:
       title: "Edit article"
