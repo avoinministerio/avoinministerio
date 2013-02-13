@@ -1,6 +1,6 @@
 fi:
   vote_for: "kyllä"
-  vote_against: "against"
+  vote_against: "ei"
   vote: "ääni"
   votes: "ääntä"
   votes_amount: "äänen jakautuminen"
@@ -274,3 +274,11 @@ fi:
     previous_label: "&laquo; Edelliset"
     next_label: "Seuraavat &raquo;"
     page_gap: "..."
+  devise:
+    shared:
+      links:
+        forgot_password: "Unohditko salasanasi?"
+        login: "Kirjaudu sisään"
+        register: "Rekisteröidy"
+        confirmation: "Ei saanut vahvistusta ohjeita?"
+        unlock: "Ei saanut avata ohjeet?"
