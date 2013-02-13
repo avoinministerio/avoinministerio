@@ -28,6 +28,7 @@ gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
+gem 'mailboxer'
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"

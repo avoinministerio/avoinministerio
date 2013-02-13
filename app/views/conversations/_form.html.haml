@@ -1,0 +1,20 @@
+#control_panel
+  = link_to 'New message', new_conversation_path, :class => "new_message_link"
+  %br
+  %br
+  = link_to "Inbox", conversations_inbox_path, :class => "inbox_link"
+  %br
+  = link_to "Sentbox", conversations_sentbox_path, :class => "sentbox_link"
+  %br
+  = link_to "Trash", conversations_trash_path, :class => "trash_link"
+
+
+#new_message
+  %h1 Start Conversation
+  = simple_form_for :conversation, url: :conversations do |f|
+    .recipients_input_box
+      = f.input :recipients, :label => "Recipient", :input_html => { :data => { load: @pre_load } }
+    = f.input :subject, :cols => 30
+    = f.input :body, as: :text, :rows => 50
+    .form-actions
+      = f.button :submit, class: 'btn-primary'

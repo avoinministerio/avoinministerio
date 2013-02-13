@@ -1,0 +1,149 @@
+// Place all the styles related to the Conversations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$violet: #473161;
+$grey: #888888;
+$aqua: #B3E3FC;
+$toxic: #A2F5C6;
+
+#control_panel {
+  margin-top: 25px;
+  padding: 15px;
+  border: 3px solid $violet;
+  font-size: 15px;
+  width: 20%;
+  float: right;
+}
+
+#inbox, #trash, #sentbox {
+  margin-top: 25px;
+  width: 60%;
+  float: left;
+}
+
+#messages {
+  margin-top: 25px;
+  width: 70%;
+  float: left;
+}
+
+table.messaging {
+  width: 100%;
+  border: 1px solid #cef;
+  text-align: left;
+}
+
+tr.title {
+  background: #EBE6E6;
+}
+
+tr.message.unread {
+  background: #97FA8C;
+}
+
+td.cell {
+  padding: 15px;
+}
+
+.odd {
+  background-color: #def; 
+}
+
+.odd td {
+  border-bottom: 1px solid #cef; 
+}
+
+th.title {
+  font-weight: bold;
+  font-size: 14px;
+  background-color: #acf;
+  border-bottom: 1px solid #cef;
+  padding: 15px;
+}
+
+a.inbox_link:link, a.sentbox_link:link, a.trash_link:link, a.show_all_link:link {
+  color: $grey; 
+  text-decoration: none; 
+  font-weight: bold;
+}
+a.inbox_link:hover, a.sentbox_link:hover, a.trash_link:hover, a.show_all_link:hover { 
+  color: $grey;
+  text-decoration: underline;
+}
+a.inbox_link:visited, a.sentbox_link:visited, a.trash_link:visited, a.show_all_link:visited {
+  color: $grey; 
+  text-decoration: none;  
+}
+
+a.new_message_link:link {
+  font-size: 18px;
+  color: $grey; 
+  text-decoration: none; 
+  font-weight: bold;
+}
+a.new_message_link:hover { 
+  color: $grey;
+  text-decoration: underline;
+}
+a.new_message_link:visited {
+  color: $grey; 
+  text-decoration: none;  
+}
+
+div#message {
+  margin: 10px;
+  padding: 10px;
+  background: $aqua;
+}
+
+div#message.received {
+  padding: 10px;
+  margin-left: 25px;
+  background: $toxic;
+}
+
+#message p {
+  font-size: 16px;
+}
+
+#new_message {
+  float: left;
+  width: 70%;
+  margin-top: 25px;
+  padding: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+textarea#conversation_body.text {
+  width: 100%;
+}
+
+textarea#message_body.text {
+  width: 100%;
+}
+
+body {
+  font-family:Calibri;
+}
+
+#notification_container {
+    display: inline;
+    position: relative;
+    width: 16px;
+    height: 16px;
+}
+
+.notification_bubble {
+    position:absolute;
+    top: -6px;
+    right: -1px;
+    padding: 1px 2px 1px 2px;
+    background-color: #FF1919;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    line-height: 10px;
+    border-radius: 30px;
+}

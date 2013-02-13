@@ -1,0 +1,17 @@
+#sentbox
+  %h1 Sentbox
+  %table.messaging
+    %tr.title
+      %th.title Date
+      %th.title Subject
+      %th.title Participants
+    - @sentbox.each do |message|
+      %tr{:onclick => "window.location.href = '#{url_for(message)}';", :onmouseover => "this.style.cursor='pointer'"}
+        %td.cell #{finnishDate(message.updated_at)}
+        %td.cell #{message.subject} 
+        %td.cell #{get_participants(message)}
+        %td.cell= link_to image_tag("trash.png", :border => 0), trash_conversation_path(message)
+  - if @sentbox.count > 5
+    = will_paginate @sentbox
+  - elsif @sentbox.count == 5
+    = link_to "Show all »»", conversations_sentbox_path, :class => "show_all_link"
