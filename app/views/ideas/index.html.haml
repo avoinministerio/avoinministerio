@@ -1,10 +1,10 @@
 - content_for :head do
-  %title= "Avoin Ministeriö ideat"
+  %title= t('.title')
 .grid_24
   .ideas_header.container_24
     .grid_24.filtering
       .grid_2
-        .h1 Valittu:
+        .h1= t('.filtering')
       .grid_21
         .h1 
           -@filters.each do |filt|
@@ -17,7 +17,7 @@
               |
     .grid_24.ordering
       .grid_2
-        Järjestys:
+        = t('.ordering')
       .grid_21
         / This was the original, ie. leftmost is most important sorter
         /-@sorting_order.each do |sorting_order|
@@ -39,17 +39,13 @@
             =link_to @field_names[field][order.first], reorder: field 
           - unless field == :tilt
             |
-    - if ENV['Feature_Searchbox']
-      .grid_24.search
-        .search
-          Haku:
-          = form_tag "/ideat/haku", :method => "get"
-          = text_field_tag 'searchterm'
-          (esim. 
-          %i tasa*
-          tai 
-          %i koira ja vero
-          )
+    /- if ENV['Feature_Searchbox']
+    .grid_24.search
+      .search
+        = t('.search')
+        = form_tag ideas_search_path, :method => "get"
+        = text_field_tag 'searchterm'
+        = t('.search_example')
     .grid_24
       .filtered_title
         = @filter_name
@@ -59,21 +55,24 @@
     .idea.container_24.clearfix
       .info.grid_12
         %span.type
-          =state_localised(idea.state)
+          - if I18n.locale == :fi
+            =state_localised(idea.state)
+          - elsif I18n.locale == :en
+            =idea.state
           \/
         %span.date
           = finnishDate(idea.created_at)
         - if idea.title.size > 0
           %h2= link_to idea.title, idea_path(idea, so: @sorting_order_code)
         - else
-          %h2.notitle= link_to "Ei otsikkoa", idea
+          %h2.notitle= link_to t('.no_title'), idea
       .content.grid_12
         = link_to shortened_summary(idea.summary, 215, 185, "»"), idea
         .clear
         .stats
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
-            = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")
+            = (idea.vote_count == 1 ? t('.vote') : t('.votes'))
           - for_ = (idea.vote_proportion || 0.0).to_f
           %span.for= sprintf("%.0f%%", for_*100.0)
           |

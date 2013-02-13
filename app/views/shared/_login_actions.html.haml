@@ -1,19 +1,24 @@
 .login_actions.top_row
   - if citizen_signed_in?
-    .grid_8
-      = link_to "Profiili", profile_path
+    .grid_12
+      = link_to_unless_current image_tag("greatbritain.png", :border => 0), locale: "en"
+      = link_to_unless_current image_tag("finland.png", :border => 0), locale: "fi"
       |
-      = link_to "Asetukset", edit_profile_path
-      |
-      = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
-    .grid_4
       %img.avatar{ src: current_citizen.image, width: 25, height: 25, alt: "avatar" }
       #{current_citizen.name}
+      |
+      = link_to t('.profile'), profile_path
+      |
+      = link_to t('.settings'), edit_profile_path
+      |
+      = link_to t('.logout'), destroy_citizen_session_path, method: :delete
   - else
-    .grid_3
-      = link_to "Rekisteröidy", new_citizen_registration_path
-    .grid_3
-      = link_to "Kirjaudu", new_citizen_session_path
-  .grid_6
-    - if !citizen_signed_in?
-      = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
+    .grid_12
+      = link_to_unless_current image_tag("greatbritain.png", :border => 0), locale: "en"
+      = link_to_unless_current image_tag("finland.png", :border => 0), locale: "fi"
+      |
+      = link_to t('.login_facebook'), citizen_omniauth_authorize_path(:facebook)
+      |
+      = link_to t('.registration'), new_citizen_registration_path
+      |
+      = link_to t('.login'), new_citizen_session_path

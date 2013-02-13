@@ -4,23 +4,17 @@
       = f.input :title, label: I18n.t("idea.new.title")
     .grid_8.help_cont
       #title_help
-        %p Anna ideallesi muutaman sanan otsikko. Otsikosta tulisi käydä ilmi yleinen aihealue.
+        %p= t('.title_help')
     .grid_16
       = f.input :summary, as: :text
     .grid_8.help_cont
       #summary_help
-        %p
-          Anna idealle tiivistelmä. Siitä tulisi käydä ilmi ideasi perusajatus muutamalla lauseella.
-          Voit muokata sitä myöhemmin.
+        %p= t('.summary_help')
     .grid_16
       = f.input :body, as: :text
     .grid_8.help_cont
       #body_help
-        %p
-          Anna halutessasi idealle tarkempi kuvaus. Se voi sisältää linkkejä muihin lähteisiin, 
-          listauksia puolesta ja vastaan argumenteista ja kysymyksiä joihin toivot kommentoijilta ja 
-          asiantuntijoilta palautetta. Aluksi sinun ei tarvite täyttää tätä kohtaa, pääset muokkaamaan tietoja myöhemmin.
-  
+        %p= t('.body_help')
     .grid_16
       = f.submit @idea.new_record? ? I18n.t("buttons.create") : I18n.t("buttons.update")
 
