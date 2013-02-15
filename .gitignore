@@ -29,3 +29,6 @@ avoin_ministerio_test
 
 # OS X
 .DS_Store
+
+# rubymine
+.idea

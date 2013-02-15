@@ -2,62 +2,16 @@
 
 class PagesController < ApplicationController
 
-  def load(state, count)
-    items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
-    item_counts = {}
-
-    items.each do |idea|
-      for_count       = idea.vote_counts[1] || 0
-      against_count   = idea.vote_counts[0] || 0
-      comment_count   = idea.comments.count()
-      total           = for_count + against_count
-      for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
-      against_portion = (against_count > 0 ? against_count / total.to_f  : 0.0)
-      for_            = sprintf("%2.0f%%", for_portion * 100.0)
-      against_        = sprintf("%2.0f%%", against_portion * 100.0)
-      item_counts[idea.id] = [for_portion, for_, against_portion, against_]
-    end
-
-    return items, item_counts
-  end
-
-  def formatted_idea_counts(idea, idea_counts)
-    for_count      = idea.vote_counts[1] || 0
-    against_count  = idea.vote_counts[0] || 0
-    comment_count  = idea.comments.count()
-    total = for_count + against_count
-    if total == 0
-      idea_counts[idea.id] = ["0%", "0%", comment_count, total]
-    else
-      total = for_count + against_count
-      idea_counts[idea.id] = [
-        sprintf("%2.0f%%", (    for_count > 0 ?     for_count / total.to_f * 100.0  : 0.0)), 
-        sprintf("%2.0f%%", (against_count > 0 ? against_count / total.to_f * 100.0  : 0.0)),
-        comment_count, 
-        total.format(" ")
-      ]
-    end
-  end
+  before_filter :kiss_metrics
+  before_filter :test_two_rows
 
   def home
-    # AB-test: is it better to have proposals in their separate section or merge with drafts
-    session[:ab_section_count] = rand(2)+1 unless session[:ab_section_count]
-    KM.set({"section_count" => "#{session[:ab_section_count]}"})
-    ["proposal_and_draft", "draft", "proposal"].each do |section|
-      3.times do |i| 
-        section_index_link = "ab_section_#{section}_#{i}_link"
-        KM.track(section_index_link, section_index_link)            # track both, which section and which item
-        KM.track(section_index_link, "ab_section_#{section}_link")  # track only which section got the click
-      end
-    end
-
     # B: two rows of examples:
-    @proposals, @proposals_counts  = load("proposal", 3)
-    @drafts, @draft_counts        = load("draft",    3)
+    @proposals = Idea.featured
+    @drafts = find_ideas("draft", 3)
 
     # A: just one row, both proposals and drafts in it
-    @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
-    @proposal_and_drafts_counts = @proposals_counts.merge @draft_counts
+    @proposals_and_drafts = (@proposals + @drafts).sort { |x, y| x.updated_at <=> y.updated_at }.sample(3)
 
 
     # Ideas either newest or random sampling
@@ -73,7 +27,7 @@ class PagesController < ApplicationController
         KM.track("ab_ideas_#{i}", "ab_ideas_#{i}")    # track both, which section and which item
         KM.track("ab_ideas_#{i}", "ab_ideas")         # track just idea section got the click
       end
-    
+
     else
       idea_count = 6
       # this solution builds on few facts: most ideas are published and in state idea, and
@@ -86,8 +40,10 @@ class PagesController < ApplicationController
         picks_at_time = ((idea_count - @ideas.size)/(probability_good**2.0)).to_i + 1 # 2.0 just makes it even more rare to require two loads
         picks_at_time = 1 if picks_at_time < 1
         picks = picking_ids.slice!(0, picks_at_time)
+
+        break if picks.empty?
         # originally this didn't work: @ideas = Idea.published.where(state: 'idea').random_by_id_shuffle(idea_count)'
-        published_ideas = Idea.find_all_by_id(picks).find_all do |i| 
+        published_ideas = Idea.find_all_by_id(picks).find_all do |i|
           vote_count = i.vote_count || 1
           vote_count = 1 if vote_count == 0
           keep_as_too_few_votes_to_skip = (Math.log(vote_count)/Math.log(30)/2.0) < rand()
@@ -135,5 +91,46 @@ class PagesController < ApplicationController
 
     KM.identify(current_citizen)
     KM.push("record", "front page viewed")
+  end
+
+  private
+
+  def test_two_rows
+    session[:ab_section_count] = 2
+  end
+
+  def kiss_metrics
+    # AB-test: is it better to have proposals in their separate section or merge with drafts
+    session[:ab_section_count] = rand(2)+1 unless session[:ab_section_count]
+    KM.set({"section_count" => "#{session[:ab_section_count]}"})
+    ["proposal_and_draft", "draft", "proposal"].each do |section|
+      3.times do |i|
+        section_index_link = "ab_section_#{section}_#{i}_link"
+        KM.track(section_index_link, section_index_link) # track both, which section and which item
+        KM.track(section_index_link, "ab_section_#{section}_link") # track only which section got the click
+      end
+    end
+  end
+
+  def find_ideas(state, count)
+    Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+  end
+
+  def formatted_idea_counts(idea, idea_counts)
+    for_count = idea.vote_counts[1] || 0
+    against_count = idea.vote_counts[0] || 0
+    comment_count = idea.comments.count()
+    total = for_count + against_count
+    if total == 0
+      idea_counts[idea.id] = ["0%", "0%", comment_count, total]
+    else
+      total = for_count + against_count
+      idea_counts[idea.id] = [
+          sprintf("%2.0f%%", (for_count > 0 ? for_count / total.to_f * 100.0 : 0.0)),
+          sprintf("%2.0f%%", (against_count > 0 ? against_count / total.to_f * 100.0 : 0.0)),
+          comment_count,
+          total.format(" ")
+      ]
+    end
   end
 end

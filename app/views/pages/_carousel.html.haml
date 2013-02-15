@@ -1,0 +1,12 @@
+#proposalCarousel.carousel.slide
+  .carousel-inner
+    - @proposals.in_groups_of(3).each_with_index do |proposals_group, i|
+      %div{ class: ['item', ('active' if i == 0)].join(' ')}
+        = render partial: 'drafts', locals: {items: proposals_group, section: "proposals_carousel" }
+  %a{ href: '#proposalCarousel', class: 'carousel-control left', 'data-slide' => 'prev'} &lsaquo;
+  %a{ href: '#proposalCarousel', class: 'carousel-control right', 'data-slide' => 'next' } &rsaquo;
+
+:javascript
+  $(document).ready(function(){
+    $('#proposalCarousel').carousel({ interval: 4000 });
+  })

@@ -251,6 +251,20 @@ EOS
   idea.save!
 end
 
+12.times do |i|
+  idea = Idea.create(
+    { title: "Esimerkki-idea #{i}",
+      summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.",
+      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",
+      created_at: Time.now - (60*60*24),
+      updated_at: Time.now - (60*60*24),
+      collecting_ended: false
+      })
+  idea.state = "proposal"
+  idea.author = random_citizen
+  idea.save!
+end
+
 voters = (0..100).map do |i|
   Citizen.find_or_create_by_email(
       email: "voter#{i}@voter.com",

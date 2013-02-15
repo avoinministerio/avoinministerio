@@ -23,6 +23,8 @@ fi:
         title: "Otsikko"
         summary: "Tiivistelmä"
         body: "Kuvaus"
+        collecting_started_date: "started"
+        collecting_ended_date: "ending"
       profile:
         first_names: "Etunimet"
         first_name: "Kutsumanimi"

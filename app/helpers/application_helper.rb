@@ -2,6 +2,11 @@
 require 'digest/sha2'
 
 module ApplicationHelper
+
+  def l_if(object, options={})
+    I18n.localize(object, options) if object.presence
+  end
+
   def markdown(text)
     renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, with_toc_data: true)
     Redcarpet::Markdown.new(renderer, { autolink: true, tables: true }).render(text).html_safe
@@ -64,7 +69,7 @@ end
 
 def today_date(timezone = current_timezone)
   # changes UTC time into Finnish timezone and then converts it to date, yielding correct date around midnight
-  DateTime.now.new_offset(timezone).to_date   
+  DateTime.now.new_offset(timezone).to_date
 end
 
 
@@ -111,7 +116,7 @@ class KM
   def KM.identify(current_citizen)
     if current_citizen
       identify = Digest::SHA1.new.update(current_citizen.email + api_key).hexdigest
-    else 
+    else
       identify = "null"
     end
     KM.push("identify", identify)
@@ -123,7 +128,7 @@ class KM
 
   def KM.js
     if $pushes
-      recs = $pushes.map do |pu| 
+      recs = $pushes.map do |pu|
         if pu[2]
           "_kmq.push(['#{pu[0]}', '#{pu[1]}', #{pu[2]}]);"
         else
