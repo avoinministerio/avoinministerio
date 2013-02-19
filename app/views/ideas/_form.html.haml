@@ -12,4 +12,6 @@
       .grid_16
         = f.input :body, as: :text
       .grid_16
+        = f.hidden_field :id, :value => @idea.id
+      .grid_16
         = f.submit @idea.new_record? ? I18n.t("buttons.create") : I18n.t("buttons.update")

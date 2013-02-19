@@ -16,6 +16,7 @@
                 %p= tag.name
                 %span.add_token
                   = link_to "\u2714", add_to_suggested_tag_path(:tag_id => tag), remote: true
+          = link_to "Show all", '#'
         #suggested_tags_form
           Or create a new one:
           = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|
@@ -38,5 +39,6 @@
       - @idea.tags.each do |tag|
         - tag_ids << tag.id
       - Idea.find_similar(tag_ids).each do |idea|
-        = link_to idea.title, idea
-        %br
+        - if idea != @idea
+          = link_to idea.title, idea
+          %br
