@@ -2,14 +2,6 @@
   #tags
     = render "tags/approved", :locals => { :idea => @idea }
     = render "tags/suggested", :locals => { :idea => @idea }
-  #ideas_by_tags
-    %h2 List of similar ideas:
-    - tag_ids = []
-    - @idea.tags.each do |tag|
-      - tag_ids << tag.id
-    - Idea.find_similar(tag_ids).each do |idea|
-      = link_to idea.title, idea
-      %br
   #suggestions
     - if citizen_signed_in? && !(@idea.count_suggested_tags(current_citizen) >= 5)
       %h2 Want to suggest new tag?
@@ -39,3 +31,12 @@
         #suggestion_limit_notice
           Don't forget that you allowed to add only 5 tags for this idea.
         = button_to "Suggest", list_of_suggested_tag_path, remote: true, :class => "suggest_tags_button"
+  - if @idea.tags != []
+    #ideas_by_tags
+      %h2 List of similar ideas:
+      - tag_ids = []
+      - @idea.tags.each do |tag|
+        - tag_ids << tag.id
+      - Idea.find_similar(tag_ids).each do |idea|
+        = link_to idea.title, idea
+        %br

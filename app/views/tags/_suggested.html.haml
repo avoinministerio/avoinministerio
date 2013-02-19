@@ -1,4 +1,5 @@
-%h2 Suggested Tags:
+- if @idea.tags != []
+  %h2 Suggested Tags:
 %ul.suggested_tags
   - @idea.tags.each do |tag|
     - if tag.suggested?(@idea.id) 
