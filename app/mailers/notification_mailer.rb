@@ -3,7 +3,9 @@ class NotificationMailer < ActionMailer::Base
   #Sends and email for indicating a new notification to a receiver.
   #It calls new_notification_email.
   def send_email(notification,receiver)
-    new_notification_email(notification,receiver)
+    if Profile.find(receiver).receive_messaging_notifications
+      new_notification_email(notification,receiver)
+    end
   end
 
   include ActionView::Helpers::SanitizeHelper
@@ -14,7 +16,7 @@ class NotificationMailer < ActionMailer::Base
     @receiver = receiver
     subject = notification.subject.to_s
     subject = strip_tags(subject) unless subject.html_safe?
-    mail(:to => receiver.send(Mailboxer.email_method,notification), :subject => t('mailboxer.notification_mailer.subject', :subject => subject)) do |format|
+    mail(:to => receiver.send(Mailboxer.email_method,notification), :subject => subject) do |format|
       format.text {render __method__}
       format.html {render __method__}
     end
