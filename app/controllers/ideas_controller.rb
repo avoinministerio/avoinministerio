@@ -287,7 +287,9 @@ class IdeasController < ApplicationController
     tag_ids = Tag.get_ids_by_name(params[:tags])
     @lda_respond = @title_text + @summary_text + @body_text
     @ideas_suggested_by_tags = Idea.find_similar(tag_ids)
-    @idea = Idea.find(params[:idea_id])
+    if params[:idea_id] != ""
+      @idea = Idea.find(params[:idea_id])
+    end
     respond_to do |format|
       format.js   { render :respond, locals: { lda_respond: @lda_respond, ideas_suggested_by_tags: @ideas_suggested_by_tags } }
     end

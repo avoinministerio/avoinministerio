@@ -16,8 +16,15 @@ Please, check ideas below before creating new one.
 #tag_cloud
   %h2 Tags Suggested for your idea:
   %ul.cloud
-    - @idea.possible_tags.sort_by(&:count).reverse.each do |tag|
-      %li.cloud{:id => "#{tag.name}"}
-        %p= tag.name
-        %span.add_token
-          = link_to "\u2714", '#', :onclick => "$('input#idea_tag_list').tokenInput('add', {id: #{tag.id}, name: '#{tag.name}'});"
+    - if @idea != nil
+      - @idea.possible_tags.sort_by(&:count).reverse.each do |tag|
+        %li.cloud{:id => "#{tag.name}"}
+          %p= tag.name
+          %span.add_token
+            = link_to "\u2714", '#', :onclick => "$('input#idea_tag_list').tokenInput('add', {id: #{tag.id}, name: '#{tag.name}'});"
+    - else 
+      - Idea.tag_counts.sort_by(&:count).reverse.each do |tag|
+        %li.cloud{:id => "#{tag.name}"}
+          %p= tag.name
+          %span.add_token
+            = link_to "\u2714", '#', :onclick => "$('input#idea_tag_list').tokenInput('add', {id: #{tag.id}, name: '#{tag.name}'});"

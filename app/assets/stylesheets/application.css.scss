@@ -4,6 +4,7 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
  *= require token-input-facebook
+ *= require jquery-ui-1.9.2.custom
  *= require_directory . 
 */
 $turquoise: #29abe2;
