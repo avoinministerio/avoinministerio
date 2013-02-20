@@ -20,7 +20,7 @@ $(document).ready(function($) {
         send_data(idea_title.val(), idea_summary.val(), idea_body.val(), idea_id.val());
       } 
     });
-
+  
   $('.response').hide();
  
   idea_title.focus();

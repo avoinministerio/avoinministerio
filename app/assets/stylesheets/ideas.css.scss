@@ -1,4 +1,4 @@
-// Place all the styles related to the Ideas controller here.
+  // Place all the styles related to the Ideas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
@@ -621,4 +621,10 @@ a.idea_edit_link {
 #suggestions {
   width: 100%;
   float: left;
+}
+
+a.show_more {
+  color: $grey; 
+  text-decoration: none; 
+  font-weight: bold;
 }

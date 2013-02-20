@@ -4,6 +4,7 @@ $('input#idea_suggested_tags').tokenInput('add', {id: <%= @tag.id %>, name: "<%=
 
 if (5 <= (tags.length + <%= @idea.count_suggested_tags(current_citizen) %>)) {
 	$("#notification").show();
+	$('#show_all_tags').dialog("close");
 	$("#existing_tags_menu").hide();
 }
 

@@ -44,6 +44,13 @@ class TagsController < ApplicationController
     end
   end
 
+  def show_more
+    @idea = Idea.find(params[:id])
+    respond_to do |format|
+      format.js { render action: :show_more, :locals => { :idea => @idea } }
+    end
+  end
+
 private
   def respond_vote_js
     @idea = Idea.find(params[:idea_id])

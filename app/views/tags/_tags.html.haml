@@ -11,12 +11,13 @@
         #existing_tags_menu
           Select from existing:
           %ul.cloud
-            - @idea.possible_tags.sort_by(&:count).reverse.each do |tag|
+            - @idea.possible_tags.take(5).sort_by(&:count).reverse.each do |tag|
               %li.cloud{:id => "#{tag.id}"}
                 %p= tag.name
                 %span.add_token
                   = link_to "\u2714", add_to_suggested_tag_path(:tag_id => tag), remote: true
-          = link_to "Show all", '#'
+          = link_to "Show more »»", show_more_tag_path, :class => "show_more", remote: true
+          #show_more
         #suggested_tags_form
           Or create a new one:
           = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|

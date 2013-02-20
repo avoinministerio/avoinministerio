@@ -54,6 +54,7 @@ AvoinMinisterio::Application.routes.draw do
   resources :tags do
     get "vote_for", on: :member
     get "vote_against", on: :member
+    get "show_more", on: :member
     post "list_of_suggested", on: :member
     get "add_to_suggested", on: :member
   end
