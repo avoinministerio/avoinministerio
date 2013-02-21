@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013234109) do
+ActiveRecord::Schema.define(:version => 20130222082045) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
 
   create_table "citizens", :force => true do |t|
     t.string   "email"
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "locked_at"
+    t.boolean  "is_politician",          :default => false
   end
 
   add_index "citizens", ["email"], :name => "index_citizens_on_email", :unique => true
@@ -218,6 +219,14 @@ ActiveRecord::Schema.define(:version => 20121013234109) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "unique_identifier"
+  end
+
+  create_table "politicians_supports", :force => true do |t|
+    t.integer  "idea_id"
+    t.integer  "citizen_id"
+    t.string   "vote"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "profiles", :force => true do |t|

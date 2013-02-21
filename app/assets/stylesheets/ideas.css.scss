@@ -72,7 +72,6 @@ h1 {
 
 .voting {
   background: #eff3f3;
-  border-top: 3px solid #000;
   padding-bottom: 20px;
 }
 
@@ -412,4 +411,52 @@ ul.horizontal li {
 
 .share .addthis_32x32_style {
   height: 32px;
+}
+
+#politician_block {
+  margin-top: 45px;
+  width: 100%;
+  float: left;
+}
+
+.adopt-btn {
+  margin: 0 auto 10px;
+  width: 150px;
+  padding: 10px;
+  display: block;
+  background: #8C844D;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+}
+
+#supporting_idea, #unsupporting_idea {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#supported, #adopted {
+  font-size: 16px;
+  width: 50%;
+  float: left;
+}
+
+#unsupported {
+  font-size: 16px;
+  width: 50%;
+  float: right;
+}
+
+.supported_politician, .unsupported_politician {
+  margin-bottom: 15px;
+}
+
+span.name {
+  color: $turquoise;
+}
+
+.idea .politician .adopted {
+  margin-bottom: 25px;
 }
