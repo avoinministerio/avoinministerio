@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "3.2.11"
+gem "rails", "3.2.12"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -24,6 +24,8 @@ gem "rails-translate-routes"
 gem "rake", ">= 0.9.2"
 gem "redcarpet"
 gem "simple_form"
+gem "carrierwave"
+gem "fog"
 gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"

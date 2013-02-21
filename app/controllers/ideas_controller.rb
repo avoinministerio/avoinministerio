@@ -120,6 +120,7 @@ class IdeasController < ApplicationController
   def show
     @idea = Idea.includes(:votes).find(params[:id])
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
+    @politicians_support = PoliticiansSupport.new
 
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
@@ -267,5 +268,38 @@ class IdeasController < ApplicationController
     render 
   end
 
+  def adopt_the_initiative
+    if current_citizen.is_politician
+      @politicians_support = PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => current_citizen.id, :vote => "for")
+      redirect_to :back
+    end
+  end
 
+  def suggest_politicians_for
+    @idea = Idea.find(params[:id])
+    @politicians_id = params[:idea]["suggested_politicians_for"].split(",")
+    @politicians_id.each do |politician_id|
+      PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => politician_id, :vote => "for")
+    end
+    respond_to do |format|
+      format.js { render :add_politicians_to_for_list, locals: { idea: @idea } } 
+    end
+  end
+
+  def suggest_politicians_against
+    @idea = Idea.find(params[:id])
+    @politicians_id = params[:idea]["suggested_politicians_against"].split(",")
+    @politicians_id.each do |politician_id|
+      PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => politician_id, :vote => "against")
+    end
+    respond_to do |format|
+      format.js { render :add_politicians_to_against_list, locals: { idea: @idea } } 
+    end
+  end
+
+  def upload_document
+    @idea = Idea.find(params[:id])
+    @document = Document.create(:idea_id => params[:id], :file => params[:idea]["file"], :file_name => params[:idea]["file_name"])
+    respond_with @idea
+  end
 end

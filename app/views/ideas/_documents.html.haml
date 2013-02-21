@@ -1,0 +1,6 @@
+List of the documents:
+%br
+- @idea.documents.each do |document|
+  = file_extension_image(document.file)
+  = link_to document.file_name, document.file.to_s
+  %br

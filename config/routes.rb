@@ -2,7 +2,8 @@ AvoinMinisterio::Application.routes.draw do
 
   resource :profile, :except => [:new, :create, :destroy]  
   resource :citizen, :only => [:edit, :update]
-
+  
+  match "/citizens/list_of_politicians.json"          => "citizens#list_of_politicians", via: :get
   match "/ideas/:id/vote/:vote"                       => "vote#vote",                     as: :vote_idea
 
   match "/ideas/:id/service_selection"                => "signatures#service_selection",      as: :signature_idea_service_selection
@@ -45,6 +46,10 @@ AvoinMinisterio::Application.routes.draw do
   match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
 
   resources :ideas do
+    post :suggest_politicians_for, on: :member
+    post :suggest_politicians_against, on: :member
+    post :upload_document, on: :member
+    get :adopt_the_initiative, on: :member
     resources :comments
     resources :expert_suggestions, only: [:new, :create]
   end
@@ -84,8 +89,10 @@ AvoinMinisterio::Application.routes.draw do
       get "moderate",   on: :member
     end
     resources :citizens do
-      get "lock",       on: :member
-      get "unlock",     on: :member
+      get "change_role_politician", on: :member
+      get "change_role_citizen", on: :member
+      get "lock",                   on: :member
+      get "unlock",                 on: :member
     end
     resources :changelogs
     resources :expert_suggestions

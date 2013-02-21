@@ -13,7 +13,8 @@
     .btn-group
       = link_to "Lukitse", [:lock, :admin, @citizen], class: "btn btn-danger" unless @citizen.locked?
       = link_to "Vapauta", [:unlock, :admin, @citizen], class: "btn btn-inverse" if @citizen.locked?
-    
+      = link_to "Make politician", [:change_role_politician, :admin, @citizen], class: "btn btn-success" unless @citizen.is_politician
+      = link_to "Make citizen", [:change_role_citizen, :admin, @citizen], class: "btn btn-success" if @citizen.is_politician
     .citizen-ideas
       %h2 Ideat
       %ul.ideas
