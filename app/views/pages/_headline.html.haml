@@ -4,4 +4,4 @@
     %h2= @headline_2[rand(@headline_2.size)]
   .actions.grid_6
     = link_to "Listaa kaikki", ideas_path, class: "button"
-    %a.button{href: "/artikkelit/20-usein-kysyttyja-kysymyksia"} Usein kysyttyä
+    = link_to "Anna idea", new_idea_path, class: "button"

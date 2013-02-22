@@ -3,13 +3,15 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
+ *= require token-input-facebook
  *= require_directory . 
 */
-$turquoise: #29abe2;
-$violet: #473161;
+$turquoise: #2b5ea1;
+$violet: #8C844D;
 
 body > header {
-  height: 150px;
+  height: 110px;
+  margin-bottom: 15px;
 }
 
 body > header.top_row_container {
@@ -19,17 +21,14 @@ body > header.top_row_container {
 }
 
 body > header, body > header.top_row_container > .container_24, .ideas_header.container_24 {
-  border-width: 6px;
-  -moz-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  -webkit-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  -o-border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
-  border-image: url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
   border-top: 0 none;
   border-left: 0 none;
   border-right: 0 none;
 }
 
 header .login_actions a, header .idea_actions a {
+  padding: 5px;
+  font-size: 1em;
   color: $turquoise;
   font-weight: bold;
   text-decoration: none;
@@ -45,13 +44,27 @@ body > header > .top_row {
   margin-top: 15px;
 }
 
+ul#top_nav {
+  list-style-type:none;
+  margin-top: 15px;
+  padding:0;
+}
+
+ul#top_nav li {
+  display: inline;
+}
+
 body > header > .top_row > a {
   margin-top: 20px;
 }
 
 body > header > .bottom_row {
   height: 60px;
-  margin-top: 40px;
+  margin-top: 20px;
+}
+
+body > header > .bottom_row a {
+  font-size: 1em;
 }
 
 #footer_container {

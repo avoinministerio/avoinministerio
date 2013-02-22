@@ -12,7 +12,7 @@
   - if content_for? :head
     = yield :head
   - else
-    %title Avoin Ministeriö
+    %title Avoin Ministeriö / Helsinki
 
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
@@ -29,23 +29,10 @@
     #{KM.js}
 
 %body
-  %header.container_24.top_row_container
-    .container_24.top_row
   %header.container_24
-    = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
+    = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_8"
     = render partial: 'shared/login_actions'
     = render partial: 'shared/facebook_js'
-    .idea_actions.bottom_row
-      .grid_6
-        &nbsp;
-      .grid_3
-        = link_to "Listaa kaikki", ideas_path
-      .grid_3
-        = link_to "Anna idea", new_idea_path
-      .grid_2
-        &nbsp;
-      .grid_7
-        = survey_button
   .container.container_24
     %section
       = yield

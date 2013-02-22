@@ -22,11 +22,15 @@ class Idea < ActiveRecord::Base
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
                     :target_count, :updated_content_at
 
+  attr_reader :suggested_politicians_for, :suggested_politicians_against
+
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
   has_many :expert_suggestions
   has_many :signatures
+
+  has_many :politicians_support
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
@@ -130,5 +134,31 @@ class Idea < ActiveRecord::Base
     ended     = collecting_ended   ||
       (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
+  end
+  
+  def adopted_by
+    if self.politicians_support != []
+      Citizen.find(self.politicians_support.first.citizen_id)
+    end
+  end
+
+  def supported_by
+    politicians = []
+    self.politicians_support.each do |support|
+      if support.vote == "for"
+        politicians << Citizen.find(support.citizen_id)
+      end
+    end
+    return (politicians - [self.adopted_by])
+  end
+
+  def unsupported_by
+    politicians = []
+    self.politicians_support.each do |unsupport|
+      if unsupport.vote == "against"
+        politicians << Citizen.find(unsupport.citizen_id)
+      end
+    end
+    return politicians
   end
 end

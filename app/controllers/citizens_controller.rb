@@ -16,6 +16,15 @@ class CitizensController < ApplicationController
     end
     render "edit"
   end
+
+  def list_of_politicians
+    @politicians = Citizen.list_of_politicians
+    
+    respond_to do |format|
+       format.html
+       format.json { render json: @politicians }
+    end
+  end
   
   private
   
