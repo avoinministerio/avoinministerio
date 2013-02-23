@@ -6,7 +6,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require raphael-min
 //= require g.raphael-min
 //= require g.pie-min
-//= require_directory .
+//= require jquery.tokeninput
+//= require ideas
