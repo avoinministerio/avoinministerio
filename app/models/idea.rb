@@ -142,11 +142,11 @@ class Idea < ActiveRecord::Base
   end
 
   def self.tag_counts
-    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where('tags.is_location = "f"').joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => false).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
   end
 
   def self.location_tag_counts
-    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where('tags.is_location = "t"').joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => true).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
   end
 
   def possible_tags
