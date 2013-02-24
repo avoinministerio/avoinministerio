@@ -110,4 +110,11 @@ module IdeasHelper
       image_tag("/assets/document-icon.gif")
     end
   end
+
+  def file_extension_actions(file)
+    extension = File.extname(file.to_s)
+    if extension == ".pdf"
+      link_to image_tag("/assets/read-icon.gif"), "http://docs.google.com/viewer?url="+file.to_s+"&embedded=true"
+    end
+  end
 end
