@@ -5,3 +5,6 @@ List of the documents:
     = file_extension_image(document.file)
     = link_to document.file_name, document.file.to_s
     = file_extension_actions(document.file)
+    - if citizen_signed_in?
+      - if current_citizen.is_politician && (current_citizen == @idea.adopted_by)
+        = link_to image_tag("/assets/trash.png"), document, method: :delete, confirm: "Are you sure?"

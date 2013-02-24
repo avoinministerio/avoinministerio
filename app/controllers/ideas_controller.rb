@@ -126,7 +126,7 @@ class IdeasController < ApplicationController
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
     
-    @colors = ["#8cc63f", "#a9003f"]
+    @colors = ["#4DA818", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
 
     @sorting_order_code = params[:so]

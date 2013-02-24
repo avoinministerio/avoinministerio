@@ -3,10 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $turquoise: #2b5ea1;
-$violet: #473161;
+$violet: #2b5ea1;
 $violet-muted: #271141;
 $grey: #888888;
-$green: #8cc63f;
+$green: #4DA818;
 $red: #a9003f;
 
 #new_idea .input label {
@@ -98,7 +98,7 @@ h1 {
 }
 
 .voting .jaa-btn {
-  background: #8cc63f;
+  background: $green;
   color: #fff;
   text-decoration: none;
 }
@@ -190,7 +190,7 @@ h2 {
 
 .expert_opinions .expert span.name {
   font-weight: bold;
-  color: #29abe2;
+  color: $violet;
   text-transform: uppercase;
 }
 
@@ -200,7 +200,7 @@ h2 {
 
 .expert_opinions .expert span.name {
   font-weight: bold;
-  color: #29abe2;
+  color: $violet;
   text-transform: uppercase;
 }
 
@@ -228,7 +228,7 @@ h2 {
     .info {
       .name{
         font-weight: bold;
-        color: #29abe2;
+        color: $violet;
         text-transform: uppercase;
         padding-right: 5px;
       }
@@ -424,7 +424,7 @@ ul.horizontal li {
   width: 150px;
   padding: 10px;
   display: block;
-  background: #8C844D;
+  background: $violet;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;

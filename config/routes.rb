@@ -56,6 +56,8 @@ AvoinMinisterio::Application.routes.draw do
   resources :articles do
     resources :comments
   end
+ 
+  resources :documents
 
   devise_for :administrators
   
