@@ -1,0 +1,28 @@
+%h1 Listing all states
+%br
+%table.table.table-bordered
+  %tr
+    %th Name
+    %th Last Operated by
+    %th Created at
+    %th Updated at
+    %th{colspan: 3} Actions
+
+  - @states.each do |state|
+    %tr
+      %td= state.name.titleize
+      %td= state.administrator.email
+      %td= state.created_at
+      %td= state.updated_at
+      %td
+        %div.btn-group
+          = link_to 'Show', admin_state_path(state), class: 'btn'
+          = link_to 'Edit', edit_admin_state_path(state), class: 'btn'
+          = link_to 'Destroy', admin_state_path(state), :method => :delete, :data => { :confirm => 'Are you sure? All dependent ideas will also be deleted' }, class: 'btn btn-danger'
+
+%br
+%div
+  .container_20
+    = will_paginate @states
+
+= link_to 'New State', new_admin_state_path, class: 'btn btn-info'

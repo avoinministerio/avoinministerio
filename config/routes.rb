@@ -1,5 +1,5 @@
 AvoinMinisterio::Application.routes.draw do
-  resource :profile, :except => [:new, :create, :destroy]  
+  resource :profile, :except => [:new, :create, :destroy]
   resource :citizen, :only => [:edit, :update]
   
   match "/citizens/list_of_politicians.json"          => "citizens#list_of_politicians", via: :get
