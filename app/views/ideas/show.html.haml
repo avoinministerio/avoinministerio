@@ -70,6 +70,7 @@
         = markdown(@idea.summary) if @idea.summary
       .body
         = markdown(@idea.body) if @idea.body
+      = render "tags/tags"
     - else
       %h1 Piilotettu
       .summary
@@ -123,32 +124,8 @@
               %br
               %br
               = f.submit "Upload the document"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //= link_to "Change state of the initiative", "#", class: "adopt-btn"
-            //= link_to "Upload the document", "#", class: "adopt-btn"
-            //= link_to "Add the politicians who are against this idea", "#", class: "adopt-btn" 
-
     - if @idea.author == current_citizen or administrator_signed_in?
-      = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
+      = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea), :class => "idea_edit_link"
 
   -if @idea.published?
     %aside.grid_7.prefix_1.omega

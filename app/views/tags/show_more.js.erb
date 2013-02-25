@@ -1,0 +1,7 @@
+$("#show_more").html("<%= escape_javascript(render(:partial => 'tags/show_all', :locals => {:idea => @idea})).html_safe %>");
+$("#show_all_tags").dialog({  title: "Show all tags", 
+	                            width: 500, 
+	                            beforeClose: function(event, ui) { $("a.show_more").show(); } 
+	                        });
+$("a.show_more").hide();
+

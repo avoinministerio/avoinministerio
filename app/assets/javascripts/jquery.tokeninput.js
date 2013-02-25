@@ -21,7 +21,7 @@ var DEFAULT_SETTINGS = {
     jsonContainer: null,
 
 	// Display settings
-    hintText: "Type in a search term",
+    //hintText: "Type in a search term",
     noResultsText: "No results",
     searchingText: "Searching...",
     deleteText: "&times;",
@@ -107,6 +107,10 @@ var methods = {
         return this;
     },
     add: function(item) {
+        //Artur_G:
+        //Added event.preventDefault(); 
+        //to avoid page reload
+        event.preventDefault();
         this.data("tokenInputObject").add(item);
         return this;
     },
