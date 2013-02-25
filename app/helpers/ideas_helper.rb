@@ -33,8 +33,8 @@ module IdeasHelper
       "law proposal" => "lakialoite", 
       "action proposal" => "toimenpidealoite", 
       "law" => "laki"}
-    raise "invalid state '#{state.inspect}'" unless states.keys.include? state
-    states[state]
+    #raise "invalid state '#{state.inspect}'" unless states.keys.include? state
+    states.keys.include?(state) ? states[state] : state
   end
   
   def vote_in_words(idea, citizen)
