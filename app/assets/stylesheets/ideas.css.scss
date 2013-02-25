@@ -479,6 +479,7 @@ ul.horizontal li {
 }
 
 #unsupported {
+  margin-top: 25px;
   font-size: 16px;
   width: 50%;
   float: right;
@@ -687,4 +688,19 @@ a.show_more {
   color: $grey; 
   text-decoration: none; 
   font-weight: bold;
+}
+
+span.name {
+  font-family: "Segoe WP","Lucida Grande","Lucida Sans",sans-serif;
+  font-size: 16px;
+}
+
+span.date.sans_serif {
+  font-family: "Segoe WP","Lucida Grande","Lucida Sans",sans-serif;
+  font-size: 13px;
+  padding-left: 10px
+}
+
+#adopted_politician {
+  margin-top: 10px;
 }

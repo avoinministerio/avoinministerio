@@ -63,6 +63,11 @@
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
+  #adopted_politician
+    - if @idea.politicians_support != []
+      %img.avatar{ src: @idea.adopted_by.image, width: 48, height: 48 } 
+      %span.name= @idea.adopted_by.name
+      %span.date.sans_serif= finnishDate(@idea.politicians_support.first.created_at)
   .grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.title
@@ -77,15 +82,7 @@
         Tämä idea on tällä hetkellä piilotettu. Voit kääntyä 
         %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
         puoleen mahdollisilla kysymyksilläsi.
-      .body
-    
-    - if @idea.politicians_support != []
-      #adopted
-        This idea is adopted by: 
-        %br
-        %img.avatar{ src: @idea.adopted_by.image, width: 48, height: 48 } 
-        %span.name
-          #{@idea.adopted_by.name}
+      .body 
     
     #supported
       - if @idea.politicians_support != []
