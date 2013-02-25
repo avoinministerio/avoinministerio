@@ -45,6 +45,649 @@ Administrator.find_or_create_by_email({
     profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
 ].each { |citizen| Citizen.find_or_create_by_email(citizen) }
 
+[
+  { name: "Kruununhaka",
+    is_location: true
+  },
+  {
+    name: "Kluuvi",
+    is_location: true
+  },
+  {
+    name: "Kaartinkaupunki",
+    is_location: true
+  },
+  {
+    name: "Kamppi",
+    is_location: true
+  },
+  {
+    name: "Punavuori",
+    is_location: true
+  },
+  {
+    name: "Eira",
+    is_location: true
+  },
+  {
+    name: "Ullanlinna",
+    is_location: true
+  },
+  {
+    name: "Katajanokka",
+    is_location: true
+  },
+  {
+    name: "Kaivopuisto",
+    is_location: true
+  },
+  {
+    name: "Sörnäinen",
+    is_location: true
+  },
+  {
+    name: "Kallio",
+    is_location: true
+  },
+  {
+    name: "Siltasaari",
+    is_location: true
+  },
+  {
+    name: "Linjat",
+    is_location: true
+  },
+  {
+    name: "Torkkelinmäki",
+    is_location: true
+  },
+  {
+    name: "Alppiharju",
+    is_location: true
+  },
+  {
+    name: "Harju",
+    is_location: true
+  },
+  {
+    name: "Alppila",
+    is_location: true
+  },
+  {
+    name: "Etu-Töölö",
+    is_location: true
+  },
+  {
+    name: "Taka-Töölö",
+    is_location: true
+  },
+  {
+    name: "Meilahti",
+    is_location: true
+  },
+  {
+    name: "Ruskeasuo",
+    is_location: true
+  },
+  {
+    name: "Pasila",
+    is_location: true
+  },
+  {
+    name: "Länsi-Pasila",
+    is_location: true
+  },
+  {
+    name: "Pohjois-Pasila",
+    is_location: true
+  },
+  {
+    name: "Itä-Pasila",
+    is_location: true
+  },
+  {
+    name: "Keski-Pasila",
+    is_location: true
+  },
+  {
+    name: "Laakso",
+    is_location: true
+  },
+  {
+    name: "Mustikkamaa-Korkeasaari",
+    is_location: true
+  },
+  {
+    name: "Länsisatama",
+    is_location: true
+  },
+  {
+    name: "Ruoholahti",
+    is_location: true
+  },
+  {
+    name: "Lapinlahti",
+    is_location: true
+  },
+  {
+    name: "Jätkäsaari",
+    is_location: true
+  },
+  {
+    name: "Munkkisaari",
+    is_location: true
+  },
+  {
+    name: "Hermanni",
+    is_location: true
+  },
+  {
+    name: "Vallila",
+    is_location: true
+  },
+  {
+    name: "Toukola",
+    is_location: true
+  },
+  {
+    name: "Arabianranta",
+    is_location: true
+  },
+  {
+    name: "Kumpula",
+    is_location: true
+  },
+  {
+    name: "Käpylä",
+    is_location: true
+  },
+  {
+    name: "Koskela",
+    is_location: true
+  },
+  {
+    name: "Vanhakaupunki",
+    is_location: true
+  },
+  {
+    name: "Oulunkylä",
+    is_location: true
+  },
+  {
+    name: "Pirkkola",
+    is_location: true
+  },
+  {
+    name: "Maunula",
+    is_location: true
+  },
+  {
+    name: "Metsälä",
+    is_location: true
+  },
+  {
+    name: "Patola",
+    is_location: true
+  },
+  {
+    name: "Veräjämäki",
+    is_location: true
+  },
+  {
+    name: "Maunulanpuisto",
+    is_location: true
+  },
+  {
+    name: "Veräjälaakso",
+    is_location: true
+  },
+  {
+    name: "Haaga",
+    is_location: true
+  },
+  {
+    name: "Etelä-Haaga",
+    is_location: true
+  },
+  {
+    name: "Kivihaka",
+    is_location: true
+  },
+  {
+    name: "Pohjois-Haaga",
+    is_location: true
+  },
+  {
+    name: "Lassila",
+    is_location: true
+  },
+  {
+    name: "Munkkiniemi",
+    is_location: true
+  },
+  {
+    name: "Vanha Munkkiniemi",
+    is_location: true
+  },
+  {
+    name: "Kuusisaari",
+    is_location: true
+  },
+  {
+    name: "Lehtisaari",
+    is_location: true
+  },
+  {
+    name: "Munkkivuori",
+    is_location: true
+  },
+  {
+    name: "Niemenmäki",
+    is_location: true
+  },
+  {
+    name: "Talinranta",
+    is_location: true
+  },
+  {
+    name: "Lauttasaari",
+    is_location: true
+  },
+  {
+    name: "Konala",
+    is_location: true
+  },
+  {
+    name: "Kaarela",
+    is_location: true
+  },
+  {
+    name: "Kannelmäki",
+    is_location: true
+  },
+  {
+    name: "Maununneva",
+    is_location: true
+  },
+  {
+    name: "Malminkartano",
+    is_location: true
+  },
+  {
+    name: "Hakuninmaa",
+    is_location: true
+  },
+  {
+    name: "Kuninkaantammi",
+    is_location: true
+  },
+  {
+    name: "Pakila",
+    is_location: true
+  },
+  {
+    name: "Länsi-Pakila",
+    is_location: true
+  },
+  {
+    name: "Itä-Pakila",
+    is_location: true
+  },
+  {
+    name: "Tuomarinkylä",
+    is_location: true
+  },
+  {
+    name: "Paloheinä",
+    is_location: true
+  },
+  {
+    name: "Torpparinmäki",
+    is_location: true
+  },
+  {
+    name: "Tuomarinkartano",
+    is_location: true
+  },
+  {
+    name: "Haltiala",
+    is_location: true
+  },
+  {
+    name: "Viikki",
+    is_location: true
+  },
+  {
+    name: "Viikinranta",
+    is_location: true
+  },
+  {
+    name: "Latokartano",
+    is_location: true
+  },
+  {
+    name: "Viikin tiedepuisto",
+    is_location: true
+  },
+  {
+    name: "Viikinmäki",
+    is_location: true
+  },
+  {
+    name: "Pukinmäki",
+    is_location: true
+  },
+  {
+    name: "Malmi",
+    is_location: true
+  },
+  {
+    name: "Ylä-Malmi",
+    is_location: true
+  },
+  {
+    name: "Ala-Malmi",
+    is_location: true
+  },
+  {
+    name: "Pihlajamäki",
+    is_location: true
+  },
+  {
+    name: "Tattariharju",
+    is_location: true
+  },
+  {
+    name: "Malmin lentokenttä",
+    is_location: true
+  },
+  {
+    name: "Pihlajisto",
+    is_location: true
+  },
+  {
+    name: "Tapaninkylä",
+    is_location: true
+  },
+  {
+    name: "Tapaninvainio",
+    is_location: true
+  },
+  {
+    name: "Tapanila",
+    is_location: true
+  },
+  {
+    name: "Suutarila",
+    is_location: true
+  },
+  {
+    name: "Siltamäki",
+    is_location: true
+  },
+  {
+    name: "Tapulikaupunki",
+    is_location: true
+  },
+  {
+    name: "Töyrynummi",
+    is_location: true
+  },
+  {
+    name: "Suurmetsä",
+    is_location: true
+  },
+  {
+    name: "Puistola",
+    is_location: true
+  },
+  {
+    name: "Heikinlaakso",
+    is_location: true
+  },
+  {
+    name: "Tattarisuo",
+    is_location: true
+  },
+  {
+    name: "Jakomäki",
+    is_location: true
+  },
+  {
+    name: "Kulosaari",
+    is_location: true
+  },
+  {
+    name: "Herttoniemi",
+    is_location: true
+  },
+  {
+    name: "Länsi-Herttoniemi",
+    is_location: true
+  },
+  {
+    name: "Roihuvuori",
+    is_location: true
+  },
+  {
+    name: "Herttoniemen teollisuusalue",
+    is_location: true
+  },
+  {
+    name: "Herttoniemenranta",
+    is_location: true
+  },
+  {
+    name: "Tammisalo",
+    is_location: true
+  },
+  {
+    name: "Vartiokylä",
+    is_location: true
+  },
+  {
+    name: "Vartioharju",
+    is_location: true
+  },
+  {
+    name: "Puotila",
+    is_location: true
+  },
+  {
+    name: "Puotinharju",
+    is_location: true
+  },
+  {
+    name: "Myllypuro",
+    is_location: true
+  },
+  {
+    name: "Marjaniemi",
+    is_location: true
+  },
+  {
+    name: "Roihupellon teollisuusalue",
+    is_location: true
+  },
+  {
+    name: "Itäkeskus",
+    is_location: true
+  },
+  {
+    name: "Pitäjänmäki",
+    is_location: true
+  },
+  {
+    name: "Pajamäki",
+    is_location: true
+  },
+  {
+    name: "Tali",
+    is_location: true
+  },
+  {
+    name: "Reimarla",
+    is_location: true
+  },
+  {
+    name: "Marttila",
+    is_location: true
+  },
+  {
+    name: "Pitäjänmäen teollisuusalue",
+    is_location: true
+  },
+  {
+    name: "Mellunkylä",
+    is_location: true
+  },
+  {
+    name: "Kontula",
+    is_location: true
+  },
+  {
+    name: "Vesala",
+    is_location: true
+  },
+  {
+    name: "Mellunmäki",
+    is_location: true
+  },
+  {
+    name: "Kivikko",
+    is_location: true
+  },
+  {
+    name: "Kurkimäki",
+    is_location: true
+  },
+  {
+    name: "Vartiosaari",
+    is_location: true
+  },
+  {
+    name: "Laajasalo",
+    is_location: true
+  },
+  {
+    name: "Yliskylä",
+    is_location: true
+  },
+  {
+    name: "Jollas",
+    is_location: true
+  },
+  {
+    name: "Tullisaari",
+    is_location: true
+  },
+  {
+    name: "Tahvonlahti",
+    is_location: true
+  },
+  {
+    name: "Hevossalmi",
+    is_location: true
+  },
+  {
+    name: "Villinki",
+    is_location: true
+  },
+  {
+    name: "Santahamina",
+    is_location: true
+  },
+  {
+    name: "Suomenlinna",
+    is_location: true
+  },
+  {
+    name: "Ulkosaaret",
+    is_location: true
+  },
+  {
+    name: "Länsisaaret",
+    is_location: true
+  },
+  {
+    name: "Itäsaaret",
+    is_location: true
+  },
+  {
+    name: "Aluemeri",
+    is_location: true
+  },
+  {
+    name: "Vuosaari",
+    is_location: true
+  },
+  {
+    name: "Keski-Vuosaari",
+    is_location: true
+  },
+  {
+    name: "Nordsjön kartano",
+    is_location: true
+  },
+  {
+    name: "Uutela",
+    is_location: true
+  },
+  {
+    name: "Meri-Rastila",
+    is_location: true
+  },
+  {
+    name: "Kallahti",
+    is_location: true
+  },
+  {
+    name: "Aurinkolahti",
+    is_location: true
+  },
+  {
+    name: "Rastila",
+    is_location: true
+  },
+  {
+    name: "Niinisaari",
+    is_location: true
+  },
+  {
+    name: "Mustavuori",
+    is_location: true
+  },
+  {
+    name: "Östersundom",
+    is_location: true
+  },
+  {
+    name: "Salmenkallio",
+    is_location: true
+  },
+  {
+    name: "Talosaari",
+    is_location: true
+  },
+  {
+    name: "Karhusaari",
+    is_location: true
+  },
+  {
+    name: "Ultuna",
+    is_location: true
+  },
+  {
+    name: "Landbo",
+    is_location: true
+  },
+  {
+    name: "Puroniitty",
+    is_location: true
+  }
+ ].each { |location| Tag.create!(location)}
+
+
 @citizens = Citizen.all
 
 def random_citizen
