@@ -10,7 +10,7 @@
 
 require 'factory_girl_rails'
 
-Administrator.find_or_create_by_email({
+ admin = Administrator.find_or_create_by_email({
   email: "admin@avoinministerio.fi",
   password: "hallinta"
 })
@@ -203,40 +203,44 @@ Tämä laki tulee voimaan päivänä kuuta 20__.
 Ennen lain voimaantuloa voidaan ryhtyä lain toimeenpanon edellyttämiin toimiin.
 EOS
 
+%w(idea proposal draft law).each do |name|
+  State.create(:administrator_id => admin.id, :name => name)
+end
+
 [
   {
     title: "Koiraverolain kumoaminen",
     summary: "Koiraverolain kumoaminen",
     body: koiravero_body,    
-    state: "draft", author: joonas 
+    state_id: 3, author: joonas 
   },
   {
     title: "Opintorahan takaisinperinnän muuttaminen",
     summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
     body: opintotuki_body,    
-    state: "draft", author: joonas 
+    state_id: 3, author: joonas 
   },
   { title: "Kansanedustajien palkankorotus pannaan",
     summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
     body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
-    state: "idea", author: random_citizen},
+    state_id: "idea", author: random_citizen},
   { title: "Poistetaan perintöverotus",
     summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
     body: "Ankarin perintövero korvattakoon tasaverolla!",
-    state: "draft", author: random_citizen},
+    state_id: 3, author: random_citizen},
   { title: "Raiskauksille kunnon tuomiot",
     summary: "Joku roti!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "proposal", author: random_citizen},
+    state_id: 2, author: random_citizen},
   { title: "Kaikelle isommat tuomiot",
     summary: "Joku roti!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "law", author: random_citizen},
+    state_id: 4, author: random_citizen},
   { title: "Vielä isommat tuomiot",
     summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "idea", author: random_citizen},
-].each { |idea| i = Idea.create(idea); i.state = idea[:state]; i.author = idea[:author]; i.save! }
+    state_id: 1, author: random_citizen},
+].each { |idea| i = Idea.create(idea); i.state_id = idea[:state_id]; i.author = idea[:author]; i.save! }
 
 20.times do |i|
   idea = Idea.create(
@@ -246,7 +250,7 @@ EOS
       created_at: Time.now - (60*60*24),
       updated_at: Time.now - (60*60*24),
       })
-  idea.state = "idea"
+  idea.state_id = 1
   idea.author = random_citizen
   idea.save!
 end
