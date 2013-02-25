@@ -385,8 +385,8 @@ DEPENDENCIES
   devise (= 2.1.2)
   differ
   email_spec
-  fog
   factory_girl_rails (= 4.1.0)
+  fog
   friendly_id
   gravatar-ultimate
   guard (= 1.0.3)

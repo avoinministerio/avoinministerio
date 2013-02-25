@@ -22,27 +22,22 @@ class Idea < ActiveRecord::Base
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
                     :target_count, :updated_content_at
-<<<<<<< HEAD
 
   attr_reader :suggested_politicians_for, :suggested_politicians_against
   attr_reader :file_name
-=======
   attr_reader :tag_list, :suggested_tags
->>>>>>> tagging
+
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
   has_many :expert_suggestions
   has_many :signatures
-<<<<<<< HEAD
   has_many :documents
   has_many :politicians_support
-=======
   has_many :taggings
   has_many :tag_votes
   has_many :tag_suggestions
   has_many :tags, through: :taggings
->>>>>>> tagging
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
@@ -147,7 +142,6 @@ class Idea < ActiveRecord::Base
       (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
   end
-<<<<<<< HEAD
   
   def adopted_by
     if self.politicians_support != []
@@ -173,7 +167,7 @@ class Idea < ActiveRecord::Base
       end
     end
     return politicians
-=======
+  end
 
   def self.tagged_with(name)
     Tag.find_by_name!(name).ideas
@@ -214,6 +208,5 @@ class Idea < ActiveRecord::Base
         TagSuggestion.create(:tag_id => tag_id, :idea_id => self.id, :citizen_id => citizen_id)
       end
     end
->>>>>>> tagging
   end
 end
