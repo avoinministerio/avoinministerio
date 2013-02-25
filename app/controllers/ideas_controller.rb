@@ -332,9 +332,8 @@ class IdeasController < ApplicationController
   end
 
   def suggest_tags
-    tag_ids = Tag.ids_from_tokens(params[:idea]['suggested_tags'])
+    tag_ids = Tag.ids_from_tokens(params[:idea]['suggested_tags'], params[:idea]['is_location'])
     @idea = Idea.find(params[:id])
-    
     @idea.count_suggested_tags(params[:idea]['citizen_id'])
 
     @idea.add_suggested_tags(tag_ids, params[:idea]['citizen_id'])

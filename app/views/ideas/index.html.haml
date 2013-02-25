@@ -41,15 +41,30 @@
             |
     .grid_24.tagging
       .grid_2
+        Locations:
+      .grid_21
+        - loc_tags = Idea.location_tag_counts
+        - loc_tags_count = loc_tags.length
+
+        - loc_tags.each_with_index do |loc_tag, index|
+          - if loc_tag == @tag
+            %span.selected= link_to loc_tag.name, loc_tag, :class => "selected_tag_link", :id => loc_tag.id
+          - else
+            = link_to loc_tag.name, loc_tag
+          = "|" unless (index + 1) == loc_tags_count
+    .grid_24.tagging
+      .grid_2
         By tags:
       .grid_21
-        - Idea.tag_counts.each do |tag|
+        - tags = Idea.tag_counts
+        - tags_count = tags.length
+
+        - tags.each_with_index do |tag, index|
           - if tag == @tag
             %span.selected= link_to tag.name, tag, :class => "selected_tag_link", :id => tag.id
-            |
           - else
             = link_to tag.name, tag
-            |
+          = "|" unless (index + 1) == tags_count
     - if ENV['Feature_Searchbox']
       .grid_24.search
         .search

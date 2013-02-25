@@ -5,7 +5,7 @@ $("#suggestion_limit_notice").hide();
 $("input.suggest_tags_button").hide();
 $("ul.token-input-list-facebook").hide();
 
-$('input#idea_suggested_tags').tokenInput("/tags.json", 
+$('input#idea_suggested_tags, input#idea_suggested_location_tags').tokenInput("/tags.json", 
   { theme: "facebook", 
     prePopulate: $('input#idea_tag_list').data('load'),
     onAdd: function (item) {

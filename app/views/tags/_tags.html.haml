@@ -19,7 +19,15 @@
           = link_to "Show more »»", show_more_tag_path, :class => "show_more", remote: true
           #show_more
         #suggested_tags_form
-          Or create a new one:
+          Or create a new location tag:
+          = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|
+            = f.hidden_field :citizen_id, :value => current_citizen.id
+            = f.hidden_field :is_location, :value => true
+            = f.text_field :suggested_tags, as: :text, :id => 'idea_suggested_location_tags', :class => "test"
+            %br
+            = f.submit "Suggest"
+          %br
+          Or create other tags:
           = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|
             = f.hidden_field :citizen_id, :value => current_citizen.id
             = f.text_field :suggested_tags, as: :text, :class => "test"

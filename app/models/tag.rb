@@ -1,5 +1,8 @@
 class Tag < ActiveRecord::Base
-  attr_accessible :name, :status
+  attr_accessible :name, :status, :is_location
+
+  validates :name, :uniqueness => {:scope => :is_location}
+
   has_many :taggings
   has_many :tag_votes
   has_many :tag_suggestions
@@ -14,8 +17,8 @@ class Tag < ActiveRecord::Base
     end
   end
 
-  def self.ids_from_tokens(tokens)
-    tokens.gsub!(/<<<(.+?)>>>/) { create!(name: $1).id }
+  def self.ids_from_tokens(tokens, is_location)
+    tokens.gsub!(/<<<(.+?)>>>/) { create!(name: $1.titleize, is_location: (is_location || false)).id }
     tokens.split(',')
   end
 

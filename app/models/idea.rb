@@ -173,12 +173,20 @@ class Idea < ActiveRecord::Base
     Tag.find_by_name!(name).ideas
   end
 
+  def self.all_tags
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
   def self.tag_counts
-    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id, tags.id, tags.name")    
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => false).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
+  def self.location_tag_counts
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => true).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
   end
 
   def possible_tags
-    Idea.tag_counts - self.tags
+    Idea.all_tags - self.tags
   end
   
   #def tag_list
