@@ -3,8 +3,13 @@
 class PagesController < ApplicationController
   
   def load(state, count)
-    state_id = State.find_by_name(state).id
-    items = Idea.published.where(state_id: state_id).order("updated_at DESC").limit(count).includes(:votes).all
+    state = State.find_by_name(state)
+    if state
+      items = Idea.published.where(state_id: state.id).order("updated_at DESC").limit(count).includes(:votes).all
+    else
+      items = []
+    end
+
     item_counts = {}
     
     items.each do |idea|

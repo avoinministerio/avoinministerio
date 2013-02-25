@@ -17,7 +17,7 @@ require 'factory_girl_rails'
 
 [
 { email: "expedora@gmail.com",
-    password: "expedora1", password_confirmation: "expedora1", remember_me: true,
+    password: "expedora1", password_confirmation: "expedora1", remember_me: true, is_politician: true,
     profile_attributes: {first_names: "Expedora", first_name: "Expedora", last_name: "India", name: "Expedora India"}, },
   
   { email: "joonas@pekkanen.com",

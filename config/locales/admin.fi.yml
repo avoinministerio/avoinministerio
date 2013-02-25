@@ -3,3 +3,8 @@ fi:
     create: "loi uuden"
     update: "päivitti"
     destroy: "poisti"
+
+  state:
+    created: "loi uuden tila"
+    updated: "tila päivitti"
+    destroyed: "tila poisti"

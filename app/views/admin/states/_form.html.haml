@@ -1,0 +1,9 @@
+= simple_form_for([:admin, @state]) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.hidden_field :administrator_id, value: current_administrator.id
+    = f.input :name
+
+  .actions
+    = f.button :submit, class: 'btn btn-success'
