@@ -1,6 +1,7 @@
 class Tagging < ActiveRecord::Base
   attr_accessible :score, :status, :tag_id, :idea_id
-
+  validates_uniqueness_of :tag_id, :scope => :idea_id
+  
   belongs_to :tag
   belongs_to :idea
 
