@@ -7,11 +7,11 @@ gem "rails", "3.2.12"
 group :assets do
   gem "coffee-rails", "~> 3.2.2"
   gem "sass-rails",   "= 3.2.5"
-  gem "uglifier",     ">= 1.0.3"
+  gem "uglifier",     ">= 1.3.0"
 end
 
-gem "devise"
-gem "factory_girl_rails", "1.4.0", :require => false
+gem "devise", '2.1.2'
+gem "factory_girl_rails", "4.1.0", :require => false
 gem "friendly_id"
 gem "gravatar-ultimate"
 gem "haml-rails"
@@ -26,7 +26,6 @@ gem "redcarpet"
 gem "simple_form"
 gem "carrierwave"
 gem "fog"
-gem "mini_magick"
 gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
@@ -35,7 +34,6 @@ gem "hominid"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
-
 gem "rspec-rails", :groups => [ :development, :test ]
 
 group :development do
@@ -49,6 +47,7 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
+  gem "debugger", ">= 1.2.2"
 end
 
 group :production do

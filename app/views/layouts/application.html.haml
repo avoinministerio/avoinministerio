@@ -14,7 +14,9 @@
   - else
     %title Avoin Ministeriö / Helsinki
 
+  = csrf_meta_tags
   = stylesheet_link_tag "application.css"
+  = stylesheet_link_tag "jquery-ui-1.9.2.custom.css"
   = javascript_include_tag "application"
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
@@ -30,7 +32,7 @@
 
 %body
   %header.container_24
-    = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_8"
+    = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_6"
     = render partial: 'shared/login_actions'
     = render partial: 'shared/facebook_js'
   .container.container_24

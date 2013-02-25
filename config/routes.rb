@@ -36,25 +36,45 @@ AvoinMinisterio::Application.routes.draw do
   get "ideas/vote_flow"
 
   get "pages/home"
+  
+  get 'tags/:tag', to: 'ideas#index', as: :tag
+  get '/tags.json', to: 'tags#index'
+  post '/ideas/lda', to: 'ideas#lda'
+  post '/ideas/suggest_tags', to: 'ideas#suggest_tags'
 
+  #match '/ideas/:id/vote_for/:tag_id' => 'tags#vote_for', via: :post, as: :vote_for_tag
+  
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
     registrations: "citizens/registrations",
     sessions: "citizens/sessions",
   }
   match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
-
+  
+  resources :tags do
+    get "vote_for", on: :member
+    get "vote_against", on: :member
+    get "show_more", on: :member
+    post "list_of_suggested", on: :member
+    get "add_to_suggested", on: :member
+  end
+  
   resources :ideas do
     post :suggest_politicians_for, on: :member
     post :suggest_politicians_against, on: :member
-    get :adopt_the_initiative, on: :member
     get :change_state, on: :collection
+    post :upload_document, on: :member
+    get :adopt_the_initiative, on: :member
+    post "lda", on: :member
+    post "suggest_tags", on: :member
     resources :comments
     resources :expert_suggestions, only: [:new, :create]
   end
   resources :articles do
     resources :comments
   end
+ 
+  resources :documents
 
   devise_for :administrators
   

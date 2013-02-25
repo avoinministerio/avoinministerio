@@ -95,4 +95,26 @@ module IdeasHelper
     Regexp.new('(?<match>' + Regexp.escape(local_pattern) + ')',
       Regexp::IGNORECASE)
   end
+
+  def file_extension_image(file)
+    extension = File.extname(file.to_s)
+    if extension == ".xls"
+      image_tag("/assets/xls-icon.gif")
+    elsif extension == ".doc"
+      image_tag("/assets/doc-icon.gif")
+    elsif extension == ".docx"
+      image_tag("/assets/doc-icon.gif")
+    elsif extension == ".pdf"
+      image_tag("/assets/pdf-icon.gif")
+    else
+      image_tag("/assets/document-icon.gif")
+    end
+  end
+
+  def file_extension_actions(file)
+    extension = File.extname(file.to_s)
+    if extension == ".pdf"
+      link_to image_tag("/assets/read-icon.gif"), "http://docs.google.com/viewer?url="+file.to_s+"&embedded=true"
+    end
+  end
 end

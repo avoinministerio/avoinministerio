@@ -1,0 +1,7 @@
+#show_all_tags
+  %ul.cloud
+    - @idea.possible_tags.sort_by(&:count).reverse.each do |tag|
+      %li.cloud{:id => "#{tag.id}"}
+        %p= tag.name
+        %span.add_token
+          = link_to "\u2714", add_to_suggested_tag_path(:tag_id => tag), remote: true

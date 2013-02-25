@@ -4,10 +4,11 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
  *= require token-input-facebook
+ *= require jquery-ui-1.9.2.custom
  *= require_directory . 
 */
 $turquoise: #2b5ea1;
-$violet: #8C844D;
+$violet: #2b5ea1;
 
 body > header {
   height: 110px;
@@ -33,6 +34,7 @@ header .login_actions a, header .idea_actions a {
   font-weight: bold;
   text-decoration: none;
 }
+
 header > .login_actions > div {
   float: right;
   line-height: 25px;

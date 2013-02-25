@@ -10,7 +10,7 @@
           - for_length = [35, (280-5-35)*for_portion].max
           :javascript
             var r = Raphael("draft_bar#{i+item_counter}", 280, 20);
-            r.rect(  0, 0, #{for_length}, 20).attr({fill: "#8cc63f", stroke: "#fff", strokewidth: 5});
+            r.rect(  0, 0, #{for_length}, 20).attr({fill: "#4DA818", stroke: "#fff", strokewidth: 5});
             r.rect(#{for_length+5}, 0, #{280-5-for_length}, 20).attr({fill: "#a9003f", stroke: "#fff", strokewidth: 5});
             r.text( 18,11, "#{for_}").attr({fill: "#fff", "font-size": 12});
             r.text(261,11, "#{against_}").attr({fill: "#fff", "font-size": 12});

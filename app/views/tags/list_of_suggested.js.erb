@@ -1,0 +1,25 @@
+var tags = []
+
+$("#suggested_tags_box").show();
+$("#suggestion_limit_notice").hide();
+$("input.suggest_tags_button").hide();
+$("ul.token-input-list-facebook").first().hide();
+
+$('input#idea_suggested_tags, input#idea_suggested_location_tags').tokenInput("/tags.json", 
+  { theme: "facebook", 
+    prePopulate: $('input#idea_tag_list').data('load'),
+    onAdd: function (item) {
+      tags.push(item.id);
+    },
+    onDelete: function (item) {
+      $("ul.cloud").append('<li class="cloud" id="' + item.id + '">'+
+                            '<p>' + item.name + '</p>'+
+                            '<span class="add_token">' + 
+                              '<a href="/tags/' + <%= @idea.id %> + '/add_to_suggested?tag_id=' + item.id + '" data-remote="true">✔</a>'+
+                            '</span></li>');
+      tags.splice(tags.indexOf(item.name), 1 );
+      $("#existing_tags_menu").show();
+      $("#all_tags").show();
+      $("#notification").hide();
+    } 
+  });

@@ -17,12 +17,24 @@ class IdeasController < ApplicationController
     on_page = 20
     extras = 20
     page = (params[:page] && params[:page].to_i) || 1
-    filtered_and_ordered = filterer.call(Idea.published).order(ordering)
-    # limit assumes no error on overflow, ie. on N rows limit(N+1) returns just N
-    # @ideas_around receives all ideas on current page and also extras amount before and after
-    @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
-    @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}
 
+    if params[:tag]
+      @tag = Tag.find(params[:tag])
+      filtered_and_ordered = filterer.call(Idea.published.tagged_with(@tag.name)).order(ordering)
+      @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
+      @ideas_around_ids = []
+      @ideas_around.each do |idea|
+        @ideas_around_ids << idea.id
+      end
+    else
+      filtered_and_ordered = filterer.call(Idea.published).order(ordering)
+      # limit assumes no error on overflow, ie. on N rows limit(N+1) returns just N
+      # @ideas_around receives all ideas on current page and also extras amount before and after
+      @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
+      @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}      
+    end
+
+   
     session[:sorting_orders] ||= {}
     # always update the ids for certain sorting order (for every pagination and sorting)
     # ie. this also remembers just the last, which also means next page, back and open idea gives wrong
@@ -31,7 +43,7 @@ class IdeasController < ApplicationController
     #       give wrong prev-next links if you happen to have the same sorting order in session
     @sorting_order_code = @sorting_order.hash
     session[:sorting_orders][@sorting_order_code] = @ideas_around_ids
-#    p session[:sorting_orders]
+    # p session[:sorting_orders]
 
     # TODO: this hit to database might not be needed as @ideas_around basically contains these already
     @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
@@ -126,7 +138,7 @@ class IdeasController < ApplicationController
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
     
-    @colors = ["#8cc63f", "#a9003f"]
+    @colors = ["#4DA818", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
 
     @sorting_order_code = params[:so]
@@ -267,6 +279,22 @@ class IdeasController < ApplicationController
 
     render 
   end
+  
+  #Preparations for LDA
+  def lda
+    @title_text = params[:title_text]
+    @summary_text = params[:summary_text]
+    @body_text = params[:body_text]
+    tag_ids = Tag.get_ids_by_name(params[:tags])
+    @lda_respond = @title_text + @summary_text + @body_text
+    @ideas_suggested_by_tags = Idea.find_similar(tag_ids)
+    if params[:idea_id] != ""
+      @idea = Idea.find(params[:idea_id])
+    end
+    respond_to do |format|
+      format.js   { render :respond, locals: { lda_respond: @lda_respond, ideas_suggested_by_tags: @ideas_suggested_by_tags } }
+    end
+  end
 
   def adopt_the_initiative
     if current_citizen.is_politician
@@ -307,6 +335,23 @@ class IdeasController < ApplicationController
       render :json => {:error => 0, :message => "State changed successfully from '#{State.find(old_value).name}' to '#{state.name}'"}
     rescue
       render :json => {:error => 1, :old_value => old_value, :message => "Sorry! we are unable to change state currently."}
+    end
+  end
+  
+  def upload_document
+    @idea = Idea.find(params[:id])
+    @document = Document.create(:idea_id => params[:id], :file => params[:idea]["file"], :file_name => params[:idea]["file_name"])
+    respond_with @idea
+  end
+
+  def suggest_tags
+    tag_ids = Tag.ids_from_tokens(params[:idea]['suggested_tags'], params[:idea]['is_location'])
+    @idea = Idea.find(params[:id])
+    @idea.count_suggested_tags(params[:idea]['citizen_id'])
+
+    @idea.add_suggested_tags(tag_ids, params[:idea]['citizen_id'])
+    respond_to do |format|
+      format.js   { render action: :citizen_voted, :locals => { :idea => @idea } }
     end
   end
 end

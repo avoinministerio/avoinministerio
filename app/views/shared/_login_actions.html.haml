@@ -1,19 +1,19 @@
 .login_actions.top_row
   - if citizen_signed_in?
-    .grid_16
-      %img.avatar{ src: current_citizen.image, width: 50, height: 50, alt: "avatar" }
-      Tervetuloa, #{current_citizen.name}
+    .grid_18
       %ul#top_nav
+        %img.avatar{ src: current_citizen.image, width: 36, height: 36, alt: "avatar" }
+        #{current_citizen.name}
+        %li
+          = link_to "Listaa kaikki", ideas_path
+        %li
+          = link_to "Anna idea", new_idea_path
         %li
           = link_to "Profiili", profile_path
         %li
           = link_to "Asetukset", edit_profile_path
         %li
           = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
-        %li
-          = link_to "Listaa kaikki", ideas_path
-        %li
-          = link_to "Anna idea", new_idea_path
   - else
     .grid_12
       %ul#top_nav

@@ -63,6 +63,11 @@
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
+  #adopted_politician
+    - if @idea.politicians_support != []
+      %img.avatar{ src: @idea.adopted_by.image, width: 48, height: 48 } 
+      %span.name= @idea.adopted_by.name
+      %span.date.sans_serif= finnishDate(@idea.politicians_support.first.created_at)
   .grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.title
@@ -70,21 +75,14 @@
         = markdown(@idea.summary) if @idea.summary
       .body
         = markdown(@idea.body) if @idea.body
+      = render "tags/tags"
     - else
       %h1 Piilotettu
       .summary
         Tämä idea on tällä hetkellä piilotettu. Voit kääntyä 
         %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
         puoleen mahdollisilla kysymyksilläsi.
-      .body
-    
-    - if @idea.politicians_support != []
-      #adopted
-        This idea is adopted by: 
-        %br
-        %img.avatar{ src: @idea.adopted_by.image, width: 48, height: 48 } 
-        %span.name
-          #{@idea.adopted_by.name}
+      .body 
     
     #supported
       - if @idea.politicians_support != []
@@ -94,6 +92,9 @@
       - if @idea.politicians_support != []
         - if @idea.unsupported_by != []
           = render "unsupported", idea: @idea
+    #documents
+      - if @idea.documents != []
+        = render "documents", idea: @idea
       
     - if citizen_signed_in?
       - if current_citizen.is_politician && (current_citizen == @idea.adopted_by)
@@ -105,19 +106,23 @@
               = f.text_field :suggested_politicians_for, as: :text
               %br
               = f.submit "Support this initiative"
-
+          %hr
           #unsupporting_idea
             = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_politicians_against', :id => @idea.id },:remote => true, :html => { :method => :post } do |f|
               = f.text_field :suggested_politicians_against, as: :text
               %br
               = f.submit "Against this initiative"
-
-            //= link_to "Change state of the initiative", "#", class: "adopt-btn"
-            //= link_to "Upload the document", "#", class: "adopt-btn"
-            //= link_to "Add the politicians who are against this idea", "#", class: "adopt-btn" 
-
+          %hr
+          #uploading_document
+            = form_for @idea, :url => {:controller => 'ideas', :action => 'upload_document', :id => @idea.id },:remote => true, :html => { :method => :post } do |f|
+              = f.text_field :file_name
+              %br
+              = f.file_field :file
+              %br
+              %br
+              = f.submit "Upload the document"
     - if @idea.author == current_citizen or administrator_signed_in?
-      = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
+      = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea), :class => "idea_edit_link"
 
   -if @idea.published?
     %aside.grid_7.prefix_1.omega
