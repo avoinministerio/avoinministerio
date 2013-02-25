@@ -16,6 +16,10 @@ require 'factory_girl_rails'
 })
 
 [
+{ email: "expedora@gmail.com",
+    password: "expedora1", password_confirmation: "expedora1", remember_me: true,
+    profile_attributes: {first_names: "Expedora", first_name: "Expedora", last_name: "India", name: "Expedora India"}, },
+  
   { email: "joonas@pekkanen.com",
     password: "joonas1", password_confirmation: "joonas1", remember_me: true,
     profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
@@ -866,7 +870,7 @@ end
   { title: "Kansanedustajien palkankorotus pannaan",
     summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
     body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
-    state_id: "idea", author: random_citizen},
+    state_id: 1, author: random_citizen},
   { title: "Poistetaan perintöverotus",
     summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
     body: "Ankarin perintövero korvattakoon tasaverolla!",
