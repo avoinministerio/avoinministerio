@@ -193,12 +193,15 @@
           Idea on jo laki
 
         - if citizen_signed_in?
-          - if current_citizen.is_politician 
-            - if @idea.politicians_support == []
-              #politician_block
-                %h3
-                  Menu for politicians:
-                = link_to "Adopt the initiative", adopt_the_initiative_idea_path, class: "adopt-btn"    
+          - if current_citizen.is_politician
+            #politician_block.voting
+              %p#response-msg
+              %h3 Menu for politicians
+              = hidden_field_tag 'idea-id', @idea.id
+              = select_tag :state_id, options_from_collection_for_select(State.all, :id, :name, @idea.state_id), class: "adopt-btn", :id => 'change-state'
+  
+              - if @idea.politicians_support == []
+                = link_to "Adopt the initiative", adopt_the_initiative_idea_path, class: "adopt-btn"
 
 -if @idea.published?
   .expert_opinions

@@ -296,4 +296,17 @@ class IdeasController < ApplicationController
       format.js { render :add_politicians_to_against_list, locals: { idea: @idea } } 
     end
   end
+
+  def change_state
+    begin
+      idea = Idea.find(params[:id])
+      old_value = idea.state_id
+      state = State.find(params[:new_state_id])
+
+      idea.update_attribute(:state_id, state.id)
+      render :json => {:error => 0, :message => "State changed successfully from '#{State.find(old_value).name}' to '#{state.name}'"}
+    rescue
+      render :json => {:error => 1, :old_value => old_value, :message => "Sorry! we are unable to change state currently."}
+    end
+  end
 end
