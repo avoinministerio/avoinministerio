@@ -23,14 +23,14 @@
           = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|
             = f.hidden_field :citizen_id, :value => current_citizen.id
             = f.hidden_field :is_location, :value => true
-            = f.text_field :suggested_tags, as: :text, :id => 'idea_suggested_location_tags', :class => "test"
+            = f.text_field :suggested_tags, as: :text, :id => 'idea_suggested_location_tags'
             %br
             = f.submit "Suggest"
           %br
           Or create other tags:
           = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|
             = f.hidden_field :citizen_id, :value => current_citizen.id
-            = f.text_field :suggested_tags, as: :text, :class => "test"
+            = f.text_field :suggested_tags, as: :text
             %br
             = f.submit "Suggest"
       - if @idea.count_suggested_tags(current_citizen) > 0 && @idea.count_suggested_tags(current_citizen) < 5
@@ -43,7 +43,7 @@
         = button_to "Suggest", list_of_suggested_tag_path, remote: true, :class => "suggest_tags_button"
   - if @idea.tags != []
     #ideas_by_tags
-      %h2 List of similar ideas:
+      %h2 List of similar ideas (by tags):
       - tag_ids = []
       - @idea.tags.each do |tag|
         - tag_ids << tag.id

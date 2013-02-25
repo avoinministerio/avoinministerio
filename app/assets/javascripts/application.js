@@ -12,5 +12,4 @@
 //= require g.pie-min
 //= require jquery.tokeninput
 //= require ideas
-//= require_directory .
 

@@ -214,36 +214,11 @@ ActiveRecord::Schema.define(:version => 20130224064344) do
     t.boolean  "collecting_in_service"
     t.string   "additional_collecting_service_urls"
     t.datetime "updated_content_at"
-    t.integer  "impressions_count"
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
   add_index "ideas", ["publish_state"], :name => "index_ideas_on_publish_state"
   add_index "ideas", ["slug"], :name => "index_ideas_on_slug", :unique => true
-
-  create_table "impressions", :force => true do |t|
-    t.string   "impressionable_type"
-    t.integer  "impressionable_id"
-    t.integer  "user_id"
-    t.string   "controller_name"
-    t.string   "action_name"
-    t.string   "view_name"
-    t.string   "request_hash"
-    t.string   "ip_address"
-    t.string   "session_hash"
-    t.text     "message"
-    t.text     "referrer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "impressions", ["controller_name", "action_name", "ip_address"], :name => "controlleraction_ip_index"
-  add_index "impressions", ["controller_name", "action_name", "request_hash"], :name => "controlleraction_request_index"
-  add_index "impressions", ["controller_name", "action_name", "session_hash"], :name => "controlleraction_session_index"
-  add_index "impressions", ["impressionable_type", "impressionable_id", "ip_address"], :name => "poly_ip_index"
-  add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], :name => "poly_request_index"
-  add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], :name => "poly_session_index"
-  add_index "impressions", ["user_id"], :name => "index_impressions_on_user_id"
 
   create_table "money_transactions", :force => true do |t|
     t.integer  "citizen_id"
@@ -500,18 +475,6 @@ ActiveRecord::Schema.define(:version => 20130224064344) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "versions", :force => true do |t|
-    t.string   "item_type",      :null => false
-    t.integer  "item_id",        :null => false
-    t.string   "event",          :null => false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-    t.text     "object_changes"
-  end
-
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "votes", :force => true do |t|
     t.integer  "option"

@@ -468,9 +468,11 @@ ul.horizontal li {
 #supporting_idea, #unsupporting_idea {
   margin-top: 25px;
   margin-bottom: 25px;
+  float: left;
 }
 
 #supported, #adopted {
+  margin-top: 25px;
   font-size: 16px;
   width: 50%;
   float: left;
@@ -673,6 +675,7 @@ a.idea_edit_link {
 #ideas_by_tags {
   margin-top: 15px;
   float: left;
+  width: 100%;
 }
 
 #suggestions {

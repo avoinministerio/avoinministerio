@@ -7,7 +7,7 @@ $(document).ready(function($) {
   var idea_summary = $('textarea#idea_summary');
   var idea_body = $('textarea#idea_body');
   var idea_id = $('input#idea_id');
-
+  
   $('input#idea_tag_list').tokenInput("/tags.json", 
     { theme: "facebook", 
       prePopulate: $('input#idea_tag_list').data('load'),
