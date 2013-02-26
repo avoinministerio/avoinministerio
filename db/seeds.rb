@@ -850,8 +850,14 @@ Tämä laki tulee voimaan päivänä kuuta 20__.
 Ennen lain voimaantuloa voidaan ryhtyä lain toimeenpanon edellyttämiin toimiin.
 EOS
 
-%w(idea proposal draft law).each do |name|
-  State.create(:administrator_id => admin.id, :name => name)
+require File.expand_path('../seeds/countries_list', __FILE__)
+require File.expand_path('../seeds/regions_list', __FILE__)
+require File.expand_path('../seeds/cities_list', __FILE__)
+
+%w(idea proposal draft law).each_with_index do |name, index|
+  38.times do |city_id|
+    State.create(:administrator_id => admin.id, :name => name, :rank => (index + 1), :city_id => (city_id + 1))
+  end
 end
 
 [

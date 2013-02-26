@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130224185638) do
+ActiveRecord::Schema.define(:version => 20130226154823) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "password"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   add_index "administrators", ["email"], :name => "index_administrators_on_email", :unique => true
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.integer  "display_length"
     t.string   "custom_class"
     t.string   "custom_renderer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.string   "default_value"
     t.string   "api_id"
     t.string   "display_type"
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.text     "credentials"
     t.text     "extra"
     t.integer  "citizen_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "authentications", ["citizen_id"], :name => "index_authentications_on_citizen_id"
@@ -96,12 +96,21 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.integer  "changelogged_id"
     t.string   "change_type"
     t.text     "attribute_changes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "changelogs", ["changelogged_type", "changelogged_id"], :name => "index_changelogs_on_changelogged_type_and_changelogged_id"
   add_index "changelogs", ["changer_type", "changer_id"], :name => "index_changelogs_on_changer_type_and_changer_id"
+
+  create_table "cities", :force => true do |t|
+    t.integer  "region_id",                :null => false
+    t.string   "name",       :limit => 45, :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "cities", ["region_id"], :name => "index_cities_region_id"
 
   create_table "citizens", :force => true do |t|
     t.string   "email"
@@ -117,8 +126,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.string   "password"
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.datetime "locked_at"
     t.boolean  "is_politician",          :default => false
   end
@@ -132,8 +141,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.boolean  "published",        :default => true
     t.integer  "commentable_id"
     t.string   "commentable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "publish_state",    :default => "published"
   end
 
@@ -141,12 +150,19 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["publish_state"], :name => "index_comments_on_publish_state"
 
+  create_table "countries", :force => true do |t|
+    t.string   "name",       :limit => 50, :null => false
+    t.string   "iso",        :limit => 5,  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
   create_table "dependencies", :force => true do |t|
     t.integer  "question_id"
     t.integer  "question_group_id"
     t.string   "rule"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "dependency_conditions", :force => true do |t|
@@ -162,8 +178,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.text     "text_value"
     t.string   "string_value"
     t.string   "response_other"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "documents", :force => true do |t|
@@ -184,16 +200,16 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.string   "recommendation"
     t.integer  "citizen_id"
     t.integer  "idea_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "body"
     t.integer  "author_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
     t.text     "summary"
     t.string   "publish_state",                      :default => "published"
     t.string   "slug"
@@ -224,8 +240,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.integer  "citizen_id"
     t.decimal  "amount",            :precision => 8, :scale => 2
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
     t.string   "unique_identifier"
   end
 
@@ -241,8 +257,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.integer  "citizen_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
     t.string   "image"
     t.boolean  "receive_newsletter",             :default => true
     t.boolean  "receive_other_announcements",    :default => true
@@ -268,8 +284,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.string   "display_type"
     t.string   "custom_class"
     t.string   "custom_renderer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.string   "api_id"
   end
 
@@ -292,13 +308,23 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.integer  "display_width"
     t.string   "custom_class"
     t.string   "custom_renderer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.integer  "correct_answer_id"
     t.string   "api_id"
   end
 
   add_index "questions", ["api_id"], :name => "uq_questions_api_id", :unique => true
+
+  create_table "regions", :force => true do |t|
+    t.integer  "country_id",               :null => false
+    t.string   "name",       :limit => 45, :null => false
+    t.string   "iso",        :limit => 5,  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "regions", ["country_id"], :name => "index_regions_country_id"
 
   create_table "response_sets", :force => true do |t|
     t.integer  "user_id"
@@ -306,8 +332,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.string   "access_code"
     t.datetime "started_at"
     t.datetime "completed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "api_id"
     t.string   "user_state"
   end
@@ -327,8 +353,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.string   "string_value"
     t.string   "response_other"
     t.string   "response_group"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "survey_section_id"
     t.string   "api_id"
   end
@@ -339,8 +365,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -356,8 +382,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.boolean  "vow"
     t.date     "signing_date"
     t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "stamp"
     t.datetime "started"
     t.string   "firstnames"
@@ -373,8 +399,10 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
   create_table "states", :force => true do |t|
     t.integer  "administrator_id"
     t.string   "name"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "city_id"
+    t.integer  "rank",             :default => 1
   end
 
   add_index "states", ["name"], :name => "indx_states_name"
@@ -389,8 +417,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.string   "common_identifier"
     t.integer  "display_order"
     t.string   "custom_class"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   create_table "surveys", :force => true do |t|
@@ -405,8 +433,8 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.datetime "inactive_at"
     t.string   "css_url"
     t.string   "custom_class"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "display_order"
     t.string   "api_id"
     t.integer  "survey_version",         :default => 0
@@ -473,24 +501,24 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
     t.string   "string_value"
     t.string   "response_other"
     t.string   "regexp"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "validations", :force => true do |t|
     t.integer  "answer_id"
     t.string   "rule"
     t.string   "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "votes", :force => true do |t|
     t.integer  "option"
     t.integer  "idea_id"
     t.integer  "citizen_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "votes", ["citizen_id"], :name => "index_votes_on_citizen_id"

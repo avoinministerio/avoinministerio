@@ -33,6 +33,7 @@ gem "hominid"
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
+gem "database_cleaner"
 gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
 gem "rspec-rails", :groups => [ :development, :test ]
 

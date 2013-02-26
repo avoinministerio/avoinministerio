@@ -1,4 +1,5 @@
 AvoinMinisterio::Application.routes.draw do
+
   resource :profile, :except => [:new, :create, :destroy]
   resource :citizen, :only => [:edit, :update]
   
@@ -95,7 +96,7 @@ AvoinMinisterio::Application.routes.draw do
       resources :articles do
         get "publish",    on: :member
         get "unpublish",  on: :member
-        get "moderate",   on: :member        
+        get "moderate",   on: :member
       end
       resources :comments do
         get "publish",    on: :member
@@ -114,7 +115,11 @@ AvoinMinisterio::Application.routes.draw do
       get "unlock",                 on: :member
     end
     
-    resources :states
+    resources :states do
+      get 'select_location', on: :collection
+      post 'set_your_location', on: :collection
+      get 'fetch_dependents', on: :collection
+    end
     resources :changelogs
     resources :expert_suggestions
     root to: "admin/ideas#index"

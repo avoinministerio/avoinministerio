@@ -28,5 +28,6 @@
           %li= link_to "Kirjaudu ulos", destroy_administrator_session_path, method: :delete
   .container-fluid{ style: "padding-top: 50px" }
     - flash.each do |name, message|
-      %div.alert.alert-success{:id => ["flash", name]}= message
+      %strong
+        %div.alert.alert-success.pagination-centered{:id => ["flash", name]}= message
     = yield
