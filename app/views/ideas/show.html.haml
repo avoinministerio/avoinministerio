@@ -58,6 +58,8 @@
 .clear
 
 .idea.grid_24
+  = render :partial => 'wizard_steps', :locals => {:states => @states, :idea_state => @idea_state}
+
   .author
     -if @idea.published?
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
