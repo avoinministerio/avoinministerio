@@ -689,7 +689,7 @@ require 'factory_girl_rails'
     name: "Puroniitty",
     is_location: true
   }
- ].each { |location| Tag.create!(location)}
+ ].each { |location| Tag.create(location)}
 
 
 @citizens = Citizen.all
