@@ -4,7 +4,7 @@ class Admin::StatesController < Admin::AdminController
   respond_to :html
   
   def index
-    respond_with @states = @current_location.states.paginate(page: params[:page])
+    respond_with @states = @current_location.states.order(:rank).paginate(page: params[:page])
   end
   
   def show

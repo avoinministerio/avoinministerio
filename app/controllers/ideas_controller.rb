@@ -141,7 +141,7 @@ class IdeasController < ApplicationController
     @colors = ["#4DA818", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
 
-    @states = State.find(@idea.state_id).city.states
+    @states = State.find(@idea.state_id).city.states.order(:rank)
     @idea_state = State.find(@idea.state_id)
 
     @sorting_order_code = params[:so]
