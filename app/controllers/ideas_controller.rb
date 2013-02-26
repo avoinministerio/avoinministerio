@@ -128,6 +128,9 @@ class IdeasController < ApplicationController
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
 
+    @states = State.find(@idea.state_id).city.states
+    @idea_state = State.find(@idea.state_id)
+
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
       ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
