@@ -1,7 +1,7 @@
 %table.politicians{:id => title }
   %tr
-    %th{:class => "title", :align => "сеntег", :colspan => "3"} #{title}
-  - party.each_slice(3) do |row|
+    %th{:class => "title", :align => "сеntег", :colspan => "1"} #{title}
+  - party.each_slice(1) do |row|
     %tr
     - row.each do |politician|
       %td{:class => " #{check_politician_vote(politician[:id], @idea.id)}" }
