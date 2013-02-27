@@ -917,7 +917,7 @@ voters = (0..100).map do |i|
 end
 
 Idea.all.each do |idea|
-  rand(5).times { Factory(:comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count))) }
+  rand(5).times { FactoryGirl.create(:comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count))) }
 end
 
 voter_count = voters.size

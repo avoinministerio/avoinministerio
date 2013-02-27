@@ -6,18 +6,18 @@ class IdeasController < ApplicationController
   before_filter :authenticate_citizen!, except: [ :index, :show, :search ]
   
   respond_to :html
-
+  
   # should be implemented instead with counter_caches and also vote_pro (and vote_even_abs_diff cache)
   def index
     setup_filtering_and_sorting_options
-
+    
     @sorting_order, ordering = update_sorting_order(params[:reorder])
     @current_filter, code, @filter_name, filterer = update_filter(params[:filter])
-
+    
     on_page = 20
     extras = 20
     page = (params[:page] && params[:page].to_i) || 1
-
+    
     if params[:tag]
       @tag = Tag.find(params[:tag])
       filtered_and_ordered = filterer.call(Idea.published.tagged_with(@tag.name)).order(ordering)
@@ -31,10 +31,10 @@ class IdeasController < ApplicationController
       # limit assumes no error on overflow, ie. on N rows limit(N+1) returns just N
       # @ideas_around receives all ideas on current page and also extras amount before and after
       @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
-      @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}      
+      @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}
     end
-
-   
+    
+    
     session[:sorting_orders] ||= {}
     # always update the ids for certain sorting order (for every pagination and sorting)
     # ie. this also remembers just the last, which also means next page, back and open idea gives wrong
@@ -44,32 +44,30 @@ class IdeasController < ApplicationController
     @sorting_order_code = @sorting_order.hash
     session[:sorting_orders][@sorting_order_code] = @ideas_around_ids
     # p session[:sorting_orders]
-
+    
     # TODO: this hit to database might not be needed as @ideas_around basically contains these already
     @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
-
+    
     KM.identify(current_citizen)
     # TODO: track which sorting options are most commonly used
     KM.push("record", "idea list viewed", page: params[:page] || 1)
-
-#    @ideas.each do |idea|
-#      idea.comments_count = 0
-#      idea.articles.count = 0
-#    end
-
+    
+    #    @ideas.each do |idea|
+    #      idea.comments_count = 0
+    #      idea.articles.count = 0
+    #    end
+    
     respond_with @ideas
   end
-
+  
   def setup_filtering_and_sorting_options
-    @filters = [
-      [:all,                "Kaikki",                proc {|f| f} ],
-      [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
-      [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
-      [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
-      [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
-      [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
-    ]
-
+    @filters = [["all", "Kaikki",  proc {|f| f} ]]
+    
+    State.uniq.pluck(:name).each do |state|
+      states_id = State.find_all_by_name(state).collect(&:id)
+      @filters << [state, state.titleize, Proc.new { |f| f.where('state_id IN (?)', states_id) }]
+    end
+    
     @orders = {
       age:      {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
       comments: {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
@@ -87,16 +85,16 @@ class IdeasController < ApplicationController
       tilt:     {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
     }
   end
-
+  
   def update_sorting_order(reorder)
     sorting_order = session[:sorting_order] 
     sorting_order ||= [
-      [:age,      [:newest, :oldest]], 
-      [:comments, [:most,   :least]], 
-      [:voted,    [:most,   :least]], 
-      [:votes_for,[:most,   :least]],
-      [:support,  [:most,   :least]],
-      [:tilt,     [:even,   :polarized]],
+    [:age,      [:newest, :oldest]], 
+    [:comments, [:most,   :least]], 
+    [:voted,    [:most,   :least]], 
+    [:votes_for,[:most,   :least]],
+    [:support,  [:most,   :least]],
+    [:tilt,     [:even,   :polarized]],
     ]
     if reorder and @orders.keys.include? reorder.to_sym
       i = sorting_order.index{|so| so.first == reorder.to_sym }
@@ -117,15 +115,15 @@ class IdeasController < ApplicationController
     ordering = sorting_order.map{|ord| field, order = ord; @orders[field][order.first]}.join(", ")
     return sorting_order, ordering
   end
-
+  
   def update_filter(params_filter)
     current_filter = params_filter || session[:filter] || :all
     session[:filter] = current_filter
     params.delete :filter
-
-    code, filter_name, filterer = @filters.find {|f| f.first == current_filter.to_sym}
+    
+    code, filter_name, filterer = @filters.find {|f| f.first == current_filter}
     raise "unknown filter #{current_filter}" unless code
-
+    
     return current_filter, code, filter_name, filterer
   end
   
@@ -133,17 +131,17 @@ class IdeasController < ApplicationController
     @idea = Idea.includes(:votes).find(params[:id])
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     @politicians_support = PoliticiansSupport.new
-
+    
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
     
     @colors = ["#4DA818", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
-
+    
     @states = State.find(@idea.state_id).city.states.order(:rank)
     @idea_state = State.find(@idea.state_id)
-
+    
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
       ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
@@ -158,7 +156,7 @@ class IdeasController < ApplicationController
     
     KM.identify(current_citizen)
     KM.push("record", "idea viewed", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
-
+    
     respond_with @idea
   end
   
@@ -195,7 +193,7 @@ class IdeasController < ApplicationController
     end
     respond_with @idea
   end
-
+  
   def search
     @per_page = 20
     @page = (params[:page] && params[:page].to_i) || 1
@@ -204,22 +202,22 @@ class IdeasController < ApplicationController
     
     all_ideas = Idea.search_tank(params['searchterm'],
                                  :category_filters => params[:category_filters]).
-                                 select {|result| result.published?}
+    select {|result| result.published?}
     @idea_count = all_ideas.length
     @idea_categories = Idea.search_tank(params['searchterm'],
                                         :category_filters => params[:category_filters]).
-                                        categories
+    categories
     all_comments = Comment.search_tank(params['searchterm'],
                                        :category_filters => params[:category_filters]).
-                                       select {|result| result.published?}
+    select {|result| result.published?}
     @comment_count = all_comments.length
     all_articles = Article.search_tank(params['searchterm'],
                                        :category_filters => params[:category_filters]).
-                                       select {|result| result.published?}
+    select {|result| result.published?}
     @article_count = all_articles.length
     all_citizens = Citizen.search_tank(params['searchterm'],
                                        :category_filters => params[:category_filters]).
-                                       select {|result| result.published_something?}
+    select {|result| result.published_something?}
     @citizen_count = all_citizens.length
     all_results = all_ideas + all_comments + all_articles + all_citizens
     
@@ -244,11 +242,11 @@ class IdeasController < ApplicationController
         "search result #{type}_#{i} on page #{page} clicked")
     end
   end
-
+  
   def vote_flow
     # does not work well over SQLite or Postgres, but would be the easiest way around
     # @vote_counts = Vote.find(:all, :select => "idea_id, updated_at, count(option) AS option", :group => "idea_id, datepart(year, updated_at)")
-
+    
     # thus we need to go through all the ideas, pick votes and group them in memory
     @vote_counts = {}
     @idea_counts = {}
@@ -273,88 +271,88 @@ class IdeasController < ApplicationController
         [idea_id, vote_count]
       end
       {"d" => d, "i" => vcs.sort{|a,b| b[1] <=> a[1]}}
-    end.to_json
-
-    @authors = @idea_counts.to_json
-
-    KM.identify(current_citizen)
-    KM.push("record", "vote flow viewed")
-
-    render 
+      end.to_json
+      
+      @authors = @idea_counts.to_json
+      
+      KM.identify(current_citizen)
+      KM.push("record", "vote flow viewed")
+      
+      render 
+    end
+    
+    #Preparations for LDA
+    def lda
+      @title_text = params[:title_text]
+      @summary_text = params[:summary_text]
+      @body_text = params[:body_text]
+      tag_ids = Tag.get_ids_by_name(params[:tags])
+      @lda_respond = @title_text + @summary_text + @body_text
+      @ideas_suggested_by_tags = Idea.find_similar(tag_ids)
+      if params[:idea_id] != ""
+        @idea = Idea.find(params[:idea_id])
+      end
+      respond_to do |format|
+        format.js   { render :respond, locals: { lda_respond: @lda_respond, ideas_suggested_by_tags: @ideas_suggested_by_tags } }
+      end
+    end
+    
+    def adopt_the_initiative
+      if current_citizen.is_politician
+        @politicians_support = PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => current_citizen.id, :vote => "for")
+        redirect_to :back
+      end
+    end
+    
+    def suggest_politicians_for
+      @idea = Idea.find(params[:id])
+      @politicians_id = params[:idea]["suggested_politicians_for"].split(",")
+      @politicians_id.each do |politician_id|
+        PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => politician_id, :vote => "for")
+      end
+      respond_to do |format|
+        format.js { render :add_politicians_to_for_list, locals: { idea: @idea } } 
+      end
+    end
+    
+    def suggest_politicians_against
+      @idea = Idea.find(params[:id])
+      @politicians_id = params[:idea]["suggested_politicians_against"].split(",")
+      @politicians_id.each do |politician_id|
+        PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => politician_id, :vote => "against")
+      end
+      respond_to do |format|
+        format.js { render :add_politicians_to_against_list, locals: { idea: @idea } } 
+      end
+    end
+    
+    def change_state
+      begin
+        idea = Idea.find(params[:id])
+        old_value = idea.state_id
+        state = State.find(params[:new_state_id])
+        
+        idea.update_attribute(:state_id, state.id)
+        render :json => {:error => 0, :message => "State changed successfully from '#{State.find(old_value).name}' to '#{state.name}'"}
+      rescue
+        render :json => {:error => 1, :old_value => old_value, :message => "Sorry! we are unable to change state currently."}
+      end
+    end
+    
+    def upload_document
+      @idea = Idea.find(params[:id])
+      @document = Document.create(:idea_id => params[:id], :file => params[:idea]["file"], :file_name => params[:idea]["file_name"])
+      respond_with @idea
+    end
+    
+    def suggest_tags
+      tag_ids = Tag.ids_from_tokens(params[:idea]['suggested_tags'], params[:idea]['is_location'])
+      @idea = Idea.find(params[:id])
+      @idea.count_suggested_tags(params[:idea]['citizen_id'])
+      
+      @idea.add_suggested_tags(tag_ids, params[:idea]['citizen_id'])
+      respond_to do |format|
+        format.js   { render action: :citizen_voted, :locals => { :idea => @idea } }
+      end
+    end
   end
-  
-  #Preparations for LDA
-  def lda
-    @title_text = params[:title_text]
-    @summary_text = params[:summary_text]
-    @body_text = params[:body_text]
-    tag_ids = Tag.get_ids_by_name(params[:tags])
-    @lda_respond = @title_text + @summary_text + @body_text
-    @ideas_suggested_by_tags = Idea.find_similar(tag_ids)
-    if params[:idea_id] != ""
-      @idea = Idea.find(params[:idea_id])
-    end
-    respond_to do |format|
-      format.js   { render :respond, locals: { lda_respond: @lda_respond, ideas_suggested_by_tags: @ideas_suggested_by_tags } }
-    end
-  end
-
-  def adopt_the_initiative
-    if current_citizen.is_politician
-      @politicians_support = PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => current_citizen.id, :vote => "for")
-      redirect_to :back
-    end
-  end
-
-  def suggest_politicians_for
-    @idea = Idea.find(params[:id])
-    @politicians_id = params[:idea]["suggested_politicians_for"].split(",")
-    @politicians_id.each do |politician_id|
-      PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => politician_id, :vote => "for")
-    end
-    respond_to do |format|
-      format.js { render :add_politicians_to_for_list, locals: { idea: @idea } } 
-    end
-  end
-
-  def suggest_politicians_against
-    @idea = Idea.find(params[:id])
-    @politicians_id = params[:idea]["suggested_politicians_against"].split(",")
-    @politicians_id.each do |politician_id|
-      PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => politician_id, :vote => "against")
-    end
-    respond_to do |format|
-      format.js { render :add_politicians_to_against_list, locals: { idea: @idea } } 
-    end
-  end
-
-  def change_state
-    begin
-      idea = Idea.find(params[:id])
-      old_value = idea.state_id
-      state = State.find(params[:new_state_id])
-
-      idea.update_attribute(:state_id, state.id)
-      render :json => {:error => 0, :message => "State changed successfully from '#{State.find(old_value).name}' to '#{state.name}'"}
-    rescue
-      render :json => {:error => 1, :old_value => old_value, :message => "Sorry! we are unable to change state currently."}
-    end
-  end
-  
-  def upload_document
-    @idea = Idea.find(params[:id])
-    @document = Document.create(:idea_id => params[:id], :file => params[:idea]["file"], :file_name => params[:idea]["file_name"])
-    respond_with @idea
-  end
-
-  def suggest_tags
-    tag_ids = Tag.ids_from_tokens(params[:idea]['suggested_tags'], params[:idea]['is_location'])
-    @idea = Idea.find(params[:id])
-    @idea.count_suggested_tags(params[:idea]['citizen_id'])
-
-    @idea.add_suggested_tags(tag_ids, params[:idea]['citizen_id'])
-    respond_to do |format|
-      format.js   { render action: :citizen_voted, :locals => { :idea => @idea } }
-    end
-  end
-end
