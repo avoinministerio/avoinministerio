@@ -7,8 +7,8 @@ describe Idea do
   it { should ensure_length_of(:title).is_at_least(5).with_short_message(/on liian lyhyt/) }
   it { should ensure_length_of(:body).is_at_least(5).with_short_message(/ideasi hieman/) }
 
-  let(:idea)    { Factory(:idea) }
-  let(:citizen) { Factory(:citizen) }
+  let(:idea)    { FactoryGirl.create(:idea) }
+  let(:citizen) { FactoryGirl.create(:citizen) }
 
   describe ".per_page" do
     it "returns number of items per page" do
@@ -99,14 +99,14 @@ describe Idea do
     end
     
     it "calculates vote proportion" do
-      another_citizen = Factory(:citizen)
+      another_citizen = FactoryGirl.create(:citizen)
       idea.vote(citizen, "0")
       idea.vote(another_citizen, "1")
       idea.vote_proportion.should be_within(0.001).of(1.0/2)
     end
     
     it "calculates vote_proportion_away_mid" do
-      another_citizen = Factory(:citizen)
+      another_citizen = FactoryGirl.create(:citizen)
       idea.vote(citizen, "0")
       idea.vote(another_citizen, "1")
       idea.vote_proportion_away_mid.should be_within(0.001).of(0.0)
@@ -123,8 +123,12 @@ describe Idea do
 
   describe "#vote_counts" do
     before do
-      5.times { Factory(:vote, option: "1", idea: idea) }
-      3.times { Factory(:vote, option: "0", idea: idea) }
+      @citizens = []
+      @another_citizens = []
+      3.times { @citizens << FactoryGirl.create(:citizen) }
+      5.times { @another_citizens << FactoryGirl.create(:citizen) }
+      3.times { |i| idea.vote(@citizens[i], "0") }
+      5.times { |i| idea.vote(@another_citizens[i], "1") }
     end
 
     it "returns the vote counts" do
@@ -156,9 +160,9 @@ describe Idea do
 
   describe "Scopes" do
     before do
-      3.times { Factory(:idea, publish_state: "published" ) }
-      2.times { Factory(:idea, publish_state: "unpublished" ) }
-      1.times { Factory(:idea, publish_state: "in_moderation" ) }
+      3.times { FactoryGirl.create(:idea, publish_state: "published" ) }
+      2.times { FactoryGirl.create(:idea, publish_state: "unpublished" ) }
+      1.times { FactoryGirl.create(:idea, publish_state: "in_moderation" ) }
     end
 
     describe ".published" do

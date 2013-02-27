@@ -65,7 +65,7 @@ describe Changelogger do
   end
 
   it "should log a citizen changer" do
-    citizen = Factory(:citizen)
+    citizen = FactoryGirl.create(:citizen)
     Thread.current[:changer] = citizen
     lambda {
       @item.save!
@@ -75,7 +75,7 @@ describe Changelogger do
   end
 
   it "should log an administrator changer" do
-    administrator = Factory(:administrator)
+    administrator = FactoryGirl.create(:administrator)
     Thread.current[:changer] = administrator
     lambda {
       @item.save!

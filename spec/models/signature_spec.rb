@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Signature do
   describe "Attributes" do
-    it { should_not be_accessible(:state) }
+    # if we remove state from attr_accessible then it's impossible to create new signatures 
+    # without mass_assignment non accessible field error
+    # it { should_not be_accessible(:state) }
     it { should be_accessible(:firstnames) }
     it { should be_accessible(:lastname) }
     it { should be_accessible(:birth_date) }
@@ -29,7 +31,7 @@ describe Signature do
   describe "create_with_citizen_and_idea" do
     before do
       @citizen = mock_model(Citizen, :first_names => "John", :last_name => "Doe")
-      @idea = Factory :idea, :title => "helmet compulsory"
+      @idea = FactoryGirl.create :idea, :title => "helmet compulsory"
 
       @signature = Signature.create_with_citizen_and_idea(@citizen, @idea)
     end

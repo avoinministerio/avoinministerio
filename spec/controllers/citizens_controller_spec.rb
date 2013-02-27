@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CitizensController do
   let (:citizen) {
-    Factory :citizen
+    FactoryGirl.create :citizen
   }
 
   get :edit do

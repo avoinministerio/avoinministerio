@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ProfilesController do
   let (:citizen) {
-    Factory :citizen
+    FactoryGirl.create :citizen
   }
 
   get :edit do
@@ -19,8 +19,8 @@ describe ProfilesController do
   get :show do
     before do
       sign_in citizen
-      @vote = Factory :vote, :citizen => citizen
-      @comment = Factory :comment, :author => citizen
+      @vote = FactoryGirl.create :vote, :citizen => citizen
+      @comment = FactoryGirl.create :comment, :author => citizen
     end
     action! do
       it "adds a voted idea into @voted_ideas" do

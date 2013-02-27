@@ -4,7 +4,7 @@ describe Comment do
   it { should belong_to :author }
   it { should belong_to :commentable }
   
-  let(:comment) { Factory(:comment) }
+  let(:comment) { FactoryGirl.create(:comment) }
   
   describe "Validations" do
     describe "body" do
@@ -39,8 +39,8 @@ describe Comment do
   end
 
   describe "#prepare_for_unpublishing" do
-    let(:invalid_comment)   { Factory.build(:comment, body: "") }
-    let(:invalid_comment_2) { Factory.build(:comment, body: "a") }
+    let(:invalid_comment)   { FactoryGirl.build(:comment, body: "") }
+    let(:invalid_comment_2) { FactoryGirl.build(:comment, body: "a") }
 
     it "adds two spaces for empty comments" do
       invalid_comment.prepare_for_unpublishing
