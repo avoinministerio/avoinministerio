@@ -201,7 +201,7 @@ class IdeasController < ApplicationController
   end
   
   def update_filter(params_filter)
-    current_filter = params_filter || session[:filter] || :all
+    current_filter = params_filter || session[:filter] || 'all'
     session[:filter] = current_filter
     params.delete :filter
     
