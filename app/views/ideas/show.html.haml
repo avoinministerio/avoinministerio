@@ -85,16 +85,6 @@
         %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
         puoleen mahdollisilla kysymyksilläsi.
       .body 
-    #politicians
-      = render "party_table", title: "Kokoomus", party: @politicians[:KOK]
-      = render "party_table", title: "Vihreät", party: @politicians[:VIHR]
-      = render "party_table", title: "Sosialidemokraattinen puolue", party: @politicians[:SDP]
-      = render "party_table", title: "Vasemmistoliitto", party: @politicians[:VAS]
-      = render "party_table", title: "Perussuomalaiset", party: @politicians[:PS]
-      = render "party_table", title: "Ruotsalainen kansanpuolue", party: @politicians[:RKP]
-      = render "party_table", title: "Keskusta", party: @politicians[:KESK]
-      = render "party_table", title: "Kristillisdemokraatit", party: @politicians[:KD]
-      = render "party_table", title: "Suomen kommunistinen puolue ja Helsinki-listat", party: @politicians[:SKP]
     #documents
       - if @idea.documents != []
         = render "documents", idea: @idea
@@ -200,6 +190,17 @@
                 = link_to "Adopt the initiative", adopt_the_initiative_idea_path, class: "adopt-btn"
 
 -if @idea.published?
+  #table_block
+    = render "party_table", title: "KOK", party: @politicians[:KOK]
+    = render "party_table", title: "VIHR", party: @politicians[:VIHR]
+    = render "party_table", title: "SDP", party: @politicians[:SDP]
+    = render "party_table", title: "VAS", party: @politicians[:VAS]
+    = render "party_table", title: "KESK", party: @politicians[:KESK]
+    = render "party_table", title: "SKP", party: @politicians[:SKP]
+    = render "party_table", title: "KD", party: @politicians[:KD]
+    = render "party_table", title: "PS", party: @politicians[:PS]
+    = render "party_table", title: "RKP", party: @politicians[:VAS]
+
   .expert_opinions
     %h2.grid_24 Asiantuntijalausunnot
     - if @idea.articles.published.any?

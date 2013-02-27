@@ -70,7 +70,7 @@ h1 {
 }
 
 .mainbody {
-  margin-bottom: 150px;
+  margin-bottom: 15px;
 }
 
 .share {
@@ -449,7 +449,8 @@ ul.horizontal li {
 #politician_block {
   margin-top: 45px;
   width: 100%;
-  float: left;
+  float: right;
+  display: initial;
 }
 
 .adopt-btn {
@@ -710,26 +711,33 @@ span.date.sans_serif {
     text-align: justify;
 }
 
+#table_block {
+  margin-top: 15px;
+  width: 105%;
+}
+
 table.politicians {
-  width: 103%;
+  float: left;
+  margin: 1px;
+  width: 19%;
   text-align: center;
 }
 
 table.politicians td {
+  font-size: 12px;
   background: #EBE6E6;
-  padding: 15px;
-  width: 34%;
+  padding: 5px;
 }
 
 table.politicians td.green {
   background: #4da818;
-  padding: 15px;
+  padding: 5px;
   color: white;
 }
 
 table.politicians td.red {
   background: #a9003f;
-  padding: 15px;
+  padding: 5px;
   color: white;
 }
 
