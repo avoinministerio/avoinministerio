@@ -83,15 +83,16 @@
         %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
         puoleen mahdollisilla kysymyksilläsi.
       .body 
-    
-    #supported
-      - if @idea.politicians_support != []
-        - if @idea.supported_by != []
-          = render "supported", idea: @idea
-    #unsupported
-      - if @idea.politicians_support != []
-        - if @idea.unsupported_by != []
-          = render "unsupported", idea: @idea
+    #politicians
+      = render "party_table", title: "Kokoomus", party: @politicians[:KOK]
+      = render "party_table", title: "Vihreät", party: @politicians[:VIHR]
+      = render "party_table", title: "Sosialidemokraattinen puolue", party: @politicians[:SDP]
+      = render "party_table", title: "Vasemmistoliitto", party: @politicians[:VAS]
+      = render "party_table", title: "Perussuomalaiset", party: @politicians[:PS]
+      = render "party_table", title: "Ruotsalainen kansanpuolue", party: @politicians[:RKP]
+      = render "party_table", title: "Keskusta", party: @politicians[:KESK]
+      = render "party_table", title: "Kristillisdemokraatit", party: @politicians[:KD]
+      = render "party_table", title: "Suomen kommunistinen puolue ja Helsinki-listat", party: @politicians[:SKP]
     #documents
       - if @idea.documents != []
         = render "documents", idea: @idea
@@ -101,18 +102,6 @@
         #politician_block
           %h3
             Menu for politicians:
-          #supporting_idea
-            = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_politicians_for', :id => @idea.id },:remote => true, :html => { :method => :post } do |f|
-              = f.text_field :suggested_politicians_for, as: :text
-              %br
-              = f.submit "Support this initiative"
-          %hr
-          #unsupporting_idea
-            = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_politicians_against', :id => @idea.id },:remote => true, :html => { :method => :post } do |f|
-              = f.text_field :suggested_politicians_against, as: :text
-              %br
-              = f.submit "Against this initiative"
-          %hr
           #uploading_document
             = form_for @idea, :url => {:controller => 'ideas', :action => 'upload_document', :id => @idea.id },:remote => true, :html => { :method => :post } do |f|
               = f.text_field :file_name

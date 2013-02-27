@@ -1,0 +1,17 @@
+%table.politicians{:id => title }
+  %tr
+    %th{:class => "title", :align => "сеntег", :colspan => "3"} #{title}
+  - party.each_slice(3) do |row|
+    %tr
+    - row.each do |politician|
+      %td{:class => " #{check_politician_vote(politician[:id], @idea.id)}" }
+        = politician[:name]
+        - if citizen_signed_in?
+          - if current_citizen.is_politician && (current_citizen == @idea.adopted_by)
+            - if politician_vote_result(politician[:id], @idea.id) == nil
+              = link_to image_tag("/assets/support.jpg"), politician_vote_for_idea_path(:politician_id => politician[:id], :title => title, :party => party), remote: true
+              = link_to image_tag("/assets/unsupport.jpg"), politician_vote_against_idea_path(:politician_id => politician[:id], :title => title, :party => party), remote: true
+            - elsif politician_vote_result(politician[:id], @idea.id) == true
+              = link_to image_tag("/assets/unsupport.jpg"), politician_vote_against_idea_path(:politician_id => politician[:id], :title => title, :party => party), remote: true
+            - else 
+              = link_to image_tag("/assets/support.jpg"), politician_vote_for_idea_path(:politician_id => politician[:id], :title => title, :party => party), remote: true

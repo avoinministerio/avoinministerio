@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class CitizensController < ApplicationController
   before_filter :authenticate_citizen!
   before_filter :fetch_citizen
@@ -15,15 +16,6 @@ class CitizensController < ApplicationController
       sign_in @citizen, :bypass => true
     end
     render "edit"
-  end
-
-  def list_of_politicians
-    @politicians = Citizen.list_of_politicians
-    
-    respond_to do |format|
-       format.html
-       format.json { render json: @politicians }
-    end
   end
   
   private
