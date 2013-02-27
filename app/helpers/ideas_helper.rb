@@ -117,4 +117,47 @@ module IdeasHelper
       link_to image_tag("/assets/read-icon.gif"), "http://docs.google.com/viewer?url="+file.to_s+"&embedded=true"
     end
   end
+
+  def party_table(title, members)
+    <<-END.html_safe
+      <table>
+        <tr>
+          <td colspan="3" align="center"> title </td>
+        </tr>
+        <%= members.each_slice(3) do |row| %>
+          <tr>
+            <%= row.each do |cnt| %>
+              <td>
+                <%= cnt[:name] %>
+              </td>
+          </tr>
+      </table>
+    END
+  end
+
+  def check_politician_vote(politician_id, idea_id)
+    support = PoliticiansSupport.where(:citizen_id => politician_id, :idea_id => idea_id).first
+    if support != nil
+      if support.vote == "for"
+        "green"
+      else
+        "red"
+      end
+    else
+      "yellow"
+    end
+  end
+
+  def politician_vote_result(politician_id, idea_id)
+    support = PoliticiansSupport.where(:citizen_id => politician_id, :idea_id => idea_id).first
+    if support != nil
+      if support.vote == "for"
+        true
+      else
+        false
+      end
+    else
+      nil
+    end
+  end
 end

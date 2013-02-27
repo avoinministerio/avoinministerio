@@ -1,16 +1,9 @@
-#encoding: UTF-8
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-
+# encoding: UTF-8
 require 'factory_girl_rails'
 
- admin = Administrator.find_or_create_by_email({
+puts "seeding data... this process can take 10-15 minutes"
+
+admin = Administrator.find_or_create_by_email({
   email: "admin@avoinministerio.fi",
   password: "hallinta"
 })
@@ -23,27 +16,27 @@ require 'factory_girl_rails'
   { email: "joonas@pekkanen.com",
     password: "joonas1", password_confirmation: "joonas1", remember_me: true,
     profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
-  
+
   { email: "arttu.tervo@gmail.com",
     password: "arttu1", password_confirmation: "arttu1", remember_me: true,
     profile_attributes: {first_names: "Arttu", first_name: "Arttu", last_name: "Tervo", name: "Arttu Tervo"}, },
-  
+
   { email: "aleksi.rossi@iki.fi",
     password: "aleksi1", password_confirmation: "aleksi1", remember_me: true,
     profile_attributes: {first_names: "Aleksi", first_name: "Aleksi", last_name: "Rossi", name: "Aleksi Rossi"}, },
-  
+
   { email: "hleinone@gmail.com",
     password: "hannu1", password_confirmation: "hannu1", remember_me: true,
     profile_attributes: {first_names: "Hannu", first_name: "Hannu", last_name: "Leinonen", name: "Hannu Leinonen"}, },
-  
+
   { email: "juha.yrjola@iki.fi",
     password: "juhay1", password_confirmation: "juhay1", remember_me: true,
     profile_attributes: {first_names: "Juha", first_name: "Juha", last_name: "Yrjölä", name: "Juha Yrjölä"}, },
-  
+
   { email: "lauri@kiskolabs.com",
     password: "lauri1", password_confirmation: "lauri1", remember_me: true,
     profile_attributes: {first_names: "Lauri", first_name: "Lauri", last_name: "Jutila", name: "Lauri Jutila"}, },
-  
+
   { email: "mikael.kopteff@gmail.com",
     password: "mikael1", password_confirmation: "mikael1", remember_me: true,
     profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
@@ -691,13 +684,10 @@ require 'factory_girl_rails'
   }
  ].each { |location| Tag.create(location)}
 
-
 @citizens = Citizen.all
-
 def random_citizen
   @citizens[rand(@citizens.size)]
 end
-
 joonas = Citizen.where(email: "joonas@pekkanen.com").first
 koiravero_body = <<EOS
 
@@ -750,7 +740,6 @@ _Voimaantulo_
 
 Tämä laki tulee voimaan 1. päivänä tammikuuta 2013.
 EOS
-
 opintotuki_body = <<EOS
 
 Yleisperustelut
@@ -850,6 +839,7 @@ Tämä laki tulee voimaan päivänä kuuta 20__.
 Ennen lain voimaantuloa voidaan ryhtyä lain toimeenpanon edellyttämiin toimiin.
 EOS
 
+
 require File.expand_path('../seeds/countries_list', __FILE__)
 require File.expand_path('../seeds/regions_list', __FILE__)
 require File.expand_path('../seeds/cities_list', __FILE__)
@@ -907,8 +897,7 @@ end
   idea.author = random_citizen
   idea.save!
 end
-
-voters = (0..100).map do |i|
+voters = (0..50).map do |i|
   Citizen.find_or_create_by_email(
       email: "voter#{i}@voter.com",
       password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true,
@@ -921,24 +910,21 @@ Idea.all.each do |idea|
 end
 
 voter_count = voters.size
-
 ideas = Idea.find(:all).to_a
 # first idea has 0 votes
 ideas.shift  
 # next ideas have only one for and against
 ideas.shift.vote(voters[rand(voter_count)], 0)
 ideas.shift.vote(voters[rand(voter_count)], 1)
-
 class RandomGaussian
   def initialize(mean = 0.0, sd = 1.0, rng = lambda { Kernel.rand })
     @mean, @sd, @rng = mean, sd, rng
     @compute_next_pair = false
   end
-
   def rand
     if (@compute_next_pair = !@compute_next_pair)
-      # Compute a pair of random values with normal distribution.
-      # See http://en.wikipedia.org/wiki/Box-Muller_transform
+# Compute a pair of random values with normal distribution.
+# See http://en.wikipedia.org/wiki/Box-Muller_transform
       theta = 2 * Math::PI * @rng.call
       scale = @sd * Math.sqrt(-2 * Math.log(1 - @rng.call))
       @g1 = @mean + scale * Math.sin(theta)
@@ -948,45 +934,39 @@ class RandomGaussian
     end
   end
 end
-
 # the rest should have all kinds of combinations
 secs_per_week = 60*60*24*7
 ideas.each do |idea|
-	rd = RandomGaussian.new(secs_per_week * (rand()*8.0+2.0), secs_per_week * (rand()*4.0+2.0))
-
-	# pick random count of random voters
-	vs = []
-	(0..rand(voter_count)).each do 
-		v = voters[rand(voter_count)]
-		while vs.include? v
-			v = voters[rand(voter_count)]
-		end
-		vs.push v
-	end
-	vs.each do |v|
+  rd = RandomGaussian.new(secs_per_week * (rand()*8.0+2.0), secs_per_week * (rand()*4.0+2.0))
+  # pick random count of random voters
+  vs = []
+  (0..rand(voter_count)).each do
+    v = voters[rand(voter_count)]
+    while vs.include? v
+      v = voters[rand(voter_count)]
+    end
+    vs.push v
+  end
+  vs.each do |v|
     idea.vote(v, rand(2))
-	end
+  end
 end
-
 # let's create some articles
-
 def read_till(f, breaker = /^---+/)
-	str = ""
-	while((l = f.gets) !~ breaker)
-		str.concat l
-	end
-	str
+  str = ""
+  while((l = f.gets) !~ breaker)
+    str.concat l
+  end
+  str
 end
-
 def field(f, name)
-	str = f.gets
-	if m = str.match(/^#{name}:/)
-		return m.post_match
-	else
-		raise "line #{str} does not match field name #{name}"
-	end
+  str = f.gets
+  if m = str.match(/^#{name}:/)
+    return m.post_match
+  else
+    raise "line #{str} does not match field name #{name}"
+  end
 end
-
 Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
   next unless File.file?(name)
   File.open(name) do |f|
@@ -1000,7 +980,6 @@ Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
       ingress:      field(f, "ingress") && read_till(f),
       body:         field(f, "body") && read_till(f),
     }
-    
     Article.find_or_create_by_created_at(article)
   end
 end

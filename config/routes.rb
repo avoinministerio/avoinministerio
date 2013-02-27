@@ -61,9 +61,9 @@ AvoinMinisterio::Application.routes.draw do
   end
   
   resources :ideas do
-    post :suggest_politicians_for, on: :member
-    post :suggest_politicians_against, on: :member
     get :change_state, on: :collection
+    get :politician_vote_for, on: :member
+    get :politician_vote_against, on: :member
     post :upload_document, on: :member
     get :adopt_the_initiative, on: :member
     post "lda", on: :member
