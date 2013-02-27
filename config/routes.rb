@@ -1,6 +1,6 @@
 AvoinMinisterio::Application.routes.draw do
 
-  resource :profile, :except => [:new, :create, :destroy]  
+  resource :profile, :except => [:new, :create, :destroy]
   resource :citizen, :only => [:edit, :update]
   
   match "/citizens/list_of_politicians.json"          => "citizens#list_of_politicians", via: :get
@@ -63,6 +63,7 @@ AvoinMinisterio::Application.routes.draw do
   resources :ideas do
     get :politician_vote_for, on: :member
     get :politician_vote_against, on: :member
+    get :change_state, on: :collection
     post :upload_document, on: :member
     get :adopt_the_initiative, on: :member
     post "lda", on: :member
@@ -95,7 +96,7 @@ AvoinMinisterio::Application.routes.draw do
       resources :articles do
         get "publish",    on: :member
         get "unpublish",  on: :member
-        get "moderate",   on: :member        
+        get "moderate",   on: :member
       end
       resources :comments do
         get "publish",    on: :member
@@ -112,6 +113,12 @@ AvoinMinisterio::Application.routes.draw do
       get "change_role_citizen", on: :member
       get "lock",                   on: :member
       get "unlock",                 on: :member
+    end
+    
+    resources :states do
+      get 'select_location', on: :collection
+      post 'set_your_location', on: :collection
+      get 'fetch_dependents', on: :collection
     end
     resources :changelogs
     resources :expert_suggestions

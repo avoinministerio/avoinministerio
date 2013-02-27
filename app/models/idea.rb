@@ -5,7 +5,7 @@ class Idea < ActiveRecord::Base
   include Tanker
   extend FriendlyId
 
-  VALID_STATES = %w(idea draft proposal law)
+#  VALID_STATES = %w(idea draft proposal law)
   
   TAG_LIMIT = 5
   MAX_FB_TITLE_LENGTH = 100
@@ -13,7 +13,7 @@ class Idea < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
-  attr_accessible   :title, :body, :summary, :state, :tag_list, 
+  attr_accessible   :title, :body, :summary, :state_id, :tag_list, 
                     :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
                     :vote_proportion, :vote_proportion_away_mid,
                     :collecting_in_service, 
@@ -24,6 +24,7 @@ class Idea < ActiveRecord::Base
                     :target_count, :updated_content_at
 
   attr_reader :suggested_politicians_for, :suggested_politicians_against
+
   attr_reader :file_name
   attr_reader :tag_list, :suggested_tags
 
@@ -39,12 +40,15 @@ class Idea < ActiveRecord::Base
   has_many :tag_suggestions
   has_many :tags, through: :taggings
 
+  has_many :politicians_support
+
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
+  belongs_to :state
 
   validates :author_id, presence: true
   validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
-  validates :state, inclusion: { in: VALID_STATES }
+#  validates :state, inclusion: { in: VALID_STATES }
 
   tankit index_name do
     conditions do
@@ -69,6 +73,10 @@ class Idea < ActiveRecord::Base
   end
   after_save Concerns::IndexingWrapper.new
   after_destroy Concerns::IndexingWrapper.new
+
+  def state
+    State.find(state_id).name
+  end
 
   def indexable?
     self.title.present?

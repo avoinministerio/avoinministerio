@@ -6,6 +6,10 @@ Administrator.find_or_create_by_email({
   password: "hallinta"
 })
 [
+{ email: "expedora@gmail.com",
+    password: "expedora1", password_confirmation: "expedora1", remember_me: true, is_politician: true,
+    profile_attributes: {first_names: "Expedora", first_name: "Expedora", last_name: "India", name: "Expedora India"}, },
+  
   { email: "joonas@pekkanen.com",
     password: "joonas1", password_confirmation: "joonas1", remember_me: true,
     profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
@@ -674,7 +678,8 @@ Administrator.find_or_create_by_email({
     name: "Puroniitty",
     is_location: true
   }
- ].each { |location| Tag.create!(location)}
+ ].each { |location| Tag.create(location)}
+
 @citizens = Citizen.all
 def random_citizen
   @citizens[rand(@citizens.size)]
@@ -829,40 +834,52 @@ Tämä laki tulee voimaan päivänä kuuta 20__.
 
 Ennen lain voimaantuloa voidaan ryhtyä lain toimeenpanon edellyttämiin toimiin.
 EOS
+
+require File.expand_path('../seeds/countries_list', __FILE__)
+require File.expand_path('../seeds/regions_list', __FILE__)
+require File.expand_path('../seeds/cities_list', __FILE__)
+
+%w(idea proposal draft law).each_with_index do |name, index|
+  38.times do |city_id|
+    State.create(:administrator_id => admin.id, :name => name, :rank => (index + 1), :city_id => (city_id + 1))
+  end
+end
+
 [
   {
     title: "Koiraverolain kumoaminen",
     summary: "Koiraverolain kumoaminen",
     body: koiravero_body,    
-    state: "draft", author: joonas 
+    state_id: 93, author: joonas 
   },
   {
     title: "Opintorahan takaisinperinnän muuttaminen",
     summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
     body: opintotuki_body,    
-    state: "draft", author: joonas 
+    state_id: 55, author: joonas 
   },
   { title: "Kansanedustajien palkankorotus pannaan",
     summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
     body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
-    state: "idea", author: random_citizen},
+    state_id: 17, author: random_citizen},
   { title: "Poistetaan perintöverotus",
     summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
     body: "Ankarin perintövero korvattakoon tasaverolla!",
-    state: "draft", author: random_citizen},
+    state_id: 55, author: random_citizen},
   { title: "Raiskauksille kunnon tuomiot",
     summary: "Joku roti!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "proposal", author: random_citizen},
+    state_id: 93, author: random_citizen},
   { title: "Kaikelle isommat tuomiot",
     summary: "Joku roti!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "law", author: random_citizen},
+    state_id: 93, author: random_citizen},
   { title: "Vielä isommat tuomiot",
     summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "idea", author: random_citizen},
-].each { |idea| i = Idea.create(idea); i.state = idea[:state]; i.author = idea[:author]; i.save! }
+    state_id: 93, author: random_citizen},
+].each { |idea| i = Idea.create(idea); i.state_id = idea[:state_id]; i.author = idea[:author]; i.save! }
+
 20.times do |i|
   idea = Idea.create(
     { title: "Esimerkki-idea #{i}", 
@@ -871,7 +888,7 @@ EOS
       created_at: Time.now - (60*60*24),
       updated_at: Time.now - (60*60*24),
       })
-  idea.state = "idea"
+  idea.state_id = 1
   idea.author = random_citizen
   idea.save!
 end

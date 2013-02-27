@@ -227,6 +227,9 @@ class IdeasController < ApplicationController
     @colors = ["#4DA818", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
 
+    @states = State.find(@idea.state_id).city.states.order(:rank)
+    @idea_state = State.find(@idea.state_id)
+
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
       ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
@@ -409,6 +412,19 @@ class IdeasController < ApplicationController
     voting
   end
 
+  def change_state
+    begin
+      idea = Idea.find(params[:id])
+      old_value = idea.state_id
+      state = State.find(params[:new_state_id])
+
+      idea.update_attribute(:state_id, state.id)
+      render :json => {:error => 0, :message => "State changed successfully from '#{State.find(old_value).name}' to '#{state.name}'"}
+    rescue
+      render :json => {:error => 1, :old_value => old_value, :message => "Sorry! we are unable to change state currently."}
+    end
+  end
+  
   def upload_document
     @idea = Idea.find(params[:id])
     @document = Document.create(:idea_id => params[:id], :file => params[:idea]["file"], :file_name => params[:idea]["file_name"])
