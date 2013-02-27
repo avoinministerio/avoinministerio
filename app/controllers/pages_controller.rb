@@ -69,8 +69,8 @@ class PagesController < ApplicationController
     # Ideas either newest or random sampling
     if @newest_ideas = (rand() < 0.1)
       idea_count = 4
-      state_id = State.find_by_name('idea').id
-      @ideas = Idea.published.where(state_id: state_id).order("created_at DESC").limit(idea_count).includes(:votes).all
+      states_id = State.find_all_by_name('idea').collect(&:id)
+      @ideas = Idea.published.where('state_id IN (?)', states_id).order("created_at DESC").limit(idea_count).includes(:votes).all
       @idea_counts = {}
       @ideas.each do |idea|
         formatted_idea_counts(idea, @idea_counts)
