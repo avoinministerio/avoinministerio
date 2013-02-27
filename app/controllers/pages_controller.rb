@@ -3,7 +3,8 @@
 class PagesController < ApplicationController
 
   def load(state, count)
-    items = Idea.published.where(state: state).order("updated_at DESC").limit(count).includes(:votes).all
+    conditions = (state == 'proposal' ? { state: state, collecting_started: 'true', collecting_ended: 'false' } : { state: state })
+    items = Idea.published.where(conditions).order("updated_at DESC").limit(count).includes(:votes).all
     item_counts = {}
 
     items.each do |idea|
@@ -11,10 +12,20 @@ class PagesController < ApplicationController
       against_count   = idea.vote_counts[0] || 0
       comment_count   = idea.comments.count()
       total           = for_count + against_count
-      for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
-      against_portion = (against_count > 0 ? against_count / total.to_f  : 0.0)
-      for_            = sprintf("%2.0f%%", for_portion * 100.0)
-      against_        = sprintf("%2.0f%%", against_portion * 100.0)
+      for_portion     = (for_count.to_f/total)*280#(for_count > 0 ?     for_count / total.to_f  : 0.0)
+      against_portion = (for_count.to_f/total)*280#(against_count > 0 ? against_count / total.to_f  : 0.0)
+      if idea.state == "proposal"
+        vote_completed = idea.vote_count
+        vote_for = 50000 - vote_completed
+        for_portion = ((vote_completed.to_f/50000)*280).to_i
+        for_            = idea.vote_count
+        against_        = vote_for
+        vote_for = (vote_for/50000)*280
+        vote_completed = (vote_completed/50000)*280
+      else
+        for_            = sprintf("%2.0f%%", for_count.to_f/total * 100.0)#"#{(for_count.to_f/total)*100}"+"%"       #
+        against_        = sprintf("%2.0f%%", against_count.to_f/total * 100.0)#"#{(against_count.to_f/total)*100}"+"%"   #
+      end
       item_counts[idea.id] = [for_portion, for_, against_portion, against_]
     end
 
@@ -41,7 +52,7 @@ class PagesController < ApplicationController
 
   def home
     # AB-test: is it better to have proposals in their separate section or merge with drafts
-    session[:ab_section_count] = rand(2)+1 unless session[:ab_section_count]
+    session[:ab_section_count] = 2 unless session[:ab_section_count]
     KM.set({"section_count" => "#{session[:ab_section_count]}"})
     ["proposal_and_draft", "draft", "proposal"].each do |section|
       3.times do |i| 
@@ -52,8 +63,15 @@ class PagesController < ApplicationController
     end
 
     # B: two rows of examples:
-    @proposals, @proposals_counts  = load("proposal", 3)
-    @drafts, @draft_counts        = load("draft",    3)
+    @proposals, @proposals_counts = load("proposal", Idea.count)
+    @drafts, @draft_counts = load("draft", 3)
+    
+    # total proposals and drafts
+    @total_drafts = Idea.count(:all, :conditions => ['state=?', "draft"])
+    @total_proposals = Idea.count(:all, :conditions => ['state=?', "proposal"])
+    
+    # Randomize the proposals array
+    @proposals = @proposals.randomize!
 
     # A: just one row, both proposals and drafts in it
     @proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
