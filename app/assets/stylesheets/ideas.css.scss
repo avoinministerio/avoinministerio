@@ -708,7 +708,15 @@ span.date.sans_serif {
 
 #table_block {
   margin-top: 15px;
+  padding-bottom: 15px;
   width: 105%;
+}
+
+#voting_summary {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  float: left;
 }
 
 table.politicians {
@@ -721,18 +729,18 @@ table.politicians {
 table.politicians td {
   font-size: 12px;
   background: #EBE6E6;
-  padding: 5px;
+  padding: 4px;
 }
 
 table.politicians td.green {
   background: #4da818;
-  padding: 5px;
+  padding: 4px;
   color: white;
 }
 
 table.politicians td.red {
   background: #a9003f;
-  padding: 5px;
+  padding: 4px;
   color: white;
 }
 
