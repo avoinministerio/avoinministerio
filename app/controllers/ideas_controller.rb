@@ -146,15 +146,13 @@ class IdeasController < ApplicationController
   end
 
   def setup_filtering_and_sorting_options
-    @filters = [
-      [:all,                "Kaikki",                proc {|f| f} ],
-      [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
-      [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
-      [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
-      [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
-      [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
-    ]
-
+    @filters = [["all", "Kaikki",  proc {|f| f} ]]
+    
+    State.uniq.pluck(:name).each do |state|
+      states_id = State.find_all_by_name(state).collect(&:id)
+      @filters << [state, state.titleize, Proc.new { |f| f.where('state_id IN (?)', states_id) }]
+    end
+    
     @orders = {
       age:      {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
       comments: {most:    "comment_count DESC",           least:      "comment_count ASC"}, 
@@ -172,18 +170,18 @@ class IdeasController < ApplicationController
       tilt:     {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
     }
   end
-
+  
   def update_sorting_order(reorder)
     sorting_order = session[:sorting_order] 
     sorting_order ||= [
-      [:age,      [:newest, :oldest]], 
-      [:comments, [:most,   :least]], 
-      [:voted,    [:most,   :least]], 
-      [:votes_for,[:most,   :least]],
-      [:support,  [:most,   :least]],
-      [:tilt,     [:even,   :polarized]],
+    [:age,      [:newest, :oldest]], 
+    [:comments, [:most,   :least]], 
+    [:voted,    [:most,   :least]], 
+    [:votes_for,[:most,   :least]],
+    [:support,  [:most,   :least]],
+    [:tilt,     [:even,   :polarized]],
     ]
-    if reorder and @orders.keys.include? reorder.to_sym
+    if reorder && @orders.keys.include?(reorder.to_sym)
       i = sorting_order.index{|so| so.first == reorder.to_sym }
       if i > 0
         # reshuffle reordered key to first in array
@@ -202,15 +200,15 @@ class IdeasController < ApplicationController
     ordering = sorting_order.map{|ord| field, order = ord; @orders[field][order.first]}.join(", ")
     return sorting_order, ordering
   end
-
+  
   def update_filter(params_filter)
-    current_filter = params_filter || session[:filter] || :all
+    current_filter = params_filter || session[:filter] || 'all'
     session[:filter] = current_filter
     params.delete :filter
-
-    code, filter_name, filterer = @filters.find {|f| f.first == current_filter.to_sym}
+    
+    code, filter_name, filterer = @filters.find {|f| f.first == current_filter}
     raise "unknown filter #{current_filter}" unless code
-
+    
     return current_filter, code, filter_name, filterer
   end
   

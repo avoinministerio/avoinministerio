@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'factory_girl_rails'
 puts "seeding data... this process can take 10-15 minutes"
-Administrator.find_or_create_by_email({
+admin = Administrator.find_or_create_by_email({
   email: "admin@avoinministerio.fi",
   password: "hallinta"
 })
