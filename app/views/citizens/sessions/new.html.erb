@@ -1,4 +1,13 @@
 <h2>Kirjaudu sisään</h2>
+<% if flash.present? %>
+	<div align="center">
+		<div align="center" id="flash-message" >
+			<% flash.each do |name, msg| %>
+			<%= content_tag :div, msg, :id => "flash" %>
+			<% end %>
+		</div>
+	</div>
+<% end %>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => "grid_16"}) do |f| %>
     <div class="inputs grid_12">
