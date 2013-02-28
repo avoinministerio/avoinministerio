@@ -3,7 +3,8 @@
     #lda_response
       .response
       .tag_input_box
-        = f.input :tag_list, label: 'Tags for current idea', :input_html => { :data => { load: @idea.tags } }
+        = f.input :tag_list, label: 'Tags for current idea', :input_html => { :data => { load: @idea.tags(:conditions => {:is_location => false}) } }
+        = f.input :location_tag_list, label: 'Locations for current idea', :input_html => { :data => { load: @idea.tags(:conditions => {:is_location => true}) } }
     #idea_form
       .grid_16
         = f.input :title, label: I18n.t("idea.new.title")

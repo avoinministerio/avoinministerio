@@ -252,8 +252,10 @@ class IdeasController < ApplicationController
   
   def create
     @idea = Idea.new(params[:idea])
+    city = City.find_by_name('Helsinki')
+    state = State.find_by_city_id(city.id)
+    @idea.state_id = state.id
     @idea.author = current_citizen
-    @idea.state  = "idea"
     @idea.updated_content_at = DateTime.now
     if @idea.save
       flash[:notice] = I18n.t("idea.created")
@@ -355,15 +357,14 @@ class IdeasController < ApplicationController
         [idea_id, vote_count]
       end
       {"d" => d, "i" => vcs.sort{|a,b| b[1] <=> a[1]}}
-      end.to_json
-      
-      @authors = @idea_counts.to_json
-      
-      KM.identify(current_citizen)
-      KM.push("record", "vote flow viewed")
-      
-      render 
-    end
+    end.json
+    
+    @authors = @idea_counts.to_json
+    
+    KM.identify(current_citizen)
+    KM.push("record", "vote flow viewed")
+    
+    render 
   end
   
   #Preparations for LDA
@@ -448,3 +449,4 @@ class IdeasController < ApplicationController
       format.js { render :update_table, locals: { title: @title, party: @party, idea: @idea } } 
     end
   end
+end

@@ -1,12 +1,17 @@
 class TagsController < ApplicationController
   def index
-    @tags = Tag.order(:name)
+    if params[:is_location]
+      @tags = Tag.where('is_location = ?', params[:is_location].to_i == 1).order(:name)
+    else
+      @tags = Tag.order(:name)
+    end
+
     respond_to do |format|
       format.html
       format.json { render json: @tags.tokens(params[:q]) }
     end
   end
-
+  
   def vote_for
     @vote = TagVote.where(:idea_id => params[:idea_id], :tag_id => params[:tag_id], :citizen_id => params[:citizen_id]).first
     if @vote == nil
@@ -17,7 +22,7 @@ class TagsController < ApplicationController
       respond_vote_js
     end
   end
-
+  
   def vote_against
     @vote = TagVote.where(:idea_id => params[:idea_id], :tag_id => params[:tag_id], :citizen_id => params[:citizen_id]).first
     if @vote == nil
@@ -28,7 +33,7 @@ class TagsController < ApplicationController
       respond_vote_js
     end
   end
-
+  
   def add_to_suggested
     @idea = Idea.find(params[:id])
     @tag = Tag.find(params[:tag_id])
@@ -36,22 +41,22 @@ class TagsController < ApplicationController
       format.js   { render action: :add_to_suggested, :locals => { :tag => @tag, :idea => @idea } }
     end
   end
-
+  
   def list_of_suggested
     @idea = Idea.find(params[:id])
     respond_to do |format|
       format.js   { render action: :list_of_suggested, :locals => { :idea => @idea } }
     end
   end
-
+  
   def show_more
     @idea = Idea.find(params[:id])
     respond_to do |format|
       format.js { render action: :show_more, :locals => { :idea => @idea } }
     end
   end
-
-private
+  
+  private
   def respond_vote_js
     @idea = Idea.find(params[:idea_id])
     @tag = Tag.find(params[:tag_id])
@@ -59,7 +64,7 @@ private
       format.js   { render action: :citizen_voted, :locals => { :idea => @idea, :tag => @tag } }
     end
   end
-
+  
   def check_and_change_vote
     if @vote.voted == "for"
       Tagging.where(:tag_id => params[:tag_id], :idea_id => params[:idea_id]).all.first.decrease_score

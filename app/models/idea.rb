@@ -13,7 +13,7 @@ class Idea < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
-  attr_accessible   :title, :body, :summary, :state_id, :tag_list, 
+  attr_accessible   :title, :body, :summary, :state_id, :tag_list, :location_tag_list,
                     :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
                     :vote_proportion, :vote_proportion_away_mid,
                     :collecting_in_service, 
@@ -26,7 +26,7 @@ class Idea < ActiveRecord::Base
   attr_reader :suggested_politicians_for, :suggested_politicians_against
 
   attr_reader :file_name
-  attr_reader :tag_list, :suggested_tags
+  attr_reader :tag_list, :location_tag_list, :suggested_tags
 
   has_many :comments, as: :commentable
   has_many :votes
@@ -202,7 +202,11 @@ class Idea < ActiveRecord::Base
   #end
 
   def tag_list=(tokens)
-    self.tag_ids = Tag.ids_from_tokens(tokens)
+    self.tag_ids = Tag.ids_from_tokens(tokens, false)
+  end
+  
+  def location_tag_list=(tokens)
+    self.tag_ids = Tag.ids_from_tokens(tokens, true)
   end
   
   #tag_ids -> array of tag ids
