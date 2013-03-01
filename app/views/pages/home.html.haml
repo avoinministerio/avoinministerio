@@ -6,9 +6,9 @@
   locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, :count => @total_drafts, item_counter: 3,  section: "draft" } if @drafts.count > 0
 
 - if @newest_ideas
-	= render partial: 'ideas'
+  = render partial: 'ideas'
 - else
-	= render partial: 'random_ideas'
+  = render partial: 'random_ideas'
 
 = render partial: 'news'
 = render partial: 'newsletter'
