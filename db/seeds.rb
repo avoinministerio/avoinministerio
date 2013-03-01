@@ -236,20 +236,24 @@ EOS
 
 9.times do |i|
   inx = i + 1
-  Idea.create(
-              { title: "Raiskauksille kunnon tuomiot #{inx}",
-                summary: "Joku roti!",
-                body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-                state: "proposal",
-                pubish_state: "published",
-                collecting_started: true,
-                collecting_ended: false,
-                collecting_start_date: Time.now,
-                collecting_start_date: 1.year.from_now,
-                additional_signatures_count: 0,
-                additional_signatures_count_date: 1.year.from_now
-                author: random_citizen }
-  )
+  idea = Idea.new({
+    title: "Raiskauksille kunnon tuomiot #{inx}",
+    summary: "Joku roti!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state: "proposal",
+    collecting_started: true,
+    collecting_ended: false,
+    collecting_start_date: Time.now,
+    collecting_end_date: 1.year.from_now,
+    additional_signatures_count: 0,
+    additional_signatures_count_date: 1.year.from_now,
+    target_count: 10000,
+    collecting_in_service: false
+  })
+  
+  idea.publish_state = 'published'
+  idea.author = random_citizen
+  idea.save
 end
 
 20.times do |i|
