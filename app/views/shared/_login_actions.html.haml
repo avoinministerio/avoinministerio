@@ -13,9 +13,9 @@
       #{current_citizen.name}
   - else
     .grid_3
-      = link_to "Rekisteröidy", new_citizen_registration_path
+      = link_to "Rekisteröidy", new_citizen_registration_path, id: 'register'
     .grid_3
-      = link_to "Kirjaudu", new_citizen_session_path
+      = link_to "Kirjaudu", new_citizen_session_path, id: 'login'
   .grid_6
     - if !citizen_signed_in?
-      = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
+      = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook), id: 'login-fb'
