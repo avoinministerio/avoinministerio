@@ -15,7 +15,10 @@
     %title Avoin Ministeriö
 
   = stylesheet_link_tag "application.css"
+  = stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"
   = javascript_include_tag "application"
+  = javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"
+
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
     if (window.location.hash == '#_=_') {

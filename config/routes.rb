@@ -52,6 +52,8 @@ AvoinMinisterio::Application.routes.draw do
     resources :comments
   end
 
+  resources :locations
+
   devise_for :administrators
   
   match "/admin", to: "admin/ideas#index", as: :administrator_root
