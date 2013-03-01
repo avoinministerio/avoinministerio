@@ -56,12 +56,13 @@ AvoinMinisterio::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   ActionMailer::Base.smtp_settings = {
-    :port           => 587,
-    :address        => 'smtp.mailgun.org',
-    :user_name      => 'postmaster@avoinministerio.mailgun.org',
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'avoinministerio.mailgun.org',
-    :authentication => :plain,
+    :address                => "smtp.gmail.com",
+    :port                   => "587",
+    :domain                 => 'avoin-expedora.herokuapp.com',
+    :user_name              => 'avointesting@gmail.com',
+    :password               => 'expedoratest1234',
+    :authentication        => 'plain',
+    :enable_starttls_auto => true
   }
   ActionMailer::Base.delivery_method = :smtp
 
