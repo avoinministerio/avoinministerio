@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "3.2.11"
+gem "rails", "3.2.12"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,7 +31,7 @@ gem "hominid"
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
-gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
+gem "surveyor", "~> 1.1.0"
 
 gem "rspec-rails", :groups => [ :development, :test ]
 
@@ -45,12 +45,10 @@ group :development do
   gem "brakeman", "~> 1.6.2"
   gem "pry-rails"
   gem "launchy"
-  gem "letters"
-  gem "debugger", ">= 1.2.2"
 end
 
 group :production do
-  gem "newrelic_rpm", "3.4.2.1"
+  gem "newrelic_rpm", "~> 3.5.7.59"
   gem "pg"
 end
 

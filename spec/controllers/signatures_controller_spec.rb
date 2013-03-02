@@ -30,13 +30,13 @@ describe SignaturesController do
       assigns(:signature).should_not be nil
     end
 
-    it "assigns available authentication services as @services" do
+    it "assigns available authentication services (tupas services) as @tupas_services" do
       post :sign,
            :id => idea.id,
            :accept_general => 1,
            :accept_non_eu_server => 1,
            :publicity => "Normal"
-      assigns(:services).length.should be 7
+      assigns(:tupas_services).length.should be 7
     end
   end
 end

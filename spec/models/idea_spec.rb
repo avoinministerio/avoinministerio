@@ -123,8 +123,12 @@ describe Idea do
 
   describe "#vote_counts" do
     before do
-      5.times { FactoryGirl.create(:vote, option: "1", idea: idea) }
-      3.times { FactoryGirl.create(:vote, option: "0", idea: idea) }
+      @citizens = []
+      @another_citizens = []
+      3.times { @citizens << FactoryGirl.create(:citizen) }
+      5.times { @another_citizens << FactoryGirl.create(:citizen) }
+      3.times { |i| idea.vote(@citizens[i], "0") }
+      5.times { |i| idea.vote(@another_citizens[i], "1") }
     end
 
     it "returns the vote counts" do
