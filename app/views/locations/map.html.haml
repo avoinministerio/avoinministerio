@@ -39,11 +39,9 @@
     %br
     = submit_tag "Search!", :name => nil
 
-  - if @locations_nearby != []
+  - if @locations_nearby != nil
     - @locations_nearby.each do |location|
       = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);"
       %br
       Distance: #{location.distance.round(2)} miles
       %br
-  - else
-    No results were found within a radius of 100 miles.
