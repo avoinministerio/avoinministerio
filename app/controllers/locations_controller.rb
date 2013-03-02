@@ -8,17 +8,24 @@ class LocationsController < ApplicationController
       format.json { render json: @location }
     end
   end
+  
+  def map
+    if Rails.env == "development"
+      @users_lat = Geocoder.coordinates("Helsinki")[0]
+      @users_lon = Geocoder.coordinates("Helsinki")[1]
+    elsif Rails.env == "production"
+      @users_lat = Geocoder.coordinates(request.location.city)[0]
+      @users_lon = Geocoder.coordinates(request.location.city)[1]
+    end
+    @locations = Location.all
+  end
 
-  # POST /locations
-  # POST /locations.json
   def create
     @location = Location.new(params[:location])
     @location.save
     redirect_to :back
   end
 
-  # DELETE /locations/1
-  # DELETE /locations/1.json
   def destroy
     @location = Location.find(params[:id])
     @location.destroy

@@ -31,7 +31,7 @@ AvoinMinisterio::Application.routes.draw do
   match "/signatures/:id/paid_canceling/:servicename"   => "signatures#paid_canceling"
   match "/signatures/:id/paid_rejecting/:servicename"   => "signatures#paid_rejecting"
 
-
+  match "/kartta" => "locations#map"
   match "/ideat/haku" => "ideas#search"
   get "ideas/vote_flow"
 

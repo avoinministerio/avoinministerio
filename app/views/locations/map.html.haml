@@ -1,33 +1,13 @@
-:javascript
-  $(document).ready(function(){
-
-  });
-
-
 #map
 
-#new_address
-  %h1 Add the new address
-  = simple_form_for(@location) do |f|
-    = f.error_notification
-    = f.input :name, label: "Location name"
-    = f.input :address, label: "Location address"
-    = f.hidden_field :latitude
-    = f.hidden_field :longitude
-    %br
-    = f.button :submit
-
 #list_of_addresses
-  %h1 List of addresses
   // Creating map
   = javascript_tag do
-    var map = L.map('map').setView([#{@users_lat}, #{@users_lon}], 13);
+    var map = L.map('map').setView([60.1708, 24.9375], 13);
     L.tileLayer('http://{s}.tile.cloudmade.com/6130d5f5e634498686bec4a58962a200/997/256/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
+    $("#map").height(800);
   - @locations.each do |location|
-    = location.address
-    = location.latitude.round(3)
-    = location.longitude.round(3)
     = javascript_tag do
       // Adding markers by coordinates  
       var lat = #{location.latitude.round(3)};
