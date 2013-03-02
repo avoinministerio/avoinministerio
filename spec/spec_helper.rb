@@ -35,13 +35,8 @@ def min_ideas_for_homepage( multiply=1 )
   # temporary used for pass homepage tests
   # We will do different aproach after test_suite repair
   ideas_count = Idea.count
-<<<<<<< HEAD
   if ideas_count < (3+3*multiply)
     (12 - ideas_count).times { FactoryGirl.create :idea }
-=======
-  if ideas_count < (6*multiply)
-    (6*multiply - ideas_count).times { FactoryGirl.create :idea }
->>>>>>> f85b28b3c94aaf9cc47859a87fefa708b47bee53
   end
 end
 
