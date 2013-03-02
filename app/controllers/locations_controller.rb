@@ -21,7 +21,12 @@ class LocationsController < ApplicationController
       @users_loc = request.location.city
     end
 
-    @locations_nearby = Location.near(@users_loc, 50, :order => :distance)
+    @locations_nearby_ip = Location.near(@users_loc, 50, :order => :distance)
+
+    if params[:search].present?
+      @locations_nearby = Location.near(params[:search], 50, :order => :distance)
+    end
+
     @locations = Location.all
   end
 

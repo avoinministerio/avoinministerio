@@ -4,29 +4,46 @@
 = javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"
 
 #map
-  #list_of_addresses
-    %h2 All locations
-    // Creating map
+
+#list_of_addresses
+  %h2 All locations
+  // Creating map
+  = javascript_tag do
+    $("#map").height("100%");
+    var map = L.map('map').setView([#{@users_lat}, #{@users_lon}], 10);
+    L.tileLayer('http://{s}.tile.cloudmade.com/6130d5f5e634498686bec4a58962a200/997/256/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
+  - @locations.each do |location|
+    = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);"
+    %br
     = javascript_tag do
-      $("#map").height("100%");
-      var map = L.map('map').setView([#{@users_lat}, #{@users_lon}], 10);
-      L.tileLayer('http://{s}.tile.cloudmade.com/6130d5f5e634498686bec4a58962a200/997/256/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
-    - @locations.each do |location|
-      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude.round(3)},#{location.longitude.round(3)}]);"
+      // Adding markers by coordinates  
+      var lat = #{location.latitude.round(3)};
+      var lon = #{location.longitude.round(3)};
+      var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
+      marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}");
+  %h2 Nearby locations (by your IP)
+  - if @locations_nearby_ip != []
+    - @locations_nearby_ip.each do |location|
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);"
       %br
-      = javascript_tag do
-        // Adding markers by coordinates  
-        var lat = #{location.latitude.round(3)};
-        var lon = #{location.longitude.round(3)};
-        var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
-        marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}");
-    %h2 Nearby locations
-    - if @locations_nearby != []
-      - @locations_nearby.each do |location|
-        = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude.round(3)},#{location.longitude.round(3)}]);"
-        %br
-        Distance: #{location.distance.round(2)} miles
-        %br
-    - else
-      No results were found within a radius of 50 miles.
+      Distance: #{location.distance.round(2)} miles
+      %br
+  - else
+    No results were found within a radius of 50 miles.
+
+  %h2 Search for nearby location
+  = form_tag kartta_path, :method => :get do
+    %p
+    = text_field_tag :search, params[:search]
+    %br
+    = submit_tag "Search!", :name => nil
+
+  - if @locations_nearby != []
+    - @locations_nearby.each do |location|
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);"
+      %br
+      Distance: #{location.distance.round(2)} miles
+      %br
+  - else
+    No results were found within a radius of 100 miles.

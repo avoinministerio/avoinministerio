@@ -20,12 +20,12 @@
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
   - @locations.each do |location|
     = location.address
-    = location.latitude.round(3)
-    = location.longitude.round(3)
+    = location.latitude
+    = location.longitude
     = javascript_tag do
       // Adding markers by coordinates  
-      var lat = #{location.latitude.round(3)};
-      var lon = #{location.longitude.round(3)};
+      var lat = #{location.latitude};
+      var lon = #{location.longitude};
       var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
       marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}")
     %br
