@@ -24,6 +24,6 @@ class Citizens::RegistrationsController < Devise::RegistrationsController
 
 protected
     def after_sign_up_path_for(resource)
-      citizens_after_sign_up_fi_path
+      edit_profile_fi_path
     end
 end
