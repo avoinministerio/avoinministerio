@@ -1,17 +1,32 @@
-#map
+= stylesheet_link_tag "application.css"
+= stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"
+= javascript_include_tag "application"
+= javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"
 
-#list_of_addresses
-  // Creating map
-  = javascript_tag do
-    var map = L.map('map').setView([#{@users_lat}, #{@users_lon}], 13);
-    L.tileLayer('http://{s}.tile.cloudmade.com/6130d5f5e634498686bec4a58962a200/997/256/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
-    $("#map").height(800);
-  - @locations.each do |location|
+#map
+  #list_of_addresses
+    %h2 All locations
+    // Creating map
     = javascript_tag do
-      // Adding markers by coordinates  
-      var lat = #{location.latitude.round(3)};
-      var lon = #{location.longitude.round(3)};
-      var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
-      marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}")
-    %br
+      $("#map").height("100%");
+      var map = L.map('map').setView([#{@users_lat}, #{@users_lon}], 10);
+      L.tileLayer('http://{s}.tile.cloudmade.com/6130d5f5e634498686bec4a58962a200/997/256/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
+    - @locations.each do |location|
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude.round(3)},#{location.longitude.round(3)}]);"
+      %br
+      = javascript_tag do
+        // Adding markers by coordinates  
+        var lat = #{location.latitude.round(3)};
+        var lon = #{location.longitude.round(3)};
+        var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
+        marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}");
+    %h2 Nearby locations
+    - if @locations_nearby != []
+      - @locations_nearby.each do |location|
+        = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude.round(3)},#{location.longitude.round(3)}]);"
+        %br
+        Distance: #{location.distance.round(2)} miles
+        %br
+    - else
+      No results were found within a radius of 50 miles.

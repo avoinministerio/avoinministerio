@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
-  
+  layout false
+
   def new
     @location = Location.new
 
@@ -13,10 +14,14 @@ class LocationsController < ApplicationController
     if Rails.env == "development"
       @users_lat = Geocoder.coordinates("Helsinki")[0]
       @users_lon = Geocoder.coordinates("Helsinki")[1]
+      @users_loc = "Helsinki"
     elsif Rails.env == "production"
       @users_lat = Geocoder.coordinates(request.location.city)[0]
       @users_lon = Geocoder.coordinates(request.location.city)[1]
+      @users_loc = request.location.city
     end
+
+    @locations_nearby = Location.near(@users_loc, 50, :order => :distance)
     @locations = Location.all
   end
 

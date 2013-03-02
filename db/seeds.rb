@@ -39,9 +39,7 @@ Administrator.find_or_create_by_email({
   { name: "Ylöjärven kirjasto" , address: "Koivumäentie 2, 33470 Ylöjärvi" },
   { name: "Akaan kaupunginkirjasto" , address: "Köyvärintie 1, 37800 Akaa" },
   { name: "Viialan kirjasto Vilkku" , address: "Solmukatu 3, 37830 Akaa" },
-  { name: "Kylmäkosken kirjasto" , address: "Koulutie 3, PL 23, 66300 Jurva" },
   { name: "Enontekiön kunnankirjasto" , address: "PL 46, Puistomäentie 2, 99401 Enontekiö" },
-  { name: "Someron kaupunginkirjasto" , address: "PL 42, 31401 Somero" },
   { name: "Nokian kaupunginkirjasto" , address: "Härkitie 6, 37100 Nokia" },
 ].each  { |location| Location.find_or_create_by_address(location) }
 @citizens = Citizen.all
