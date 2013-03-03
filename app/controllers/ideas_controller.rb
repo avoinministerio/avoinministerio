@@ -121,7 +121,6 @@ class IdeasController < ApplicationController
     @idea = Idea.includes(:votes).find(params[:id])
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     
-    @location = Location.new
     @locations = Location.all
 
     if Rails.env == "development"

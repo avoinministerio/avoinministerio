@@ -1,5 +1,5 @@
+require 'will_paginate/array'
 class LocationsController < ApplicationController
-  layout false
 
   def new
     @location = Location.new
@@ -16,18 +16,26 @@ class LocationsController < ApplicationController
       @users_lon = Geocoder.coordinates("Helsinki")[1]
       @users_loc = "Helsinki"
     elsif Rails.env == "production"
-      @users_lat = Geocoder.coordinates(request.location.city)[0]
-      @users_lon = Geocoder.coordinates(request.location.city)[1]
+      Geocoder.configure(:timeout => 500)
+      @users_city = request.location.city
+      @users_lat = Geocoder.coordinates(@users_city)[0]
+      @users_lon = Geocoder.coordinates(@users_city)[1]
       @users_loc = request.location.city
     end
 
-    @locations_nearby_ip = Location.near(@users_loc, 50, :order => :distance)
+    @locations_nearby_ip = Location.near(@users_loc, 31.0685596, :order => :distance)
 
     if params[:search].present?
-      @locations_nearby = Location.near(params[:search], 50, :order => :distance)
+      @locations_nearby = Location.near(params[:search], 31.0685596, :order => :distance)
+      @search_location = Geocoder.coordinates(params[:search])
     end
 
-    @locations = Location.all
+    @locations = Location.find(:all, :order => 'name')
+  end
+
+  def addresses
+    @locations = Location.find(:all, :order => 'name').paginate(:page => params[:page], :per_page => 30)
+    @location = Location.new
   end
 
   def create

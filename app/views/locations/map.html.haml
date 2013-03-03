@@ -1,24 +1,42 @@
-= stylesheet_link_tag "application.css"
-= stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"
-= javascript_include_tag "application"
-= javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"
+#map{:style => "float: left;"}
 
-#map
+// Creating map
+= javascript_tag do
+  $("#map").height("700px");
+  $("#map").width("78%");
+  // [61.924, 25.748] is a center of Finland
+  var map = L.map('map').setView([61.924, 25.748], 7);
+  L.tileLayer('http://{s}.tile.cloudmade.com/6130d5f5e634498686bec4a58962a200/997/256/{z}/{x}/{y}.png', {
+  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
+
+= javascript_tag do
+  // template for icons
+  var NewIcon = L.Icon.extend({
+  options: {
+  iconSize:     [24, 41],
+  shadowSize:   [0, 0],
+  iconAnchor:   [24, 41],
+  shadowAnchor: [0, 0],
+  popupAnchor:  [-14, -41]
+  }
+  });
+  // red icon
+  var redIcon = new NewIcon({iconUrl: 'assets/marker-icon-red.png'});
 
 #list_of_addresses
-  %h2 Nearby locations (by your IP)
+  %h2.kartta Nearby (by IP)
   - if @locations_nearby_ip != []
     - @locations_nearby_ip.each do |location|
-      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);"
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);", :class => "loc"
       %br
-      Distance: #{location.distance.round(2)} miles
+      Distance: #{Location.m2km(location.distance)} km's
       %br
   - else
     No results were found around 
     %b #{@users_loc} 
-    within a radius of 50 miles.
-
-  %h2 Search for nearby location
+    within a radius of 50 km's.
+  %br
+  %h2.kartta Search nearby
   = form_tag kartta_path, :method => :get do
     Type in your address (for example "Akaa"):
     %br
@@ -26,26 +44,27 @@
     %br
     = submit_tag "Search!", :name => nil
 
+  - if @search_location != nil
+    = javascript_tag do
+      map.panTo([#{@search_location[0]},#{@search_location[1]}]);
+      var marker_Search = L.marker([#{@search_location[0]}, #{@search_location[1]}], {icon: redIcon}).addTo(map);
+      marker_Search.bindPopup("#{params[:search]}").openPopup();
+      map.zoomIn(5);
+    %br
   - if @locations_nearby != nil
     - @locations_nearby.each do |location|
-      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);"
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);", :class => "loc"
       %br
-      Distance: #{location.distance.round(2)} miles
+      Distance: #{Location.m2km(location.distance)} km's
       %br
-
-  %h2 All locations
-  // Creating map
-  = javascript_tag do
-    $("#map").height("100%");
-    var map = L.map('map').setView([#{@users_lat}, #{@users_lon}], 10);
-    L.tileLayer('http://{s}.tile.cloudmade.com/6130d5f5e634498686bec4a58962a200/997/256/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
+  %br
+  %h2.kartta All locations
   - @locations.each do |location|
-    = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);"
+    = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);", :class => "loc"
     %br
     = javascript_tag do
       // Adding markers by coordinates  
-      var lat = #{location.latitude.round(3)};
-      var lon = #{location.longitude.round(3)};
+      var lat = #{location.latitude};
+      var lon = #{location.longitude};
       var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
       marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}");

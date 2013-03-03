@@ -1,11 +1,26 @@
 #list_of_addresses {
   width: 20%;
-  height: 100%;
+  height: 700px;
   float: right;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  background-color: #DED9DB;
   padding: 5px;
+  overflow-y: auto;
+}
+
+#addresses_block {
+  margin-top: 15px;
+}
+
+table.locations td {
+  padding: 5px;
+  border: 3px solid grey;
+}
+
+h2.kartta {
+  margin-bottom: 1px;
+}
+
+a.loc {
+  color: #29abe2;
+  font-weight: bold;
+  text-decoration: none;
 }

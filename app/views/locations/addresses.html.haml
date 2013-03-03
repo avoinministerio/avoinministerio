@@ -1,0 +1,26 @@
+- if signed_in?
+  #new_address
+    %h1 Add the new address
+    = simple_form_for(@location) do |f|
+      = f.error_notification
+      = f.input :name, label: "Location name"
+      = f.input :address, label: "Location address"
+      = f.hidden_field :latitude
+      = f.hidden_field :longitude
+      = f.button :submit
+
+#addresses_block
+  %h1 List of locations
+  %table.locations
+    %tr
+      %td Name
+      %td Address
+      %td Latitude
+      %td Longitude
+    - @locations.each do |location|
+      %tr
+        %td #{location.name}
+        %td #{location.address}
+        %td #{location.latitude}
+        %td #{location.longitude}
+  = will_paginate @locations
