@@ -41,7 +41,14 @@ Administrator.find_or_create_by_email({
   password: "mikael1", password_confirmation: "mikael1", remember_me: true,
   profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
 ].each { |citizen| Citizen.find_or_create_by_email(citizen) }
-
+[
+  { name: "Kurikan kaupunginkirjasto" , address: "Koulutie 3, PL 23, 66300 Jurva" },
+  { name: "Ylöjärven kirjasto" , address: "Koivumäentie 2, 33470 Ylöjärvi" },
+  { name: "Akaan kaupunginkirjasto" , address: "Köyvärintie 1, 37800 Akaa" },
+  { name: "Viialan kirjasto Vilkku" , address: "Solmukatu 3, 37830 Akaa" },
+  { name: "Enontekiön kunnankirjasto" , address: "PL 46, Puistomäentie 2, 99401 Enontekiö" },
+  { name: "Nokian kaupunginkirjasto" , address: "Härkitie 6, 37100 Nokia" },
+].each  { |location| Location.find_or_create_by_address(location) }
 @citizens = Citizen.all
 
 def random_citizen
