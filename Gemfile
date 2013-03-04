@@ -66,12 +66,16 @@ group :test do
   gem "steak"
   gem "capybara-mechanize"
   gem "timecop"
-
+  gem 'test-unit', '~> 2.3.0'
   gem "sqlite3"
 
   if ENV["DB"] == "postgres"
     gem "pg"
   end
+end
+
+group :profile do
+  gem 'ruby-prof'
 end
 
 group :mac_test do

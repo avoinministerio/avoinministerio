@@ -25,9 +25,12 @@
 
 #list_of_addresses
   %h2.kartta Nearby (by IP)
+  = javascript_tag do
+    var marker_you_there = L.marker([#{@users_lat}, #{@users_lon}], {icon: redIcon}).addTo(map);
+    marker_you_there.bindPopup("You are here!").openPopup();
   - if @locations_nearby_ip != []
     - @locations_nearby_ip.each do |location|
-      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);", :class => "loc"
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
       %br
       Distance: #{Location.m2km(location.distance)} km's
       %br
@@ -53,14 +56,14 @@
     %br
   - if @locations_nearby != nil
     - @locations_nearby.each do |location|
-      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);", :class => "loc"
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
       %br
       Distance: #{Location.m2km(location.distance)} km's
       %br
   %br
   %h2.kartta All locations
   - @locations.each do |location|
-    = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]);", :class => "loc"
+    = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
     %br
     = javascript_tag do
       // Adding markers by coordinates  
