@@ -125,6 +125,18 @@ class IdeasController < ApplicationController
     @idea = Idea.includes(:votes).find(params[:id])
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     
+    @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
+    @locations = Location.all
+    
+    #To prevent bug in development mode
+    if Rails.env == "development"
+      @users_lat = Geocoder.coordinates("Helsinki")[0]
+      @users_lon = Geocoder.coordinates("Helsinki")[1]
+    elsif Rails.env == "production"
+      @users_lat = Geocoder.coordinates(request.location.city)[0]
+      @users_lon = Geocoder.coordinates(request.location.city)[1]
+    end
+    
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count

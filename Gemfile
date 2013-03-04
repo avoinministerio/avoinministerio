@@ -14,6 +14,7 @@ gem "devise", '2.1.2'
 gem "factory_girl_rails", "4.1.0", :require => false
 gem "friendly_id"
 gem "gravatar-ultimate"
+gem "geocoder"
 gem "haml-rails"
 gem "i18n_routing"
 gem "jquery-rails"
@@ -68,12 +69,16 @@ group :test do
   gem "steak"
   gem "capybara-mechanize"
   gem "timecop"
-
+  gem 'test-unit', '~> 2.3.0'
   gem "sqlite3"
 
   if ENV["DB"] == "postgres"
     gem "pg"
   end
+end
+
+group :profile do
+  gem 'ruby-prof'
 end
 
 group :mac_test do

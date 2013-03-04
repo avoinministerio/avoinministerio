@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221162821) do
+ActiveRecord::Schema.define(:version => 20130302075827) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -235,6 +235,15 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
   add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], :name => "poly_request_index"
   add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], :name => "poly_session_index"
   add_index "impressions", ["user_id"], :name => "index_impressions_on_user_id"
+
+  create_table "locations", :force => true do |t|
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "name"
+  end
 
   create_table "money_transactions", :force => true do |t|
     t.integer  "citizen_id"
