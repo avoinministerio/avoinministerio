@@ -34,6 +34,7 @@ gem "unicorn"
 gem "surveyor", "~> 1.1.0"
 
 gem "rspec-rails", :groups => [ :development, :test ]
+gem "impressionist", "~> 1.2.0"
 
 group :development do
   gem "rails-erd"
@@ -45,6 +46,8 @@ group :development do
   gem "brakeman", "~> 1.6.2"
   gem "pry-rails"
   gem "launchy"
+  gem "letters"
+  gem "debugger"
 end
 
 group :production do

@@ -59,6 +59,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_changer
+    @idea_count = Idea.count
     Thread.current[:changer] = current_administrator || current_citizen
   end
 end

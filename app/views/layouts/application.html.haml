@@ -15,7 +15,7 @@
     %title Avoin Ministeriö
 
   = stylesheet_link_tag "application.css"
-  = javascript_include_tag "application"
+  = javascript_include_tag "application", "javascripts/jquery.carousel.min.js"
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
     if (window.location.hash == '#_=_') {
@@ -36,12 +36,12 @@
     = render partial: 'shared/login_actions'
     = render partial: 'shared/facebook_js'
     .idea_actions.bottom_row
-      .grid_6
+      .grid_5
         &nbsp;
       .grid_3
-        = link_to "Listaa kaikki", ideas_path
+        = link_to "Listaa kaikki", ideas_path, id: "all-ideas"
       .grid_3
-        = link_to "Anna idea", new_idea_path
+        = link_to "Anna idea", new_idea_path, id: "new-idea"
       .grid_2
         &nbsp;
       .grid_7
