@@ -123,7 +123,8 @@ class IdeasController < ApplicationController
     
     @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
     @locations = Location.all
-
+    
+    #To prevent bug in development mode
     if Rails.env == "development"
       @users_lat = Geocoder.coordinates("Helsinki")[0]
       @users_lon = Geocoder.coordinates("Helsinki")[1]

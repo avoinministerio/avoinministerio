@@ -32,7 +32,8 @@
       = text_field_tag :search, params[:search]
       %br
       = submit_tag "Hae!", :name => nil
-
+    
+    //Red marker for target location
     - if @search_location != nil
       = javascript_tag do
         map.panTo([#{@search_location[0]},#{@search_location[1]}]);
@@ -40,6 +41,8 @@
         marker_Search.bindPopup("#{params[:search]}").openPopup();
         map.zoomIn(5);
       %br
+    
+    //List of nearby locations
     - if @locations_nearby != nil
       - if @locations_nearby.all != []
         The following locations were found near
