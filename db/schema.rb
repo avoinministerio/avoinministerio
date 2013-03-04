@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "password"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   add_index "administrators", ["email"], :name => "index_administrators_on_email", :unique => true
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.integer  "display_length"
     t.string   "custom_class"
     t.string   "custom_renderer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.string   "default_value"
     t.string   "api_id"
     t.string   "display_type"
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.text     "credentials"
     t.text     "extra"
     t.integer  "citizen_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "authentications", ["citizen_id"], :name => "index_authentications_on_citizen_id"
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.integer  "changelogged_id"
     t.string   "change_type"
     t.text     "attribute_changes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "changelogs", ["changelogged_type", "changelogged_id"], :name => "index_changelogs_on_changelogged_type_and_changelogged_id"
@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.string   "password"
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.datetime "locked_at"
   end
 
@@ -131,8 +131,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.boolean  "published",        :default => true
     t.integer  "commentable_id"
     t.string   "commentable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "publish_state",    :default => "published"
   end
 
@@ -144,8 +144,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.integer  "question_id"
     t.integer  "question_group_id"
     t.string   "rule"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "dependency_conditions", :force => true do |t|
@@ -161,8 +161,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.text     "text_value"
     t.string   "string_value"
     t.string   "response_other"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "expert_suggestions", :force => true do |t|
@@ -175,8 +175,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.string   "recommendation"
     t.integer  "citizen_id"
     t.integer  "idea_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "ideas", :force => true do |t|
@@ -184,8 +184,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.text     "body"
     t.string   "state",                              :default => "idea"
     t.integer  "author_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
     t.text     "summary"
     t.string   "publish_state",                      :default => "published"
     t.string   "slug"
@@ -240,8 +240,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.integer  "citizen_id"
     t.decimal  "amount",            :precision => 8, :scale => 2
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
     t.string   "unique_identifier"
   end
 
@@ -249,8 +249,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.integer  "citizen_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
     t.string   "image"
     t.boolean  "receive_newsletter",             :default => true
     t.boolean  "receive_other_announcements",    :default => true
@@ -276,8 +276,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.string   "display_type"
     t.string   "custom_class"
     t.string   "custom_renderer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.string   "api_id"
   end
 
@@ -300,8 +300,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.integer  "display_width"
     t.string   "custom_class"
     t.string   "custom_renderer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.integer  "correct_answer_id"
     t.string   "api_id"
   end
@@ -314,8 +314,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.string   "access_code"
     t.datetime "started_at"
     t.datetime "completed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "api_id"
     t.string   "user_state"
   end
@@ -335,8 +335,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.string   "string_value"
     t.string   "response_other"
     t.string   "response_group"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "survey_section_id"
     t.string   "api_id"
   end
@@ -347,8 +347,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -364,8 +364,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.boolean  "vow"
     t.date     "signing_date"
     t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "stamp"
     t.datetime "started"
     t.string   "firstnames"
@@ -388,8 +388,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.string   "common_identifier"
     t.integer  "display_order"
     t.string   "custom_class"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   create_table "surveys", :force => true do |t|
@@ -404,8 +404,8 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.datetime "inactive_at"
     t.string   "css_url"
     t.string   "custom_class"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "display_order"
     t.string   "api_id"
     t.integer  "survey_version",         :default => 0
@@ -428,24 +428,24 @@ ActiveRecord::Schema.define(:version => 20121221162821) do
     t.string   "string_value"
     t.string   "response_other"
     t.string   "regexp"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "validations", :force => true do |t|
     t.integer  "answer_id"
     t.string   "rule"
     t.string   "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "votes", :force => true do |t|
     t.integer  "option"
     t.integer  "idea_id"
     t.integer  "citizen_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "votes", ["citizen_id"], :name => "index_votes_on_citizen_id"
