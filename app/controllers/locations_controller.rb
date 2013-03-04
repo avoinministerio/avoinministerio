@@ -11,6 +11,7 @@ class LocationsController < ApplicationController
   end
   
   def map
+    @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
     if Rails.env == "development"
       @users_lat = Geocoder.coordinates("Helsinki")[0]
       @users_lon = Geocoder.coordinates("Helsinki")[1]
@@ -27,6 +28,9 @@ class LocationsController < ApplicationController
 
     if params[:search].present?
       @locations_nearby = Location.near(params[:search], 31.0685596, :order => :distance)
+      if @locations_nearby.all == []
+        @locations_nearby = Location.near(params[:search], 500, :order => :distance).limit(10)
+      end
       @search_location = Geocoder.coordinates(params[:search])
     end
 

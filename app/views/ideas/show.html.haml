@@ -78,7 +78,6 @@
         %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
         puoleen mahdollisilla kysymyksilläsi.
       .body
-    = render "geolocation"
     - if @idea.author == current_citizen or administrator_signed_in?
       = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
 
@@ -175,7 +174,10 @@
         - else # idea is already a law, no voting
           Idea on jo laki
 
-
+-if @idea.published?
+  .idea_kartta
+    %h2.grid_24 Lähimmät keräyspisteet
+    = render "geolocation"
 -if @idea.published?
   .expert_opinions
     %h2.grid_24 Asiantuntijalausunnot

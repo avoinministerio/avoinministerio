@@ -3,7 +3,8 @@
   height: 700px;
   float: right;
   padding: 5px;
-  overflow-y: auto;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 #addresses_block {

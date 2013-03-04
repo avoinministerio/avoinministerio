@@ -121,6 +121,7 @@ class IdeasController < ApplicationController
     @idea = Idea.includes(:votes).find(params[:id])
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     
+    @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
     @locations = Location.all
 
     if Rails.env == "development"
