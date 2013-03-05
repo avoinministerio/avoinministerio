@@ -8,7 +8,7 @@
       = link_to "Palauta salasana", edit_citizen_path
       |
       = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
-    .grid_4{:style => 'width: 117px;'}
+    .grid_4{:style => 'width: 150px;'}
       %img.avatar{ src: current_citizen.image, width: 25, height: 25, alt: "avatar" }
       #{current_citizen.name}
   - else
