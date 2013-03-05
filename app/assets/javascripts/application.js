@@ -6,12 +6,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.carousel
+//= require jquery.cookie
 //= require raphael-min
 //= require g.raphael-min
 //= require g.pie-min
-//= require jquery.cookie
 //= require bootstrap-tooltip
 //= require bootstrap-popover
 //= require bootstrap-tour
+//= require app-tour
 //= require ideas
-//= require_directory .
