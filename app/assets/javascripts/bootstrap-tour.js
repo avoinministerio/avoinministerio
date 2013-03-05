@@ -64,11 +64,11 @@
             }
           });
         }
-        $(document).on("click.bootstrap-tour", ".popover .next", function(e) {
+        $(document).on("click.bootstrap-tour", ".popover .next_tour", function(e) {
           e.preventDefault();
           return _this.next();
         });
-        $(document).on("click.bootstrap-tour", ".popover .prev", function(e) {
+        $(document).on("click.bootstrap-tour", ".popover .prev_tour", function(e) {
           e.preventDefault();
           return _this.prev();
         });
@@ -227,10 +227,10 @@
         }
         nav = [];
         if (step.prev >= 0) {
-          nav.push("<a href='#" + step.prev + "' class='prev'>" + options.labels.prev + "</a>");
+          nav.push("<a href='#" + step.prev + "' class='prev_tour'>" + options.labels.prev + "</a>");
         }
         if (step.next >= 0) {
-          nav.push("<a href='#" + step.next + "' class='next'>" + options.labels.next + "</a>");
+          nav.push("<a href='#" + step.next + "' class='next_tour'>" + options.labels.next + "</a>");
         }
         content += nav.join(" | ");
         content += "<a href='#' class='pull-right end'>" + options.labels.end + "</a>";
