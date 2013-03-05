@@ -132,7 +132,7 @@ input#mce-EMAIL {
   display: inline-block;
   vertical-align: middle;
   width: 99%;
-  height: 174px !important
+  height: 210px !important
 }
 
 :focus {
@@ -162,4 +162,18 @@ input#mce-EMAIL {
   opacity:0.4;
   filter:alpha(opacity=40);
   -moz-opacity: .4;
+}
+
+.collecting {
+  margin-left:auto;
+  margin-right:auto;
+  width:80%;
+  font-size: 12px;
+  margin-top: -10px;
+  padding-bottom: 5px;
+}
+
+#bar {
+  margin-left:auto;
+  margin-right:auto;
 }

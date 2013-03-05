@@ -132,4 +132,18 @@ class Idea < ActiveRecord::Base
       (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
   end
+
+  def stats
+    @stats ||= begin
+      for_count = self.vote_counts[1] || 0
+      against_count = self.vote_counts[0] || 0
+      comment_count = self.comments.count()
+      total = for_count + against_count
+      for_portion = (for_count > 0 ? for_count / total.to_f : 0.0)
+      against_portion = (against_count > 0 ? against_count / total.to_f : 0.0)
+      for_ = sprintf("%2.0f%%", for_portion * 100.0)
+      against_ = sprintf("%2.0f%%", against_portion * 100.0)
+      [for_portion, for_, against_portion, against_]
+    end
+  end
 end
