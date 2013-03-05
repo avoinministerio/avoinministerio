@@ -37,14 +37,14 @@ var homePageTour = function(){
     });
     
     tour.addStep({
-        element: ".proposal-section",
+        element: ".top_proposals",
         placement: "top",
         title: "Meneillään olevia aloitteita",
         content: "Tässä osiossa näytetään nykyisiä meneillään olevia aloitteita. Aloitteilla on 6kk aikaa kerätä laissa vaadittu 50 000 kannattajien joukko."
     });
     
     tour.addStep({
-        element: ".draft-section",
+        element: ".top_drafts",
         placement: "top",
         title: "Luonnosteltuja aloitteita",
         content: "Luonnokset ovat ideoita pidemmällä. Niille on jo kehitetty lakitekstin luonnos. Niiden keruukampanjat eivät ole vielä käynnistyneet."
