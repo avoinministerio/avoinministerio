@@ -81,7 +81,7 @@ class PagesController < ApplicationController
 
     # Ideas either newest or random sampling
     #if @newest_ideas = (rand() < 0.1)
-      idea_count = 4
+      idea_count = 6
       @ideas = Idea.published.where(state: 'idea').order("created_at DESC").limit(idea_count).includes(:votes).all
       @idea_counts = {}
       @ideas.each do |idea|
