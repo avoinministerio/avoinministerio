@@ -315,7 +315,6 @@ GEM
       sass
       uuidtools (~> 2.1)
     terminal-table (1.4.5)
-    test-unit (2.3.2)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -404,7 +403,6 @@ DEPENDENCIES
   steak
   surveyor (~> 1.1.0)
   tanker!
-  test-unit (~> 2.3.0)
   therubyracer
   timecop
   turn (~> 0.8.3)
