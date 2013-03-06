@@ -10,7 +10,7 @@ feature "Idea signing" do
   let(:citizen_password) { '123456789' }
   let(:citizen_email) { 'citizen-kane@example.com'}
   let(:idea) {
-    Factory :idea, state: "proposal", 
+    FactoryGirl.create :idea, state: "proposal", 
                   collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
                   collecting_start_date: today_date, collecting_end_date: today_date + 180, 
@@ -19,7 +19,7 @@ feature "Idea signing" do
                   additional_collecting_service_urls: "http://www.example.com/initiative"
   }
   let(:another_idea) {
-    Factory :idea, state: "proposal", 
+    FactoryGirl.create :idea, state: "proposal", 
                   collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
                   collecting_start_date: today_date, collecting_end_date: today_date + 180, 
@@ -27,7 +27,7 @@ feature "Idea signing" do
                   target_count: 51500
   }
   let(:state_idea) {
-    Factory :idea, state: "idea", 
+    FactoryGirl.create :idea, state: "idea", 
                   collecting_in_service: false,
                   collecting_started: false, collecting_ended: false, 
                   collecting_start_date: today_date + 1, collecting_end_date: today_date + 181, 
@@ -35,7 +35,7 @@ feature "Idea signing" do
                   target_count: 51500
   }
   let(:state_draft) {
-    Factory :idea, state: "draft", 
+    FactoryGirl.create :idea, state: "draft", 
                   collecting_in_service: false,
                   collecting_started: false, collecting_ended: false, 
                   collecting_start_date: today_date + 1, collecting_end_date: today_date + 181, 
@@ -43,7 +43,7 @@ feature "Idea signing" do
                   target_count: 51500
   }
   let(:not_started_proposal) {
-    Factory :idea, state: "proposal", 
+    FactoryGirl.create :idea, state: "proposal", 
                   collecting_in_service: true,
                   collecting_started: false, collecting_ended: false, 
                   collecting_start_date: today_date + 1, collecting_end_date: today_date + 181, 
@@ -51,7 +51,7 @@ feature "Idea signing" do
                   target_count: 51500
   }
   let(:ended_proposal) {
-    Factory :idea, state: "proposal", 
+    FactoryGirl.create :idea, state: "proposal", 
                   collecting_in_service: true,
                   collecting_started: true, collecting_ended: true, 
                   collecting_start_date: today_date - 181, collecting_end_date: today_date - 1, 
@@ -59,7 +59,7 @@ feature "Idea signing" do
                   target_count: 51500
   }
   let(:signature) {
-    Factory :signature, idea: idea
+    FactoryGirl.create :signature, idea: idea
   }
 
   context "Sign button on Idea page visible" do
@@ -123,25 +123,25 @@ feature "Idea signing" do
       page.should have_content("Tällä tahdilla ei ehditä kerätä ilmoituksia riittävästi ennen päättymispäivää")
     end
     scenario "Idea is about to pass" do
-      idea_about_to_pass = Factory :idea, state: "proposal", 
+      idea_about_to_pass = FactoryGirl.create :idea, state: "proposal", 
                   collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
                   collecting_start_date: today_date, collecting_end_date: today_date + 180, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
                   target_count: 10
-      signature_for_idea_about_to_pass = Factory :signature, idea: idea_about_to_pass
+      signature_for_idea_about_to_pass = FactoryGirl.create :signature, idea: idea_about_to_pass
       
       visit idea_page(idea_about_to_pass.id)
       page.should have_content("Tällä tahdilla ehditään kerätä ilmoitukset ennen päättymispäivää")
     end
     scenario "Idea has passed" do
-      passed_idea = Factory :idea, state: "proposal", 
+      passed_idea = FactoryGirl.create :idea, state: "proposal", 
                   collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
                   collecting_start_date: today_date, collecting_end_date: today_date + 180, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
                   target_count: 1
-      signature_for_passed_idea = Factory :signature, idea: passed_idea
+      signature_for_passed_idea = FactoryGirl.create :signature, idea: passed_idea
       
       visit idea_page(passed_idea.id)
       page.should have_content("Tavoite on täyttynyt")

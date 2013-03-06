@@ -37,45 +37,25 @@ class Tag < ActiveRecord::Base
   end
 
   def approved?(idea_id)
-    if Tagging.where(:idea_id => idea_id, :tag_id => self.id).first.status == "approved"
-      return true
-    else
-      return false
-    end
+    Tagging.where(:idea_id => idea_id, :tag_id => self.id).first.status == "approved"
   end
 
   def suggested?(idea_id)
-    if Tagging.where(:idea_id => idea_id, :tag_id => self.id).first.status == "suggested"
-      return true
-    else
-      return false
-    end
+    Tagging.where(:idea_id => idea_id, :tag_id => self.id).first.status == "suggested"
   end
 
   def vote_limit?(idea_id)
-    if Tagging.where(:idea_id => idea_id, :tag_id => self.id).first.score >= 20
-      return true
-    else
-      return false
-    end
+    Tagging.where(:idea_id => idea_id, :tag_id => self.id).first.score >= 20
   end
 
   def citizen_voted?(idea_id, citizen_id)
     @tag_vote = TagVote.where(:idea_id => idea_id, :tag_id => self.id, :citizen_id => citizen_id).first
-    if @tag_vote != nil
-      return true
-    else
-      return false
-    end
+    @tag_vote != nil ? true : false
   end
 
   def voted_for?(idea_id, citizen_id)
     @tag_vote = TagVote.where(:idea_id => idea_id, :tag_id => self.id, :citizen_id => citizen_id).first
-    if @tag_vote.voted == "for"
-      return true
-    else
-      return false
-    end
+    @tag_vote.voted == "for" ? true : false
   end
 
   def self.vote_for(idea_id, tag_id, citizen_id)

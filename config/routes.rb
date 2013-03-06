@@ -31,7 +31,8 @@ AvoinMinisterio::Application.routes.draw do
   match "/signatures/:id/paid_canceling/:servicename"   => "signatures#paid_canceling"
   match "/signatures/:id/paid_rejecting/:servicename"   => "signatures#paid_rejecting"
 
-
+  match "/kartta" => "locations#map"
+  match "/osoitteet" => "locations#addresses"
   match "/ideat/haku" => "ideas#search"
   get "ideas/vote_flow"
 
@@ -67,6 +68,8 @@ AvoinMinisterio::Application.routes.draw do
   resources :articles do
     resources :comments
   end
+
+  resources :locations
 
   devise_for :administrators
   

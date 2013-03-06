@@ -11,7 +11,7 @@ Warden.test_mode!
 module HelperMethods
   # Put helper methods you need to be available in all acceptance specs here.
   def create_citizen(extra_attributes = {})
-    Factory(:citizen, extra_attributes)
+    FactoryGirl.create :citizen, extra_attributes
   end
 
   def create_logged_in_citizen(extra_attributes = {})
@@ -25,7 +25,7 @@ module HelperMethods
   end
 
   def create_logged_in_administrator
-    administrator = Factory(:administrator)
+    administrator = FactoryGirl.create :administrator
     login_as_administrator(administrator)
     administrator
   end
@@ -131,7 +131,7 @@ module HelperMethods
   end
 
   def create_idea(extra_attributes = {})
-    Factory(:idea, extra_attributes)
+    FactoryGirl.create :idea, extra_attributes
   end
 
   # This should be refactored somewhere away

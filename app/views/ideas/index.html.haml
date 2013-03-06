@@ -31,13 +31,13 @@
         /    |
 
         / New version with static order
-        -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
+        -[:age, :comments, :voted, :votes_for, :support, :tilt, :impressions].each do |field|
           - order = @sorting_order.find{|so| so.first == field}[1]
           - if field == @sorting_order.first.first
             %span.selected= link_to @field_names[field][order.first], reorder: field 
           - else
             =link_to @field_names[field][order.first], reorder: field 
-          - unless field == :tilt
+          - unless field == :impressions
             |
     .grid_24.tagging
       .grid_2
@@ -63,7 +63,7 @@
           )
     .grid_24
       .filtered_title
-        = @filter_name
+        = "#{@filter_name} (#{@ideas.count})"
 .clear
 .ideas.container_24
   - @ideas.each do |idea|

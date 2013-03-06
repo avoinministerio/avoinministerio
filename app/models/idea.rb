@@ -33,6 +33,8 @@ class Idea < ActiveRecord::Base
   has_many :tag_suggestions
   has_many :tags, through: :taggings
 
+  is_impressionable :counter_cache => true
+  
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
   validates :author_id, presence: true
@@ -175,6 +177,20 @@ class Idea < ActiveRecord::Base
         Tagging.create(:tag_id => tag_id, :idea_id => self.id, :status => "suggested", :score => "1")
         TagSuggestion.create(:tag_id => tag_id, :idea_id => self.id, :citizen_id => citizen_id)
       end
+    end
+  end
+
+  def stats
+    @stats ||= begin
+      for_count = self.vote_counts[1] || 0
+      against_count = self.vote_counts[0] || 0
+      comment_count = self.comments.count()
+      total = for_count + against_count
+      for_portion = (for_count > 0 ? for_count / total.to_f : 0.0)
+      against_portion = (against_count > 0 ? against_count / total.to_f : 0.0)
+      for_ = sprintf("%2.0f%%", for_portion * 100.0)
+      against_ = sprintf("%2.0f%%", against_portion * 100.0)
+      [for_portion, for_, against_portion, against_]
     end
   end
 end

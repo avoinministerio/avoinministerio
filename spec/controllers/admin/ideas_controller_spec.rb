@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Admin::IdeasController do
 
   before :each do
-    @administrator = Factory(:administrator)
+    @administrator = FactoryGirl.create :administrator
     sign_in :administrator, @administrator
   end
 

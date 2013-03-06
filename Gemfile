@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "3.2.11"
+gem "rails", "3.2.12"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -14,6 +14,7 @@ gem "devise", '2.1.2'
 gem "factory_girl_rails", "4.1.0", :require => false
 gem "friendly_id"
 gem "gravatar-ultimate"
+gem "geocoder"
 gem "haml-rails"
 gem "i18n_routing"
 gem "jquery-rails"
@@ -31,8 +32,9 @@ gem "hominid"
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
-gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
+gem "surveyor", "~> 1.1.0"
 gem "rspec-rails", :groups => [ :development, :test ]
+gem "impressionist", "~> 1.2.0"
 
 group :development do
   gem "rails-erd"
@@ -49,7 +51,7 @@ group :development do
 end
 
 group :production do
-  gem "newrelic_rpm", "3.4.2.1"
+  gem "newrelic_rpm", "~> 3.5.7.59"
   gem "pg"
 end
 
@@ -66,12 +68,16 @@ group :test do
   gem "steak"
   gem "capybara-mechanize"
   gem "timecop"
-
+  gem 'test-unit', '~> 2.3.0'
   gem "sqlite3"
 
   if ENV["DB"] == "postgres"
     gem "pg"
   end
+end
+
+group :profile do
+  gem 'ruby-prof'
 end
 
 group :mac_test do

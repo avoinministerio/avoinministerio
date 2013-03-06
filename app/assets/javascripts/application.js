@@ -7,8 +7,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery.tokeninput
+//= require jquery.carousel
+//= require jquery.cookie
 //= require raphael-min
 //= require g.raphael-min
 //= require g.pie-min
-//= require jquery.tokeninput
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+//= require bootstrap-tour
+//= require app-tour
 //= require ideas
+

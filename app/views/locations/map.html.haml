@@ -1,0 +1,100 @@
+#map{:style => "float: left;"}
+
+// Creating map
+= javascript_tag do
+  $("#map").height("700px");
+  $("#map").width("78%");
+  // [64.448, 26.039] is a center of Finland
+  var map = L.map('map').setView([64.448, 26.039], 5);
+  L.tileLayer('http://{s}.tile.cloudmade.com/#{@cloudmade_api_key}/997/256/{z}/{x}/{y}.png', {
+  attribution: 'Karttatiedot &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> auttaneilta, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Kuvat © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
+
+= javascript_tag do
+  // template for icons
+  var NewIcon = L.Icon.extend({
+  options: {
+  iconSize:     [24, 41],
+  shadowSize:   [0, 0],
+  iconAnchor:   [24, 41],
+  shadowAnchor: [0, 0],
+  popupAnchor:  [-14, -41]
+  }
+  });
+  // red icon
+  var redIcon = new NewIcon({iconUrl: 'assets/marker-icon-red.png'});
+
+#list_of_addresses
+  #search_form
+    %h2.kartta Etsi lähimmät
+    = form_tag kartta_path, :method => :get do
+      Kirjoita osoite, jonka lähimmät keräyspisteet haluat löytää::
+      %br
+      = text_field_tag :search, params[:search]
+      %br
+      = submit_tag "Hae!", :name => nil
+    
+    //Red marker for target location
+    - if @search_location != nil
+      = javascript_tag do
+        map.panTo([#{@search_location[0]},#{@search_location[1]}]);
+        var marker_Search = L.marker([#{@search_location[0]}, #{@search_location[1]}], {icon: redIcon}).addTo(map);
+        marker_Search.bindPopup("#{params[:search]}").openPopup();
+        map.zoomIn(5);
+      %br
+    
+    //List of nearby locations
+    - if @locations_nearby != nil
+      - if @locations_nearby.all != []
+        The following locations were found near
+        %b #{params[:search]}
+        %br
+        - @locations_nearby.each do |location|
+          = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
+          %br
+          Etäisyys: #{Location.m2km(location.distance)} km
+          %br
+      - else
+        Ei keräyspisteitä alle 1000 km etäisyydellä sijainnista 
+        %b #{params[:search]}. 
+        Voit painaa kartan vasemmasta yläkulmasta '-' niin näet yhä suuremman alueen.
+        %br
+    %br
+
+  #near_by_ip
+    %h2.kartta Läheisimmät keruupisteet (tietokoneesi sijainnin mukaan):
+    = javascript_tag do
+      var marker_you_there = L.marker([#{@users_lat}, #{@users_lon}], {icon: redIcon}).addTo(map);
+      marker_you_there.bindPopup("<b>Tietokoneesi on paikannettu tähän.</b> <br> Jos tämä ei vastaa sijaintiasi, vieritä karttaa tai kirjoita osoitteesi oikealle hakukenttään löytääksesi läheisimmät keräyspisteet.").openPopup();
+      map.panTo([64.448, 26.039]);
+    - if @locations_nearby_ip != []
+      The following locations were found near
+      %b #{@users_loc}
+      %br
+      - @locations_nearby_ip.each do |location|
+        = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
+        %br
+        Etäisyys: #{Location.m2km(location.distance)} km
+        %br
+    - else
+      Ei keräyspisteitä alle 50 km etäisyydellä sijainnista #{@users_loc}. Voit painaa kartan vasemmasta yläkulmasta '-' niin näet yhä suuremman alueen.
+      %br
+    %br
+
+  #show_all_locations
+    %h2.kartta Kaikki keräyspisteet
+    - @locations.each do |location|
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
+      %br
+      = javascript_tag do
+        // Adding markers by coordinates  
+        var lat = #{location.latitude};
+        var lon = #{location.longitude};
+        var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
+        marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}");
+    %br
+    = link_to "Keräyspisteet osoitteineen", osoitteet_path, :class => "addresses_url"
+
+
+- if params[:search] != nil
+  = javascript_tag do
+    $("#near_by_ip").hide();
