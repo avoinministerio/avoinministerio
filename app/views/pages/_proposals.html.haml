@@ -8,13 +8,20 @@
           .proposal
             %h3.title=link_to shorten(item.title, 100, 20, "»"), idea_path(item)
             .collecting
-              Keräys: 
+              - collection_status = "ei käynnistynyt" if Date.today < item.collecting_start_date
+              - collection_status = "käynnissä" if item.collecting_start_date <= Date.today and Date.today < item.collecting_end_date
+              - collection_status = "päättynyt" if item.collecting_end_date < Date.today
+              Keräys
+              = collection_status
+              <br/>
               = item.collecting_start_date.strftime("%d.%m.%Y")
               = '- '
               = item.collecting_end_date.strftime("%d.%m.%Y")
             %div{id: "proposal_bar#{item.id}", class: "bar"}
-            - favour_vote_per = [5, (260 * (Float(item.vote_count) / 50000)).ceil].max
-            - require_vote_per = [5, (260 * (Float(50000 - item.vote_count) / 50000)).ceil].max
+            - signatures_count = item.signatures.where(state: "signed").count
+            - total_signatures = signatures_count + item.additional_signatures_count
+            - favour_vote_per  = [5, (260 * (Float(total_signatures)         / 50000)).ceil].max
+            - require_vote_per = [5, (260 * (Float(50000 - total_signatures) / 50000)).ceil].max
             :javascript
               var t  = Raphael("proposal_bar#{item.id}", 260, 20);
               t.rect(0, 0, #{[favour_vote_per,(300-40)].min}, 20).attr({fill: "#f0f0f0", stroke: "#fff", strokewidth: 5});
