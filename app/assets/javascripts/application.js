@@ -14,9 +14,9 @@
 //= require bootstrap-popover
 //= require bootstrap-tour
 //= require app-tour
+//= require leaflet
 //= require jquery.carouFredSel-6.1.0-packed
 //= require jquery.ba-throttle-debounce.min
 //= require jquery.mousewheel.min
 //= require jquery.touchSwipe.min
 //= require ideas
-//= require pages
