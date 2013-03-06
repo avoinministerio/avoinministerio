@@ -29,7 +29,7 @@
               var r  = Raphael("proposal_bar#{item.id}", 260, 20);
               r.rect(0, 0, #{[favour_vote_per,(300-40)].min}, 20).attr({fill: "#52BD00", stroke: "#fff", strokewidth: 5});
               r.rect(#{[favour_vote_per,(260-40)].min}, 0, #{require_vote_per}, 20).attr({fill: "#AEFC72", stroke: "#fff", strokewidth: 5});
-              t.text(20,11, "#{item.vote_count}").attr({"font-size": 12});
+              t.text(20,11, "#{total_signatures}").attr({"font-size": 12});
               t.text(125,11, "/").attr({"font-size": 12});
               t.text(235,11, "#{50000}").attr({"font-size": 12});
     .clearfix
