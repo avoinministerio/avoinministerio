@@ -251,9 +251,17 @@ input#mce-EMAIL {
   color: #473161;
 }
 
+a#proposals_list_next.next, a#drafts_list_next.next {
+  background: url("/assets/next.png");
+}
+
+a#proposals_list_prev.prev, a#drafts_list_prev.prev {
+  background: url("/assets/prev.png");
+}
+
 a.prev, a.next {
   background: url("/assets/miscellaneous_sprite.png") no-repeat transparent;
-  width: 45px;
+  width: 10px;
   height: 50px;
   position: absolute;
   top: 85px;
