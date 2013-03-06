@@ -6,6 +6,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery.tokeninput
 //= require jquery.carousel
 //= require jquery.cookie
 //= require raphael-min
@@ -16,3 +18,4 @@
 //= require bootstrap-tour
 //= require app-tour
 //= require ideas
+

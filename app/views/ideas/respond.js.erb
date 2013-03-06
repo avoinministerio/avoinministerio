@@ -1,0 +1,6 @@
+$(".response").html("<%= escape_javascript(render(:partial => 'respond', :locals => {:lda_respond => @lda_respond, :ideas_suggested_by_tags => @ideas_suggested_by_tags})).html_safe %>");
+$(".response").show();
+$(".tag_input_box").show();
+$.each(tags, function(key, value) {
+  $('li#' + value + '.cloud').remove();
+});

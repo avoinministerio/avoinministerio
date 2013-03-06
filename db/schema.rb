@@ -423,6 +423,49 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
   add_index "surveys", ["access_code", "survey_version"], :name => "surveys_access_code_version_idx", :unique => true
   add_index "surveys", ["api_id"], :name => "uq_surveys_api_id", :unique => true
 
+  create_table "tag_suggestions", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "idea_id"
+    t.integer  "citizen_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tag_suggestions", ["citizen_id"], :name => "index_tag_suggestions_on_citizen_id"
+  add_index "tag_suggestions", ["idea_id"], :name => "index_tag_suggestions_on_idea_id"
+  add_index "tag_suggestions", ["tag_id"], :name => "index_tag_suggestions_on_tag_id"
+
+  create_table "tag_votes", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "idea_id"
+    t.integer  "citizen_id"
+    t.string   "voted"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tag_votes", ["citizen_id"], :name => "index_tag_votes_on_citizen_id"
+  add_index "tag_votes", ["idea_id"], :name => "index_tag_votes_on_idea_id"
+  add_index "tag_votes", ["tag_id"], :name => "index_tag_votes_on_tag_id"
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "idea_id"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "score"
+  end
+
+  add_index "taggings", ["idea_id"], :name => "index_taggings_on_idea_id"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "validation_conditions", :force => true do |t|
     t.integer  "validation_id"
     t.string   "rule_key"
