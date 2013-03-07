@@ -213,7 +213,7 @@ input#mce-EMAIL {
 }
 
 #proposals_list_pag.pagination a, #drafts_list_pag.pagination a {
-  background: url("/assets/miscellaneous_sprite.png") 0 -300px no-repeat transparent;
+  background: url("/assets/circle_violet.png") no-repeat transparent;
   width: 15px;
   height: 15px;
   margin: 0 5px 0 0;
@@ -221,7 +221,7 @@ input#mce-EMAIL {
 }
 
 #proposals_list_pag.pagination a.selected, #drafts_list_pag.pagination a.selected {
-  background-position: -25px -300px;
+  background: url("/assets/circle_violet_selected.png") no-repeat transparent;
   cursor: default;
 }
 
