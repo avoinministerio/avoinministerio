@@ -1,0 +1,11 @@
+= render 'control_panel'
+
+#messages
+  - conversation.mark_as_read(current_citizen)
+  - conversation.receipts_for(current_citizen).each do |receipt|
+    #message{:class => "#{'received' if receipt.message.sender_id != current_citizen.id}"}
+      %h2= Citizen.find(receipt.message.sender_id).name
+      %h1 #{receipt.message.subject}
+      %p #{receipt.message.body}
+
+  = render 'messages/form', conversation: conversation

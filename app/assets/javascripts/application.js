@@ -20,3 +20,5 @@
 //= require jquery.mousewheel.min
 //= require jquery.touchSwipe.min
 //= require ideas
+//= require jquery.tokeninput
+//= require conversations
