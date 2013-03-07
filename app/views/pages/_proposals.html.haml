@@ -5,7 +5,7 @@
     %ul#proposals_list
       - items.each do |item|
         %li 
-          .proposal
+          .proposal{:id => "#{'old' if item.collecting_ended}"}
             %h3.title=link_to shorten(item.title, 100, 20, "»"), idea_path(item)
             .collecting
               - collection_status = "ei käynnistynyt" if Date.today < item.collecting_start_date
