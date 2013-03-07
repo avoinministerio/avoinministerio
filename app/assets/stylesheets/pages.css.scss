@@ -335,6 +335,10 @@ a.prev span, a.next span {
   float: right;
 }
 
-#old.proposal {
+#old_fail.proposal {
   background: #F7E6F6;
+}
+
+#old_success.proposal {
+  background: #E6F7E9;
 }

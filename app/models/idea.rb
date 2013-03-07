@@ -117,6 +117,10 @@ class Idea < ActiveRecord::Base
     # votes.group(:option).count   # => returns counts like:  {0=>37, 1=>45}
     {0 => vote_against_count, 1 => vote_for_count}
   end
+
+  def successful_proposal?
+    (self.signatures.where(state: "signed").count + self.additional_signatures_count) >= 50000
+  end
   
   def signatures_per_day
     signatures_count = signatures.where(state: "signed").count
