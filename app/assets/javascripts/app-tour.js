@@ -91,7 +91,7 @@ var ideaShowPageTour = function(){
     });
     
     tour.addStep({
-        element: ".comments",
+        element: ".idea_comments#comments",
         placement: "top",
         title: "Kommentoi, keskustele",
         content: "Kerro harkittu mielipiteesi. Voit myös lähettää yksityisviestejä, jos kommenttisi ei ole tarkoitettu kaikkien nähtäväksi."
