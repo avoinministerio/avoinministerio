@@ -199,11 +199,11 @@ input#mce-EMAIL {
   clear: both;
 }
 
-.pagination {
+#proposals_list_pag.pagination, #drafts_list_pag.pagination {
   text-align: center;
 }
 
-.pagination a {
+#proposals_list_pag.pagination a, #drafts_list_pag.pagination a {
   background: url("/assets/miscellaneous_sprite.png") 0 -300px no-repeat transparent;
   width: 15px;
   height: 15px;
@@ -211,12 +211,12 @@ input#mce-EMAIL {
   display: inline-block;
 }
 
-.pagination a.selected {
+#proposals_list_pag.pagination a.selected, #drafts_list_pag.pagination a.selected {
   background-position: -25px -300px;
   cursor: default;
 }
 
-.pagination a span {
+#proposals_list_pag.pagination a span, #drafts_list_pag.pagination a span {
   display: none;
 }
 
