@@ -18,6 +18,10 @@ AvoinMinisterio::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
+  
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {:address => "localhost", :port => 1025}
 
   config.action_mailer.perform_deliveries = false
 
@@ -33,7 +37,7 @@ AvoinMinisterio::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = false
   
-  config.action_mailer.default_url_options = { host: "rails.fi:3000" }
+  #config.action_mailer.default_url_options = { host: "rails.fi:3000" }
 
   # Signature application secret
   config.signature_secret = ENV['SIGNATURE_SECRET'] || "abc123"   # FIXME: for some reason this does not work for me in development
