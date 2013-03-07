@@ -4,7 +4,9 @@ class PagesController < ApplicationController
 
   def load(state)
     if state == "proposal"
-      items = Idea.published.where(:state => "proposal").where("collecting_ended IS NOT NULL").order("collecting_start_date").reverse
+      items = Idea.published.where(state: "proposal", 
+                                   collecting_started: true).
+                             sort_by{|idea| [idea.collecting_ended ? 0 : 1, (idea.signatures.where(state: "signed").count + idea.additional_signatures_count)]}.reverse
     else
       items = Idea.published.where(state: state).order("RANDOM()").includes(:votes).all
     end
