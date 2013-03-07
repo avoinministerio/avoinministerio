@@ -32,9 +32,9 @@
         this._options = $.extend({
           name: 'tour',
           labels: {
-            end: 'End tour',
-            next: 'Next &raquo;',
-            prev: '&laquo; Prev'
+            end: 'Maali kiertue',
+            next: 'Seuraava &raquo;',
+            prev: '&laquo; Edellinen'
           },
           keyboard: true,
           afterSetState: function(key, value) {},
