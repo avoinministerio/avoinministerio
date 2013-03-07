@@ -1,0 +1,17 @@
+#inbox
+  %h1 Inbox
+  %table.messaging
+    %tr.title
+      %th.title Date
+      %th.title Subject
+      %th.title From
+    - @inbox.each do |message|
+      %tr{:class => "message #{'unread' if message.is_unread?(current_citizen)}", :onclick => "window.location.href = '#{url_for(message)}';", :onmouseover => "this.style.cursor='pointer'"}
+        %td.cell #{finnishDate(message.updated_at)}
+        %td.cell #{message.subject} 
+        %td.cell #{message.last_sender.name}
+        %td.cell= link_to image_tag("trash.png", :border => 0), trash_conversation_path(message)
+  - if @inbox.count > 5
+    = will_paginate @inbox
+  - elsif @inbox.count == 5
+    = link_to "Show all »»", conversations_inbox_path, :class => "show_all_link"

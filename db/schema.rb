@@ -140,6 +140,12 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["publish_state"], :name => "index_comments_on_publish_state"
 
+  create_table "conversations", :force => true do |t|
+    t.string   "subject",    :default => ""
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
   create_table "dependencies", :force => true do |t|
     t.integer  "question_id"
     t.integer  "question_group_id"
@@ -254,23 +260,42 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
     t.string   "unique_identifier"
   end
 
+  create_table "notifications", :force => true do |t|
+    t.string   "type"
+    t.text     "body"
+    t.string   "subject",              :default => ""
+    t.integer  "sender_id"
+    t.string   "sender_type"
+    t.integer  "conversation_id"
+    t.boolean  "draft",                :default => false
+    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                              :null => false
+    t.integer  "notified_object_id"
+    t.string   "notified_object_type"
+    t.string   "notification_code"
+    t.string   "attachment"
+  end
+
+  add_index "notifications", ["conversation_id"], :name => "index_notifications_on_conversation_id"
+
   create_table "profiles", :force => true do |t|
     t.integer  "citizen_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.string   "image"
-    t.boolean  "receive_newsletter",             :default => true
-    t.boolean  "receive_other_announcements",    :default => true
-    t.boolean  "receive_weekletter",             :default => true
+    t.boolean  "receive_newsletter",              :default => true
+    t.boolean  "receive_other_announcements",     :default => true
+    t.boolean  "receive_weekletter",              :default => true
     t.string   "first_names"
-    t.boolean  "accept_science",                 :default => true
-    t.boolean  "accept_terms_of_use",            :default => true
+    t.boolean  "accept_science",                  :default => true
+    t.boolean  "accept_terms_of_use",             :default => true
     t.string   "authenticated_firstnames"
     t.string   "authenticated_lastname"
     t.string   "authenticated_birth_date"
     t.string   "authenticated_occupancy_county"
+    t.boolean  "receive_messaging_notifications"
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
@@ -316,6 +341,20 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
   end
 
   add_index "questions", ["api_id"], :name => "uq_questions_api_id", :unique => true
+
+  create_table "receipts", :force => true do |t|
+    t.integer  "receiver_id"
+    t.string   "receiver_type"
+    t.integer  "notification_id",                                  :null => false
+    t.boolean  "is_read",                       :default => false
+    t.boolean  "trashed",                       :default => false
+    t.boolean  "deleted",                       :default => false
+    t.string   "mailbox_type",    :limit => 25
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+  end
+
+  add_index "receipts", ["notification_id"], :name => "index_receipts_on_notification_id"
 
   create_table "response_sets", :force => true do |t|
     t.integer  "user_id"
@@ -422,6 +461,49 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
 
   add_index "surveys", ["access_code", "survey_version"], :name => "surveys_access_code_version_idx", :unique => true
   add_index "surveys", ["api_id"], :name => "uq_surveys_api_id", :unique => true
+
+  create_table "tag_suggestions", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "idea_id"
+    t.integer  "citizen_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tag_suggestions", ["citizen_id"], :name => "index_tag_suggestions_on_citizen_id"
+  add_index "tag_suggestions", ["idea_id"], :name => "index_tag_suggestions_on_idea_id"
+  add_index "tag_suggestions", ["tag_id"], :name => "index_tag_suggestions_on_tag_id"
+
+  create_table "tag_votes", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "idea_id"
+    t.integer  "citizen_id"
+    t.string   "voted"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tag_votes", ["citizen_id"], :name => "index_tag_votes_on_citizen_id"
+  add_index "tag_votes", ["idea_id"], :name => "index_tag_votes_on_idea_id"
+  add_index "tag_votes", ["tag_id"], :name => "index_tag_votes_on_tag_id"
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "idea_id"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "score"
+  end
+
+  add_index "taggings", ["idea_id"], :name => "index_taggings_on_idea_id"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "validation_conditions", :force => true do |t|
     t.integer  "validation_id"
