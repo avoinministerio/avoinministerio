@@ -126,8 +126,11 @@ input#mce-EMAIL {
   font-size: 30px;
   color: #666;
   text-align: center;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  border: 1px;
+  -moz-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -webkit-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -o-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  border-image: url("/assets/border-dotted-vertical.png") 1 1 1 1 repeat;
   width: 260px;
   height: 232px;
   padding: 0;
@@ -155,8 +158,11 @@ input#mce-EMAIL {
   font-size: 30px;
   color: #666;
   text-align: center;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  border: 1px;
+  -moz-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -webkit-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -o-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  border-image: url("/assets/border-dotted-vertical.png") 1 1 1 1 repeat;
   width: 260px;
   height: 232px;
   padding: 0;
@@ -184,8 +190,11 @@ input#mce-EMAIL {
   font-size: 30px;
   color: #666;
   text-align: center;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  border: 1px;
+  -moz-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -webkit-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -o-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  border-image: url("/assets/border-dotted-vertical.png") 1 1 1 1 repeat;
   width: 260px;
   height: 160px;
   padding: 0;
@@ -199,24 +208,24 @@ input#mce-EMAIL {
   clear: both;
 }
 
-.pagination {
+#proposals_list_pag.pagination, #drafts_list_pag.pagination {
   text-align: center;
 }
 
-.pagination a {
-  background: url("/assets/miscellaneous_sprite.png") 0 -300px no-repeat transparent;
+#proposals_list_pag.pagination a, #drafts_list_pag.pagination a {
+  background: url("/assets/circle_violet.png") no-repeat transparent;
   width: 15px;
   height: 15px;
   margin: 0 5px 0 0;
   display: inline-block;
 }
 
-.pagination a.selected {
-  background-position: -25px -300px;
+#proposals_list_pag.pagination a.selected, #drafts_list_pag.pagination a.selected {
+  background: url("/assets/circle_violet_selected.png") no-repeat transparent;
   cursor: default;
 }
 
-.pagination a span {
+#proposals_list_pag.pagination a span, #drafts_list_pag.pagination a span {
   display: none;
 }
 
@@ -227,7 +236,7 @@ input#mce-EMAIL {
 
 .bar {
   margin-top: 10px;
-  height: 50px;
+  height: 19px;
   overflow: hidden;
 }
 
@@ -246,7 +255,6 @@ input#mce-EMAIL {
 }
 
 .impressions-count {
-  margin: 1em 21em;
   font-weight: bold;
   color: #473161;
 }
@@ -312,4 +320,21 @@ a.prev.disabled, a.next.disabled {
 
 a.prev span, a.next span {
   display: none;
+}
+
+.days_left, .votes_total {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.days_left {
+  float: left;
+}
+
+.votes_total {
+  float: right;
+}
+
+#old.proposal {
+  background: #F7E6F6;
 }
