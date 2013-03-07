@@ -32,7 +32,7 @@
         this._options = $.extend({
           name: 'tour',
           labels: {
-            end: 'Maali kiertue',
+            end: 'P&auml;&auml;t&auml; esittely',
             next: 'Seuraava &raquo;',
             prev: '&laquo; Edellinen'
           },
