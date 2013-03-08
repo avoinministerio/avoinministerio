@@ -1,10 +1,11 @@
-You have a new reply: <%= @message.subject.html_safe? ? @message.subject : strip_tags(@message.subject) %>
+Olet saanut uuden vastauksen yksityisviestiin Avoimessa ministeriössä: 
+
+<%= @message.subject.html_safe? ? @message.subject : strip_tags(@message.subject) %>
 ===============================================
  
-You have received a new reply:
-
 -----------------------------------------------
 <%= @message.body.html_safe? ? @message.body : strip_tags(@message.body) %>
 -----------------------------------------------
 
-Visit <%= root_url %> and go to your inbox for more info.
+Voit vastata viestiin <%= root_url %> ja katsomalla tulevan postin kansion (kirjautumisen jälkeen oikeassa ylänurkassa nimesi vieressä olevat puhekuplat).
+

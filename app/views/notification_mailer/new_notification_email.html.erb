@@ -4,17 +4,14 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>You have a new notification: <%= @notification.subject.html_safe? ? @notification.subject : strip_tags(@notification.subject) %></h1>
+    <h1>Olet saanut uuden ilmoituksen: <%= @notification.subject.html_safe? ? @notification.subject : strip_tags(@notification.subject) %></h1>
     <p>
-      You have received a new notification:
+      <%= raw @notification.body %>
     </p>
-    <blockquote>
-      <p>
-        <%= raw @notification.body %>
-      </p>
-    </blockquote>
+
+    <hr/>
     <p>
-      Visit <%= link_to root_url,root_url %> and go to your notifications for more info.
+      Piipahda <%= link_to root_url,root_url %> ja tarkista ilmoitukset.
     </p>
   </body>
 </html>
