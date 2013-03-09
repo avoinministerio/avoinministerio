@@ -23,3 +23,4 @@
 //= require ideas
 //= require jquery.tokeninput
 //= require conversations
+//= require jquery.ui.all
