@@ -12,30 +12,37 @@ class LocationsController < ApplicationController
   
   def map
     @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
+
+    #To prevent bug in development mode
     #To prevent bug in development mode
     if Rails.env == "development"
-      @users_lat = Geocoder.coordinates("Helsinki")[0]
-      @users_lon = Geocoder.coordinates("Helsinki")[1]
+      @users_lat = 60.169845
+      @users_lon = 24.93855080000003
       @users_loc = "Helsinki"
     elsif Rails.env == "production"
-      Geocoder.configure(:timeout => 500)
-      @users_city = request.location.city
-      @users_lat = Geocoder.coordinates(@users_city)[0]
-      @users_lon = Geocoder.coordinates(@users_city)[1]
-      @users_loc = request.location.city
+      location = GeoLocation.find(request.ip)
+      if location[:city] == "(Unknown City?)"
+        @users_lat = 60.169845
+        @users_lon = 24.93855080000003
+        @users_loc = "Helsinki"
+      else
+        @users_lat = location[:latitude] 
+        @users_lon = location[:longitude]
+        @users_loc = location[:city]
+      end
     end
-    
-    #31.06 miles ~= 50 km
-    @locations_nearby_ip = Location.near(@users_loc, 31.0685596, :order => :distance)
 
-    if params[:search].present?
-      @locations_nearby = Location.near(params[:search], 31.0685596, :order => :distance)
+    #31.06 miles ~= 50 km
+    @locations_nearby_ip = Location.near([@users_lat, @users_lon], 31.0685596, :order => :distance)
+
+    if params[:address].present?
+      @locations_nearby = Location.near([params[:address_latitude], params[:address_longitude]], 31.0685596, :order => :distance)
       #If no results were found within a radius of 50 kms.
       if @locations_nearby.all == []
         #Then increase radius (~1000km) and show 10 sorted by distance
-        @locations_nearby = Location.near(params[:search], 500, :order => :distance).limit(10)
+        @locations_nearby = Location.near([params[:address_latitude], params[:address_longitude]], 500, :order => :distance).limit(10)
       end
-      @search_location = Geocoder.coordinates(params[:search])
+      @search_location = params[:address]
     end
 
     @locations = Location.find(:all, :order => 'name')
