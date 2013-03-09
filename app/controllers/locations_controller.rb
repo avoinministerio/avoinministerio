@@ -12,31 +12,34 @@ class LocationsController < ApplicationController
   
   def map
     @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
+
+    # Commented because of Google API 2500 requests / day limit
+
     #To prevent bug in development mode
-    if Rails.env == "development"
-      @users_lat = Geocoder.coordinates("Helsinki")[0]
-      @users_lon = Geocoder.coordinates("Helsinki")[1]
-      @users_loc = "Helsinki"
-    elsif Rails.env == "production"
-      Geocoder.configure(:timeout => 500)
-      @users_city = request.location.city
-      @users_lat = Geocoder.coordinates(@users_city)[0]
-      @users_lon = Geocoder.coordinates(@users_city)[1]
-      @users_loc = request.location.city
-    end
+    #if Rails.env == "development"
+    #  @users_lat = Geocoder.coordinates("Helsinki")[0]
+    #  @users_lon = Geocoder.coordinates("Helsinki")[1]
+    #  @users_loc = "Helsinki"
+    #elsif Rails.env == "production"
+    #  Geocoder.configure(:timeout => 500)
+    #  @users_city = request.location.city
+    #  @users_lat = Geocoder.coordinates(@users_city)[0]
+    #  @users_lon = Geocoder.coordinates(@users_city)[1]
+    #  @users_loc = request.location.city
+    #end
     
     #31.06 miles ~= 50 km
-    @locations_nearby_ip = Location.near(@users_loc, 31.0685596, :order => :distance)
+    #@locations_nearby_ip = Location.near(@users_loc, 31.0685596, :order => :distance)
 
-    if params[:search].present?
-      @locations_nearby = Location.near(params[:search], 31.0685596, :order => :distance)
-      #If no results were found within a radius of 50 kms.
-      if @locations_nearby.all == []
-        #Then increase radius (~1000km) and show 10 sorted by distance
-        @locations_nearby = Location.near(params[:search], 500, :order => :distance).limit(10)
-      end
-      @search_location = Geocoder.coordinates(params[:search])
-    end
+    #if params[:search].present?
+    #  @locations_nearby = Location.near(params[:search], 31.0685596, :order => :distance)
+    #  #If no results were found within a radius of 50 kms.
+    #  if @locations_nearby.all == []
+    #    #Then increase radius (~1000km) and show 10 sorted by distance
+    #    @locations_nearby = Location.near(params[:search], 500, :order => :distance).limit(10)
+    #  end
+    #  @search_location = Geocoder.coordinates(params[:search])
+    #end
 
     @locations = Location.find(:all, :order => 'name')
   end
