@@ -126,7 +126,7 @@ class IdeasController < ApplicationController
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     
     @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
-    @locations = Location.all
+    #@locations = Location.all
     
     #To prevent bug in development mode
     if Rails.env == "development"
