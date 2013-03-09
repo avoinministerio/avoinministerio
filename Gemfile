@@ -15,6 +15,8 @@ gem "factory_girl_rails", "4.1.0", :require => false
 gem "friendly_id"
 gem "gravatar-ultimate"
 gem "geocoder"
+gem "address_picker-rails"
+gem "geo_location"
 gem "haml-rails"
 gem "i18n_routing"
 gem "jquery-rails"
