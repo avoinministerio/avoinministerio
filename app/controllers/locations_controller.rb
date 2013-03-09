@@ -14,17 +14,24 @@ class LocationsController < ApplicationController
     @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
 
     #To prevent bug in development mode
+    #To prevent bug in development mode
     if Rails.env == "development"
       @users_lat = 60.169845
-      @users_lon = 24.9385508
+      @users_lon = 24.93855080000003
       @users_loc = "Helsinki"
     elsif Rails.env == "production"
       location = GeoLocation.find(request.ip)
-      @users_lat = location[:latitude] 
-      @users_lon = location[:longitude]
-      @users_loc = location[:city]
+      if location[:city] == "(Unknown City?)"
+        @users_lat = 60.169845
+        @users_lon = 24.93855080000003
+        @users_loc = "Helsinki"
+      else
+        @users_lat = location[:latitude] 
+        @users_lon = location[:longitude]
+        @users_loc = location[:city]
+      end
     end
-    
+
     #31.06 miles ~= 50 km
     @locations_nearby_ip = Location.near([@users_lat, @users_lon], 31.0685596, :order => :distance)
 

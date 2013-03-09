@@ -26,7 +26,7 @@
   #search_form
     %h2.kartta Etsi lähimmät
     = form_tag kartta_path, :method => :get do
-      Kirjoita osoite, jonka lähimmät keräyspisteet haluat löytää::
+      Kirjoita osoite, jonka lähimmät keräyspisteet haluat löytää:
       %br
       = text_field_tag :address, params[:address], :class => 'address-picker-input'
       = hidden_field_tag :address_latitude, params[:address_latitude], :readonly => true, :class => 'address-picker-latitude'

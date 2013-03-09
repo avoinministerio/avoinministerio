@@ -130,11 +130,16 @@ class IdeasController < ApplicationController
     #To prevent bug in development mode
     if Rails.env == "development"
       @users_lat = 60.169845
-      @users_lon = 24.9385508
+      @users_lon = 24.93855080000003
     elsif Rails.env == "production"
       location = GeoLocation.find(request.ip)
-      @users_lat = location[:latitude] 
-      @users_lon = location[:longitude]
+      if location[:city] == "(Unknown City?)"
+        @users_lat = 60.169845
+        @users_lon = 24.93855080000003
+      else
+        @users_lat = location[:latitude] 
+        @users_lon = location[:longitude]
+      end
     end
 
     @locations = Location.all
