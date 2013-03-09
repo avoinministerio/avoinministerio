@@ -133,8 +133,9 @@ class IdeasController < ApplicationController
       @users_lat = Geocoder.coordinates("Helsinki")[0]
       @users_lon = Geocoder.coordinates("Helsinki")[1]
     elsif Rails.env == "production"
-      @users_lat = Geocoder.coordinates(request.location.city)[0]
-      @users_lon = Geocoder.coordinates(request.location.city)[1]
+      #@users_lat = Geocoder.coordinates(request.location.city)[0]
+      #@users_lon = Geocoder.coordinates(request.location.city)[1]
+      @users_lat, @users_lon = 60.3, 25.1
     end
     
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
