@@ -35,6 +35,8 @@ GEM
     activesupport (3.2.12)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    address_picker-rails (0.2.1)
+      rails (~> 3.2.0)
     addressable (2.3.3)
     ansi (1.4.3)
     arel (3.0.2)
@@ -366,6 +368,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  address_picker-rails
   brakeman (~> 1.6.2)
   capybara
   capybara-mechanize
