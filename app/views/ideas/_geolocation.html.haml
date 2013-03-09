@@ -2,15 +2,14 @@
   #map
 
   %br
-  /= link_to "Näytä koko kartta", kartta_path, :class => "default_url"
+  = link_to "Näytä koko kartta", kartta_path, :class => "default_url"
   %br
-  /= link_to "Keräyspisteet osoitteineen", osoitteet_path, :class => "default_url"
+  = link_to "Keräyspisteet osoitteineen", osoitteet_path, :class => "default_url"
 
   #list_of_address
     // Creating map
     = javascript_tag do
-      //64.448, 26.039 <- center of Finland
-      var map = L.map('map').setView([64.448, 26.039], 5);
+      var map = L.map('map').setView([#{@users_lat}, #{@users_lon}], 12);
       L.tileLayer('http://{s}.tile.cloudmade.com/#{@cloudmade_api_key}/997/256/{z}/{x}/{y}.png', {
       attribution: 'Karttatiedot &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> auttaneilta, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Kuvat © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
       L.Icon.Default.imagePath = '../assets/';

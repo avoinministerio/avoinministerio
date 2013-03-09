@@ -65,6 +65,26 @@
         %br
     %br
 
+  #near_by_ip
+    %h2.kartta Läheisimmät keruupisteet (tietokoneesi sijainnin mukaan):
+    = javascript_tag do
+      var marker_you_there = L.marker([#{@users_lat}, #{@users_lon}], {icon: redIcon}).addTo(map);
+      marker_you_there.bindPopup("<b>Tietokoneesi on paikannettu tähän.</b> <br> Jos tämä ei vastaa sijaintiasi, vieritä karttaa tai kirjoita osoitteesi oikealle hakukenttään löytääksesi läheisimmät keräyspisteet.").openPopup();
+      map.panTo([64.448, 26.039]);
+    - if @locations_nearby_ip != []
+      The following locations were found near
+      %b #{@users_loc}
+      %br
+      - @locations_nearby_ip.each do |location|
+        = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
+        %br
+        Etäisyys: #{Location.m2km(location.distance)} km
+        %br
+    - else
+      Ei keräyspisteitä alle 50 km etäisyydellä sijainnista #{@users_loc}. Voit painaa kartan vasemmasta yläkulmasta '-' niin näet yhä suuremman alueen.
+      %br
+    %br
+
   #show_all_locations
     %h2.kartta Kaikki keräyspisteet
     - @locations.each do |location|

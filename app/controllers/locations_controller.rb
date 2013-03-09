@@ -11,25 +11,22 @@ class LocationsController < ApplicationController
   end
   
   def map
-    @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
-
-    # Commented because of Google API 2500 requests / day limit
+    @cloudmade_api_key = "6130d5f5e634498686bec4a58962a200"
 
     #To prevent bug in development mode
-    #if Rails.env == "development"
-    #  @users_lat = Geocoder.coordinates("Helsinki")[0]
-    #  @users_lon = Geocoder.coordinates("Helsinki")[1]
-    #  @users_loc = "Helsinki"
-    #elsif Rails.env == "production"
-    #  Geocoder.configure(:timeout => 500)
-    #  @users_city = request.location.city
-    #  @users_lat = Geocoder.coordinates(@users_city)[0]
-    #  @users_lon = Geocoder.coordinates(@users_city)[1]
-    #  @users_loc = request.location.city
-    #end
+    if Rails.env == "development"
+      @users_lat = 60.169845
+      @users_lon = 24.9385508
+      @users_loc = "Helsinki"
+    elsif Rails.env == "production"
+      location = GeoLocation.find(request.ip)
+      @users_lat = location[:latitude] 
+      @users_lon = location[:longitude]
+      @users_loc = location[:city]
+    end
     
     #31.06 miles ~= 50 km
-    #@locations_nearby_ip = Location.near(@users_loc, 31.0685596, :order => :distance)
+    @locations_nearby_ip = Location.near([@users_lat, @users_lon], 31.0685596, :order => :distance)
 
     if params[:address].present?
       @locations_nearby = Location.near([params[:address_latitude], params[:address_longitude]], 31.0685596, :order => :distance)
