@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
   end
   
   def map
-    @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
+    @cloudmade_api_key = "6130d5f5e634498686bec4a58962a200"
 
     #To prevent bug in development mode
     #To prevent bug in development mode

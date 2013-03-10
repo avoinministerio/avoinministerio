@@ -20,7 +20,6 @@ gem "geo_location"
 gem "haml-rails"
 gem "i18n_routing"
 gem "jquery-rails"
-gem 'jquery-ui-rails'
 gem "nokogiri"
 gem "omniauth-facebook"
 gem "rails-i18n"
