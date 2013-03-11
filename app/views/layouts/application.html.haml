@@ -16,7 +16,7 @@
 
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "application"
-
+  
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
     if (window.location.hash == '#_=_') {

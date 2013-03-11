@@ -2,7 +2,6 @@ AvoinMinisterio::Application.routes.draw do
 
   resource :profile, :except => [:new, :create, :destroy]  
   resource :citizen, :only => [:edit, :update]
-
   match "/ideas/:id/vote/:vote"                       => "vote#vote",                     as: :vote_idea
 
   match "/ideas/:id/service_selection"                => "signatures#service_selection",      as: :signature_idea_service_selection
