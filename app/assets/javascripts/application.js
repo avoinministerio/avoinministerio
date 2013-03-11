@@ -6,7 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require address_picker-rails
+//= require jquery.ui.all
 //= require jquery.cookie
 //= require raphael-min
 //= require g.raphael-min
@@ -23,3 +23,4 @@
 //= require ideas
 //= require jquery.tokeninput
 //= require conversations
+//= require jquery.ui.addresspicker
