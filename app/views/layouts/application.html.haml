@@ -15,6 +15,7 @@
     %title Avoin Ministeriö
 
   = stylesheet_link_tag "application.css"
+  = javascript_include_tag "https://maps.google.com/maps/api/js?sensor=false"
   = javascript_include_tag "application"
   
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"

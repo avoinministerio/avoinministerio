@@ -35,3 +35,19 @@ a.addresses_url {
 .ui-helper-hidden-accessible {
   display: none;
 }
+
+input[type=submit]:disabled,
+button:disabled, input[readonly="readonly"] {
+  background-color: #C7C6C1;
+}
+
+#search_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+}
+
+input#lat, input#lng, input#address {
+  width: 160px;
+}
