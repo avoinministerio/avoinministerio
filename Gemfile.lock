@@ -119,7 +119,6 @@ GEM
     formtastic (2.1.1)
       actionpack (~> 3.0)
     friendly_id (4.0.9)
-    geo_location (0.4.2)
     geocoder (1.1.6)
     gravatar-ultimate (1.0.3)
     guard (1.0.3)
@@ -381,7 +380,6 @@ DEPENDENCIES
   email_spec
   factory_girl_rails (= 4.1.0)
   friendly_id
-  geo_location
   geocoder
   gravatar-ultimate
   guard (= 1.0.3)
