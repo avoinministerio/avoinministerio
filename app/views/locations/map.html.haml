@@ -1,5 +1,3 @@
-= javascript_include_tag "https://maps.google.com/maps/api/js?sensor=false"
-
 #map{:style => "float: left;"}
 
 // Creating map
@@ -30,11 +28,11 @@
     = form_tag kartta_path, :method => :get do
       Kirjoita osoite, jonka lähimmät keräyspisteet haluat löytää:
       %br
-      = text_field_tag :address, params[:address], :class => 'address-picker-input'
-      = hidden_field_tag :address_latitude, params[:address_latitude], :readonly => true, :class => 'address-picker-latitude'
-      = hidden_field_tag :address_longitude, params[:address_longitude], :readonly => true, :class => 'address-picker-longitude'
+      = text_field_tag :address, params[:address]
+      = hidden_field_tag :address_latitude, "", readonly: true, id: 'lat'
+      = hidden_field_tag :address_longitude, "", readonly: true, id: 'lng'
       %br
-      = submit_tag "Hae!", :name => nil
+      = submit_tag "Hae!", :name => nil, :id => "search_button"
     
     #address_map_wrapper.address-picker-map-wrapper
       .address-picker-legend
@@ -82,6 +80,9 @@
         %br
         Etäisyys: #{Location.m2km(location.distance)} km
         %br
+    - elsif @users_loc.nil?
+      For technical reasons we can't detect your location by IP address.
+      %br
     - else
       Ei keräyspisteitä alle 50 km etäisyydellä sijainnista #{@users_loc}. Voit painaa kartan vasemmasta yläkulmasta '-' niin näet yhä suuremman alueen.
       %br
@@ -103,4 +104,17 @@
 
 
 = javascript_tag do
-  AddressPickerRails.Pickers.applyOnReady();
+  var addresspickerMap = $( "#address" ).addresspicker({
+  regionBias: "fi",
+  elements: {
+  lat: "#lat",
+  lng: "#lng",
+  }
+  });
+  $('input#search_button').attr('disabled','disabled');
+  $('#address').keypress(function(e){
+  if ( e.which == 13 ) return false;
+  });
+  $('.ui-menu').mouseover(function() {
+  $('input#search_button').removeAttr('disabled');
+  });
