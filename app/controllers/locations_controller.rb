@@ -81,9 +81,9 @@ class LocationsController < ApplicationController
         @users_lat = respond["latitude"]
         @users_lon = respond["longitude"]
         @users_loc = respond["city"]
-        cookies[:user_lat] = respond["latitude"].to_s
-        cookies[:user_lon] = respond["longitude"].to_s
-        cookies[:user_city] = respond["city"].to_s
+        cookies[:user_lat] = { value: respond["latitude"].to_s, expires: 1.week.from_now }
+        cookies[:user_lon] = { value: respond["longitude"].to_s, expires: 1.week.from_now }
+        cookies[:user_city] = { value: respond["city"].to_s, expires: 1.week.from_now }
       end
     else 
       puts "Using cookies"
