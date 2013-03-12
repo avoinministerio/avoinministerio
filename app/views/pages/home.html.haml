@@ -2,10 +2,8 @@
 
 = render partial: 'headline'
 
-- if @proposals.count >= 5
-  = render partial: 'proposals', locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 6, section: "proposal" }
-- else
-  = render partial: 'low_limit_proposals', locals: {title: "Luonnokset", items: @proposals, items_counts: @proposal_counts, item_counter: 3,  section: "draft" }
+= render partial: 'proposals', locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 6, section: "proposal" }
+
 - if @drafts.count != nil
   = render partial: 'drafts', locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, item_counter: 3,  section: "draft" }
 

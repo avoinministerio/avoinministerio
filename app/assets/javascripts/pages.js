@@ -38,6 +38,4 @@ $(document).ready(function() {
     key   : "right"
   },
   pagination  : "#drafts_list_pag" });
-
-  $("low_limit_proposals_list").carouFredSel();
 });
