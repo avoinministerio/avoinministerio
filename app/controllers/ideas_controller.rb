@@ -51,12 +51,12 @@ class IdeasController < ApplicationController
   
   def setup_filtering_and_sorting_options
     @filters = [
-    [:all,                "Kaikki",                proc {|f| f} ],
-    [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
-    [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
-    [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
-    [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
-    [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
+      [:all,                t('.filter.all'),                proc {|f| f} ],
+      [:ideas,              t('.filter.idea'),               proc {|f| f.where(state: :idea)} ],
+      [:drafts,             t('.filter.drafts'),             proc {|f| f.where(state: :draft)} ],
+      [:law_proposals,      t('.filter.law_proposals'),      proc {|f| f.where(state: :proposal)} ],
+      [:action_proposals,   t('.filter.action_proposals'),   proc {|f| f.where(state: :proposal)} ],
+      [:laws,               t('.filter.law'),                proc {|f| f.where(state: :law)} ],
     ]
     
     @orders = {
@@ -69,13 +69,12 @@ class IdeasController < ApplicationController
       tilt:       {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
     }
     @field_names = {
-      age:        {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
-      comments:   {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
-      voted:      {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
-      votes_for:  {most:    "Eniten ääniä puolesta",        least:      "Vähiten ääniä puolesta"},
-      support:    {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
-      impressions:{most:    "Eniten Luettu",                least:      "Vähiten Luettu"},
-      tilt:       {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
+      age:      {newest:  t('.order.newest'),               oldest:     t('.order.oldest')}, 
+      comments: {most:    t('.order.most_commented'),       least:      t('.order.least_commented')}, 
+      voted:    {most:    t('.order.most_voted'),           least:      t('.order.least_voted')}, 
+      votes_for:{most:    t('.order.most_votes_for'),       least:      t('.order.least_votes_for')},
+      support:  {most:    t('.order.most_supported'),       least:      t('.order.least_supported')},
+      tilt:     {even:    t('.order.tilt_even'),            polarized:  t('.order.tilt_polarized')},
     }
   end
   

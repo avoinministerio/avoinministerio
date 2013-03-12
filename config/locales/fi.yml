@@ -1,4 +1,172 @@
 fi:
+  vote_for: "kyllä"
+  vote_against: "ei"
+  vote: "ääni"
+  votes: "ääntä"
+  votes_amount: "äänen jakautuminen"
+  expert_suggestion:
+    new:
+      title: "Ehdota asiantuntijaa idealle"
+  filter:
+    all: "Kaikki"
+    idea: "Ideat"
+    drafts: "Luonnokset"
+    law_proposals: "Lakialoitteet"
+    action_proposals: "Toimenpidealoitteet"
+    law: "Lait"
+  order:
+    newest: "Uusimmat ideat"
+    oldest: "Vanhimmat ideat"
+    most_commented: "Eniten kommentteja"
+    least_commented: "Vähiten kommentteja"
+    most_voted: "Eniten ääniä"
+    least_voted: "Vähiten ääniä"
+    most_votes_for: "Eniten ääniä puolesta"
+    least_votes_for: "Vähiten ääniä puolesta"
+    most_supported: "Eniten tukea"
+    least_supported: "Vähiten tukea"
+    tilt_even: "Ääniä jakavimmat"
+    tilt_polarized: "Selkeimmin puolesta tai vastaan"
+  shared:
+    login_actions:
+      profile: "Profiili"
+      settings: "Asetukset"
+      logout: "Kirjaudu ulos"
+      login: "Kirjaudu"
+      login_facebook: "Kirjaudu Facebookilla"
+      registration: "Rekisteröidy"
+  layouts:
+    application:
+      ideas: "Listaa kaikki"
+      new_idea: "Anna idea"
+      title: "Avoin Ministeriö"
+      how_does_it_work?: "Miten palvelu toimii?"
+      experts: "Asiantuntijoille"
+      media: "Medialle"
+      FAQ: "Usein kysytyt kysymykset"
+      blog_entries: "Blogikirjoitukset"
+      contact: "Yhteystiedot"
+      terms_of_use: "Käyttöehdot"
+      privacy: "Rekisteriseloste"
+  pages:
+    headline:
+      ideas: "Listaa kaikki"
+      FAQ: "Usein kysyttyä"
+    proposals_and_drafts:
+      title: "Toimenpide- ja Lakiehdotukset sekä Luonnokset"
+    drafts:
+      title: "Luonnokset"
+    proposals:
+      title: "Toimenpide- ja Lakiehdotukset"
+    ideas:
+      title: "Ajankohtaiset ideat"
+      votes: "ääntä"
+      ideas: "Listaa kaikki"
+    random_ideas:
+      title: "Esimerkkejä ideoista"
+      votes: "ääntä"
+      ideas: "Listaa kaikki"
+    news:
+      title: "Ministeriössä tapahtuu"
+      no_posts: "Ei kirjoituksia tällä hetkellä"
+      blogs: "Kaikki blogit"
+      unknown_author: "Tuntematon"
+    newsletter:
+      title: "Tilaa uutiskirje"
+      description: "Pysy ajan tasalla Avoimen ministeriön toiminnasta tilaamalla uutiskirjeemme."
+      email: "Sähköpostiosoitteesi"
+      submit: "Tilaa"
+  ideas:
+    index:
+      title: "Avoin Ministeriö ideat"
+      filtering: "Valittu: "
+      ordering: "Järjestys: "
+      search: "Haku: "
+      search_example: "(esim. tasa*tai koira ja vero)"
+      no_title: "Ei otsikkoa"
+      vote: "ÄÄNI"
+      votes: "ÄÄNTÄ"
+    show: 
+      title: "@Avoinministerio"
+      previous: "Edellinen"
+      next: "Seuraava"
+      hidden_title: "Piilotettu"
+      hidden_summary_part_1: "Tämä idea on tällä hetkellä piilotettu. Voit kääntyä "
+      hidden_summary_part_2: "puoleen mahdollisilla kysymyksilläsi."
+      unsupport_idea: "Saat tukea ideaa vastaan huomattavasti enemmän, kun jaat sitä eteenpäin."
+      support_idea: "Saat idealle huomattavasti enemmän tukea, kun jaat sitä eteenpäin."
+      share_idea: "Jaa ideaa aktiivisesti eteenpäin! Lisäät sen painoarvoa, oletpa puolesta tai vastaan!"
+      voted_idea: "Voit lisätä kantasi painoa jakamalla aloitetta aktiivisesti eteenpäin!"
+      supported: "Annoit tukesi"
+      change_vote: "voit halutessasi vaihtaa kantaasi."
+      notification_idea: "Ilmoitamme ideaa tukeneille, kun idea on kehittynyt lakiluonnokseksi."
+      notification_draft: "Ilmoitamme kaikille tukeneille, kun aloite on virallisesti käynnistynyt ja voit täyttää virallisen kannatusilmoituksen."
+      billing: "Kannatatko lakiehdotusta?"
+      proposal_support_problem: "Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Pyrimme valmistelemaan sen mahdollisimman pian. Tarkista aloitteen lopusta kuinka voit allekirjoittaa paperisen kannatusilmoituksen."
+      non_official_support: "Sillä välin voit ilmoittaa epämuodollisen tukesi lakiehdotukselle. Ilmoitamme kaikille tukeneille kun myös sähköiset kannatusilmoitukset ovat mahdollisia."
+      official_support_not_yet_possible: "Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Tämä aloite on esillä virallista testausta varten."
+      support_notification: "Huomaa että et ole tekemässä virallista kannatusilmoituksen allekirjoitusta."
+      not_supported_idea: "Idea ei ollut Avoimessa ministeriössa kehitettävänä tai se sille ei ole kannatusta"
+      supported_idea: "Idea on ollut Avoimessa ministeriössa ja sille on aiempaa (epävirallista) kannatusta"
+      law_idea: "Idea on jo laki"
+      expert_opinions: "Asiantuntijalausunnot"
+      are_you_expert: "Oletko asiantuntija"
+      suggest_experts: "Ehdota asiantuntijaa"
+      no_statements: "Ei vielä lausuntoja"
+      comments: "Kommentit"
+      vote_yes: "Kyllä"
+      vote_no: "Ei"
+      do_you_believe: "Kannatatko lakiluonnosta?"
+      support: "Anna tukesi!"
+    form:
+      title_help: "Anna ideallesi muutaman sanan otsikko. Otsikosta tulisi käydä ilmi yleinen aihealue."
+      summary_help: "Anna idealle tiivistelmä. Siitä tulisi käydä ilmi ideasi perusajatus muutamalla lauseella. Voit muokata sitä myöhemmin."
+      body_help: "Anna halutessasi idealle tarkempi kuvaus. Se voi sisältää linkkejä muihin lähteisiin, listauksia puolesta ja vastaan argumenteista ja kysymyksiä joihin toivot kommentoijilta ja asiantuntijoilta palautetta. Aluksi sinun ei tarvite täyttää tätä kohtaa, pääset muokkaamaan tietoja myöhemmin."
+    search:
+      title: "Avoin Ministeriö ideat"
+      results: "Tulokset haulle"
+      search: "Haku:"
+      search_example: "(esim. tasa*tai koira ja vero)"
+      idea: "Ideat"
+      comments: "Kommentit"
+      unknown_comment: "Tuntematon kommenttityyppi"
+      articles: "Artikkelit"
+      citizens: "Kansalaiset"
+      one_result: "1 tulos"
+      results: "tulosta"
+  profiles:
+    show:
+      voted_ideas: "Ideat, joita olet äänestänyt"
+      no_votes: "Et ole äänestänyt yhtään ideaa."
+      commented_ideas: "Ideat, joita olet kommentoinut"
+      no_comments: "Et ole kommentoinut yhtään ideaa."
+    edit:
+      settings: "Asetukset"
+      submit_settings: "Tallenna asetukset"
+      edit_citizen: "Vaihda sähköpostiosoite tai salasana"
+  citizens:
+    edit:
+      title: "Vaihda sähköpostiosoite tai salasana"
+      save: "Tallenna muutokset"
+    sessions:
+      new:
+        login: "Kirjaudu sisään"
+        login_button: "Kirjaudu"
+        remember_me: "Muista minut"
+    registrations:
+      new:
+        title: "Rekisteröidy"
+        agreement: "Hyväksyn palvelun"
+        terms_of_service: "käyttöehdot"
+        register: "Rekisteröidy"
+        notification_part_1: "Rekisteröidy tästä Avoimen ministeriön nettipalvelun käyttäjäksi. Voit luoda uuden tunnuksen vahvistamalla sen sähköpostitse tai vahvistamalla sen Facebook-tunnuksillasi."
+        notification_part_2: "Palvelussa keskustellaan omalla nimellä ja asiallisesti. Palvelua ja sen toiminnallisuuksia kehitetään käyttäjäpalautteen perusteella. Voit lähettää risuja ja ruusuja osoitteeseen"
+        welcome_back: "Tervetuloa!"
+  comments:
+    form:
+      login_to_write: "Voit kirjoittaa kommentteja kirjautumalla sisään"
+      add_comment: "Lisää kommentti"
+      sending: "Lähetetään ..."
   resources:
     articles: "artikkelit"
     citizens: "kansalaiset"
@@ -106,3 +274,11 @@ fi:
     previous_label: "&laquo; Edelliset"
     next_label: "Seuraavat &raquo;"
     page_gap: "..."
+  devise:
+    shared:
+      links:
+        forgot_password: "Unohditko salasanasi?"
+        login: "Kirjaudu sisään"
+        register: "Rekisteröidy"
+        confirmation: "Ei saanut vahvistusta ohjeita?"
+        unlock: "Ei saanut avata ohjeet?"

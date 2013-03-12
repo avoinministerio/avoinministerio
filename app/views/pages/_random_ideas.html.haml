@@ -1,5 +1,5 @@
 .grid_16.top_ideas.alpha#idea-examples
-  %h2 Esimerkkejä ideoista
+  %h2= t('.title')
   - i = 0
   - @ideas.each_slice(2) do |idea, idea2|
     .grid_7.alpha
@@ -9,7 +9,7 @@
             %h3=link_to shorten(idea.title, 80, 20, "»"), idea_path(idea), id: "ab_ideas_#{i+=1}"
             %p=link_to shorten(idea.summary, 80, 20, "»"), idea_path(idea), id: "ab_ideas_#{i}"
           - for_, against, comments, total = @idea_counts[idea.id]
-          %span.total #{total} ääntä:&nbsp;
+          %span.total #{total} #{t(".votes")}:&nbsp;
           %span.for #{for_}
           |
           %span.against #{against}
@@ -24,7 +24,7 @@
             %h3=link_to shorten(idea2.title, 80, 20, "»"), idea_path(idea2), id: "ab_ideas_#{i+=1}"
             %p=link_to shorten(idea2.summary, 80, 20, "»"), idea_path(idea2), id: "ab_ideas_#{i}"
           - for_, against, comments, total = @idea_counts[idea2.id]
-          %span.total #{total} ääntä:&nbsp;
+          %span.total #{total} #{t(".votes")}:&nbsp;
           %span.for #{for_}
           |
           %span.against #{against}
@@ -33,4 +33,4 @@
       &nbsp;
     .clear
 
-  =link_to "Listaa kaikki (#{@idea_count}) »", ideas_path, class: "list_ideas"
+  =link_to t('.ideas'), ideas_path, class: "list_ideas"
