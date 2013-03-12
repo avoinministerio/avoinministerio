@@ -7,8 +7,11 @@
   %meta{ :content => "width=device-width, initial-scale=1", :name => "viewport" }/
   %link{ href: asset_path('favicon.ico'), rel: 'shortcut icon', type: 'image/x-icon' }
   %title Avoin Ministeriö :: Hallinta
+  = csrf_meta_tags
   = stylesheet_link_tag "admin/admin.css"
+  = javascript_include_tag "https://maps.google.com/maps/api/js?sensor=false"
   = javascript_include_tag "application"
+
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
@@ -23,6 +26,7 @@
           %li= link_to "Artikkelit", admin_articles_path
           %li= link_to "Kansalaiset", admin_citizens_path
           %li= link_to "Asiantuntijaehdotukset", admin_expert_suggestions_path
+          %li= link_to "Addresses", admin_locations_path
           %li= link_to "Muutosloki", admin_changelogs_path
           %li= link_to "Kirjaudu ulos", destroy_administrator_session_path, method: :delete
   .container-fluid{ style: "padding-top: 50px" }

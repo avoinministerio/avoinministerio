@@ -99,6 +99,8 @@
     //MouseOver found result
     _updatePosition: function(location) {
       if (this.lat) {
+        $('input#search_button').removeAttr('disabled');
+        $('#address').unbind('keypress');
         this.lat.val(location.lat());
       }
       if (this.lng) {
