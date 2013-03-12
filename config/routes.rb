@@ -102,6 +102,7 @@ AvoinMinisterio::Application.routes.draw do
       get "lock",       on: :member
       get "unlock",     on: :member
     end
+    resources :locations
     resources :changelogs
     resources :expert_suggestions
     root to: "admin/ideas#index"
