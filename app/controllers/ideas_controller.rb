@@ -35,7 +35,11 @@ class IdeasController < ApplicationController
     #    p session[:sorting_orders]
     
     # TODO: this hit to database might not be needed as @ideas_around basically contains these already
-    @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
+    if params[:impression_reorder]
+      @ideas = impressions_order(params[:impression_reorder], @current_filter.to_s).paginate(page: page, per_page: on_page)
+    else
+      @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
+    end
     
     KM.identify(current_citizen)
     # TODO: track which sorting options are most commonly used
@@ -65,17 +69,66 @@ class IdeasController < ApplicationController
       voted:      {most:    "vote_count DESC",              least:      "vote_count ASC"}, 
       votes_for:  {most:    "vote_for_count DESC",          least:      "vote_for_count ASC"},
       support:    {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
-      impressions:{most:    "impressions_count DESC",       least:      "impressions_count ASC"},
       tilt:       {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
     }
+    
     @field_names = {
       age:        {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
       comments:   {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
       voted:      {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
       votes_for:  {most:    "Eniten ääniä puolesta",        least:      "Vähiten ääniä puolesta"},
       support:    {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
-      impressions:{most:    "Eniten Luettu",                least:      "Vähiten Luettu"},
       tilt:       {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
+    }
+    
+    @impression_fields = [
+    [:all,                  "Kaikki"],
+    [:today,                "tänään"],
+    [:week,                 "Tällä viikolla"],
+    [:month,                "Tämä kuukausi"],
+    [:quarter,              "Tämä Quarter"],
+    [:half_year,            "Tämä Puolivuosiraportit"],
+    [:year,                 "Tämä vuosi"]
+    ]
+  end
+  
+  def impressions_order(impression_reorder = 'today', reorder)
+    start_date =case impression_reorder
+      when 'today'
+      Date.today - 1.day
+      when 'week'
+      Date.today - 1.week
+      when 'month'
+      Date.today - 1.month
+      when 'quarter'
+      Date.today - 3.months
+      when 'half_year'
+      Date.today - 6.months
+      when 'year'
+      Date.today - 1.year
+    end
+    
+    if reorder
+      order = case reorder
+        when 'ideas'
+          'idea'
+        when 'drafts'
+          'draft'
+        when 'action_proposals' || 'law_proposals'
+          'proposal'
+        when 'laws'
+          'law'
+      end
+      
+      ideas = order ? Idea.where('state = ?', order) : Idea
+    else
+      ideas = Idea
+    end
+    
+    ideas = ideas.order('created_at DESC').sort { |idea1, idea2|
+      idea1.impression_gp_count = idea1.impressionist_count(:start_date => start_date)
+      idea2.impression_gp_count = idea2.impressionist_count(:start_date => start_date)
+      idea2.impression_gp_count <=> idea1.impression_gp_count
     }
   end
   
@@ -87,7 +140,7 @@ class IdeasController < ApplicationController
     [:voted,    [:most,   :least]], 
     [:votes_for,[:most,   :least]],
     [:support,  [:most,   :least]],
-    [:impressions, [:most, :least]],
+    #   [:impressions, [:most, :least]],
     [:tilt,     [:even,   :polarized]],
     ]  
     if reorder and @orders.keys.include? reorder.to_sym
@@ -126,7 +179,7 @@ class IdeasController < ApplicationController
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     
     @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
-
+    
     #To prevent bug in development mode
     if Rails.env == "development"
       @users_lat = 60.169845
@@ -141,9 +194,9 @@ class IdeasController < ApplicationController
         @users_lon = location[:longitude]
       end
     end
-
+    
     @locations = Location.all
-        
+    
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
