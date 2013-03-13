@@ -33,4 +33,4 @@
       &nbsp;
     .clear
 
-  =link_to t('.ideas'), ideas_path, class: "list_ideas"
+  =link_to "#{t('.ideas')} (#{@idea_count}) »", ideas_path, class: "list_ideas"

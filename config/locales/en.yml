@@ -55,13 +55,9 @@ en:
     headline:
       ideas: "List all"
       FAQ: "FAQ"
-    proposals_and_drafts:
-      title: "Proposals and drafts"
-      idea: "Idea/"
-    drafts:
-      title: "Drafts"
-    proposals:
-      title: "Proposals"
+    home:
+      proposals_title: "Proposals"
+      drafts_title: "Drafts"
     ideas:
       title: "Recent ideas"
       votes: "Votes"

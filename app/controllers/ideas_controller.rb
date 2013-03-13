@@ -68,12 +68,14 @@ class IdeasController < ApplicationController
       impressions:{most:    "impressions_count DESC",       least:      "impressions_count ASC"},
       tilt:       {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
     }
+
     @field_names = {
       age:      {newest:  t('.order.newest'),               oldest:     t('.order.oldest')}, 
       comments: {most:    t('.order.most_commented'),       least:      t('.order.least_commented')}, 
       voted:    {most:    t('.order.most_voted'),           least:      t('.order.least_voted')}, 
       votes_for:{most:    t('.order.most_votes_for'),       least:      t('.order.least_votes_for')},
       support:  {most:    t('.order.most_supported'),       least:      t('.order.least_supported')},
+      impressions:{most:    "Eniten Luettu",                least:      "Vähiten Luettu"},
       tilt:     {even:    t('.order.tilt_even'),            polarized:  t('.order.tilt_polarized')},
     }
   end

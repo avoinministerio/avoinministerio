@@ -16,8 +16,4 @@
         %span.against #{against}
         %span.front-page-comment-count= link_to "#{comments}", idea_path(idea, anchor: "comments")
 
-<<<<<<< HEAD
-  =link_to "Listaa kaikki (#{@idea_count}) »", ideas_path, class: "list_ideas"
-=======
-  =link_to t('.ideas'), ideas_path, class: "list_ideas"
->>>>>>> internationalisation
+  =link_to "#{t('.ideas')} (#{@idea_count}) »", ideas_path, class: "list_ideas"

@@ -7,8 +7,8 @@
           %tr
             %td
               %h2
-                \#
-                = @locations.index(location) + 1
+                ID:
+                = location.id
             %td
               .row-fluid
                 = truncate(location.name, length: 500)

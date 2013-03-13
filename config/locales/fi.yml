@@ -52,12 +52,9 @@ fi:
     headline:
       ideas: "Listaa kaikki"
       FAQ: "Usein kysyttyä"
-    proposals_and_drafts:
-      title: "Toimenpide- ja Lakiehdotukset sekä Luonnokset"
-    drafts:
-      title: "Luonnokset"
-    proposals:
-      title: "Toimenpide- ja Lakiehdotukset"
+    home:
+      proposals_title: "Toimenpide- ja Lakiehdotukset"
+      drafts_title: "Luonnokset"
     ideas:
       title: "Ajankohtaiset ideat"
       votes: "ääntä"
