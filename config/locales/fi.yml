@@ -14,9 +14,17 @@ fi:
     law_proposals: "Lakialoitteet"
     action_proposals: "Toimenpidealoitteet"
     law: "Lait"
-  order:
-    newest: "Uusimmat ideat"
-    oldest: "Vanhimmat ideat"
+  time_period: 
+    all: "Kaikki"
+    today: "Tänään"
+    week: "Tällä viikolla"
+    month: "Tämä kuukausi"
+    quarter: "Tämä Quarter"
+    half_year: "Tämä Puolivuosiraportit"
+    year: "Tämä vuosi"
+  field_names:
+    newest_age: "Uusimmat ideat"
+    oldest_age: "Vanhimmat ideat"
     most_commented: "Eniten kommentteja"
     least_commented: "Vähiten kommentteja"
     most_voted: "Eniten ääniä"
@@ -55,6 +63,12 @@ fi:
     home:
       proposals_title: "Toimenpide- ja Lakiehdotukset"
       drafts_title: "Luonnokset"
+    proposals:
+      collection: "Keräys"
+      did_not_start: "ei käynnistynyt"
+      ongoing: "käynnissä"
+      ended: "päättynyt"
+      days_left: "päivää jäljellä"
     ideas:
       title: "Ajankohtaiset ideat"
       votes: "ääntä"
@@ -78,11 +92,13 @@ fi:
       title: "Avoin Ministeriö ideat"
       filtering: "Valittu: "
       ordering: "Järjestys: "
+      time_period: "Aikaväli: "
       search: "Haku: "
       search_example: "(esim. tasa*tai koira ja vero)"
       no_title: "Ei otsikkoa"
       vote: "ÄÄNI"
       votes: "ÄÄNTÄ"
+      views: "katselua"
     show: 
       title: "@Avoinministerio"
       previous: "Edellinen"
@@ -115,6 +131,11 @@ fi:
       vote_no: "Ei"
       do_you_believe: "Kannatatko lakiluonnosta?"
       support: "Anna tukesi!"
+      impression_count: "Katsottu viimeisten 1 kuukausi"
+      nearest_collection_points: "Lähimmät keräyspisteet"
+    geolocation:
+      view_full_map: "Näytä koko kartta"
+      addresses: "Keräyspisteet osoitteineen"
     form:
       title_help: "Anna ideallesi muutaman sanan otsikko. Otsikosta tulisi käydä ilmi yleinen aihealue."
       summary_help: "Anna idealle tiivistelmä. Siitä tulisi käydä ilmi ideasi perusajatus muutamalla lauseella. Voit muokata sitä myöhemmin."

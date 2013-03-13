@@ -73,22 +73,22 @@ class IdeasController < ApplicationController
     }
 
     @field_names = {
-      age:        {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
-      comments:   {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
-      voted:      {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
-      votes_for:  {most:    "Eniten ääniä puolesta",        least:      "Vähiten ääniä puolesta"},
-      support:    {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
-      tilt:       {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
+      age:        {newest:  t('.field_names.newest_age'),     oldest:     t('.field_names.oldest_age')}, 
+      comments:   {most:    t('.field_names.most_commented'), least:      t('.field_names.least_age')}, 
+      voted:      {most:    t('.field_names.most_voted'),     least:      t('.field_names.least_voted')}, 
+      votes_for:  {most:    t('.field_names.most_votes_for'), least:      t('.field_names.least_votes_for')},
+      support:    {most:    t('.field_names.most_supported'), least:      t('.field_names.least_supported')},
+      tilt:       {even:    t('.field_names.tilt_even'),      polarized:  t('.field_names.tilt_polarized')},
     }
     
     @impression_fields = [
-    [:all,                  "Kaikki"],
-    [:today,                "tänään"],
-    [:week,                 "Tällä viikolla"],
-    [:month,                "Tämä kuukausi"],
-    [:quarter,              "Tämä Quarter"],
-    [:half_year,            "Tämä Puolivuosiraportit"],
-    [:year,                 "Tämä vuosi"]
+    [:all,                  t('.time_period.all')],
+    [:today,                t('.time_period.today')],
+    [:week,                 t('.time_period.week')],
+    [:month,                t('.time_period.month')],
+    [:quarter,              t('.time_period.quarter')],
+    [:half_year,            t('.time_period.half_year')],
+    [:year,                 t('.time_period.year')]
     ]
   end
   

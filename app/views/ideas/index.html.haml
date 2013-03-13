@@ -40,7 +40,7 @@
           - unless field == :tilt
             |
       .grid_2
-        Aikaväli:
+        = t('.time_period')
       .grid_21
         -[:all, :today, :week, :month, :quarter, :half_year, :year].each_with_index do |field, index|
           - if field.to_s == params[:impression_reorder]
@@ -82,9 +82,9 @@
         .stats
           %span.votes
             - if params[:impression_reorder]
-              = "#{idea.impression_gp_count || 0} views |"
+              = "#{idea.impression_gp_count || 0} #{t('.views')} |"
             - else
-              = "#{idea.impressions_count || 0} views |"
+              = "#{idea.impressions_count || 0} #{t('.views')} |"
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
             = (idea.vote_count == 1 ? t('.vote') : t('.votes'))

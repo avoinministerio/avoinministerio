@@ -17,9 +17,17 @@ en:
     law_proposals: "Law proposals"
     action_proposals: "Action proposals"
     law: "Law"
-  order:
-    newest: "Newest ideas"
-    oldest: "Oldest ideas"
+  time_period:
+    all: "All"
+    today: "Today"
+    week: "This week"
+    month: "This month"
+    quarter: "This quarter"
+    half_year: "Half year"
+    year: "This year"
+  field_names:
+    newest_age: "Newest ideas"
+    oldest_age: "Oldest ideas"
     most_commented: "Most commented"
     least_commented: "Least commented"
     most_voted: "Most voted"
@@ -58,6 +66,12 @@ en:
     home:
       proposals_title: "Proposals"
       drafts_title: "Drafts"
+    proposals:
+      collection: "Collection"
+      did_not_start: "did not start"
+      ongoing: "ongoing"
+      ended: "finished"
+      days_left: "days left"
     ideas:
       title: "Recent ideas"
       votes: "Votes"
@@ -81,11 +95,13 @@ en:
       title: "Open ministry ideas"
       filtering: "Filter: "
       ordering: "Order: "
+      time_period: "Time period: "
       search: "Search: "
       search_example: "(eg. law)"
       no_title: "No title"
       vote: "Vote"
       votes: "Votes"
+      views: "views"
     show: 
       title: "Open ministry"
       previous: "previous"
@@ -118,6 +134,11 @@ en:
       vote_no: "No"
       do_you_believe: "Are you supporting the law draft"
       support: "Give your support!"
+      impression_count: "Viewed in the last 1 month"
+      nearest_collection_points: "Nearest collection points"
+    geolocation:
+      view_full_map: "View full map"
+      addresses: "Collection point addresses"
     search:
       title: "Open ministry ideas"
       results: "Search results for"
