@@ -42,12 +42,12 @@
       .grid_2
         Katseluja:
       .grid_21
-        -[:all, :today, :week, :month, :quarter, :half_year, :year].each_with_index do |field, index|
+        -@impression_fields.each do |field, name|
           - if field.to_s == params[:impression_reorder]
-            %span.selected= link_to @impression_fields[index][1]
+            %span.selected= name
           - else
-            = link_to @impression_fields[index][1], impression_reorder: field.to_s
-          - unless field == :year
+            = link_to name, impression_reorder: field.to_s
+          - unless field == @impression_fields.last[0]
             |
     - if ENV['Feature_Searchbox']
       .grid_24.search
