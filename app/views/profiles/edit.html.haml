@@ -3,6 +3,11 @@
   = f.input :first_names
   = f.input :first_name
   = f.input :last_name
+  = f.label :preferred_language
+  %br
+  = f.select :preferred_language, options_for_select([["Finnish", "fi"], ["English", "en"]], current_citizen.profile.preferred_language)
+  %br
+  %br
   = f.input :image, :as => :url
   = f.input :receive_newsletter
   = f.input :receive_other_announcements

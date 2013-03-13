@@ -17,6 +17,8 @@
       <%= f.input :first_name, :required => true, :label => false %>
       <%= f.label :last_name, :required => false %>
       <%= f.input :last_name, :required => true, :label => false %>
+      <%= f.label :preferred_language, :required => false %>
+      <%= f.select :preferred_language, options_for_select([["Finnish", "fi"], ["English", "en"]]) %>
     <% end %>
   </div>
 
@@ -25,9 +27,9 @@
   </p>
 	<div class="grid_16">
 		<span>
-			If you are already registered and forgot your password, then 
 			<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-			<%= link_to "Click Here", new_password_path(resource_name) %><br />
+        <%= t('.recover_password') %>
+			  <%= link_to t(".click_here"), new_password_path(resource_name) %><br />
 			<% end -%>
 		</span>
 	</div>

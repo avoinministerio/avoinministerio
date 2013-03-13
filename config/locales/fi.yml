@@ -39,6 +39,7 @@ fi:
     login_actions:
       profile: "Profiili"
       settings: "Asetukset"
+      reset_password: "Palauta salasana"
       logout: "Kirjaudu ulos"
       login: "Kirjaudu"
       login_facebook: "Kirjaudu Facebookilla"
@@ -180,6 +181,8 @@ fi:
         notification_part_1: "Rekisteröidy tästä Avoimen ministeriön nettipalvelun käyttäjäksi. Voit luoda uuden tunnuksen vahvistamalla sen sähköpostitse tai vahvistamalla sen Facebook-tunnuksillasi."
         notification_part_2: "Palvelussa keskustellaan omalla nimellä ja asiallisesti. Palvelua ja sen toiminnallisuuksia kehitetään käyttäjäpalautteen perusteella. Voit lähettää risuja ja ruusuja osoitteeseen"
         welcome_back: "Tervetuloa!"
+        recover_password: "Jos olet jo rekisteröitynyt ja salasanasi"
+        click_here: "napsauta tästä"
   comments:
     form:
       login_to_write: "Voit kirjoittaa kommentteja kirjautumalla sisään"
@@ -213,6 +216,7 @@ fi:
         first_names: "Etunimet"
         first_name: "Kutsumanimi"
         last_name: "Sukunimi"
+        preferred_language: "Kieli"
         receive_newsletter: "Tilaan uutiskirjeen"
         receive_other_announcements: "Minulle saa lähettää muita tiedotteita"
         receive_weekletter: "Tilaan viikkokirjeen"
