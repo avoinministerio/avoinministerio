@@ -82,13 +82,13 @@ class IdeasController < ApplicationController
     }
     
     @impression_fields = [
-    [:today,                "Tänään"],
-    [:week,                 "Viikossa"],
-    [:month,                "Kuukaudessa"],
-    [:quarter,              "3 kuukaudessa"],
-    [:half_year,            "6 kuukaudessa"],
-    [:year,                 "Vuodessa"]
-    [:all,                  "Koskaan"],
+      [:today,              "Tänään"],
+      [:week,               "Viikossa"],
+      [:month,              "Kuukaudessa"],
+      [:quarter,            "3 kuukaudessa"],
+      [:half_year,          "6 kuukaudessa"],
+      [:year,               "Vuodessa"],
+      [:all,                "Koskaan"],
     ]
   end
   
