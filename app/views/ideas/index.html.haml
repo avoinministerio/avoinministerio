@@ -83,9 +83,9 @@
         .stats
           %span.votes
             - if params[:impression_reorder]
-              = "#{idea.impression_gp_count || 0} views |"
+              = "#{idea.impression_gp_count || 0} katselua |"
             - else
-              = "#{idea.impressions_count || 0} views |"
+              = "#{idea.impressions_count || 0} katselua |"
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
             = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")
