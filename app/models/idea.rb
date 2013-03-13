@@ -22,6 +22,8 @@ class Idea < ActiveRecord::Base
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
                     :target_count, :updated_content_at
 
+  attr_accessor :impression_gp_count
+
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
