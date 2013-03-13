@@ -1,7 +1,7 @@
 - content_for :facebook_metadata_for_idea do
   = render partial: 'facebook_meta_tags'
 - content_for :head do
-  %title= "@Avoinministerio #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}"
+  %title= "#{t('.title')} #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}"
 :javascript
   $(document).ready(function(){
       var r = Raphael("votepie");
@@ -13,8 +13,8 @@
         ],
         {
           legend: [
-              "#{@idea_vote_for_count} kyllä-#{@idea_vote_for_count == 1 ? "ääni" : "ääntä"} %%.%",
-              "#{@idea_vote_against_count} ei-#{@idea_vote_against_count == 1 ? "ääni" : "ääntä"} %%.%"
+              "#{@idea_vote_for_count} #{I18n.t('.vote_for')}-#{@idea_vote_for_count == 1 ? I18n.t('.vote') : I18n.t('.votes')} %%.%",
+              "#{@idea_vote_against_count} #{I18n.t('.vote_against')}-#{@idea_vote_against_count == 1 ? I18n.t('.vote') : I18n.t('.votes')} %%.%"
             ],
           legendpos: "south", 
           colors: #{@colors.inspect},
@@ -22,7 +22,7 @@
           // href: ["http://somewhere.com", "http://somewhere.com"]
         });
 
-      r.text(130, 17, "#{@idea_vote_count} äänen jakautuminen").attr({ font: "17px sans-serif" });
+      r.text(130, 17, "#{@idea_vote_count} #{I18n.t('.votes_amount')}").attr({ font: "17px sans-serif" });
       pie.hover(function () {
           this.sector.stop();
           this.sector.scale(1.1, 1.1, this.cx, this.cy);
@@ -47,12 +47,12 @@
     / Workaround with grid_11 + grid_12 < grid_24
     .grid_11 
       - if @prev
-        =link_to "Edellinen", idea_path(@prev, so: @sorting_order_code)
+        =link_to t('.previous'), idea_path(@prev, so: @sorting_order_code)
       - else
         .noprevnext &nbsp;
     .grid_12.right
       - if @next
-        =link_to "Seuraava", idea_path(@next, so: @sorting_order_code)
+        =link_to t('.next'), idea_path(@next, so: @sorting_order_code)
       - else
         .noprevnext
 .clear
@@ -65,7 +65,7 @@
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
       = link_to image_tag("email_big.png"), new_conversation_path(:recipient_id => @idea.author.id)
-      %span.pull-right.impressions-count= "Katsottu viimeisten 1 kuukausi: #{@idea.impressionist_count(:start_date => Date.today - 1.month)}"
+      %span.pull-right.impressions-count= "#{t('.impression_count')}: #{@idea.impressionist_count(:start_date => Date.today - 1.month)}"
   .grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@idea.title.to_s} (Ended)" : @idea.title.to_s
@@ -74,11 +74,11 @@
       .body
         = markdown(@idea.body) if @idea.body
     - else
-      %h1 Piilotettu
+      %h1=t('.hidden_title')
       .summary
-        Tämä idea on tällä hetkellä piilotettu. Voit kääntyä 
-        %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
-        puoleen mahdollisilla kysymyksilläsi.
+        =t('.hidden_summary_part_1')
+        =link_to "kanslia@avoinministerio.fi", "mailto:kanslia@avoinministerio.fi"
+        =t('.hidden_summary_part_2')
       .body
     - if @idea.author == current_citizen or administrator_signed_in?
       = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
@@ -97,45 +97,45 @@
         .sharing-suggestion
           - if @idea.voted_by?(current_citizen)
             - if @idea.votes.by(current_citizen).first.option == 0
-              Saat tukea ideaa vastaan huomattavasti enemmän, kun jaat sitä eteenpäin.
+              = t('.unsupport_idea')
             - else
-              Saat idealle huomattavasti enemmän tukea, kun jaat sitä eteenpäin.
+              = t('.support_idea')
           - else
-            Jaa ideaa aktiivisesti eteenpäin! Lisäät sen painoarvoa, oletpa puolesta tai vastaan!
+            = t('.share_idea')
 
   -if @idea.published?
     %aside.grid_7.prefix_1.omega
       .voting
         - if @idea.voted_by?(current_citizen)
-          %h3 Voit lisätä kantasi painoa jakamalla aloitetta aktiivisesti eteenpäin!
+          %h3= t('.voted_idea')
           %hr
 
         - case @idea.state
         - when "idea"
           - if @idea.voted_by?(current_citizen)
             %h3
-              Annoit tukesi
+              = t('.supported')
               %b #{vote_in_words(@idea, current_citizen)},
-            %h4 voit halutessasi vaihtaa kantaasi.
+            %h4= t('.change_vote')
           - else
-            %h3 Anna tukesi!
-          %h4 Ilmoitamme ideaa tukeneille, kun idea on kehittynyt lakiluonnokseksi.
-          = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-          = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+            %h3= t('.support')
+          %h4= t('.notification_idea')
+          = link_to t('.vote_yes'), vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+          = link_to t('.vote_no'), vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
           .votes
             #votepie
 
         - when "draft"
           - if @idea.voted_by?(current_citizen)
             %h3
-              Annoit tukesi
+              = t('.supported')
               %b #{vote_in_words(@idea, current_citizen)},
-            %h4 voit halutessasi vaihtaa kantaasi.
+            %h4= t('.change_vote')
           - else
-            %h3 Kannatatko lakiluonnosta? 
-          %h4 Ilmoitamme kaikille tukeneille, kun aloite on virallisesti käynnistynyt ja voit täyttää virallisen kannatusilmoituksen.
-          = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-          = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+            %h3= t('.do_you_believe')
+          %h4= t('.notification_draft')
+          = link_to t('.vote_yes'), vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+          = link_to t('.vote_no'), vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
           .votes
             #votepie
 
@@ -145,28 +145,28 @@
           - if not @idea.collecting_started or @idea.collecting_ended
             - if @idea.voted_by?(current_citizen)
               %h3
-                Annoit tukesi
+                = t('.supported')
                 %b #{vote_in_words(@idea, current_citizen)},
-              %h4 voit halutessasi vaihtaa kantaasi.
+              %h4= t('.change_vote')
             - else
-              %h3 Kannatatko lakiehdotusta? 
-            %h4 Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Pyrimme valmistelemaan sen mahdollisimman pian. Tarkista aloitteen lopusta kuinka voit allekirjoittaa paperisen kannatusilmoituksen.
-            %h4 Sillä välin voit ilmoittaa epämuodollisen tukesi lakiehdotukselle. Ilmoitamme kaikille tukeneille kun myös sähköiset kannatusilmoitukset ovat mahdollisia.
-            = link_to "Kyllä", vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
-            = link_to "Ei", vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+              %h3= t('.billing')
+            %h4= t('.proposal_support_problem')
+            %h4= t('.non_official_support')
+            = link_to t('.vote_yes'), vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+            = link_to t('.vote_no'), vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
             .votes
               #votepie
           - else
             - if @idea.voted_by?(current_citizen)
               %h3
-                Annoit tukesi
+                = t('.supported')
                 %b #{vote_in_words(@idea, current_citizen)}
-              %h4 Virallinen sähköinen kannatuksen ilmoittaminen ei ole vielä mahdollista Avoimen ministeriön palvelussa. Tämä aloite on esillä virallista testausta varten. 
-              %h4 Huomaa että et ole tekemässä virallista kannatusilmoituksen allekirjoitusta.
+              %h4= t('.official_support_not_yet_possible')
+              %h4= t('.support_notification')
             -if @idea.votes.empty?
-              %h3 Idea ei ollut Avoimessa ministeriössa kehitettävänä tai se sille ei ole kannatusta
+              %h3= t('.not_supported_idea')
             -else
-              %h4 Idea on ollut Avoimessa ministeriössa ja sille on aiempaa (epävirallista) kannatusta
+              %h4= t('.supported_idea')
               .votes
                 #votepie
             %br
@@ -174,35 +174,35 @@
             = render "signature_info", idea: @idea
 
         - else # idea is already a law, no voting
-          Idea on jo laki
+          = t('.law_idea')
 
 -if @idea.published?
   .idea_kartta
-    %h2.grid_24 Lähimmät keräyspisteet
+    %h2.grid_24= t(".nearest_collection_points")
     = render "geolocation"
 -if @idea.published?
   .expert_opinions
-    %h2.grid_24 Asiantuntijalausunnot
+    %h2.grid_24= t('.expert_opinions')
     - if @idea.articles.published.any?
       = render partial: 'article', collection: @idea.articles.published
       .clear
       .grid_17 &nbsp;
       .grid_7
-        %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+        =link_to t('.are_you_expert'), "/artikkelit/asiantuntijoille-ja-tutkijoille", class: "grid_4"
         .clear
-        =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
+        =link_to t('.suggest_experts'), new_idea_expert_suggestion_path(@idea), class: "grid_4"
       .clear
     - else
       .grid_17
-        Ei vielä lausuntoja
+        = t('.no_statements')
       .grid_7
-        %a.grid_4{ href: "/artikkelit/asiantuntijoille-ja-tutkijoille" } Oletko asiantuntija
+        =link_to t('.are_you_expert'), "/artikkelit/asiantuntijoille-ja-tutkijoille", class: "grid_4"
         .clear
-        =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
+        =link_to t('.suggest_experts'), new_idea_expert_suggestion_path(@idea), class: "grid_4"
       .clear
 
   .idea_comments#comments
-    %h2.grid_24 Kommentit
+    %h2.grid_24= t('.comments')
     .grid_24.comment_form
       = render "comments/form", model: @idea
     .comments.suffix_8

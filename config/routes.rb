@@ -37,7 +37,8 @@ AvoinMinisterio::Application.routes.draw do
   match '/conversations/sentbox' => 'conversations#show_sentbox'
   match '/conversations/trash' => 'conversations#show_trash'
 
-  match "/ideat/haku" => "ideas#search"
+  match "/ideas/search" => "ideas#search"
+
   get "ideas/vote_flow"
 
   get "pages/home"

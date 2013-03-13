@@ -34,8 +34,8 @@ class Idea < ActiveRecord::Base
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
   validates :author_id, presence: true
-  validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
-  validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
+  validates :title, length: { minimum: 5 }
+  validates :body,  length: { minimum: 5 }
   validates :state, inclusion: { in: VALID_STATES }
 
   tankit index_name do

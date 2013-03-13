@@ -1,14 +1,14 @@
-%h2 Ideat, joita olet äänestänyt
+%h2= t('.voted_ideas')
 - if @voted_ideas.empty?
-  Et ole äänestänyt yhtään ideaa.
+  = t('.no_votes')
 - else
   %ul
     - @voted_ideas.each do |idea|
       %li= link_to idea.title, idea_path(idea)
 
-%h2 Ideat, joita olet kommentoinut
+%h2= t('.commented_ideas')
 - if @commented_ideas.empty?
-  Et ole kommentoinut yhtään ideaa.
+  = t('.no_comments')
 - else
   %ul
     - @commented_ideas.each do |idea|

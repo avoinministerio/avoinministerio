@@ -2,6 +2,207 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  vote_for: "for"
+  vote_against: "against"
+  vote: "vote"
+  votes: "votes"
+  votes_amount: "people have voted"
+  expert_suggestions:
+    new:
+      title: "Expert suggestion for idea: "
+  filter:
+    all: "All"
+    idea: "Idea"
+    drafts: "Drafts"
+    law_proposals: "Law proposals"
+    action_proposals: "Action proposals"
+    law: "Law"
+  time_period:
+    all: "All"
+    today: "Today"
+    week: "This week"
+    month: "This month"
+    quarter: "This quarter"
+    half_year: "Half year"
+    year: "This year"
+  field_names:
+    newest_age: "Newest ideas"
+    oldest_age: "Oldest ideas"
+    most_commented: "Most commented"
+    least_commented: "Least commented"
+    most_voted: "Most voted"
+    least_voted: "Least voted"
+    most_votes_for: "Most votes for"
+    least_votes_for: "Least votes for"
+    most_supported: "Most supported"
+    least_supported: "Least supported"
+    tilt_even: "Equality of votes"
+    tilt_polarized: "Outvote"
+  shared:
+    login_actions:
+      profile: "Profile"
+      settings: "Settings"
+      logout: "Logout"
+      login: "Login"
+      login_facebook: "Login via facebook"
+      registration: "Registration"
+  layouts:
+    application:
+      ideas: "List all"
+      new_idea: "Enter your idea"
+      title: "Open ministry"
+      how_does_it_work?: "How does it work?"
+      experts: "Experts"
+      media: "Media center"
+      FAQ: "FAQ"
+      blog_entries: "Blog entries"
+      contact: "Contact"
+      terms_of_use: "Terms of use"
+      privacy: "Privacy"
+  pages:
+    headline:
+      ideas: "List all"
+      FAQ: "FAQ"
+    home:
+      proposals_title: "Proposals"
+      drafts_title: "Drafts"
+    proposals:
+      collection: "Collection"
+      did_not_start: "did not start"
+      ongoing: "ongoing"
+      ended: "finished"
+      days_left: "days left"
+    ideas:
+      title: "Recent ideas"
+      votes: "Votes"
+      ideas: "List all"
+    random_ideas:
+      title: "Examples of ideas"
+      votes: "Votes"
+      ideas: "List all"
+    news:
+      title: "Open Ministry news"
+      no_posts: "No posts at the moment"
+      blogs: "All blogs"
+      unknown_author: "Stranger"
+    newsletter:
+      title: "Subscribe to newsletter"
+      description: "Stay up-to-date of Open the Ministry's activities by subscribing to our newsletter."
+      email: "Your email address"
+      submit: "Subscribe"
+  ideas:
+    index:
+      title: "Open ministry ideas"
+      filtering: "Filter: "
+      ordering: "Order: "
+      time_period: "Time period: "
+      search: "Search: "
+      search_example: "(eg. law)"
+      no_title: "No title"
+      vote: "Vote"
+      votes: "Votes"
+      views: "views"
+    show: 
+      title: "Open ministry"
+      previous: "previous"
+      next: "next"
+      hidden_title: "hidden"
+      hidden_summary_part_1: "This idea is hidden at the moment. You can turn to"
+      hidden_summary_part_2: "you can turn to... if you have any questions"
+      unsupport_idea: "You get more support for your idea when you share it forward"
+      support_idea: "You get much more support for your idea when you share it"
+      share_idea: "Share your idea! You increase its value and it doesnt matter if youre against it or not!"
+      voted_idea: "You can add more value to your view by sharing the iniative actively!"
+      supported: "You gave your support"
+      change_vote: "You can change your stand if you want to"
+      notification_idea: "We inform everyone who has supported the idea, when the idea has progressed into a law draft."
+      notification_draft: "We inform everyone who has supported the idea, when the iniative has officially started and you can sign the official notification of support. We inform everyone who has supported the idea "
+      billing: "Are you supporting the law iniative?"
+      proposal_support_problem: "Official electronic announciation of support isnt possible yet in Open Ministry's services. We pursue to finish it as soon as possible. Check from the bottom how you can sign the paper version of the notification of support" 
+      non_official_support: "Meanwhile you can inform your informal support for the law iniative. We inform everyone when the electrical notifications of support are also possible."
+      official_support_not_yet_possible: "Official electronic notification of support is not possible yet in the Open Ministrys services. This iniative is presented here for official testing."
+      support_notification: "Notice that youre not doing an official signature of a notification of support."
+      not_supported_idea: "The idea has not been in the Open Ministry or there is no support for it."
+      supported_idea: "The idea has been in the Open Ministry or there is already some (unofficial) support for it."
+      law_idea: "The idea is already a law"
+      expert_opinions: "Expert Opinions"
+      are_you_expert: "Are you an expert?"
+      suggest_experts: "Suggest an expert"
+      no_statements: "No statements yet"
+      comments: "Comments"
+      vote_yes: "Yes"
+      vote_no: "No"
+      do_you_believe: "Are you supporting the law draft"
+      support: "Give your support!"
+      impression_count: "Viewed in the last 1 month"
+      nearest_collection_points: "Nearest collection points"
+    geolocation:
+      view_full_map: "View full map"
+      addresses: "Collection point addresses"
+    search:
+      title: "Open ministry ideas"
+      results: "Search results for"
+      search: "Search:"
+      search_example: "(eg. law)"
+      idea: "Ideas"
+      articles: "Articles"
+      citizens: "Citizens"
+      one_result: "1 result"
+      results: "results"
+      comments: "Comments"
+      unknown_comment: "Unknown type of comment"
+    form:
+      title_help: "Give your idea a few words about the title. The title should indicate the general area."
+      summary_help: "Enter the idea of ​​an abstract. It should be apparent from the basic idea of ​​your idea in a few sentences. You can edit it later."
+      body_help: "If desired, enter a more detailed description of the idea. It may also include links to other sources, listings for and against arguments and issues that you wish commentators and experts feedback. First off, you need not fill in this point, you can edit the information later."
+  profiles:
+    show:
+      voted_ideas: "Ideas, that you voted for"
+      no_votes: "You have not voted for any ideas"
+      commented_ideas: "Ideas, that you commented"
+      no_comments: "You have not commented on any ideas"
+    edit:
+      settings: "User settings"
+      submit_settings: "Submit settings"
+      edit_citizen: "Change email address or password"
+  citizens:
+    edit:
+      title: "Change email address or password"
+      save: "Save the settings"
+    sessions:
+      new:
+        login: "Login"
+        login_button: "Login"
+        remember_me: "Remember me"
+    registrations:
+      new:
+        title: "Registration"
+        agreement: "I agree to the"
+        terms_of_service: "Terms of Service"
+        register: "Register"
+        notification_part_1: "From here you can register to Open Ministrys webservice. You can create a new account by confirming with via email or with your facebook account."
+        notification_part_2: "In this service you discuss with your own name and in formal way. The service and it's functionalities are improved by the user feedback. You can send good and feedback to this adress."
+        welcome_back: "Welcome back!"
+  comments:
+    form:
+      login_to_write: "Login to write comment"
+      add_comment: "Add comment"
+      sending: "Sending ..."
+  idea:
+    new:
+      title: "Title"
+    links:
+      edit_idea: "Edit idea"
+  buttons:
+    create: "Create"
   articles:
     edit:
       title: "Edit article"
+  devise:
+    shared:
+      links:
+        forgot_password: "Forgot password?"
+        login: "Login"
+        register: "Register"
+        confirmation: "Didn't receive confirmation instructions?"
+        unlock: "Didn't receive unlock instructions?"
