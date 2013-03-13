@@ -65,7 +65,7 @@
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
       = link_to image_tag("email_big.png"), new_conversation_path(:recipient_id => @idea.author.id)
-      %span.pull-right.impressions-count= "Tänään näyttökerrat: #{@idea.impressionist_count(:start_date => Date.today)}"
+      %span.pull-right.impressions-count= "Katsottu viimeisten 1 kuukausi: #{@idea.impressionist_count(:start_date => Date.today - 1.month)}"
   .grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@idea.title.to_s} (Ended)" : @idea.title.to_s

@@ -72,7 +72,9 @@
       marker_you_there.bindPopup("<b>Tietokoneesi on paikannettu tähän.</b> <br> Jos tämä ei vastaa sijaintiasi, vieritä karttaa tai kirjoita osoitteesi oikealle hakukenttään löytääksesi läheisimmät keräyspisteet.").openPopup();
       map.panTo([64.448, 26.039]);
     - if @locations_nearby_ip != []
+      Seuraavat keräyspisteet löytyivät
       %b #{@users_loc}
+      läheltä
       %br
       - @locations_nearby_ip.each do |location|
         = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"

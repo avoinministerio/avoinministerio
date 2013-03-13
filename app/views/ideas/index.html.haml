@@ -31,13 +31,23 @@
         /    |
 
         / New version with static order
-        -[:age, :comments, :voted, :votes_for, :support, :tilt, :impressions].each do |field|
+        -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
           - order = @sorting_order.find{|so| so.first == field}[1]
-          - if field == @sorting_order.first.first
-            %span.selected= link_to @field_names[field][order.first], reorder: field 
+          - if field == @sorting_order.first.first && params[:impression_reorder].nil?
+            %span.selected= link_to @field_names[field][order.first]
           - else
-            = link_to @field_names[field][order.first], reorder: field 
-          - unless field == :impressions
+            =link_to @field_names[field][order.first], reorder: field 
+          - unless field == :tilt
+            |
+      .grid_2
+        Aikaväli:
+      .grid_21
+        -[:all, :today, :week, :month, :quarter, :half_year, :year].each_with_index do |field, index|
+          - if field.to_s == params[:impression_reorder]
+            %span.selected= link_to @impression_fields[index][1]
+          - else
+            = link_to @impression_fields[index][1], impression_reorder: field.to_s
+          - unless field == :year
             |
     /- if ENV['Feature_Searchbox']
     .grid_24.search
@@ -70,6 +80,11 @@
         = link_to shortened_summary(idea.summary, 215, 185, "»"), idea
         .clear
         .stats
+          %span.votes
+            - if params[:impression_reorder]
+              = "#{idea.impression_gp_count || 0} views |"
+            - else
+              = "#{idea.impressions_count || 0} views |"
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
             = (idea.vote_count == 1 ? t('.vote') : t('.votes'))

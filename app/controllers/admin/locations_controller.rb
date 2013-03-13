@@ -4,7 +4,7 @@ class Admin::LocationsController < Admin::AdminController
   respond_to :html
 
   def index
-    respond_with @locations = Location.order(:latitude).paginate(page: params[:page])
+    respond_with @locations = Location.order(:name).paginate(page: params[:page], per_page: 500)
   end
 
   def edit

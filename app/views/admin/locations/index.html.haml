@@ -3,12 +3,12 @@
     %h1 Locations
     %table.table.table-striped
       %tbody
-        - @locations.each do |location|
+        - @locations.each_with_index do |location, index|
           %tr
             %td
               %h2
-                ID:
-                = location.id
+                \#
+                = params[:page].to_i*500 + index + 1
             %td
               .row-fluid
                 = truncate(location.name, length: 500)
