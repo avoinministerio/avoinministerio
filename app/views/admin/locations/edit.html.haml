@@ -1,0 +1,7 @@
+= simple_form_for @location, url: [:admin, @location] do |f|
+  = f.error_notification
+  = f.input :name, label: "Keruupisteen nimi (esim. 'Järventauksen kirjasto')"
+  = f.input :address, label: "Keruupisteen osoite"
+  = f.hidden_field :latitude
+  = f.hidden_field :longitude
+  = f.button :submit, "Lisää keruuspiste"
