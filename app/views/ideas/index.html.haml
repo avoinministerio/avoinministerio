@@ -3,9 +3,9 @@
 .grid_24
   .ideas_header.container_24
     .grid_24.filtering
-      .grid_2
+      .grid_3
         .h1= t('.filtering')
-      .grid_21
+      .grid_20
         .h1 
           -@filters.each do |filt|
             - code, filter_name, wrap = filt
@@ -16,9 +16,9 @@
             - unless filt == @filters.last
               |
     .grid_24.ordering
-      .grid_2
+      .grid_3
         = t('.ordering')
-      .grid_21
+      .grid_20
         / This was the original, ie. leftmost is most important sorter
         /-@sorting_order.each do |sorting_order|
         /  - field, order = sorting_order
@@ -39,9 +39,9 @@
             =link_to @field_names[field][order.first], reorder: field 
           - unless field == :tilt
             |
-      .grid_2
+      .grid_3
         = t('.time_period')
-      .grid_21
+      .grid_20
         -[:all, :today, :week, :month, :quarter, :half_year, :year].each_with_index do |field, index|
           - if field.to_s == params[:impression_reorder]
             %span.selected= link_to @impression_fields[index][1]

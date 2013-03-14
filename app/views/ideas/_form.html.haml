@@ -12,6 +12,8 @@
         %p= t('.summary_help')
     .grid_16
       = f.input :body, as: :text
+      = f.label :language
+      = f.select :language, options_for_select([["Finnish", "fi"], ["English", "en"]], current_citizen.profile.preferred_language)
     .grid_8.help_cont
       #body_help
         %p= t('.body_help')

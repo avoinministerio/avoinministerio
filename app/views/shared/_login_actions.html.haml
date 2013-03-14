@@ -6,15 +6,17 @@
       = link_to t('.settings'), edit_profile_path
       |
       = link_to t('.reset_password'), edit_citizen_path
-      |
-      = link_to t('.logout'), destroy_citizen_session_path, method: :delete
       - if current_citizen.count_unread_messages == "0"
+        |
         = link_to image_tag("no_message.png", :border => 0), conversations_path
       - else
         #notification_container
+          |
           = link_to image_tag("new_message.png", :border => 0), conversations_path
           .notification_bubble
             =current_citizen.count_unread_messages
+      |
+      = link_to t('.logout'), destroy_citizen_session_path, method: :delete
     .grid_4
       %img.avatar{ src: current_citizen.image, width: 25, height: 25, alt: "avatar" }
       #{current_citizen.name}
