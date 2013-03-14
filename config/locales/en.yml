@@ -194,10 +194,13 @@ en:
   idea:
     new:
       title: "Title"
+    edit:
+      title: "Title"
     links:
       edit_idea: "Edit idea"
   buttons:
     create: "Create"
+    update: "Update"
   articles:
     edit:
       title: "Edit article"
@@ -215,9 +218,44 @@ en:
         first_names: "First name"
         first_name: "Nickname"
         last_name: "Last name"
-        receive_newsletter: "Tilaan uutiskirjeen"
-        receive_other_announcements: "Minulle saa lähettää muita tiedotteita"
-        receive_weekletter: "Tilaan viikkokirjeen"
-        image: "Profiilikuvan URL-osoite"
-        accept_science: "Minuun saa ottaa yhteyttä tieteellisten tutkimusten puitteissa"
-        accept_terms_of_use: "Hyväksyn palvelun <a href='/artikkelit/4'>käyttöehdot</a>"
+        receive_newsletter: "Receive newsletter"
+        receive_other_announcements: "Receive other announcements"
+        receive_weekletter: "Receive weekletter"
+        image: "Avatar URL"
+        accept_science: "Accept surveys"
+        accept_terms_of_use: "Accept <a href='/artikkelit/4'>terms of use</a>"
+  conversations:
+    inbox:
+      title: "Inbox"
+      date: "Date"
+      subject: "Subject"
+      from: "From"
+      show_all: "Show all »»"
+    sentbox:
+      title: "Sentbox"
+      date: "Date"
+      subject: "Subject"
+      participants: "Participants"
+      show_all: "Show all »»"
+    trash:
+      title: "Trash"
+      date: "Date"
+      subject: "Subject"
+      participants: "Participants"
+      show_all: "Show all »»"
+    control_panel:
+      new_message: "New message"
+      inbox: "Inbox"
+      sentbox: "Sentbox"
+      trash: "Trash"
+    form:
+      new_message: "Start Conversation"
+      recipients: "Recipients"
+      subject: "Subject"
+      body: "Body"
+      submit: "Send"
+  messages:
+    form:
+      subject: "Subject"
+      body: "Body"
+      submit: "Send"

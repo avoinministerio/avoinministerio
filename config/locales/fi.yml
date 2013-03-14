@@ -304,3 +304,38 @@ fi:
         register: "Rekisteröidy"
         confirmation: "Ei saanut vahvistusta ohjeita?"
         unlock: "Ei saanut avata ohjeet?"
+  conversations:
+    inbox:
+      title: "Saapuneet"
+      date: "Päivämäärä"
+      subject: "Aihe"
+      from: "Alkaen"
+      show_all: "Näytä kaikki »»"
+    sentbox:
+      title: "Sentbox"
+      date: "Päivämäärä"
+      subject: "Aihe"
+      participants: "Osallistujat"
+      show_all: "Näytä kaikki »»"
+    trash:
+      title: "Roskakori"
+      date: "Päivämäärä"
+      subject: "Aihe"
+      participants: "Osallistujat"
+      show_all: "Näytä kaikki »»"
+    control_panel:
+      new_message: "Uusi viesti"
+      inbox: "Saapuneet"
+      sentbox: "Sentbox"
+      trash: "Roskakori"
+    form:
+      new_message: "Aloita keskustelu"
+      recipients: "Vastaanottajat"
+      subject: "Aihe"
+      body: "Kuvaus"
+      submit: "Lähettää"
+  messages:
+    form:
+      subject: "Aihe"
+      body: "Kuvaus"
+      submit: "Lähettää"
