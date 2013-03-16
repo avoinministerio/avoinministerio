@@ -1,0 +1,7 @@
+.translations
+  This initiative have a translated versions:
+  - if @idea.translated_ideas != []
+    - @idea.translated_ideas.each do |translated|
+      = link_to translated.language, translated
+      %br
+  = link_to t(".translate_button"), new_idea_translated_idea_path(@idea)

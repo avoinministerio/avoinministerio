@@ -1,0 +1,38 @@
+#translated_idea_form
+  %h1= t(".translation")
+  = simple_form_for @translated_idea do |f|
+    .grid_12
+      = f.input :title, label: I18n.t("idea.new.title")
+    .grid_8.help_cont
+      #title_help
+        %p= t('.title_help')
+    .grid_16
+      = f.input :summary, as: :text
+    .grid_8.help_cont
+      #summary_help
+        %p= t('.summary_help')
+    .grid_16
+      = f.input :body, as: :text
+      = f.label :language
+      = f.select :language, options_for_select([["Finnish", "fi"], ["English", "en"]], current_citizen.profile.preferred_language)
+    .grid_8.help_cont
+      #body_help
+        %p= t('.body_help')
+    .grid_16
+      = f.hidden_field :idea_id, :value => @idea.id
+      %br
+      = f.submit @translated_idea.new_record? ? I18n.t("buttons.create") : I18n.t("buttons.update")
+
+#original_idea
+  %h1= t(".original")
+  .grid_12
+    %br
+    = text_field_tag :original_title, @idea.title, :disabled => true
+    %br
+  .grid_16
+    %br
+    = text_area_tag :original_summary, @idea.summary, :disabled => true
+    %br
+  .grid_16
+    %br
+    = text_area_tag :original_summary, @idea.body, :disabled => true

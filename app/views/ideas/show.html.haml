@@ -175,6 +175,8 @@
 
         - else # idea is already a law, no voting
           = t('.law_idea')
+        
+        = render "translations", idea: @idea
 
 -if @idea.published?
   .idea_kartta

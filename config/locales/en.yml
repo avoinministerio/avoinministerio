@@ -137,6 +137,8 @@ en:
       support: "Give your support!"
       impression_count: "Viewed in the last 1 month"
       nearest_collection_points: "Nearest collection points"
+    translations:
+      translate_button: "Create a translation"
     geolocation:
       view_full_map: "View full map"
       addresses: "Collection point addresses"
@@ -327,3 +329,7 @@ en:
     suggestion: "Make a suggestion"
     share: "Share your knowledge"
     spread: "Spread the initiative"
+  translated_ideas:
+    form:
+      translation: "Translation"
+      original: "Original"

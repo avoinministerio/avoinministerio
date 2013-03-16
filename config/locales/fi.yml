@@ -134,6 +134,8 @@ fi:
       support: "Anna tukesi!"
       impression_count: "Katsottu viimeisten 1 kuukausi"
       nearest_collection_points: "Lähimmät keräyspisteet"
+    translations:
+      translate_button: "Luo käännös"
     geolocation:
       view_full_map: "Näytä koko kartta"
       addresses: "Keräyspisteet osoitteineen"
@@ -256,6 +258,11 @@ fi:
         title: "Otsikko"
         summary: "Tiivistelmä"
         body: "Kuvaus"
+      translated_idea:
+        title: "Otsikko"
+        summary: "Tiivistelmä"
+        body: "Kuvaus"
+        language: "Kieli"
       profile:
         first_names: "Etunimet"
         first_name: "Kutsumanimi"
@@ -407,3 +414,7 @@ fi:
     suggestion: "Tee vastaehdotus"
     share: "Jaa tietoa"
     spread: "Levitä aloitetta"
+  translated_ideas:
+    form:
+      translation: "Käännös"
+      original: "Alkuperäinen"

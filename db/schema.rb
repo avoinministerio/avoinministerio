@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314083243) do
+ActiveRecord::Schema.define(:version => 20130316083758) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -297,7 +297,7 @@ ActiveRecord::Schema.define(:version => 20130314083243) do
     t.string   "authenticated_birth_date"
     t.string   "authenticated_occupancy_county"
     t.boolean  "receive_messaging_notifications", :default => true
-    t.string   "preferred_language",              :default => "fi"
+    t.string   "preferred_language"
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
@@ -503,6 +503,17 @@ ActiveRecord::Schema.define(:version => 20130314083243) do
 
   create_table "tags", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "translated_ideas", :force => true do |t|
+    t.integer  "idea_id"
+    t.integer  "author_id"
+    t.string   "language"
+    t.string   "title"
+    t.text     "body"
+    t.text     "summary"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
