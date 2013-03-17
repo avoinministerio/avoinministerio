@@ -1,4 +1,6 @@
 class TranslatedIdeasController < ApplicationController
+  respond_to :html
+
 	def create
     @translated_idea = TranslatedIdea.create(params[:translated_idea])
     @translated_idea.author = current_citizen
@@ -16,6 +18,21 @@ class TranslatedIdeasController < ApplicationController
   end
 
   def show
-    @idea = TranslatedIdea.find(params[:id])
+    @translated_idea = TranslatedIdea.find(params[:id])
+    @idea = Idea.find(@translated_idea.idea_id)
+  end
+
+  def edit
+    @translated_idea = TranslatedIdea.find(params[:id])
+    @idea = Idea.find(@translated_idea.idea_id)
+    respond_with @translated_idea
+  end
+
+  def update
+    @translated_idea = TranslatedIdea.find(params[:id])
+    if @translated_idea.update_attributes(params[:translated_idea])
+      flash[:notice] = I18n.t("idea.updated") 
+    end
+    respond_with @translated_idea
   end
 end

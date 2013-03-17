@@ -1,6 +1,7 @@
 .translations
-  This initiative have a translated versions:
   - if @idea.translated_ideas != []
+    This initiative have a translated versions:
+    %br
     - @idea.translated_ideas.each do |translated|
       = link_to translated.language, translated
       %br
