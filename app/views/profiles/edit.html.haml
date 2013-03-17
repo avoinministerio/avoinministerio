@@ -5,7 +5,7 @@
   = f.input :last_name
   = f.label :preferred_language
   %br
-  = f.select :preferred_language, options_for_select([["Finnish", "fi"], ["English", "en"]], current_citizen.profile.preferred_language)
+  = f.select :preferred_language, Language.all.map{ |language| [language.full_name, language.name] }, :selected => current_citizen.profile.preferred_language
   %br
   %br
   = f.input :image, :as => :url

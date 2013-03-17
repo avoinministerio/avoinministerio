@@ -71,7 +71,8 @@ AvoinMinisterio::Application.routes.draw do
   end
 
   resources :locations
-
+  resources :languages
+  
   devise_for :administrators
   
   match "/admin", to: "admin/ideas#index", as: :administrator_root
@@ -107,6 +108,7 @@ AvoinMinisterio::Application.routes.draw do
       get "lock",       on: :member
       get "unlock",     on: :member
     end
+    resources :languages
     resources :locations
     resources :changelogs
     resources :expert_suggestions

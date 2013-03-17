@@ -18,7 +18,7 @@
       <%= f.label :last_name, :required => false %>
       <%= f.input :last_name, :required => true, :label => false %>
       <%= f.label :preferred_language, :required => false %>
-      <%= f.select :preferred_language, options_for_select([["Finnish", "fi"], ["English", "en"]]) %>
+      <%= f.select :preferred_language, Language.all.map{ |language| [language.full_name, language.name] } %>
     <% end %>
   </div>
 

@@ -1,4 +1,6 @@
 class TranslatedIdeasController < ApplicationController
+  before_filter :authenticate_citizen!, except: [:show]
+
   respond_to :html
 
 	def create

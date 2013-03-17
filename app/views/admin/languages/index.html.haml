@@ -1,0 +1,21 @@
+.row-fluid
+  .span12
+    %h1 Languages
+    %table.table.table-striped
+      %tbody
+        - @languages.each_with_index do |language, index|
+          %tr
+            %td
+              %h2
+                \#
+                = params[:page].to_i*500 + index + 1
+            %td
+              .row-fluid
+                = truncate(language.full_name, length: 500)
+              .row-fluid
+                .span6
+                  = language.name
+            %td
+              .btn-group{ style: "float: right"}
+              = link_to "Delete", language, method: :delete, confirm: "Are you sure?", :class => 'btn btn-danger'
+= will_paginate @languages

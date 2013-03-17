@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130316083758) do
+ActiveRecord::Schema.define(:version => 20130317074826) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -243,6 +243,13 @@ ActiveRecord::Schema.define(:version => 20130316083758) do
   add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], :name => "poly_session_index"
   add_index "impressions", ["user_id"], :name => "index_impressions_on_user_id"
 
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "full_name"
+  end
+
   create_table "locations", :force => true do |t|
     t.string   "address"
     t.float    "latitude"
@@ -297,7 +304,7 @@ ActiveRecord::Schema.define(:version => 20130316083758) do
     t.string   "authenticated_birth_date"
     t.string   "authenticated_occupancy_county"
     t.boolean  "receive_messaging_notifications", :default => true
-    t.string   "preferred_language"
+    t.string   "preferred_language",              :default => "fi"
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
@@ -463,49 +470,6 @@ ActiveRecord::Schema.define(:version => 20130316083758) do
 
   add_index "surveys", ["access_code", "survey_version"], :name => "surveys_access_code_version_idx", :unique => true
   add_index "surveys", ["api_id"], :name => "uq_surveys_api_id", :unique => true
-
-  create_table "tag_suggestions", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "idea_id"
-    t.integer  "citizen_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "tag_suggestions", ["citizen_id"], :name => "index_tag_suggestions_on_citizen_id"
-  add_index "tag_suggestions", ["idea_id"], :name => "index_tag_suggestions_on_idea_id"
-  add_index "tag_suggestions", ["tag_id"], :name => "index_tag_suggestions_on_tag_id"
-
-  create_table "tag_votes", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "idea_id"
-    t.integer  "citizen_id"
-    t.string   "voted"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "tag_votes", ["citizen_id"], :name => "index_tag_votes_on_citizen_id"
-  add_index "tag_votes", ["idea_id"], :name => "index_tag_votes_on_idea_id"
-  add_index "tag_votes", ["tag_id"], :name => "index_tag_votes_on_tag_id"
-
-  create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "idea_id"
-    t.string   "status"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "score"
-  end
-
-  add_index "taggings", ["idea_id"], :name => "index_taggings_on_idea_id"
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-
-  create_table "tags", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "translated_ideas", :force => true do |t|
     t.integer  "idea_id"
