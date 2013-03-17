@@ -22,6 +22,16 @@ class Admin::LocationsController < Admin::AdminController
     end
   end
 
+  def new
+    @location = Location.new
+  end
+  
+  def create
+    @location = Location.new(params[:location])
+    @location.save
+    redirect_to admin_locations_path
+  end
+
   def destroy
     @location = Location.find(params[:id])
     @location.destroy
