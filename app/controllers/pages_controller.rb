@@ -8,7 +8,7 @@ class PagesController < ApplicationController
                                    collecting_started: true).
                              sort_by{|idea| [ idea.language == I18n.locale.to_s ? 1 : 0, idea.collecting_ended ? 0 : 1, (idea.signatures.where(state: "signed").count + idea.additional_signatures_count)]}.reverse
     else
-      items = Idea.published.where(state: state).order("RANDOM()").includes(:votes).all
+      items = Idea.published.where(state: state).sort_by{|idea| [ idea.language == I18n.locale.to_s ? 1 : 0]}.reverse
     end
     item_counts = {}
 
