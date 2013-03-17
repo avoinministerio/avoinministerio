@@ -255,7 +255,59 @@ EOS
     collecting_ended: false,
     collecting_start_date: Time.now,
     collecting_end_date: 1.year.from_now,
-    additional_signatures_count: 0,
+    additional_signatures_count: rand(10000),
+    additional_signatures_count_date: 1.year.from_now,
+    target_count: 10000,
+    collecting_in_service: false
+  })
+  
+  idea.publish_state = 'published'
+  idea.author = random_citizen
+  idea.save
+end
+
+9.times do |i|
+  inx = i + 1
+  idea = Idea.new({
+    title: "Suomi draft #{inx}",
+    summary: "Joku roti!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state: "draft"
+  })
+  
+  idea.publish_state = 'published'
+  idea.author = random_citizen
+  idea.save
+end
+
+9.times do |i|
+  inx = i + 1
+  idea = Idea.new({
+    title: "English draft #{inx}",
+     summary: "Some text!",
+    body: "Another text!",
+    state: "draft",
+    language: "en"
+  })
+  
+  idea.publish_state = 'published'
+  idea.author = random_citizen
+  idea.save
+end
+
+9.times do |i|
+  inx = i + 1
+  idea = Idea.new({
+    title: "English proposal #{inx}",
+    summary: "Some text!",
+    body: "Another text!",
+    state: "proposal",
+    language: "en",
+    collecting_started: true,
+    collecting_ended: false,
+    collecting_start_date: Time.now,
+    collecting_end_date: 1.year.from_now,
+    additional_signatures_count: rand(10000),
     additional_signatures_count_date: 1.year.from_now,
     target_count: 10000,
     collecting_in_service: false
