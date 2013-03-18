@@ -74,7 +74,7 @@ class IdeasController < ApplicationController
 
     @field_names = {
       age:        {newest:  t('.field_names.newest_age'),     oldest:     t('.field_names.oldest_age')}, 
-      comments:   {most:    t('.field_names.most_commented'), least:      t('.field_names.least_age')}, 
+      comments:   {most:    t('.field_names.most_commented'), least:      t('.field_names.least_commented')}, 
       voted:      {most:    t('.field_names.most_voted'),     least:      t('.field_names.least_voted')}, 
       votes_for:  {most:    t('.field_names.most_votes_for'), least:      t('.field_names.least_votes_for')},
       support:    {most:    t('.field_names.most_supported'), least:      t('.field_names.least_supported')},

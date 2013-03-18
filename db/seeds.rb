@@ -332,6 +332,21 @@ end
   idea.save!
 end
 
+20.times do |i|
+  idea = Idea.create(
+                     { title: "English-idea #{i}", 
+    summary: "Some text", 
+    body: "Another text",  
+    language: "en",
+    created_at: Time.now - (60*60*24),
+    updated_at: Time.now - (60*60*24),
+  })
+  
+  idea.state = "idea"
+  idea.author = random_citizen
+  idea.save!
+end
+
 voters = (0..100).map do |i|
   Citizen.find_or_create_by_email(
                                   email: "voter#{i}@voter.com",
