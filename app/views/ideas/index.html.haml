@@ -34,7 +34,7 @@
         -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
           - order = @sorting_order.find{|so| so.first == field}[1]
           - if field == @sorting_order.first.first && params[:impression_reorder].nil?
-            %span.selected= link_to @field_names[field][order.first]
+            %span.selected= link_to @field_names[field][order.first], reorder: field
           - else
             =link_to @field_names[field][order.first], reorder: field 
           - unless field == :tilt
