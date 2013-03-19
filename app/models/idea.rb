@@ -30,6 +30,7 @@ class Idea < ActiveRecord::Base
   has_many :expert_suggestions
   has_many :signatures
   has_many :translated_ideas
+  has_many :forked_ideas, :through => :translated_ideas
   is_impressionable :counter_cache => true
   
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"

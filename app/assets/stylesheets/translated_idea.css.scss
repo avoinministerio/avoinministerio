@@ -1,4 +1,4 @@
-#translated_idea_form {
+#translated_idea_form, #forked_translated_idea_form {
   float: left;
   width: 49%;
 }
@@ -18,7 +18,7 @@ textarea#original_summary {
   margin-bottom: 5px;
 }
 
-input#original_title {
+input#original_title, input#forked_translated_idea_title {
   width: 341px;
   font-size: 1.6em;
   border: 2px #e6e6e6 solid;
@@ -26,7 +26,7 @@ input#original_title {
   padding: 1px 0px;
 }
 
-#original_idea {
+#original_idea, #original_translated_idea {
   float: right;
   width: 49%;
 }

@@ -24,18 +24,18 @@
 .idea.grid_24
   .author
     - if @idea.published?
-      %img.avatar{ src: @translated_idea.author.image, width: 48, height: 48 }
-      %span.name= @translated_idea.author.name
-      %span.date.sans_serif= finnishDate(@translated_idea.created_at)
-      = link_to image_tag("email_big.png"), new_conversation_path(:recipient_id => @translated_idea.author.id)
+      %img.avatar{ src: @forked_idea.author.image, width: 48, height: 48 }
+      %span.name= @forked_idea.author.name
+      %span.date.sans_serif= finnishDate(@forked_idea.created_at)
+      = link_to image_tag("email_big.png"), new_conversation_path(:recipient_id => @forked_idea.author.id)
       %span.pull-right.impressions-count= "#{t('.impression_count')}: #{@idea.impressionist_count(:start_date => Date.today - 1.month)}"
   .grid_16.alpha.mainbody
     - if @idea.published?
-      %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@translated_idea.title.to_s} (Ended)" : @translated_idea.title.to_s
+      %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@forked_idea.title.to_s} (Ended)" : @forked_idea.title.to_s
       .summary
-        = markdown(@translated_idea.summary) if @translated_idea.summary
+        = markdown(@forked_idea.summary) if @forked_idea.summary
       .body
-        = markdown(@translated_idea.body) if @translated_idea.body
+        = markdown(@forked_idea.body) if @forked_idea.body
     - else
       %h1=t('.hidden_title')
       .summary
@@ -43,10 +43,9 @@
         =link_to "kanslia@avoinministerio.fi", "mailto:kanslia@avoinministerio.fi"
         =t('.hidden_summary_part_2')
       .body
-    - if @translated_idea.author == current_citizen or administrator_signed_in?
-      = link_to I18n.t("idea.links.edit_idea"), edit_translated_idea_path(@translated_idea)
-      = link_to 'Fork', fork_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:id])
-    = link_to 'Fork List', idea_translated_idea_forked_ideas_path(params[:idea_id], params[:id])
+    - if @forked_idea.author == current_citizen or administrator_signed_in?
+      = link_to I18n.t("idea.links.edit_idea"), edit_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], @forked_idea)
+      = link_to 'Fork List', idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id])
 
   = render "ideas/share", idea: @idea
 
@@ -54,7 +53,7 @@
     %aside.grid_7.prefix_1.omega
       .voting
         = render "ideas/voting", idea: @idea
-        = render "original", idea: @idea
+        = render "translated_ideas/original", idea: @idea
 
 - if @idea.published?
   .expert_opinions

@@ -18,6 +18,7 @@ class Citizen < ActiveRecord::Base
   
   has_many :ideas, foreign_key: "author_id"
   has_many :translated_ideas, foreign_key: "author_id"
+  has_many :forked_ideas, foreign_key: "author_id", :dependent => :destroy
   has_many :comments, foreign_key: "author_id"
   has_many :idea_comments, through: :ideas
   has_many :money_transactions

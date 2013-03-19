@@ -1,0 +1,21 @@
+%h1 Listing forked_ideas
+
+%table{:style => 'width:100%'}
+  %tr
+    %th Author
+    %th Title
+    %th Body
+    %th Summary
+    %th{:colspan => '3'} Actions
+
+  - @forked_ideas.each do |forked_idea|
+    %tr
+      %td= forked_idea.author_id
+      %td= forked_idea.title
+      %td= forked_idea.body
+      %td= forked_idea.summary
+      %td
+        = link_to 'Show', idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], forked_idea)
+        = link_to 'Edit', edit_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], forked_idea)
+        = link_to 'Destroy', idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], forked_idea), :method => :delete, :data => { :confirm => 'Are you sure?' }
+        = link_to 'Original Translation', idea_translated_idea_path(params[:idea_id], params[:translated_idea_id])

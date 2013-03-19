@@ -3,6 +3,10 @@ class TranslatedIdeasController < ApplicationController
 
   respond_to :html
 
+  def index
+    @translated_ideas = TranslatedIdea.find_all_by_idea_id(params[:idea_id])
+  end
+
 	def create
     @translated_idea = TranslatedIdea.create(params[:translated_idea])
     @translated_idea.author = current_citizen
