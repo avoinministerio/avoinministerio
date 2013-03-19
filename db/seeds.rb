@@ -51,6 +51,9 @@ Administrator.find_or_create_by_email({
 ].each  { |location| Location.find_or_create_by_address(location) }
 @citizens = Citizen.all
 
+[{ name: "fi", full_name: "Finnish" },
+ { name: "en", full_name: "English" }].each { |name| Language.find_or_create_by_name(name) }
+
 def random_citizen
   @citizens[rand(@citizens.size)]
 end

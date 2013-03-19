@@ -37,7 +37,8 @@ AvoinMinisterio::Application.routes.draw do
   match '/conversations/sentbox' => 'conversations#show_sentbox'
   match '/conversations/trash' => 'conversations#show_trash'
 
-  match "/ideat/haku" => "ideas#search"
+  match "/ideas/search" => "ideas#search"
+
   get "ideas/vote_flow"
 
   get "pages/home"
@@ -50,9 +51,13 @@ AvoinMinisterio::Application.routes.draw do
   match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
 
   resources :ideas do
+    resources :translated_ideas
     resources :comments
     resources :expert_suggestions, only: [:new, :create]
   end
+
+  resources :translated_ideas
+
   resources :articles do
     resources :comments
   end
@@ -66,7 +71,8 @@ AvoinMinisterio::Application.routes.draw do
   end
 
   resources :locations
-
+  resources :languages
+  
   devise_for :administrators
   
   match "/admin", to: "admin/ideas#index", as: :administrator_root
@@ -102,6 +108,7 @@ AvoinMinisterio::Application.routes.draw do
       get "lock",       on: :member
       get "unlock",     on: :member
     end
+    resources :languages
     resources :locations
     resources :changelogs
     resources :expert_suggestions

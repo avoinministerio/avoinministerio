@@ -1,0 +1,69 @@
+- if @idea.voted_by?(current_citizen)
+  %h3= t('.voted_idea')
+  %hr
+
+- case @idea.state
+- when "idea"
+  - if @idea.voted_by?(current_citizen)
+    %h3
+      = t('.supported')
+      %b #{vote_in_words(@idea, current_citizen)},
+    %h4= t('.change_vote')
+  - else
+    %h3= t('.support')
+  %h4= t('.notification_idea')
+  = link_to t('.vote_yes'), vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+  = link_to t('.vote_no'), vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+  .votes
+    #votepie
+
+- when "draft"
+  - if @idea.voted_by?(current_citizen)
+    %h3
+      = t('.supported')
+      %b #{vote_in_words(@idea, current_citizen)},
+    %h4= t('.change_vote')
+  - else
+    %h3= t('.do_you_believe')
+  %h4= t('.notification_draft')
+  = link_to t('.vote_yes'), vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+  = link_to t('.vote_no'), vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+  .votes
+    #votepie
+
+- when "proposal"
+  / show voting for proposals if Signatures are not enabled, or if Signatures are enabled and this idea is not in given list
+  /#- if((not ENV['Feature_Signatures']) || (not (ENV['Feature_Signatures'].split(/\,?\s+/).map{|s| s.to_i}.include?(@idea.id))))
+  - if not @idea.collecting_started or @idea.collecting_ended
+    - if @idea.voted_by?(current_citizen)
+      %h3
+        = t('.supported')
+        %b #{vote_in_words(@idea, current_citizen)},
+      %h4= t('.change_vote')
+    - else
+      %h3= t('.billing')
+    %h4= t('.proposal_support_problem')
+    %h4= t('.non_official_support')
+    = link_to t('.vote_yes'), vote_idea_path(@idea.id, vote: 1), class: "btn jaa-btn"
+    = link_to t('.vote_no'), vote_idea_path(@idea.id, vote: 0), class: "btn ei-btn"
+    .votes
+      #votepie
+  - else
+    - if @idea.voted_by?(current_citizen)
+      %h3
+        = t('.supported')
+        %b #{vote_in_words(@idea, current_citizen)}
+      %h4= t('.official_support_not_yet_possible')
+      %h4= t('.support_notification')
+    -if @idea.votes.empty?
+      %h3= t('.not_supported_idea')
+    -else
+      %h4= t('.supported_idea')
+      .votes
+      #votepie
+    %br
+    %br
+    = render "ideas/signature_info", idea: @idea
+    
+- else # idea is already a law, no voting
+  = t('.law_idea')

@@ -2,9 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_locale
-  before_filter :set_locale_from_url
   before_filter :set_changer
-
+  
   def after_sign_in_path_for(resource)
       KM.identify(current_citizen)
       KM.push("record", "signed in")
@@ -55,7 +54,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale = params[:locale] || ((lang = request.env['HTTP_ACCEPT_LANGUAGE']) && lang[/^[a-z]{2}/])
+    if signed_in?
+      I18n.locale = current_citizen.profile.preferred_language
+    else
+      I18n.locale = params[:locale] if params[:locale].present?
+    end
   end
 
   def set_changer

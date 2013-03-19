@@ -4,7 +4,7 @@ class PagesController < ApplicationController
 
   def load(state)
     if state == "proposal"
-      items = Idea.published.where(state: "proposal", 
+      items = Idea.published.where(state: "proposal",
                                    collecting_started: true).
                              sort_by{|idea| [idea.collecting_ended ? 0 : 1, (idea.signatures.where(state: "signed").count + idea.additional_signatures_count)]}.reverse
     else
@@ -89,31 +89,30 @@ class PagesController < ApplicationController
     @blog_articles = Article.published.where(article_type: 'blog').order("created_at DESC").limit(3).all
 
     @headline_1 = [
-      "Tuulivoimalat pelastavat maailman?",
-      "Turkistarhaus on kiellettävä?",
-      "Turkistarhausta kehitettävä?",
-      "Perustulo kaikille?",
-      "Nykyistä tukijärjestelmää on kehitettävä?",
-      "Koiravero vanhentunut?",
-      "Koiravero koko maahan?",
-      "Sitovat kansanäänestykset?",
-      "Tasa-arvoisempi avioliittolaki?",
-      "Lisää kansalaisaloitteita",
-      "Kaikki on hyvin?",
-      "Mitään ei tarvitse muuttaa?",
-      "Lapsillemme parempi maailma!"
+      t(".headline_1.turbines"),
+      t(".headline_1.fur"),
+      t(".headline_1.fur_dev"),
+      t(".headline_1.income"),
+      t(".headline_1.regime"),
+      t(".headline_1.dog_tax"),
+      t(".headline_1.dog_tax_country"),
+      t(".headline_1.referendums"),
+      t(".headline_1.marriage_law"),
+      t(".headline_1.more_initiatives"),
+      t(".headline_1.nothing"),
+      t(".headline_1.children")
     ]
     @headline_2 = [
-      "Tee siitä laki",
-      "Tee omat lakisi",
-      "Laista itse",
-      "Anna oma ehdotuksesi",
-      "Kommentoi",
-      "Ota kantaa",
-      "Anna tukesi",
-      "Tee vastaehdotus",
-      "Jaa tietoa",
-      "Levitä aloitetta",
+      t(".headline_2.law"),
+      t(".headline_2.own_law"),
+      t(".headline_2.put"),
+      t(".headline_2.suggest"),
+      t(".headline_2.comment"),
+      t(".headline_2.speak"),
+      t(".headline_2.support"),
+      t(".headline_2.suggestion"),
+      t(".headline_2.share"),
+      t(".headline_2.spread")
     ]
   end
 end

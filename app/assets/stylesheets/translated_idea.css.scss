@@ -1,0 +1,32 @@
+#translated_idea_form {
+  float: left;
+  width: 49%;
+}
+
+input#translated_idea_title {
+  width: 341px;
+}
+
+textarea#original_summary {
+  width: 341px;
+  height: 386px;
+}
+
+.original_title {
+  display: block;
+  line-height: 150%;
+  margin-bottom: 5px;
+}
+
+input#original_title {
+  width: 341px;
+  font-size: 1.6em;
+  border: 2px #e6e6e6 solid;
+  display: block;
+  padding: 1px 0px;
+}
+
+#original_idea {
+  float: right;
+  width: 49%;
+}
