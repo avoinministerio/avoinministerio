@@ -1,4 +1,4 @@
-%h1 Listing forked_ideas
+%h1 Listing Forked Ideas
 
 %table{:style => 'width:100%'}
   %tr
@@ -10,12 +10,15 @@
 
   - @forked_ideas.each do |forked_idea|
     %tr
-      %td= forked_idea.author_id
-      %td= forked_idea.title
-      %td= forked_idea.body
-      %td= forked_idea.summary
+      %td= forked_idea.author.name
+      %td= forked_idea.title.truncate(20)
+      %td= forked_idea.body.truncate(30)
+      %td= forked_idea.summary.truncate(30)
       %td
         = link_to 'Show', idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], forked_idea)
         = link_to 'Edit', edit_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], forked_idea)
-        = link_to 'Destroy', idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], forked_idea), :method => :delete, :data => { :confirm => 'Are you sure?' }
         = link_to 'Original Translation', idea_translated_idea_path(params[:idea_id], params[:translated_idea_id])
+        - if forked_idea.author_id == current_citizen.id && !forked_idea.pull_request_at
+          = link_to 'Send Pull Request', send_pull_request_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], forked_idea)
+
+= link_to 'Pull Requests', pull_requests_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id])

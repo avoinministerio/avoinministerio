@@ -24,11 +24,7 @@ class ForkedIdeasController < ApplicationController
     
     if @forked_idea.save
       flash[:success] = 'Forked idea was successfully created.'
-      begin
-        redirect_to idea_translated_idea_forked_idea_path(params[:idea_id], translated_idea.id, @forked_idea)
-      rescue Exception => e
-        raise e 
-      end
+      redirect_to idea_translated_idea_forked_idea_path(params[:idea_id], translated_idea.id, @forked_idea)
     else
       flash[:error] = "Already forked or try again later."
       redirect_to request.path.sub("/#{translated_idea.id}/forked_ideas/fork", '')
@@ -48,15 +44,39 @@ class ForkedIdeasController < ApplicationController
     end
   end
   
-  # DELETE /forked_ideas/1
-  # DELETE /forked_ideas/1.json
-  def destroy
+  def send_pull_request
     @forked_idea = ForkedIdea.find(params[:id])
-    @forked_idea.destroy
     
-    respond_to do |format|
-      format.html { redirect_to forked_ideas_url }
-      format.json { head :no_content }
+    if @forked_idea.update_attributes(:pull_request_at => Time.now)
+      flash[:success] = 'Pull request sent successfully'
+      redirect_to pull_requests_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id])
+    else
+      flash[:error] = "Sorry! Please try later."
+      redirect_to idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id])
+    end
+  end
+  
+  def pull_requests
+    need_closed = (params[:closed] ? true : false)
+    translated_idea = TranslatedIdea.find(params[:translated_idea_id])
+
+    @pull_requests = translated_idea.forked_ideas.find(:all, :conditions => ['pull_request_at IS NOT NULL AND is_closed = ?', need_closed], :order => 'updated_at DESC')
+  end
+  
+  def merge
+    @forked_idea = ForkedIdea.find(params[:id])
+    @translated_idea = @forked_idea.translated_idea
+  end
+  
+  def close_pr
+    @forked_idea = ForkedIdea.find(params[:id])
+
+    if @forked_idea.update_attributes(:is_closed => true)
+      flash[:success] = 'Pull request sent successfully'
+      redirect_to pull_requests_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id], :closed => true)
+    else
+      flash[:error] = "Sorry! Please try later."
+      redirect_to idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id])
     end
   end
 end

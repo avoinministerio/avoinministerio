@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317180727) do
+ActiveRecord::Schema.define(:version => 20130320181916) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -186,14 +186,18 @@ ActiveRecord::Schema.define(:version => 20130317180727) do
   end
 
   create_table "forked_ideas", :force => true do |t|
-    t.integer  "translated_ideas_id"
+    t.integer  "translated_idea_id"
     t.integer  "author_id"
     t.string   "title"
     t.text     "body"
     t.text     "summary"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.datetime "pull_request_at"
+    t.boolean  "is_closed",          :default => false
   end
+
+  add_index "forked_ideas", ["pull_request_at"], :name => "inx_frkd_ideas_pr_at"
 
   create_table "ideas", :force => true do |t|
     t.string   "title"

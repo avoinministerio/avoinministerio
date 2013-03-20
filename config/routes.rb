@@ -53,6 +53,10 @@ AvoinMinisterio::Application.routes.draw do
     resources :translated_ideas do
       resources :forked_ideas do
         get "fork",    on: :collection
+        get "pull_requests",    on: :collection
+        get "send_pull_request",    on: :member
+        get "merge",    on: :member
+        get "close_pr",    on: :member
      end
     end
     resources :comments
