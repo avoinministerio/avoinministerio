@@ -13,7 +13,8 @@
           Anna idealle tiivistelmä. Siitä tulisi käydä ilmi ideasi perusajatus muutamalla lauseella.
           Voit muokata sitä myöhemmin.
     .grid_16
-      = f.input :body, as: :text
+      = f.label t(".body"), :class => "idea_form_label"
+      = f.text_area :body, as: :text, :class => "markdown-toolbar"
     .grid_8.help_cont
       #body_help
         %p

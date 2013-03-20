@@ -65,6 +65,10 @@ fi:
   buttons:
     create: "Luo"
     update: "Päivitä"
+  ideas:
+    form:
+      body: "Kuvaus"
+      summary: "Tiivistelmä"
   idea:
     links:
       new_idea: "Uusi idea"

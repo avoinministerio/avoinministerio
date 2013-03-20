@@ -5,3 +5,7 @@ en:
   articles:
     edit:
       title: "Edit article"
+  ideas:
+    form:
+      body: "Body"
+      summary: "Summary"
