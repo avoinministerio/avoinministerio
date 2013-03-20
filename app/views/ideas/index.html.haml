@@ -33,7 +33,7 @@
         / New version with static order
         -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
           - order = @sorting_order.find{|so| so.first == field}[1]
-          - if field == @sorting_order.first.first && params[:impression_reorder].nil?
+          - if field == @sorting_order.first.first && params[:impression_reorder].nil? && params[:language_reorder].nil?
             %span.selected= link_to @field_names[field][order.first], reorder: field
           - else
             =link_to @field_names[field][order.first], reorder: field 
@@ -50,7 +50,15 @@
           - unless field == :year
             |
       .grid_3
-        Language:
+        = t('.languages')
+      .grid_20
+        -@language.each_with_index do |field, index|
+          - if field.to_s == params[:language_reorder]
+            %span.selected= link_to @language_fields[index][1]
+          - else
+            = link_to @language_fields[index][1], language_reorder: field.to_s
+          - unless field == @language.last
+            |
     /- if ENV['Feature_Searchbox']
     .grid_24.search
       .search

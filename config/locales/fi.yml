@@ -94,6 +94,7 @@ fi:
       filtering: "Valittu: "
       ordering: "Järjestys: "
       time_period: "Aikaväli: "
+      languages: "Kieli: "
       search: "Haku: "
       search_example: "(esim. tasa*tai koira ja vero)"
       no_title: "Ei otsikkoa"

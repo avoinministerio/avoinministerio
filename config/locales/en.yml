@@ -96,6 +96,7 @@ en:
       title: "Open ministry ideas"
       filtering: "Filter: "
       ordering: "Order: "
+      languages: "Languages: "
       time_period: "Time period: "
       search: "Search: "
       search_example: "(eg. law)"
