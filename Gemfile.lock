@@ -178,6 +178,7 @@ GEM
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (> 3.0.0)
+    markdown-toolbar (0.2.4)
     mechanize (2.5.1)
       domain_name (~> 0.5, >= 0.5.1)
       mime-types (~> 1.17, >= 1.17.2)
@@ -395,6 +396,7 @@ DEPENDENCIES
   letters
   libnotify
   mailboxer
+  markdown-toolbar
   newrelic_rpm (~> 3.5.7.59)
   nokogiri
   omniauth-facebook

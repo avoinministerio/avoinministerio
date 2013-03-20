@@ -24,3 +24,5 @@
 //= require jquery.tokeninput
 //= require conversations
 //= require jquery.ui.addresspicker
+//= require markdown-toolbar
+//= require markdown-toolbar-buttons

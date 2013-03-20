@@ -1,6 +1,5 @@
 .row-fluid
-  .span20
-    %h3= link_to @article.idea.title, [:admin, @article.idea] if @article.idea
-    %h1 Uusi Artikkeli
+  %h3= link_to @article.idea.title, [:admin, @article.idea] if @article.idea
+  %h1 Uusi Artikkeli
     
-    = render "form"
+  = render "form"

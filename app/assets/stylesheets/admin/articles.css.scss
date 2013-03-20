@@ -8,11 +8,10 @@
   padding-bottom: 20px;
 }
 
-form.article {
-	width:600px;
-}
-
 form.article input, textarea {
-	width:100%;
+	width: 600px;
 }
 
+input#article_title {
+  width: 600px;
+}
