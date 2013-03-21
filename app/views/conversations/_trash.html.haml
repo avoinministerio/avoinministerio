@@ -1,10 +1,10 @@
 #trash
-  %h1 Trash
+  %h1=t(".title")
   %table.messaging
     %tr.title
-      %th.title Date
-      %th.title Subject
-      %th.title Participants
+      %th.title=t(".date")
+      %th.title=t(".subject")
+      %th.title=t(".participants")
     - @trash.each do |message|
       %tr{:onclick => "window.location.href = '#{url_for(message)}';", :onmouseover => "this.style.cursor='pointer'"}
         %td.cell #{finnishDate(message.updated_at)}
@@ -14,4 +14,4 @@
   - if @trash.count > 5
     = will_paginate @trash
   - elsif @trash.count == 5
-    = link_to "Show all »»", conversations_trash_path, :class => "show_all_link"
+    = link_to t(".show_all"), conversations_trash_path, :class => "show_all_link"

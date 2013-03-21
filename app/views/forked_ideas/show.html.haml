@@ -1,0 +1,88 @@
+- content_for :facebook_metadata_for_idea do
+  = render partial: 'ideas/facebook_meta_tags'
+- content_for :head do
+  %title= "#{t('.title')} #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}"
+/ Piecharts
+= render "ideas/raphael", idea: @idea
+.prevnext
+  .grid_24
+    / This is a layout BUG: grid_12 + grid_12 does not fit in .grid_24 due some margins set somewhere
+    / Workaround with grid_11 + grid_12 < grid_24
+    .grid_11 
+      - if @prev
+        =link_to t('.previous'), idea_path(@prev, so: @sorting_order_code)
+      - else
+        .noprevnext &nbsp;
+    .grid_12.right
+      - if @next
+        =link_to t('.next'), idea_path(@next, so: @sorting_order_code)
+      - else
+        .noprevnext
+.clear
+.grid_24
+  = idea_state_image(@idea)
+.idea.grid_24
+  .author
+    - if @idea.published?
+      %img.avatar{ src: @forked_idea.author.image, width: 48, height: 48 }
+      %span.name= @forked_idea.author.name
+      %span.date.sans_serif= finnishDate(@forked_idea.created_at)
+      = link_to image_tag("email_big.png"), new_conversation_path(:recipient_id => @forked_idea.author.id)
+      %span.pull-right.impressions-count= "#{t('.impression_count')}: #{@idea.impressionist_count(:start_date => Date.today - 1.month)}"
+  .grid_16.alpha.mainbody
+    - if @idea.published?
+      %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@forked_idea.title.to_s} (Ended)" : @forked_idea.title.to_s
+      .summary
+        = markdown(@forked_idea.summary) if @forked_idea.summary
+      .body
+        = markdown(@forked_idea.body) if @forked_idea.body
+    - else
+      %h1=t('.hidden_title')
+      .summary
+        =t('.hidden_summary_part_1')
+        =link_to "kanslia@avoinministerio.fi", "mailto:kanslia@avoinministerio.fi"
+        =t('.hidden_summary_part_2')
+      .body
+    - if @forked_idea.author == current_citizen or administrator_signed_in?
+      - if @forked_idea.is_closed
+        = t('.already_closed')
+      - else
+        = link_to I18n.t("idea.links.edit_idea"), edit_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], @forked_idea)
+      %br
+      = link_to t('.fork_list'), idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id])
+
+  = render "ideas/share", idea: @idea
+
+  - if @idea.published?
+    %aside.grid_7.prefix_1.omega
+      .voting
+        = render "ideas/voting", idea: @idea
+        = render "translated_ideas/original", idea: @idea
+
+- if @idea.published?
+  .expert_opinions
+    %h2.grid_24= t('.expert_opinions')
+    - if @idea.articles.published.any?
+      = render partial: 'article', collection: @idea.articles.published
+      .clear
+      .grid_17 &nbsp;
+      .grid_7
+        =link_to t('.are_you_expert'), "/artikkelit/asiantuntijoille-ja-tutkijoille", class: "grid_4"
+        .clear
+        =link_to t('.suggest_experts'), new_idea_expert_suggestion_path(@idea), class: "grid_4"
+      .clear
+    - else
+      .grid_17
+        = t('.no_statements')
+      .grid_7
+        =link_to t('.are_you_expert'), "/artikkelit/asiantuntijoille-ja-tutkijoille", class: "grid_4"
+        .clear
+        =link_to t('.suggest_experts'), new_idea_expert_suggestion_path(@idea), class: "grid_4"
+      .clear
+
+  .idea_comments#comments
+    %h2.grid_24= t('.comments')
+    .grid_24.comment_form
+      = render "comments/form", model: @idea
+    .comments.suffix_8
+      = render partial: 'comments/comment', collection: @idea.comments.published

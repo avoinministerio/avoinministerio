@@ -20,7 +20,6 @@
 //= require jquery.ba-throttle-debounce.min
 //= require jquery.mousewheel.min
 //= require jquery.touchSwipe.min
-//= require ideas
 //= require jquery.tokeninput
 //= require conversations
 //= require jquery.ui.addresspicker

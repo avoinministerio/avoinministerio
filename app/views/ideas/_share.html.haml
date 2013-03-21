@@ -1,0 +1,19 @@
+-if @idea.published?
+  .grid_7.prefix_1.omega
+    %iframe{width: "270", height: "152", src: "https://www.youtube.com/embed/jSmhaKseDbo", style: "border: none;", allowfullscreen: ""}
+    .share
+      %div{:class => "addthis_toolbox addthis_default_style addthis_32x32_style"}
+        %a{:class => "addthis_button_facebook"}
+        %a{:class => "addthis_button_twitter"}
+        %a{:class => "addthis_button_gmail"}
+        %a{:class => "addthis_button_google_plusone_share"}
+        / This like does not seem to scale to 32x32 style
+        /%a{:class => "addthis_button_facebook_like", "fb:like:width" => "115"}
+      .sharing-suggestion
+        - if @idea.voted_by?(current_citizen)
+          - if @idea.votes.by(current_citizen).first.option == 0
+            = t('.unsupport_idea')
+          - else
+            = t('.support_idea')
+        - else
+          = t('.share_idea')
