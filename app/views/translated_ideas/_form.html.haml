@@ -3,21 +3,12 @@
   = simple_form_for [@idea, @translated_idea] do |f|
     .grid_12
       = f.input :title, label: I18n.t("idea.new.title")
-    .grid_8.help_cont
-      #title_help
-        %p= t('.title_help')
     .grid_16
       = f.input :summary, as: :text
-    .grid_8.help_cont
-      #summary_help
-        %p= t('.summary_help')
     .grid_16
       = f.input :body, as: :text
       = f.label :language
       = f.select :language, Language.all.map{ |language| [language.full_name, language.name] }, :selected => @translated_idea.language
-    .grid_8.help_cont
-      #body_help
-        %p= t('.body_help')
     .grid_16
       = f.hidden_field :idea_id, :value => @idea.id
       %br

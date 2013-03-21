@@ -2,19 +2,19 @@
   %thead
     %tr
       %th
-        Language
+        = t('.language')
       %th
-        Title
+        = t('.title')
       %th
-        Body
+        = t('.body')
       %th
-        Summary
+        = t('.summary')
       %th
-        Created At
+        = t('.created_at')
       %th
-        Updated At
+        = t('.updated_at')
       %th
-        Actions
+        = t('.actions')
   %tbody
     %tr
       - @translated_ideas.each do |translated_idea|
@@ -31,8 +31,8 @@
         %td
           = finnishDate(translated_idea.updated_at)
         %td
-          = link_to 'Original Idea', translated_idea.idea
-          = link_to t(".fork"), fork_idea_translated_idea_forked_ideas_path(params[:idea_id], translated_idea.id)
-          = link_to t(".fork_list"), idea_translated_idea_forked_ideas_path(params[:idea_id], translated_idea.id)
+          = link_to t('.original'), translated_idea.idea
+          = link_to t('.fork'), fork_idea_translated_idea_forked_ideas_path(params[:idea_id], translated_idea.id)
+          = link_to t('.fork_list'), idea_translated_idea_forked_ideas_path(params[:idea_id], translated_idea.id)
 
-= link_to t(".new_translation"), new_idea_translated_idea_path(params[:idea_id])
+= link_to t('.new_translation'), new_idea_translated_idea_path(params[:idea_id])

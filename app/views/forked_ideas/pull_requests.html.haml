@@ -1,12 +1,12 @@
-%h1 Listing Pull Requets
+%h1=t('.title')
 
 %table{:style => 'width:100%'}
   %tr
-    %th Author
-    %th Title
-    %th Body
-    %th Summary
-    %th Actions
+    %th=t('.author')
+    %th=t('.pr_title')
+    %th=t('.body')
+    %th=t('.summary')
+    %th=t('.actions')
 
   - @pull_requests.each do |pull_request|
     %tr
@@ -15,11 +15,11 @@
       %td= pull_request.body.truncate(30)
       %td= pull_request.summary.truncate(30)
       %td
-        = link_to 'Show', idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], pull_request)
+        = link_to t('.show'), idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], pull_request)
 
         - unless params[:closed]
-          = link_to 'Edit', edit_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], pull_request)
-          = link_to 'Merge', merge_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], pull_request) if pull_request.author_id == current_citizen.id
-          = link_to 'Close', close_pr_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], pull_request) if pull_request.author_id == current_citizen.id
+          = link_to t('.edit'), edit_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], pull_request)
+          = link_to t('.merge'), merge_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], pull_request) if pull_request.author_id == current_citizen.id
+          = link_to t('.close'), close_pr_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], pull_request) if pull_request.author_id == current_citizen.id
 
-= link_to 'Closed Pull Requests', pull_requests_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id], :closed => true) unless params[:closed]
+= link_to t('.closed_pull_requests'), pull_requests_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id], :closed => true) unless params[:closed]

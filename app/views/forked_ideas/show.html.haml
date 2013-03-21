@@ -45,10 +45,11 @@
       .body
     - if @forked_idea.author == current_citizen or administrator_signed_in?
       - if @forked_idea.is_closed
-        = highlight('Already Closed', 'Already Closed')
+        = t('.already_closed')
       - else
         = link_to I18n.t("idea.links.edit_idea"), edit_idea_translated_idea_forked_idea_path(params[:idea_id], params[:translated_idea_id], @forked_idea)
-      = link_to 'Fork List', idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id])
+      %br
+      = link_to t('.fork_list'), idea_translated_idea_forked_ideas_path(params[:idea_id], params[:translated_idea_id])
 
   = render "ideas/share", idea: @idea
 

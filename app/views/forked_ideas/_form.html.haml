@@ -3,20 +3,11 @@
   = simple_form_for [Idea.find(params[:idea_id]), @translated_idea, @forked_idea] do |f|
     .grid_12
       = f.input :title, label: I18n.t("forked_idea.new.title"), :input_html => { :id => "forked_translated_idea_title" }
-    .grid_8.help_cont
-      #title_help
-        %p= t('.title_help')
     .grid_16
       = f.input :summary, as: :text
-    .grid_8.help_cont
-      #summary_help
-        %p= t('.summary_help')
     .grid_16
       = f.input :body, as: :text
-      = "Language: #{@language}"
-    .grid_8.help_cont
-      #body_help
-        %p= t('.body_help')
+      = "#{t('.language')}: #{@language}"
     .grid_16
       = f.submit I18n.t("buttons.update")
 
