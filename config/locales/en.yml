@@ -125,6 +125,7 @@ en:
     translations:
       translate_button: "Create a translation"
       show_all: "All Translations"
+      notification: "The current initiative is translated in several languages:"
     geolocation:
       view_full_map: "View full map"
       addresses: "Collection point addresses"
@@ -359,6 +360,8 @@ en:
       suggest_experts: "Suggest an expert"
       no_statements: "No statements yet"
       comments: "Comments"
+      fork: "Fork"
+      pull_requests: "Pull Requests"
     original:
       original: "Original idea"
   forked_ideas:

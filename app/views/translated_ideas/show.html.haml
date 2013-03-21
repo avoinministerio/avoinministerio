@@ -45,9 +45,9 @@
       .body
     - if @translated_idea.author == current_citizen or administrator_signed_in?
       = link_to I18n.t("idea.links.edit_idea"), edit_translated_idea_path(@translated_idea)
-    = link_to 'Fork', fork_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:id])
-    = link_to 'Fork List', idea_translated_idea_forked_ideas_path(params[:idea_id], params[:id])
-    = link_to 'Pull Requests', pull_requests_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:id])
+    = link_to t(".fork"), fork_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:id])
+    = link_to t(".fork_list"), idea_translated_idea_forked_ideas_path(params[:idea_id], params[:id])
+    = link_to t(".pull_requests"), pull_requests_idea_translated_idea_forked_ideas_path(params[:idea_id], params[:id])
 
   = render "ideas/share", idea: @idea
 

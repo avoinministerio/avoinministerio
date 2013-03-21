@@ -122,6 +122,7 @@ fi:
     translations:
       translate_button: "Luo käännös"
       show_all: "Kaikki käännökset"
+      notification: "Nykyinen aloite on käännetty useille kielille:"
     geolocation:
       view_full_map: "Näytä koko kartta"
       addresses: "Keräyspisteet osoitteineen"
@@ -456,6 +457,8 @@ fi:
       suggest_experts: "Ehdota asiantuntijaa"
       no_statements: "Ei vielä lausuntoja"
       comments: "Kommentit"
+      fork: "Haarukka"
+      pull_requests: "Vedä pyynnöt"
     original:
       original: "Alkuperäinen idea"
   forked_ideas:
