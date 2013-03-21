@@ -63,12 +63,12 @@ class IdeasController < ApplicationController
   
   def setup_filtering_and_sorting_options
     @filters = [
-    [:all,                "Kaikki",                proc {|f| f} ],
-    [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
-    [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
-    [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
-    [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
-    [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
+      [:all,                t('.filter.all'),                proc {|f| f} ],
+      [:ideas,              t('.filter.idea'),               proc {|f| f.where(state: :idea)} ],
+      [:drafts,             t('.filter.drafts'),             proc {|f| f.where(state: :draft)} ],
+      [:law_proposals,      t('.filter.law_proposals'),      proc {|f| f.where(state: :proposal)} ],
+      [:action_proposals,   t('.filter.action_proposals'),   proc {|f| f.where(state: :proposal)} ],
+      [:laws,               t('.filter.law'),                proc {|f| f.where(state: :law)} ],
     ]
     
     @orders = {
@@ -79,24 +79,24 @@ class IdeasController < ApplicationController
       support:    {most:    "vote_proportion DESC",         least:      "vote_proportion ASC"},
       tilt:       {even:    "vote_proportion_away_mid ASC", polarized:  "vote_proportion_away_mid DESC"},
     }
-    
+
     @field_names = {
-      age:        {newest:  "Uusimmat ideat",               oldest:     "Vanhimmat ideat"}, 
-      comments:   {most:    "Eniten kommentteja",           least:      "Vähiten kommentteja"}, 
-      voted:      {most:    "Eniten ääniä",                 least:      "Vähiten ääniä"}, 
-      votes_for:  {most:    "Eniten ääniä puolesta",        least:      "Vähiten ääniä puolesta"},
-      support:    {most:    "Eniten tukea",                 least:      "Vähiten tukea"},
-      tilt:       {even:    "Ääniä jakavimmat",             polarized:  "Selkeimmin puolesta tai vastaan"},
+      age:        {newest:  t('.field_names.newest_age'),     oldest:     t('.field_names.oldest_age')}, 
+      comments:   {most:    t('.field_names.most_commented'), least:      t('.field_names.least_commented')}, 
+      voted:      {most:    t('.field_names.most_voted'),     least:      t('.field_names.least_voted')}, 
+      votes_for:  {most:    t('.field_names.most_votes_for'), least:      t('.field_names.least_votes_for')},
+      support:    {most:    t('.field_names.most_supported'), least:      t('.field_names.least_supported')},
+      tilt:       {even:    t('.field_names.tilt_even'),      polarized:  t('.field_names.tilt_polarized')},
     }
     
     @impression_fields = [
-    [:all,                  "Kaikki"],
-    [:today,                "tänään"],
-    [:week,                 "Tällä viikolla"],
-    [:month,                "Tämä kuukausi"],
-    [:quarter,              "Tämä Quarter"],
-    [:half_year,            "Tämä Puolivuosiraportit"],
-    [:year,                 "Tämä vuosi"]
+    [:all,                  t('.time_period.all')],
+    [:today,                t('.time_period.today')],
+    [:week,                 t('.time_period.week')],
+    [:month,                t('.time_period.month')],
+    [:quarter,              t('.time_period.quarter')],
+    [:half_year,            t('.time_period.half_year')],
+    [:year,                 t('.time_period.year')]
     ]
 
     @language_fields = Language.sorting_options

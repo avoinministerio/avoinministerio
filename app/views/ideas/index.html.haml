@@ -36,7 +36,7 @@
           - if field == @sorting_order.first.first && params[:impression_reorder].nil? && params[:language_reorder].nil?
             %span.selected= link_to @field_names[field][order.first], reorder: field
           - else
-            =link_to @field_names[field][order.first], reorder: field 
+            =link_to @field_names[field][order.first], reorder: field
           - unless field == :tilt
             |
       .grid_3

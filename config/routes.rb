@@ -1,5 +1,4 @@
 AvoinMinisterio::Application.routes.draw do
-
   resource :profile, :except => [:new, :create, :destroy]  
   resource :citizen, :only => [:edit, :update]
   match "/ideas/:id/vote/:vote"                       => "vote#vote",                     as: :vote_idea
@@ -51,7 +50,15 @@ AvoinMinisterio::Application.routes.draw do
   match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
 
   resources :ideas do
-    resources :translated_ideas
+    resources :translated_ideas do
+      resources :forked_ideas do
+        get "fork",    on: :collection
+        get "pull_requests",    on: :collection
+        get "send_pull_request",    on: :member
+        get "merge",    on: :member
+        get "close_pr",    on: :member
+     end
+    end
     resources :comments
     resources :expert_suggestions, only: [:new, :create]
   end

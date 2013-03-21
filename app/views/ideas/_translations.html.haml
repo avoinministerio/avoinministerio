@@ -6,3 +6,5 @@
       = link_to translated.language, translated
       %br
   = link_to t(".translate_button"), new_idea_translated_idea_path(@idea)
+  %br
+  = link_to "All Translations", idea_translated_ideas_path(@idea)
