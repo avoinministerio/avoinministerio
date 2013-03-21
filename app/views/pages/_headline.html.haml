@@ -4,5 +4,6 @@
     %h2= @headline_2[rand(@headline_2.size)]
   .actions.grid_6
     = link_to t('.ideas'), ideas_path, class: "button"
-    = image_tag "ficora.png", class: "stamp-show"
+    - if I18n.locale == :fi
+      = image_tag "ficora.png", class: "stamp-show"
     = link_to t('.FAQ'), "/artikkelit/20-usein-kysyttyja-kysymyksia", class: "button"

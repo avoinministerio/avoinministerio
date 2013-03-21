@@ -35,10 +35,7 @@
   %header.container_24.top_row_container
     .container_24.top_row
   %header.container_24
-    - if I18n.locale == :fi
-      = link_to image_tag("logo.png"), "/pages/etusivulle", id: "logo", class: "grid_12"
-    - elsif I18n.locale = :en
-      = link_to image_tag("logo.png"), "/pages/home", id: "logo", class: "grid_12"
+    = link_to image_tag("logo_" + I18n.locale.to_s + ".png"), root_path, id: "logo", class: "grid_12"
     = render partial: 'shared/login_actions'
     = render partial: 'shared/facebook_js'
     .idea_actions.bottom_row
