@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130302075827) do
+ActiveRecord::Schema.define(:version => 20130320181916) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -185,6 +185,20 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "forked_ideas", :force => true do |t|
+    t.integer  "translated_idea_id"
+    t.integer  "author_id"
+    t.string   "title"
+    t.text     "body"
+    t.text     "summary"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.datetime "pull_request_at"
+    t.boolean  "is_closed",          :default => false
+  end
+
+  add_index "forked_ideas", ["pull_request_at"], :name => "inx_frkd_ideas_pr_at"
+
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "body"
@@ -212,6 +226,7 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
     t.string   "additional_collecting_service_urls"
     t.datetime "updated_content_at"
     t.integer  "impressions_count"
+    t.string   "language",                           :default => "fi"
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
@@ -241,6 +256,13 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
   add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], :name => "poly_request_index"
   add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], :name => "poly_session_index"
   add_index "impressions", ["user_id"], :name => "index_impressions_on_user_id"
+
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "full_name"
+  end
 
   create_table "locations", :force => true do |t|
     t.string   "address"
@@ -296,6 +318,7 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
     t.string   "authenticated_birth_date"
     t.string   "authenticated_occupancy_county"
     t.boolean  "receive_messaging_notifications", :default => true
+    t.string   "preferred_language",              :default => "fi"
   end
 
   add_index "profiles", ["citizen_id"], :name => "index_profiles_on_citizen_id"
@@ -461,6 +484,17 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
 
   add_index "surveys", ["access_code", "survey_version"], :name => "surveys_access_code_version_idx", :unique => true
   add_index "surveys", ["api_id"], :name => "uq_surveys_api_id", :unique => true
+
+  create_table "translated_ideas", :force => true do |t|
+    t.integer  "idea_id"
+    t.integer  "author_id"
+    t.string   "language"
+    t.string   "title"
+    t.text     "body"
+    t.text     "summary"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "validation_conditions", :force => true do |t|
     t.integer  "validation_id"

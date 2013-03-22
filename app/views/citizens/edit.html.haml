@@ -1,4 +1,4 @@
-%h2 Vaihda sähköpostiosoite tai salasana
+%h2= t('.title')
 = form_for @citizen do |f|
   .input
     = f.label :current_password
@@ -17,4 +17,4 @@
     = f.text_field :password_confirmation
   
   .action_container
-    = f.submit "Tallenna muutokset"
+    = f.submit t('.save')

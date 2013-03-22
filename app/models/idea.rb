@@ -20,7 +20,7 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count, :updated_content_at
+                    :target_count, :language, :updated_content_at
 
   attr_accessor :impression_gp_count
 
@@ -29,13 +29,15 @@ class Idea < ActiveRecord::Base
   has_many :articles
   has_many :expert_suggestions
   has_many :signatures
+  has_many :translated_ideas
+  has_many :forked_ideas, :through => :translated_ideas
   is_impressionable :counter_cache => true
   
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
   validates :author_id, presence: true
-  validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
-  validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
+  validates :title, length: { minimum: 5 }
+  validates :body,  length: { minimum: 5 }
   validates :state, inclusion: { in: VALID_STATES }
 
   tankit index_name do

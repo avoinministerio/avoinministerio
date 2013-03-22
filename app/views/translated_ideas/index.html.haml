@@ -1,0 +1,38 @@
+%table{:style => "width:100%"}
+  %thead
+    %tr
+      %th
+        = t('.language')
+      %th
+        = t('.title')
+      %th
+        = t('.body')
+      %th
+        = t('.summary')
+      %th
+        = t('.created_at')
+      %th
+        = t('.updated_at')
+      %th
+        = t('.actions')
+  %tbody
+    %tr
+      - @translated_ideas.each do |translated_idea|
+        %td
+          = translated_idea.language
+        %td
+          = translated_idea.title.truncate(20)
+        %td
+          = translated_idea.body.truncate(30)
+        %td
+          = translated_idea.summary.truncate(30)
+        %td
+          = finnishDate(translated_idea.created_at)
+        %td
+          = finnishDate(translated_idea.updated_at)
+        %td
+          = link_to t('.original'), translated_idea.idea
+          = link_to t('.fork'), fork_idea_translated_idea_forked_ideas_path(params[:idea_id], translated_idea.id)
+          = link_to t('.fork_list'), idea_translated_idea_forked_ideas_path(params[:idea_id], translated_idea.id)
+
+= link_to t('.new_translation'), new_idea_translated_idea_path(params[:idea_id])

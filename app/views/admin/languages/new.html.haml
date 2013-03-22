@@ -1,0 +1,5 @@
+= simple_form_for @language, url: [:admin, @language] do |f|
+  = f.error_notification
+  = f.input :full_name, label: "Full name (for example: English)"
+  = f.input :name, label: "Name (for example: en)"
+  = f.button :submit, "Create"

@@ -1,0 +1,11 @@
+.translations
+  .languages
+    - if @idea.translated_ideas != nil
+      = t('.notification')
+      %br
+      - @idea.translated_ideas.each do |translation|
+        = link_to translation.language, idea_translated_idea_path(@idea.id, translation.id)
+        %br
+  = link_to t(".translate_button"), new_idea_translated_idea_path(@idea)
+  %br
+  = link_to t(".show_all"), idea_translated_ideas_path(@idea)
