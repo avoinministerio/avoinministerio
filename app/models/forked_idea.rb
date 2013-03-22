@@ -1,4 +1,6 @@
 class ForkedIdea < ActiveRecord::Base
+  include Changelogger
+
   attr_accessible :author_id, :body, :summary, :title, :translated_idea_id, :pull_request_at, :is_closed
 
   belongs_to :translated_idea
