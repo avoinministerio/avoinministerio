@@ -3,7 +3,7 @@ class Profile < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :image, :receive_newsletter,
     :receive_other_announcements, :receive_weekletter, :first_names,
-    :accept_science, :accept_terms_of_use, :receive_messaging_notifications
+    :accept_science, :accept_terms_of_use, :receive_messaging_notifications, :preferred_language
   
   validates :first_names, :first_name, :last_name, :presence => true
   

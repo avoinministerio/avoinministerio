@@ -1,10 +1,9 @@
 .grid_24
   #map
-
   %br
-  = link_to "Näytä koko kartta", kartta_path, :class => "default_url"
+  = link_to t('.view_full_map'), kartta_path, :class => "default_url"
   %br
-  = link_to "Keräyspisteet osoitteineen", osoitteet_path, :class => "default_url"
+  = link_to t('.addresses'), osoitteet_path, :class => "default_url"
 
   #list_of_address
     - if (@users_lat and @users_lon) != nil
