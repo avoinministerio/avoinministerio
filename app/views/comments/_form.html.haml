@@ -3,9 +3,9 @@
     - if citizen_signed_in?
       = f.input :body, as: :text, label: false
     - else
-      = f.input :body, as: :text, label: false, disabled: true, input_html: { :class => 'disabled', value: "Voit kirjoittaa kommentteja kirjautumalla sisään"}
+      = f.input :body, as: :text, label: false, disabled: true, input_html: { :class => 'disabled', value: t('.login_to_write')}
   .grid_8.omega
     - if citizen_signed_in?
-      = f.submit "Lisää kommentti", disable_with: "Lähetetään ..."
+      = f.submit t('.add_comment'), disable_with: t('.sending')
     - else
-      = f.submit "Lisää kommentti", disabled: true, input_html: { :class => 'disabled' }
+      = f.submit t('.add_comment'), disabled: true, input_html: { :class => 'disabled' }

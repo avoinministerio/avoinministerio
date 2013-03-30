@@ -1,10 +1,10 @@
 #inbox
-  %h1 Inbox
+  %h1=t(".title")
   %table.messaging
     %tr.title
-      %th.title Date
-      %th.title Subject
-      %th.title From
+      %th.title=t(".date")
+      %th.title=t(".subject")
+      %th.title=t(".from")
     - @inbox.each do |message|
       %tr{:class => "message #{'unread' if message.is_unread?(current_citizen)}", :onclick => "window.location.href = '#{url_for(message)}';", :onmouseover => "this.style.cursor='pointer'"}
         %td.cell #{finnishDate(message.updated_at)}
@@ -14,4 +14,4 @@
   - if @inbox.count > 5
     = will_paginate @inbox
   - elsif @inbox.count == 5
-    = link_to "Show all »»", conversations_inbox_path, :class => "show_all_link"
+    = link_to t(".show_all"), conversations_inbox_path, :class => "show_all_link"

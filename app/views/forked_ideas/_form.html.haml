@@ -1,0 +1,26 @@
+#forked_translated_idea_form
+  %h1= t(".translation")
+  = simple_form_for [Idea.find(params[:idea_id]), @translated_idea, @forked_idea] do |f|
+    .grid_12
+      = f.input :title, label: I18n.t("forked_idea.new.title"), :input_html => { :id => "forked_translated_idea_title" }
+    .grid_16
+      = f.input :summary, as: :text
+    .grid_16
+      = f.input :body, as: :text
+      = "#{t('.language')}: #{@language}"
+    .grid_16
+      = f.submit I18n.t("buttons.update")
+
+#original_translated_idea
+  %h1= t(".originally_translated")
+  .grid_12
+    %br
+    = text_field_tag :original_title, @translated_idea.title, :disabled => true
+    %br
+  .grid_16
+    %br
+    = text_area_tag :original_summary, @translated_idea.summary, :disabled => true
+    %br
+  .grid_16
+    %br
+    = text_area_tag :original_summary, @translated_idea.body, :disabled => true

@@ -1,0 +1,39 @@
+:javascript
+  $(document).ready(function(){
+      var r = Raphael("votepie");
+      var pie = r.piechart(135, 92, 57, [
+          // piechart requires non-zero sizes to draw properly, so let's guard these values
+          // This hack works first to 0:1 situation, then until ~2300 with 0.0001, then till ~2347347 with 0.01
+          #{@idea_vote_for_count      == 0 ? (@idea_vote_count > 2000 ? 0.1 : 0.0001) : @idea_vote_for_count},
+          #{@idea_vote_against_count  == 0 ? (@idea_vote_count > 2000 ? 0.1 : 0.0001) : @idea_vote_against_count}
+        ],
+        {
+          legend: [
+              "#{@idea_vote_for_count} #{I18n.t('.vote_for')}-#{@idea_vote_for_count == 1 ? I18n.t('.vote') : I18n.t('.votes')} %%.%",
+              "#{@idea_vote_against_count} #{I18n.t('.vote_against')}-#{@idea_vote_against_count == 1 ? I18n.t('.vote') : I18n.t('.votes')} %%.%"
+            ],
+          legendpos: "south", 
+          colors: #{@colors.inspect},
+          // Clicking portions could link somewhere
+          // href: ["http://somewhere.com", "http://somewhere.com"]
+        });
+
+      r.text(130, 17, "#{@idea_vote_count} #{I18n.t('.votes_amount')}").attr({ font: "17px sans-serif" });
+      pie.hover(function () {
+          this.sector.stop();
+          this.sector.scale(1.1, 1.1, this.cx, this.cy);
+
+          if (this.label) {
+              this.label[0].stop();
+              this.label[0].attr({ r: 7.5 });
+              this.label[1].attr({ "font-weight": 800 });
+          }
+      }, function () {
+          this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+
+          if (this.label) {
+              this.label[0].animate({ r: 5 }, 500, "bounce");
+              this.label[1].attr({ "font-weight": 400 });
+          }
+      });
+  });
