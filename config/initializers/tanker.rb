@@ -1,1 +1,1 @@
-AvoinMinisterio::Application.config.index_tank_url = 'http://:47fXqhMIQQuoLU@4na.api.searchify.com'
+AvoinMinisterio::Application.config.index_tank_url = ENV['TANKER_API_KEY']
