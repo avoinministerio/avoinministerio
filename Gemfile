@@ -1,9 +1,10 @@
 source "https://rubygems.org"
 
-gem "rails", "3.2.12"
+gem "rails", "3.2.13"
 
 # Gems used only for assets and not required
 # in production environments by default.
+
 group :assets do
   gem "coffee-rails", "~> 3.2.2"
   gem "sass-rails",   "= 3.2.5"
@@ -36,6 +37,11 @@ gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 gem "surveyor", "~> 1.1.0"
 
+# gem 'libv8'
+# gem 'therubyracer', platform: :ruby
+# gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+# gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+
 gem "rspec-rails", :groups => [ :development, :test ]
 gem "impressionist", "~> 1.2.0"
 
@@ -60,17 +66,19 @@ end
 
 group :test do
   gem "spork-rails"
-  gem "capybara"
+  gem "selenium-webdriver", "~> 2.31.0"
+  gem "capybara", ">= 2.1.0.beta1"
   gem "database_cleaner"
   gem "rspec-rails-controller"
   gem "shoulda-matchers"
   gem "simplecov", :require => false
   gem "turn", "~> 0.8.3", :require => false
-  gem "webmock", :require => false
+  gem "webmock", "~> 1.11.0", :require => false
   gem "email_spec"
   gem "steak"
-  gem "capybara-mechanize"
+  gem "capybara-mechanize", ">= 0.4.0.rc1"
   gem "timecop"
+
   gem "sqlite3"
 
   if ENV["DB"] == "postgres"
