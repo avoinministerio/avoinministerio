@@ -5,6 +5,8 @@ class Article < ActiveRecord::Base
   include Tanker
   extend FriendlyId
 
+  attr_accessible :article_type, :title, :ingress, :body, :author, :citizen_id, :idea_id, :idea, :created_at, :updated_at
+
   VALID_ARTICLE_TYPES = %w(blog footer statement)
 
   friendly_id :title, use: :slugged
@@ -15,25 +17,12 @@ class Article < ActiveRecord::Base
   validates :article_type, inclusion: { in: VALID_ARTICLE_TYPES }
   validates :title, length: { minimum: 5 }
 
-  tankit index_name do
-    conditions do
-      published?
-    end
-    indexes :title
-    indexes :ingress
-    indexes :body
-    indexes :author do
-      self.author.first_name + " " + self.author.last_name
-    end
-    indexes :type do "article" end
-    
-    category :type do
-      "article"
-    end
+  if Rails.env == 'test'
+    include Concerns::IndexingWrapperTest
+  else
+    include TankerMethods
+    include Concerns::IndexingWrapper
   end
-  after_save Concerns::IndexingWrapper.new
-  after_destroy Concerns::IndexingWrapper.new
-
 
   def to_param
     "#{self.id}-#{self.slug}"

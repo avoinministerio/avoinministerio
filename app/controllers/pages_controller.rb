@@ -51,7 +51,9 @@ class PagesController < ApplicationController
     @drafts, @draft_counts = load("draft")
 
     # Ideas either newest or random sampling
-    if @newest_ideas = (rand() < 0.1)
+    # prevent using else block with broken shuffle code
+    # use one good sollution from carousels PRs
+    if @newest_ideas = 1 # (rand() < 0.1)
       idea_count = 4
       @ideas = Idea.published.where(state: 'idea').order("created_at DESC").limit(idea_count).includes(:votes).all
       @idea_counts = {}
@@ -59,6 +61,7 @@ class PagesController < ApplicationController
         formatted_idea_counts(idea, @idea_counts)
       end
     else
+      # this code will never run now
       idea_count = 6
       # this solution builds on few facts: most ideas are published and in state idea, and
       # there's not too many to pick from (memory requirement) and very few to be picked (<< pool)
