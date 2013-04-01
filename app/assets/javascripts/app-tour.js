@@ -37,14 +37,14 @@ var homePageTour = function(){
     });
     
     tour.addStep({
-        element: ".proposal-section",
+        element: ".top_proposals",
         placement: "top",
         title: "Meneillään olevia aloitteita",
         content: "Tässä osiossa näytetään nykyisiä meneillään olevia aloitteita. Aloitteilla on 6kk aikaa kerätä laissa vaadittu 50 000 kannattajien joukko."
     });
     
     tour.addStep({
-        element: ".draft-section",
+        element: ".top_drafts",
         placement: "top",
         title: "Luonnosteltuja aloitteita",
         content: "Luonnokset ovat ideoita pidemmällä. Niille on jo kehitetty lakitekstin luonnos. Niiden keruukampanjat eivät ole vielä käynnistyneet."
@@ -63,7 +63,7 @@ var ideaShowPageTour = function(){
     var tour = new Tour();
     
     tour.addStep({
-        element: ".body",
+        element: ".grid_16.alpha.mainbody",
         placement: "top",
         title: "Idea",
         content: "Näet kuka on jättänyt idean ja mistä se kertoo."
@@ -91,7 +91,7 @@ var ideaShowPageTour = function(){
     });
     
     tour.addStep({
-        element: ".comments",
+        element: ".idea_comments#comments",
         placement: "top",
         title: "Kommentoi, keskustele",
         content: "Kerro harkittu mielipiteesi. Voit myös lähettää yksityisviestejä, jos kommenttisi ei ole tarkoitettu kaikkien nähtäväksi."

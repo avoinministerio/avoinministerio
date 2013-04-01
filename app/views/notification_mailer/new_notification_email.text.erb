@@ -1,0 +1,10 @@
+Olet saanut uuden ilmoituksen: 
+
+<%= @notification.subject.html_safe? ? @notification.subject : strip_tags(@notification.subject) %>
+===============================================
+ 
+-----------------------------------------------
+<%= @notification.body.html_safe? ? @notification.body : strip_tags(@notification.body) %>
+-----------------------------------------------
+
+Piipahda <%= root_url %> ja tarkista ilmoitukset.

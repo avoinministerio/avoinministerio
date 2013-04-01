@@ -31,13 +31,23 @@
         /    |
 
         / New version with static order
-        -[:age, :comments, :voted, :votes_for, :support, :tilt, :impressions].each do |field|
+        -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
           - order = @sorting_order.find{|so| so.first == field}[1]
-          - if field == @sorting_order.first.first
-            %span.selected= link_to @field_names[field][order.first], reorder: field 
+          - if field == @sorting_order.first.first && params[:impression_reorder].nil?
+            %span.selected= link_to @field_names[field][order.first], reorder: field
           - else
             =link_to @field_names[field][order.first], reorder: field 
-          - unless field == :impressions
+          - unless field == :tilt
+            |
+      .grid_2
+        Katseluja:
+      .grid_21
+        -@impression_fields.each do |field, name|
+          - if field.to_s == params[:impression_reorder]
+            %span.selected= name
+          - else
+            = link_to name, impression_reorder: field.to_s
+          - unless field == @impression_fields.last[0]
             |
     - if ENV['Feature_Searchbox']
       .grid_24.search
@@ -71,6 +81,11 @@
         = link_to shortened_summary(idea.summary, 215, 185, "»"), idea
         .clear
         .stats
+          %span.votes
+            - if params[:impression_reorder]
+              = "#{idea.impression_gp_count || 0} katselua |"
+            - else
+              = "#{idea.impressions_count || 0} katselua |"
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
             = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")

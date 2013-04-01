@@ -1,0 +1,25 @@
+.row-fluid
+  .span12
+    %h1 Locations
+    %table.table.table-striped
+      %tbody
+        - @locations.each_with_index do |location, index|
+          %tr
+            %td
+              %h2
+                \#
+                = params[:page].to_i*500 + index + 1
+            %td
+              .row-fluid
+                = truncate(location.name, length: 500)
+              .row-fluid
+                .span6
+                  Address: #{location.address}
+                .span4{:class => "#{'problem' if location.latitude.nil? or location.longitude.nil?}"}
+                  Latitude: #{location.latitude}
+                  Longitude: #{location.longitude}
+            %td
+              .btn-group{ style: "float: right"}
+              = link_to "Edit", [:edit, :admin, location], class: "btn btn-success" 
+              = link_to "Delete", location, method: :delete, confirm: "Are you sure?", :class => 'btn btn-danger'
+= will_paginate @locations

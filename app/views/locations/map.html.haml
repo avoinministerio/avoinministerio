@@ -8,8 +8,7 @@
   var map = L.map('map').setView([64.448, 26.039], 5);
   L.tileLayer('http://{s}.tile.cloudmade.com/#{@cloudmade_api_key}/997/256/{z}/{x}/{y}.png', {
   attribution: 'Karttatiedot &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> auttaneilta, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Kuvat © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
-
-= javascript_tag do
+  L.Icon.Default.imagePath = '../assets/';
   // template for icons
   var NewIcon = L.Icon.extend({
   options: {
@@ -27,18 +26,24 @@
   #search_form
     %h2.kartta Etsi lähimmät
     = form_tag kartta_path, :method => :get do
-      Kirjoita osoite, jonka lähimmät keräyspisteet haluat löytää::
+      Kirjoita paikannimi tai osoite, jonka lähimmät keräyspisteet haluat löytää:
       %br
-      = text_field_tag :search, params[:search]
+      = text_field_tag :address, params[:address]
+      = hidden_field_tag :address_latitude, "", readonly: true, id: 'lat'
+      = hidden_field_tag :address_longitude, "", readonly: true, id: 'lng'
       %br
-      = submit_tag "Hae!", :name => nil
+      = submit_tag "Hae!", :name => nil, :id => "search_button"
     
+    #address_map_wrapper.address-picker-map-wrapper
+      .address-picker-legend
+      #address_map.address-picker-map
+
     //Red marker for target location
     - if @search_location != nil
       = javascript_tag do
-        map.panTo([#{@search_location[0]},#{@search_location[1]}]);
-        var marker_Search = L.marker([#{@search_location[0]}, #{@search_location[1]}], {icon: redIcon}).addTo(map);
-        marker_Search.bindPopup("#{params[:search]}").openPopup();
+        map.panTo([#{params[:address_latitude]},#{params[:address_longitude]}]);
+        var marker_Search = L.marker([#{params[:address_latitude]}, #{params[:address_longitude]}], {icon: redIcon}).addTo(map);
+        marker_Search.bindPopup("#{params[:address]}").openPopup();
         map.zoomIn(5);
       %br
     
@@ -46,7 +51,7 @@
     - if @locations_nearby != nil
       - if @locations_nearby.all != []
         The following locations were found near
-        %b #{params[:search]}
+        %b #{params[:address]}
         %br
         - @locations_nearby.each do |location|
           = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
@@ -55,7 +60,7 @@
           %br
       - else
         Ei keräyspisteitä alle 1000 km etäisyydellä sijainnista 
-        %b #{params[:search]}. 
+        %b #{params[:address]}. 
         Voit painaa kartan vasemmasta yläkulmasta '-' niin näet yhä suuremman alueen.
         %br
     %br
@@ -67,14 +72,18 @@
       marker_you_there.bindPopup("<b>Tietokoneesi on paikannettu tähän.</b> <br> Jos tämä ei vastaa sijaintiasi, vieritä karttaa tai kirjoita osoitteesi oikealle hakukenttään löytääksesi läheisimmät keräyspisteet.").openPopup();
       map.panTo([64.448, 26.039]);
     - if @locations_nearby_ip != []
-      The following locations were found near
+      Seuraavat keräyspisteet löytyivät
       %b #{@users_loc}
+      läheltä
       %br
       - @locations_nearby_ip.each do |location|
         = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
         %br
         Etäisyys: #{Location.m2km(location.distance)} km
         %br
+    - elsif @users_loc.nil?
+      Teknisistä syistä emme saa paikannettua tietokoneesi sijaintia juuri nyt.
+      %br
     - else
       Ei keräyspisteitä alle 50 km etäisyydellä sijainnista #{@users_loc}. Voit painaa kartan vasemmasta yläkulmasta '-' niin näet yhä suuremman alueen.
       %br
@@ -95,6 +104,15 @@
     = link_to "Keräyspisteet osoitteineen", osoitteet_path, :class => "addresses_url"
 
 
-- if params[:search] != nil
-  = javascript_tag do
-    $("#near_by_ip").hide();
+= javascript_tag do
+  var addresspickerMap = $( "#address" ).addresspicker({
+  regionBias: "fi",
+  elements: {
+  lat: "#lat",
+  lng: "#lng",
+  }
+  });
+  $('input#search_button').attr('disabled','disabled');
+  $('#address').keypress(function(e){
+  if ( e.which == 13 ) return false;
+  });

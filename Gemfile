@@ -18,6 +18,7 @@ gem "geocoder"
 gem "haml-rails"
 gem "i18n_routing"
 gem "jquery-rails"
+gem 'jquery-ui-rails'
 gem "nokogiri"
 gem "omniauth-facebook"
 gem "rails-i18n"
@@ -29,6 +30,7 @@ gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
+gem 'mailboxer'
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
@@ -69,7 +71,6 @@ group :test do
   gem "steak"
   gem "capybara-mechanize"
   gem "timecop"
-  gem 'test-unit', '~> 2.3.0'
   gem "sqlite3"
 
   if ENV["DB"] == "postgres"

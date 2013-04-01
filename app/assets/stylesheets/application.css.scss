@@ -3,6 +3,7 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
+ *= require jquery.ui.all
  *= require_directory . 
 */
 $turquoise: #29abe2;
@@ -57,7 +58,7 @@ body > header > .bottom_row {
 #footer_container {
   width: 100%;
   background-color: #eff3f3;
-  height: 45px;
+  height: 65px;
   padding-top: 25px;
   border-top: 10px #e5ebeb solid;
   margin-top: 25px;
@@ -137,7 +138,7 @@ a.button {
   
   .actions > a.button {
     float: right;
-    width: 122px;
+    width: 120px;
     text-align: center;
     margin: 0 20px 20px 0;
     display: block;
@@ -156,17 +157,35 @@ input[type=submit] {
 }
 
 .top_drafts .popular {
-  margin: 10px 7px 0 0;
-  height: 160px;
-  border-width: 3px;
-  -moz-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  -webkit-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  -o-border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  border-image:url("/assets/border-dotted-vertical.png") 0 3 0 0 repeat;
-  border-top: 0 none;
-  border-left: 0 none;
-  border-bottom: 0 none;
-  padding-right: 7px;
+  font-size: 15px;
+}
+
+top_proposals h2 {
+  margin-bottom: 0;
+}
+
+.container_24 .top_proposals {
+  margin-top: 10px;
+}
+
+.top_proposals .popular {
+  font-size: 15px;
+}
+
+.top_proposals .proposal {
+  font-size: 15px;
+}
+
+.top_proposals div.proposal > h3 {
+  height: 120px;
+}
+
+.top_proposals div.proposal > h3 > a {
+  color: #000;
+  font-size: 20px;
+  font-family: "Georgia";
+  font-weight: normal;
+  text-decoration: none;
 }
 
 .top_drafts .omega > div.popular {
@@ -359,13 +378,13 @@ input[type=submit] {
 }
 
 .clearfix:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-	}
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
@@ -537,8 +556,8 @@ input[type=submit] {
 
 #signed_in_links {
   float:left;
-  margin-left: -70px;
-  width: 385px;
+  margin-left: -120px;
+  width: 420px;
 }
 
 .pull-left {

@@ -1,6 +1,7 @@
 en:
   routes:
     home: home
+    conversations: conversations
 
 fi:
   routes:
@@ -14,3 +15,4 @@ fi:
     sign_in: kirjaudu
     sign_up: rekisteroidy
     vote: aanesta
+    conversations: keskustelut

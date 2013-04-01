@@ -22,6 +22,8 @@ class Idea < ActiveRecord::Base
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
                     :target_count, :updated_content_at
 
+  attr_accessor :impression_gp_count
+
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
@@ -116,6 +118,10 @@ class Idea < ActiveRecord::Base
   def vote_counts
     # votes.group(:option).count   # => returns counts like:  {0=>37, 1=>45}
     {0 => vote_against_count, 1 => vote_for_count}
+  end
+
+  def successful_proposal?
+    (self.signatures.where(state: "signed").count + self.additional_signatures_count) >= 50000
   end
   
   def signatures_per_day

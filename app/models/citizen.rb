@@ -6,6 +6,9 @@ class Citizen < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  
+  # User messaging
+  acts_as_messageable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :profile, :profile_attributes
@@ -106,6 +109,38 @@ class Citizen < ActiveRecord::Base
 
   def saldo
     money_transactions.sum(:amount)
+  end
+
+  def count_unread_messages
+    self.mailbox.inbox(:read => false).count(:id, :distinct => true).to_s
+  end
+
+  def connections
+    names = []
+    
+    self.mailbox.inbox.each do |message|
+      message.participants.each do |citizen|
+        names << {:id => citizen.id, name: citizen.name}
+      end
+    end
+    
+    self.mailbox.sentbox.each do |message|
+      message.participants.each do |citizen|
+        names << {:id => citizen.id, name: citizen.name}
+      end
+    end
+
+    self.mailbox.trash.each do |message|
+      message.participants.each do |citizen|
+        names << {:id => citizen.id, name: citizen.name}
+      end
+    end
+    
+    return names.uniq!
+  end
+
+  def mailboxer_email(object)
+    return self.email
   end
 
   private

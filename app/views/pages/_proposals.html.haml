@@ -1,0 +1,40 @@
+.container_24.top_proposals
+  - filter = 'action_proposals'
+  %h2=link_to "#{title} (#{items.count})", ideas_path(:filter => filter), :class => 'idea-heading-link'
+  .proposals_carousel
+    %ul#proposals_list
+      - items.each do |item|
+        %li 
+          .proposal{:id => "#{if item.collecting_ended and item.successful_proposal? then 'old_success' elsif item.collecting_ended and !item.successful_proposal? then 'old_fail' end}"}
+            %h3.title=link_to shorten(item.title, 100, 20, "»"), idea_path(item)
+            .collecting
+              - collection_status = "ei käynnistynyt" if Date.today < item.collecting_start_date
+              - collection_status = "käynnissä" if item.collecting_start_date <= Date.today and Date.today < item.collecting_end_date
+              - collection_status = "päättynyt" if item.collecting_end_date < Date.today
+              Keräys
+              = collection_status
+              <br/>
+              = item.collecting_start_date.strftime("%d.%m.%Y")
+              = '- '
+              = item.collecting_end_date.strftime("%d.%m.%Y")
+            %div{id: "proposal_bar#{item.id}", class: "bar"}
+              - signatures_count = item.signatures.where(state: "signed").count
+              - total_signatures = signatures_count + item.additional_signatures_count
+
+              - favour_vote_per  = [0, (260 * (Float(total_signatures)         / 50000)).ceil].max
+              - require_vote_per = [0, (260 * (Float(50000 - total_signatures) / 50000)).ceil].max
+              :javascript
+                var r  = Raphael("proposal_bar#{item.id}", 260, 20);
+                r.rect(0, 0, #{[favour_vote_per,(300-40)].min}, 20).attr({fill: "#52BD00", stroke: "#fff", strokewidth: 5});
+                r.rect(#{[favour_vote_per,(260-40)].min}, 0, #{require_vote_per}, 20).attr({fill: "#D2EDC7", stroke: "#fff", strokewidth: 5});
+            .days_left
+              #{collecting_days_left(item.collecting_end_date)}
+            .votes_total
+              #{total_signatures} / #{50000}
+
+    .clearfix
+    %a#proposals_list_prev.prev{:href => "#"}
+      %span prev
+    %a#proposals_list_next.next{:href => "#"}
+      %span next
+  #proposals_list_pag.pagination

@@ -15,10 +15,9 @@
     %title Avoin Ministeriö
 
   = stylesheet_link_tag "application.css"
-  = stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"
+  = javascript_include_tag "https://maps.google.com/maps/api/js?sensor=false"
   = javascript_include_tag "application"
-  = javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"
-
+  
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"
   :javascript
     if (window.location.hash == '#_=_') {
@@ -81,4 +80,3 @@
   %script{:type => "text/javascript", :src => "//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f201d4978456053"}
 
   = render :partial => 'shared/ga' if ENV["GA_TRACKING_ID"]
-  = render :partial => 'shared/metrify' if Rails.env == 'production'
