@@ -94,12 +94,48 @@ Spork.prefork do
       DatabaseCleaner.clean_with(:truncation)
     end
 
+    require 'action_dispatch'
+    require 'capybara/rails'
+    require 'capybara/rspec'
+    require 'capybara/dsl'
+
+    module AcceptanceExampleGroup
+      extend ActiveSupport::Concern
+
+      include RSpec::Rails::RequestExampleGroup
+      include Rack::Test::Methods
+
+      included do
+        metadata[:type] = :acceptance
+      end
+    end
+
+    config.use_transactional_fixtures = false
+
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :deletion
+      DatabaseCleaner.clean_with :truncation
+    end
+
     config.before(:each) do
-      WebMock.stub_request(:any, /4na.api.searchify.com/)
-      WebMock.stub_request(:any, /online.alandsbanken.fi/)
+      if example.metadata[:js]
+        WebMock.allow_net_connect!
+        Capybara.current_driver = :selenium
+        DatabaseCleaner.strategy = :truncation
+        DatabaseCleaner.start
+      else
+        DatabaseCleaner.strategy = :transaction
+        DatabaseCleaner.start
+        WebMock.stub_request(:any, /4na.api.searchify.com/)
+        WebMock.stub_request(:any, /online.alandsbanken.fi/)
+      end
     end
 
     config.after(:each) do
+      if example.metadata[:js]
+        Capybara.use_default_driver
+      end
+      WebMock.disable_net_connect!(:allow_localhost => true)
       DatabaseCleaner.clean
       Warden.test_reset!
     end
