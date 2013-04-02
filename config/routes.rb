@@ -1,5 +1,4 @@
 AvoinMinisterio::Application.routes.draw do
-
   resource :profile, :except => [:new, :create, :destroy]  
   resource :citizen, :only => [:edit, :update]
 
@@ -87,6 +86,8 @@ AvoinMinisterio::Application.routes.draw do
       get "lock",       on: :member
       get "unlock",     on: :member
     end
+    
+    resources :states
     resources :changelogs
     resources :expert_suggestions
     root to: "admin/ideas#index"

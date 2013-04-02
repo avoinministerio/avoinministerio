@@ -266,6 +266,3 @@ class IdeasController < ApplicationController
 
     render 
   end
-
-
-end
