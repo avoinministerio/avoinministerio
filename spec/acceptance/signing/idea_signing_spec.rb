@@ -46,30 +46,32 @@ feature "Idea signing" do
     should_be_on homepage
   end
 
-  scenario "Succesful normal idea signing" do #, js: true do #, :driver => :webkit do
+  scenario "Succesful normal idea signing", js: true do #, js: true do #, :driver => :webkit do
     # 1: Create idea and visit it's page to click on signing
     visit idea_page(idea.id)
     should_be_on idea_page(idea.id)
-    click_link "Allekirjoita kannatusilmoitus"
+    click_link  "Jätä kannatusilmoitus"
     should_be_on signature_idea_introduction(idea.id)
+    puts Idea.first.attributes
 
     # 2: Click forward
-    click_button "Siirry hyväksymään ehdot"
-    should_be_disabled(find_button("accept"))
+    click_button "Eteenpäin"
 
+    page.has_button?("accept").should be_false
     # 3: Fill in defaults
     check "accept_general"
-    should_be_disabled(find_button("accept"))
+    page.has_button?("accept").should be_false
     check "accept_science"
-    should_be_disabled(find_button("accept"))
+    page.has_button?("accept").should be_false
     check "accept_non_eu_server"
-    should_be_disabled(find_button("accept"))
+    page.has_button?("accept").should be_false
     choose("publicity_Immediately")
+    page.has_button?("accept").should be_true
 
     # this doesn't work before javascript gets activated, and at the moment if
     # one activates javascript there are loads of problems in other tests
     # should_be_enabled(find_button("accept"))
-    click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+    click_button "Eteenpäin"
 
     # 4: Select TUPAS service this doesn't work as WebMock.stubbing doesn't get
     # activated. It seems the whole form gets converted into local
@@ -151,7 +153,7 @@ feature "Idea signing" do
     context "normal flow" do
       scenario "1) go to the introduction page" do
         visit idea_page(idea.id)
-        click_link "Allekirjoita kannatusilmoitus"
+        click_link "Jätä kannatusilmoitus"
         should_be_on signature_idea_introduction(idea.id)
       end
       
@@ -264,7 +266,7 @@ feature "Idea signing" do
       scenario "1) not logged in" do
         logout
         visit idea_page(idea.id)
-        page.should_not have_link "Allekirjoita kannatusilmoitus"
+        page.should_not have_link "Jätä kannatusilmoitus"
       end
       
       scenario "2) not logged in" do
