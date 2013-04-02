@@ -65,12 +65,12 @@ feature "Idea signing" do
   context "Sign button on Idea page visible" do
     scenario "Not logged in user gets to log in to sign" do
       visit idea_page(idea.id)
-      page.should have_link("Sisäänkirjaudu allekirjoittaaksesi kannatusilmoituksen")
+      page.should have_link("Sisäänkirjaudu jättääksesi kannatusilmoituksen")
     end
     scenario "Logged in user gets to sign" do
       citizen = create_logged_in_citizen({ :password => citizen_password, :email => citizen_email })
       visit idea_page(idea.id)
-      page.should have_link("Allekirjoita kannatusilmoitus")
+      page.should have_link("Jätä kannatusilmoitus")
       page.should have_content("Keruu on käynnissä")
       page.should have_content("Käynnistynyt " + finnishDate(today_date))
       page.should have_content("Keräys päättyy " + finnishDate(today_date + 180))
