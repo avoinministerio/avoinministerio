@@ -6,7 +6,7 @@ class Signature < ActiveRecord::Base
   attr_accessible :service
   attr_accessible :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science, :citizen_id, :idea_id
 
-  before_validation :unique_citizen_on_authenticated
+  before_save :unique_citizen_on_authenticated
 
   belongs_to  :citizen
   belongs_to  :idea
@@ -57,6 +57,10 @@ class Signature < ActiveRecord::Base
     where(:state => "authenticated")
   end
 
+  def self.for_idea(my_idea_id)
+    where(:idea_id => my_idea_id)
+  end
+
   private
 
   def self.ensure_stamp_length(stamp, digits = 20)
@@ -68,7 +72,7 @@ class Signature < ActiveRecord::Base
   end
 
   def unique_citizen_on_authenticated
-    (Signature.authenticated_only.find_by_citizen_id(self.citizen_id)) ? false : true
+    (Signature.authenticated_only.for_idea(self.idea_id).find_by_citizen_id(self.citizen_id)) ? false : true
   end
 
 end
