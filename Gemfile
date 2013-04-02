@@ -11,6 +11,7 @@ group :assets do
   gem "uglifier",     ">= 1.3.0"
 end
 
+gem "pg"
 gem "devise", '2.1.2'
 gem "factory_girl_rails", "4.1.0", :require => false
 gem "friendly_id"
@@ -47,7 +48,6 @@ gem "impressionist", "~> 1.2.0"
 
 group :development do
   gem "rails-erd"
-  gem "sqlite3"
   gem "unicorn"
   gem "guard", "1.0.3"
   gem "guard-rspec", "0.7.3"
@@ -61,7 +61,6 @@ end
 
 group :production do
   gem "newrelic_rpm", "~> 3.5.7.59"
-  gem "pg"
 end
 
 group :test do
@@ -79,11 +78,6 @@ group :test do
   gem "capybara-mechanize", ">= 0.4.0.rc1"
   gem "timecop"
 
-  gem "sqlite3"
-
-  if ENV["DB"] == "postgres"
-    gem "pg"
-  end
 end
 
 group :profile do

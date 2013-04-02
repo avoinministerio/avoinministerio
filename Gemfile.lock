@@ -313,7 +313,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.7)
     state_machine (1.2.0)
     steak (2.0.0)
       capybara (>= 1.0.0)
@@ -414,7 +413,6 @@ DEPENDENCIES
   simple_form
   simplecov
   spork-rails
-  sqlite3
   state_machine
   steak
   surveyor (~> 1.1.0)
