@@ -48,6 +48,9 @@ AvoinMinisterio::Application.configure do
 
   # Signature application secret
   config.signature_secret = ENV['SIGNATURE_SECRET'] || "abc123"   # FIXME: for some reason this does not work for me in development
+  ENV['SIGNING_API_VERSION']='2.0'
+  ENV['DISABLE_PAYMENT_SERVICES']=''
+  ENV['DISABLE_TUPAS_SERVICES']=''
   p ENV
   p config.signature_secret
 end
