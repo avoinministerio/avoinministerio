@@ -43,14 +43,6 @@ class SignaturesController < ApplicationController
   def approval
   end
 
-  def fill_in_acceptances(signature)
-    signature.accept_general       = params[:accept_general]        || session["authenticated_accept_general"]
-    signature.accept_non_eu_server = params[:accept_non_eu_server]  || session["authenticated_accept_non_eu_server"]
-    signature.accept_publicity     = params[:publicity]             || session["authenticated_accept_publicity"]
-    signature.accept_science       = params[:accept_science]        || session["authenticated_accept_science"]
-    signature.accept_science = false if signature.accept_science == ''
-  end
-
   def service_selection
 #    @signature = Signature.create_with_citizen_and_idea(current_citizen, Idea.find(params[:id]))
     @idea = Idea.find(params[:id])
@@ -63,11 +55,11 @@ class SignaturesController < ApplicationController
     if check_previously_signed(current_citizen, params[:id])
       @info = "Idealle on jätetty kannatusilmoitus jo aiemmin, mutta uudelleenjättäminen on sallittua nyt vielä"
     end
-    @signature = Signature.new()
-    @signature.idea                   = @idea
+    @signature = Signature.new
+    @signature.idea_id                = @idea.id
     @signature.idea_title             = @idea.title
     @signature.idea_date              = @idea.updated_at
-    @signature.citizen                = current_citizen
+    @signature.citizen_id             = current_citizen.id
     @signature.firstnames             = session["authenticated_firstnames"] || current_citizen.first_names
     @signature.lastname               = session["authenticated_lastname"] || current_citizen.last_name
     @signature.state                  = "initial"
@@ -77,25 +69,17 @@ class SignaturesController < ApplicationController
     @signature.service                = nil
 
     # ERROR: check that there are enough acceptances
-    fill_in_acceptances(@signature)
-    puts "Is signature.valid?"
-    p @signature.valid?
+    @signature.fill_in_acceptances(params, session)
     p @signature.errors.full_messages
-    begin
-      unless @signature.save
-        p @signature
-        raise "couldn't save" 
-      end
-    rescue Exception => e
-      p e
-      puts e.backtrace.join("\n")
+    if @signature.save
+      tupas_services
+      @parameters_and_urls = {}
+      @tupas_services.each {|service| @parameters_and_urls[service[:name]] = signing_service_parameters_and_url(@signature, service)}
+
+      setup_payment_services(@signature)
+    else
+      redirect_to signature_idea_introduction_path(params[:id])
     end
-
-    tupas_services
-    @parameters_and_urls = {}
-    @tupas_services.each {|service| @parameters_and_urls[service[:name]] = signing_service_parameters_and_url(@signature, service)}
-
-    setup_payment_services(@signature)
   end
 
   def paid_returning
@@ -634,7 +618,7 @@ class SignaturesController < ApplicationController
     setup_tupas_services(@signature.stamp)
 
     # ERROR: check that there are enough acceptances
-    fill_in_acceptances(@signature)
+    @signature.fill_in_acceptances(params,session)
     @signature.idea_mac = idea_mac(@signature.idea)
     @error = "Couldn't save signature" unless @signature.save!
 
@@ -706,13 +690,16 @@ class SignaturesController < ApplicationController
         birth_date = hetu_to_birth_date(params["B02K_CUSTID"])
         firstnames, lastname = guess_names(params["B02K_CUSTNAME"], @signature.firstnames, @signature.lastname)
         @signature.state = "authenticated"
-        @signature.update_attributes(signing_date: today_date(), birth_date: birth_date, firstnames: firstnames, lastname: lastname)
+        @signature.signing_date = today_date()
+        @signature.birth_date = birth_date
+        @signature.firstnames = firstnames
+        @signature.lastname = lastname
         session["authenticated_at"]         = DateTime.now
         session["authenticated_birth_date"] = birth_date
         session["authenticated_approvals"]  = @signature.id
       end
     end
-    @signature.save
+    @signature.save!
     respond_with @signature
   end
 
@@ -828,7 +815,7 @@ class SignaturesController < ApplicationController
     if shortcut_session_valid?
       if not check_previously_signed(current_citizen, params[:id])
         @signature = finalize_signing_by_checking
-        fill_in_acceptances(@signature)
+        @signature.fill_in_acceptances(params,session)
       else
         # @signature.idea is referenced in the view,
         # so @signature mustn't be nil
@@ -919,8 +906,6 @@ class SignaturesController < ApplicationController
             session["authenticated_accept_publicity"] = @signature.accept_publicity
             session["authenticated_accept_science"]   = @signature.accept_science
 
-          @url = "#{request.protocol}#{request.host_with_port}"+"/ideat/"+"#{@signature.idea_id}"
-
             # show only proposals that haven't yet been signed by current_citizen
             signatures = Arel::Table.new(:signatures)
             already_signed = Signature.where(signatures[:state].eq('signed'), signatures[:citizen].eq(current_citizen.id)).find(:all, select: "idea_id").map{|s| s.idea_id}.uniq
@@ -928,7 +913,7 @@ class SignaturesController < ApplicationController
             proposals_not_in_already_signed = (ideas[:state].eq('proposal')).and(ideas[:id].not_in(already_signed))
             proposals_collectible = (ideas[:collecting_in_service].eq(true)).and(ideas[:collecting_started].eq(true)).and(ideas[:collecting_ended].eq(false))
             unsigned_collectible_proposals = proposals_not_in_already_signed.and(proposals_collectible)
-          @initiatives = Idea.where(unsigned_collectible_proposals).order("vote_for_count DESC").limit(5).all
+            @initiatives = Idea.where(unsigned_collectible_proposals).order("vote_for_count DESC").limit(5).all
 
             # Storing authenticated fileds inside profile for survey reporting
             profile = current_citizen.profile

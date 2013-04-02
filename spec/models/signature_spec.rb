@@ -58,5 +58,53 @@ describe Signature do
     it "assigns a randomized DateTime string as stamp" do
       @signature.stamp.should match(/\A[0-9]{14,20}\Z/)
     end
-  end  
+  end
+
+  it "should prevent duplicate authenticated signatures" do
+    @citizen2 = FactoryGirl.create :citizen
+    @idea2 = FactoryGirl.create :idea
+    @signature2 = Signature.new( "citizen_id"=> @citizen2.id,
+                                 "idea_id"=>@idea2.id,
+                                 "idea_title"=> @idea2.title,
+                                 "idea_date"=>@idea2.created_at,
+                                 "birth_date"=>Time.now,
+                                 "occupancy_county"=>"",
+                                 "vow"=>nil,
+                                 "signing_date"=>nil,
+                                 "state"=>"authenticated",
+                                 "stamp"=>"20130402181304639309",
+                                 "started"=>Time.now,
+                                 "firstnames"=>@citizen2.first_name,
+                                 "lastname"=>@citizen2.last_name,
+                                 "accept_general"=>true,
+                                 "accept_non_eu_server"=>true,
+                                 "accept_publicity"=>"Normal",
+                                 "accept_science"=>nil,
+                                 "idea_mac"=>nil,
+                                 "service"=>nil)
+    @signature2.save
+    @signature3 = Signature.new( "citizen_id"=> @citizen2.id,
+                                 "idea_id"=>@idea2.id,
+                                 "idea_title"=> @idea2.title,
+                                 "idea_date"=>@idea2.created_at,
+                                 "birth_date"=>Time.now,
+                                 "occupancy_county"=>"",
+                                 "vow"=>nil,
+                                 "signing_date"=>nil,
+                                 "state"=>"authenticated",
+                                 "stamp"=>"20130402181304639309",
+                                 "started"=>Time.now,
+                                 "firstnames"=>@citizen2.first_name,
+                                 "lastname"=>@citizen2.last_name,
+                                 "accept_general"=>true,
+                                 "accept_non_eu_server"=>true,
+                                 "accept_publicity"=>"Normal",
+                                 "accept_science"=>nil,
+                                 "idea_mac"=>nil,
+                                 "service"=>nil)
+                                
+    @signature3.save
+    @signature3.save.should be_false
+  end
+
 end
