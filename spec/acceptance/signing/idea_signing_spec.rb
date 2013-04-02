@@ -52,7 +52,6 @@ feature "Idea signing" do
     should_be_on idea_page(idea.id)
     click_link  "Jätä kannatusilmoitus"
     should_be_on signature_idea_introduction(idea.id)
-    puts Idea.first.attributes
 
     # 2: Click forward
     click_button "Eteenpäin"
@@ -96,7 +95,6 @@ feature "Idea signing" do
     page.should have_unchecked_field("signature_vow")
     should_be_disabled(find(:id, "commit"))
     signature.state.should == "authenticated"
-    puts Capybara.current_driver
     select "Helsinki", from: "signature_occupancy_county"
     check "Vow"
     click_on "Allekirjoita"
@@ -142,7 +140,6 @@ feature "Idea signing" do
         page.should have_unchecked_field("signature_vow")
         should_be_disabled(find(:id, "commit"))
         signature.state.should == "authenticated"
-        puts Capybara.current_driver
         select "Helsinki", from: "signature_occupancy_county"
         check "Vow"
         click_on "Allekirjoita"
@@ -154,7 +151,6 @@ feature "Idea signing" do
         pending "have no valid auth maybe timecop should be used here"
         visit_signature_finalize_signing(idea.id, @citizen.id)
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
-        save_and_open_page
         page.should have_content "Tunnistautumisesi on nyt voimassa" # fail
         signature = Signature.where(:idea_id => idea.id,
                                     :citizen_id => @citizen.id).last
@@ -268,7 +264,6 @@ feature "Idea signing" do
         pending "on which page we should land after visit_signature_idea_shortcut_fillin_path"
         visit_signature_finalize_signing(idea.id, @citizen.id)
         visit signature_idea_shortcut_fillin_path(another_idea.id)
-        save_and_open_page
         uncheck "Vow"
         click_button "Allekirjoita"
         page.should have_content "Tunnistaminen epäonnistui"
@@ -317,14 +312,14 @@ feature "Idea signing" do
             scenario "existing signature is at the authenticated state" do
               @signature.state = "authenticated"
               @signature.save
-              
+
               visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the signed state" do
               @signature.state = "signed"
               @signature.save
-              
+
               visit_signature_idea_approval_path(idea.id)
               check "accept_general"
               check "accept_non_eu_server"
@@ -335,21 +330,21 @@ feature "Idea signing" do
             scenario "existing signature is at the invalid return state" do
               @signature.state = "invalid return"
               @signature.save
-              
+
               visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the 'too late' state" do
               @signature.state = "too late"
               @signature.save
-              
+
               visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
             scenario "existing signature is at the repeated_returning state" do
               @signature.state = "repeated_returning"
               @signature.save
-              
+
               visit_signature_finalize_signing(idea.id, @citizen.id)
               page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
             end
@@ -648,9 +643,7 @@ feature "Idea signing" do
         check "Vow"
         click_button "Allekirjoita"
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
-        puts @first_signature.attributes
-        # Try to complete the second signature
-        service = "Capybaratesti"
+        # Try to complete the second signature @first_signature have state signed
         visit(capybara_test_return_url(@second_signature.id))
         page.should have_content "Aiemmin allekirjoitettu"
         page.should_not have_button "Allekirjoita"
