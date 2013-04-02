@@ -1,6 +1,7 @@
 class Vote < ActiveRecord::Base
   belongs_to :idea
   belongs_to :citizen
+  attr_accessible :citizen, :idea, :option
   
   def self.by(citizen)
     where(citizen_id: citizen && citizen.id || nil)

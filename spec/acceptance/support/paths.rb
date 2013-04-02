@@ -22,7 +22,7 @@ module NavigationHelpers
   end
 
   def after_sign_up
-     citizens_after_sign_up_fi_path
+     edit_profile_fi_path
   end
 
 end

@@ -4,7 +4,7 @@ class Signature < ActiveRecord::Base
 
   attr_accessible :state, :firstnames, :lastname, :birth_date, :occupancy_county, :vow, :signing_date, :stamp, :started
   attr_accessible :service
-  attr_accessible :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science
+  attr_accessible :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science, :citizen_id, :idea_id
 
   belongs_to  :citizen
   belongs_to  :idea
@@ -13,7 +13,10 @@ class Signature < ActiveRecord::Base
   validates :idea_id, presence: true
   validates :accept_general, acceptance: {accept: true, allow_nil: false}
   validates :accept_non_eu_server, acceptance: {accept: true, allow_nil: false}
+  validates :accept_science, acceptance: {accept: true, allow_nil: true}
   validates :accept_publicity, inclusion: VALID_PUBLICITY_OPTIONS
+
+  include SignaturesParser
 
   def self.create_with_citizen_and_idea(citizen, idea)
     completed_signature = where(state: "signed", citizen_id: citizen.id, idea_id: idea.id).first
