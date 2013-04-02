@@ -9,37 +9,33 @@ Administrator.find_or_create_by_email({
 })
 
 [
-{ email: "expedora@gmail.com",
-  password: "expedora1", password_confirmation: "expedora1", remember_me: true,
-  profile_attributes: {first_names: "Expedora", first_name: "Expedora", last_name: "India", name: "Expedora India"}, },
+  { email: "joonas@pekkanen.com",
+    password: "joonas1", password_confirmation: "joonas1", remember_me: true,
+    profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen"}, },
 
-{ email: "joonas@pekkanen.com",
-  password: "joonas1", password_confirmation: "joonas1", remember_me: true,
-  profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
+  { email: "arttu.tervo@gmail.com",
+    password: "arttu1", password_confirmation: "arttu1", remember_me: true,
+    profile_attributes: {first_names: "Arttu", first_name: "Arttu", last_name: "Tervo"}, },
 
-{ email: "arttu.tervo@gmail.com",
-  password: "arttu1", password_confirmation: "arttu1", remember_me: true,
-  profile_attributes: {first_names: "Arttu", first_name: "Arttu", last_name: "Tervo", name: "Arttu Tervo"}, },
+  { email: "aleksi.rossi@iki.fi",
+    password: "aleksi1", password_confirmation: "aleksi1", remember_me: true,
+    profile_attributes: {first_names: "Aleksi", first_name: "Aleksi", last_name: "Rossi"}, },
 
-{ email: "aleksi.rossi@iki.fi",
-  password: "aleksi1", password_confirmation: "aleksi1", remember_me: true,
-  profile_attributes: {first_names: "Aleksi", first_name: "Aleksi", last_name: "Rossi", name: "Aleksi Rossi"}, },
+  { email: "hleinone@gmail.com",
+    password: "hannu1", password_confirmation: "hannu1", remember_me: true,
+    profile_attributes: {first_names: "Hannu", first_name: "Hannu", last_name: "Leinonen"}, },
 
-{ email: "hleinone@gmail.com",
-  password: "hannu1", password_confirmation: "hannu1", remember_me: true,
-  profile_attributes: {first_names: "Hannu", first_name: "Hannu", last_name: "Leinonen", name: "Hannu Leinonen"}, },
+  { email: "juha.yrjola@iki.fi",
+    password: "juhay1", password_confirmation: "juhay1", remember_me: true,
+    profile_attributes: {first_names: "Juha", first_name: "Juha", last_name: "Yrjölä"}, },
 
-{ email: "juha.yrjola@iki.fi",
-  password: "juhay1", password_confirmation: "juhay1", remember_me: true,
-  profile_attributes: {first_names: "Juha", first_name: "Juha", last_name: "Yrjölä", name: "Juha Yrjölä"}, },
+  { email: "lauri@kiskolabs.com",
+    password: "lauri1", password_confirmation: "lauri1", remember_me: true,
+    profile_attributes: {first_names: "Lauri", first_name: "Lauri", last_name: "Jutila"}, },
 
-{ email: "lauri@kiskolabs.com",
-  password: "lauri1", password_confirmation: "lauri1", remember_me: true,
-  profile_attributes: {first_names: "Lauri", first_name: "Lauri", last_name: "Jutila", name: "Lauri Jutila"}, },
-
-{ email: "mikael.kopteff@gmail.com",
-  password: "mikael1", password_confirmation: "mikael1", remember_me: true,
-  profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
+  { email: "mikael.kopteff@gmail.com",
+    password: "mikael1", password_confirmation: "mikael1", remember_me: true,
+    profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff"}, },
 ].each { |citizen| Citizen.find_or_create_by_email(citizen) }
 [
   { name: "Kurikan kaupunginkirjasto" , address: "Koulutie 3, PL 23, 66300 Jurva" },
@@ -270,7 +266,7 @@ end
     body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
     created_at: Time.now - (60*60*24),
     updated_at: Time.now - (60*60*24),
-  })
+  }, without_protection: true)
   
   idea.state = "idea"
   idea.author = random_citizen
@@ -281,7 +277,7 @@ voters = (0..100).map do |i|
   Citizen.find_or_create_by_email(
                                   email: "voter#{i}@voter.com",
   password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true,
-  profile_attributes: {first_names: "Clueless Voter", first_name: "Voter", last_name: "#{i}", name: "Voter #{i}"}
+  profile_attributes: {first_names: "Clueless Voter", first_name: "Voter", last_name: "#{i}"}
   )
 end
 
