@@ -162,8 +162,10 @@ class IdeasController < ApplicationController
   
   def create
     @idea = Idea.new(params[:idea])
+    city = City.find_by_name('Helsinki')
+    state = State.find_by_city_id(city.id)
+    @idea.state_id = state.id
     @idea.author = current_citizen
-    @idea.state  = "idea"
     @idea.updated_content_at = DateTime.now
     if @idea.save
       flash[:notice] = I18n.t("idea.created")
@@ -275,3 +277,4 @@ class IdeasController < ApplicationController
 
     render
   end
+end

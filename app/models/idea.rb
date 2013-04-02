@@ -12,7 +12,7 @@ class Idea < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
-  attr_accessible   :title, :body, :summary, :state_id,
+  attr_accessible   :title, :body, :summary, :state_id, :tag_list, :location_tag_list,
                     :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
                     :vote_proportion, :vote_proportion_away_mid,
                     :collecting_in_service, 
