@@ -43,7 +43,7 @@ require 'factory_girl_rails'
   { email: "lauri@kiskolabs.com",
     password: "lauri1", password_confirmation: "lauri1", remember_me: true,
     profile_attributes: {first_names: "Lauri", first_name: "Lauri", last_name: "Jutila", name: "Lauri Jutila"}, },
-  
+
   { email: "mikael.kopteff@gmail.com",
     password: "mikael1", password_confirmation: "mikael1", remember_me: true,
     profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
