@@ -115,6 +115,8 @@ Spork.prefork do
     config.before(:suite) do
       DatabaseCleaner.strategy = :deletion
       DatabaseCleaner.clean_with :truncation
+      ENV['SIGNING_API_VERSION'] = '2.0'
+      ENV['DISABLE_PAYMENT_SERVICES'] = ''
     end
 
     config.before(:each) do
