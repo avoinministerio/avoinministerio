@@ -15,6 +15,7 @@ describe Changelogger do
 
   class ChangeloggableItem < ActiveRecord::Base
     include Changelogger
+    attr_accessible :title
   end
 
   before :all do

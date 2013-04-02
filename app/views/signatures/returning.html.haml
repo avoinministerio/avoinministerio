@@ -49,7 +49,7 @@
           var f = $("#signature_firstnames").val();
           var l = $("#signature_lastname").val();
           var o = $("#signature_occupancy_county").val();
-          var v = $("#signature_vow").attr("checked");
+          var v = $("#signature_vow").is(":checked");
           if( !isEmpty(f) && !isBlank(f) && !isEmpty(l) && !isBlank(l) && !isBlank(o) && v ) {
             $("#commit").attr({"disabled": false, "class": "accept-btn"});
           } else {

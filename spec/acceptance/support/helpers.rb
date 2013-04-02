@@ -150,7 +150,7 @@ module HelperMethods
   def capybara_test_return_url(signature_id)
     service = "Capybaratesti"
     secret  = "capybaratesti"
-    ENV["SECRET_#{service}"] = secret
+    ENV["SECRET_tupas_#{service}"] = secret
     return_parameters = "B02K_VERS=0002&B02K_TIMESTMP=60020120708234854000001&B02K_IDNBR=0000004351&B02K_STAMP=2012070823484613889&B02K_CUSTNAME=DEMO+ANNA&B02K_KEYVERS=0001&B02K_ALG=03&B02K_CUSTID=010170-960F&B02K_CUSTTYPE=08"
     test_mac = calculate_mac(return_parameters, secret)
     "/signatures/#{signature_id}/returning/#{service}?#{return_parameters}&B02K_MAC=#{test_mac}"
@@ -160,7 +160,7 @@ module HelperMethods
   # it's strongly not recommended
   def visit_signature_idea_approval_path(id)
     visit signature_idea_introduction(id)
-    click_button "Siirry hyväksymään ehdot"
+    click_button "Eteenpäin"
   end
   
   def visit_signature_idea_path(id)
@@ -168,7 +168,9 @@ module HelperMethods
     check "accept_general"
     check "accept_non_eu_server"
     choose "publicity_Normal"
-    click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+    page.has_button? "Eteenpäin"
+    click_button "Eteenpäin"
+    should_be_on signature_idea_service_selection_path(id)
   end
   
   def visit_signature_returning(idea_id, citizen_id)
