@@ -6,7 +6,7 @@ class Signature < ActiveRecord::Base
   attr_accessible :service
   attr_accessible :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science, :citizen_id, :idea_id
 
-  before_save :unique_citizen_on_authenticated
+  before_save :fail_if_citizen_signed_idea?
 
   belongs_to  :citizen
   belongs_to  :idea
@@ -53,8 +53,8 @@ class Signature < ActiveRecord::Base
     end
   end
 
-  def self.authenticated_only
-    where(:state => "authenticated")
+  def self.signed_only
+    where(:state => "signed")
   end
 
   def self.for_idea(my_idea_id)
@@ -71,8 +71,15 @@ class Signature < ActiveRecord::Base
     stamp
   end
 
-  def unique_citizen_on_authenticated
-    (Signature.authenticated_only.for_idea(self.idea_id).find_by_citizen_id(self.citizen_id)) ? false : true
+  def fail_if_citizen_signed_idea?
+    if detected_signature = Signature.signed_only.for_idea(self.idea_id).find_by_citizen_id(self.citizen_id)
+      if self.id != detected_signature.id
+        self.errors.add :base, "you signed this idea earlier"
+        false
+      end
+    else
+      true
+    end
   end
 
 end
