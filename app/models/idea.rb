@@ -20,7 +20,8 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count, :updated_content_at, :author
+                    :target_count, :updated_content_at, :author,
+                    :author_id, :publish_state, :slug, :impressions_count
 
   attr_accessor :impression_gp_count
 
