@@ -6,10 +6,13 @@ class Signature < ActiveRecord::Base
   attr_accessible :service
   attr_accessible :accept_general, :accept_non_eu_server, :accept_publicity, :accept_science, :citizen_id, :idea_id
 
+  before_validation :unique_citizen_on_authenticated
+
   belongs_to  :citizen
   belongs_to  :idea
 
-  validates :citizen_id, presence: true, uniqueness: {scope: [:idea_id, state: "authenticated"]}
+  validates :citizen_id, presence: true
+
   validates :idea_id, presence: true
   validates :accept_general, acceptance: {accept: true, allow_nil: false}
   validates :accept_non_eu_server, acceptance: {accept: true, allow_nil: false}
@@ -50,6 +53,10 @@ class Signature < ActiveRecord::Base
     end
   end
 
+  def self.authenticated_only
+    where(:state => "authenticated")
+  end
+
   private
 
   def self.ensure_stamp_length(stamp, digits = 20)
@@ -58,6 +65,10 @@ class Signature < ActiveRecord::Base
       stamp.concat(rand(10).to_s)
     end
     stamp
+  end
+
+  def unique_citizen_on_authenticated
+    (Signature.authenticated_only.find_by_citizen_id(self.citizen_id)) ? false : true
   end
 
 end

@@ -60,7 +60,7 @@ describe Signature do
     end
   end
 
-  it "should fail" do
+  it "should prevent duplicate authenticated signatures" do
     @citizen2 = FactoryGirl.create :citizen
     @idea2 = FactoryGirl.create :idea
     @signature2 = Signature.new( "citizen_id"=> @citizen2.id,
@@ -71,7 +71,7 @@ describe Signature do
                                  "occupancy_county"=>"",
                                  "vow"=>nil,
                                  "signing_date"=>nil,
-                                 "state"=>"initial",
+                                 "state"=>"authenticated",
                                  "stamp"=>"20130402181304639309",
                                  "started"=>Time.now,
                                  "firstnames"=>@citizen2.first_name,
@@ -91,7 +91,7 @@ describe Signature do
                                  "occupancy_county"=>"",
                                  "vow"=>nil,
                                  "signing_date"=>nil,
-                                 "state"=>"initial",
+                                 "state"=>"authenticated",
                                  "stamp"=>"20130402181304639309",
                                  "started"=>Time.now,
                                  "firstnames"=>@citizen2.first_name,
@@ -104,7 +104,6 @@ describe Signature do
                                  "service"=>nil)
                                 
     @signature3.save
-    puts Signature.count
     @signature3.save.should be_false
   end
 
