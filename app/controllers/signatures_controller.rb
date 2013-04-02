@@ -620,7 +620,7 @@ class SignaturesController < ApplicationController
     # ERROR: check that there are enough acceptances
     @signature.fill_in_acceptances(params,session)
     @signature.idea_mac = idea_mac(@signature.idea)
-    @error = "Couldn't save signature" unless @signature.save!
+    @error = "Couldn't save signature" unless @signature.save
 
     respond_with @signature
   end
@@ -699,7 +699,7 @@ class SignaturesController < ApplicationController
         session["authenticated_approvals"]  = @signature.id
       end
     end
-    @signature.save!
+    @signature.save
     respond_with @signature
   end
 
