@@ -111,52 +111,41 @@ feature "Idea signing" do
         click_link "Jätä kannatusilmoitus"
         should_be_on signature_idea_introduction(idea.id)
       end
-      
+
       scenario "2) go to the approval page" do
         visit signature_idea_introduction(idea.id)
         click_button "Eteenpäin"
         should_be_on signature_idea_approval_path(idea.id)
       end
-      
+
       scenario "3) approve terms of signing" do
         visit_signature_idea_path(idea.id)
       end
-      
+
       scenario "4) select TUPAS service" do
-        Capybara.current_driver = :mechanize
-        # swithing the driver invalidates the session, so we have to log in
-        # again
-        create_logged_in_citizen
         visit_signature_idea_path(idea.id)
-        Capybara.app_host = "https://online.alandsbanken.fi/"
-        click_button "Alandsbanken testi"
-        should_be_on "https://online.alandsbanken.fi/ebank/auth/initLogin.do"
-        
-        Capybara.current_driver = Capybara.default_driver
-        Capybara.app_host = Capybara.default_host
+        click_button "Alandsbanken (0.28€)"
+        should_be_on "https://online.alandsbanken.fi/aab/ebank/auth/initLogin.do?BV_UseBVCookie=no"
       end
-      
+
       scenario "5) return from TUPAS" do
         visit_signature_returning(idea.id, @citizen.id)
         signature = Signature.where(:idea_id => idea.id,
-                                    :citizen_id => @citizen.id).first
-        
-        page.should have_field("signature_idea_title", with: idea.title)
-        should_have_date("signature_idea_date", today_date)
-        should_have_date("signature_signing_date", today_date)
-        should_have_date("signature_birth_date", Date.new(1970,1,1))
-        page.should have_field("signature_firstnames",
-          with: @citizen.first_names)
-        page.should have_field("signature_lastname",
-          with: @citizen.last_name)
-        page.should have_select("signature_occupancy_county", selected: nil)
+                                    :citizen_id => @citizen.id).last
+        have_field_with_text("signature_idea_title", idea.title)
+        have_field_with_date('signature_idea_date', today_date)
+        have_field_with_date('signature_signing_date', today_date)
+        have_field_with_date('signature_birth_date', Date.new(1970,1,1))
+        have_field_with_text("signature_firstnames", @citizen.first_names)
+        have_field_with_text("signature_lastname", @citizen.last_name)
+        page.has_select?("signature_occupancy_county", selected: nil)
         page.should have_unchecked_field("signature_vow")
-        should_be_disabled(find_button("Allekirjoita"))
+        should_be_disabled(find(:id, "commit"))
         signature.state.should == "authenticated"
-        
+        puts Capybara.current_driver
         select "Helsinki", from: "signature_occupancy_county"
         check "Vow"
-        click_button "Allekirjoita"
+        click_on "Allekirjoita"
         
         should_be_on "/signatures/#{signature.id}/finalize_signing"
       end
@@ -235,9 +224,9 @@ feature "Idea signing" do
         uncheck "accept_general"
         check "accept_non_eu_server"
         choose "publicity_Normal"
-        page.has_no_button? "Hyväksy ehdot ja siirry tunnistautumaan"
+        page.has_no_button? "Eteenpäin"
         check "accept_general"
-        page.has_button? "Hyväksy ehdot ja siirry tunnistautumaan"
+        page.has_button? "Eteenpäin"
       end
       
       scenario "4) not logged in" do
@@ -246,7 +235,7 @@ feature "Idea signing" do
         check "accept_general"
         check "accept_non_eu_server"
         choose "publicity_Normal"
-        click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+        click_button "Eteenpäin"
         should_be_on new_citizen_session_path
       end
       
@@ -340,7 +329,7 @@ feature "Idea signing" do
               check "accept_general"
               check "accept_non_eu_server"
               choose "publicity_Normal"
-              click_button "Hyväksy ehdot ja siirry tunnistautumaan"
+              click_button "Eteenpäin"
               current_path.should_not == signature_idea_path(idea.id)
             end
             scenario "existing signature is at the invalid return state" do
@@ -621,7 +610,7 @@ feature "Idea signing" do
       page.driver.post(signature_idea_approval_path(
           idea_that_cannot_be_signed.id))
       page.should have_content "Can't be signed"
-      page.should_not have_button "Hyväksy ehdot ja siirry tunnistautumaan"
+      page.should_not have_button "Eteenpäin"
     end
     
     scenario "authentication expires before signing" do
@@ -640,73 +629,32 @@ feature "Idea signing" do
   end
   
   context "attacks" do
-    context "attempt to sign the proposal multiple times" do
+    context "attempt to sign the proposal multiple times", js: true do
       background do
         # this time we send direct POST requests in order to bypass as many
         # security checks as possible
-        page.driver.post(signature_idea_path(idea.id),
-                         {:accept_general => "1",
-                          :accept_non_eu_server => "1",
-                          :publicity => "Normal"
-                         })
+        visit_signature_idea_path(idea.id)
         @first_signature = Signature.where(:idea_id => idea.id,
                                           :citizen_id => @citizen.id).last
         # reload the page, which creates another signature
-        page.driver.post(signature_idea_path(idea.id),
-                         {:accept_general => "1",
-                          :accept_non_eu_server => "1",
-                          :publicity => "Normal"
-                         })
+        visit_signature_idea_path(idea.id)
         @second_signature = Signature.where(:idea_id => idea.id,
                                            :citizen_id => @citizen.id).last
       end
       scenario "go to the returning page after signing for the first time" do
         # Try to complete the first signature
-        pending "attacks should been moved to controller layer"
         visit(capybara_test_return_url(@first_signature.id))
         select "Helsinki", from: "signature_occupancy_county"
         check "Vow"
         click_button "Allekirjoita"
         page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
-        
+        puts @first_signature.attributes
         # Try to complete the second signature
         service = "Capybaratesti"
         visit(capybara_test_return_url(@second_signature.id))
         page.should have_content "Aiemmin allekirjoitettu"
         page.should_not have_button "Allekirjoita"
       end
-      scenario "go to the finalize signing page after signing for the first time",
-        :if => RUN_PUT_TESTS do
-        pending "attacks should been moved to controller layer"
-        # Authenticate for the second signature
-        visit(capybara_test_return_url(@second_signature.id))
-        
-        # Try to complete the first signature
-        visit(capybara_test_return_url(@first_signature.id))
-        select "Helsinki", from: "signature_occupancy_county"
-        check "Vow"
-        click_button "Allekirjoita"
-        page.should have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
-        
-        # Try to complete the second signature
-        visit_signature_finalize_signing_directly(@second_signature.id,
-                                                  idea.title,
-                                                  @citizen.profile)
-        page.should have_content "Aiemmin allekirjoitettu"
-        page.should_not have_content "Kiitos kannatusilmoituksen allekirjoittamisesta"
-      end
-    end
-    scenario "attempt to sign the proposal without authentication",
-      :if => RUN_PUT_TESTS do
-      pending "attacks should been moved to controller layer"
-      visit_signature_idea_path(idea.id)
-      signature = Signature.where(:idea_id => idea.id,
-                                  :citizen_id => @citizen.id).last
-      expect {
-        visit_signature_finalize_signing_directly(signature.id,
-                                                  idea.title,
-                                                  @citizen.profile)
-      }.to raise_error
     end
   end
 

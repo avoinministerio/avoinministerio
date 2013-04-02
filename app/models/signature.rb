@@ -9,7 +9,7 @@ class Signature < ActiveRecord::Base
   belongs_to  :citizen
   belongs_to  :idea
 
-  validates :citizen_id, presence: true
+  validates :citizen_id, presence: true, uniqueness: {scope: :idea_id}
   validates :idea_id, presence: true
   validates :accept_general, acceptance: {accept: true, allow_nil: false}
   validates :accept_non_eu_server, acceptance: {accept: true, allow_nil: false}
