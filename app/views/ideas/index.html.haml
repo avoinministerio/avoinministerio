@@ -9,7 +9,7 @@
         .h1 
           -@filters.each do |filt|
             - code, filter_name, wrap = filt
-            - if code != @current_filter.to_sym
+            - if code != @current_filter
               = link_to filter_name, filter: code
             - else
               %span.selected= filter_name
@@ -38,7 +38,7 @@
           - else
             =link_to @field_names[field][order.first], reorder: field 
           - unless field == :tilt
-            |
+
     - if ENV['Feature_Searchbox']
       .grid_24.search
         .search
@@ -59,7 +59,7 @@
     .idea.container_24.clearfix
       .info.grid_12
         %span.type
-          =state_localised(idea.state.name)
+          =state_localised(idea.state)
           \/
         %span.date
           = finnishDate(idea.created_at)
