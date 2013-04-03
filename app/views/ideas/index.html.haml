@@ -37,7 +37,7 @@
             %span.selected= link_to @field_names[field][order.first], reorder: field 
           - else
             =link_to @field_names[field][order.first], reorder: field 
-          - unless field == :tilt
+          = "|" unless field == :tilt
 
     - if ENV['Feature_Searchbox']
       .grid_24.search

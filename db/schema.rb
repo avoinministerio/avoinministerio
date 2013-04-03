@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130224185638) do
+ActiveRecord::Schema.define(:version => 20130403182215) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -356,8 +356,9 @@ ActiveRecord::Schema.define(:version => 20130224185638) do
   create_table "states", :force => true do |t|
     t.integer  "administrator_id"
     t.string   "name"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "rank",             :default => 1
   end
 
   add_index "states", ["name"], :name => "indx_states_name"

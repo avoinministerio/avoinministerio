@@ -3,6 +3,7 @@
 %table.table.table-bordered
   %tr
     %th Name
+    %th Rank
     %th Last Operated by
     %th Created at
     %th Updated at
@@ -11,6 +12,7 @@
   - @states.each do |state|
     %tr
       %td= state.name.titleize
+      %td= state.rank
       %td= state.administrator.email
       %td= state.created_at
       %td= state.updated_at

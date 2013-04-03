@@ -3,8 +3,7 @@
 class PagesController < ApplicationController
   
   def load(state, count)
-    city = City.find_by_name('Helsinki')
-    state = State.find_by_name_and_city_id(state, city.id)
+    state = State.find_by_name(state)
 
     if state
       items = Idea.published.where(state_id: state.id).order("updated_at DESC").limit(count).includes(:votes).all

@@ -56,8 +56,6 @@
       - else
         .noprevnext
 .clear
-.grid_24
-  = idea_state_image(@idea)
 .idea.grid_24
   = render :partial => 'wizard_steps', :locals => {:states => @states, :idea_state => @idea_state}
 
