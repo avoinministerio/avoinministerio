@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130302075827) do
+ActiveRecord::Schema.define(:version => 20130403182215) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -188,7 +188,6 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.string   "state",                              :default => "idea"
     t.integer  "author_id"
     t.datetime "created_at",                                                  :null => false
     t.datetime "updated_at",                                                  :null => false
@@ -212,6 +211,7 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
     t.string   "additional_collecting_service_urls"
     t.datetime "updated_content_at"
     t.integer  "impressions_count"
+    t.integer  "state_id"
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"
@@ -425,6 +425,16 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
     t.string   "idea_mac"
     t.string   "service"
   end
+
+  create_table "states", :force => true do |t|
+    t.integer  "administrator_id"
+    t.string   "name"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "rank",             :default => 1
+  end
+
+  add_index "states", ["name"], :name => "indx_states_name"
 
   create_table "survey_sections", :force => true do |t|
     t.integer  "survey_id"

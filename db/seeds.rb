@@ -3,16 +3,15 @@ require 'factory_girl_rails'
 
 puts "seeding data... this process can take 20-25 minutes"
 
-Administrator.find_or_create_by_email({
+admin = Administrator.find_or_create_by_email({
   email: "admin@avoinministerio.fi",
   password: "hallinta"
 })
 
 [
 { email: "expedora@gmail.com",
-  password: "expedora1", password_confirmation: "expedora1", remember_me: true,
+  password: "expedora1", password_confirmation: "expedora1", remember_me: true, is_politician: true,
   profile_attributes: {first_names: "Expedora", first_name: "Expedora", last_name: "India", name: "Expedora India"}, },
-
 { email: "joonas@pekkanen.com",
   password: "joonas1", password_confirmation: "joonas1", remember_me: true,
   profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
@@ -206,73 +205,54 @@ Tämä laki tulee voimaan päivänä kuuta 20__.
 Ennen lain voimaantuloa voidaan ryhtyä lain toimeenpanon edellyttämiin toimiin.
 EOS
 
-[
-{
-  title: "Koiraverolain kumoaminen",
-  summary: "Koiraverolain kumoaminen",
-  body: koiravero_body,    
-  state: "draft", author: joonas 
-},
-{
-  title: "Opintorahan takaisinperinnän muuttaminen",
-  summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
-  body: opintotuki_body,    
-  state: "draft", author: joonas 
-},
-{ title: "Kansanedustajien palkankorotus pannaan",
-  summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
-  body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
-  state: "idea", author: random_citizen},
-{ title: "Poistetaan perintöverotus",
-  summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
-  body: "Ankarin perintövero korvattakoon tasaverolla!",
-  state: "draft", author: random_citizen},
-{ title: "Raiskauksille kunnon tuomiot",
-  summary: "Joku roti!",
-  body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-  state: "proposal", author: random_citizen},
-{ title: "Kaikelle isommat tuomiot",
-  summary: "Joku roti!",
-  body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-  state: "law", author: random_citizen},
-{ title: "Vielä isommat tuomiot",
-  summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
-  body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-  state: "idea", author: random_citizen},
-].each { |idea| i = Idea.create(idea); i.state = idea[:state]; i.author = idea[:author]; i.save! }
+%w(idea proposal draft law).each_with_index do |name, index|
+  State.create(:administrator_id => admin.id, :name => name, :rank => (index + 1))
+end
 
-9.times do |i|
-  inx = i + 1
-  idea = Idea.new({
-    title: "Raiskauksille kunnon tuomiot #{inx}",
+[
+  {
+    title: "Koiraverolain kumoaminen",
+    summary: "Koiraverolain kumoaminen",
+    body: koiravero_body,    
+    state_id: 1, author: joonas 
+  },
+  {
+    title: "Opintorahan takaisinperinnän muuttaminen",
+    summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
+    body: opintotuki_body,    
+    state_id: 3, author: joonas 
+  },
+  { title: "Kansanedustajien palkankorotus pannaan",
+    summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
+    body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
+    state_id: 3, author: random_citizen},
+  { title: "Poistetaan perintöverotus",
+    summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
+    body: "Ankarin perintövero korvattakoon tasaverolla!",
+    state_id: 2, author: random_citizen},
+  { title: "Raiskauksille kunnon tuomiot",
     summary: "Joku roti!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "proposal",
-    collecting_started: true,
-    collecting_ended: false,
-    collecting_start_date: Time.now,
-    collecting_end_date: 1.year.from_now,
-    additional_signatures_count: 0,
-    additional_signatures_count_date: 1.year.from_now,
-    target_count: 10000,
-    collecting_in_service: false
-  })
-  
-  idea.publish_state = 'published'
-  idea.author = random_citizen
-  idea.save
-end
+    state_id: 2, author: random_citizen},
+  { title: "Kaikelle isommat tuomiot",
+    summary: "Joku roti!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state_id: 2, author: random_citizen},
+  { title: "Vielä isommat tuomiot",
+    summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state_id: 4, author: random_citizen},
+].each { |idea| i = Idea.create(idea); i.state_id = idea[:state_id]; i.author = idea[:author]; i.save! }
 
 20.times do |i|
   idea = Idea.create(
-                     { title: "Esimerkki-idea #{i}", 
-    summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
-    body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
-    created_at: Time.now - (60*60*24),
-    updated_at: Time.now - (60*60*24),
-  })
-  
-  idea.state = "idea"
+    { title: "Esimerkki-idea #{i}", 
+      summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
+      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
+      created_at: Time.now - (60*60*24),
+      updated_at: Time.now - (60*60*24),
+      })
+  idea.state_id = 1
   idea.author = random_citizen
   idea.save!
 end
@@ -286,7 +266,7 @@ voters = (0..100).map do |i|
 end
 
 Idea.all.each do |idea|
-  rand(5).times { FactoryGirl.create :comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count)) }
+  rand(5).times { FactoryGirl.create(:comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count))) }
 end
 
 voter_count = voters.size

@@ -1,0 +1,16 @@
+%table.table.table-bordered
+  %th State
+  %th Rank
+  %th Last Operated by
+
+  %tr
+    %td
+      = @state.name
+    %td
+      = @state.rank
+    %td
+      = @state.administrator.email
+
+= link_to 'Edit', edit_admin_state_path(@state), class: 'btn btn-info'
+= link_to 'All States', admin_states_path, class: 'btn btn-info'
+= link_to 'Back', :back, class: 'btn btn-info'
