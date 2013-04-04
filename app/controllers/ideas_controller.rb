@@ -222,12 +222,13 @@ class IdeasController < ApplicationController
   end
   
   def create
+    state = State.first
+
     @idea = Idea.new(params[:idea])
-    city = City.find_by_name('Helsinki')
-    state = State.find_by_city_id(city.id)
-    @idea.state_id = state.id
+    @idea.state_id = state.id if state
     @idea.author = current_citizen
     @idea.updated_content_at = DateTime.now
+
     if @idea.save
       flash[:notice] = I18n.t("idea.created")
       KM.identify(current_citizen)
