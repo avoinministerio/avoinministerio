@@ -3,8 +3,7 @@ language: ruby
 bundler_args: "--without production development mac_test"
 
 rvm:
-  - 1.9.2
-  - 1.9.3
+  - 2.0.0
 
 env:
   - DB=postgres
@@ -12,6 +11,8 @@ env:
 before_script:
   - "cp config/database.travis.$DB.yml config/database.yml"
   - "psql -c 'create database avoin_ministerio_test;' -U postgres"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 
 script: "RAILS_ENV=test bundle exec rake db:migrate spec"
 

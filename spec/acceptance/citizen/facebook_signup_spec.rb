@@ -10,7 +10,7 @@ feature "New citizen logins in with Facebook and creates new account" do
     visit homepage
     click_link "Kirjaudu Facebookilla"
 
-    should_be_on homepage
+    should_be_on after_sign_up
     Citizen.where(email: 'citizen-kane@example.com').count.should == 1
   end
 end

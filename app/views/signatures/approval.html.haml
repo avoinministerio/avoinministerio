@@ -49,7 +49,7 @@
 
       :javascript
         var toggleButton = function() {
-          if( $("#accept_general").attr("checked") && $("#accept_non_eu_server").attr("checked") && 
+          if( $("#accept_general").is(":checked") && $("#accept_non_eu_server").is(":checked") && 
               ( $("input:radio[name=publicity]:checked").val() ) ) {
             $("#accept").attr({"disabled": false, "class": "accept-btn"});
           } else {
