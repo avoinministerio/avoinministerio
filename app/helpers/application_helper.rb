@@ -4,7 +4,8 @@ require 'digest/sha2'
 module ApplicationHelper
   def markdown(text)
     renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true, with_toc_data: true)
-    Redcarpet::Markdown.new(renderer, { autolink: true, tables: true }).render(text).html_safe
+    rendered_html = Redcarpet::Markdown.new(renderer, { autolink: true, tables: true }).render(text).html_safe
+    youtube_links = rendered_html.gsub(/<a href="http:\/\/www.youtube.com\/watch\?v=(.*?)">.*<\/a>/,'<iframe allowfullscreen="" height="192" src="https://www.youtube.com/embed/\1" style="border: none;" width="310">   </iframe>').html_safe
   end
   def shorten(text, max_length, cut_characters, ending_sign)
     (text.length < (max_length-cut_characters) ? text : text[0,max_length].gsub(/[\s,.\-!?]+\S+\z/, "")) + " " + ending_sign
