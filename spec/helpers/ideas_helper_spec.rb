@@ -8,7 +8,11 @@ describe IdeasHelper do
   describe "#idea_state_image" do
     let(:draft)     { FactoryGirl.create(:idea, state: "draft") }
     let(:proposal)  { FactoryGirl.create(:idea, state: "proposal") }
-    let(:law)       { FactoryGirl.create(:idea, state: "law") }
+    let(:law)       { FactoryGirl.create(:idea, state: "law", 
+                                                collecting_started: true, 
+                                                collecting_start_date: (Date.today - 30.days), 
+                                                collecting_ended: true, 
+                                                collecting_end_date: Date.today) }
 
     it "returns image tag for given idea and its state" do
       helper.idea_state_image(idea).should      =~ /state_1_idea.png/

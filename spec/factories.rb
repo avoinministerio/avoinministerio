@@ -42,8 +42,12 @@ FactoryGirl.define do
   end
   
   factory :idea do
-    title     "Idea uudesta laista"
-    body      "Hankitaan kaikille kansalaisille ..."
+    sequence :title do |t|
+      "Idea uudesta laista #{t}"
+    end
+    sequence :body do |b|
+      "Hankitaan kaikille kansalaisille ... #{b}"
+    end
     summary   "Hyvä idea"
     state     "idea"
     association :author, factory: :citizen

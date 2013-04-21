@@ -34,7 +34,7 @@ describe Citizens::OmniauthCallbacksController do
         }.should change(Citizen, :count).by(1)
       }.should change(Authentication, :count).by(1)
       controller.citizen_signed_in?.should be_true
-      response.should redirect_to(root_path)
+      response.should redirect_to(edit_profile_fi_path)
     end
   end
 end

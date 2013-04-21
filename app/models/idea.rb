@@ -1,9 +1,11 @@
 class Idea < ActiveRecord::Base
   include PublishingStateMachine
+  include IdeaStateMachine
   include Changelogger
   include Concerns::Indexing
   include Tanker
   extend FriendlyId
+  include IdeaStateMachine
 
   VALID_STATES = %w(idea draft proposal law)
 
@@ -20,7 +22,8 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count, :updated_content_at
+                    :target_count, :updated_content_at, :author,
+                    :author_id, :publish_state, :slug, :impressions_count
 
   attr_accessor :impression_gp_count
 
@@ -38,34 +41,16 @@ class Idea < ActiveRecord::Base
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
   validates :state, inclusion: { in: VALID_STATES }
 
-  tankit index_name do
-    conditions do
-      published?
-    end
-    indexes :title
-    indexes :summary
-    indexes :body
-    indexes :state
-    indexes :author do
-      self.author.first_name + " " + self.author.last_name
-    end
-    indexes :type do "idea" end
-    
-    category :type do
-      "idea"
-    end
-    
-    category :state do
-      state
-    end
+  if Rails.env == "test"
+    include Concerns::IndexingWrapperTest
+  else
+    include TankerMethods
+    include Concerns::IndexingWrapper
   end
-  after_save Concerns::IndexingWrapper.new
-  after_destroy Concerns::IndexingWrapper.new
 
   def indexable?
     self.title.present?
   end
-
 
 #  default_scope order("created_at DESC")
 
