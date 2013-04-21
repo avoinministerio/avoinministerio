@@ -13,7 +13,7 @@ feature "Idea signing" do
     FactoryGirl.create :idea, state: "proposal", 
                   collecting_in_service: true,
                   collecting_started: true, collecting_ended: false, 
-                  collecting_start_date: today_date, collecting_end_date: today_date + 180, 
+                  collecting_start_date: today_date, collecting_end_date: today_date + 180.days, 
                   additional_signatures_count: 0, additional_signatures_count_date: today_date, 
                   target_count: 51500,
                   additional_collecting_service_urls: "http://www.example.com/initiative"

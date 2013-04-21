@@ -1,9 +1,11 @@
 class Idea < ActiveRecord::Base
   include PublishingStateMachine
+  include IdeaStateMachine
   include Changelogger
   include Concerns::Indexing
   include Tanker
   extend FriendlyId
+  include IdeaStateMachine
 
   VALID_STATES = %w(idea draft proposal law)
 

@@ -8,7 +8,7 @@ module IdeasHelper
       idea:     "state_1_idea.png",
       draft:    "state_2_draft.png",
       proposal: "state_3_proposal.png",
-      law:      "state_4_law.png",
+      law:      "state_4_law.png"
     }[idea.state.to_sym]
     
     image_tag(filename, width: 954, height: 62)
