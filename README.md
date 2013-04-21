@@ -197,6 +197,7 @@ To create your personal instance on [Heroku](http://www.heroku.com/):
 
         heroku create --stack cedar
         heroku config:add BUNDLE_WITHOUT="development:test:mac_test:linux_test" -r heroku
+        heroku config:add RAILS_SECRET_TOKEN="$(bundle exec rake secret)"
 
 3. Initial deployment
 
