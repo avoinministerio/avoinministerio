@@ -1,4 +1,4 @@
-class Concerns::IndexingWrapper
+module Concerns::IndexingWrapper
   def after_save(record)
     begin
       record.send :update_tank_indexes

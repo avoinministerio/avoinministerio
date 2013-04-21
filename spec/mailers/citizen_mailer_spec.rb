@@ -3,7 +3,7 @@ require "spec_helper"
 describe CitizenMailer do
   describe 'welcome_email' do
     it "should send deliver an email" do
-      citizen = Factory.build(:citizen)
+      citizen = FactoryGirl.build :citizen
       CitizenMailer.welcome_email(citizen, [], []).deliver
       sent_email = ActionMailer::Base.deliveries.last
 
