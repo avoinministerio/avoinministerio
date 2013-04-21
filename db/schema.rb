@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130302075827) do
+ActiveRecord::Schema.define(:version => 20130401195417) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -205,9 +205,9 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
     t.boolean  "collecting_ended"
     t.date     "collecting_start_date"
     t.date     "collecting_end_date"
-    t.integer  "additional_signatures_count"
+    t.integer  "additional_signatures_count",        :default => 0
     t.date     "additional_signatures_count_date"
-    t.integer  "target_count"
+    t.integer  "target_count",                       :default => 0
     t.boolean  "collecting_in_service"
     t.string   "additional_collecting_service_urls"
     t.datetime "updated_content_at"
