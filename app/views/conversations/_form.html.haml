@@ -1,0 +1,11 @@
+= render 'control_panel'
+
+#new_message
+  %h1=t(".new_message")
+  = simple_form_for :conversation, url: :conversations do |f|
+    .recipients_input_box
+      = f.input :recipients, :label => t(".recipients"), :input_html => { :data => { load: @pre_load } }
+    = f.input :subject, :label => t(".subject"), :cols => 30
+    = f.input :body, as: :text, :label => t(".body"), :rows => 50
+    .form-actions
+      = f.button :submit, t(".submit"), class: 'btn-primary'

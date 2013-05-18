@@ -40,9 +40,9 @@ module IdeasHelper
   def vote_in_words(idea, citizen)
     case idea.votes.by(citizen).first.option
     when 0
-      "Ei"
+      t('.vote_no')
     when 1
-      "Kyllä"
+      t('.vote_yes')
     end
   end
   

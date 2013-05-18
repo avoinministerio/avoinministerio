@@ -2,9 +2,13 @@
 
 class PagesController < ApplicationController
 
-  def load(state, count = nil)
-    conditions = (state == 'proposal' ? { state: state, collecting_started: true, collecting_ended: false } : { state: state })
-    items = Idea.published.where(conditions).order("updated_at DESC").limit(count).includes(:votes).all
+  def load(state)
+    if state == "proposal"
+      items = Idea.published.where(state: "proposal",
+                                   collecting_started: true).sort_by{|idea| [ idea.language == I18n.locale.to_s ? 1 : 0, idea.collecting_ended ? 0 : 1, (idea.signatures.where(state: "signed").count + idea.additional_signatures_count)]}.reverse
+    else
+      items = Idea.published.where(state: state).sort_by{|idea| [ idea.language == I18n.locale.to_s ? 1 : 0]}.reverse
+    end
     item_counts = {}
 
     items.each do |idea|
@@ -12,20 +16,10 @@ class PagesController < ApplicationController
       against_count   = idea.vote_counts[0] || 0
       comment_count   = idea.comments.count()
       total           = for_count + against_count
-      for_portion     = (for_count.to_f/total)*280#(for_count > 0 ?     for_count / total.to_f  : 0.0)
-      against_portion = (for_count.to_f/total)*280#(against_count > 0 ? against_count / total.to_f  : 0.0)
-      if idea.state == "proposal"
-        vote_completed = idea.vote_count
-        vote_for = 50000 - vote_completed
-        for_portion = ((vote_completed.to_f/50000)*280).to_i
-        for_            = idea.vote_count
-        against_        = vote_for
-        vote_for = (vote_for/50000)*280
-        vote_completed = (vote_completed/50000)*280
-      else
-        for_            = sprintf("%2.0f%%", for_count.to_f/total * 100.0)#"#{(for_count.to_f/total)*100}"+"%"       #
-        against_        = sprintf("%2.0f%%", against_count.to_f/total * 100.0)#"#{(against_count.to_f/total)*100}"+"%"   #
-      end
+      for_portion     = (    for_count > 0 ?     for_count / total.to_f  : 0.0)
+      against_portion = (against_count > 0 ? against_count / total.to_f  : 0.0)
+      for_            = sprintf("%2.0f%%", for_portion * 100.0)
+      against_        = sprintf("%2.0f%%", against_portion * 100.0)
       item_counts[idea.id] = [for_portion, for_, against_portion, against_]
     end
 
@@ -51,48 +45,17 @@ class PagesController < ApplicationController
   end
 
   def home
-    # AB-test: is it better to have proposals in their separate section or merge with drafts
-
-    session[:ab_section_count] = 2 unless session[:ab_section_count]
-    KM.set({"section_count" => "#{session[:ab_section_count]}"})
-    ["proposal_and_draft", "draft", "proposal"].each do |section|
-      3.times do |i| 
-        section_index_link = "ab_section_#{section}_#{i}_link"
-        KM.track(section_index_link, section_index_link)            # track both, which section and which item
-        KM.track(section_index_link, "ab_section_#{section}_link")  # track only which section got the click
-      end
-    end
-
-    # B: two rows of examples:
-    @proposals, @proposals_counts = load("proposal")
-    @drafts, @draft_counts = load("draft", 3)
-    
-    # total proposals and drafts
-    @total_drafts = Idea.count(:all, :conditions => ['state=?', "draft"])
-    @total_proposals = @proposals.count
-    
-    # Randomize the proposals array
-    @proposals = @proposals.shuffle
-
-    # A: just one row, both proposals and drafts in it
-    #@proposals_and_drafts = (@proposals + @drafts).sort {|x,y| x.updated_at <=> y.updated_at}
-    #@proposal_and_drafts_counts = @proposals_counts.merge @draft_counts
-
+    # Two rows (proposals and drafts)
+    @proposals, @proposals_counts  = load("proposal")
+    @drafts, @draft_counts = load("draft")
 
     # Ideas either newest or random sampling
     #if @newest_ideas = (rand() < 0.1)
-      idea_count = 4
-      @ideas = Idea.published.where(state: 'idea').order("created_at DESC").limit(idea_count).includes(:votes).all
+      @ideas = Idea.published.where(state: 'idea').sort_by{|idea| [ idea.language == I18n.locale.to_s ? 0 : 1, idea.created_at ] }.first(6)
       @idea_counts = {}
       @ideas.each do |idea|
         formatted_idea_counts(idea, @idea_counts)
       end
-
-      #idea_count.times do |i|
-      #  KM.track("ab_ideas_#{i}", "ab_ideas_#{i}")    # track both, which section and which item
-      #  KM.track("ab_ideas_#{i}", "ab_ideas")         # track just idea section got the click
-      #end
-    
     #else
     #  idea_count = 6
     #  # this solution builds on few facts: most ideas are published and in state idea, and
@@ -124,35 +87,30 @@ class PagesController < ApplicationController
     @blog_articles = Article.published.where(article_type: 'blog').order("created_at DESC").limit(3).all
 
     @headline_1 = [
-      "Tuulivoimalat pelastavat maailman?",
-      "Turkistarhaus on kiellettävä?",
-      "Turkistarhausta kehitettävä?",
-      "Perustulo kaikille?",
-      "Nykyistä tukijärjestelmää on kehitettävä?",
-      "Koiravero vanhentunut?",
-      "Koiravero koko maahan?",
-      "Sitovat kansanäänestykset?",
-      "Tasa-arvoisempi avioliittolaki?",
-      "Lisää kansalaisaloitteita",
-      "Kaikki on hyvin?",
-      "Mitään ei tarvitse muuttaa?",
-      "Lapsillemme parempi maailma!"
+      t(".headline_1.turbines"),
+      t(".headline_1.fur"),
+      t(".headline_1.fur_dev"),
+      t(".headline_1.income"),
+      t(".headline_1.regime"),
+      t(".headline_1.dog_tax"),
+      t(".headline_1.dog_tax_country"),
+      t(".headline_1.referendums"),
+      t(".headline_1.marriage_law"),
+      t(".headline_1.more_initiatives"),
+      t(".headline_1.nothing"),
+      t(".headline_1.children")
     ]
     @headline_2 = [
-      "Tee siitä laki",
-      "Tee omat lakisi",
-      "Laista itse",
-      "Anna oma ehdotuksesi",
-      "Kommentoi",
-      "Ota kantaa",
-      "Anna tukesi",
-      "Tee vastaehdotus",
-      "Jaa tietoa",
-      "Levitä aloitetta",
+      t(".headline_2.law"),
+      t(".headline_2.own_law"),
+      t(".headline_2.put"),
+      t(".headline_2.suggest"),
+      t(".headline_2.comment"),
+      t(".headline_2.speak"),
+      t(".headline_2.support"),
+      t(".headline_2.suggestion"),
+      t(".headline_2.share"),
+      t(".headline_2.spread")
     ]
-
-
-    #KM.identify(current_citizen)
-    #KM.push("record", "front page viewed")
   end
 end

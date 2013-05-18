@@ -1,8 +1,6 @@
 AvoinMinisterio::Application.routes.draw do
-
   resource :profile, :except => [:new, :create, :destroy]  
   resource :citizen, :only => [:edit, :update]
-
   match "/ideas/:id/vote/:vote"                       => "vote#vote",                     as: :vote_idea
 
   match "/ideas/:id/service_selection"                => "signatures#service_selection",      as: :signature_idea_service_selection
@@ -31,8 +29,15 @@ AvoinMinisterio::Application.routes.draw do
   match "/signatures/:id/paid_canceling/:servicename"   => "signatures#paid_canceling"
   match "/signatures/:id/paid_rejecting/:servicename"   => "signatures#paid_rejecting"
 
+  match "/kartta" => "locations#map"
+  match "/osoitteet" => "locations#addresses"
 
-  match "/ideat/haku" => "ideas#search"
+  match '/conversations/inbox' => 'conversations#show_inbox'
+  match '/conversations/sentbox' => 'conversations#show_sentbox'
+  match '/conversations/trash' => 'conversations#show_trash'
+
+  match "/ideas/search" => "ideas#search"
+
   get "ideas/vote_flow"
 
   get "pages/home"
@@ -45,13 +50,36 @@ AvoinMinisterio::Application.routes.draw do
   match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
 
   resources :ideas do
+    resources :translated_ideas do
+      resources :forked_ideas do
+        get "fork",    on: :collection
+        get "pull_requests",    on: :collection
+        get "send_pull_request",    on: :member
+        get "merge",    on: :member
+        get "close_pr",    on: :member
+     end
+    end
     resources :comments
     resources :expert_suggestions, only: [:new, :create]
   end
+
+  resources :translated_ideas
+
   resources :articles do
     resources :comments
   end
+  
+  get '/get_participants.json', to: 'conversations#get_participants'
 
+  resources :conversations, only: [:index, :show, :new, :create] do
+    post :reply,   on: :member
+    get :trash,    on: :member
+    get :untrash,  on: :member
+  end
+
+  resources :locations
+  resources :languages
+  
   devise_for :administrators
   
   match "/admin", to: "admin/ideas#index", as: :administrator_root
@@ -87,6 +115,8 @@ AvoinMinisterio::Application.routes.draw do
       get "lock",       on: :member
       get "unlock",     on: :member
     end
+    resources :languages
+    resources :locations
     resources :changelogs
     resources :expert_suggestions
     root to: "admin/ideas#index"

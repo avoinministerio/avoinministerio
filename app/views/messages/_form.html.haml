@@ -1,0 +1,7 @@
+#new_message
+  %center
+    = simple_form_for :message, url: [:reply, conversation] do |f|
+      = f.input :subject, :label => t(".subject")
+      = f.input :body, as: :text, :label => t(".body"), :rows => 50
+      .form-actions
+        = f.button :submit, t(".submit"), class: 'btn-primary'

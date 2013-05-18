@@ -165,7 +165,8 @@ h1 {
 
 
 .expert_opinions h2,
-.idea_comments h2 {
+.idea_comments h2,
+.idea_kartta h2 {
   padding-bottom: 6px;
   border-width: 6px;
   -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
@@ -358,7 +359,7 @@ ul.horizontal li {
 }
 
 .ideas_header .filtered_title {
-  padding-top:20px;
+  padding-top:35px;
   font-size: 24px;
 }
 
@@ -412,4 +413,35 @@ ul.horizontal li {
 
 .share .addthis_32x32_style {
   height: 32px;
+}
+
+#map { 
+  height: 300px; 
+  background: grey;
+}
+
+input#location_name, input#location_address {
+  border: 3px #DBDBDB;
+  border-style: solid;
+}
+
+a.default_url {
+  color: #29abe2;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#list_of_address {
+  margin-bottom: 15px;
+}
+
+.translations {
+  background: #eff3f3;
+  border-top: 3px solid #000;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.languages {
+  margin-bottom: 15px;
 }

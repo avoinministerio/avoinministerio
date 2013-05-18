@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Olet saanut uuden vastauksen yksityisviestiin Avoimessa ministeriössä: <%= @message.subject.html_safe? ? @message.subject : strip_tags(@message.subject) %></h1>
+    <p>
+      <%= raw @message.body %>
+    </p>
+
+    <hr/>
+    <p>
+      Voit vastata viestiin <%= link_to root_url,root_url %> ja katsomalla tulevan postin kansion (kirjautumisen jälkeen oikeassa ylänurkassa nimesi vieressä olevat puhekuplat).
+    </p>
+  </body>
+</html>

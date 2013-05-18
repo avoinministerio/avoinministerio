@@ -1,0 +1,17 @@
+#trash
+  %h1=t(".title")
+  %table.messaging
+    %tr.title
+      %th.title=t(".date")
+      %th.title=t(".subject")
+      %th.title=t(".participants")
+    - @trash.each do |message|
+      %tr{:onclick => "window.location.href = '#{url_for(message)}';", :onmouseover => "this.style.cursor='pointer'"}
+        %td.cell #{finnishDate(message.updated_at)}
+        %td.cell #{message.subject} 
+        %td.cell #{get_participants(message)}
+        %td.cell= link_to image_tag("undo.png", :border => 0), untrash_conversation_path(message)
+  - if @trash.count > 5
+    = will_paginate @trash
+  - elsif @trash.count == 5
+    = link_to t(".show_all"), conversations_trash_path, :class => "show_all_link"

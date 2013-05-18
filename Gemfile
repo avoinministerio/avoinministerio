@@ -14,9 +14,11 @@ gem "devise", '2.1.2'
 gem "factory_girl_rails", "4.1.0", :require => false
 gem "friendly_id"
 gem "gravatar-ultimate"
+gem "geocoder"
 gem "haml-rails"
 gem "i18n_routing"
 gem "jquery-rails"
+gem 'jquery-ui-rails'
 gem "nokogiri"
 gem "omniauth-facebook"
 gem "rails-i18n"
@@ -28,13 +30,14 @@ gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
 gem "hominid"
+gem 'mailboxer'
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 gem "surveyor", "~> 1.1.0"
 
 gem "rspec-rails", :groups => [ :development, :test ]
-gem "impressionist"
+gem "impressionist", "~> 1.2.0"
 
 group :development do
   gem "rails-erd"
@@ -68,12 +71,15 @@ group :test do
   gem "steak"
   gem "capybara-mechanize"
   gem "timecop"
-
   gem "sqlite3"
 
   if ENV["DB"] == "postgres"
     gem "pg"
   end
+end
+
+group :profile do
+  gem 'ruby-prof'
 end
 
 group :mac_test do

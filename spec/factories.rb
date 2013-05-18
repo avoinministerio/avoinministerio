@@ -85,4 +85,9 @@ FactoryGirl.define do
     accept_non_eu_server true
     accept_publicity "Normal"
   end
+
+  factory :language do
+    full_name "Finnish"
+    name "fi"
+  end
 end

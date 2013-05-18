@@ -1,0 +1,11 @@
+Olet saanut uuden vastauksen yksityisviestiin Avoimessa ministeriössä: 
+
+<%= @message.subject.html_safe? ? @message.subject : strip_tags(@message.subject) %>
+===============================================
+ 
+-----------------------------------------------
+<%= @message.body.html_safe? ? @message.body : strip_tags(@message.body) %>
+-----------------------------------------------
+
+Voit vastata viestiin <%= root_url %> ja katsomalla tulevan postin kansion (kirjautumisen jälkeen oikeassa ylänurkassa nimesi vieressä olevat puhekuplat).
+

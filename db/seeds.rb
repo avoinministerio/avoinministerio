@@ -41,8 +41,18 @@ Administrator.find_or_create_by_email({
   password: "mikael1", password_confirmation: "mikael1", remember_me: true,
   profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
 ].each { |citizen| Citizen.find_or_create_by_email(citizen) }
-
+[
+  { name: "Kurikan kaupunginkirjasto" , address: "Koulutie 3, PL 23, 66300 Jurva" },
+  { name: "Ylöjärven kirjasto" , address: "Koivumäentie 2, 33470 Ylöjärvi" },
+  { name: "Akaan kaupunginkirjasto" , address: "Köyvärintie 1, 37800 Akaa" },
+  { name: "Viialan kirjasto Vilkku" , address: "Solmukatu 3, 37830 Akaa" },
+  { name: "Enontekiön kunnankirjasto" , address: "PL 46, Puistomäentie 2, 99401 Enontekiö" },
+  { name: "Nokian kaupunginkirjasto" , address: "Härkitie 6, 37100 Nokia" },
+].each  { |location| Location.find_or_create_by_address(location) }
 @citizens = Citizen.all
+
+[{ name: "fi", full_name: "Finnish" },
+ { name: "en", full_name: "English" }].each { |name| Language.find_or_create_by_name(name) }
 
 def random_citizen
   @citizens[rand(@citizens.size)]
@@ -245,7 +255,59 @@ EOS
     collecting_ended: false,
     collecting_start_date: Time.now,
     collecting_end_date: 1.year.from_now,
-    additional_signatures_count: 0,
+    additional_signatures_count: rand(10000),
+    additional_signatures_count_date: 1.year.from_now,
+    target_count: 10000,
+    collecting_in_service: false
+  })
+  
+  idea.publish_state = 'published'
+  idea.author = random_citizen
+  idea.save
+end
+
+9.times do |i|
+  inx = i + 1
+  idea = Idea.new({
+    title: "Suomi draft #{inx}",
+    summary: "Joku roti!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state: "draft"
+  })
+  
+  idea.publish_state = 'published'
+  idea.author = random_citizen
+  idea.save
+end
+
+9.times do |i|
+  inx = i + 1
+  idea = Idea.new({
+    title: "English draft #{inx}",
+     summary: "Some text!",
+    body: "Another text!",
+    state: "draft",
+    language: "en"
+  })
+  
+  idea.publish_state = 'published'
+  idea.author = random_citizen
+  idea.save
+end
+
+9.times do |i|
+  inx = i + 1
+  idea = Idea.new({
+    title: "English proposal #{inx}",
+    summary: "Some text!",
+    body: "Another text!",
+    state: "proposal",
+    language: "en",
+    collecting_started: true,
+    collecting_ended: false,
+    collecting_start_date: Time.now,
+    collecting_end_date: 1.year.from_now,
+    additional_signatures_count: rand(10000),
     additional_signatures_count_date: 1.year.from_now,
     target_count: 10000,
     collecting_in_service: false
@@ -261,6 +323,21 @@ end
                      { title: "Esimerkki-idea #{i}", 
     summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
     body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
+    created_at: Time.now - (60*60*24),
+    updated_at: Time.now - (60*60*24),
+  })
+  
+  idea.state = "idea"
+  idea.author = random_citizen
+  idea.save!
+end
+
+20.times do |i|
+  idea = Idea.create(
+                     { title: "English-idea #{i}", 
+    summary: "Some text", 
+    body: "Another text",  
+    language: "en",
     created_at: Time.now - (60*60*24),
     updated_at: Time.now - (60*60*24),
   })

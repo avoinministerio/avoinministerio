@@ -20,20 +20,24 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count, :updated_content_at
+                    :target_count, :language, :updated_content_at
+
+  attr_accessor :impression_gp_count
 
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
   has_many :expert_suggestions
   has_many :signatures
+  has_many :translated_ideas
+  has_many :forked_ideas, :through => :translated_ideas
   is_impressionable :counter_cache => true
   
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
 
   validates :author_id, presence: true
-  validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
-  validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
+  validates :title, length: { minimum: 5 }
+  validates :body,  length: { minimum: 5 }
   validates :state, inclusion: { in: VALID_STATES }
 
   tankit index_name do
@@ -117,6 +121,10 @@ class Idea < ActiveRecord::Base
     # votes.group(:option).count   # => returns counts like:  {0=>37, 1=>45}
     {0 => vote_against_count, 1 => vote_for_count}
   end
+
+  def successful_proposal?
+    (self.signatures.where(state: "signed").count + self.additional_signatures_count) >= 50000
+  end
   
   def signatures_per_day
     signatures_count = signatures.where(state: "signed").count
@@ -131,5 +139,19 @@ class Idea < ActiveRecord::Base
     ended     = collecting_ended   ||
       (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
+  end
+
+  def stats
+    @stats ||= begin
+      for_count = self.vote_counts[1] || 0
+      against_count = self.vote_counts[0] || 0
+      comment_count = self.comments.count()
+      total = for_count + against_count
+      for_portion = (for_count > 0 ? for_count / total.to_f : 0.0)
+      against_portion = (against_count > 0 ? against_count / total.to_f : 0.0)
+      for_ = sprintf("%2.0f%%", for_portion * 100.0)
+      against_ = sprintf("%2.0f%%", against_portion * 100.0)
+      [for_portion, for_, against_portion, against_]
+    end
   end
 end

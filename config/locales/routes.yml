@@ -1,6 +1,9 @@
 en:
   routes:
     home: home
+    conversations: conversations
+    ideas: ideas
+    search: search
 
 fi:
   routes:
@@ -14,3 +17,7 @@ fi:
     sign_in: kirjaudu
     sign_up: rekisteroidy
     vote: aanesta
+    conversations: keskustelut
+    profile: profiili
+    citizen: kansalainen
+    search: haku

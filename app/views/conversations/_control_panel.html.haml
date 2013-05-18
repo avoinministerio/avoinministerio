@@ -1,0 +1,9 @@
+#control_panel
+  = link_to t(".new_message"), new_conversation_path, :class => "new_message_link"
+  %br
+  %br
+  = link_to t(".inbox"), conversations_inbox_path, :class => "inbox_link"
+  %br
+  = link_to t(".sentbox"), conversations_sentbox_path, :class => "sentbox_link"
+  %br
+  = link_to t(".trash"), conversations_trash_path, :class => "trash_link"

@@ -6,7 +6,7 @@
   - if ENV["ALLOW_SIGNING_MULTIPLE_TIMES"] && current_citizen
     - completed_signature = Signature.where(state: "signed", citizen_id: current_citizen.id, idea_id: idea.id).first
     - if completed_signature
-      Olet jo jättänyt kannatusilmoituksen onnistuneesti. Et voi jättää sitä uudelleen, mutta nyt koska kyseessä on demo niin sallimme uusia ilmoituksia.
+      = t(".already_sent")
   
   - if on_going and idea.collecting_in_service
     .button
@@ -17,74 +17,74 @@
           - if session["authenticated_at"] and DateTime.now < session["authenticated_at"]
             - raise "#{DateTime.now} is smaller than found session['authenticated_at'] #{session['authenticated_at']}"
           - elsif shortcut_session_valid?
-            = link_to "Jätä kannatusilmoitus ilman uutta tunnistautumista", signature_idea_service_selection_path(idea.id), class: "btn jaa-btn"
+            = link_to t(".leave_a_message"), signature_idea_service_selection_path(idea.id), class: "btn jaa-btn"
           - else
-            = link_to "Jätä kannatusilmoitus", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
+            = link_to t(".leave_a_support_message"), signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
         - else
-          Olet jo jättänyt kannatusilmoituksen onnistuneesti. Et voi jättää sitä uudelleen.
+          =t(".already_submitted")
       - else
-        = link_to "Sisäänkirjaudu jättääksesi kannatusilmoituksen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn-disabled"
+        = link_to t(".login"), signature_idea_introduction_path(idea.id), class: "btn jaa-btn-disabled"
 
   - if ended
-    Tämän aloitteen kannatusilmoitusten keräysaika on jo päättynyt, mutta käyttäjien tukea silti siltä varalta että aloite aktivoidaan uudelleen. Siinä tapauksessa lähetämme sinulle sähköpostin että voit jättää sen uudelleen.
+    = t(".collecting_ended")
     .button
       /= link_to "Allekirjoita kannatusilmoitus jälkikäteen", signature_idea_introduction_path(idea.id), class: "btn jaa-btn"
       /- # TODO: Add still supporting button
 
   .signature-statistics
-    .stat-header Kannatusilmoitusten keruu
+    .stat-header=t(".stat_header")
     .stat
-      Keruu on 
-      %b= (on_going ? "käynnissä" : (not started ? "alkamatta" : "päättynyt"))
+      = t(".collection_is")
+      %b= (on_going ? t(".in_progress") : (not started ? t(".started") : t(".finished")))
     .stat
-      = (started ? "Käynnistynyt" : "Käynnistymässä")
+      = (started ? t(".starts_date") : t(".start_date"))
       = finnishDate(idea.collecting_start_date)
     .stat
-      Keräys 
-      = (ended ? "päättyi" : "päättyy")
+      = t(".collection")
+      = (ended ? t(".ended") : t(".ends"))
       %b= finnishDate(idea.collecting_end_date)
     .stat
-      Kerätty 
+      = t(".collected")
       - dates_collected = (today_date - idea.collecting_start_date + 1).to_i
       = dates_collected
-      päivää
+      = t(".days")
     .stat
-      Tavoitemäärä 
+      = t(".target_amount")
       = idea.target_count
-      kpl
+      = t(".pieces")
 
     .stat-divider
-    .stat-header Kerätty tähän mennessä
+    .stat-header= t(".collected_to_date")
     .stat
-      Avoimessa ministeriössä
+      = t(".in_am")
       - signatures_count = idea.signatures.where(state: "signed").count
       %b= signatures_count
-      kpl
+      = t(".pieces")
     .stat
-      Kerätty muualla n.
+      = t(".collected_elsewhere")
       %b= idea.additional_signatures_count
-      kpl 
+      = t(".pieces")
     .stat
-      Kerätty yhteensä siis n.
+      = t(".collected_total")
       - total_signatures = signatures_count + idea.additional_signatures_count
       %b= total_signatures
-      kpl (arvio)
+      = t(".pieces_estimate")
     .stat
-      Tavoitteesta kerätty n.
+      = t(".collected_about_target")
       - collected_of_target = total_signatures.to_f / idea.target_count * 100.0
       - decimals = [0,(-(Math.log([0.00001,collected_of_target].max)/Math.log(5))+3.3).floor].max
       %b= sprintf("%.#{decimals}f%%", collected_of_target)
     .stat
-      Arvio lukumäärästä päivitetty
+      = t(".updates")
       = finnishDate(idea.additional_signatures_count_date)
     - additional_urls = (idea.additional_collecting_service_urls || "").split(/!!!/)
     - if additional_urls != []
       .stat
-        Kerääminen muualla:
+        = t(".rest_of_collection")
         - additional_urls.each do |add_url|
           = link_to add_url, add_url
     .stat
-      (Muualla kerättyjen määrät ovat arvioita ja noin kerran viikossa päivitettävä tieto.)
+      = t(".weekly_updates")
 
     .stat-divider
     - signatures_per_day = (total_signatures.to_f) / dates_collected
@@ -92,36 +92,36 @@
     - still_days_to_reach_target = (idea.target_count - total_signatures) / signatures_per_day
     - if on_going
       .stat
-        Kerätty keskimäärin
+        = t(".avg_collected")
         = sprintf("%.1f", signatures_per_day)
-        kpl / päivä
+        = t(".pieces_day")
       - if signatures_per_day > 0.0 and total_signatures < idea.target_count
         .stat
-          Tällä tahdilla kerääminen kestänee kaikkiaan
+          = t(".this_rate")
           = sprintf("%.1f", total_days_to_reach_target)
-          päivää
+          = t(".days")
         .stat
-          Eli vielä
+          = t(".that_is")
           = sprintf("%.1f", still_days_to_reach_target)
-          päivää
+          = t(".days")
         .stat
-          Tavoite täyttyisi arviolta
+          = t(".target_day")
           %b= finnishDate(today_date + still_days_to_reach_target)
         .stat
-          Tällä tahdilla 
-          %b= ((today_date + still_days_to_reach_target) <= idea.collecting_end_date) ? "ehditään kerätä ilmoitukset" : "ei ehditä kerätä ilmoituksia riittävästi"
-          ennen päättymispäivää
+          = t(".at_this_rate")
+          %b= ((today_date + still_days_to_reach_target) <= idea.collecting_end_date) ? t(".time_to_collect_ads") : t(".no_time_to_collect_ads")
+          = t(".before_the_end")
       - if total_signatures >= idea.target_count
         .stat
-          %b Tavoite on täyttynyt
+          %b= t(".goal_reached")
     - if ended
       .stat
-        Kannatusilmoitusten keräys on päättynyt
+        = t(".support_is_over")
       .stat
-        Ilmoituksia kerättiin keskimäärin
+        = t(".average_rate")
         = sprintf("%.1f", signatures_per_day)
-        kpl / päivä
+        = t(".pieces_day")
       .stat
-        Sillä tahdilla kerääminen olisi arvioidusti kestänyt
+        = t(".estimate_duration")
         = total_days_to_reach_target
-        päivää
+        = t(".days")

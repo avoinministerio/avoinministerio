@@ -24,6 +24,20 @@ $turquoise: #29abe2;
   }
 }
 
+.top_proposals, .top_ideas {
+  h2 {
+    //Refactor border to application.css 
+    -moz-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    -webkit-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    -o-border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    border-image:url("/assets/border-double-dotted.png") 0 0 6 0 repeat;
+    border-width: 6px;
+    border-top: 0px none;
+    border-left: 0px none;
+    border-right: 0px none;
+    margin-bottom: 0;
+  }
+}
 
 .top_drafts {
   padding-top: 10px;
@@ -74,7 +88,6 @@ $turquoise: #29abe2;
   text-decoration: none;
 }
 
-
 .all-blogs a {
   color: $turquoise;
   font-weight: bold;
@@ -90,9 +103,148 @@ $turquoise: #29abe2;
   text-decoration: none;
 }
 
-
 input#mce-EMAIL {
   margin: 10px 0px;
+}
+
+.proposals_carousel {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 50px;
+  position: relative;
+}
+
+.proposals_carousel ul {
+  margin: 0;
+  margin-left: 22px;
+  padding: 0;
+  list-style: none;
+  display: block;
+}
+
+.proposals_carousel li {
+  font-size: 30px;
+  color: #666;
+  text-align: center;
+  border: 1px;
+  -moz-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -webkit-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -o-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  border-image: url("/assets/border-dotted-vertical.png") 1 1 1 1 repeat;
+  width: 260px;
+  height: 232px;
+  padding: 0;
+  margin: 5px;
+  display: block;
+  float: left;
+}
+
+.low_limit_proposals_carousel {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 50px;
+  position: relative;
+}
+
+.low_limit_proposals_carousel ul {
+  margin: 0;
+  margin-left: 22px;
+  padding: 0;
+  list-style: none;
+  display: block;
+}
+
+.low_limit_proposals_carousel li {
+  font-size: 30px;
+  color: #666;
+  text-align: center;
+  border: 1px;
+  -moz-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -webkit-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -o-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  border-image: url("/assets/border-dotted-vertical.png") 1 1 1 1 repeat;
+  width: 260px;
+  height: 232px;
+  padding: 0;
+  margin: 5px;
+  display: block;
+  float: left;
+}
+
+.drafts_carousel {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 50px;
+  position: relative;
+}
+
+.drafts_carousel ul {
+  margin: 0;
+  margin-left: 22px;
+  padding: 0;
+  list-style: none;
+  display: block;
+}
+
+.drafts_carousel li {
+  font-size: 30px;
+  color: #666;
+  text-align: center;
+  border: 1px;
+  -moz-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -webkit-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  -o-border-image: url("/assets/border-double-dotted.png") 1 1 1 1 repeat;
+  border-image: url("/assets/border-dotted-vertical.png") 1 1 1 1 repeat;
+  width: 260px;
+  height: 160px;
+  padding: 0;
+  margin: 5px;
+  display: block;
+  float: left;
+}
+
+.clearfix {
+  float: none;
+  clear: both;
+}
+
+#proposals_list_pag.pagination, #drafts_list_pag.pagination {
+  text-align: center;
+}
+
+#proposals_list_pag.pagination a, #drafts_list_pag.pagination a {
+  background: url("/assets/circle_violet.png") no-repeat transparent;
+  width: 15px;
+  height: 15px;
+  margin: 0 5px 0 0;
+  display: inline-block;
+}
+
+#proposals_list_pag.pagination a.selected, #drafts_list_pag.pagination a.selected {
+  background: url("/assets/circle_violet_selected.png") no-repeat transparent;
+  cursor: default;
+}
+
+#proposals_list_pag.pagination a span, #drafts_list_pag.pagination a span {
+  display: none;
+}
+
+.clearfix {
+  float: none;
+  clear: both;
+}
+
+.bar {
+  margin-top: 10px;
+  height: 19px;
+  overflow: hidden;
+}
+
+.collecting {
+  margin-left:auto;
+  margin-right:auto;
+  width:80%;
+  font-size: 12px;
 }
 
 .stamp-show {
@@ -102,58 +254,91 @@ input#mce-EMAIL {
   width:200px;
 }
 
-//For home page slider
-.proposal-section .carousel-control {
-  overflow:hidden;
-  display:inline-block;
-  vertical-align:middle;
-  width:30px;
-  height:32px;
-  cursor:pointer;
-  line-height:999px;
-  zoom:1;
-  border:0;
-  text-indent:-9999px;
+.impressions-count {
+  font-weight: bold;
+  color: #473161;
 }
 
-.proposal-section .carousel-control:hover {
-  -moz-opacity:.7;
-  opacity:0.70;
-  filter:alpha(opacity=70);
+a#proposals_list_next.next, a#drafts_list_next.next {
+  background: url("/assets/next.png");
 }
 
-.proposal-section .carousel-wrap {
-  display: inline-block;
-  vertical-align: middle;
-  width: 99%;
-  height: 174px !important
+a#proposals_list_prev.prev, a#drafts_list_prev.prev {
+  background: url("/assets/prev.png");
 }
 
-:focus {
-  outline: none;
-}
-
-.proposal-section .carousel-next {
-  background: url("/assets//next.png") no-repeat scroll 0 0 transparent;
+a.prev, a.next {
+  background: url("/assets/miscellaneous_sprite.png") no-repeat transparent;
+  width: 10px;
+  height: 50px;
   position: absolute;
-  margin-left: 5px;
-  margin-top: 65px;
-  height: 45px;
-  width: 23px;
-  opacity:0.4;
-  filter:alpha(opacity=40);
-  -moz-opacity: .4;
+  top: 85px;
 }
 
-.proposal-section .carousel-previous {
-  background: url("/assets//prev.png") no-repeat scroll 0 0 transparent;
-  position: absolute;
-  margin-left: -10px;
-  margin-top: 65px;
-  height: 45px;
-  width: 23px;
-  z-index: 1000;
-  opacity:0.4;
-  filter:alpha(opacity=40);
-  -moz-opacity: .4;
+a.prev {      
+  left: -8px;
+  background-position: 0 0; 
+}
+
+a#proposals_list_prev.prev {
+  top: 240px;
+  left: -8px;
+  background-position: 0 0; 
+}
+
+a.prev:hover {    
+  background-position: 0 -50px; 
+}
+
+a.prev.disabled { 
+  background-position: 0 -100px !important;  
+}
+
+a.next {      
+  right: -8px;
+  background-position: -50px 0; 
+}
+
+a#proposals_list_next.next {
+  top: 240px;
+  right: -8px;
+  background-position: -50px 0; 
+}
+
+a.next:hover {    
+  background-position: -50px -50px; 
+}
+
+a.next.disabled { 
+  background-position: -50px -100px !important;  
+}
+
+a.prev.disabled, a.next.disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+a.prev span, a.next span {
+  display: none;
+}
+
+.days_left, .votes_total {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.days_left {
+  float: left;
+}
+
+.votes_total {
+  float: right;
+}
+
+#old_fail.proposal {
+  background: #F7E6F6;
+}
+
+#old_success.proposal {
+  background: #E6F7E9;
 }
