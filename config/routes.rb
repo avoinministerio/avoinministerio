@@ -40,6 +40,8 @@ AvoinMinisterio::Application.routes.draw do
 
   get "ideas/vote_flow"
 
+  get "/languages/selectlanguage"
+
   get "pages/home"
 
   devise_for :citizens, :controllers => { 

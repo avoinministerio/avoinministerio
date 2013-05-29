@@ -28,13 +28,31 @@
     Tour = (function() {
 
       function Tour(options) {
+      	var language="";
+		var response=$.ajax({url: "/languages/selectlanguage",
+			type: "get",
+			async: false,
+			  context: document.body
+			}).done(function(data) {
+			  language=data.language;
+			});
+		if(language=="en"){
+			var nextString="next";
+			var previousString="previous";
+			var castPresentationString="presentation";
+		}
+		else{
+			var nextString="Seuraava";
+			var previousString="Edellinen";
+			var castPresentationString="esittely";
+		}
         var _this = this;
         this._options = $.extend({
           name: 'tour',
           labels: {
-            end: 'P&auml;&auml;t&auml; esittely',
-            next: 'Seuraava &raquo;',
-            prev: '&laquo; Edellinen'
+            end: 'P&auml;&auml;t&auml; '+castPresentationString+"",
+            next: nextString+' &raquo;',
+            prev: '&laquo; '+previousString+""
           },
           keyboard: true,
           afterSetState: function(key, value) {},
