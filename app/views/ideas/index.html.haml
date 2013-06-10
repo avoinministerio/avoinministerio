@@ -9,7 +9,7 @@
         .h1 
           -@filters.each do |filt|
             - code, filter_name, wrap = filt
-            - if code != @current_filter.to_sym
+            - if code != @current_filter
               = link_to filter_name, filter: code
             - else
               %span.selected= filter_name
@@ -39,6 +39,36 @@
             =link_to @field_names[field][order.first], reorder: field 
           - unless field == :impressions
             |
+
+    - loc_tags = Idea.location_tag_counts
+    - loc_tags_count = loc_tags.length
+
+    - if loc_tags_count > 0
+      .grid_24.tagging
+        .grid_2
+          Locations:
+        .grid_21
+          - loc_tags.each_with_index do |loc_tag, index|
+            - if loc_tag == @tag
+              %span.selected= link_to loc_tag.name, loc_tag, :class => "selected_tag_link", :id => loc_tag.id
+            - else
+              = link_to loc_tag.name, loc_tag
+            = "|" unless (index + 1) == loc_tags_count
+
+    - tags = Idea.tag_counts
+    - tags_count = tags.length
+
+    - if tags_count > 0
+      .grid_24.tagging
+        .grid_2
+          By tags:
+        .grid_21
+          - tags.each_with_index do |tag, index|
+            - if tag == @tag
+              %span.selected= link_to tag.name, tag, :class => "selected_tag_link", :id => tag.id
+            - else
+              = link_to tag.name, tag
+            = "|" unless (index + 1) == tags_count
     - if ENV['Feature_Searchbox']
       .grid_24.search
         .search

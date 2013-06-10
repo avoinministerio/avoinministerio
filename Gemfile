@@ -24,6 +24,8 @@ gem "rails-translate-routes"
 gem "rake", ">= 0.9.2"
 gem "redcarpet"
 gem "simple_form"
+gem "carrierwave"
+gem "fog"
 gem "state_machine"
 gem "will_paginate", "~> 3.0"
 gem "differ"
@@ -31,8 +33,8 @@ gem "hominid"
 #gem "indextank"
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
-gem "surveyor", "~> 1.1.0"
-
+gem "database_cleaner"
+gem "surveyor", :git => "git://github.com/NUBIC/surveyor.git"
 gem "rspec-rails", :groups => [ :development, :test ]
 gem "impressionist"
 
@@ -47,7 +49,7 @@ group :development do
   gem "pry-rails"
   gem "launchy"
   gem "letters"
-  gem "debugger"
+  gem "debugger", ">= 1.2.2"
 end
 
 group :production do

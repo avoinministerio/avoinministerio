@@ -1,0 +1,54 @@
+%div.row-fluid
+  %div.span12
+    %div.well
+      %h1.pagination-centered Select Your Location
+  
+    %div.span3{style: 'display: list-item;color: white;'}
+  
+    %div.span6.hero-unit
+      = form_tag(set_your_location_admin_states_path, :class => 'form-horizontal') do
+        %div.control-group
+          =label_tag :country_id, 'Select Your Country', :class => 'control-label'
+          %div.controls
+            = select_tag :country_id, ("<option>Select One</option>" + options_from_collection_for_select(Country.all, :id, :name)).html_safe, :id => 'change-country', :class => 'span3'
+        %div.control-group
+          =label_tag :region_id, 'Select Your Region', :class => 'control-label'
+          %div.controls
+            = select_tag :region_id, options_from_collection_for_select([], :id, :name), :id => 'change-region', :class => 'span3'
+        %div.control-group
+          =label_tag :city_id, 'Select Your City', :class => 'control-label'
+          %div.controls
+            = select_tag :city_id, options_from_collection_for_select([], :id, :name), :id => 'change-city', :class => 'span3'
+  
+        %div.pagination-centered
+          =submit_tag "Set My Location", :class => 'btn btn-success'
+
+:javascript
+  $('#change-country').change(function(){
+      var res_type = 'country';
+      var dep_type = 'region';
+      var url = '/admin/states/fetch_dependents?res_id=' + $(this).val() + '&res_type=' + res_type + '&dep_type=' + dep_type;
+      var dependent_id = 'change-region';
+      $("#" + dependent_id).html('');
+      $.get(url, function(data){
+          $.each(data.options, function(_, option){
+              var opt = $("<option />").val(option['id']).text(option['name']);
+              $('#' + dependent_id).append(opt);
+          });
+      });
+  });
+
+  $('#change-region').change(function(){
+      var res_type = 'region';
+      var dep_type = 'city';
+      var url = '/admin/states/fetch_dependents?res_id=' + $(this).val() + '&res_type=' + res_type + '&dep_type=' + dep_type;
+      var dependent_id = 'change-city';
+      $("#" + dependent_id).html('');
+      $.get(url, function(data){
+          $.each(data.options, function(_, option){
+              var opt = $("<option />").val(option['id']).text(option['name']);
+              $('#' + dependent_id).append(opt);
+          });
+      });
+  });
+

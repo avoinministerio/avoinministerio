@@ -1,53 +1,693 @@
 # encoding: UTF-8
 require 'factory_girl_rails'
 
-puts "seeding data... this process can take 20-25 minutes"
+puts "seeding data... this process can take 10-15 minutes"
 
-Administrator.find_or_create_by_email({
+admin = Administrator.find_or_create_by_email({
   email: "admin@avoinministerio.fi",
   password: "hallinta"
 })
 
 [
 { email: "expedora@gmail.com",
-  password: "expedora1", password_confirmation: "expedora1", remember_me: true,
-  profile_attributes: {first_names: "Expedora", first_name: "Expedora", last_name: "India", name: "Expedora India"}, },
+    password: "expedora1", password_confirmation: "expedora1", remember_me: true, is_politician: true,
+    profile_attributes: {first_names: "Expedora", first_name: "Expedora", last_name: "India", name: "Expedora India"}, },
+  
+  { email: "joonas@pekkanen.com",
+    password: "joonas1", password_confirmation: "joonas1", remember_me: true,
+    profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
 
-{ email: "joonas@pekkanen.com",
-  password: "joonas1", password_confirmation: "joonas1", remember_me: true,
-  profile_attributes: {first_names: "Joonas", first_name: "Joonas", last_name: "Pekkanen", name: "Joonas Pekkanen"}, },
+  { email: "arttu.tervo@gmail.com",
+    password: "arttu1", password_confirmation: "arttu1", remember_me: true,
+    profile_attributes: {first_names: "Arttu", first_name: "Arttu", last_name: "Tervo", name: "Arttu Tervo"}, },
 
-{ email: "arttu.tervo@gmail.com",
-  password: "arttu1", password_confirmation: "arttu1", remember_me: true,
-  profile_attributes: {first_names: "Arttu", first_name: "Arttu", last_name: "Tervo", name: "Arttu Tervo"}, },
+  { email: "aleksi.rossi@iki.fi",
+    password: "aleksi1", password_confirmation: "aleksi1", remember_me: true,
+    profile_attributes: {first_names: "Aleksi", first_name: "Aleksi", last_name: "Rossi", name: "Aleksi Rossi"}, },
 
-{ email: "aleksi.rossi@iki.fi",
-  password: "aleksi1", password_confirmation: "aleksi1", remember_me: true,
-  profile_attributes: {first_names: "Aleksi", first_name: "Aleksi", last_name: "Rossi", name: "Aleksi Rossi"}, },
+  { email: "hleinone@gmail.com",
+    password: "hannu1", password_confirmation: "hannu1", remember_me: true,
+    profile_attributes: {first_names: "Hannu", first_name: "Hannu", last_name: "Leinonen", name: "Hannu Leinonen"}, },
 
-{ email: "hleinone@gmail.com",
-  password: "hannu1", password_confirmation: "hannu1", remember_me: true,
-  profile_attributes: {first_names: "Hannu", first_name: "Hannu", last_name: "Leinonen", name: "Hannu Leinonen"}, },
+  { email: "juha.yrjola@iki.fi",
+    password: "juhay1", password_confirmation: "juhay1", remember_me: true,
+    profile_attributes: {first_names: "Juha", first_name: "Juha", last_name: "Yrjölä", name: "Juha Yrjölä"}, },
 
-{ email: "juha.yrjola@iki.fi",
-  password: "juhay1", password_confirmation: "juhay1", remember_me: true,
-  profile_attributes: {first_names: "Juha", first_name: "Juha", last_name: "Yrjölä", name: "Juha Yrjölä"}, },
+  { email: "lauri@kiskolabs.com",
+    password: "lauri1", password_confirmation: "lauri1", remember_me: true,
+    profile_attributes: {first_names: "Lauri", first_name: "Lauri", last_name: "Jutila", name: "Lauri Jutila"}, },
 
-{ email: "lauri@kiskolabs.com",
-  password: "lauri1", password_confirmation: "lauri1", remember_me: true,
-  profile_attributes: {first_names: "Lauri", first_name: "Lauri", last_name: "Jutila", name: "Lauri Jutila"}, },
-
-{ email: "mikael.kopteff@gmail.com",
-  password: "mikael1", password_confirmation: "mikael1", remember_me: true,
-  profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
+  { email: "mikael.kopteff@gmail.com",
+    password: "mikael1", password_confirmation: "mikael1", remember_me: true,
+    profile_attributes: {first_names: "Mikael", first_name: "Mikael", last_name: "Kopteff", name: "Mikael Kopteff"}, },
 ].each { |citizen| Citizen.find_or_create_by_email(citizen) }
 
-@citizens = Citizen.all
+[
+  { name: "Kruununhaka",
+    is_location: true
+  },
+  {
+    name: "Kluuvi",
+    is_location: true
+  },
+  {
+    name: "Kaartinkaupunki",
+    is_location: true
+  },
+  {
+    name: "Kamppi",
+    is_location: true
+  },
+  {
+    name: "Punavuori",
+    is_location: true
+  },
+  {
+    name: "Eira",
+    is_location: true
+  },
+  {
+    name: "Ullanlinna",
+    is_location: true
+  },
+  {
+    name: "Katajanokka",
+    is_location: true
+  },
+  {
+    name: "Kaivopuisto",
+    is_location: true
+  },
+  {
+    name: "Sörnäinen",
+    is_location: true
+  },
+  {
+    name: "Kallio",
+    is_location: true
+  },
+  {
+    name: "Siltasaari",
+    is_location: true
+  },
+  {
+    name: "Linjat",
+    is_location: true
+  },
+  {
+    name: "Torkkelinmäki",
+    is_location: true
+  },
+  {
+    name: "Alppiharju",
+    is_location: true
+  },
+  {
+    name: "Harju",
+    is_location: true
+  },
+  {
+    name: "Alppila",
+    is_location: true
+  },
+  {
+    name: "Etu-Töölö",
+    is_location: true
+  },
+  {
+    name: "Taka-Töölö",
+    is_location: true
+  },
+  {
+    name: "Meilahti",
+    is_location: true
+  },
+  {
+    name: "Ruskeasuo",
+    is_location: true
+  },
+  {
+    name: "Pasila",
+    is_location: true
+  },
+  {
+    name: "Länsi-Pasila",
+    is_location: true
+  },
+  {
+    name: "Pohjois-Pasila",
+    is_location: true
+  },
+  {
+    name: "Itä-Pasila",
+    is_location: true
+  },
+  {
+    name: "Keski-Pasila",
+    is_location: true
+  },
+  {
+    name: "Laakso",
+    is_location: true
+  },
+  {
+    name: "Mustikkamaa-Korkeasaari",
+    is_location: true
+  },
+  {
+    name: "Länsisatama",
+    is_location: true
+  },
+  {
+    name: "Ruoholahti",
+    is_location: true
+  },
+  {
+    name: "Lapinlahti",
+    is_location: true
+  },
+  {
+    name: "Jätkäsaari",
+    is_location: true
+  },
+  {
+    name: "Munkkisaari",
+    is_location: true
+  },
+  {
+    name: "Hermanni",
+    is_location: true
+  },
+  {
+    name: "Vallila",
+    is_location: true
+  },
+  {
+    name: "Toukola",
+    is_location: true
+  },
+  {
+    name: "Arabianranta",
+    is_location: true
+  },
+  {
+    name: "Kumpula",
+    is_location: true
+  },
+  {
+    name: "Käpylä",
+    is_location: true
+  },
+  {
+    name: "Koskela",
+    is_location: true
+  },
+  {
+    name: "Vanhakaupunki",
+    is_location: true
+  },
+  {
+    name: "Oulunkylä",
+    is_location: true
+  },
+  {
+    name: "Pirkkola",
+    is_location: true
+  },
+  {
+    name: "Maunula",
+    is_location: true
+  },
+  {
+    name: "Metsälä",
+    is_location: true
+  },
+  {
+    name: "Patola",
+    is_location: true
+  },
+  {
+    name: "Veräjämäki",
+    is_location: true
+  },
+  {
+    name: "Maunulanpuisto",
+    is_location: true
+  },
+  {
+    name: "Veräjälaakso",
+    is_location: true
+  },
+  {
+    name: "Haaga",
+    is_location: true
+  },
+  {
+    name: "Etelä-Haaga",
+    is_location: true
+  },
+  {
+    name: "Kivihaka",
+    is_location: true
+  },
+  {
+    name: "Pohjois-Haaga",
+    is_location: true
+  },
+  {
+    name: "Lassila",
+    is_location: true
+  },
+  {
+    name: "Munkkiniemi",
+    is_location: true
+  },
+  {
+    name: "Vanha Munkkiniemi",
+    is_location: true
+  },
+  {
+    name: "Kuusisaari",
+    is_location: true
+  },
+  {
+    name: "Lehtisaari",
+    is_location: true
+  },
+  {
+    name: "Munkkivuori",
+    is_location: true
+  },
+  {
+    name: "Niemenmäki",
+    is_location: true
+  },
+  {
+    name: "Talinranta",
+    is_location: true
+  },
+  {
+    name: "Lauttasaari",
+    is_location: true
+  },
+  {
+    name: "Konala",
+    is_location: true
+  },
+  {
+    name: "Kaarela",
+    is_location: true
+  },
+  {
+    name: "Kannelmäki",
+    is_location: true
+  },
+  {
+    name: "Maununneva",
+    is_location: true
+  },
+  {
+    name: "Malminkartano",
+    is_location: true
+  },
+  {
+    name: "Hakuninmaa",
+    is_location: true
+  },
+  {
+    name: "Kuninkaantammi",
+    is_location: true
+  },
+  {
+    name: "Pakila",
+    is_location: true
+  },
+  {
+    name: "Länsi-Pakila",
+    is_location: true
+  },
+  {
+    name: "Itä-Pakila",
+    is_location: true
+  },
+  {
+    name: "Tuomarinkylä",
+    is_location: true
+  },
+  {
+    name: "Paloheinä",
+    is_location: true
+  },
+  {
+    name: "Torpparinmäki",
+    is_location: true
+  },
+  {
+    name: "Tuomarinkartano",
+    is_location: true
+  },
+  {
+    name: "Haltiala",
+    is_location: true
+  },
+  {
+    name: "Viikki",
+    is_location: true
+  },
+  {
+    name: "Viikinranta",
+    is_location: true
+  },
+  {
+    name: "Latokartano",
+    is_location: true
+  },
+  {
+    name: "Viikin tiedepuisto",
+    is_location: true
+  },
+  {
+    name: "Viikinmäki",
+    is_location: true
+  },
+  {
+    name: "Pukinmäki",
+    is_location: true
+  },
+  {
+    name: "Malmi",
+    is_location: true
+  },
+  {
+    name: "Ylä-Malmi",
+    is_location: true
+  },
+  {
+    name: "Ala-Malmi",
+    is_location: true
+  },
+  {
+    name: "Pihlajamäki",
+    is_location: true
+  },
+  {
+    name: "Tattariharju",
+    is_location: true
+  },
+  {
+    name: "Malmin lentokenttä",
+    is_location: true
+  },
+  {
+    name: "Pihlajisto",
+    is_location: true
+  },
+  {
+    name: "Tapaninkylä",
+    is_location: true
+  },
+  {
+    name: "Tapaninvainio",
+    is_location: true
+  },
+  {
+    name: "Tapanila",
+    is_location: true
+  },
+  {
+    name: "Suutarila",
+    is_location: true
+  },
+  {
+    name: "Siltamäki",
+    is_location: true
+  },
+  {
+    name: "Tapulikaupunki",
+    is_location: true
+  },
+  {
+    name: "Töyrynummi",
+    is_location: true
+  },
+  {
+    name: "Suurmetsä",
+    is_location: true
+  },
+  {
+    name: "Puistola",
+    is_location: true
+  },
+  {
+    name: "Heikinlaakso",
+    is_location: true
+  },
+  {
+    name: "Tattarisuo",
+    is_location: true
+  },
+  {
+    name: "Jakomäki",
+    is_location: true
+  },
+  {
+    name: "Kulosaari",
+    is_location: true
+  },
+  {
+    name: "Herttoniemi",
+    is_location: true
+  },
+  {
+    name: "Länsi-Herttoniemi",
+    is_location: true
+  },
+  {
+    name: "Roihuvuori",
+    is_location: true
+  },
+  {
+    name: "Herttoniemen teollisuusalue",
+    is_location: true
+  },
+  {
+    name: "Herttoniemenranta",
+    is_location: true
+  },
+  {
+    name: "Tammisalo",
+    is_location: true
+  },
+  {
+    name: "Vartiokylä",
+    is_location: true
+  },
+  {
+    name: "Vartioharju",
+    is_location: true
+  },
+  {
+    name: "Puotila",
+    is_location: true
+  },
+  {
+    name: "Puotinharju",
+    is_location: true
+  },
+  {
+    name: "Myllypuro",
+    is_location: true
+  },
+  {
+    name: "Marjaniemi",
+    is_location: true
+  },
+  {
+    name: "Roihupellon teollisuusalue",
+    is_location: true
+  },
+  {
+    name: "Itäkeskus",
+    is_location: true
+  },
+  {
+    name: "Pitäjänmäki",
+    is_location: true
+  },
+  {
+    name: "Pajamäki",
+    is_location: true
+  },
+  {
+    name: "Tali",
+    is_location: true
+  },
+  {
+    name: "Reimarla",
+    is_location: true
+  },
+  {
+    name: "Marttila",
+    is_location: true
+  },
+  {
+    name: "Pitäjänmäen teollisuusalue",
+    is_location: true
+  },
+  {
+    name: "Mellunkylä",
+    is_location: true
+  },
+  {
+    name: "Kontula",
+    is_location: true
+  },
+  {
+    name: "Vesala",
+    is_location: true
+  },
+  {
+    name: "Mellunmäki",
+    is_location: true
+  },
+  {
+    name: "Kivikko",
+    is_location: true
+  },
+  {
+    name: "Kurkimäki",
+    is_location: true
+  },
+  {
+    name: "Vartiosaari",
+    is_location: true
+  },
+  {
+    name: "Laajasalo",
+    is_location: true
+  },
+  {
+    name: "Yliskylä",
+    is_location: true
+  },
+  {
+    name: "Jollas",
+    is_location: true
+  },
+  {
+    name: "Tullisaari",
+    is_location: true
+  },
+  {
+    name: "Tahvonlahti",
+    is_location: true
+  },
+  {
+    name: "Hevossalmi",
+    is_location: true
+  },
+  {
+    name: "Villinki",
+    is_location: true
+  },
+  {
+    name: "Santahamina",
+    is_location: true
+  },
+  {
+    name: "Suomenlinna",
+    is_location: true
+  },
+  {
+    name: "Ulkosaaret",
+    is_location: true
+  },
+  {
+    name: "Länsisaaret",
+    is_location: true
+  },
+  {
+    name: "Itäsaaret",
+    is_location: true
+  },
+  {
+    name: "Aluemeri",
+    is_location: true
+  },
+  {
+    name: "Vuosaari",
+    is_location: true
+  },
+  {
+    name: "Keski-Vuosaari",
+    is_location: true
+  },
+  {
+    name: "Nordsjön kartano",
+    is_location: true
+  },
+  {
+    name: "Uutela",
+    is_location: true
+  },
+  {
+    name: "Meri-Rastila",
+    is_location: true
+  },
+  {
+    name: "Kallahti",
+    is_location: true
+  },
+  {
+    name: "Aurinkolahti",
+    is_location: true
+  },
+  {
+    name: "Rastila",
+    is_location: true
+  },
+  {
+    name: "Niinisaari",
+    is_location: true
+  },
+  {
+    name: "Mustavuori",
+    is_location: true
+  },
+  {
+    name: "Östersundom",
+    is_location: true
+  },
+  {
+    name: "Salmenkallio",
+    is_location: true
+  },
+  {
+    name: "Talosaari",
+    is_location: true
+  },
+  {
+    name: "Karhusaari",
+    is_location: true
+  },
+  {
+    name: "Ultuna",
+    is_location: true
+  },
+  {
+    name: "Landbo",
+    is_location: true
+  },
+  {
+    name: "Puroniitty",
+    is_location: true
+  }
+ ].each { |location| Tag.create(location)}
 
+@citizens = Citizen.all
 def random_citizen
   @citizens[rand(@citizens.size)]
 end
-
 joonas = Citizen.where(email: "joonas@pekkanen.com").first
 koiravero_body = <<EOS
 
@@ -199,78 +839,65 @@ Tämä laki tulee voimaan päivänä kuuta 20__.
 Ennen lain voimaantuloa voidaan ryhtyä lain toimeenpanon edellyttämiin toimiin.
 EOS
 
-[
-{
-  title: "Koiraverolain kumoaminen",
-  summary: "Koiraverolain kumoaminen",
-  body: koiravero_body,    
-  state: "draft", author: joonas 
-},
-{
-  title: "Opintorahan takaisinperinnän muuttaminen",
-  summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
-  body: opintotuki_body,    
-  state: "draft", author: joonas 
-},
-{ title: "Kansanedustajien palkankorotus pannaan",
-  summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
-  body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
-  state: "idea", author: random_citizen},
-{ title: "Poistetaan perintöverotus",
-  summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
-  body: "Ankarin perintövero korvattakoon tasaverolla!",
-  state: "draft", author: random_citizen},
-{ title: "Raiskauksille kunnon tuomiot",
-  summary: "Joku roti!",
-  body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-  state: "proposal", author: random_citizen},
-{ title: "Kaikelle isommat tuomiot",
-  summary: "Joku roti!",
-  body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-  state: "law", author: random_citizen},
-{ title: "Vielä isommat tuomiot",
-  summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
-  body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-  state: "idea", author: random_citizen},
-].each { |idea| i = Idea.create(idea); i.state = idea[:state]; i.author = idea[:author]; i.save! }
 
-9.times do |i|
-  inx = i + 1
-  idea = Idea.new({
-    title: "Raiskauksille kunnon tuomiot #{inx}",
+require File.expand_path('../seeds/countries_list', __FILE__)
+require File.expand_path('../seeds/regions_list', __FILE__)
+require File.expand_path('../seeds/cities_list', __FILE__)
+
+%w(idea proposal draft law).each_with_index do |name, index|
+  38.times do |city_id|
+    State.create(:administrator_id => admin.id, :name => name, :rank => (index + 1), :city_id => (city_id + 1))
+  end
+end
+
+[
+  {
+    title: "Koiraverolain kumoaminen",
+    summary: "Koiraverolain kumoaminen",
+    body: koiravero_body,    
+    state_id: 93, author: joonas 
+  },
+  {
+    title: "Opintorahan takaisinperinnän muuttaminen",
+    summary: "Opintotukilain muuttaminen siten, että opintorahan ja asumislisän takaisinperintään liittyvän 15 prosentin rangaistusluonteisen korotusmaksu korvataan kulloinkin voimassaolevalla viivästyskorolla sekä takaisinperintää koskevat opintotukikuukaudet palautetaan takaisin opiskelijan käytettäväksi.",
+    body: opintotuki_body,    
+    state_id: 55, author: joonas 
+  },
+  { title: "Kansanedustajien palkankorotus pannaan",
+    summary: "Kansanedustajien palkkaa meinataan nostaa miltei 10%. Se on paljon enemmän kuin TUPO. Ei ole soveliaista sietää semmoista.",
+    body: "Ei voida tukea näin suurisuuntaisia ideoita kun ei ole kansalla varaa kuntiinsa!",
+    state_id: 17, author: random_citizen},
+  { title: "Poistetaan perintöverotus",
+    summary: "Poistakaa ja ottakaa raha firmoilta ja tasaverolla rikkailta!",
+    body: "Ankarin perintövero korvattakoon tasaverolla!",
+    state_id: 55, author: random_citizen},
+  { title: "Raiskauksille kunnon tuomiot",
     summary: "Joku roti!",
     body: "Suuremmat rangaistukset olisivat linjakkaampia!",
-    state: "proposal",
-    collecting_started: true,
-    collecting_ended: false,
-    collecting_start_date: Time.now,
-    collecting_end_date: 1.year.from_now,
-    additional_signatures_count: 0,
-    additional_signatures_count_date: 1.year.from_now,
-    target_count: 10000,
-    collecting_in_service: false
-  })
-  
-  idea.publish_state = 'published'
-  idea.author = random_citizen
-  idea.save
-end
+    state_id: 93, author: random_citizen},
+  { title: "Kaikelle isommat tuomiot",
+    summary: "Joku roti!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state_id: 93, author: random_citizen},
+  { title: "Vielä isommat tuomiot",
+    summary: "Rinta rottingille! Tai rottinkia selkään. Nyt on aika pistää perusrangaistukset kovalle linjalle, ja lopettaa kansan kärsimykset!",
+    body: "Suuremmat rangaistukset olisivat linjakkaampia!",
+    state_id: 93, author: random_citizen},
+].each { |idea| i = Idea.create(idea); i.state_id = idea[:state_id]; i.author = idea[:author]; i.save! }
 
 20.times do |i|
   idea = Idea.create(
-                     { title: "Esimerkki-idea #{i}", 
-    summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
-    body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
-    created_at: Time.now - (60*60*24),
-    updated_at: Time.now - (60*60*24),
-  })
-  
-  idea.state = "idea"
+    { title: "Esimerkki-idea #{i}", 
+      summary: "Melko tavallisen oloinen esimerkki-idean tiivistelmä, jota ei parane ohittaa olankohautuksella tai saattaa jäädä jotain huomaamatta.", 
+      body: "Yleensä esimerkit ovat ytimekkäitä. Joskus ne venyvät syyttä. Tällä kertaa ei käy niin. Oleellista on uniikki sisältö. Tämä idea #{i} on uniikki. Tätä ei ole tässä muodossa missään muualla.",  
+      created_at: Time.now - (60*60*24),
+      updated_at: Time.now - (60*60*24),
+      })
+  idea.state_id = 1
   idea.author = random_citizen
   idea.save!
 end
-
-voters = (0..100).map do |i|
+voters = (0..50).map do |i|
   Citizen.find_or_create_by_email(
                                   email: "voter#{i}@voter.com",
   password: "voter#{i}", password_confirmation: "voter#{i}", remember_me: true,
@@ -279,7 +906,7 @@ voters = (0..100).map do |i|
 end
 
 Idea.all.each do |idea|
-  rand(5).times { FactoryGirl.create :comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count)) }
+  rand(5).times { FactoryGirl.create(:comment, commentable: idea, author: Citizen.first(offset: rand(Citizen.count))) }
 end
 
 voter_count = voters.size
@@ -290,17 +917,15 @@ ideas.shift
 # next ideas have only one for and against
 ideas.shift.vote(voters[rand(voter_count)], 0)
 ideas.shift.vote(voters[rand(voter_count)], 1)
-
 class RandomGaussian
   def initialize(mean = 0.0, sd = 1.0, rng = lambda { Kernel.rand })
     @mean, @sd, @rng = mean, sd, rng
     @compute_next_pair = false
   end
-  
   def rand
     if (@compute_next_pair = !@compute_next_pair)
-      # Compute a pair of random values with normal distribution.
-      # See http://en.wikipedia.org/wiki/Box-Muller_transform
+# Compute a pair of random values with normal distribution.
+# See http://en.wikipedia.org/wiki/Box-Muller_transform
       theta = 2 * Math::PI * @rng.call
       scale = @sd * Math.sqrt(-2 * Math.log(1 - @rng.call))
       @g1 = @mean + scale * Math.sin(theta)
@@ -310,14 +935,13 @@ class RandomGaussian
     end
   end
 end
-
 # the rest should have all kinds of combinations
 secs_per_week = 60*60*24*7
 ideas.each do |idea|
   rd = RandomGaussian.new(secs_per_week * (rand()*8.0+2.0), secs_per_week * (rand()*4.0+2.0))
   # pick random count of random voters
   vs = []
-   (0..rand(voter_count)).each do
+  (0..rand(voter_count)).each do
     v = voters[rand(voter_count)]
     while vs.include? v
       v = voters[rand(voter_count)]
@@ -328,7 +952,6 @@ ideas.each do |idea|
     idea.vote(v, rand(2))
   end
 end
-
 # let's create some articles
 def read_till(f, breaker = /^---+/)
   str = ""
@@ -337,7 +960,6 @@ def read_till(f, breaker = /^---+/)
   end
   str
 end
-
 def field(f, name)
   str = f.gets
   if m = str.match(/^#{name}:/)
@@ -346,7 +968,6 @@ def field(f, name)
     raise "line #{str} does not match field name #{name}"
   end
 end
-
 Dir["articles/*.md"].sort{|a,b| a <=> b}.each do |name|
   next unless File.file?(name)
   File.open(name) do |f|

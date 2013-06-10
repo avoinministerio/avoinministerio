@@ -8,16 +8,19 @@ class Citizen < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :profile, :profile_attributes
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :profile, :profile_attributes, :is_politician
 
   has_one :authentication, dependent: :destroy
   has_one :profile, dependent: :destroy
   
+  has_many :tag_votes
+  has_many :tag_suggestions
   has_many :ideas, foreign_key: "author_id"
   has_many :comments, foreign_key: "author_id"
   has_many :idea_comments, through: :ideas
   has_many :money_transactions
   has_many :response_sets, foreign_key: "user_id"
+  has_many :politicians_support
 
   accepts_nested_attributes_for :profile
   
@@ -106,6 +109,14 @@ class Citizen < ActiveRecord::Base
 
   def saldo
     money_transactions.sum(:amount)
+  end
+
+  def self.list_of_politicians
+    @politicians_list = []
+    Citizen.where(:is_politician => true).all.each do |politician|
+      @politicians_list << {:id => politician.id, name: politician.name}
+    end
+    return @politicians_list
   end
 
   private

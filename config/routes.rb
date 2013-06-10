@@ -1,8 +1,9 @@
 AvoinMinisterio::Application.routes.draw do
 
-  resource :profile, :except => [:new, :create, :destroy]  
+  resource :profile, :except => [:new, :create, :destroy]
   resource :citizen, :only => [:edit, :update]
-
+  
+  match "/citizens/list_of_politicians.json"          => "citizens#list_of_politicians", via: :get
   match "/ideas/:id/vote/:vote"                       => "vote#vote",                     as: :vote_idea
 
   match "/ideas/:id/service_selection"                => "signatures#service_selection",      as: :signature_idea_service_selection
@@ -36,21 +37,45 @@ AvoinMinisterio::Application.routes.draw do
   get "ideas/vote_flow"
 
   get "pages/home"
+  
+  get 'tags/:tag', to: 'ideas#index', as: :tag
+  get '/tags.json', to: 'tags#index'
+  post '/ideas/lda', to: 'ideas#lda'
+  post '/ideas/suggest_tags', to: 'ideas#suggest_tags'
 
+  #match '/ideas/:id/vote_for/:tag_id' => 'tags#vote_for', via: :post, as: :vote_for_tag
+  
   devise_for :citizens, :controllers => { 
     omniauth_callbacks: "citizens/omniauth_callbacks",
     registrations: "citizens/registrations",
     sessions: "citizens/sessions",
   }
   match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
-
+  
+  resources :tags do
+    get "vote_for", on: :member
+    get "vote_against", on: :member
+    get "show_more", on: :member
+    post "list_of_suggested", on: :member
+    get "add_to_suggested", on: :member
+  end
+  
   resources :ideas do
+    get :change_state, on: :collection
+    get :politician_vote_for, on: :member
+    get :politician_vote_against, on: :member
+    post :upload_document, on: :member
+    get :adopt_the_initiative, on: :member
+    post "lda", on: :member
+    post "suggest_tags", on: :member
     resources :comments
     resources :expert_suggestions, only: [:new, :create]
   end
   resources :articles do
     resources :comments
   end
+ 
+  resources :documents
 
   devise_for :administrators
   
@@ -71,7 +96,7 @@ AvoinMinisterio::Application.routes.draw do
       resources :articles do
         get "publish",    on: :member
         get "unpublish",  on: :member
-        get "moderate",   on: :member        
+        get "moderate",   on: :member
       end
       resources :comments do
         get "publish",    on: :member
@@ -84,8 +109,16 @@ AvoinMinisterio::Application.routes.draw do
       get "moderate",   on: :member
     end
     resources :citizens do
-      get "lock",       on: :member
-      get "unlock",     on: :member
+      get "change_role_politician", on: :member
+      get "change_role_citizen", on: :member
+      get "lock",                   on: :member
+      get "unlock",                 on: :member
+    end
+    
+    resources :states do
+      get 'select_location', on: :collection
+      post 'set_your_location', on: :collection
+      get 'fetch_dependents', on: :collection
     end
     resources :changelogs
     resources :expert_suggestions

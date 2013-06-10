@@ -3,11 +3,11 @@
     %h1 Käyttäjät
     %table.table.table-striped.citizens
       %thead
-        %tr
-          %th 
+        %tr 
           %th Nimi
           %th Sähköpostiosoite
-          %th
+          %th Email
+          %th Role
       %tbody
         - @citizens.each do |citizen|
           %tr[citizen]
@@ -18,7 +18,14 @@
             %td
               %h3.email= citizen.email
             %td
+              - if citizen.is_politician
+                %h3 Politician
+              - else
+                %h3 Citizen
+            %td
               .btn-group{ style: "float: right"}
                 = link_to "Lukitse", [:lock, :admin, citizen], class: "btn btn-success" unless citizen.locked?
                 = link_to "Vapauta", [:unlock, :admin, citizen], class: "btn btn-inverse" if citizen.locked?
+                = link_to "Make politician", [:change_role_politician, :admin, citizen], class: "btn btn-success" unless citizen.is_politician
+                = link_to "Make citizen", [:change_role_citizen, :admin, citizen], class: "btn btn-success" if citizen.is_politician
 = will_paginate @citizens

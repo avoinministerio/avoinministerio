@@ -5,14 +5,15 @@ class Idea < ActiveRecord::Base
   include Tanker
   extend FriendlyId
 
-  VALID_STATES = %w(idea draft proposal law)
-
+#  VALID_STATES = %w(idea draft proposal law)
+  
+  TAG_LIMIT = 5
   MAX_FB_TITLE_LENGTH = 100
   MAX_FB_DESCRIPTION_LENGTH = 500
 
   friendly_id :title, use: :slugged
 
-  attr_accessible   :title, :body, :summary, :state, 
+  attr_accessible   :title, :body, :summary, :state_id, :tag_list, :location_tag_list,
                     :comment_count, :vote_count, :vote_for_count, :vote_against_count, 
                     :vote_proportion, :vote_proportion_away_mid,
                     :collecting_in_service, 
@@ -22,19 +23,32 @@ class Idea < ActiveRecord::Base
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
                     :target_count, :updated_content_at
 
+  attr_reader :suggested_politicians_for, :suggested_politicians_against
+
+  attr_reader :file_name
+  attr_reader :tag_list, :location_tag_list, :suggested_tags
+
   has_many :comments, as: :commentable
   has_many :votes
   has_many :articles
   has_many :expert_suggestions
   has_many :signatures
-  is_impressionable :counter_cache => true
-  
+  has_many :documents
+  has_many :politicians_support
+  has_many :taggings
+  has_many :tag_votes
+  has_many :tag_suggestions
+  has_many :tags, through: :taggings
+
+  has_many :politicians_support
+
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
+  belongs_to :state
 
   validates :author_id, presence: true
   validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }
   validates :body,  length: { minimum: 5, message: "Kuvaa ideasi hieman tarkemmin." }
-  validates :state, inclusion: { in: VALID_STATES }
+#  validates :state, inclusion: { in: VALID_STATES }
 
   tankit index_name do
     conditions do
@@ -59,6 +73,10 @@ class Idea < ActiveRecord::Base
   end
   after_save Concerns::IndexingWrapper.new
   after_destroy Concerns::IndexingWrapper.new
+
+  def state
+    State.find(state_id).name
+  end
 
   def indexable?
     self.title.present?
@@ -131,5 +149,84 @@ class Idea < ActiveRecord::Base
     ended     = collecting_ended   ||
       (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
+  end
+  
+  def adopted_by
+    if self.politicians_support != []
+      Citizen.find(self.politicians_support.first.citizen_id)
+    end
+  end
+
+  def supported_by
+    politicians = []
+    self.politicians_support.each do |support|
+      if support.vote == "for"
+        politicians << Citizen.find(support.citizen_id)
+      end
+    end
+    return (politicians - [self.adopted_by])
+  end
+
+  def unsupported_by
+    politicians = []
+    self.politicians_support.each do |unsupport|
+      if unsupport.vote == "against"
+        politicians << Citizen.find(unsupport.citizen_id)
+      end
+    end
+    return politicians
+  end
+
+  def self.tagged_with(name)
+    Tag.find_by_name!(name).ideas
+  end
+
+  def self.all_tags
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
+  def self.tag_counts
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => false).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
+  def self.location_tag_counts
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => true).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
+  def possible_tags
+    Idea.all_tags - self.tags
+  end
+  
+  #def tag_list
+  #  tags.map(&:name).join(", ")
+  #end
+
+  def tag_list=(tokens)
+    self.tag_ids = Tag.ids_from_tokens(tokens, false)
+  end
+  
+  def location_tag_list=(tokens)
+    self.tag_ids = Tag.ids_from_tokens(tokens, true)
+  end
+  
+  #tag_ids -> array of tag ids
+  def self.find_similar(tag_ids)
+    Idea.all( :conditions => ['tags.id IN (?)', tag_ids], 
+              :joins      => :tags, 
+              :group      => 'ideas.id', 
+              :having     => ['COUNT(*) >= ?', tag_ids.length])
+  end
+
+  def count_suggested_tags(citizen_id)
+    TagSuggestion.where(:citizen_id => citizen_id, :idea_id => self.id).all.count
+  end
+
+  def add_suggested_tags(tag_ids, citizen_id)
+    tag_ids.each do |tag_id|
+      if count_suggested_tags(citizen_id) < TAG_LIMIT
+        Tagging.create(:tag_id => tag_id, :idea_id => self.id, :status => "suggested", :score => "1")
+        TagSuggestion.create(:tag_id => tag_id, :idea_id => self.id, :citizen_id => citizen_id)
+      end
+    end
   end
 end

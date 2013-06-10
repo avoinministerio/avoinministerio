@@ -8,6 +8,91 @@ class IdeasController < ApplicationController
   
   respond_to :html
   
+  POLITICIANS = { :KOK => [ { :id => 101, :name => "Andersson Hennariikka" },
+    { :id => 102, :name => "Asko-Seljavaara Sirpa" },
+    { :id => 103, :name => "Bogomoloff Harry" },
+    { :id => 104, :name => "Enroth Matti" },
+    { :id => 105, :name => "Hakola Juha" },
+    { :id => 106, :name => "Karhuvaara Arja" },
+    { :id => 107, :name => "Koskinen Kauko" },
+    { :id => 108, :name => "Koulumies Terhi" },
+    { :id => 109, :name => "Majuri Pekka" },
+    { :id => 110, :name => "Muurinen Seija" },
+    { :id => 111, :name => "Männistö Lasse" },
+    { :id => 112, :name => "Nieminen Jarmo" },
+    { :id => 113, :name => "Niiranen Matti" },
+    { :id => 114, :name => "Pakarinen Pia" },
+    { :id => 115, :name => "Pelkonen Jaana" },
+    { :id => 116, :name => "Raittinen Timo" },
+    { :id => 117, :name => "Rauhamäki Tatu" },
+    { :id => 118, :name => "Rautava Risto" },
+    { :id => 119, :name => "Rissanen Laura" },
+    { :id => 120, :name => "Rydman Wille" },
+    { :id => 121, :name => "Urho Ulla-Marja" },
+    { :id => 122, :name => "Vapaavuori Jan" } ],
+                  :SDP => [ { :id => 123, :name => "Anttila Maija" },
+    { :id => 124, :name => "Arajärvi Pentti" },
+    { :id => 125, :name => "Heinäluoma Eero" },
+    { :id => 126, :name => "Jalovaara Ville" },
+    { :id => 127, :name => "Järvinen Jukka" },
+    { :id => 128, :name => "Lipponen Päivi" },
+    { :id => 129, :name => "Mäki Terhi" },
+    { :id => 130, :name => "Paavolainen Sara" },
+    { :id => 131, :name => "Pajamäki Osku" },
+    { :id => 132, :name => "Razmyar Nasima" },
+    { :id => 133, :name => "Taipale Ilkka" },
+    { :id => 134, :name => "Tenkula Tarja" },
+    { :id => 135, :name => "Torsti Pilvi" },
+    { :id => 136, :name => "Wallgren Thomas" },
+    { :id => 137, :name => "Valokainen Tuomo" } ],
+                  :VAS => [ { :id => 138, :name => "Arhinmäki Paavo" },
+    { :id => 139, :name => "Honkasalo Veronika" },
+    { :id => 140, :name => "Koivulaakso Dan" },
+    { :id => 141, :name => "Loukoila Eija" },
+    { :id => 142, :name => "Modig Silvia" },
+    { :id => 143, :name => "Muttilainen Sami" },
+    { :id => 144, :name => "Puhakka Sirpa" },
+    { :id => 145, :name => "Saarnio Pekka" },
+    { :id => 146, :name => "Vuorjoki Anna" } ],
+                  :PS =>  [ { :id => 147, :name => "Halla-aho Jussi" },
+    { :id => 148, :name => "Hursti René" },
+    { :id => 149, :name => "Huru Nina" },
+    { :id => 150, :name => "Kanerva Seppo" },
+    { :id => 151, :name => "Kantola Helena" },
+    { :id => 152, :name => "Lindell Harri" },
+    { :id => 153, :name => "Packalén Tom" },
+    { :id => 154, :name => "Raatikainen Mika" } ],
+                  :RKP => [ { :id => 155, :name => "Brettschneider Gunvor" },
+    { :id => 156, :name => "Månsson Björn" },
+    { :id => 157, :name => "Rantala Marcus" },
+    { :id => 158, :name => "Storgård Päivi" },
+    { :id => 159, :name => "Thors Astrid" } ],
+                  :KESK => [{ :id => 160, :name => "Kolbe Laura" },
+    { :id => 161, :name => "Laaninen Timo" },
+    { :id => 162, :name => "Peltokorpi Terhi" } ],
+                  :KD =>  [ { :id => 163, :name => "Ebeling Mika" },
+    { :id => 164, :name => "Mäkimattila Sari" } ],
+                  :VIHR => [{ :id => 166, :name => "Abdulla Zahra" },
+    { :id => 167, :name => "Alanko-Kahiluoto Outi" },
+    { :id => 168, :name => "Chydenius Jussi" },
+    { :id => 169, :name => "Hamid Jasmin" },
+    { :id => 170, :name => "Hautala Heidi" },
+    { :id => 171, :name => "Holopainen Mari" },
+    { :id => 172, :name => "Ikävalko Suzan" },
+    { :id => 173, :name => "Kari Emma" },
+    { :id => 174, :name => "Kivekäs Otso" },
+    { :id => 175, :name => "Kousa Tuuli" },
+    { :id => 176, :name => "Krohn Minerva" },
+    { :id => 177, :name => "Oskala Hannu" },
+    { :id => 178, :name => "Perälä Erkki" },
+    { :id => 179, :name => "Puoskari Mari" },
+    { :id => 180, :name => "Relander Jukka" },
+    { :id => 181, :name => "Sinnemäki Anni" },
+    { :id => 182, :name => "Soininvaara Osmo" },
+    { :id => 183, :name => "Stranius Leo" },
+    { :id => 184, :name => "Sumuvuori Johanna" } ],
+                  :SKP => [ { :id => 165, :name => "Hakanen Yrjö" } ] }
+  
   # should be implemented instead with counter_caches and also vote_pro (and vote_even_abs_diff cache)
   def index
     setup_filtering_and_sorting_options
@@ -18,11 +103,22 @@ class IdeasController < ApplicationController
     on_page = 20
     extras = 20
     page = (params[:page] && params[:page].to_i) || 1
-    filtered_and_ordered = filterer.call(Idea.published).order(ordering)
-    # limit assumes no error on overflow, ie. on N rows limit(N+1) returns just N
-    # @ideas_around receives all ideas on current page and also extras amount before and after
-    @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
-    @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}
+    
+    if params[:tag]
+      @tag = Tag.find(params[:tag])
+      filtered_and_ordered = filterer.call(Idea.published.tagged_with(@tag.name)).order(ordering)
+      @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
+      @ideas_around_ids = []
+      @ideas_around.each do |idea|
+        @ideas_around_ids << idea.id
+      end
+    else
+      filtered_and_ordered = filterer.call(Idea.published).order(ordering)
+      # limit assumes no error on overflow, ie. on N rows limit(N+1) returns just N
+      # @ideas_around receives all ideas on current page and also extras amount before and after
+      @ideas_around = filtered_and_ordered.offset([(on_page*page - extras), 0].max).limit(on_page+extras*2)
+      @ideas_around_ids = @ideas_around.select(:id).map{|ia| ia.id}
+    end
     
     session[:sorting_orders] ||= {}
     # always update the ids for certain sorting order (for every pagination and sorting)
@@ -32,7 +128,7 @@ class IdeasController < ApplicationController
     #       give wrong prev-next links if you happen to have the same sorting order in session
     @sorting_order_code = @sorting_order.hash
     session[:sorting_orders][@sorting_order_code] = @ideas_around_ids
-    #    p session[:sorting_orders]
+    # p session[:sorting_orders]
     
     # TODO: this hit to database might not be needed as @ideas_around basically contains these already
     @ideas = filtered_and_ordered.paginate(page: page, per_page: on_page)
@@ -50,14 +146,12 @@ class IdeasController < ApplicationController
   end
   
   def setup_filtering_and_sorting_options
-    @filters = [
-    [:all,                "Kaikki",                proc {|f| f} ],
-    [:ideas,              "Ideat",                 proc {|f| f.where(state: :idea)} ],
-    [:drafts,             "Luonnokset",            proc {|f| f.where(state: :draft)} ],
-    [:law_proposals,      "Lakialoitteet",         proc {|f| f.where(state: :proposal)} ],
-    [:action_proposals,   "Toimenpidealoitteet",   proc {|f| f.where(state: :proposal)} ],
-    [:laws,               "Lait",                  proc {|f| f.where(state: :law)} ],
-    ]
+    @filters = [["all", "Kaikki",  proc {|f| f} ]]
+    
+    State.uniq.pluck(:name).each do |state|
+      states_id = State.find_all_by_name(state).collect(&:id)
+      @filters << [state, state.titleize, Proc.new { |f| f.where('state_id IN (?)', states_id) }]
+    end
     
     @orders = {
       age:        {newest:  "created_at DESC",              oldest:     "created_at ASC"}, 
@@ -87,10 +181,9 @@ class IdeasController < ApplicationController
     [:voted,    [:most,   :least]], 
     [:votes_for,[:most,   :least]],
     [:support,  [:most,   :least]],
-    [:impressions, [:most, :least]],
     [:tilt,     [:even,   :polarized]],
-    ]  
-    if reorder and @orders.keys.include? reorder.to_sym
+    ]
+    if reorder && @orders.keys.include?(reorder.to_sym)
       i = sorting_order.index{|so| so.first == reorder.to_sym }
       if i > 0
         # reshuffle reordered key to first in array
@@ -111,11 +204,11 @@ class IdeasController < ApplicationController
   end
   
   def update_filter(params_filter)
-    current_filter = params_filter || session[:filter] || :all
+    current_filter = params_filter || session[:filter] || 'all'
     session[:filter] = current_filter
     params.delete :filter
     
-    code, filter_name, filterer = @filters.find {|f| f.first == current_filter.to_sym}
+    code, filter_name, filterer = @filters.find {|f| f.first == current_filter}
     raise "unknown filter #{current_filter}" unless code
     
     return current_filter, code, filter_name, filterer
@@ -125,12 +218,17 @@ class IdeasController < ApplicationController
     @idea = Idea.includes(:votes).find(params[:id])
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     
+    @politicians = POLITICIANS
+    
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
     @idea_vote_against_count  = @idea.vote_counts[0] || 0
     @idea_vote_count          = @idea_vote_for_count + @idea_vote_against_count
     
-    @colors = ["#8cc63f", "#a9003f"]
+    @colors = ["#4DA818", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
+    
+    @states = State.find(@idea.state_id).city.states.order(:rank)
+    @idea_state = State.find(@idea.state_id)
     
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
@@ -157,8 +255,10 @@ class IdeasController < ApplicationController
   
   def create
     @idea = Idea.new(params[:idea])
+    city = City.find_by_name('Helsinki')
+    state = State.find_by_city_id(city.id)
+    @idea.state_id = state.id
     @idea.author = current_citizen
-    @idea.state  = "idea"
     @idea.updated_content_at = DateTime.now
     if @idea.save
       flash[:notice] = I18n.t("idea.created")
@@ -228,8 +328,7 @@ class IdeasController < ApplicationController
   
   def track_clicks(type, count, page)
     1.upto(count) do |i|
-      KM.track(type + "_" + i.to_s,
-        "search result #{type}_#{i} on page #{page} clicked")
+      KM.track(type + "_" + i.to_s, "search result #{type}_#{i} on page #{page} clicked")
     end
   end
   
@@ -261,15 +360,96 @@ class IdeasController < ApplicationController
         [idea_id, vote_count]
       end
       {"d" => d, "i" => vcs.sort{|a,b| b[1] <=> a[1]}}
-      end.to_json
-      
-      @authors = @idea_counts.to_json
-      
-      KM.identify(current_citizen)
-      KM.push("record", "vote flow viewed")
-      
-      render 
-    end
+    end.json
     
+    @authors = @idea_counts.to_json
     
+    KM.identify(current_citizen)
+    KM.push("record", "vote flow viewed")
+    
+    render 
   end
+  
+  #Preparations for LDA
+  def lda
+    @title_text = params[:title_text]
+    @summary_text = params[:summary_text]
+    @body_text = params[:body_text]
+    tag_ids = Tag.get_ids_by_name(params[:tags])
+    @lda_respond = @title_text + @summary_text + @body_text
+    @ideas_suggested_by_tags = Idea.find_similar(tag_ids)
+    if params[:idea_id] != ""
+      @idea = Idea.find(params[:idea_id])
+    end
+    respond_to do |format|
+      format.js   { render :respond, locals: { lda_respond: @lda_respond, ideas_suggested_by_tags: @ideas_suggested_by_tags } }
+    end
+  end
+  
+  def adopt_the_initiative
+    if current_citizen.is_politician
+      @politicians_support = PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => current_citizen.id, :vote => "for")
+      redirect_to :back
+    end
+  end
+  
+  def change_state
+    begin
+      idea = Idea.find(params[:id])
+      old_value = idea.state_id
+      state = State.find(params[:new_state_id])
+      
+      idea.update_attribute(:state_id, state.id)
+      render :json => {:error => 0, :message => "State changed successfully from '#{State.find(old_value).name}' to '#{state.name}'"}
+    rescue
+      render :json => {:error => 1, :old_value => old_value, :message => "Sorry! we are unable to change state currently."}
+    end
+  end
+  
+  def politician_vote_for
+    @support = PoliticiansSupport.where(:idea_id => params[:id], :citizen_id => params[:politician_id]).first
+    if @support.nil?
+      PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => params[:politician_id], :vote => "for")
+    else
+      @support.update_attributes(:vote => "for")
+    end
+    voting
+  end
+  
+  def politician_vote_against
+    @support = PoliticiansSupport.where(:idea_id => params[:id], :citizen_id => params[:politician_id]).first
+    if @support.nil?
+      PoliticiansSupport.create(:idea_id => params[:id], :citizen_id => params[:politician_id], :vote => "against")
+    else
+      @support.update_attributes(:vote => "against")
+    end
+    voting
+  end
+  
+  def upload_document
+    @idea = Idea.find(params[:id])
+    @document = Document.create(:idea_id => params[:id], :file => params[:idea]["file"], :file_name => params[:idea]["file_name"])
+    respond_with @idea
+  end
+  
+  def suggest_tags
+    tag_ids = Tag.ids_from_tokens(params[:idea]['suggested_tags'], params[:idea]['is_location'])
+    @idea = Idea.find(params[:id])
+    @idea.count_suggested_tags(params[:idea]['citizen_id'])
+    
+    @idea.add_suggested_tags(tag_ids, params[:idea]['citizen_id'])
+    respond_to do |format|
+      format.js   { render action: :citizen_voted, :locals => { :idea => @idea } }
+    end
+  end
+  
+  private
+  def voting
+    @title = params[:title]
+    @party = params[:party]
+    @idea = Idea.find(params[:id])
+    respond_to do |format|
+      format.js { render :update_table, locals: { title: @title, party: @party, idea: @idea } } 
+    end
+  end
+end

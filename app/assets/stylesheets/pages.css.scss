@@ -1,7 +1,7 @@
 //Css for the home page
 
-$main-color: #473161;
-$turquoise: #29abe2;
+$main-color: #2b5ea1;
+$turquoise: #2b5ea1;
 
 .container h2 {
   font-size: 17px;
@@ -93,67 +93,4 @@ $turquoise: #29abe2;
 
 input#mce-EMAIL {
   margin: 10px 0px;
-}
-
-.stamp-show {
-  position: absolute;
-  margin-left: -174px;
-  margin-top: -31px;
-  width:200px;
-}
-
-//For home page slider
-.proposal-section .carousel-control {
-  overflow:hidden;
-  display:inline-block;
-  vertical-align:middle;
-  width:30px;
-  height:32px;
-  cursor:pointer;
-  line-height:999px;
-  zoom:1;
-  border:0;
-  text-indent:-9999px;
-}
-
-.proposal-section .carousel-control:hover {
-  -moz-opacity:.7;
-  opacity:0.70;
-  filter:alpha(opacity=70);
-}
-
-.proposal-section .carousel-wrap {
-  display: inline-block;
-  vertical-align: middle;
-  width: 99%;
-  height: 174px !important
-}
-
-:focus {
-  outline: none;
-}
-
-.proposal-section .carousel-next {
-  background: url("/assets//next.png") no-repeat scroll 0 0 transparent;
-  position: absolute;
-  margin-left: 5px;
-  margin-top: 65px;
-  height: 45px;
-  width: 23px;
-  opacity:0.4;
-  filter:alpha(opacity=40);
-  -moz-opacity: .4;
-}
-
-.proposal-section .carousel-previous {
-  background: url("/assets//prev.png") no-repeat scroll 0 0 transparent;
-  position: absolute;
-  margin-left: -10px;
-  margin-top: 65px;
-  height: 45px;
-  width: 23px;
-  z-index: 1000;
-  opacity:0.4;
-  filter:alpha(opacity=40);
-  -moz-opacity: .4;
 }

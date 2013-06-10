@@ -1,7 +1,7 @@
 - content_for :facebook_metadata_for_idea do
   = render partial: 'facebook_meta_tags'
 - content_for :head do
-  %title= "@Avoinministerio #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}"
+  %title= "@Avoin ministerio Helsinki #{state_localised(@idea.state).capitalize}: #{shorten(@idea.title, 125, 15, "")}"
 :javascript
   $(document).ready(function(){
       var r = Raphael("votepie");
@@ -56,15 +56,20 @@
       - else
         .noprevnext
 .clear
-.grid_24
-  = idea_state_image(@idea)
+
 .idea.grid_24
+  = render :partial => 'wizard_steps', :locals => {:states => @states, :idea_state => @idea_state}
+
   .author
     -if @idea.published?
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
-      %span.pull-right.impressions-count= "Tänään näyttökerrat: #{@idea.impressionist_count(:start_date => Date.today)}"
+  #adopted_politician
+    - if @idea.politicians_support != []
+      %img.avatar{ src: @idea.adopted_by.image, width: 48, height: 48 } 
+      %span.name= @idea.adopted_by.name
+      %span.date.sans_serif= finnishDate(@idea.politicians_support.first.created_at)
   .grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@idea.title.to_s} (Ended)" : @idea.title.to_s
@@ -72,35 +77,33 @@
         = markdown(@idea.summary) if @idea.summary
       .body
         = markdown(@idea.body) if @idea.body
+      = render "tags/tags"
     - else
       %h1 Piilotettu
       .summary
         Tämä idea on tällä hetkellä piilotettu. Voit kääntyä 
         %a{href: "mailto:kanslia@avoinministerio.fi"}kanslia@avoinministerio.fi
         puoleen mahdollisilla kysymyksilläsi.
-      .body
+      .body 
+    #documents
+      - if @idea.documents != []
+        = render "documents", idea: @idea
+      
+    - if citizen_signed_in?
+      - if current_citizen.is_politician && (current_citizen == @idea.adopted_by)
+        #politician_block
+          %h3
+            Menu for politicians:
+          #uploading_document
+            = form_for @idea, :url => {:controller => 'ideas', :action => 'upload_document', :id => @idea.id },:remote => true, :html => { :method => :post } do |f|
+              = f.text_field :file_name
+              %br
+              = f.file_field :file
+              %br
+              %br
+              = f.submit "Upload the document"
     - if @idea.author == current_citizen or administrator_signed_in?
-      = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
-
-  -if @idea.published?
-    .grid_7.prefix_1.omega
-      %iframe{width: "270", height: "152", src: "https://www.youtube.com/embed/jSmhaKseDbo", style: "border: none;", allowfullscreen: ""}
-      .share
-        %div{:class => "addthis_toolbox addthis_default_style addthis_32x32_style"}
-          %a{:class => "addthis_button_facebook"}
-          %a{:class => "addthis_button_twitter"}
-          %a{:class => "addthis_button_gmail"}
-          %a{:class => "addthis_button_google_plusone_share"}
-          / This like does not seem to scale to 32x32 style
-          /%a{:class => "addthis_button_facebook_like", "fb:like:width" => "115"}
-        .sharing-suggestion
-          - if @idea.voted_by?(current_citizen)
-            - if @idea.votes.by(current_citizen).first.option == 0
-              Saat tukea ideaa vastaan huomattavasti enemmän, kun jaat sitä eteenpäin.
-            - else
-              Saat idealle huomattavasti enemmän tukea, kun jaat sitä eteenpäin.
-          - else
-            Jaa ideaa aktiivisesti eteenpäin! Lisäät sen painoarvoa, oletpa puolesta tai vastaan!
+      = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea), :class => "idea_edit_link"
 
   -if @idea.published?
     %aside.grid_7.prefix_1.omega
@@ -175,8 +178,29 @@
         - else # idea is already a law, no voting
           Idea on jo laki
 
+        - if citizen_signed_in? && current_citizen.is_politician
+          #politician_block.voting
+            %p#response-msg
+            %h3 Menu for politicians
+            = hidden_field_tag 'idea-id', @idea.id
+            = select_tag :state_id, options_from_collection_for_select(@states, :id, :name, @idea.state_id), class: "adopt-btn", :id => 'change-state'
+
+            - if @idea.politicians_support == []
+              = link_to "Adopt the initiative", adopt_the_initiative_idea_path, class: "adopt-btn"
 
 -if @idea.published?
+  #table_block
+    = render "party_table", title: "KOK", party: @politicians[:KOK]
+    = render "party_table", title: "VIHR", party: @politicians[:VIHR]
+    = render "party_table", title: "SDP", party: @politicians[:SDP]
+    = render "party_table", title: "VAS", party: @politicians[:VAS]
+    = render "party_table", title: "KESK", party: @politicians[:KESK]
+    = render "party_table", title: "SKP", party: @politicians[:SKP]
+    = render "party_table", title: "KD", party: @politicians[:KD]
+    = render "party_table", title: "PS", party: @politicians[:PS]
+    = render "party_table", title: "RKP", party: @politicians[:VAS]
+  #voting_summary
+    /TODO
   .expert_opinions
     %h2.grid_24 Asiantuntijalausunnot
     - if @idea.articles.published.any?
@@ -196,7 +220,7 @@
         .clear
         =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
       .clear
-
+   
   .idea_comments#comments
     %h2.grid_24 Kommentit
     .grid_24.comment_form

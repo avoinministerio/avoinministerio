@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class CitizensController < ApplicationController
   before_filter :authenticate_citizen!
   before_filter :fetch_citizen
