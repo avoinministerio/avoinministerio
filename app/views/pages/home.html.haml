@@ -1,9 +1,11 @@
+= javascript_include_tag "pages.js"
+
 = render partial: 'headline'
 
-= render partial: 'drafts', 
-  locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 0, :count => @total_proposals, section: "proposal" } if @proposals.count > 0
-= render partial: 'drafts', 
-  locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, :count => @total_drafts, item_counter: 3,  section: "draft" } if @drafts.count > 0
+= render partial: 'proposals', locals: {title: "Toimenpide- ja Lakiehdotukset", items: @proposals, items_counts: @proposals_counts, item_counter: 6, section: "proposal" }
+
+- if @drafts.count != nil
+  = render partial: 'drafts', locals: {title: "Luonnokset", items: @drafts, items_counts: @draft_counts, item_counter: 3,  section: "draft" }
 
 - if @newest_ideas
   = render partial: 'ideas'

@@ -1,19 +1,24 @@
 .login_actions.top_row
   - if citizen_signed_in?
-    .grid_18
-      %ul#top_nav
-        %img.avatar{ src: current_citizen.image, width: 36, height: 36, alt: "avatar" }
-        #{current_citizen.name}
-        %li
-          = link_to "Listaa kaikki", ideas_path
-        %li
-          = link_to "Anna idea", new_idea_path
-        %li
-          = link_to "Profiili", profile_path
-        %li
-          = link_to "Asetukset", edit_profile_path
-        %li
-          = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
+    .grid_12#signed_in_links
+      = link_to "Profiili", profile_path
+      |
+      = link_to "Asetukset", edit_profile_path
+      |
+      = link_to "Palauta salasana", edit_citizen_path
+      |
+      = link_to "Kirjaudu ulos", destroy_citizen_session_path, method: :delete
+      |
+      - if current_citizen.count_unread_messages == "0"
+        = link_to image_tag("no_message.png", :border => 0), conversations_path
+      - else
+        #notification_container
+          = link_to image_tag("new_message.png", :border => 0), conversations_path
+          .notification_bubble
+            =current_citizen.count_unread_messages
+    .grid_4
+      %img.avatar{ src: current_citizen.image, width: 25, height: 25, alt: "avatar" }
+      #{current_citizen.name}
   - else
     .grid_12
       %ul#top_nav

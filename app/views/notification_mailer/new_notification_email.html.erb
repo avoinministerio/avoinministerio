@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Olet saanut uuden ilmoituksen: <%= @notification.subject.html_safe? ? @notification.subject : strip_tags(@notification.subject) %></h1>
+    <p>
+      <%= raw @notification.body %>
+    </p>
+
+    <hr/>
+    <p>
+      Piipahda <%= link_to root_url,root_url %> ja tarkista ilmoitukset.
+    </p>
+  </body>
+</html>

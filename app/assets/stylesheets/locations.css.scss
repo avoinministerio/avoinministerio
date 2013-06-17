@@ -1,0 +1,53 @@
+#list_of_addresses {
+  width: 20%;
+  height: 700px;
+  float: right;
+  padding: 5px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#addresses_block {
+  margin-top: 15px;
+}
+
+table.locations td {
+  padding: 5px;
+  border: 3px solid grey;
+}
+
+h2.kartta {
+  margin-bottom: 1px;
+}
+
+a.loc {
+  color: #29abe2;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.addresses_url {
+  color: #473161;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+input[type=submit]:disabled,
+button:disabled, input[readonly="readonly"] {
+  background-color: #C7C6C1;
+}
+
+#search_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+}
+
+input#lat, input#lng, input#address {
+  width: 160px;
+}

@@ -6,8 +6,6 @@ class Idea < ActiveRecord::Base
   extend FriendlyId
 
 #  VALID_STATES = %w(idea draft proposal law)
-  
-  TAG_LIMIT = 5
   MAX_FB_TITLE_LENGTH = 100
   MAX_FB_DESCRIPTION_LENGTH = 500
 
@@ -23,10 +21,7 @@ class Idea < ActiveRecord::Base
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
                     :target_count, :updated_content_at
 
-  attr_reader :suggested_politicians_for, :suggested_politicians_against
-
-  attr_reader :file_name
-  attr_reader :tag_list, :location_tag_list, :suggested_tags
+  attr_accessor :impression_gp_count
 
   has_many :comments, as: :commentable
   has_many :votes
@@ -135,6 +130,10 @@ class Idea < ActiveRecord::Base
     # votes.group(:option).count   # => returns counts like:  {0=>37, 1=>45}
     {0 => vote_against_count, 1 => vote_for_count}
   end
+
+  def successful_proposal?
+    (self.signatures.where(state: "signed").count + self.additional_signatures_count) >= 50000
+  end
   
   def signatures_per_day
     signatures_count = signatures.where(state: "signed").count
@@ -150,83 +149,18 @@ class Idea < ActiveRecord::Base
       (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
   end
-  
-  def adopted_by
-    if self.politicians_support != []
-      Citizen.find(self.politicians_support.first.citizen_id)
-    end
-  end
 
-  def supported_by
-    politicians = []
-    self.politicians_support.each do |support|
-      if support.vote == "for"
-        politicians << Citizen.find(support.citizen_id)
-      end
-    end
-    return (politicians - [self.adopted_by])
-  end
-
-  def unsupported_by
-    politicians = []
-    self.politicians_support.each do |unsupport|
-      if unsupport.vote == "against"
-        politicians << Citizen.find(unsupport.citizen_id)
-      end
-    end
-    return politicians
-  end
-
-  def self.tagged_with(name)
-    Tag.find_by_name!(name).ideas
-  end
-
-  def self.all_tags
-    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
-  end
-
-  def self.tag_counts
-    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => false).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
-  end
-
-  def self.location_tag_counts
-    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => true).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
-  end
-
-  def possible_tags
-    Idea.all_tags - self.tags
-  end
-  
-  #def tag_list
-  #  tags.map(&:name).join(", ")
-  #end
-
-  def tag_list=(tokens)
-    self.tag_ids = Tag.ids_from_tokens(tokens, false)
-  end
-  
-  def location_tag_list=(tokens)
-    self.tag_ids = Tag.ids_from_tokens(tokens, true)
-  end
-  
-  #tag_ids -> array of tag ids
-  def self.find_similar(tag_ids)
-    Idea.all( :conditions => ['tags.id IN (?)', tag_ids], 
-              :joins      => :tags, 
-              :group      => 'ideas.id', 
-              :having     => ['COUNT(*) >= ?', tag_ids.length])
-  end
-
-  def count_suggested_tags(citizen_id)
-    TagSuggestion.where(:citizen_id => citizen_id, :idea_id => self.id).all.count
-  end
-
-  def add_suggested_tags(tag_ids, citizen_id)
-    tag_ids.each do |tag_id|
-      if count_suggested_tags(citizen_id) < TAG_LIMIT
-        Tagging.create(:tag_id => tag_id, :idea_id => self.id, :status => "suggested", :score => "1")
-        TagSuggestion.create(:tag_id => tag_id, :idea_id => self.id, :citizen_id => citizen_id)
-      end
+  def stats
+    @stats ||= begin
+      for_count = self.vote_counts[1] || 0
+      against_count = self.vote_counts[0] || 0
+      comment_count = self.comments.count()
+      total = for_count + against_count
+      for_portion = (for_count > 0 ? for_count / total.to_f : 0.0)
+      against_portion = (against_count > 0 ? against_count / total.to_f : 0.0)
+      for_ = sprintf("%2.0f%%", for_portion * 100.0)
+      against_ = sprintf("%2.0f%%", against_portion * 100.0)
+      [for_portion, for_, against_portion, against_]
     end
   end
 end

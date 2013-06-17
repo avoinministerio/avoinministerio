@@ -6,9 +6,21 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery.ui.all
+//= require jquery.cookie
 //= require raphael-min
 //= require g.raphael-min
 //= require g.pie-min
-//= require jquery.tokeninput
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+//= require bootstrap-tour
+//= require app-tour
+//= require leaflet
+//= require jquery.carouFredSel-6.1.0-packed
+//= require jquery.ba-throttle-debounce.min
+//= require jquery.mousewheel.min
+//= require jquery.touchSwipe.min
 //= require ideas
+//= require jquery.tokeninput
+//= require conversations
+//= require jquery.ui.addresspicker

@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130320181916) do
+=======
+ActiveRecord::Schema.define(:version => 20130403182215) do
+>>>>>>> dynamic_states
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -156,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20130320181916) do
     t.datetime "updated_at",                 :null => false
   end
 
+<<<<<<< HEAD
   create_table "countries", :force => true do |t|
     t.string   "name",       :limit => 50, :null => false
     t.string   "iso",        :limit => 5,  :null => false
@@ -163,6 +168,8 @@ ActiveRecord::Schema.define(:version => 20130320181916) do
     t.datetime "updated_at",               :null => false
   end
 
+=======
+>>>>>>> dynamic_states
   create_table "dependencies", :force => true do |t|
     t.integer  "question_id"
     t.integer  "question_group_id"
@@ -186,6 +193,7 @@ ActiveRecord::Schema.define(:version => 20130320181916) do
     t.string   "response_other"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+<<<<<<< HEAD
   end
 
   create_table "documents", :force => true do |t|
@@ -194,6 +202,8 @@ ActiveRecord::Schema.define(:version => 20130320181916) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "file_name"
+=======
+>>>>>>> dynamic_states
   end
 
   create_table "expert_suggestions", :force => true do |t|

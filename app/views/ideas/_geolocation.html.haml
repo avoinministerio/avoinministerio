@@ -1,0 +1,26 @@
+.grid_24
+  #map
+
+  %br
+  = link_to "Näytä koko kartta", kartta_path, :class => "default_url"
+  %br
+  = link_to "Keräyspisteet osoitteineen", osoitteet_path, :class => "default_url"
+
+  #list_of_address
+    - if (@users_lat and @users_lon) != nil
+      = javascript_tag do
+        var map = L.map('map').setView([#{@users_lat}, #{@users_lon}], 12);
+    - else
+      = javascript_tag do
+        var map = L.map('map').setView([64.448, 26.039], 4);
+
+    = javascript_tag do
+      L.tileLayer('http://{s}.tile.cloudmade.com/#{@cloudmade_api_key}/997/256/{z}/{x}/{y}.png', {
+      attribution: 'Karttatiedot &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> auttaneilta, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Kuvat © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
+      L.Icon.Default.imagePath = '../assets/';
+    - @locations.each do |location|
+      = javascript_tag do
+        var lat = #{location.latitude};
+        var lon = #{location.longitude};
+        var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
+        marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}")

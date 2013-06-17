@@ -1,0 +1,118 @@
+#map{:style => "float: left;"}
+
+// Creating map
+= javascript_tag do
+  $("#map").height("700px");
+  $("#map").width("78%");
+  // [64.448, 26.039] is a center of Finland
+  var map = L.map('map').setView([64.448, 26.039], 5);
+  L.tileLayer('http://{s}.tile.cloudmade.com/#{@cloudmade_api_key}/997/256/{z}/{x}/{y}.png', {
+  attribution: 'Karttatiedot &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> auttaneilta, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Kuvat © <a href="http://cloudmade.com">CloudMade</a>',maxZoom: 25 }).addTo(map);
+  L.Icon.Default.imagePath = '../assets/';
+  // template for icons
+  var NewIcon = L.Icon.extend({
+  options: {
+  iconSize:     [24, 41],
+  shadowSize:   [0, 0],
+  iconAnchor:   [24, 41],
+  shadowAnchor: [0, 0],
+  popupAnchor:  [-14, -41]
+  }
+  });
+  // red icon
+  var redIcon = new NewIcon({iconUrl: 'assets/marker-icon-red.png'});
+
+#list_of_addresses
+  #search_form
+    %h2.kartta Etsi lähimmät
+    = form_tag kartta_path, :method => :get do
+      Kirjoita paikannimi tai osoite, jonka lähimmät keräyspisteet haluat löytää:
+      %br
+      = text_field_tag :address, params[:address]
+      = hidden_field_tag :address_latitude, "", readonly: true, id: 'lat'
+      = hidden_field_tag :address_longitude, "", readonly: true, id: 'lng'
+      %br
+      = submit_tag "Hae!", :name => nil, :id => "search_button"
+    
+    #address_map_wrapper.address-picker-map-wrapper
+      .address-picker-legend
+      #address_map.address-picker-map
+
+    //Red marker for target location
+    - if @search_location != nil
+      = javascript_tag do
+        map.panTo([#{params[:address_latitude]},#{params[:address_longitude]}]);
+        var marker_Search = L.marker([#{params[:address_latitude]}, #{params[:address_longitude]}], {icon: redIcon}).addTo(map);
+        marker_Search.bindPopup("#{params[:address]}").openPopup();
+        map.zoomIn(5);
+      %br
+    
+    //List of nearby locations
+    - if @locations_nearby != nil
+      - if @locations_nearby.all != []
+        The following locations were found near
+        %b #{params[:address]}
+        %br
+        - @locations_nearby.each do |location|
+          = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
+          %br
+          Etäisyys: #{Location.m2km(location.distance)} km
+          %br
+      - else
+        Ei keräyspisteitä alle 1000 km etäisyydellä sijainnista 
+        %b #{params[:address]}. 
+        Voit painaa kartan vasemmasta yläkulmasta '-' niin näet yhä suuremman alueen.
+        %br
+    %br
+
+  #near_by_ip
+    %h2.kartta Läheisimmät keruupisteet (tietokoneesi sijainnin mukaan):
+    = javascript_tag do
+      var marker_you_there = L.marker([#{@users_lat}, #{@users_lon}], {icon: redIcon}).addTo(map);
+      marker_you_there.bindPopup("<b>Tietokoneesi on paikannettu tähän.</b> <br> Jos tämä ei vastaa sijaintiasi, vieritä karttaa tai kirjoita osoitteesi oikealle hakukenttään löytääksesi läheisimmät keräyspisteet.").openPopup();
+      map.panTo([64.448, 26.039]);
+    - if @locations_nearby_ip != []
+      Seuraavat keräyspisteet löytyivät
+      %b #{@users_loc}
+      läheltä
+      %br
+      - @locations_nearby_ip.each do |location|
+        = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
+        %br
+        Etäisyys: #{Location.m2km(location.distance)} km
+        %br
+    - elsif @users_loc.nil?
+      Teknisistä syistä emme saa paikannettua tietokoneesi sijaintia juuri nyt.
+      %br
+    - else
+      Ei keräyspisteitä alle 50 km etäisyydellä sijainnista #{@users_loc}. Voit painaa kartan vasemmasta yläkulmasta '-' niin näet yhä suuremman alueen.
+      %br
+    %br
+
+  #show_all_locations
+    %h2.kartta Kaikki keräyspisteet
+    - @locations.each do |location|
+      = link_to location.name, 'javascript:void(0)', :onclick => "map.panTo([#{location.latitude},#{location.longitude}]); marker_#{location.id}.openPopup();", :class => "loc"
+      %br
+      = javascript_tag do
+        // Adding markers by coordinates  
+        var lat = #{location.latitude};
+        var lon = #{location.longitude};
+        var marker_#{location.id} = L.marker([lat, lon]).addTo(map);
+        marker_#{location.id}.bindPopup("<b>#{location.name}</b><br>#{location.address}");
+    %br
+    = link_to "Keräyspisteet osoitteineen", osoitteet_path, :class => "addresses_url"
+
+
+= javascript_tag do
+  var addresspickerMap = $( "#address" ).addresspicker({
+  regionBias: "fi",
+  elements: {
+  lat: "#lat",
+  lng: "#lng",
+  }
+  });
+  $('input#search_button').attr('disabled','disabled');
+  $('#address').keypress(function(e){
+  if ( e.which == 13 ) return false;
+  });

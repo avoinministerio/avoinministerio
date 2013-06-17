@@ -31,44 +31,25 @@
         /    |
 
         / New version with static order
-        -[:age, :comments, :voted, :votes_for, :support, :tilt, :impressions].each do |field|
+        -[:age, :comments, :voted, :votes_for, :support, :tilt].each do |field|
           - order = @sorting_order.find{|so| so.first == field}[1]
-          - if field == @sorting_order.first.first
-            %span.selected= link_to @field_names[field][order.first], reorder: field 
+          - if field == @sorting_order.first.first && params[:impression_reorder].nil?
+            %span.selected= link_to @field_names[field][order.first], reorder: field
           - else
             =link_to @field_names[field][order.first], reorder: field 
-          - unless field == :impressions
+          = "|" unless field == :tilt
+            |
+      .grid_2
+        Katseluja:
+      .grid_21
+        -@impression_fields.each do |field, name|
+          - if field.to_s == params[:impression_reorder]
+            %span.selected= name
+          - else
+            = link_to name, impression_reorder: field.to_s
+          - unless field == @impression_fields.last[0]
             |
 
-    - loc_tags = Idea.location_tag_counts
-    - loc_tags_count = loc_tags.length
-
-    - if loc_tags_count > 0
-      .grid_24.tagging
-        .grid_2
-          Locations:
-        .grid_21
-          - loc_tags.each_with_index do |loc_tag, index|
-            - if loc_tag == @tag
-              %span.selected= link_to loc_tag.name, loc_tag, :class => "selected_tag_link", :id => loc_tag.id
-            - else
-              = link_to loc_tag.name, loc_tag
-            = "|" unless (index + 1) == loc_tags_count
-
-    - tags = Idea.tag_counts
-    - tags_count = tags.length
-
-    - if tags_count > 0
-      .grid_24.tagging
-        .grid_2
-          By tags:
-        .grid_21
-          - tags.each_with_index do |tag, index|
-            - if tag == @tag
-              %span.selected= link_to tag.name, tag, :class => "selected_tag_link", :id => tag.id
-            - else
-              = link_to tag.name, tag
-            = "|" unless (index + 1) == tags_count
     - if ENV['Feature_Searchbox']
       .grid_24.search
         .search
@@ -101,6 +82,11 @@
         = link_to shortened_summary(idea.summary, 215, 185, "»"), idea
         .clear
         .stats
+          %span.votes
+            - if params[:impression_reorder]
+              = "#{idea.impression_gp_count || 0} katselua |"
+            - else
+              = "#{idea.impressions_count || 0} katselua |"
           %span.votes
             = number_with_delimiter((idea.vote_count || 0), delimiter: " ")
             = (idea.vote_count == 1 ? "ÄÄNI" : "ÄÄNTÄ")

@@ -6,6 +6,7 @@
       .grid_6
         %span.index
         %span.name= comment.author.name
+        = link_to image_tag("email_big.png"), new_conversation_path(:recipient_id => @idea.author.id)
       .grid_7
         %span.separator= "|"
         %span.datetime= finnishTime(comment.created_at)

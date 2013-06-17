@@ -4,57 +4,57 @@ var homePageTour = function(){
     tour.addStep({
         element: "#register",
         placement: "bottom",
-        title: "Register with us",
-        content: "Register with us and get chance to participate in laws making and give your children a better country to live in."
+        title: "Rekisteröidy",
+        content: "Rekisteröitymällä voit ottaa kantaa, jättää kommentteja ja ottaa osaa aloitteiden valmisteluun."
     });
     
     tour.addStep({
         element: "#login",
         placement: "bottom",
-        title: "Login here",
-        content: "If you already have signed up, login from here"
+        title: "Kirjaudu sisään",
+        content: "Jos olet jo rekisteröitynyt, voit kirjautua sisään."
     });
     
     tour.addStep({
         element: "#login-fb",
         placement: "bottom",
-        title: "Login using facebook account",
-        content: "There are more options for login, use your facebook account to log into the website."
+        title: "Tai kirjaudu Facebook-tunnuksilla",
+        content: "Voit myös kirjautua Facebook-tunnuksillasi, jolloin ei tarvitse rekisteröityä."
     });
     
     tour.addStep({
         element: "#all-ideas",
         placement: "left",
-        title: "See all existing ideas",
-        content: "Have a look to all the existing ideas."
+        title: "Selaile ideoita",
+        content: "Hyviä ideoita on jo jätetty paljon. Tutustu niihin ja anna kantasi!"
     });
     
     tour.addStep({
         element: "#new-idea",
         placement: "bottom",
-        title: "Enter new idea",
-        content: "Got an idea which can make system better? This is the place where your idea can take a step to become a law."
+        title: "Lisää uusi idea",
+        content: "Onko sinulla hyvä idea miten kehittää Suomea? Tästä voit ottaa ensimmäisen askeleen ideasi kehittämiseen."
     });
     
     tour.addStep({
-        element: ".proposal-section",
+        element: ".top_proposals",
         placement: "top",
-        title: "Proposal's Showcase",
-        content: "Showing you existing proposals."
+        title: "Meneillään olevia aloitteita",
+        content: "Tässä osiossa näytetään nykyisiä meneillään olevia aloitteita. Aloitteilla on 6kk aikaa kerätä laissa vaadittu 50 000 kannattajien joukko."
     });
     
     tour.addStep({
-        element: ".draft-section",
+        element: ".top_drafts",
         placement: "top",
-        title: "Draft's Showcase",
-        content: "Showing you existing drafts."
+        title: "Luonnosteltuja aloitteita",
+        content: "Luonnokset ovat ideoita pidemmällä. Niille on jo kehitetty lakitekstin luonnos. Niiden keruukampanjat eivät ole vielä käynnistyneet."
     });
     
     tour.addStep({
         element: "#idea-examples",
         placement: "top",
-        title: "Examples for ideas",
-        content: "Want to add some idea? Have a look to these examples before adding new idea."
+        title: "Esimerkkejä ideoista",
+        content: "Poimintoja jätetyistä ideoista. Klikkaa kiinnostavaa ideaa ja kerro kannatatko vai oletko vastaan. Tervetuloa!"
     });
     tour.start();
 }
@@ -63,52 +63,46 @@ var ideaShowPageTour = function(){
     var tour = new Tour();
     
     tour.addStep({
-        element: ".body",
+        element: ".grid_16.alpha.mainbody",
         placement: "top",
-        title: "Breif",
-        content: "Breif description on the idea."
+        title: "Idea",
+        content: "Näet kuka on jättänyt idean ja mistä se kertoo."
     });
     
     tour.addStep({
         element: ".summary",
         placement: "bottom",
-        title: "Summary of the idea",
+        title: "Tiivistelmä",
         content: "This is the summary where the gist of an idea is written."
     });
     
     tour.addStep({
         element: ".jaa-btn",
         placement: "left",
-        title: "Yes, I favor.",
-        content: "Click here to vote if you favor the idea."
+        title: "Kannata ideaa",
+        content: "Voit kertoa olevasi idean kannalla kun olet kirjautunut sisään."
     });
     
     tour.addStep({
         element: ".ei-btn",
         placement: "left",
-        title: "No, I don't favor.",
-        content: "Click here to vote againt the idea."
+        title: "Ei, en kannata",
+        content: "Jos idea ei ole sinusta hyvä, kannattaa kertoa siitäkin!"
     });
     
     tour.addStep({
-        element: ".comments",
+        element: ".idea_comments#comments",
         placement: "top",
-        title: "Enter the comments.",
-        content: "Enter the comments about the idea here."
+        title: "Kommentoi, keskustele",
+        content: "Kerro harkittu mielipiteesi. Voit myös lähettää yksityisviestejä, jos kommenttisi ei ole tarkoitettu kaikkien nähtäväksi."
     });
     
     tour.addStep({
         element: ".addthis_toolbox",
         placement: "left",
-        title: "Share on social media.",
-        content: "Share on your social network account from here."
+        title: "Jaa sosiaaliseen mediaan!",
+        content: "On hyvin tärkeää, että jaat tietoa aloitteesta, niin että kaikki kiinnostuneet löytävät sen."
     });
     
-    tour.addStep({
-        element: ".date",
-        placement: "bottom",
-        title: "Created on.",
-        content: "This is the Idea creation date, i.e. when the idea was staged on the open ministry."
-    });
     tour.start();
 }
