@@ -44,6 +44,16 @@ class Admin::CitizensController < Admin::AdminController
     @citizen.unlock!
     redirect_to :back
   end
+
+  def change_role_politician
+    @citizen.update_attributes(:is_politician => true)
+    redirect_to :back
+  end
+
+  def change_role_citizen
+    @citizen.update_attributes(:is_politician => false)
+    redirect_to :back
+  end
   
   private
   

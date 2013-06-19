@@ -1,12 +1,12 @@
-// Place all the styles related to the Ideas controller here.
+  // Place all the styles related to the Ideas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$turquoise: #29abe2;
-$violet: #473161;
+$turquoise: #2b5ea1;
+$violet: #2b5ea1;
 $violet-muted: #271141;
 $grey: #888888;
-$green: #8cc63f;
+$green: #4DA818;
 $red: #a9003f;
 
 #new_idea .input label {
@@ -15,6 +15,13 @@ $red: #a9003f;
 
 #new_idea label[for=idea_title] {
   font-size: 2em;
+}
+
+label[for=idea_tag_list], label[for=idea_location_tag_list] {
+  padding: 15px;
+  font-size: 17px;
+  text-transform: uppercase;
+  color: $violet;
 }
 
 #new_idea label[for=idea_summary],
@@ -33,11 +40,11 @@ $red: #a9003f;
 }
 
 #new_idea input[type=submit] {
-  float: right;
+  float: left;
 }
 
 .state {
-  background: #473161;
+  background: $violet;
   color: #fff;
   padding: 6px 10px;
   margin: 16px auto;
@@ -63,7 +70,7 @@ h1 {
 }
 
 .mainbody {
-  margin-bottom: 150px;
+  margin-bottom: 15px;
 }
 
 .share {
@@ -72,7 +79,6 @@ h1 {
 
 .voting {
   background: #eff3f3;
-  border-top: 3px solid #000;
   padding-bottom: 20px;
 }
 
@@ -99,7 +105,7 @@ h1 {
 }
 
 .voting .jaa-btn {
-  background: #8cc63f;
+  background: $green;
   color: #fff;
   text-decoration: none;
 }
@@ -155,14 +161,12 @@ h1 {
   text-decoration: none;
   cursor: pointer;
 }
+
 .accepting .accept-btn-disabled {
   background: $violet-muted;
   color: #999;
   text-decoration: none;
 }
-
-
-
 
 .expert_opinions h2,
 .idea_comments h2,
@@ -192,7 +196,7 @@ h2 {
 
 .expert_opinions .expert span.name {
   font-weight: bold;
-  color: #29abe2;
+  color: $violet;
   text-transform: uppercase;
 }
 
@@ -202,7 +206,7 @@ h2 {
 
 .expert_opinions .expert span.name {
   font-weight: bold;
-  color: #29abe2;
+  color: $violet;
   text-transform: uppercase;
 }
 
@@ -230,7 +234,7 @@ h2 {
     .info {
       .name{
         font-weight: bold;
-        color: #29abe2;
+        color: $violet;
         text-transform: uppercase;
         padding-right: 5px;
       }
@@ -271,7 +275,7 @@ ul.horizontal li {
   display: none; 
 }
 
-#title_help, #summary_help, #body_help {
+#title_help, #summary_help, #body_help, #tags_help {
   padding-top: 60px;
   background-image:url("/assets/ohje_nuoli.png");
   background-repeat: no-repeat; 
@@ -326,6 +330,34 @@ ul.horizontal li {
   text-decoration: none;
 }
 .ideas_header .filtering .h1 a:visited {
+  color: $grey;
+  text-decoration: none;
+}
+
+.ideas_header .tagging {
+  color: $grey;
+}
+.ideas_header .tagging span.selected {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .tagging span.selected a:link {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .tagging span.selected a:visited {
+  color: $violet;
+  font-weight: bold;
+}
+.ideas_header .tagging a:hover {
+  color: $grey;
+  text-decoration: underline;
+}
+.ideas_header .tagging a:link {
+  color: $grey;
+  text-decoration: none;
+}
+.ideas_header .tagging a:visited {
   color: $grey;
   text-decoration: none;
 }

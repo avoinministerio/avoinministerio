@@ -33,8 +33,8 @@ module IdeasHelper
       "law proposal" => "lakialoite", 
       "action proposal" => "toimenpidealoite", 
       "law" => "laki"}
-    raise "invalid state '#{state.inspect}'" unless states.keys.include? state
-    states[state]
+    #raise "invalid state '#{state.inspect}'" unless states.keys.include? state
+    states.keys.include?(state) ? states[state] : state
   end
   
   def vote_in_words(idea, citizen)
@@ -94,5 +94,70 @@ module IdeasHelper
     local_pattern.gsub!("*","")
     Regexp.new('(?<match>' + Regexp.escape(local_pattern) + ')',
       Regexp::IGNORECASE)
+  end
+
+  def file_extension_image(file)
+    extension = File.extname(file.to_s)
+    if extension == ".xls"
+      image_tag("/assets/xls-icon.gif")
+    elsif extension == ".doc"
+      image_tag("/assets/doc-icon.gif")
+    elsif extension == ".docx"
+      image_tag("/assets/doc-icon.gif")
+    elsif extension == ".pdf"
+      image_tag("/assets/pdf-icon.gif")
+    else
+      image_tag("/assets/document-icon.gif")
+    end
+  end
+
+  def file_extension_actions(file)
+    extension = File.extname(file.to_s)
+    if extension == ".pdf"
+      link_to image_tag("/assets/read-icon.gif"), "http://docs.google.com/viewer?url="+file.to_s+"&embedded=true"
+    end
+  end
+
+  def party_table(title, members)
+    <<-END.html_safe
+      <table>
+        <tr>
+          <td colspan="3" align="center"> title </td>
+        </tr>
+        <%= members.each_slice(3) do |row| %>
+          <tr>
+            <%= row.each do |cnt| %>
+              <td>
+                <%= cnt[:name] %>
+              </td>
+          </tr>
+      </table>
+    END
+  end
+
+  def check_politician_vote(politician_id, idea_id)
+    support = PoliticiansSupport.where(:citizen_id => politician_id, :idea_id => idea_id).first
+    if support != nil
+      if support.vote == "for"
+        "green"
+      else
+        "red"
+      end
+    else
+      "yellow"
+    end
+  end
+
+  def politician_vote_result(politician_id, idea_id)
+    support = PoliticiansSupport.where(:citizen_id => politician_id, :idea_id => idea_id).first
+    if support != nil
+      if support.vote == "for"
+        true
+      else
+        false
+      end
+    else
+      nil
+    end
   end
 end

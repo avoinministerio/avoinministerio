@@ -1,0 +1,22 @@
+.wizard-steps
+  - states.each do |state|
+    - if state.rank < idea_state.rank
+      %div.completed-step
+        %a
+          %span
+            =state.rank
+          =state.name.titleize
+    - elsif state.rank == idea_state.rank
+      %div.active-step
+        %a
+          %span
+            =state.rank 
+          =state.name.titleize
+    - else
+      %div
+        %a
+          %span
+            =state.rank
+          =state.name.titleize
+
+%hr

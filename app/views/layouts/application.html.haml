@@ -12,8 +12,9 @@
   - if content_for? :head
     = yield :head
   - else
-    %title Avoin Ministeriö
+    %title Avoin Ministeriö / Helsinki
 
+  = csrf_meta_tags
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "https://maps.google.com/maps/api/js?sensor=false"
   = javascript_include_tag "application"
@@ -31,23 +32,10 @@
     #{KM.js}
 
 %body
-  %header.container_24.top_row_container
-    .container_24.top_row
   %header.container_24
-    = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_12"
+    = link_to image_tag("logo.png"), root_path, id: "logo", class: "grid_6"
     = render partial: 'shared/login_actions'
     = render partial: 'shared/facebook_js'
-    .idea_actions.bottom_row
-      .grid_5
-        &nbsp;
-      .grid_3
-        = link_to "Listaa kaikki", ideas_path, id: "all-ideas"
-      .grid_3
-        = link_to "Anna idea", new_idea_path, id: "new-idea"
-      .grid_2
-        &nbsp;
-      .grid_7
-        = survey_button
   .container.container_24
     %section
       = yield

@@ -20,10 +20,11 @@
       %img.avatar{ src: current_citizen.image, width: 25, height: 25, alt: "avatar" }
       #{current_citizen.name}
   - else
-    .grid_3
-      = link_to "Rekisteröidy", new_citizen_registration_path, id: 'register'
-    .grid_3
-      = link_to "Kirjaudu", new_citizen_session_path, id: 'login'
-  .grid_6
-    - if !citizen_signed_in?
-      = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook), id: 'login-fb'
+    .grid_12
+      %ul#top_nav
+        %li
+          = link_to "Rekisteröidy", new_citizen_registration_path
+        %li
+          = link_to "Kirjaudu", new_citizen_session_path
+        %li
+          = link_to "Kirjaudu Facebookilla", citizen_omniauth_authorize_path(:facebook)
