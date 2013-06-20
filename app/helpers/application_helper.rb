@@ -26,7 +26,7 @@ module ApplicationHelper
     latest_rs = user.response_sets.last
     user_state ||= latest_rs.nil? ? "signed_up" : latest_rs.user_state
     survey = Survey.where(access_code:  survey_code).order("survey_version DESC").first
-    response_set = ResponseSet.create(survey: survey, user_id: user)
+    response_set = ResponseSet.create(survey: survey, user_id: user.id)
     response_set.update_attribute(:user_state, user_state)
     Rails.application.routes.url_helpers.
       edit_my_survey_path( survey_code: survey.access_code, response_set_code: response_set.access_code)
