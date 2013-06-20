@@ -1,7 +1,7 @@
 %p
   %h2
     -language = @survey.access_code[-2] + @survey.access_code[-1]
-    =t("surveyor.choose_language", locale: language) + " : "
+    /=t("surveyor.choose_language", locale: language) + " : "
     !=survey_button(@response_set.user_state, true, language)
 #surveyor
   - unless (types = flash.keys.select{|k| [:notice, :error, :warning].include?(k)}).blank?

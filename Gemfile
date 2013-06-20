@@ -49,7 +49,6 @@ group :development do
   gem "brakeman", "~> 1.6.2"
   gem "pry-rails"
   gem "launchy"
-  gem "letters"
   gem "debugger"
 end
 
