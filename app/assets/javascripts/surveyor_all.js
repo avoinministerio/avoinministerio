@@ -40,7 +40,7 @@ $(document).ready(function(){
     }
   };
 
-  var question_numbers = [1,2,3,4,5,6,7,8,13];
+  var question_numbers = [];
   var mandatory_questions = new Array(question_numbers.length);
   for (var i in question_numbers){
     mandatory_questions[i] = "[name='r[" + question_numbers[i] + "][answer_id]']";
