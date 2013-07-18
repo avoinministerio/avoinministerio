@@ -5,3 +5,17 @@ en:
   articles:
     edit:
       title: "Edit article"
+
+  wcmail:
+    welcomtext: "Welcome to Avoin Ministerio"
+    proposalstxt: "Following are few proposals seeking signature"
+    sidebarheading: "A Lot To Do"
+    link1: "Create your own Ideas"
+    link2: "Vote on Ideas you like"
+    link3: "Comment on ideas"
+    link4: "Scientific Questionnare"
+    quote1: "Your Ideas can be Law"
+    quote2: "We take your voice to the country"
+    participate: "You can participate in the scientific questionnaire"
+    link5: "Here"
+    pideahead: "These are ideas getting popular now a days"

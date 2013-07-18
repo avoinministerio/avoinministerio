@@ -206,7 +206,7 @@
                                                                     <td class="w140" width="140">
                                                                         <p align="left" class="toc-heading">
                                                                             <singleline>
-                                                                                A Lot To Do
+                                                                                <%= t "wcmail.sidebarheading" %>
                                                                             </singleline>
                                                                         </p>
                                                                         <tableofcontents>
@@ -218,16 +218,16 @@
                                                                                         <td valign="top">
                                                                                             <p align="left" class="toc-item">
                                                                                                 <li>
-                                                                                                    <a href='<%= "#{new_idea_url}" %>'>Create your own Ideas</a>
+                                                                                                    <a href='<%= "#{new_idea_url}" %>'><%= t "wcmail.link1" %></a>
                                                                                                 </li>
                                                                                                 <li>
-                                                                                                    <a href='<%= "#{root_url}" %>'>Vote on Ideas you like</a>
+                                                                                                    <a href='<%= "#{root_url}" %>'><%= t "wcmail.link2" %></a>
                                                                                                 </li>
                                                                                                 <li>
-                                                                                                    <a href='<%= "#{root_url}" %>'>Comment on ideas</a>
+                                                                                                    <a href='<%= "#{root_url}" %>'><%= t "wcmail.link3" %></a>
                                                                                                 </li>
                                                                                                 <li>
-                                                                                                    <a href='<%= "#{root_url}" %>'>Scientific Questionnare</a>
+                                                                                                    <a href='<%= "#{root_url}" %>'><%= t "wcmail.link4" %></a>
                                                                                                 </li>
                                                                                             </p>
                                                                                         </td>
@@ -261,7 +261,7 @@
                                                                     <td class="w140" width="140">
                                                                         <div align="left" class="left-column-heading">
                                                                             <singleline label="Title">
-                                                                                Your Ideas can be Law
+                                                                                <%= t "wcmail.quote1"%>
                                                                             </singleline>
                                                                         </div>
                                                                     </td>
@@ -280,7 +280,7 @@
                                                                             <td class="w140" width="140">
                                                                                 <div align="left" class="left-column-heading">
                                                                                     <singleline label="Title">
-                                                                                        We take your voice to the country
+                                                                                        <%= t "wcmail.quote2" %>
                                                                                     </singleline>
                                                                                 </div>
                                                                             </td>
@@ -350,10 +350,10 @@
                                                                                             <td class="w410" width="410">
                                                                                                 <p align="left" class="article-title">
                                                                                                     <singleline repeatertitle="true" label="Article Title">
-                                                                                                        Welcome to Avoin Ministerio
+                                                                                                        <%= t "wcmail.welcomtext" %>
                                                                                                         <br/>
                                                                                                         <br/>
-                                                                                                        Following are few proposals seeking signature
+                                                                                                        <%= t "wcmail.proposalstxt" %>
                                                                                                     </singleline>
                                                                                                 </p>
                                                                                                 <% @proposals.each_with_index do |proposal, index| %>
@@ -379,7 +379,7 @@
                                                                                     </tbody>
                                                                                 </table>
                                                                             </layout>
-                                                                            <h3>You can participate in the scientific questionnaire, <a href='<%= "#{root_url}" %>'>Here </a></h3>
+                                                                            <h3><%= t "wcmail.participate" %>, <a href='<%= "#{root_url}" %>'><%= t "wcmail.link4" %> </a></h3>
                                                                             <layout label="Text with full-width image">
                                                                                 <table class="w410" width="410" cellpadding="0" cellspacing="0" border="0">
                                                                                     <tbody>
@@ -387,7 +387,7 @@
                                                                                             <td class="w410" width="410">
                                                                                                 <p align="left" class="article-title">
                                                                                                     <singleline repeatertitle="true" label="Article Title">
-                                                                                                        These are ideas getting popular now a days
+                                                                                                        <%= t "wcmail.pideahead" %>
                                                                                                     </singleline>
                                                                                                 </p>
                                                                                             </td>
