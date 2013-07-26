@@ -1,6 +1,6 @@
 class ChangeStateToIntegerInIdea < ActiveRecord::Migration
   def up
-    admin_id = Administrator.first.id
+    admin_id = Administrator.first.try(:id) || 1
     states = Idea.pluck(:state)
 
     remove_column :ideas, :state

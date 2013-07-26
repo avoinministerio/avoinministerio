@@ -499,24 +499,24 @@ class IdeasController < ApplicationController
     tag_ids = Tag.ids_from_tokens(params[:idea]['suggested_tags'], params[:idea]['is_location'])
     @idea = Idea.find(params[:id])
     @idea.count_suggested_tags(params[:idea]['citizen_id'])
-    
-    private
-    def ip_location_guessing(ip_address)
-      if (cookies[:user_lat] and cookies[:user_lon]).nil?
-        puts "Using API search"
-        location = Geocoder.search(ip_address)
-        unless location == []
-          respond = location[0].data
-          @users_lat = respond["latitude"]
-          @users_lon = respond["longitude"]
-          cookies[:user_lat] = { value: respond["latitude"].to_s, expires: 1.week.from_now }
-          cookies[:user_lon] = { value: respond["longitude"].to_s, expires: 1.week.from_now }
-        end
-      else
-        puts "Using cookies"
-        @users_lat = cookies[:user_lat]
-        @users_lon = cookies[:user_lon]
+  end
+  
+  private
+  def ip_location_guessing(ip_address)
+    if (cookies[:user_lat] and cookies[:user_lon]).nil?
+      puts "Using API search"
+      location = Geocoder.search(ip_address)
+      unless location == []
+        respond = location[0].data
+        @users_lat = respond["latitude"]
+        @users_lon = respond["longitude"]
+        cookies[:user_lat] = { value: respond["latitude"].to_s, expires: 1.week.from_now }
+        cookies[:user_lon] = { value: respond["longitude"].to_s, expires: 1.week.from_now }
       end
+    else
+      puts "Using cookies"
+      @users_lat = cookies[:user_lat]
+      @users_lon = cookies[:user_lon]
     end
   end
 end
