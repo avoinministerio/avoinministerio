@@ -22,6 +22,7 @@ class Idea < ActiveRecord::Base
                     :target_count, :updated_content_at
 
   attr_accessor :impression_gp_count
+  attr_reader :tag_list, :suggested_tags
 
   has_many :comments, as: :commentable
   has_many :votes
@@ -148,6 +149,51 @@ class Idea < ActiveRecord::Base
     ended     = collecting_ended   ||
       (collecting_end_date && collecting_end_date < today_date)
     started and (not ended) and collecting_in_service and state == "proposal"
+  end
+
+  def self.tagged_with(name)
+    Tag.find_by_name!(name).ideas
+  end
+
+  def self.all_tags
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
+  def self.tag_counts
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => false).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
+  def self.location_tag_counts
+    Tag.select("tags.id, tags.name, count(taggings.tag_id) as count").where(:is_location => true).joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
+  def possible_tags
+    Idea.all_tags - self.tags
+  end
+
+  def tag_list=(tokens)
+    self.tag_ids = Tag.ids_from_tokens(tokens)
+  end
+  
+  #tag_ids -> array of tag ids
+  def self.find_similar(tag_ids)
+    Idea.all( :conditions => ['tags.id IN (?)', tag_ids], 
+              :joins      => :tags, 
+              :group      => 'ideas.id', 
+              :having     => ['COUNT(*) >= ?', tag_ids.length])
+  end
+
+  def count_suggested_tags(citizen_id)
+    TagSuggestion.where(:citizen_id => citizen_id, :idea_id => self.id).all.count
+  end
+
+  def add_suggested_tags(tag_ids, citizen_id)
+    tag_ids.each do |tag_id|
+      if count_suggested_tags(citizen_id) < TAG_LIMIT
+        Tagging.create(:tag_id => tag_id, :idea_id => self.id, :status => "suggested", :score => "1")
+        TagSuggestion.create(:tag_id => tag_id, :idea_id => self.id, :citizen_id => citizen_id)
+      end
+    end
   end
 
   def stats

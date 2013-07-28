@@ -273,14 +273,15 @@ class IdeasController < ApplicationController
     @vote = @idea.votes.by(current_citizen).first if citizen_signed_in?
     
     @cloudmade_api_key = ENV['CLOUDMADE_API_KEY']
-    
+
     #To prevent bug in development mode
     if Rails.env == "development"
       ip_location_guessing("85.77.239.17")
     elsif Rails.env == "production"
       ip_location_guessing(request.ip)
     end
-    
+
+    @politicians = POLITICIANS
     @locations = Location.all
     
     @idea_vote_for_count      = @idea.vote_counts[1] || 0
@@ -290,7 +291,8 @@ class IdeasController < ApplicationController
     @colors = ["#4DA818", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
     
-    @states = State.all#.order(:rank)
+    @city = City.find_by_name('Helsinki')
+    @states = State.where(:city_id => @city.id).order(:rank)
     @idea_state = State.find(@idea.state_id)
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)

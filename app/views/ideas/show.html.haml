@@ -65,7 +65,7 @@
       %span.name= @idea.author.name
       %span.date.sans_serif= finnishDate(@idea.created_at)
       = link_to image_tag("email_big.png"), new_conversation_path(:recipient_id => @idea.author.id)
-      %span.pull-right.impressions-count= "Katsottu viimeisen kuukauden aikana #{@idea.impressionist_count(:start_date => Date.today - 1.month)} kertaa"
+      -# %span.pull-right.impressions-count= "Katsottu viimeisen kuukauden aikana #{@idea.impressionist_count(:start_date => Date.today - 1.month)} kertaa"
   .grid_16.alpha.mainbody
     - if @idea.published?
       %h1= @idea.collecting_ended ? "#{state_localised(@idea.state).capitalize}: #{@idea.title.to_s} (Ended)" : @idea.title.to_s
@@ -85,19 +85,19 @@
       - if @idea.documents != []
         = render "documents", idea: @idea
       
-    - if citizen_signed_in?
-      - if current_citizen.is_politician && (current_citizen == @idea.adopted_by)
-        #politician_block
-          %h3
-            Menu for politicians:
-          #uploading_document
-            = form_for @idea, :url => {:controller => 'ideas', :action => 'upload_document', :id => @idea.id },:remote => true, :html => { :method => :post } do |f|
-              = f.text_field :file_name
-              %br
-              = f.file_field :file
-              %br
-              %br
-              = f.submit "Upload the document"
+    -# - if citizen_signed_in?
+      -# - if current_citizen.is_politician && (current_citizen == @idea.adopted_by)
+        -# #politician_block
+          -# %h3
+            -# Menu for politicians:
+          -# #uploading_document
+            -# = form_for @idea, :url => {:controller => 'ideas', :action => 'upload_document', :id => @idea.id },:remote => true, :html => { :method => :post } do |f|
+              -# = f.text_field :file_name
+              -# %br
+              -# = f.file_field :file
+              -# %br
+              -# %br
+              -# = f.submit "Upload the document"
     - if @idea.author == current_citizen or administrator_signed_in?
       = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea), :class => "idea_edit_link"
 
@@ -179,17 +179,17 @@
     %h2.grid_24 Lähimmät keräyspisteet
     = render "geolocation"
 
--if @idea.published?
-  #table_block
-    = render "party_table", title: "KOK", party: @politicians[:KOK]
-    = render "party_table", title: "VIHR", party: @politicians[:VIHR]
-    = render "party_table", title: "SDP", party: @politicians[:SDP]
-    = render "party_table", title: "VAS", party: @politicians[:VAS]
-    = render "party_table", title: "KESK", party: @politicians[:KESK]
-    = render "party_table", title: "SKP", party: @politicians[:SKP]
-    = render "party_table", title: "KD", party: @politicians[:KD]
-    = render "party_table", title: "PS", party: @politicians[:PS]
-    = render "party_table", title: "RKP", party: @politicians[:VAS]
+-# -if @idea.published?
+  -# #table_block
+    -# = render "party_table", title: "KOK", party: @politicians[:KOK]
+    -# = render "party_table", title: "VIHR", party: @politicians[:VIHR]
+    -# = render "party_table", title: "SDP", party: @politicians[:SDP]
+    -# = render "party_table", title: "VAS", party: @politicians[:VAS]
+    -# = render "party_table", title: "KESK", party: @politicians[:KESK]
+    -# = render "party_table", title: "SKP", party: @politicians[:SKP]
+    -# = render "party_table", title: "KD", party: @politicians[:KD]
+    -# = render "party_table", title: "PS", party: @politicians[:PS]
+    -# = render "party_table", title: "RKP", party: @politicians[:VAS]
   #voting_summary
     /TODO
   .expert_opinions
