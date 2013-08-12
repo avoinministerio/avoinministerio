@@ -13,6 +13,8 @@ class Admin::IdeasController < Admin::AdminController
 
   def edit
     @idea = Idea.find(params[:id])
+    @city = City.find_by_name('Helsinki')
+    @states = State.where(:city_id => @city.id).order(:rank)
     respond_with @idea
   end
   

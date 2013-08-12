@@ -21,7 +21,7 @@
           listauksia puolesta ja vastaan argumenteista ja kysymyksiä joihin toivot kommentoijilta ja 
           asiantuntijoilta palautetta. Aluksi sinun ei tarvite täyttää tätä kohtaa, pääset muokkaamaan tietoja myöhemmin.
     .grid_16
-      = f.input :state, collection: Idea::VALID_STATES
+      = f.input :state, collection: @states
     .grid_16
       = f.submit @idea.new_record? ? I18n.t("buttons.create") : I18n.t("buttons.update")
 
