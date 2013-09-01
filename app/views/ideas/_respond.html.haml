@@ -10,7 +10,7 @@ Please, check ideas below before creating new one.
   %h2 Similar ideas (by Tags):
   - @ideas_suggested_by_tags.each_with_index do |idea, i|
     = "#{i+1})" 
-    = link_to idea.title, idea, :onclick => "window.open(this.href, 'preview idea', 'height=800, width=600'); return false;"
+    = link_to idea.title, idea, :target => "_blank"
     %br/
 %br/
 #tag_cloud
