@@ -35,7 +35,6 @@ gem 'mailboxer'
 gem "tanker", :git => "git://github.com/kidpollo/tanker.git"
 gem "unicorn"
 gem "surveyor", "~> 1.1.0"
-
 gem "rspec-rails", :groups => [ :development, :test ]
 gem "impressionist", "~> 1.2.0"
 
@@ -49,7 +48,8 @@ group :development do
   gem "brakeman", "~> 1.6.2"
   gem "pry-rails"
   gem "launchy"
-  gem "debugger"
+  gem "letters"
+  gem "debugger", ">= 1.2.2"
 end
 
 group :production do

@@ -1,0 +1,30 @@
+%h1 Notification!
+Please, check ideas below before creating new one.
+%br/
+%br/
+#lda_simular_ideas
+  %h2 Similar ideas (by LDA):
+  = @lda_respond
+%br/
+#tags_simular_ideas
+  %h2 Similar ideas (by Tags):
+  - @ideas_suggested_by_tags.each_with_index do |idea, i|
+    = "#{i+1})" 
+    = link_to idea.title, idea, :target => "_blank"
+    %br/
+%br/
+#tag_cloud
+  %h2 Tags Suggested for your idea:
+  %ul.cloud
+    - if @idea != nil
+      - @idea.possible_tags.sort_by(&:count).reverse.each do |tag|
+        %li.cloud{:id => "#{tag.name}"}
+          %p= tag.name
+          %span.add_token
+            = link_to "\u2714", '#', :onclick => "$('input#idea_tag_list').tokenInput('add', {id: #{tag.id}, name: '#{tag.name}'});"
+    - else 
+      - Idea.tag_counts.sort_by(&:count).reverse.each do |tag|
+        %li.cloud{:id => "#{tag.name}"}
+          %p= tag.name
+          %span.add_token
+            = link_to "\u2714", '#', :onclick => "$('input#idea_tag_list').tokenInput('add', {id: #{tag.id}, name: '#{tag.name}'});"

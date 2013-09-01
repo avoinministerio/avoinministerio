@@ -73,6 +73,7 @@
         = markdown(@idea.summary) if @idea.summary
       .body
         = markdown(@idea.body) if @idea.body
+      = render "tags/tags"
     - else
       %h1 Piilotettu
       .summary
@@ -81,7 +82,7 @@
         puoleen mahdollisilla kysymyksilläsi.
       .body
     - if @idea.author == current_citizen or administrator_signed_in?
-      = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea)
+      = link_to I18n.t("idea.links.edit_idea"), edit_idea_path(@idea), :class => "idea_edit_link"
 
   -if @idea.published?
     .grid_7.prefix_1.omega
