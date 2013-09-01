@@ -351,7 +351,7 @@ class IdeasController < ApplicationController
     @summary_text = params[:summary_text]
     @body_text = params[:body_text]
     tag_ids = Tag.get_ids_by_name(params[:tags])
-    @lda_respond = @title_text + @summary_text + @body_text
+    @lda_respond = @title_text + " " + @summary_text + " " + @body_text
     @ideas_suggested_by_tags = Idea.find_similar(tag_ids)
     if params[:idea_id] != ""
       @idea = Idea.find(params[:idea_id])
