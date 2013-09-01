@@ -3,14 +3,14 @@ ul.token-input-list-facebook {
     overflow: hidden; 
     height: auto !important; 
     height: 1%;
-    width: 400px;
+    width: 385px;
     border: 1px solid #8496ba;
     cursor: text;
-    font-size: 12px;
+    font-size: 18px;
     font-family: Verdana;
     min-height: 1px;
     z-index: 999;
-    margin: 0;
+    margin: auto;
     padding: 0;
     background-color: #fff;
     list-style-type: none;
@@ -48,11 +48,13 @@ li.token-input-token-facebook p {
     display: inline;
     padding: 0;
     margin: 0;
+    font-size: 18px;
 }
 
 li.token-input-token-facebook span {
-    color: #a6b3cf;
+    color: #FF0303;
     margin-left: 5px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
 }

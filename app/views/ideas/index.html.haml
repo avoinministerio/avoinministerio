@@ -49,6 +49,17 @@
             = link_to name, impression_reorder: field.to_s
           - unless field == @impression_fields.last[0]
             |
+    .grid_24.tagging
+      .grid_2
+        By tags:
+      .grid_21
+        - Idea.tag_counts.each do |tag|
+          - if tag == @tag
+            %span.selected= link_to tag.name, tag, :class => "selected_tag_link", :id => tag.id
+            |
+          - else
+            = link_to tag.name, tag
+            |
     - if ENV['Feature_Searchbox']
       .grid_24.search
         .search

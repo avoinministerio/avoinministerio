@@ -13,9 +13,12 @@
     = yield :head
   - else
     %title Avoin Ministeriö
-
+   
+  = csrf_meta_tags
   = stylesheet_link_tag "application.css"
   = javascript_include_tag "https://maps.google.com/maps/api/js?sensor=false"
+  = stylesheet_link_tag "jquery-ui-1.9.2.custom.css"
+  = stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.5/leaflet.css"
   = javascript_include_tag "application"
   
   /= javascript_include_tag "vote-flow/impact-code" if params[:controller] == "ideas" and params[:action] == "vote_flow"

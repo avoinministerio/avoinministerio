@@ -82,7 +82,6 @@ class Numeric
 
 end
 
-
 # KissMetrics helper, that generates KM javascript
 require 'digest/sha1'
 
