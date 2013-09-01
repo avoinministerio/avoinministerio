@@ -1,16 +1,7 @@
 class ProfilesController < ApplicationController
-  
   before_filter :authenticate_citizen!
   before_filter :fetch_objects
-  
-  def show
-    
-  end
-  
-  def edit
-    
-  end
-  
+
   def update
     if @profile.update_attributes(params[:profile])
       flash[:notice] = I18n.t("settings.updated")
@@ -21,9 +12,9 @@ class ProfilesController < ApplicationController
       render "edit"
     end
   end
-  
+
   private
-  
+
   def fetch_objects
     @profile = current_citizen.profile
     @voted_ideas = Vote.by(current_citizen).map {|v| v.idea}
@@ -33,5 +24,4 @@ class ProfilesController < ApplicationController
       end
     end.uniq
   end
-
 end

@@ -51,7 +51,8 @@ class TagsController < ApplicationController
     end
   end
 
-private
+  private
+
   def respond_vote_js
     @idea = Idea.find(params[:idea_id])
     @tag = Tag.find(params[:tag_id])
