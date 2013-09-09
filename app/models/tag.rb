@@ -22,9 +22,9 @@ class Tag < ActiveRecord::Base
     tokens.split(',')
   end
 
-  def self.get_ids_by_name(params_tags)
+  def self.get_ids_by_name(data_tags)
     tag_ids = []
-    tags_array = params_tags.split(",")
+    tags_array = data_tags.split(",")
     tags_array.each do |tag_name|
       tag = Tag.where(:name => tag_name)
       tag_ids << tag.first.id if tag.first
@@ -72,5 +72,13 @@ class Tag < ActiveRecord::Base
     @tagging = Tagging.where(:idea_id => idea_id, :tag_id => tag_id).first
     TagVote.create(:tag_id => tag_id, :idea_id => idea_id, :citizen_id => citizen_id, :voted => "against")
     @tagging.decrease_score
+  end
+  
+  def self.tags_suggestions(data)
+    tag_ids = Tag.ids_from_tokens(data[:idea]['suggested_tags'], data[:idea]['is_location'])
+    idea = Idea.find(data[:id])
+    idea.count_suggested_tags(data[:idea]['citizen_id'])
+    idea.add_suggested_tags(tag_ids, data[:idea]['citizen_id'])
+    idea
   end
 end

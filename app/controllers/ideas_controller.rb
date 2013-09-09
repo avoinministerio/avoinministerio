@@ -498,9 +498,11 @@ class IdeasController < ApplicationController
   end
   
   def suggest_tags
-    tag_ids = Tag.ids_from_tokens(params[:idea]['suggested_tags'], params[:idea]['is_location'])
-    @idea = Idea.find(params[:id])
-    @idea.count_suggested_tags(params[:idea]['citizen_id'])
+    @idea = Tag.tags_suggestions(params)
+    
+    respond_to do |format|
+      format.js   { render action: :citizen_voted, :locals => { :idea => @idea } }
+    end
   end
   
   private

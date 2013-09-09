@@ -115,6 +115,7 @@ AvoinMinisterio::Application.routes.draw do
         get "moderate",   on: :member
       end
       
+      post "suggest_tags", on: :member
       get "publish",    on: :member
       get "unpublish",  on: :member
       get "moderate",   on: :member

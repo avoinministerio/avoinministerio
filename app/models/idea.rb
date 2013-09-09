@@ -5,9 +5,9 @@ class Idea < ActiveRecord::Base
   include Tanker
   extend FriendlyId
 
-#  VALID_STATES = %w(idea draft proposal law)
   MAX_FB_TITLE_LENGTH = 100
   MAX_FB_DESCRIPTION_LENGTH = 500
+  TAG_LIMIT = 5
 
   friendly_id :title, use: :slugged
 
@@ -189,7 +189,7 @@ class Idea < ActiveRecord::Base
 
   def add_suggested_tags(tag_ids, citizen_id)
     tag_ids.each do |tag_id|
-      if count_suggested_tags(citizen_id) < TAG_LIMIT
+      if count_suggested_tags(citizen_id) < TAG_LIMIT || current_administrator
         Tagging.create(:tag_id => tag_id, :idea_id => self.id, :status => "suggested", :score => "1")
         TagSuggestion.create(:tag_id => tag_id, :idea_id => self.id, :citizen_id => citizen_id)
       end
