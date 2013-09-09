@@ -8,4 +8,5 @@ class Administrator < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :states
+  has_many :tag_suggestions, :as => :user
 end

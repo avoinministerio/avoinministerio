@@ -3,7 +3,7 @@
     = render "tags/approved", :locals => { :idea => @idea }
     = render "tags/suggested", :locals => { :idea => @idea }
   #suggestions
-    - if citizen_signed_in? && !(@idea.count_suggested_tags(current_citizen.id, 'Citizen') >= 5)
+    - if administrator_signed_in? && !(@idea.count_suggested_tags(current_administrator.id, "Administrator") >= 5)
       %h2 Want to suggest new tag?
       #notification
         Warning! Citizen can't suggest more than 5 tags for each idea!
@@ -21,29 +21,27 @@
         #suggested_tags_form
           Or create other tags:
           = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|
-            = f.hidden_field :user_id, :value => current_citizen.id
-            = f.hidden_field :user_type, :value => "Citizen"
-            = f.hidden_field :is_location, :value => true
+            = f.hidden_field :user_id, :value => current_administrator.id
+            = f.hidden_field :user_type, :value => "Administrator"
             = f.text_field :suggested_tags, as: :text
             %br
             = f.submit "Suggest"
           %br
           Or create a new location tag:
           = form_for @idea, :url => {:controller => 'ideas', :action => 'suggest_tags', :id => @idea.id }, :remote => true, :html => { :method => :post } do |f|
-            = f.hidden_field :user_id, :value => current_citizen.id
-            = f.hidden_field :user_type, :value => "Citizen"
+            = f.hidden_field :user_id, :value => current_administrator.id
+            = f.hidden_field :user_type, :value => "Administrator"
             = f.hidden_field :is_location, :value => true
             = f.text_field :suggested_tags, as: :text, :id => 'idea_suggested_location_tags'
             %br
             = f.submit "Suggest"
-      - if @idea.count_suggested_tags(current_citizen.id, 'Citizen') > 0 && @idea.count_suggested_tags(current_citizen.id, 'Citizen') < 5
+      - if @idea.count_suggested_tags(current_administrator.id, 'Administrator') > 0
         #suggestion_limit_notice
-          You already suggested #{@idea.count_suggested_tags(current_citizen.id, 'Citizen')} tag(s) for this idea.
-        = button_to "Suggest more!", list_of_suggested_tag_path, remote: true, :class => "suggest_tags_button"
-      - elsif @idea.count_suggested_tags(current_citizen.id, 'Citizen') == 0
+          You already suggested #{@idea.count_suggested_tags(current_administrator.id, 'Administrator')} tag(s) for this idea.
+          = button_to "Suggest more!", list_of_suggested_tag_path, remote: true, :class => "suggest_tags_button"
+      - elsif @idea.count_suggested_tags(current_administrator.id, 'Administrator') == 0
         #suggestion_limit_notice
-          Don't forget that you allowed to add only 5 tags for this idea.
-        = button_to "Suggest", list_of_suggested_tag_path, remote: true, :class => "suggest_tags_button"
+          = button_to "Suggest", list_of_suggested_tag_path, remote: true, :class => "suggest_tags_button"
   /- if @idea.tags != []
   /  #ideas_by_tags
   /    %h2 List of similar ideas (by tags):

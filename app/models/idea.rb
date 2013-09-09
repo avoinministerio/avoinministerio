@@ -183,15 +183,15 @@ class Idea < ActiveRecord::Base
               :having     => ['COUNT(*) >= ?', tag_ids.length])
   end
 
-  def count_suggested_tags(citizen_id)
-    TagSuggestion.where(:citizen_id => citizen_id, :idea_id => self.id).all.count
+  def count_suggested_tags(user_id, user_type)
+    TagSuggestion.where(:user_id => user_id, :user_type => user_type, :idea_id => self.id).all.count
   end
 
-  def add_suggested_tags(tag_ids, citizen_id)
+  def add_suggested_tags(tag_ids, user_id, user_type)
     tag_ids.each do |tag_id|
-      if count_suggested_tags(citizen_id) < TAG_LIMIT || current_administrator
+      if count_suggested_tags(user_id, user_type) < TAG_LIMIT || current_administrator
         Tagging.create(:tag_id => tag_id, :idea_id => self.id, :status => "suggested", :score => "1")
-        TagSuggestion.create(:tag_id => tag_id, :idea_id => self.id, :citizen_id => citizen_id)
+        TagSuggestion.create(:tag_id => tag_id, :idea_id => self.id, :user_id => user_id, :user_type => user_type)
       end
     end
   end

@@ -1,0 +1,2 @@
+$("#tag_cloud").html("<%= escape_javascript(render(:partial => 'admin/tags/tags', :locals => {:idea => @idea})).html_safe %>");
+$('input#idea_suggested_tags').tokenInput("/tags.json", { theme: "facebook" });

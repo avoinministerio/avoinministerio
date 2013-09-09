@@ -17,7 +17,7 @@ class Citizen < ActiveRecord::Base
   has_one :profile, dependent: :destroy
   
   has_many :tag_votes
-  has_many :tag_suggestions
+  has_many :tag_suggestions, :as => :user
   has_many :ideas, foreign_key: "author_id"
   has_many :comments, foreign_key: "author_id"
   has_many :idea_comments, through: :ideas

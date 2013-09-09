@@ -77,8 +77,8 @@ class Tag < ActiveRecord::Base
   def self.tags_suggestions(data)
     tag_ids = Tag.ids_from_tokens(data[:idea]['suggested_tags'], data[:idea]['is_location'])
     idea = Idea.find(data[:id])
-    idea.count_suggested_tags(data[:idea]['citizen_id'])
-    idea.add_suggested_tags(tag_ids, data[:idea]['citizen_id'])
+    idea.count_suggested_tags(data[:idea]['user_id'], data[:idea]['user_type'])
+    idea.add_suggested_tags(tag_ids, data[:idea]['user_id'], data[:idea]['user_type'])
     idea
   end
 end

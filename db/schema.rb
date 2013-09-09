@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130302075827) do
+ActiveRecord::Schema.define(:version => 20130909201045) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -519,14 +519,15 @@ ActiveRecord::Schema.define(:version => 20130302075827) do
   create_table "tag_suggestions", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "idea_id"
-    t.integer  "citizen_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "user_id"
+    t.string   "user_type",  :default => "Citizen"
   end
 
-  add_index "tag_suggestions", ["citizen_id"], :name => "index_tag_suggestions_on_citizen_id"
   add_index "tag_suggestions", ["idea_id"], :name => "index_tag_suggestions_on_idea_id"
   add_index "tag_suggestions", ["tag_id"], :name => "index_tag_suggestions_on_tag_id"
+  add_index "tag_suggestions", ["user_id"], :name => "ts_user_id"
 
   create_table "tag_votes", :force => true do |t|
     t.integer  "tag_id"
