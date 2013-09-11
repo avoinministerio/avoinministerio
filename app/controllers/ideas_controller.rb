@@ -314,6 +314,8 @@ class IdeasController < ApplicationController
   
   def new
     @idea = Idea.new
+    @cities = Country.find_by_name('Finland').cities
+    
     respond_with @idea
   end
   
@@ -329,12 +331,16 @@ class IdeasController < ApplicationController
       flash[:notice] = I18n.t("idea.created")
       KM.identify(current_citizen)
       KM.push("record", "idea created", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
+    else
+      @cities = Country.find_by_name('Finland').cities
     end
     respond_with @idea
   end
   
   def edit
     @idea = Idea.find(params[:id])
+    @cities = Country.find_by_name('Finland').cities
+
     respond_with @idea
   end
   
@@ -345,6 +351,8 @@ class IdeasController < ApplicationController
       flash[:notice] = I18n.t("idea.updated") 
       KM.identify(current_citizen)
       KM.push("record", "idea edited", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
+    else
+      @cities = Country.find_by_name('Finland').cities
     end
     respond_with @idea
   end

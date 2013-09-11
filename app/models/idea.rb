@@ -19,7 +19,7 @@ class Idea < ActiveRecord::Base
                     :collecting_start_date, :collecting_end_date, 
                     :additional_signatures_count, :additional_signatures_count_date, 
                     :additional_collecting_service_urls,  # using !!! as a separator between multiple urls
-                    :target_count, :updated_content_at
+                    :target_count, :updated_content_at, :city_id
 
   attr_accessor :impression_gp_count
   attr_reader :tag_list, :suggested_tags
@@ -40,6 +40,7 @@ class Idea < ActiveRecord::Base
 
   belongs_to :author, class_name: "Citizen", foreign_key: "author_id"
   belongs_to :state
+  belongs_to :city
 
   validates :author_id, presence: true
   validates :title, length: { minimum: 5, message: "Otsikko on liian lyhyt." }

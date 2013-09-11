@@ -1,6 +1,12 @@
 .add_idea
   = simple_form_for @idea do |f|
     .grid_16
+      City
+      %br
+      = f.collection_select :city_id, @cities, :id, :name, :include_blank => true
+      %br
+      %br
+    .grid_16
       = f.input :title, label: I18n.t("idea.new.title")
     .grid_8.help_cont
       #title_help

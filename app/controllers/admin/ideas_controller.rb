@@ -14,6 +14,7 @@ class Admin::IdeasController < Admin::AdminController
     @idea = Idea.find(params[:id])
     @city = City.find_by_name('Helsinki')
     @states = State.where(:city_id => @city.id).order(:rank)
+    @cities = Country.find_by_name('Finland').cities
     respond_with @idea
   end
 
@@ -23,6 +24,8 @@ class Admin::IdeasController < Admin::AdminController
       flash[:notice] = I18n.t("idea.updated")
       KM.identify(current_citizen)
       KM.push("record", "admin idea edited", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
+    else
+      @cities = Country.find_by_name('Finland').cities
     end
 
     respond_with [:admin, @idea]

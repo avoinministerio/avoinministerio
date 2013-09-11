@@ -63,7 +63,10 @@
     -if @idea.published?
       %img.avatar{ src: @idea.author.image, width: 48, height: 48 }
       %span.name= @idea.author.name
+      (
+      %span= "#{@idea.city.name}," if @idea.city
       %span.date.sans_serif= finnishDate(@idea.created_at)
+      )
       = link_to image_tag("email_big.png"), new_conversation_path(:recipient_id => @idea.author.id)
       -# %span.pull-right.impressions-count= "Katsottu viimeisen kuukauden aikana #{@idea.impressionist_count(:start_date => Date.today - 1.month)} kertaa"
   .grid_16.alpha.mainbody
