@@ -24,7 +24,8 @@ class Admin::IdeasController < Admin::AdminController
       KM.identify(current_citizen)
       KM.push("record", "admin idea edited", idea_id: @idea.id,  idea_title: @idea.title)  # TODO use permalink title
     end
-    respond_with @idea
+
+    respond_with [:admin, @idea]
   end
 
   def suggest_tags

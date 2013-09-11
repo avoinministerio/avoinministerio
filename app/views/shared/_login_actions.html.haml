@@ -19,6 +19,9 @@
     .grid_4
       %img.avatar{ src: current_citizen.image, width: 25, height: 25, alt: "avatar" }
       #{current_citizen.name}
+  - elsif administrator_signed_in?
+    .grid_12
+      = link_to "Ideas List", admin_ideas_path
   - else
     .grid_12
       %ul#top_nav

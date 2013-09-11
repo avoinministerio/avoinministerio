@@ -37,6 +37,7 @@ AvoinMinisterio::Application.routes.draw do
   match '/conversations/trash' => 'conversations#show_trash'
 
   match "/ideat/haku" => "ideas#search"
+  get 'admin/tags/:tag', to: 'ideas#index', as: :tag
   get "ideas/vote_flow"
 
   get "pages/home"
