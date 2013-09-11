@@ -42,6 +42,9 @@
               = @idea.articles.count
               artikkelia
 
+.row-fluid
+  = render :partial => 'admin/tags/tags'
+
 %h4
   = @idea.author.profile.first_name
   = @idea.author.profile.last_name

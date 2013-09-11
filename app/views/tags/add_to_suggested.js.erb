@@ -7,7 +7,7 @@ $("input.suggest_tags_button").hide();
     $('input#idea_suggested_tags').tokenInput('add', {id: <%= @tag.id %>, name: "<%= @tag.name %>"});
 <% end %>
 
-if (5 <= (tags.length + <%= @idea.count_suggested_tags(current_citizen) %>)) {
+if (5 <= (tags.length + <%= @idea.count_suggested_tags(current_citizen, 'Citizen') %>)) {
 	$("#notification").show();
 	$('#show_all_tags').dialog("close");
 	$("#existing_tags_menu").hide();
