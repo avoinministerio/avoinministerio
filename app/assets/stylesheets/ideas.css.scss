@@ -467,3 +467,32 @@ a.default_url {
   margin-bottom: 15px;
 }
 
+#copy-idea {
+  img {
+    width: 18px;
+  }
+}
+
+.copy-to {
+  margin-left: 300px;
+  padding-top: 9px;
+  display: none;
+
+  span {
+    float: left;
+    display: block;
+    margin: 5px;
+  }
+
+  form {
+    margin-top: 0;
+  }
+
+  input[type='submit'] {
+    padding: 5px !important;
+    float: none !important;
+    font-size: 100% !important;
+    cursor: pointer;
+  }
+}
+

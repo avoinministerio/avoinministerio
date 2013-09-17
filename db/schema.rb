@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130911182406) do
+ActiveRecord::Schema.define(:version => 20130913175411) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -238,6 +238,7 @@ ActiveRecord::Schema.define(:version => 20130911182406) do
     t.integer  "impressions_count"
     t.integer  "state_id"
     t.integer  "city_id"
+    t.integer  "copier_id"
   end
 
   add_index "ideas", ["author_id"], :name => "index_ideas_on_author_id"

@@ -292,6 +292,7 @@ class IdeasController < ApplicationController
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
     
     @city = City.find_by_name('Helsinki')
+    @cities = Country.find_by_name('Finland').cities
     @states = State.where(:city_id => @city.id).order(:rank)
     @idea_state = State.find(@idea.state_id)
     @sorting_order_code = params[:so]
@@ -324,8 +325,14 @@ class IdeasController < ApplicationController
 
     @idea = Idea.new(params[:idea])
     @idea.state_id = state.id if state
-    @idea.author = current_citizen
     @idea.updated_content_at = DateTime.now
+
+    if params[:idea][:author_id]
+      @idea.copier = current_citizen
+      @idea.author = Citizen.find(params[:idea][:author_id])
+    else
+      @idea.author = current_citizen
+    end
 
     if @idea.save
       flash[:notice] = I18n.t("idea.created")

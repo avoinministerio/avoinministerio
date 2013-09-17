@@ -73,6 +73,10 @@ $(document).ready(function($){
             });
         }
     });
+
+    $('#copy-idea').click(function() {
+      $('.copy-to').toggle();
+    });
 });
 
 function send_data(title_text, summary_text, body_text, idea_id){
