@@ -1,9 +1,10 @@
 class Profile < ActiveRecord::Base
   belongs_to :citizen
+  belongs_to :city
 
   attr_accessible :first_name, :last_name, :image, :receive_newsletter,
     :receive_other_announcements, :receive_weekletter, :first_names,
-    :accept_science, :accept_terms_of_use, :receive_messaging_notifications
+    :accept_science, :accept_terms_of_use, :receive_messaging_notifications, :city_id
   
   validates :first_names, :first_name, :last_name, :presence => true
   

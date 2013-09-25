@@ -4,17 +4,18 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_locale_from_url
   before_filter :set_changer
+  before_filter :current_location
 
   def after_sign_in_path_for(resource)
-      KM.identify(current_citizen)
-      KM.push("record", "signed in")
-      return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+    KM.identify(current_citizen)
+    KM.push("record", "signed in")
+    return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end
 
   private
 
   rescue_from 'Exception' do |exception|
-    # log the exception to get a clue what's going wrong
+  # log the exception to get a clue what's going wrong
     Rails.logger.fatal formatted_exception(exception)
     Rails.logger.flush
 
@@ -22,19 +23,19 @@ class ApplicationController < ActionController::Base
     raise exception unless Rails.env.production?
 
     case exception
-      # 404
-      when ActiveRecord::RecordNotFound,
-           ActionController::UnknownController,
-           ActionController::UnknownAction
-        render_404
-      # 422
-      when ActiveRecord::RecordInvalid,
-           ActiveRecord::RecordNotSaved,
-           ActionController::InvalidAuthenticityToken
-        render_422
-      # 500
-      else
-        render_500
+    # 404
+    when ActiveRecord::RecordNotFound,
+    ActionController::UnknownController,
+    ActionController::UnknownAction
+      render_404
+    # 422
+    when ActiveRecord::RecordInvalid,
+    ActiveRecord::RecordNotSaved,
+    ActionController::InvalidAuthenticityToken
+      render_422
+    # 500
+    else
+    render_500
     end
   end
 
@@ -61,5 +62,13 @@ class ApplicationController < ActionController::Base
   def set_changer
     @idea_count = Idea.count
     Thread.current[:changer] = current_administrator || current_citizen
+  end
+
+  def current_location
+    if (current_citizen && city = current_citizen.city) || (city = (City.find(cookies[:city_id]) rescue nil))
+      @current_location ||= city
+    else
+      redirect_to select_location_profile_path
+    end
   end
 end

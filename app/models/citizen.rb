@@ -25,6 +25,8 @@ class Citizen < ActiveRecord::Base
   has_many :response_sets, foreign_key: "user_id"
   has_many :politicians_support
 
+  has_one :city, :through => :profile
+
   accepts_nested_attributes_for :profile
   
   default_scope includes(:profile)

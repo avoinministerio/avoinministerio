@@ -1,0 +1,12 @@
+%div.row-fluid
+  %div.span12
+    %div.well
+      %h1.pagination-centered Select Your Location
+  
+    %div.span3{style: 'display: list-item;color: white;'}
+  
+    %div.span6.hero-unit
+      = form_tag(set_your_location_profile_path, :class => 'form-horizontal') do
+        = render :partial => 'shared/set_location'
+        %div.pagination-centered
+          =submit_tag "Set My Location", :class => 'btn btn-success'

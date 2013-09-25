@@ -1,5 +1,6 @@
 class Admin::StatesController < Admin::AdminController
   skip_before_filter :current_location, :only => [:select_location, :set_your_location, :fetch_dependents]
+  skip_before_filter :authenticate_administrator!, :only => :fetch_dependents
   
   respond_to :html
   

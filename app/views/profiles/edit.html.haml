@@ -4,6 +4,8 @@
   = f.input :first_name
   = f.input :last_name
   = f.input :image, :as => :url
+  = render :partial => 'shared/set_location'
+
   = f.input :receive_newsletter
   = f.input :receive_other_announcements
   = f.input :receive_weekletter

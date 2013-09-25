@@ -1,5 +1,9 @@
 AvoinMinisterio::Application.routes.draw do
-  resource :profile, :except => [:new, :create, :destroy]
+  resource :profile, :except => [:new, :create, :destroy] do
+    get 'select_location', on: :collection
+    post 'set_your_location', on: :collection
+  end
+
   resource :citizen, :only => [:edit, :update]
   match "/ideas/:id/vote/:vote"                       => "vote#vote",                     as: :vote_idea
 
@@ -14,7 +18,6 @@ AvoinMinisterio::Application.routes.draw do
   match "/signatures/:id/signing_success"             => "signatures#signing_success",        via: :get,  as: :signature_idea_signing_success
   match "/signatures/:id/signing_failure"             => "signatures#signing_failure",        via: :get,  as: :signature_idea_signing_failure
   match "/signatures/:id/shortcutting_to_signing"     => "signatures#shortcutting_to_signing",via: :get,  as: :signature_idea_shortcutting_to_signing
-
 
   match "/signatures/:id/finalize_signing"            => "signatures#finalize_signing",       via: :put
   match "/signatures/:id/returning/:servicename"      => "signatures#returning",              via: :get
@@ -41,21 +44,21 @@ AvoinMinisterio::Application.routes.draw do
   get "ideas/vote_flow"
 
   get "pages/home"
-  
+
   get 'tags/:tag', to: 'ideas#index', as: :tag
   get '/tags.json', to: 'tags#index'
   post '/ideas/lda', to: 'ideas#lda'
   post '/ideas/suggest_tags', to: 'ideas#suggest_tags'
 
   #match '/ideas/:id/vote_for/:tag_id' => 'tags#vote_for', via: :post, as: :vote_for_tag
-  
-  devise_for :citizens, :controllers => { 
+
+  devise_for :citizens, :controllers => {
     omniauth_callbacks: "citizens/omniauth_callbacks",
     registrations: "citizens/registrations",
     sessions: "citizens/sessions",
   }
   match "/citizens/after_sign_up" => "citizens#after_sign_up", via: :get
-  
+
   resources :tags do
     get "vote_for", on: :member
     get "vote_against", on: :member
@@ -63,7 +66,7 @@ AvoinMinisterio::Application.routes.draw do
     post "list_of_suggested", on: :member
     get "add_to_suggested", on: :member
   end
-  
+
   resources :ideas do
     get :change_state, on: :collection
     get :politician_vote_for, on: :member
@@ -78,7 +81,7 @@ AvoinMinisterio::Application.routes.draw do
   resources :articles do
     resources :comments
   end
-  
+
   get '/get_participants.json', to: 'conversations#get_participants'
 
   resources :conversations, only: [:index, :show, :new, :create] do
@@ -90,7 +93,7 @@ AvoinMinisterio::Application.routes.draw do
   resources :locations
 
   devise_for :administrators
-  
+
   match "/admin", to: "admin/ideas#index", as: :administrator_root
 
   namespace :admin do
@@ -115,7 +118,7 @@ AvoinMinisterio::Application.routes.draw do
         get "unpublish",  on: :member
         get "moderate",   on: :member
       end
-      
+
       post "suggest_tags", on: :member
       get "publish",    on: :member
       get "unpublish",  on: :member
@@ -127,13 +130,13 @@ AvoinMinisterio::Application.routes.draw do
       get "lock",                   on: :member
       get "unlock",                 on: :member
     end
-    
+
     resources :states do
       get 'select_location', on: :collection
       post 'set_your_location', on: :collection
       get 'fetch_dependents', on: :collection
     end
-    
+
     resources :locations
     resources :states
     resources :changelogs
