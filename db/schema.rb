@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925174149) do
+ActiveRecord::Schema.define(:version => 20131005153322) do
 
   create_table "administrators", :force => true do |t|
     t.string   "email"
@@ -305,6 +305,23 @@ ActiveRecord::Schema.define(:version => 20130925174149) do
   end
 
   add_index "notifications", ["conversation_id"], :name => "index_notifications_on_conversation_id"
+
+  create_table "political_parties", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "politicians", :force => true do |t|
+    t.integer  "political_party_id"
+    t.integer  "city_id"
+    t.string   "name"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "politicians", ["city_id"], :name => "index_politicians_on_city_id"
+  add_index "politicians", ["political_party_id"], :name => "index_politicians_on_political_party_id"
 
   create_table "politicians_supports", :force => true do |t|
     t.integer  "idea_id"

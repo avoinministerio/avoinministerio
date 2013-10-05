@@ -496,3 +496,17 @@ a.default_url {
   }
 }
 
+#table_block {
+  border-bottom: 1px rgb(228, 228, 228) solid;
+  display: inline-block;
+  padding-bottom: 5px;
+
+  .politicians {
+    float: left;
+    margin: 2px 3px;
+  
+    tr:not(:first-child) td {
+      padding: 0 3px 0 3px;
+    }
+  }
+}

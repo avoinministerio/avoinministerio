@@ -196,17 +196,11 @@
     %h2.grid_24 Lähimmät keräyspisteet
     = render "geolocation"
 
--# -if @idea.published?
-  -# #table_block
-    -# = render "party_table", title: "KOK", party: @politicians[:KOK]
-    -# = render "party_table", title: "VIHR", party: @politicians[:VIHR]
-    -# = render "party_table", title: "SDP", party: @politicians[:SDP]
-    -# = render "party_table", title: "VAS", party: @politicians[:VAS]
-    -# = render "party_table", title: "KESK", party: @politicians[:KESK]
-    -# = render "party_table", title: "SKP", party: @politicians[:SKP]
-    -# = render "party_table", title: "KD", party: @politicians[:KD]
-    -# = render "party_table", title: "PS", party: @politicians[:PS]
-    -# = render "party_table", title: "RKP", party: @politicians[:VAS]
+-if @idea.published?
+  #table_block
+    - @political_parties.each do |pp|
+      = render "party_table", title: pp.name, party: pp.politicians
+
   #voting_summary
     /TODO
   .expert_opinions
@@ -228,7 +222,7 @@
         .clear
         =link_to "Ehdota asiantuntijaa", new_idea_expert_suggestion_path(@idea), class: "grid_4"
       .clear
-   
+
   .idea_comments#comments
     %h2.grid_24 Kommentit
     .grid_24.comment_form
