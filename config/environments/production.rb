@@ -63,6 +63,8 @@ AvoinMinisterio::Application.configure do
     # :domain         => 'avoinministerio.mailgun.org',
     # :authentication => :plain,
   # }
+  ActionMailer::Base.delivery_method = :smtp
+
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
@@ -72,8 +74,6 @@ AvoinMinisterio::Application.configure do
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
-
-   ActionMailer::Base.delivery_method = :smtp
 
   # Enable threaded mode
   # config.threadsafe!
