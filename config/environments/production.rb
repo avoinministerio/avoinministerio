@@ -55,15 +55,25 @@ AvoinMinisterio::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
+  # ActionMailer::Base.smtp_settings = {
+    # :port           => 587,
+    # :address        => 'smtp.mailgun.org',
+    # :user_name      => 'postmaster@avoinministerio.mailgun.org',
+    # :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    # :domain         => 'avoinministerio.mailgun.org',
+    # :authentication => :plain,
+  # }
   ActionMailer::Base.smtp_settings = {
-    :port           => 587,
-    :address        => 'smtp.mailgun.org',
-    :user_name      => 'postmaster@avoinministerio.mailgun.org',
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'avoinministerio.mailgun.org',
-    :authentication => :plain,
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'oc-demo.herokuapp.com',
+    :user_name            => 'avointesting',
+    :password             => 'expedoratest1234',
+    :authentication       => "plain",
+    :enable_starttls_auto => true
   }
-  ActionMailer::Base.delivery_method = :smtp
+
+   ActionMailer::Base.delivery_method = :smtp
 
   # Enable threaded mode
   # config.threadsafe!
