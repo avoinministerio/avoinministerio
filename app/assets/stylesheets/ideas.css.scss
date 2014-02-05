@@ -14,7 +14,7 @@ $red: #a9003f;
 }
 
 #new_idea label[for=idea_title] {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 #new_idea label[for=idea_summary],
@@ -34,6 +34,11 @@ $red: #a9003f;
 
 #new_idea input[type=submit] {
   float: right;
+}
+
+.idea_form_label {
+  font-size: 1.25em;
+  margin-bottom: 5px;
 }
 
 .state {
