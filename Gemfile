@@ -79,7 +79,7 @@ group :test do
 end
 
 group :profile do
-  gem 'ruby-prof'
+  # gem 'ruby-prof'
 end
 
 group :mac_test do
