@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "3.2.12"
+gem "rails", "3.2.17"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -68,6 +68,7 @@ group :test do
   gem "webmock", :require => false
   gem "email_spec"
   gem "steak"
+  gem "mime-types"
   gem "capybara-mechanize"
   gem "timecop"
   gem "sqlite3"
