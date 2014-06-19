@@ -198,11 +198,19 @@ To create your personal instance on [Heroku](http://www.heroku.com/):
         heroku create --stack cedar
         heroku config:add BUNDLE_WITHOUT="development:test:mac_test:linux_test" -r heroku
 
-3. Initial deployment
+3. A secret is required to generate an integrity hash for cookie session data. 
+   Create a file called `secret_token.rb` in the `config/initializers` directory, and copy this content to it:
 
+        AvoinMinisterio::Application.config.secret_token =  '0c32dd2c7df53e9c29bab493727a205d162760deaa7fb2519aee58a53e05e715db2a60482fc11f0dc6e8e84e1ffd1d34c1cdbf0b525d3d20292b75b417bbf4ba'
+
+   You can change above character string to some secret phrase of at least 30 characters.
+
+4. Initial deployment
+
+        git push
         git push heroku master
 
-4. Initialize database with test data
+5. Initialize database with test data
 
         heroku run rake db:setup
 
