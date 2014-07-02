@@ -164,7 +164,7 @@ class IdeasController < ApplicationController
   end
   
   def update_filter(params_filter)
-    current_filter = params_filter || session[:filter] || :all
+    current_filter = params_filter || session[:filter] || 'all'
     session[:filter] = current_filter
     params.delete :filter
     
@@ -196,6 +196,8 @@ class IdeasController < ApplicationController
     @colors = ["#8cc63f", "#a9003f"]
     @colors.reverse! if @idea_vote_for_count < @idea_vote_against_count
     
+    @states = State.all#.order(:rank)
+    @idea_state = State.find(@idea.state_id)
     @sorting_order_code = params[:so]
     if @sorting_order_code && session[:sorting_orders] && session[:sorting_orders].include?(@sorting_order_code.to_i)
       ideas_around = session[:sorting_orders][@sorting_order_code.to_i]
@@ -220,10 +222,13 @@ class IdeasController < ApplicationController
   end
   
   def create
+    state = State.first
+
     @idea = Idea.new(params[:idea])
+    @idea.state_id = state.id if state
     @idea.author = current_citizen
-    @idea.state  = "idea"
     @idea.updated_content_at = DateTime.now
+
     if @idea.save
       flash[:notice] = I18n.t("idea.created")
       KM.identify(current_citizen)
