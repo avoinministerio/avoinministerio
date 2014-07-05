@@ -11,6 +11,7 @@ group :assets do
 end
 
 gem "devise", '2.1.2'
+gem "devise-i18n", "~> 0.9.1"
 gem "factory_girl_rails", "4.1.0", :require => false
 gem "friendly_id"
 gem "gravatar-ultimate"
