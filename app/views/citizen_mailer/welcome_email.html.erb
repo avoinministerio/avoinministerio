@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
         <title></title>
@@ -206,7 +206,7 @@
                                                                     <td class="w140" width="140">
                                                                         <p align="left" class="toc-heading">
                                                                             <singleline>
-                                                                                A Lot To Do
+                                                                                <%= t "wcmail.sidebarheading" %>
                                                                             </singleline>
                                                                         </p>
                                                                         <tableofcontents>
@@ -218,16 +218,16 @@
                                                                                         <td valign="top">
                                                                                             <p align="left" class="toc-item">
                                                                                                 <li>
-                                                                                                    <a href='<%= "#{new_idea_url}" %>'>Create your own Ideas</a>
+                                                                                                    <a href='<%= "#{new_idea_url}" %>'><%= t "wcmail.link1" %></a>
                                                                                                 </li>
                                                                                                 <li>
-                                                                                                    <a href='<%= "#{root_url}" %>'>Vote on Ideas you like</a>
+                                                                                                    <a href='<%= "#{root_url}" %>'><%= t "wcmail.link2" %></a>
                                                                                                 </li>
                                                                                                 <li>
-                                                                                                    <a href='<%= "#{root_url}" %>'>Comment on ideas</a>
+                                                                                                    <a href='<%= "#{root_url}" %>'><%= t "wcmail.link3" %></a>
                                                                                                 </li>
                                                                                                 <li>
-                                                                                                    <a href='<%= "#{root_url}" %>'>Scientific Questionnare</a>
+                                                                                                    <a href='<%= "#{root_url}" %>'><%= t "wcmail.link4" %></a>
                                                                                                 </li>
                                                                                             </p>
                                                                                         </td>
@@ -261,7 +261,7 @@
                                                                     <td class="w140" width="140">
                                                                         <div align="left" class="left-column-heading">
                                                                             <singleline label="Title">
-                                                                                Your Ideas can be Law
+                                                                                <%= t "wcmail.quote1"%>
                                                                             </singleline>
                                                                         </div>
                                                                     </td>
@@ -280,7 +280,7 @@
                                                                             <td class="w140" width="140">
                                                                                 <div align="left" class="left-column-heading">
                                                                                     <singleline label="Title">
-                                                                                        We take your voice to the country
+                                                                                        <%= t "wcmail.quote2" %>
                                                                                     </singleline>
                                                                                 </div>
                                                                             </td>
@@ -350,17 +350,17 @@
                                                                                             <td class="w410" width="410">
                                                                                                 <p align="left" class="article-title">
                                                                                                     <singleline repeatertitle="true" label="Article Title">
-                                                                                                        Welcome to Avoin Ministerio
+                                                                                                        <%= t "wcmail.welcomtext" %>
                                                                                                         <br/>
                                                                                                         <br/>
-                                                                                                        Following are few proposals seeking signature
+                                                                                                        <%= t "wcmail.proposalstxt" %>
                                                                                                     </singleline>
                                                                                                 </p>
                                                                                                 <% @proposals.each_with_index do |proposal, index| %>
                                                                                                 <div style="width:350px; border: solid purple; border-radius:12px;">
                                                                                                     <div align="left" class="article-content" style='padding-left:3px' FONT FACE="symbol" style="width: ">
                                                                                                         <multiline label="Description">
-                                                                                                            <b><a href='<%= "#{ideas_url(proposal)}" %>'><%= proposal.title %></a></b>
+                                                                                                            <b><%= link_to "#{proposal.title}", idea_url(proposal) %></b>
                                                                                                         </multiline>
                                                                                                     </div>
                                                                                                     <div align="left" class="article-content" style='padding-left:3px'>
@@ -379,7 +379,7 @@
                                                                                     </tbody>
                                                                                 </table>
                                                                             </layout>
-                                                                            <h3>You can participate in the scientific questionnaire, <a href='<%= "#{root_url}" %>'>Here </a></h3>
+                                                                            <h3><%= t "wcmail.participate" %>, <a href='<%= "#{root_url}" %>'><%= t "wcmail.link4" %> </a></h3>
                                                                             <layout label="Text with full-width image">
                                                                                 <table class="w410" width="410" cellpadding="0" cellspacing="0" border="0">
                                                                                     <tbody>
@@ -387,7 +387,7 @@
                                                                                             <td class="w410" width="410">
                                                                                                 <p align="left" class="article-title">
                                                                                                     <singleline repeatertitle="true" label="Article Title">
-                                                                                                        These are ideas getting popular now a days
+                                                                                                        <%= t "wcmail.pideahead" %>
                                                                                                     </singleline>
                                                                                                 </p>
                                                                                             </td>
@@ -407,7 +407,7 @@
                                                                                                 <div style="width:350px; border: solid purple; border-radius:12px;">
                                                                                                     <div align="left" class="article-content" style='padding-left:3px' FONT FACE="symbol" style="width: ">
                                                                                                         <multiline label="Description">
-                                                                                                            <b><a href='<%= "#{ideas_url(famous)}" %>'><%= famous.title %>(<%= famous.state %>)</a></b>
+                                                                                                            <b><a href='<%= "#{idea_url(famous)}" %>'><%= famous.title %>(<%= famous.state %>)</a></b>
                                                                                                         </multiline>
                                                                                                     </div>
                                                                                                     <div align="left" class="article-content" style='padding-left:3px;'>
@@ -457,75 +457,75 @@
                                                         </table>
                                                     </td>
                                                 </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w640" width="640">
+                                        <table class="w640" width="640" cellpadding="0" cellspacing="0" border="0">
+                                            <tbody>
                                                 <tr>
-                                                    <td class="w640" width="640">
-                                                        <table class="w640" width="640" cellpadding="0" cellspacing="0" border="0">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="w170" width="170" bgcolor="#e2e2e2" height="15">
-                                                                    </td>
-                                                                    <td class="w470" width="470" bgcolor="#ffffff" height="15">
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                    <td class="w170" width="170" bgcolor="#e2e2e2" height="15">
+                                                    </td>
+                                                    <td class="w470" width="470" bgcolor="#ffffff" height="15">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w640" width="640">
+                                        <table id="footer" class="w640" width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#043948">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="w30" width="30">
+                                                    </td>
+                                                    <td class="w580 h0" width="360" height="30">
+                                                    </td>
+                                                    <td class="w0" width="60">
+                                                    </td>
+                                                    <td class="w0" width="160">
+                                                    </td>
+                                                    <td class="w30" width="30">
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="w640" width="640">
-                                                        <table id="footer" class="w640" width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#043948">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="w30" width="30">
-                                                                    </td>
-                                                                    <td class="w580 h0" width="360" height="30">
-                                                                    </td>
-                                                                    <td class="w0" width="60">
-                                                                    </td>
-                                                                    <td class="w0" width="160">
-                                                                    </td>
-                                                                    <td class="w30" width="30">
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="w30" width="30">
-                                                                    </td>
-                                                                    <td class="w580" width="360" valign="top">
-                                                                        <span class="hide">
-                                                                            <p id="permission-reminder" align="left" class="footer-content-left">
-                                                                            </p>
-                                                                        </span>
-                                                                        <p align="left" class="footer-content-left">
-                                                                            <preferences lang="en">
-                                                                            <a href='<%= "#{root_url}" %>'>
-                                                                            AVOIN MINISTERIO
-                                                                            </preferences>
-                                                                        </a>
-                                                                        </p>
-                                                                    </td>
-                                                                    <td class="hide w0" width="60">
-                                                                    </td>
-                                                                    <td class="hide w0" width="160" valign="top">
-                                                                        <p id="street-address" align="right" class="footer-content-right">
-                                                                        </p>
-                                                                    </td>
-                                                                    <td class="w30" width="30">
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="w30" width="30">
-                                                                    </td>
-                                                                    <td class="w580 h0" width="360" height="15">
-                                                                    </td>
-                                                                    <td class="w0" width="60">
-                                                                    </td>
-                                                                    <td class="w0" width="160">
-                                                                    </td>
-                                                                    <td class="w30" width="30">
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                    <td class="w30" width="30">
+                                                    </td>
+                                                    <td class="w580" width="360" valign="top">
+                                                        <span class="hide">
+                                                            <p id="permission-reminder" align="left" class="footer-content-left">
+                                                            </p>
+                                                        </span>
+                                                        <p align="left" class="footer-content-left">
+                                                            <preferences lang="en">
+                                                            <a href='<%= "#{root_url}" %>'>
+                                                            AVOIN MINISTERIO
+                                                            </preferences>
+                                                        </a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="hide w0" width="60">
+                                                    </td>
+                                                    <td class="hide w0" width="160" valign="top">
+                                                        <p id="street-address" align="right" class="footer-content-right">
+                                                        </p>
+                                                    </td>
+                                                    <td class="w30" width="30">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="w30" width="30">
+                                                    </td>
+                                                    <td class="w580 h0" width="360" height="15">
+                                                    </td>
+                                                    <td class="w0" width="60">
+                                                    </td>
+                                                    <td class="w0" width="160">
+                                                    </td>
+                                                    <td class="w30" width="30">
                                                     </td>
                                                 </tr>
                                             </tbody>
