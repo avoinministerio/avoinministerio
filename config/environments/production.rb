@@ -82,5 +82,5 @@ AvoinMinisterio::Application.configure do
   end if ENV['AM_AUTH_PASSWORD']
 
   # Signature application secret
-  config.signature_secret = ENV['SIGNATURE_SECRET']
+  config.signature_secret = ENV['SIGNATURE_SECRET'] || "abc123" 
 end
