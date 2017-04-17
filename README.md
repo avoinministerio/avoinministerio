@@ -251,7 +251,7 @@ To keep track of the email sent you'll find the emails in the sent folder of the
 
 You can test the mail setup by clicking on link 'forget password'. It will send you instruction email when you will submit your email. Check your spam folder, if you are not getting emails.
 
-####NOTE:
+#### NOTE:
 Configure config.action_mailer.perform_deliveries = false in development.rb, if you want to STOP email deliveries in development mode.
 
 
