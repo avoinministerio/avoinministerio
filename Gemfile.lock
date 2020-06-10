@@ -117,7 +117,7 @@ GEM
       actionpack (~> 3.0)
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
-    geocoder (1.2.0)
+    geocoder (1.6.3)
     gravatar-ultimate (2.0.0)
       activesupport (>= 2.3.14)
       rack
